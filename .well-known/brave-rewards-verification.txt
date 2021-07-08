@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: talank.com.np
+Token: 38ecc5379b247d6a073cac99f9c0483f6bebbbaec50cbee3fb2d47669343a517
