@@ -181,5 +181,70 @@
         "answer": 1,
         "rationale": "Osteoporosis is characterized by the loss of bone density, leading to an increased risk of fracture.",
         "difficulty_level": 2
+    },
+
+    {
+        "question": "Which symptom is often associated with Type 1 Diabetes?",
+        "options": ["Weight gain", "Blurred vision", "Increased appetite", "All of the above"],
+        "answer": 1,
+        "rationale": "While all of the mentioned symptoms could potentially occur in diabetes, blurred vision is commonly associated with Type 1 Diabetes.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What medical term is used to describe a low level of sodium in your blood?",
+        "options": ["Hyponatremia", "Hyperkalemia", "Hypokalemia", "Hypernatremia"],
+        "answer": 0,
+        "rationale": "Hyponatremia refers to a lower-than-normal level of sodium in the blood.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What does the abbreviation 'COPD' stand for?",
+        "options": ["Continuous Obstructive Pulmonary Disorder", "Chronic Obstructive Pulmonary Disease", "Cardiac Output Pulmonary Disorder", "Chronic Overactive Pancreatic Duct"],
+        "answer": 1,
+        "rationale": "'COPD' stands for Chronic Obstructive Pulmonary Disease.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What disease is characterized by uncontrollable cell growth?",
+        "options": ["Diabetes", "Cancer", "Alzheimer's disease", "Asthma"],
+        "answer": 1,
+        "rationale": "Cancer is characterized by the uncontrolled growth and division of cells.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What is the primary function of the kidneys?",
+        "options": ["To produce hormones", "To filter blood", "To aid in digestion", "To pump blood"],
+        "answer": 1,
+        "rationale": "The primary function of the kidneys is to filter waste and excess substances from the blood.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What is the leading cause of blindness in adults?",
+        "options": ["Glaucoma", "Cataracts", "Macular degeneration", "Diabetic retinopathy"],
+        "answer": 2,
+        "rationale": "Macular degeneration is a leading cause of vision loss, affecting more than 10 million Americans.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What is a stroke?",
+        "options": ["Inflammation of the joints", "A type of cancer", "Loss of blood supply to the brain", "A type of heart disease"],
+        "answer": 2,
+        "rationale": "A stroke occurs when the blood supply to part of your brain is interrupted or reduced, preventing brain tissue from getting oxygen and nutrients.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What disease is caused by the human immunodeficiency virus (HIV)?",
+        "options": ["Cancer", "Asthma", "Tuberculosis", "AIDS"],
+        "answer": 3,
+        "rationale": "AIDS (Acquired Immune Deficiency Syndrome) is caused by the human immunodeficiency virus (HIV).",
+        "difficulty_level": 2
+    },
+    {
+        "question": "Which of these is a common symptom of pneumonia?",
+        "options": ["Chest pain", "Fever", "Shortness of breath", "All of the above"],
+        "answer": 3,
+        "rationale": "Chest pain, fever, and shortness of breath are all common symptoms of pneumonia.",
+        "difficulty_level": 2
     }
 ]
+
