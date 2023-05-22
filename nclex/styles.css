@@ -47,3 +47,8 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+#options li.selected {
+    background-color: #dddddd;
+}
+
