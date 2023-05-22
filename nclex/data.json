@@ -1,74 +1,185 @@
+
 [
-    [
-        {
-            "question": "What is the normal body temperature in Fahrenheit?",
-            "options": ["100 F", "98.6 F", "104 F", "96 F"],
-            "answer": 1,
-            "rationale": "Normal body temperature is approximately 98.6 degrees Fahrenheit.",
-            "difficulty_level": 1
-        },
-        {
-            "question": "What is the medical term for high blood pressure?",
-            "options": ["Hypotension", "Hypertension", "Hypercemia", "Hypoxia"],
-            "answer": 1,
-            "rationale": "Hypertension is the medical term for high blood pressure.",
-            "difficulty_level": 1
-        },
-        {
-            "question": "What does an electrocardiogram (ECG) measure?",
-            "options": ["Brain activity", "Breathing rate", "Blood pressure", "Heart activity"],
-            "answer": 3,
-            "rationale": "An ECG measures the electrical activity of the heart.",
-            "difficulty_level": 1
-        },
-        {
-            "question": "Which body system includes the heart and blood vessels?",
-            "options": ["Digestive system", "Respiratory system", "Circulatory system", "Nervous system"],
-            "answer": 2,
-            "rationale": "The circulatory system includes the heart and blood vessels.",
-            "difficulty_level": 1
-        },
-        {
-            "question": "What is the most common blood type?",
-            "options": ["A", "B", "O", "AB"],
-            "answer": 2,
-            "rationale": "Type O blood is the most common blood type.",
-            "difficulty_level": 1
-        },
-        {
-            "question": "Which part of the body produces insulin?",
-            "options": ["Liver", "Kidneys", "Pancreas", "Stomach"],
-            "answer": 2,
-            "rationale": "The pancreas produces insulin.",
-            "difficulty_level": 1
-        },
-        {
-            "question": "What does CPR stand for in medical terms?",
-            "options": ["Cardiopulmonary Resuscitation", "Cardio Patient Recovery", "Circulatory Pulmonary Recovery", "Cardiac Pulmonary Recovery"],
-            "answer": 0,
-            "rationale": "CPR stands for Cardiopulmonary Resuscitation in medical terms.",
-            "difficulty_level": 1
-        },
-        {
-            "question": "What part of the cell contains the DNA?",
-            "options": ["Nucleus", "Cytoplasm", "Mitochondria", "Cell membrane"],
-            "answer": 0,
-            "rationale": "The nucleus of a cell contains the DNA.",
-            "difficulty_level": 1
-        },
-        {
-            "question": "What is the main function of red blood cells?",
-            "options": ["Fighting infection", "Blood clotting", "Carrying oxygen", "Producing insulin"],
-            "answer": 2,
-            "rationale": "The main function of red blood cells is to carry oxygen to the body's tissues.",
-            "difficulty_level": 1
-        },
-        {
-            "question": "What does BMI stand for?",
-            "options": ["Body Mass Index", "Body Muscle Index", "Basal Metabolic Index", "Body Metabolic Index"],
-            "answer": 0,
-            "rationale": "BMI stands for Body Mass Index.",
-            "difficulty_level": 1
-        }
-    ]
+    {
+        "question": "What is the normal body temperature in Fahrenheit?",
+        "options": ["100 F", "98.6 F", "104 F", "96 F"],
+        "answer": 1,
+        "rationale": "Normal body temperature is approximately 98.6 degrees Fahrenheit.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "What is the medical term for high blood pressure?",
+        "options": ["Hypotension", "Hypertension", "Hypercemia", "Hypoxia"],
+        "answer": 1,
+        "rationale": "Hypertension is the medical term for high blood pressure.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "What does an electrocardiogram (ECG) measure?",
+        "options": ["Brain activity", "Breathing rate", "Blood pressure", "Heart activity"],
+        "answer": 3,
+        "rationale": "An ECG measures the electrical activity of the heart.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "Which body system includes the heart and blood vessels?",
+        "options": ["Digestive system", "Respiratory system", "Circulatory system", "Nervous system"],
+        "answer": 2,
+        "rationale": "The circulatory system includes the heart and blood vessels.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "What is the most common blood type?",
+        "options": ["A", "B", "O", "AB"],
+        "answer": 2,
+        "rationale": "Type O blood is the most common blood type.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "Which part of the body produces insulin?",
+        "options": ["Liver", "Kidneys", "Pancreas", "Stomach"],
+        "answer": 2,
+        "rationale": "The pancreas produces insulin.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "What does CPR stand for in medical terms?",
+        "options": ["Cardiopulmonary Resuscitation", "Cardio Patient Recovery", "Circulatory Pulmonary Recovery", "Cardiac Pulmonary Recovery"],
+        "answer": 0,
+        "rationale": "CPR stands for Cardiopulmonary Resuscitation in medical terms.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "What part of the cell contains the DNA?",
+        "options": ["Nucleus", "Cytoplasm", "Mitochondria", "Cell membrane"],
+        "answer": 0,
+        "rationale": "The nucleus of a cell contains the DNA.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "What is the main function of red blood cells?",
+        "options": ["Fighting infection", "Blood clotting", "Carrying oxygen", "Producing insulin"],
+        "answer": 2,
+        "rationale": "The main function of red blood cells is to carry oxygen to the body's tissues.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "What does BMI stand for?",
+        "options": ["Body Mass Index", "Body Muscle Index", "Basal Metabolic Index", "Body Metabolic Index"],
+        "answer": 0,
+        "rationale": "BMI stands for Body Mass Index.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "Which of these nutrients is not a type of carbohydrate?",
+        "options": ["Fiber", "Starch", "Lipid", "Glucose"],
+        "answer": 2,
+        "rationale": "Lipid is not a type of carbohydrate; it is a type of fat.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "What does the respiratory system do?",
+        "options": ["Deliver oxygen to the body", "Eliminate waste from the body", "Regulate body temperature", "Control body movement"],
+        "answer": 0,
+        "rationale": "The primary function of the respiratory system is to deliver oxygen to the body and remove carbon dioxide.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "Which vitamin is important for clotting of blood?",
+        "options": ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin K"],
+        "answer": 3,
+        "rationale": "Vitamin K is important for blood clotting.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "What does the term 'bradycardia' refer to?",
+        "options": ["Fast heart rate", "Slow heart rate", "Irregular heart rate", "Normal heart rate"],
+        "answer": 1,
+        "rationale": "Bradycardia refers to a slower than normal heart rate.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "Which condition is characterized by a deficiency in red blood cells or hemoglobin?",
+        "options": ["Leukemia", "Thrombocytosis", "Anemia", "Polycythemia"],
+        "answer": 2,
+        "rationale": "Anemia is characterized by a deficiency in red blood cells or hemoglobin.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What does a sphygmomanometer measure?",
+        "options": ["Heart rate", "Breathing rate", "Blood pressure", "Body temperature"],
+        "answer": 2,
+        "rationale": "A sphygmomanometer measures blood pressure.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "Which part of the brain regulates heart rate, breathing, and blood pressure?",
+        "options": ["Cerebrum", "Cerebellum", "Hypothalamus", "Medulla oblongata"],
+        "answer": 3,
+        "rationale": "The medulla oblongata regulates heart rate, breathing, and blood pressure.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What is the term for a drug that slows clotting of the blood?",
+        "options": ["Antihistamine", "Anticoagulant", "Antacid", "Antibiotic"],
+        "answer": 1,
+        "rationale": "An anticoagulant is a drug that slows clotting of the blood.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "Which of these is a symptom of Type I Diabetes?",
+        "options": ["Excessive thirst", "Lower back pain", "Shortness of breath", "High fever"],
+        "answer": 0,
+        "rationale": "Excessive thirst is a symptom of Type I Diabetes.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What is the function of the prostate gland in males?",
+        "options": ["Produces insulin", "Produces sperm", "Produces seminal fluid", "Produces testosterone"],
+        "answer": 2,
+        "rationale": "The prostate gland in males produces seminal fluid.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "Where in the body is the 'Pituitary Gland' located?",
+        "options": ["Brain", "Chest", "Abdomen", "Pelvis"],
+        "answer": 0,
+        "rationale": "The Pituitary Gland is located in the brain.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What is the term for inflammation of the liver?",
+        "options": ["Cirrhosis", "Hepatitis", "Gastritis", "Cholecystitis"],
+        "answer": 1,
+        "rationale": "Hepatitis is the term for inflammation of the liver.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What condition is treated with insulin?",
+        "options": ["Hypertension", "Diabetes", "Asthma", "Arthritis"],
+        "answer": 1,
+        "rationale": "Insulin is used in the treatment of Diabetes.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What organ produces insulin?",
+        "options": ["Pancreas", "Liver", "Kidneys", "Heart"],
+        "answer": 0,
+        "rationale": "The pancreas produces insulin.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What is the term for high blood pressure?",
+        "options": ["Hypotension", "Hypertension", "Tachycardia", "Bradycardia"],
+        "answer": 1,
+        "rationale": "Hypertension is the term for high blood pressure.",
+        "difficulty_level": 2
+    },
+    {
+        "question": "What disease is characterized by the loss of bone density?",
+        "options": ["Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Osteogenesis"],
+        "answer": 1,
+        "rationale": "Osteoporosis is characterized by the loss of bone density, leading to an increased risk of fracture.",
+        "difficulty_level": 2
+    }
 ]
