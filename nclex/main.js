@@ -48,19 +48,18 @@ function showQuestion() {
     const optionsElement = document.getElementById('options');
 
     questionElement.textContent = questions[currentIndex].question;
-
-    // print the question in console as well
-    console.log(questions[currentIndex].question)
     
     // Clear old options and add new ones
     optionsElement.innerHTML = '';
     for (let i = 0; i < questions[currentIndex].options.length; i++) {
         const li = document.createElement('li');
-        li.textContent = questions[currentIndex].options[i];
+        li.style.color = 'black'; // Reset color
+        li.textContent = questions[currentIndex].options[i].split(" - ")[0]; // Reset text
         li.addEventListener('click', () => selectOption(i));
         optionsElement.appendChild(li);
     }
 }
+
 
 // This function will handle the logic when an option is clicked
 function selectOption(optionIndex) {
@@ -68,7 +67,12 @@ function selectOption(optionIndex) {
 }
 
 // This function will handle the logic when the answer is submitted
+// This function will handle the logic when the answer is submitted
 function submitAnswer() {
+    const optionsElement = document.getElementById('options');
+    const correctOption = optionsElement.children[questions[currentIndex].answer];
+    const selectedOptionElement = optionsElement.children[selectedOption];
+
     if (selectedOption === questions[currentIndex].answer) {
         correctAnswers++;
         consecutiveCorrectAnswers++;
@@ -82,11 +86,17 @@ function submitAnswer() {
         if (difficultyLevel < 5) {
             difficultyLevel++;
         }
+        correctOption.style.color = 'green';
+        correctOption.textContent += " - Correct";
     } else {
         consecutiveCorrectAnswers = 0;
         if (difficultyLevel > 1) {
             difficultyLevel--;
         }
+        correctOption.style.color = 'green';
+        correctOption.textContent += " - Correct";
+        selectedOptionElement.style.color = 'red';
+        selectedOptionElement.textContent += " - Your Answer";
     }
 
     document.getElementById('rationale').textContent = questions[currentIndex].rationale;
