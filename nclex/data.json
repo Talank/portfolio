@@ -1,17 +1,74 @@
 [
-    {
-        "question": "Which is the largest planet in our solar system?",
-        "options": ["Earth", "Venus", "Jupiter", "Saturn"],
-        "answer": 2,
-        "rationale": "Jupiter is the largest planet in our solar system.",
-        "difficulty_level": 1
-    },
-    {
-        "question": "What is the capital of Australia?",
-        "options": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
-        "answer": 2,
-        "rationale": "Canberra is the capital of Australia.",
-        "difficulty_level": 1
-    }
-    
+    [
+        {
+            "question": "What is the normal body temperature in Fahrenheit?",
+            "options": ["100 F", "98.6 F", "104 F", "96 F"],
+            "answer": 1,
+            "rationale": "Normal body temperature is approximately 98.6 degrees Fahrenheit.",
+            "difficulty_level": 1
+        },
+        {
+            "question": "What is the medical term for high blood pressure?",
+            "options": ["Hypotension", "Hypertension", "Hypercemia", "Hypoxia"],
+            "answer": 1,
+            "rationale": "Hypertension is the medical term for high blood pressure.",
+            "difficulty_level": 1
+        },
+        {
+            "question": "What does an electrocardiogram (ECG) measure?",
+            "options": ["Brain activity", "Breathing rate", "Blood pressure", "Heart activity"],
+            "answer": 3,
+            "rationale": "An ECG measures the electrical activity of the heart.",
+            "difficulty_level": 1
+        },
+        {
+            "question": "Which body system includes the heart and blood vessels?",
+            "options": ["Digestive system", "Respiratory system", "Circulatory system", "Nervous system"],
+            "answer": 2,
+            "rationale": "The circulatory system includes the heart and blood vessels.",
+            "difficulty_level": 1
+        },
+        {
+            "question": "What is the most common blood type?",
+            "options": ["A", "B", "O", "AB"],
+            "answer": 2,
+            "rationale": "Type O blood is the most common blood type.",
+            "difficulty_level": 1
+        },
+        {
+            "question": "Which part of the body produces insulin?",
+            "options": ["Liver", "Kidneys", "Pancreas", "Stomach"],
+            "answer": 2,
+            "rationale": "The pancreas produces insulin.",
+            "difficulty_level": 1
+        },
+        {
+            "question": "What does CPR stand for in medical terms?",
+            "options": ["Cardiopulmonary Resuscitation", "Cardio Patient Recovery", "Circulatory Pulmonary Recovery", "Cardiac Pulmonary Recovery"],
+            "answer": 0,
+            "rationale": "CPR stands for Cardiopulmonary Resuscitation in medical terms.",
+            "difficulty_level": 1
+        },
+        {
+            "question": "What part of the cell contains the DNA?",
+            "options": ["Nucleus", "Cytoplasm", "Mitochondria", "Cell membrane"],
+            "answer": 0,
+            "rationale": "The nucleus of a cell contains the DNA.",
+            "difficulty_level": 1
+        },
+        {
+            "question": "What is the main function of red blood cells?",
+            "options": ["Fighting infection", "Blood clotting", "Carrying oxygen", "Producing insulin"],
+            "answer": 2,
+            "rationale": "The main function of red blood cells is to carry oxygen to the body's tissues.",
+            "difficulty_level": 1
+        },
+        {
+            "question": "What does BMI stand for?",
+            "options": ["Body Mass Index", "Body Muscle Index", "Basal Metabolic Index", "Body Metabolic Index"],
+            "answer": 0,
+            "rationale": "BMI stands for Body Mass Index.",
+            "difficulty_level": 1
+        }
+    ]
 ]
