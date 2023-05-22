@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NCLEX Mock Test</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>Welcome to the NCLEX Mock Test</h1>
+    <p>This mock test will simulate the NCLEX examination. The difficulty level of the questions will adjust based on your answers. 
+    You pass the exam if you answer 10 consecutive questions correctly at the highest difficulty level or if your overall score is above 70%. 
+    The exam begins when you click the "Start Test" button. Good luck!</p>
+
+    <button id="startTestButton" onclick="startTest()">Start Test</button>
+
+    <div id="testContainer" style="display: none;">
+        <div id="timerContainer">
+            <div id="questionTimer">Question Timer: 00:00</div>
+            <div id="overallTimer">Overall Timer: 00:00</div>
+        </div>
+
+        <div id="questionContainer">
+            <h2 id="question"></h2>
+            <ul id="options">
+                <!-- Options will be inserted here -->
+            </ul>
+        </div>
+
+        <div id="rationaleContainer" style="display: none;">
+            <h2>Rationale</h2>
+            <p id="rationale"></p>
+        </div>
+
+        <button onclick="submitAnswer()" id="submitAnswerButton" style="display: none;">Submit Answer</button>
+        <button onclick="nextQuestion()" id="nextQuestionButton" style="display: none;">Next Question</button>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

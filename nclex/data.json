@@ -1,0 +1,17 @@
+[
+    {
+        "question": "Which is the largest planet in our solar system?",
+        "options": ["Earth", "Venus", "Jupiter", "Saturn"],
+        "answer": 2,
+        "rationale": "Jupiter is the largest planet in our solar system.",
+        "difficulty_level": 1
+    },
+    {
+        "question": "What is the capital of Australia?",
+        "options": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+        "answer": 2,
+        "rationale": "Canberra is the capital of Australia.",
+        "difficulty_level": 1
+    }
+    
+]
