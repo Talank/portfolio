@@ -142,15 +142,15 @@ function nextQuestion() {
 }
     
     // Randomly select a question of the current difficulty level
-    let randomIndex = Math.floor(Math.random() * filteredQuestions.length);
-    currentIndex = questions.indexOf(filteredQuestions[randomIndex]);
+//     let randomIndex = Math.floor(Math.random() * filteredQuestions.length);
+//     currentIndex = questions.indexOf(filteredQuestions[randomIndex]);
 
-    startQuestionTimer();
-    showQuestion();
-    document.getElementById('rationaleContainer').style.display = 'none';
-    document.getElementById('nextQuestionButton').style.display = 'none';
-    document.getElementById('submitAnswerButton').style.display = 'inline-block';
-}
+//     startQuestionTimer();
+//     showQuestion();
+//     document.getElementById('rationaleContainer').style.display = 'none';
+//     document.getElementById('nextQuestionButton').style.display = 'none';
+//     document.getElementById('submitAnswerButton').style.display = 'inline-block';
+// }
 
 // This function will start the test
 function startTest() {
