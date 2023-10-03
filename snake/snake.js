@@ -8,6 +8,7 @@ let food = {
 };
 
 let direction = 1; // 1 = right, 2 = down, 3 = left, 4 = up
+let score = 0; // Initialize the score to zero
 
 function init() {
   for (let i = 0; i < 3; i++) {
@@ -58,17 +59,25 @@ function move() {
   });
 
   if (nextX === food.x && nextY === food.y) {
-    // Snake has eaten the food, generate new food
+    // Snake has eaten the food, increment the score and generate new food
+    score += 10; // You can adjust the score increment as needed
     food.x = Math.floor(Math.random() * WIDTH);
     food.y = Math.floor(Math.random() * HEIGHT);
   } else {
     // Snake didn't eat the food, remove the tail
     snake.pop();
   }
+
+  // Display the score
+  displayScore();
+}
+
+function displayScore() {
+  console.log("Score: " + score);
 }
 
 function gameOver() {
-  console.log("Game Over!");
+  console.log("Game Over! Your Final Score: " + score);
   process.exit(0);
 }
 
