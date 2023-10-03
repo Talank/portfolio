@@ -40,11 +40,6 @@ function move() {
   let nextX = snake[0].x + (direction === 1 ? 1 : 0);
   let nextY = snake[0].y + (direction === 2 ? 1 : 0);
 
-  if (nextX < 0 || nextX >= WIDTH || nextY < 0 || nextY >= HEIGHT) {
-    gameOver();
-    return;
-  }
-
   for (let i = 1; i < snake.length; i++) {
     if (snake[i].x === nextX && snake[i].y === nextY) {
       gameOver();
@@ -52,11 +47,24 @@ function move() {
     }
   }
 
+  if (nextX < 0 || nextX >= WIDTH || nextY < 0 || nextY >= HEIGHT) {
+    gameOver();
+    return;
+  }
+
   snake.unshift({
     x: nextX,
     y: nextY,
   });
-  snake.pop();
+
+  if (nextX === food.x && nextY === food.y) {
+    // Snake has eaten the food, generate new food
+    food.x = Math.floor(Math.random() * WIDTH);
+    food.y = Math.floor(Math.random() * HEIGHT);
+  } else {
+    // Snake didn't eat the food, remove the tail
+    snake.pop();
+  }
 }
 
 function gameOver() {
