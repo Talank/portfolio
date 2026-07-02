@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Big-O + Pythonic Idioms — DSA Crash Course</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <div class="pill">Foundations</div>
+  <div class="pill time">15 min</div>
+  <h1>Big-O Refresher + Pythonic Idioms</h1>
+  <p class="lede">Every pattern after this page assumes you're fluent in the tools below. Skim fast if you already know them — the point is recognition speed, not novelty.</p>
+
+  <h2>Big-O, the fast version</h2>
+  <table class="sched">
+    <tr><th>Complexity</th><th>Typical source</th><th>~Max n for &lt;1s</th></tr>
+    <tr><td><code>O(1)</code> / <code>O(log n)</code></td><td>hash lookup, binary search</td><td>anything</td></tr>
+    <tr><td><code>O(n)</code></td><td>single pass, sliding window, hashing</td><td>10⁸</td></tr>
+    <tr><td><code>O(n log n)</code></td><td>sort-based, heap-based</td><td>10⁶–10⁷</td></tr>
+    <tr><td><code>O(n²)</code></td><td>nested loop, DP over pairs</td><td>~10⁴</td></tr>
+    <tr><td><code>O(2ⁿ)</code> / <code>O(n!)</code></td><td>brute-force subsets/permutations, unpruned backtracking</td><td>~20–25</td></tr>
+  </table>
+  <div class="callout">In an interview, say the complexity <i>and</i> justify it ("left and right each move forward at most n times, so O(n) amortized despite the nested-looking loop") — the justification is what's actually being graded.</div>
+
+  <h2>collections — the single highest-leverage import</h2>
+  <pre><code>from collections import Counter, defaultdict, deque
+
+Counter(words)              # frequency map in one call; .most_common(k) for top-k
+defaultdict(list)           # groups without checking "if key not in dict"
+deque()                     # O(1) appendleft/popleft — a list is O(n) for these</code></pre>
+  <div class="callout pitfall">Using a plain <code>list</code> as a queue (<code>list.pop(0)</code>) is O(n) per pop. Reach for <code>deque</code> the moment you need FIFO behavior — this alone silently turns an "O(n) BFS" solution into O(n²) if missed.</div>
+
+  <h2>heapq — priority queues without a library</h2>
+  <pre><code>import heapq
+
+heap = []
+heapq.heappush(heap, val)
+smallest = heapq.heappop(heap)          # heapq is always a MIN-heap
+heapq.heappush(heap, -val)              # negate to simulate a max-heap
+heapq.heapify(existing_list)            # O(n) in-place, cheaper than n pushes
+heapq.nlargest(k, iterable)             # top-k in O(n log k), no manual heap needed</code></pre>
+
+  <h2>bisect — binary search you don't have to write</h2>
+  <pre><code>import bisect
+
+bisect.bisect_left(sorted_list, x)      # first index where x could be inserted, keeping sort
+bisect.insort(sorted_list, x)           # insert into a sorted list, O(n) but no re-sort</code></pre>
+
+  <h2>itertools — combinatorics in one line</h2>
+  <pre><code>from itertools import combinations, permutations, product, accumulate
+
+combinations(items, r)      # choose r, order doesn't matter
+permutations(items, r)      # choose r, order matters
+product(a, b)               # cartesian product, replaces nested for-loops
+list(accumulate(nums))      # running prefix sums in one call</code></pre>
+
+  <h2>Comprehensions, unpacking, and other reflexes</h2>
+  <pre><code># comprehension over a manual loop + append
+squares = [x * x for x in nums if x % 2 == 0]
+
+# enumerate instead of range(len(...))
+for i, val in enumerate(nums):
+    ...
+
+# zip to walk two sequences together
+for a, b in zip(list1, list2):
+    ...
+
+# tuple/multiple assignment — no temp variable for swaps
+left, right = right, left
+
+# walrus operator — assign inside an expression (great inside while/if conditions)
+while (line := stream.readline()):
+    ...
+
+# sort with a key instead of a custom comparator
+items.sort(key=lambda x: (-x.priority, x.name))
+
+# dict.get with a default instead of manual "if key in dict" checks
+count = freq.get(ch, 0) + 1</code></pre>
+
+  <div class="callout">None of this changes an algorithm's Big-O — it changes how fast and bug-free you write it under interview pressure, and interviewers explicitly notice fluent, idiomatic code as a signal.</div>
+
+  <label class="checkbox-row">
+    <input type="checkbox" id="complete-check">
+    Mark "Big-O Refresher + Pythonic Idioms" as complete
+  </label>
+
+  <footer class="pagenav">
+    <a href="index.html">← Dashboard</a>
+    <a href="pattern.html?id=two-pointers">Two Pointers →</a>
+  </footer>
+</main>
+<script src="data/schedule.js"></script>
+<script src="js/app.js"></script>
+<script>
+  buildHeader('pythonic-idioms.html');
+  const check = document.getElementById('complete-check');
+  check.checked = isComplete('warmup');
+  check.addEventListener('change', () => setComplete('warmup', check.checked));
+</script>
+</body>
+</html>

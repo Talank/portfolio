@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSA Crash Course — Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>DSA Interview Crash Course</h1>
+  <p class="lede">18 patterns, zero filler. Work top to bottom, animate every algorithm, quiz yourself, then close with a timed mock interview drawn from real company-style variants.</p>
+
+  <div class="card">
+    <div id="overall-progress" class="progress-outer"><div class="progress-inner"></div></div>
+    <p id="progress-label" style="margin:0.6rem 0 0; color:var(--text-dim); font-size:0.9rem;"></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">How to use this</h2>
+    <ol>
+      <li>Start with <a href="pythonic-idioms.html">Big-O + Pythonic Idioms</a> (15 min) — sets up the vocabulary and Python tools every pattern below leans on.</li>
+      <li>Go through each pattern in order: read the concept, run the animation step-by-step, read the company-variant call-outs, read the Python solution, take the quiz, check it complete.</li>
+      <li>Keep <a href="cheat-sheet.html">the cheat sheet</a> open in a tab for a 30-second Big-O / recognition lookup whenever you're unsure.</li>
+      <li>Finish with the <a href="mock-interview.html">Mock Interview</a> — a timed drill of randomized company-style variants pulled from everything you just learned.</li>
+    </ol>
+  </div>
+
+  <div id="module-groups"></div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="js/app.js"></script>
+<script>
+  buildHeader('index.html');
+  renderDashboard();
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mock Interview — DSA Crash Course</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Mock Interview Drill</h1>
+  <p class="lede">Randomized, company-style variant prompts pulled from every pattern you've studied. For each one: say out loud which pattern applies, why, and sketch the approach before time runs out. This trains pattern-matching speed, not raw typing — write real code separately in your own editor if you want full reps.</p>
+
+  <div class="card" id="setup-card">
+    <h2 style="margin-top:0;">Session length</h2>
+    <div class="actions">
+      <button class="btn" id="start-quick">Quick Drill — 5 questions (~15 min)</button>
+      <button class="btn secondary" id="start-full">Full Mock — 10 questions (~35 min)</button>
+    </div>
+    <p id="pool-status" style="color:var(--text-dim); font-size:0.85rem;">Loading variant bank…</p>
+  </div>
+
+  <div class="card" id="session-card" style="display:none;">
+    <div class="pill" id="q-progress"></div>
+    <div class="pill time" id="q-pattern-tag"></div>
+    <h2 id="q-title" style="margin-top:0.8rem;"></h2>
+    <p id="q-twist"></p>
+    <div class="timer" id="q-timer">03:00</div>
+    <div class="actions">
+      <button class="btn" id="reveal-btn">Reveal Approach</button>
+      <button class="btn secondary" id="skip-btn">Skip</button>
+    </div>
+    <div id="reveal-panel" class="callout" style="display:none;">
+      <p><b>Pattern:</b> <span id="r-pattern"></span></p>
+      <p><b>Why this pattern:</b> <span id="r-signal"></span></p>
+      <p><b>Complexity:</b> <span id="r-complexity"></span></p>
+      <p><a id="r-link" href="#">Open full walkthrough + animation + code →</a></p>
+    </div>
+    <div class="actions">
+      <button class="btn" id="next-btn" style="display:none;">Next Question →</button>
+    </div>
+  </div>
+
+  <div class="card" id="done-card" style="display:none;">
+    <h2 style="margin-top:0;">Session complete</h2>
+    <p id="done-summary"></p>
+    <div class="actions">
+      <a class="btn" href="index.html">Back to Dashboard</a>
+      <button class="btn secondary" id="restart-btn">Run Another Session</button>
+    </div>
+  </div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="js/app.js"></script>
+<script>
+buildHeader('mock-interview.html');
+
+let pool = [];
+let session = [];
+let idx = 0;
+let timerHandle = null;
+let timeLeft = 180;
+
+const patternIds = window.SCHEDULE.filter(m => m.type === 'pattern').map(m => m.id);
+let loaded = 0;
+patternIds.forEach(id => {
+  const s = document.createElement('script');
+  s.src = `data/patterns/${id}.js`;
+  s.onload = onScriptSettled;
+  s.onerror = onScriptSettled;
+  document.body.appendChild(s);
+});
+
+function onScriptSettled() {
+  loaded++;
+  if (loaded === patternIds.length) buildPool();
+}
+
+function buildPool() {
+  pool = [];
+  Object.values(window.PATTERNS || {}).forEach(p => {
+    (p.variants || []).forEach(v => {
+      pool.push({
+        patternId: p.id,
+        patternTitle: p.title,
+        complexity: p.complexity,
+        signal: (p.recognitionSignals && p.recognitionSignals[0]) || '',
+        company: v.company,
+        title: v.title,
+        twist: v.twist,
+      });
+    });
+  });
+  document.getElementById('pool-status').textContent =
+    pool.length ? `${pool.length} variant prompts loaded across ${Object.keys(window.PATTERNS || {}).length} patterns.`
+                : 'No pattern content found yet — generate data/patterns/*.js files first.';
+  document.getElementById('start-quick').disabled = pool.length === 0;
+  document.getElementById('start-full').disabled = pool.length === 0;
+}
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startSession(n) {
+  session = shuffle(pool).slice(0, Math.min(n, pool.length));
+  idx = 0;
+  document.getElementById('setup-card').style.display = 'none';
+  document.getElementById('done-card').style.display = 'none';
+  document.getElementById('session-card').style.display = 'block';
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = session[idx];
+  document.getElementById('q-progress').textContent = `Question ${idx + 1} / ${session.length}`;
+  document.getElementById('q-pattern-tag').textContent = q.company;
+  document.getElementById('q-title').textContent = q.title;
+  document.getElementById('q-twist').textContent = q.twist;
+  document.getElementById('reveal-panel').style.display = 'none';
+  document.getElementById('reveal-btn').style.display = 'inline-block';
+  document.getElementById('skip-btn').style.display = 'inline-block';
+  document.getElementById('next-btn').style.display = 'none';
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(timerHandle);
+  timeLeft = 180;
+  renderTimer();
+  timerHandle = setInterval(() => {
+    timeLeft--;
+    renderTimer();
+    if (timeLeft <= 0) {
+      clearInterval(timerHandle);
+      reveal();
+    }
+  }, 1000);
+}
+
+function renderTimer() {
+  const el = document.getElementById('q-timer');
+  const m = Math.floor(Math.max(timeLeft, 0) / 60);
+  const s = Math.max(timeLeft, 0) % 60;
+  el.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  el.classList.toggle('low', timeLeft <= 30);
+}
+
+function reveal() {
+  clearInterval(timerHandle);
+  const q = session[idx];
+  document.getElementById('r-pattern').textContent = q.patternTitle;
+  document.getElementById('r-signal').textContent = q.signal;
+  document.getElementById('r-complexity').textContent = q.complexity;
+  document.getElementById('r-link').href = `pattern.html?id=${q.patternId}`;
+  document.getElementById('reveal-panel').style.display = 'block';
+  document.getElementById('reveal-btn').style.display = 'none';
+  document.getElementById('skip-btn').style.display = 'none';
+  document.getElementById('next-btn').style.display = 'inline-block';
+}
+
+function nextQuestion() {
+  idx++;
+  if (idx >= session.length) {
+    finishSession();
+  } else {
+    showQuestion();
+  }
+}
+
+function finishSession() {
+  clearInterval(timerHandle);
+  document.getElementById('session-card').style.display = 'none';
+  document.getElementById('done-card').style.display = 'block';
+  const patterns = [...new Set(session.map(q => q.patternTitle))];
+  document.getElementById('done-summary').textContent =
+    `You drilled ${session.length} variant prompts across: ${patterns.join(', ')}.`;
+}
+
+document.getElementById('start-quick').addEventListener('click', () => startSession(5));
+document.getElementById('start-full').addEventListener('click', () => startSession(10));
+document.getElementById('reveal-btn').addEventListener('click', reveal);
+document.getElementById('skip-btn').addEventListener('click', reveal);
+document.getElementById('next-btn').addEventListener('click', nextQuestion);
+document.getElementById('restart-btn').addEventListener('click', () => {
+  document.getElementById('done-card').style.display = 'none';
+  document.getElementById('setup-card').style.display = 'block';
+});
+</script>
+</body>
+</html>

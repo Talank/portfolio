@@ -1,0 +1,141 @@
+window.PATTERNS = window.PATTERNS || {};
+window.PATTERNS['linked-list-reversal'] = {
+  id: 'linked-list-reversal',
+  title: 'Linked List In-Place Reversal',
+  category: 'Hashing & Linear Structures',
+  timeMin: 10,
+  summary: 'Flip a singly linked list\'s next pointers in a single O(n) pass using three rolling references, with no extra data structure.',
+  concept: [
+    'In-place reversal walks the list once, flipping each node\'s <code>next</code> pointer to point backward, using three rolling references: <code>prev</code> (the already-reversed portion, starts as <code>None</code>), <code>curr</code> (the node currently being flipped), and a temporary <code>next_node</code> that you must save <i>before</i> you overwrite <code>curr.next</code> — otherwise you lose the rest of the original list permanently. This is O(n) time and O(1) extra space: no new nodes are allocated and nothing is copied into an array.',
+    'The skeleton is always the same four moves per iteration: save next, rewire <code>curr.next = prev</code>, advance <code>prev = curr</code>, advance <code>curr = next_node</code>. Every "reverse a linked list" variant — the whole list, a sublist, groups of k, pairs — is this identical primitive wrapped with different boundary bookkeeping: where the loop starts/stops, and how the reversed segment gets reconnected to whatever surrounds it afterward.',
+    'A recursive formulation exists (recurse to the tail first, then fix pointers as the call stack unwinds) but costs O(n) stack space instead of O(1) — worth mentioning to show you know it, but default to iterative unless the interviewer specifically wants the recursive form, since "can you do it without recursion / in O(1) space?" is a common immediate follow-up.',
+  ],
+  recognitionSignals: [
+    'Explicit ask to "reverse a linked list," or a sub-portion of one, in place.',
+    '"Reverse in groups of k" or "reverse pairs" — same reversal primitive applied repeatedly, with extra bookkeeping to reconnect group boundaries; not a fundamentally different algorithm.',
+    '"Without using extra space" or "O(1) space" — rules out copying node values into an array/stack and rebuilding, which is the naive first idea most candidates reach for.',
+    'If the problem also mentions finding a middle, detecting a cycle, or checking a palindrome, that signals <i>combining</i> fast/slow pointers with this reversal primitive, not reversal in isolation.',
+  ],
+  complexity: 'Time: O(n) — every node is visited exactly once. Space: O(1) iterative (three pointers regardless of list length); O(n) if implemented recursively, due to call-stack depth.',
+  canonical: {
+    name: 'Reverse Linked List (LeetCode 206)',
+    statement: 'Given the head of a singly linked list, reverse the list in place and return the new head.',
+  },
+  variants: [
+    {
+      company: 'Meta-style',
+      title: 'Reverse Linked List II — reverse only a sublist (LeetCode 92)',
+      twist: 'Only reverse nodes from position <code>left</code> to <code>right</code> (1-indexed), leaving the rest of the list untouched. You need a reference to the node just before <code>left</code> (use a dummy head node so this works even when <code>left == 1</code>), run the same prev/curr/next loop starting at position <code>left</code> for exactly <code>right - left + 1</code> iterations, and afterward reconnect two boundaries: <code>predecessor.next</code> must point to the new sublist head (the old <code>right</code>-th node), and the original <code>left</code>-th node — now the sublist\'s tail — must have its <code>.next</code> pointed at whatever came after the old <code>right</code>-th node. Getting either reconnection wrong silently truncates or duplicates part of the list.',
+    },
+    {
+      company: 'Google-style',
+      title: 'Reverse Nodes in k-Group (LeetCode 25)',
+      twist: 'Reverse the list in consecutive chunks of exactly k nodes; if fewer than k nodes remain at the end, leave that final partial group unreversed. This forces a counting pre-pass (or lookahead) to verify k nodes actually exist before committing to reverse the group — reverse first and find out you were short, and you have to reason carefully about un-reversing or restructuring. Groups are then chained together by reconnecting each group\'s new tail to the next group\'s new head, same boundary-reconnection idea as LC 92 but repeated across the whole list.',
+    },
+    {
+      company: 'Amazon-style',
+      title: 'Palindrome Linked List (LeetCode 234)',
+      twist: 'Determine whether the list reads the same forwards and backwards, in O(1) space — you can\'t just dump values into an array and check with two pointers, since that\'s O(n) space. The O(1)-space solution combines two patterns: use fast/slow pointers to find the middle, reverse the second half in place using the standard reversal primitive, then walk two pointers inward from both ends comparing values. This variant tests whether you can compose linked-list reversal with a different pattern (fast/slow) rather than apply it in isolation, and whether you remember to (optionally) restore the list afterward if the interviewer asks you not to mutate the input.',
+    },
+  ],
+  pythonSolution: {
+    title: 'Reverse Linked List',
+    code:
+`class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+def reverse_list(head: ListNode | None) -> ListNode | None:
+    prev, curr = None, head
+    while curr:
+        next_node = curr.next
+        curr.next = prev
+        prev = curr
+        curr = next_node
+    return prev`,
+    notes: [
+      '<code>prev, curr = None, head</code> initializes both rolling references in one line — a small but idiomatic Python tuple-assignment habit worth using for pointer pairs.',
+      'The order inside the loop is load-bearing, not stylistic: <code>next_node</code> must be captured before <code>curr.next</code> is reassigned, or the rest of the original list becomes unreachable.',
+      'Returning <code>prev</code>, not <code>head</code>, is the whole point — by the time the loop ends, <code>head</code> refers to the old first node, which is now the <i>last</i> node of the reversed list.',
+      'The type hint <code>ListNode | None</code> documents that both the input and output can be an empty list, which is exactly the edge case worth stating out loud in an interview.',
+    ],
+  },
+  pitfalls: [
+    'Writing <code>curr.next = prev</code> before saving <code>next_node = curr.next</code> — this is the single most common bug, and it silently severs the rest of the list rather than crashing, so it can slip past a quick manual test.',
+    'Returning <code>head</code> instead of <code>prev</code> at the end — <code>head</code> is now the reversed list\'s tail (its <code>.next</code> is <code>None</code>), so the caller sees what looks like a 1-node list.',
+    'For the sublist variant (LC 92): forgetting the dummy-head trick when <code>left == 1</code>, so there is no real predecessor node to hold a reference to, or forgetting to reconnect the old <code>left</code>-th node (now the sublist tail) to whatever came after the old <code>right</code>-th node.',
+    'Not handling the empty-list (<code>head is None</code>) or single-node case — both should just fall through the <code>while curr</code> loop correctly, but it\'s worth stating explicitly rather than assuming it works.',
+  ],
+  viz: {
+    type: 'array',
+    initialArray: [1, 2, 3, 4, 5],
+    steps: [
+      { highlights: { 0: 'a' }, pointers: { curr: 0 }, vars: { prev: 'None', reversedSoFar: '[]' }, message: 'Start: prev=None, curr=head (node 1). Original list: 1→2→3→4→5→None.' },
+      { highlights: { 0: 'c', 1: 'a' }, pointers: { prev: 0, curr: 1 }, vars: { prev: '1', reversedSoFar: '[1]', savedNext: '2' }, message: 'Saved next=node(2) first, then set node(1).next=None (prev). prev→node(1), curr→node(2). Reversed-so-far: 1→None.' },
+      { highlights: { 0: 'c', 1: 'c', 2: 'a' }, pointers: { prev: 1, curr: 2 }, vars: { prev: '2', reversedSoFar: '[2, 1]', savedNext: '3' }, message: 'Saved next=node(3), set node(2).next=node(1). prev→node(2), curr→node(3). Reversed-so-far: 2→1→None.' },
+      { highlights: { 0: 'c', 1: 'c', 2: 'c', 3: 'a' }, pointers: { prev: 2, curr: 3 }, vars: { prev: '3', reversedSoFar: '[3, 2, 1]', savedNext: '4' }, message: 'Saved next=node(4), set node(3).next=node(2). prev→node(3), curr→node(4). Reversed-so-far: 3→2→1→None.' },
+      { highlights: { 0: 'c', 1: 'c', 2: 'c', 3: 'c', 4: 'a' }, pointers: { prev: 3, curr: 4 }, vars: { prev: '4', reversedSoFar: '[4, 3, 2, 1]', savedNext: '5' }, message: 'Saved next=node(5), set node(4).next=node(3). prev→node(4), curr→node(5). Reversed-so-far: 4→3→2→1→None.' },
+      { highlights: { 0: 'c', 1: 'c', 2: 'c', 3: 'c', 4: 'c' }, pointers: { prev: 4 }, vars: { prev: '5', curr: 'None', reversedSoFar: '[5, 4, 3, 2, 1]' }, message: 'Saved next=None, set node(5).next=node(4). prev→node(5), curr→None. Loop condition `while curr` is now false — done.' },
+      { highlights: { 4: 'c', 3: 'c', 2: 'c', 1: 'c', 0: 'c' }, pointers: { newHead: 4 }, vars: { answer: '[5, 4, 3, 2, 1]' }, message: 'Return prev (node 5) as the new head. Full reversed list: 5→4→3→2→1→None.' },
+    ],
+  },
+  quiz: [
+    {
+      q: 'Which phrasing most clearly signals in-place linked-list reversal rather than fast/slow pointers?',
+      options: [
+        '"Determine whether the list has a cycle"',
+        '"Reverse the list (or a portion of it) in O(1) extra space"',
+        '"Find the middle node of the list in one pass"',
+        '"Find the k-th node from the end"',
+      ],
+      correct: 1,
+      explain: 'Cycle detection, finding the middle, and "k-th from the end" are all classic fast/slow (two-speed) pointer problems. An explicit ask to reverse the list, especially with an O(1)-space constraint, is the reversal primitive\'s signature.',
+    },
+    {
+      q: 'What is the time and space complexity of the iterative reversal algorithm?',
+      options: [
+        'O(n) time, O(n) space',
+        'O(n) time, O(1) space',
+        'O(n log n) time, O(1) space',
+        'O(1) time, O(1) space',
+      ],
+      correct: 1,
+      explain: 'Each node is visited exactly once (O(n) time), and only three pointer variables are used regardless of list length (O(1) space). The recursive version instead costs O(n) space for the call stack.',
+    },
+    {
+      q: 'In the reference code, why must `next_node = curr.next` execute before `curr.next = prev`?',
+      options: [
+        'It doesn\'t matter — Python evaluates both regardless of order',
+        'Once curr.next is overwritten to point at prev, the original link to the rest of the list is gone unless you saved it first',
+        'It\'s required to avoid a TypeError',
+        'It only matters for the recursive version, not the iterative one',
+      ],
+      correct: 1,
+      explain: 'curr.next is the only reference to the rest of the unprocessed list. Overwrite it before saving a copy of that reference, and everything after curr becomes unreachable — a silent data-loss bug, not a crash.',
+    },
+    {
+      q: 'Reverse Linked List II (LC 92) reverses only nodes from position left to right. What extra bookkeeping does this variant require beyond the base reversal loop?',
+      options: [
+        'None — the identical loop over the whole list works unchanged',
+        'A reference to the node before `left` (via a dummy head), plus reconnecting that predecessor and the old left-th node (now the sublist tail) to the boundaries of the reversed segment afterward',
+        'You must convert the list to an array first',
+        'You must reverse the whole list twice',
+      ],
+      correct: 1,
+      explain: 'The base loop only knows how to flip pointers within the segment being traversed. Splicing that reversed segment back into a larger list requires holding onto the predecessor node and correctly re-linking both ends of the reversed sublist, which is the actual difficulty of LC 92.',
+    },
+    {
+      q: 'What happens if you call the standard iterative reverse_list on an empty list (head is None)?',
+      options: [
+        'It raises an AttributeError',
+        'It infinite-loops',
+        'The while loop body never executes (curr is already None), and the function correctly returns prev, which is still None',
+        'It returns head unchanged, which is a bug',
+      ],
+      correct: 2,
+      explain: 'prev and curr are initialized to None and head respectively. If head is None, `while curr` is immediately false, the loop body never runs, and prev (None) is returned — correctly representing an empty reversed list with no special-casing needed.',
+    },
+  ],
+};

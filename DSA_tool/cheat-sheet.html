@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheet — DSA Crash Course</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Pattern Recognition Cheat Sheet</h1>
+  <p class="lede">Keep this open during practice (and mentally rebuild it before a real interview). Read the problem, match it to a row, start talking through that pattern's approach.</p>
+
+  <table class="sched">
+    <tr><th>Pattern</th><th>Recognize when…</th><th>Complexity</th><th>Go-to structure</th></tr>
+    <tr><td><a href="pattern.html?id=two-pointers">Two Pointers</a></td><td>Sorted array/string, need a pair/triplet meeting a condition</td><td class="time">O(n) or O(n log n)</td><td>indices from both ends, or same-direction slow/fast</td></tr>
+    <tr><td><a href="pattern.html?id=sliding-window">Sliding Window</a></td><td>Contiguous subarray/substring, longest/shortest/count satisfying a condition</td><td class="time">O(n)</td><td>left/right pointers + hash map or running sum</td></tr>
+    <tr><td><a href="pattern.html?id=fast-slow-pointers">Fast & Slow Pointers</a></td><td>Cycle detection, find the middle, linked-list "kth from end"</td><td class="time">O(n)</td><td>two pointers moving at different speeds</td></tr>
+    <tr><td><a href="pattern.html?id=merge-intervals">Merge Intervals</a></td><td>Overlapping ranges, scheduling/meeting conflicts</td><td class="time">O(n log n)</td><td>sort by start, sweep and merge</td></tr>
+    <tr><td><a href="pattern.html?id=binary-search">Binary Search</a></td><td>Sorted array, or a monotonic search space ("minimize the maximum", "find the boundary")</td><td class="time">O(log n)</td><td>lo/hi/mid — watch off-by-one on the boundary condition</td></tr>
+    <tr><td><a href="pattern.html?id=hashing-patterns">Hashing Patterns</a></td><td>Need O(1) lookup, "have I seen this", complements, grouping</td><td class="time">O(n)</td><td>dict / set / Counter</td></tr>
+    <tr><td><a href="pattern.html?id=linked-list-reversal">Linked List Reversal</a></td><td>Reverse all or part of a list in place</td><td class="time">O(n) time, O(1) space</td><td>prev / curr / next pointer shuffle</td></tr>
+    <tr><td><a href="pattern.html?id=monotonic-stack">Monotonic Stack</a></td><td>Next greater/smaller element, histogram/skyline problems</td><td class="time">O(n)</td><td>stack kept strictly increasing or decreasing</td></tr>
+    <tr><td><a href="pattern.html?id=queue-deque">Queue / Deque</a></td><td>Sliding window max/min, level-order processing</td><td class="time">O(n)</td><td>deque holding indices (monotonic) or values</td></tr>
+    <tr><td><a href="pattern.html?id=tree-dfs-bfs">Tree DFS / BFS</a></td><td>Traverse/transform a tree, root-to-leaf paths</td><td class="time">O(n)</td><td>recursion (DFS) or explicit queue (BFS)</td></tr>
+    <tr><td><a href="pattern.html?id=binary-search-trees">Binary Search Trees</a></td><td>Validate/insert/search leveraging sorted order</td><td class="time">O(log n) avg, O(n) worst</td><td>inorder traversal of a BST is sorted — exploit that</td></tr>
+    <tr><td><a href="pattern.html?id=heaps-top-k">Heaps / Top-K</a></td><td>k largest/smallest, merge k sorted lists, running median</td><td class="time">O(n log k)</td><td>min-heap or max-heap capped at size k</td></tr>
+    <tr><td><a href="pattern.html?id=backtracking">Backtracking</a></td><td>Generate all subsets/permutations/combinations under constraints</td><td class="time">O(2ⁿ) / O(n!), pruned</td><td>recursion + make a choice, recurse, undo the choice</td></tr>
+    <tr><td><a href="pattern.html?id=graphs-bfs-dfs-topo-union">Graphs</a></td><td>Connectivity, shortest path (unweighted), dependency ordering, cycle detection</td><td class="time">O(V + E)</td><td>adjacency list + visited set; topo sort / union-find for ordering/grouping</td></tr>
+    <tr><td><a href="pattern.html?id=dynamic-programming">Dynamic Programming</a></td><td>Optimal substructure + overlapping subproblems — "count the ways", "min/max cost to…"</td><td class="time">usually O(n) – O(n²)</td><td>memoized recursion or bottom-up table; define the state first</td></tr>
+    <tr><td><a href="pattern.html?id=greedy">Greedy</a></td><td>A locally-optimal choice provably leads to the global optimum — often paired with sorting</td><td class="time">O(n log n)</td><td>sort, then single pass making the locally best choice</td></tr>
+    <tr><td><a href="pattern.html?id=bit-manipulation">Bit Manipulation</a></td><td>"Single number" tricks, subset enumeration via bitmask, O(1) extra space required</td><td class="time">O(n) or O(1)</td><td>XOR / AND / OR / shifts</td></tr>
+    <tr><td><a href="pattern.html?id=trie">Trie</a></td><td>Prefix search, autocomplete, "word dictionary" style lookups</td><td class="time">O(L) per operation (L = word length)</td><td>nested dict or fixed-size children array per node</td></tr>
+  </table>
+
+  <div class="callout" style="margin-top:1.5rem;">If two rows both seem to fit, that's often the point of a company variant — many "hard" interview questions are two patterns stacked (e.g. sliding window + hashing, or DP + binary search on the answer).</div>
+
+  <footer class="pagenav">
+    <a href="index.html">← Dashboard</a>
+    <a href="mock-interview.html">Mock Interview →</a>
+  </footer>
+</main>
+<script src="js/app.js"></script>
+<script>buildHeader('cheat-sheet.html');</script>
+</body>
+</html>
