@@ -9,6 +9,7 @@ window.PATTERNS['binary-search-trees'] = {
     'The BST property is a <b>global</b> constraint, not a local one: every node in a subtree must respect the bounds set by *all* of its ancestors, not just its immediate parent. This is the single most common source of bugs — checking only <code>node.left.val < node.val < node.right.val</code> passes plenty of invalid trees where a deeper descendant violates a grandparent\'s bound.',
     'The core exploitable insight: an <b>inorder traversal</b> (left, node, right) of a valid BST visits nodes in strictly ascending sorted order. This turns "find the kth smallest," "find the closest value to a target," and "is this a valid BST" into traversal problems rather than requiring you to reconstruct sorted order some other way.',
     'Validation and rank-style queries (kth smallest, floor/ceiling) are best written as recursion that threads <code>(low, high)</code> bounds downward, tightening them at every step — <code>validate(node.left, low, node.val)</code> and <code>validate(node.right, node.val, high)</code> — rather than comparing a node only to its direct parent.',
+    'The sorted-inorder guarantee is provable by structural induction on the BST invariant, not just an observed pattern: assume (inductive hypothesis) that inorder traversal of <code>node.left</code> yields all values strictly less than <code>node.val</code> in sorted order, and inorder traversal of <code>node.right</code> yields all values strictly greater than <code>node.val</code> in sorted order — both guaranteed by the BST property holding recursively within each subtree. Concatenating <code>inorder(left) + [node.val] + inorder(right)</code> is then trivially sorted overall, since every element of the first list is less than <code>node.val</code> and every element of the third is greater. The base case (an empty subtree) trivially returns a sorted empty sequence, so induction on subtree size establishes the property at any depth — and it\'s also exactly why bounds-threading validation is required rather than a purely local check: the inductive step for <code>node.left</code> needs its upper bound to be <code>node.val</code> specifically, and for <code>node.left.left</code> that same bound must still apply two levels down, which a parent-only comparison has no way to enforce.',
   ],
   recognitionSignals: [
     'Problem explicitly says "binary search tree" or "BST," or gives you a tree that\'s guaranteed sorted along inorder traversal.',
@@ -21,6 +22,83 @@ window.PATTERNS['binary-search-trees'] = {
     name: 'Kth Smallest Element in a BST (LeetCode 230)',
     statement: 'Given the root of a binary search tree and an integer k, return the kth smallest value (1-indexed) among all node values in the tree.',
   },
+  story: {
+    onePiece: {
+      title: 'The World Government\'s bounty ranking ladder',
+      text: [
+        'Every time the Marines post a new bounty, a clerk has to file it into the standing ranking of every wanted pirate\'s bounty amount — and with hundreds of thousands of names on record, re-scanning the whole list from the top for every new poster would be absurd. So the ladder is kept as a branching structure instead: the clerk takes the new bounty to the root entry, compares it, and if it\'s lower, moves to that entry\'s "lower" branch; if it\'s higher, moves to the "higher" branch. At each branch, the comparison repeats against a narrower and narrower slice of the ranking, until the new bounty finds its exact place among the entries closest to its own value.',
+        'This only works because the ladder enforces one strict rule everywhere, not just locally: every name filed to the left of a given entry is unconditionally lower than it, and every name to the right is unconditionally higher — not just relative to the entry\'s immediate neighbor, but relative to every entry above it in the chain that sent it there. A clerk who only checked "is this bounty higher than the one directly above it" could misfile a bounty that\'s locally fine but violates a rule set two or three branches further up — which is exactly the bug that plagues a sloppy BST validation.',
+        'Because the ladder respects that global ordering, a clerk can always find where a new bounty belongs, or look up the kth-highest bounty on record, in about log(n) comparisons instead of a full linear rescan of every name in the Grand Line.',
+      ],
+    },
+    history: {
+      title: 'Linnaeus and the taxonomy of species (1735)',
+      text: [
+        'In Systema Naturae, Carl Linnaeus proposed classifying every living species by repeatedly splitting a group into subgroups based on shared traits — kingdom, then class, then order, then genus, then species — narrowing down an identification step by step rather than comparing a specimen against every known species at once. It\'s a genuinely old, real precedent for "search by repeated branching comparisons," and it\'s part of why hierarchical branching classification feels so natural to reach for.',
+        'But the mapping to a BST is loose, not exact, and it\'s worth being honest about where it breaks: a BST enforces one strict total ordering (every value has a definite less-than/greater-than relationship to every other value, all along a single numeric axis), while Linnaean taxonomy branches on categorical traits with no such single ordering — "mammal vs. reptile" isn\'t a less-than/greater-than comparison the way "bounty amount" is. Taxonomy captures the flavor of hierarchical narrowing-down; it does not capture the BST\'s core invariant of a single consistent ordering relation across the whole structure.',
+      ],
+    },
+    why: 'Anchoring the BST invariant in the bounty ladder (why the comparison must chain across every ancestor, not just the parent) gives you a concrete reason to distrust a parent-only check under pressure; keeping the taxonomy anecdote\'s limits explicit also trains the more valuable skill of noticing when a memorable analogy is overselling a technical guarantee it doesn\'t actually provide.',
+  },
+  tricks: [
+    {
+      name: 'Validate Binary Search Tree: thread bounds, don\'t compare to the parent only',
+      idea: 'Comparing each node only to its immediate parent (or immediate children) checks a strictly weaker condition than the BST property actually requires — it passes trees where a deeper node is locally fine but violates a bound set by a grandparent or higher ancestor.',
+      before:
+`def is_valid_bst(root, parent_val=None, is_left=None):
+    if not root:
+        return True
+    if is_left is True and root.val >= parent_val:
+        return False
+    if is_left is False and root.val <= parent_val:
+        return False
+    # only ever compares root.val to its DIRECT parent's value — a node two
+    # or more levels down can pass this check while still violating an
+    # ancestor further up the tree
+    return (is_valid_bst(root.left, root.val, True) and
+            is_valid_bst(root.right, root.val, False))`,
+      after:
+`def is_valid_bst(root, low=float('-inf'), high=float('inf')):
+    if not root:
+        return True
+    if not (low < root.val < high):
+        return False
+    return (is_valid_bst(root.left, low, root.val) and
+            is_valid_bst(root.right, root.val, high))`,
+      explain: 'Consider root=5 with left child 3, and 3\'s right child 6: the parent-only check sees 6 > 3 (its direct parent) and happily accepts it, but 6 violates the root\'s bound of "everything in the left subtree must be < 5." Threading (low, high) down the recursion carries every ancestor\'s constraint forward — node.left inherits high=node.val, node.right inherits low=node.val — so violations against any ancestor, not just the immediate parent, are caught.',
+    },
+    {
+      name: 'Kth smallest: decrement k before checking it, not after',
+      idea: 'The early-exit inorder walk pops nodes in ascending order, but the order of "decrement k" versus "check if k == 0" is easy to get backwards under pressure, and swapping it returns the (k+1)th smallest instead of the kth — a bug that only shows up once you trace it against a concrete k, not by inspection.',
+      before:
+`def kth_smallest(root, k):
+    stack = []
+    node = root
+    while stack or node:
+        while node:
+            stack.append(node)
+            node = node.left
+        node = stack.pop()
+        if k == 0:      # BUG: checked before decrementing, so this only
+            return node.val  # fires one pop too late
+        k -= 1
+        node = node.right`,
+      after:
+`def kth_smallest(root, k):
+    stack = []
+    node = root
+    while stack or node:
+        while node:
+            stack.append(node)
+            node = node.left
+        node = stack.pop()
+        k -= 1
+        if k == 0:
+            return node.val
+        node = node.right`,
+      explain: 'Trace it with k=3 on any 3+-node BST: the buggy version checks `k == 0` while k still holds its *original* value (3, then 2, then 1 on the first three pops — never 0), so it decrements past the true 3rd-smallest node without returning and instead returns the 4th smallest on the next pop. Decrementing first means the check happens against the count of nodes already popped, which is what "kth" actually means.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

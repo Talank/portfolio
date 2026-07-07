@@ -9,6 +9,7 @@ window.PATTERNS['monotonic-stack'] = {
     'A monotonic stack maintains its contents in strictly increasing or strictly decreasing order by popping any element that violates that order before pushing the new one. You almost always store <i>indices</i>, not values, so that once an element is resolved you can compute a distance or width (<code>i - poppedIndex</code>) — the value is recovered with one array lookup when you need it.',
     'The trick is that <b>the pop moment is the resolution moment</b>: when the current element causes you to pop something off the stack, the current element <i>is</i> the answer ("next greater/smaller") for whatever just got popped. Because every index is pushed exactly once and popped at most once across the whole scan, the total work is O(n) amortized even though there\'s a while loop nested inside a for loop.',
     'Whether the stack should be increasing or decreasing, and whether the comparison is strict (<code>&lt;</code>) or non-strict (<code>&lt;=</code>), depends on the exact question being asked ("next greater" vs. "next greater or equal," which occurrence wins on a tie). Get the comparison operator wrong and the algorithm still runs to completion and returns a plausible-looking but off-by-one wrong answer — it will not crash, which is exactly what makes this bug dangerous in an interview.',
+    'Formally, the invariant maintained at the top of every outer-loop iteration is: the stack, read from bottom to top, holds indices in strictly decreasing order of temperature, and every index still on the stack has not yet been beaten by any temperature seen so far in the scan. The inner while loop is what enforces this invariant — it fires exactly when the incoming element would otherwise violate it, and exactly as many times as needed to restore it, never more. That\'s also the amortized-cost proof: since every index is pushed exactly once (in the outer loop) and can only ever be popped once (removing it from the stack forever), the total work across every while-loop firing in the entire run can never exceed n pops plus n pushes — O(n) total, regardless of how unevenly those pops are distributed across outer iterations.',
   ],
   recognitionSignals: [
     '"For each element, find the next/previous element that is greater/smaller" — the canonical monotonic-stack phrasing.',
@@ -22,6 +23,76 @@ window.PATTERNS['monotonic-stack'] = {
     name: 'Daily Temperatures (LeetCode 739)',
     statement: 'Given an array of daily temperatures, return an array answer where answer[i] is the number of days you\'d have to wait after day i to get a warmer temperature. If there is no future day for which this is possible, put 0 instead.',
   },
+  story: {
+    onePiece: {
+      title: 'Corrida Colosseum block battles',
+      text: [
+        'In the Corrida Colosseum\'s block battles on Dressrosa, fighters don\'t get eliminated by a bracket schedule decided in advance — they get eliminated the instant somebody stronger steps into contention. Picture the fighters still standing as a stack ordered by when they entered the ring. The moment a new gladiator arrives and turns out to be stronger than the fighter currently "on top" of the contested group, that weaker fighter is knocked out immediately — not at the end of the round, right then. If the newcomer is strong enough, this keeps happening, knocking out fighter after fighter, until either the ring empties or someone still standing is tougher than the new arrival.',
+        'After enough rounds, whoever\'s still standing is arranged in strictly decreasing strength from earliest arrival to most recent — anyone who wasn\'t in strictly decreasing order already got eliminated by someone stronger showing up later. That elimination-on-arrival rule is exactly the <code>while stack and top_is_weaker: pop()</code> loop of a monotonic stack, and the reason the whole tournament resolves in O(n) total eliminations rather than O(n²) is the same reason here: every fighter gets knocked out — popped — at most once, no matter how many total entrants there are.',
+      ],
+    },
+    history: {
+      title: 'Ticker tape and the stock span problem, 1867',
+      text: [
+        'In 1867, Edward Calahan invented the stock ticker, a machine that printed a continuous paper tape of trade prices as they happened on the floor of the New York Stock Exchange. For the first time, traders had a literal physical record — a growing tape — of exactly how a price moved, tick by tick, through the day.',
+        'The stock span problem (how many consecutive prior days, read backward from today, stayed at or below today\'s closing price) isn\'t an abstract textbook invention; it\'s modeled directly on the question a trader reading a real ticker tape would ask. Solving it efficiently is exactly the monotonic-stack pattern: keep a stack of (price, span) pairs and, whenever today\'s price beats what\'s on top, absorb that entry\'s span into today\'s before continuing — an operation invented for real tape, decades before anyone called it a monotonic stack.',
+      ],
+    },
+    why: 'The abstract "pop while smaller" rule is easy to state and easy to fumble under pressure; anchoring it to a ring where weaker fighters vanish the instant a stronger one arrives gives you a vivid, physical reason the stack stays ordered without re-deriving the amortized argument from scratch.',
+  },
+  tricks: [
+    {
+      name: 'Use strict < in the while condition, not <=',
+      idea: 'It feels harmless to pop on equal temperatures too, but the problem asks for a strictly warmer day — treating an equal day as "warmer" silently produces wrong answers for any input with repeated values.',
+      before:
+`def daily_temperatures(temps):
+    answer = [0] * len(temps)
+    stack = []
+    for i, t in enumerate(temps):
+        while stack and temps[stack[-1]] <= t:  # BUG: <= pops equal temperatures too
+            j = stack.pop()
+            answer[j] = i - j
+        stack.append(i)
+    return answer`,
+      after:
+`def daily_temperatures(temps):
+    answer = [0] * len(temps)
+    stack = []  # indices with strictly decreasing temperatures
+    for i, t in enumerate(temps):
+        while stack and temps[stack[-1]] < t:
+            j = stack.pop()
+            answer[j] = i - j
+        stack.append(i)
+    return answer`,
+      explain: 'With temps = [73, 73], the buggy <= version pops index 0 when it sees index 1\'s equal 73, recording answer[0] = 1 — claiming day 1 is warmer than day 0 when it is merely equal. The strict < version correctly leaves index 0 unresolved (answer stays 0) since no day is ever actually warmer.',
+    },
+    {
+      name: 'Store indices on the stack, not raw values',
+      idea: 'The problem asks for a distance (days to wait), not just which value was greater — storing values throws away the position information needed to compute that distance at all.',
+      before:
+`def daily_temperatures(temps):
+    answer = [0] * len(temps)
+    stack = []  # BUG: stores temperature values, not indices
+    for i, t in enumerate(temps):
+        while stack and stack[-1] < t:
+            stack.pop()
+            # no index survives the pop, so there's no way to know
+            # which day this value came from or compute i - j
+        stack.append(t)
+    return answer  # always all zeros -- impossible to fill in correctly`,
+      after:
+`def daily_temperatures(temps):
+    answer = [0] * len(temps)
+    stack = []  # indices, so temps[stack[-1]] gives the value when needed
+    for i, t in enumerate(temps):
+        while stack and temps[stack[-1]] < t:
+            j = stack.pop()
+            answer[j] = i - j
+        stack.append(i)
+    return answer`,
+      explain: 'Storing indices lets you recover the value with one array lookup (temps[stack[-1]]) whenever you need it for comparison, while still having the position on hand to compute i - j the moment a pop resolves that index\'s answer. Storing raw values loses the position permanently the moment the value is pushed.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

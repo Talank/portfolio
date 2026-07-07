@@ -40,6 +40,8 @@ function renderPattern(id) {
       <p style="margin:0.4rem 0 0;">${v.twist}</p>
     </div>`).join('');
   const notesHtml = (data.pythonSolution.notes || []).map(n => `<li>${n}</li>`).join('');
+  const storyHtml = renderStorySection(data.story);
+  const tricksHtml = renderTricksSection(data.tricks);
 
   root.innerHTML = `
     <div class="pill">${data.category}</div>
@@ -50,6 +52,8 @@ function renderPattern(id) {
     <h2>Concept</h2>
     ${conceptHtml}
 
+    ${storyHtml}
+
     <h2>How to recognize it</h2>
     <ul class="signals">${signalsHtml}</ul>
 
@@ -59,6 +63,8 @@ function renderPattern(id) {
     <p>${data.canonical.statement}</p>
 
     <div class="viz-box" id="viz-container"></div>
+
+    ${tricksHtml}
 
     <h2>Interview variants — how companies twist this</h2>
     ${variantsHtml}
@@ -96,6 +102,62 @@ function renderPattern(id) {
 
 function escapeHtml(str) {
   return str.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+}
+
+/*
+Story Mode: a One Piece anecdote and a history anecdote, each hand-picked to
+mirror the pattern's actual mechanism (not just a vibe), plus a one-line note
+on why anchoring an algorithm to a story/character helps it stick (elaborative
+encoding — the more retrieval cues an idea is wired to, the easier it is to
+pull back out under interview pressure). Rendered as collapsible <details> so
+they're there when useful and out of the way during a fast review pass.
+*/
+function renderStorySection(story) {
+  if (!story) return '';
+  const asParas = t => (Array.isArray(t) ? t : [t]).map(p => `<p>${p}</p>`).join('');
+  const blocks = [];
+  if (story.onePiece) {
+    blocks.push(`
+      <details class="story story-onepiece">
+        <summary><span class="caret">▸</span> One Piece anecdote: ${story.onePiece.title} <span class="badge">Story</span></summary>
+        <div class="story-body">${asParas(story.onePiece.text)}</div>
+      </details>`);
+  }
+  if (story.history) {
+    blocks.push(`
+      <details class="story story-history">
+        <summary><span class="caret">▸</span> History anecdote: ${story.history.title} <span class="badge">Story</span></summary>
+        <div class="story-body">${asParas(story.history.text)}</div>
+      </details>`);
+  }
+  if (!blocks.length) return '';
+  const why = story.why ? `<div class="story-why"><b>Why this sticks:</b> ${story.why}</div>` : '';
+  return `<h2>Story Mode</h2>${blocks.join('')}${why}`;
+}
+
+/*
+Tricks & worked examples: the pythonic-idioms.html treatment (a concrete
+before/after code pair, not just prose) applied to each pattern's own
+technique-level tricks, distinct from the higher-level company variants.
+*/
+function renderTricksSection(tricks) {
+  if (!tricks || !tricks.length) return '';
+  const items = tricks.map(t => {
+    const codeRow = t.before
+      ? `<div class="trick-code-row">
+          <div class="code-col before"><div class="label">✗ Naive / buggy</div><pre><code>${escapeHtml(t.before)}</code></pre></div>
+          <div class="code-col after"><div class="label">✓ Idiomatic</div><pre><code>${escapeHtml(t.after)}</code></pre></div>
+        </div>`
+      : `<pre><code>${escapeHtml(t.after)}</code></pre>`;
+    return `
+      <div class="trick">
+        <h4>${t.name}</h4>
+        <p class="trick-idea">${t.idea}</p>
+        ${codeRow}
+        <p class="trick-explain">${t.explain}</p>
+      </div>`;
+  }).join('');
+  return `<h2>Tricks &amp; worked examples</h2>${items}`;
 }
 
 function renderPatternNav(id) {

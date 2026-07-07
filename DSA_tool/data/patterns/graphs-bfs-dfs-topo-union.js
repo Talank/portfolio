@@ -10,6 +10,7 @@ window.PATTERNS['graphs-bfs-dfs-topo-union'] = {
     '<b>Topological sort</b> only exists for DAGs (directed acyclic graphs) and produces a linear ordering where every edge u→v places u before v — the canonical framing is "task/course scheduling with prerequisites." There are two standard implementations: Kahn\'s algorithm (BFS driven by in-degree — repeatedly dequeue any node with in-degree 0, then decrement its neighbors\' in-degrees) and DFS-based (postorder-append-then-reverse, using a 3-color white/gray/black visited scheme to detect back edges = cycles). Kahn\'s is usually preferred in interviews because the queue naturally doubles as your cycle detector: if you dequeue fewer than V nodes total, a cycle exists among the leftovers.',
     '<b>Union-Find (Disjoint Set Union)</b> answers "are these two nodes in the same connected component" and "merge these two components" incrementally, without rebuilding a traversal from scratch after every edge. With <i>path compression</i> (flatten the tree on every find) and <i>union by rank/size</i> (always attach the smaller tree under the bigger one\'s root), each operation is nearly O(1) amortized (formally O(α(n)), the inverse Ackermann function). It\'s the right tool whenever a problem streams edges one at a time and asks about connectivity after each — a fresh BFS/DFS per query would be far too slow.',
     'Plain BFS on an unweighted graph gives shortest paths for free because it explores nodes in strictly increasing distance order — the moment you first visit a node, that\'s its shortest distance from the source. This breaks down the instant edges have weights (then you need Dijkstra) — a frequent interview trap is applying plain BFS to a weighted grid (e.g. different costs per cell) and getting a wrong "shortest" path.',
+    'Kahn\'s algorithm\'s correctness is a direct induction on graph size: the base case is trivial (an empty graph has an empty valid order), and the inductive step observes that any node with in-degree 0 can safely be placed first in some topological order — removing it (and its outgoing edges) yields a strictly smaller DAG, to which the inductive hypothesis applies; repeating this exactly reconstructs Kahn\'s dequeue order, and the process fails to terminate with V nodes exactly when the remaining subgraph has no in-degree-0 node, which is equivalent by definition to that subgraph containing a cycle. Union-Find\'s near-O(1) bound rests on a separate, purely structural invariant: with union by rank/size, a tree of height h must contain at least 2^h nodes (each merge that increases height only happens when merging two equal-height trees, doubling the node count), so height is capped at O(log n) even without compression; path compression then flattens every visited node directly under the root on each find, so the amortized cost across a whole sequence of operations provably falls to O(α(n)) via a potential-function argument, not merely "fast in practice."',
   ],
   recognitionSignals: [
     '"Prerequisite," "must complete X before Y," "course order," "build order," or any dependency-graph phrasing → topological sort.',
@@ -23,6 +24,118 @@ window.PATTERNS['graphs-bfs-dfs-topo-union'] = {
     name: 'Course Schedule (LeetCode 207)',
     statement: 'There are numCourses courses labeled 0 to numCourses-1. You are given an array prerequisites where prerequisites[i] = [a, b] means you must take course b before course a. Given the total number of courses and the list of prerequisite pairs, determine whether it is possible to finish all courses (equivalently: determine whether the prerequisite graph is a DAG, i.e. contains no cycle).',
   },
+  story: {
+    onePiece: {
+      title: 'The Straw Hats\' voyage order, and Whitebeard\'s allied banners',
+      text: [
+        'The Straw Hats\' own voyage has a strict prerequisite order baked into it long before Luffy ever notices: you cannot reach Fishman Island until your ship has been Coated, and certain islands\' plot events must resolve before the next arc\'s islands even become reachable. Skipping a step doesn\'t just cost time — it makes the rest of the route undefined. That\'s exactly what a topological sort formalizes: a directed graph of "X must happen before Y" edges, and a valid voyage order is any ordering that respects every one of those edges at once.',
+          'If the story\'s internal logic ever looped back on itself — some island secretly requiring a plot event from an island that itself required the first island\'s event — the voyage would be provably impossible to complete, not just difficult. That\'s the cycle-detection half of topological sort: Kahn\'s algorithm dequeues only islands with zero unresolved prerequisites, and if it runs dry before every island has been dequeued, the remaining islands are stuck in exactly this kind of unresolvable loop.',
+          'Whitebeard\'s crew works on a completely different structure. When the Spade Pirates — Ace\'s crew — throw in with Whitebeard, that\'s not a new edge in a dependency graph, it\'s a union: two previously separate groups collapse into one shared faction, instantly linking every member of one to every member of the other. Asking "are these two pirates in the same faction" afterward is a find query, comparing which representative captain each side ultimately answers to — and it\'s cheap precisely because nobody needs to re-trace the whole allegiance history each time, only follow the current chain up to its representative.',
+      ],
+    },
+    history: {
+      title: 'The Critical Path Method, and the alliance blocs before 1914',
+      text: [
+        'Topological sort\'s real-world origin is genuinely mundane: the Critical Path Method (CPM), formalized in the 1950s for scheduling large engineering projects — including work tied to the Manhattan Project and the Polaris missile program — solves exactly the problem of ordering tasks that have hard dependencies (you cannot pour concrete before the forms are built, cannot test a component before it\'s assembled). Scheduling such a project is, underneath the project-management language, a topological sort of a real dependency DAG.',
+        'Union-Find\'s alliance framing has its own real analogue: the network of European alliance blocs before World War I — the Triple Entente and the Triple Alliance — where nations kept merging into larger committed blocs such that "are these two countries allied" collapsed into a same-set membership question. A new treaty was a union operation; a diplomatic query about mutual defense obligations was a find.',
+      ],
+    },
+    why: 'Anchoring topological sort to a voyage with a real point of no return, and union-find to a merger of allegiances that can\'t be undone, gives two separate concrete scenes to reach for — one for "why would this fail," one for "why is checking membership cheap" — instead of one abstract algorithm to reconstruct from scratch.',
+  },
+  tricks: [
+    {
+      name: 'Cycle detection needs the dequeue count, not just an empty queue',
+      idea: 'The queue empties in both the cyclic and acyclic case, so checking only "did the queue run out" silently accepts inputs with a cycle.',
+      before:
+`from collections import deque, defaultdict
+
+def can_finish(num_courses, prerequisites):
+    graph = defaultdict(list)
+    indegree = [0] * num_courses
+    for course, pre in prerequisites:
+        graph[pre].append(course)
+        indegree[course] += 1
+
+    queue = deque(c for c in range(num_courses) if indegree[c] == 0)
+    while queue:
+        node = queue.popleft()
+        for nxt in graph[node]:
+            indegree[nxt] -= 1
+            if indegree[nxt] == 0:
+                queue.append(nxt)
+
+    return True  # BUG: queue emptied, but that doesn't mean every course was reached`,
+      after:
+`from collections import deque, defaultdict
+
+def can_finish(num_courses, prerequisites):
+    graph = defaultdict(list)
+    indegree = [0] * num_courses
+    for course, pre in prerequisites:
+        graph[pre].append(course)
+        indegree[course] += 1
+
+    queue = deque(c for c in range(num_courses) if indegree[c] == 0)
+    visited = 0
+    while queue:
+        node = queue.popleft()
+        visited += 1
+        for nxt in graph[node]:
+            indegree[nxt] -= 1
+            if indegree[nxt] == 0:
+                queue.append(nxt)
+
+    return visited == num_courses  # nodes stuck in a cycle are never dequeued`,
+      explain: 'A cycle just means some nodes never reach in-degree 0 and are never enqueued in the first place — the loop still terminates normally, it just terminates early. Counting how many nodes were actually dequeued and comparing to num_courses is the only way to tell "we finished" from "we got stuck."',
+    },
+    {
+      name: 'Redundant Connection: check connectivity *before* unioning, and compress paths as you go',
+      idea: 'The redundant edge is by definition the first edge whose endpoints already share a root — union() must report whether the merge was a no-op, and without path compression / union by rank the whole structure degrades on skewed input.',
+      before:
+`def find_redundant_connection(edges):
+    n = len(edges)
+    parent = list(range(n + 1))
+
+    def find(x):
+        while parent[x] != x:      # no path compression: re-walks the full chain every call
+            x = parent[x]
+        return x
+
+    def union(a, b):
+        parent[find(a)] = find(b)  # unions unconditionally, even if a and b are already connected
+
+    for a, b in edges:
+        union(a, b)   # BUG: never checks whether a and b were already in the same component
+    return []          # never identifies the redundant edge at all`,
+      after:
+`def find_redundant_connection(edges):
+    n = len(edges)
+    parent = list(range(n + 1))
+    rank = [0] * (n + 1)
+
+    def find(x):
+        if parent[x] != x:
+            parent[x] = find(parent[x])   # path compression: flatten on the way back up
+        return parent[x]
+
+    def union(a, b):
+        ra, rb = find(a), find(b)
+        if ra == rb:
+            return False           # already connected — this edge is the redundant one
+        if rank[ra] < rank[rb]:
+            ra, rb = rb, ra
+        parent[rb] = ra
+        if rank[ra] == rank[rb]:
+            rank[ra] += 1
+        return True
+
+    for a, b in edges:
+        if not union(a, b):
+            return [a, b]
+    return []`,
+      explain: 'The redundant edge is precisely the first edge whose two endpoints already share a root, so union() must communicate whether the merge was a no-op and the caller must check that on every edge, not just call union() for its side effect. Path compression and union by rank are an orthogonal fix — without them find() can degrade to O(n) per call — but the connectivity check is what actually finds the answer; skipping it returns no answer at all rather than a slow one.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

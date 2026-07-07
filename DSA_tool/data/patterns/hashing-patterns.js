@@ -9,6 +9,7 @@ window.PATTERNS['hashing-patterns'] = {
     'The core move is: as you scan once, left to right, store something in a hash map keyed by value (or by a running aggregate) so that a later index can answer "have I seen X before, and where/how many times" in O(1) average time instead of re-scanning. This turns an O(n²) pair/subarray search into a single O(n) pass.',
     'There are two dominant sub-patterns. <b>Seen-map</b>: for each element, check whether its <i>complement</i> (target - num, or some transformation of it) already exists in the map before you insert the current element — the canonical example is Two Sum. <b>Prefix-aggregate + frequency map</b>: maintain a running prefix sum (or XOR, or count) and a hashmap of <i>how many times each prefix value has occurred so far</i>; the number of valid subarrays ending at the current index is the frequency of (currentPrefix - target) already recorded — the canonical example is Subarray Sum Equals K.',
     'A hash set/map is the right tool exactly when you need existence/frequency lookups on <i>unordered</i> data without sacrificing O(n) time. The moment the problem needs range queries ("closest to", "less than K", "next larger") rather than exact-match lookups, hashing stops helping and you should reach for sorting + two pointers or a balanced structure instead — recognizing that boundary is itself an interview signal.',
+    'The correctness of the seen-map check rests on a simple loop invariant: immediately before processing index <code>i</code>, the map contains exactly the set <code>{nums[0], ..., nums[i-1]}</code> (keyed by value, with the most recent index winning on duplicates). So the test <code>complement in seen</code> is not a heuristic — it is a direct, complete query of "does there exist some <code>j &lt; i</code> with <code>nums[j] = target - nums[i]</code>," which is precisely the definition of a valid earlier partner. Because the invariant holds before every iteration and the map is updated by exactly one insertion per step, no pair is skipped and none is checked twice; the O(1) average cost of each hash lookup is what turns an argument that would otherwise require an O(n²) nested check over every (i, j) pair into a single linear pass.',
   ],
   recognitionSignals: [
     'Phrasing like "does there exist," "have you seen," or "find a pair/complement that sums to" — signals a seen-map membership check.',
@@ -22,6 +23,74 @@ window.PATTERNS['hashing-patterns'] = {
     name: 'Two Sum (LeetCode 1)',
     statement: 'Given an array of integers nums and an integer target, return the indices of the two numbers such that they add up to target. Assume exactly one solution exists, and you may not use the same element twice.',
   },
+  story: {
+    onePiece: {
+      title: 'The Marine bounty board',
+      text: [
+        'Before the World Government standardized its bounty board system, a Marine officer looking for a wanted pirate had exactly one method: pull down every wanted poster in the depot and read each one, name by name, until either a match turned up or the stack ran out. On a quiet island that might be a few dozen posters. At a hub like Marineford, during a war, it could be tens of thousands — and every second spent flipping paper was a second an officer wasn\'t watching the actual battlefield.',
+        'The bounty board changes that by indexing, not scanning. Each name (or alias, or distinguishing feature) is run through a fixed rule that sends it straight to one section of the board — certain names on this rack, certain epithets cross-filed on that one — so an officer doesn\'t page through the whole depot, they walk directly to the section the rule points to and look there. Ask "is this pirate on the board, and for how much," and the answer comes back in the time it takes to reach one rack, not the time it takes to search every rack.',
+        'It isn\'t perfect. Every so often two pirates end up with aliases similar enough — a shared surname, a near-identical epithet — that the same indexing rule sends both of their posters to the same section of the same rack. The officer still has to glance at the handful of posters actually sitting there to find the right one. That\'s not a failure of the system, it\'s the ordinary cost of a hash bucket holding more than one entry: you don\'t lose the speedup, you just do a tiny linear check inside one bucket instead of across the whole board.',
+      ],
+    },
+    history: {
+      title: 'Melvil Dewey\'s card catalog, 1876',
+      text: [
+        'In 1876, librarian Melvil Dewey published a classification scheme that assigned every book a number based on its subject, so a patron (or librarian) could find a book\'s shelf location without walking every aisle and reading every spine. A number like 641.5 didn\'t just label a book — it routed a search directly to the cooking section, then to a narrow sub-shelf within it, collapsing what could have been a walk through an entire building into a jump to one small physical bucket.',
+        'That\'s the same move a hash function makes on data instead of books: transform a key into a bucket address so a lookup goes straight to the (small) region that could possibly contain the answer, instead of touching everything. Dewey\'s system predates computing by nearly a century, but the underlying idea — trade a scan for a classification/hashing step — is identical.',
+      ],
+    },
+    why: 'Tying an O(1) lookup to a physical "walk straight to the shelf" scene gives you a felt sense of why hashing beats scanning, which is easy to lose once the idea is compressed into asymptotic notation under interview pressure.',
+  },
+  tricks: [
+    {
+      name: 'Two Sum: check the complement before inserting',
+      idea: 'It\'s tempting to insert the current element into the map first "to keep bookkeeping simple," but that silently breaks the one case where target is exactly double a value — the element ends up pairing with itself.',
+      before:
+`def two_sum(nums, target):
+    seen = {}
+    for i, num in enumerate(nums):
+        seen[num] = i  # BUG: inserted before checking for the complement
+        complement = target - num
+        if complement in seen:
+            return [seen[complement], i]  # can return [i, i] when target == 2 * num
+    return []`,
+      after:
+`def two_sum(nums, target):
+    seen = {}  # value -> index
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in seen:
+            return [seen[complement], i]
+        seen[num] = i
+    return []`,
+      explain: 'Checking membership before inserting guarantees that any match found refers to a strictly earlier index. If you insert first and target == 2 * num, the complement (which equals num) is already present under the current index, so the function returns the same index twice — a pair that isn\'t actually two elements.',
+    },
+    {
+      name: 'Subarray Sum Equals K: seed the frequency map with {0: 1}',
+      idea: 'The prefix-sum + frequency-map technique undercounts every subarray that starts at index 0 unless the empty prefix is pre-registered before the scan begins.',
+      before:
+`def subarray_sum(nums, k):
+    freq = {}  # BUG: missing the empty-prefix seed
+    prefix = 0
+    count = 0
+    for num in nums:
+        prefix += num
+        count += freq.get(prefix - k, 0)
+        freq[prefix] = freq.get(prefix, 0) + 1
+    return count`,
+      after:
+`def subarray_sum(nums, k):
+    freq = {0: 1}  # the empty prefix (sum 0) has occurred once, before any element
+    prefix = 0
+    count = 0
+    for num in nums:
+        prefix += num
+        count += freq.get(prefix - k, 0)
+        freq[prefix] = freq.get(prefix, 0) + 1
+    return count`,
+      explain: 'A subarray nums[0..i] sums to k exactly when prefix[i] == k, i.e. when (prefix[i] - k) == 0. Without seeding freq = {0: 1}, the lookup freq.get(prefix - k, 0) can never find a match for that case, so every valid subarray beginning at index 0 is silently missed.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

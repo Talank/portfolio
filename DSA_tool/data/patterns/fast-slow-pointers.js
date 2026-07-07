@@ -9,6 +9,7 @@ window.PATTERNS['fast-slow-pointers'] = {
     'Floyd\'s tortoise and hare: <code>slow</code> advances one node per step, <code>fast</code> advances two. If the structure has no cycle, <code>fast</code> simply reaches the end first. If it does have a cycle, <code>fast</code> enters the loop, laps <code>slow</code>, and the two <b>must</b> collide — you can prove this by noting that once both pointers are inside the cycle, the gap between them shrinks by exactly one node every step, so it hits zero within at most (cycle length) steps.',
     'This is the O(1)-space alternative to the obvious approach of dropping every visited node into a hash set and checking membership (which is O(n) space) — fast/slow is almost always asked specifically because the interviewer wants to see whether you know the constant-space trick, not just "a" cycle-detection algorithm.',
     'A second, distinct use of the same skeleton: with no cycle at all, running fast at 2x speed against slow at 1x means that when <code>fast</code> reaches the end, <code>slow</code> is exactly at the midpoint — this is how you find the middle of a linked list in one pass without first counting its length.',
+    'The collision proof is worth stating precisely, not just gesturing at. Once both pointers are inside a cycle of length c, define the gap g = (fast\'s position − slow\'s position) mod c. Every step, slow advances 1 and fast advances 2, so g decreases by exactly 1 (mod c) each iteration — it can never jump by 2 or more, and it can never increase. A quantity that changes by exactly −1 each step, starting somewhere in the finite set {0, 1, …, c−1}, is mathematically guaranteed to hit 0 within at most c steps; it cannot "skip over" zero the way it could if the gap changed by an unpredictable amount. That\'s the whole proof — collision isn\'t a probabilistic likelihood, it\'s forced.',
   ],
   recognitionSignals: [
     'Problem involves a linked list (or an array used as an implicit linked structure via index-as-pointer) and asks to detect a cycle, find where a cycle begins, or find a middle/midpoint node.',
@@ -21,6 +22,72 @@ window.PATTERNS['fast-slow-pointers'] = {
     name: 'Linked List Cycle (LeetCode 141)',
     statement: 'Given the head of a linked list, determine if the linked list has a cycle in it. There is a cycle if some node can be reached again by continuously following the next pointer. Return true if there is a cycle, false otherwise. Solve it using O(1) extra memory.',
   },
+  story: {
+    onePiece: {
+      title: 'Chopper and Gear Second Luffy in the forest maze',
+      text: [
+        'Chopper and Luffy enter a dense forest maze on an island, hunting for whoever left a trail through it. Chopper trots along at his normal pace — small hooves, one step at a time. Luffy, showing off, kicks into Gear Second and moves through the maze at exactly double Chopper\'s pace, same path, same turns, just faster.',
+        'If the path is a straight corridor with a dead end, Gear Second Luffy simply reaches the end first, turns around, and reports back — they never cross paths again inside the maze, because there was nothing to loop back into.',
+        'But if the path secretly loops back on itself — a cycle hidden in the maze layout — then double-speed Luffy, running the same loop, is guaranteed to eventually come up right behind slow Chopper and run into him from the back, lapping him. That collision happening at all is the proof the path loops; it could not happen on a straight dead-end path. Map this directly onto Floyd\'s algorithm: a meeting point between the two pointers exists if and only if a cycle exists.',
+      ],
+    },
+    history: {
+      title: 'Magellan\'s expedition and the Victoria\'s return, 1519–1522',
+      text: [
+        'Ferdinand Magellan\'s fleet set out from Spain in 1519 sailing steadily forward, never doubling back, aiming to find a westward route to the Spice Islands. Magellan himself died partway through, but one ship, the Victoria, kept going forward and eventually sailed back into Sanlúcar de Barrameda in 1522 — having never reversed course even once.',
+        'The forward-only return to the starting port was itself the proof that the route the fleet had traced was a single closed loop around the entire globe — you don\'t need to backtrack to discover a cycle, you only need to keep moving and see if you arrive back where you began. To be honest about the mapping: this anchors the *conclusion* well — a return to a known start point proves a loop — but it doesn\'t capture the two-speed mechanism that makes fast/slow pointers work in O(1) space with no memory of the start; a single ship retracing its own path is closer to "drop a marker at the start and watch for it again" than to Floyd\'s tortoise-and-hare race. Treat it as an anchor for *why closing a loop is provable by forward motion alone*, not as a model of the algorithm\'s mechanics.',
+      ],
+    },
+    why: 'The two-speed collision proof is a piece of modular arithmetic that\'s easy to lose under interview stress. Chopper getting run into by Gear-Second Luffy gives a visceral image of *why* two different speeds guarantee a meeting, while Magellan\'s ship gives a separate, historically real anchor for the *idea* that returning to a start point is itself proof of a loop — two distinct retrieval cues for two distinct parts of the argument.',
+  },
+  tricks: [
+    {
+      name: 'Check both fast and fast.next before double-advancing',
+      idea: 'Advancing fast two nodes at once means dereferencing fast.next.next. If either fast or fast.next is None, that dereference crashes with an AttributeError instead of correctly concluding "no cycle."',
+      before:
+`def has_cycle(head: "ListNode | None") -> bool:
+    slow = fast = head
+    while fast:                 # BUG: only checks fast, not fast.next
+        slow = slow.next
+        fast = fast.next.next   # crashes here if fast.next is None
+        if slow is fast:
+            return True
+    return False`,
+      after:
+`def has_cycle(head: "ListNode | None") -> bool:
+    slow = fast = head
+    while fast and fast.next:   # both must be non-None before dereferencing .next.next
+        slow = slow.next
+        fast = fast.next.next
+        if slow is fast:
+            return True
+    return False`,
+      explain: 'On any non-cyclic list with an even number of nodes, fast lands exactly on the last node with fast.next is None. The buggy loop condition lets the body execute one more time, and fast.next.next raises AttributeError on a None. Checking fast.next in the loop guard catches this before the unsafe dereference.',
+    },
+    {
+      name: 'Compare node identity, not node value',
+      idea: 'Cycle detection is about whether the *same node* is revisited, not whether two nodes happen to hold equal values. Comparing .val instead of the nodes themselves gives false positives whenever the list contains duplicate values but no actual cycle.',
+      before:
+`def has_cycle(head: "ListNode | None") -> bool:
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow.val == fast.val:   # BUG: value equality, not node identity
+            return True
+    return False`,
+      after:
+`def has_cycle(head: "ListNode | None") -> bool:
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow is fast:   # identity comparison: are these literally the same node object?
+            return True
+    return False`,
+      explain: 'A list like 1 -> 2 -> 1 -> 3 -> None (no cycle, just a repeated value 1) will trip the buggy version into reporting a cycle the first time slow and fast land on differently-positioned nodes that both happen to hold value 1. is checks that slow and fast reference the exact same node in memory, which is the only thing a genuine cycle guarantees.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

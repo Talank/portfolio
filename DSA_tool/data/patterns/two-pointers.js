@@ -9,6 +9,8 @@ window.PATTERNS['two-pointers'] = {
     'On a sorted array, two pointers <code>L</code> (starting at index 0) and <code>R</code> (starting at the last index) converge toward each other. At each step you compare <code>nums[L] + nums[R]</code> against a target: if the sum is too small, only increasing <code>L</code> can help (every value to the right of <code>L</code> is ≥ <code>nums[L]</code>); if it\'s too large, only decreasing <code>R</code> can help. This is a convergent scan — contrast with sliding window, where both pointers move in the <i>same</i> direction over a contiguous run.',
     'The correctness argument rests entirely on sortedness: moving <code>L</code> right can only increase the sum, moving <code>R</code> left can only decrease it, so you never have to backtrack or re-check a pair you\'ve already ruled out. That monotonic guarantee is what collapses the O(n²) all-pairs search into O(n).',
     'The same convergent-pointer skeleton generalizes past "sum equals target": greedily choosing which pointer to move based on a local comparison (not a target) solves problems like Container With Most Water, and fixing one index while running two pointers on the remainder is how 3Sum reduces to repeated 2Sum.',
+    'Look closer at *why* the greedy move is safe and you find the same argument every time: at each step you\'re standing on a claim of the form "every pair that keeps this pointer where it is has already been checked, or provably can\'t be better." For Two Sum, once <code>nums[L] + nums[R] < target</code>, every pair <code>(L, R\')</code> with <code>R\' < R</code> is even smaller (array is sorted), so <code>R</code> is exhausted as a partner for <code>L</code> — the only remaining hope is a bigger <code>L</code>. That\'s not a heuristic, it\'s a proof, and it\'s what lets you discard an entire triangle of the O(n²) grid of pairs in one comparison instead of checking each cell.',
+    'It helps to picture the search space as an n×n grid where cell (i, j) is the pair (nums[i], nums[j]) and you only ever care about the upper triangle i<j. A brute-force scan visits every cell. Two pointers instead walks the *anti-diagonal frontier* of that triangle: starting at the corner (0, n-1), each comparison eliminates an entire row or column at once — either "every remaining pair with this R is too big" or "every remaining pair with this L is too small." That\'s the geometric reason it\'s O(n) instead of O(n²): you\'re not skipping checks cleverly, you\'re proving whole regions of the grid can\'t contain the answer before you ever look at them.',
   ],
   recognitionSignals: [
     'Array is sorted (or you\'re free to sort it) and the task is to find a pair or triplet whose sum/relationship matches a target.',
@@ -22,6 +24,87 @@ window.PATTERNS['two-pointers'] = {
     name: 'Two Sum II — Input Array Is Sorted (LeetCode 167)',
     statement: 'Given a 1-indexed array of integers sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Return the indices of the two numbers, 1-indexed, as an array of length two. You may assume exactly one solution exists, and you may not use the same element twice.',
   },
+  story: {
+    onePiece: {
+      title: 'Chopper\'s two-hand dosage check',
+      text: [
+        'Someone on the crew has been poisoned, and Chopper has exactly one shot at the antidote. His medicine shelf is lined up sorted from weakest berry to strongest — that ordering isn\'t an accident, it\'s how he always stores them, and it\'s the one fact that makes what happens next possible. Sanji is dying, there\'s no time to test every possible pair of berries, and there are hundreds of them.',
+        'Chopper puts his own hoof on the weakest berry, left end of the shelf. He shouts for Usopp to slam a hand down on the strongest berry, right end of the shelf. They call out the combined potency. Too weak — and Chopper knows, instantly, without checking anything else, that the strongest berry is already doing all it can, so pairing it with anything weaker than his current one is hopeless; he slides one berry to the right. Too strong — Usopp backs off one berry toward the middle, because the weakest berry is already contributing the least it possibly can. They keep sliding toward each other, never back the way they came, until the shout comes back "that\'s it, exact dose" — or their hands cross, and they know no pair on the whole shelf works.',
+        'They never once checked a pair from the middle out of order, and they never re-checked a berry they\'d already ruled out. That discipline — always move the side that provably can\'t be right, never wander back — is the entire algorithm.',
+      ],
+    },
+    history: {
+      title: 'The Golden Spike, Promontory Summit, 1869',
+      text: [
+        'In 1863 two construction crews started laying the First Transcontinental Railroad from opposite ends of the continent: the Central Pacific pushed east from Sacramento, the Union Pacific pushed west from Omaha. Nobody sat in the middle waiting for both crews to arrive by coincidence — the whole point of building from both ends at once was that the two fronts would provably converge, closing the gap from both directions at once instead of one crew crossing the entire country alone.',
+        'On May 10, 1869, the two lines met at Promontory Summit, Utah, and a ceremonial golden spike joined them. The engineering feat wasn\'t "search the whole country for where the tracks should meet" — it was: keep advancing whichever front is behind, and the meeting point finds itself.',
+      ],
+    },
+    why: 'Two pointers is an abstract argument about monotonicity — easy to state, easy to forget the reason for under pressure. Wiring it to Chopper\'s panic (why you move a *specific* side, not either side) and to two rail crews (why starting from both ends beats a single linear scan) gives you two different, vivid retrieval paths back to the same proof. If you blank on "which pointer moves," picture Usopp\'s hand recoiling from a too-strong berry before you try to re-derive it algebraically.',
+  },
+  tricks: [
+    {
+      name: 'Preserve original indices before sorting',
+      idea: 'Two pointers requires sortedness, but sorting a plain array throws away the original positions — and many variants of this problem (unlike LeetCode 167, which is already sorted) ask for the original indices in the answer.',
+      before:
+`def two_sum_indices(nums, target):
+    nums.sort()  # original indices are gone — nums[i] no longer means "index i"
+    left, right = 0, len(nums) - 1
+    while left < right:
+        s = nums[left] + nums[right]
+        if s == target:
+            return [left, right]  # WRONG: these are post-sort positions
+        left += 1 if s < target else 0
+        right -= 1 if s >= target else 0`,
+      after:
+`def two_sum_indices(nums, target):
+    # carry (value, original_index) pairs through the sort instead of raw values
+    indexed = sorted(enumerate(nums), key=lambda pair: pair[1])
+    left, right = 0, len(indexed) - 1
+    while left < right:
+        s = indexed[left][1] + indexed[right][1]
+        if s == target:
+            return sorted([indexed[left][0], indexed[right][0]])
+        if s < target:
+            left += 1
+        else:
+            right -= 1
+    return []`,
+      explain: 'enumerate(nums) tags every value with its original index before sorting, so the ordering used for the pointer sweep and the identity used for the answer travel together. This is the single most common way this pattern breaks in practice — the algorithm is correct, but the returned indices refer to the wrong array.',
+    },
+    {
+      name: 'Container With Most Water: move the shorter wall, not "try both"',
+      idea: 'There\'s no target sum here, so it\'s tempting to fall back on checking every combination "to be safe." The greedy rule is a proof, not a guess, and skipping it silently produces a suboptimal answer on inputs just large enough that eyeballing the test case doesn\'t catch it.',
+      before:
+`def max_area(height):
+    best = 0
+    left, right = 0, len(height) - 1
+    while left < right:
+        area = min(height[left], height[right]) * (right - left)
+        best = max(best, area)
+        # "just try moving the taller one sometimes" — breaks the proof, can miss the optimum
+        if height[left] > height[right]:
+            right -= 1
+        else:
+            left += 1
+    return best`,
+      after:
+`def max_area(height):
+    best = 0
+    left, right = 0, len(height) - 1
+    while left < right:
+        h = min(height[left], height[right])
+        best = max(best, h * (right - left))
+        # always advance the SHORTER wall — it's the only pointer whose movement
+        # could possibly reveal a taller wall and thus a larger area
+        if height[left] < height[right]:
+            left += 1
+        else:
+            right -= 1
+    return best`,
+      explain: 'Area is capped by the shorter wall. Moving the taller wall inward can only shrink the width while the cap stays the same or gets worse — it can never help. Moving the shorter wall is the only move that has a chance of finding a taller wall and a bigger area, so it\'s not "a" greedy choice, it\'s the *only* defensible one.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

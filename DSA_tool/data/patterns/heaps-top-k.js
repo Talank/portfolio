@@ -9,6 +9,7 @@ window.PATTERNS['heaps-top-k'] = {
     'A heap is a binary tree stored implicitly in an array where every parent satisfies the heap property relative to its children (min-heap: parent ≤ children). Python\'s <code>heapq</code> module only implements a <b>min-heap</b> — there is no built-in max-heap, so "kth largest" problems require inverting the comparison (negate values, or use the min-heap-of-size-k trick below) rather than reaching for a max-heap that doesn\'t exist.',
     'The <b>top-k</b> application: to track the k largest elements seen so far in a stream, counterintuitively maintain a <b>min-heap</b> of size k. Push every new element, and if the heap grows past size k, pop the smallest — whatever survives is always the current top-k, and the heap\'s root (the minimum of the survivors) is exactly the kth largest overall. This gives O(n log k), which beats a full O(n log n) sort whenever k is much smaller than n.',
     'The <b>k-way merge</b> application is a different use of the same data structure: given k sorted sources, keep one "frontier" candidate per source in a heap of size k, repeatedly pop the global minimum (O(log k)) and push that source\'s next element. This turns an O(k) linear scan-for-minimum at each step into O(log k), and is the mechanism behind merging k sorted lists and behind external/streaming merge sort.',
+    'The size-k min-heap\'s correctness for top-k rests on a loop invariant provable by induction on the number of elements processed: after processing the first i elements, the heap contains exactly the k largest values among those i elements (or all of them, if i < k). The inductive step: when element i+1 arrives, it\'s pushed in, temporarily giving the heap the k+1 largest-so-far candidates plus the new one — but the subsequent pop removes the minimum of that size-(k+1) set, and that minimum is provably not among the true top-k of the first i+1 elements, since at least k other surviving values are all ≥ it. Because the invariant holds after processing all n elements, <code>heap[0]</code> — the minimum of the surviving k — is exactly the kth largest overall, not an approximation of it.',
   ],
   recognitionSignals: [
     '"Kth largest/smallest", "top k frequent", "k closest points to origin" — direct top-k phrasing.',
@@ -21,6 +22,100 @@ window.PATTERNS['heaps-top-k'] = {
     name: 'Kth Largest Element in an Array (LeetCode 215)',
     statement: 'Given an integer array nums and an integer k, return the kth largest element in the array — note this is the kth largest in sorted order, not the kth distinct largest.',
   },
+  story: {
+    onePiece: {
+      title: 'Cipher Pol\'s running top-10 bounty board, and the Den Den Mushi merge',
+      text: [
+        'Cipher Pol maintains a standing "10 Most Wanted" leaderboard, and bounty reports don\'t arrive all at once sorted by size — they trickle in one at a time from across the world. When a new report lands, an agent doesn\'t re-rank all ten entries from scratch; they only need to check it against the single weakest bounty currently on the board. If the new report beats that weakest entry, it displaces it and the weakest survivor becomes whichever one is now smallest among the ten. If it doesn\'t beat the weakest entry, it\'s ignored entirely — no other comparison is needed. That weakest-entry-on-the-board is exactly the root of a min-heap of size 10, and "compare only against the root" is exactly why maintaining a running top-k is so much cheaper than re-sorting the whole list on every update.',
+        'A related but different job: reconstructing one master timeline out of K separate Den Den Mushi call logs, each already sorted by time internally but scattered across K different snails. You can\'t just concatenate them — you need the true chronological order across all K logs combined. So you look at only the earliest next-unread call from each of the K logs simultaneously, take the globally earliest one, record it, and replace it with the next call from that same log. Repeat until every log is drained. That "cheapest next candidate from each of K sources" is a heap of size K, and it\'s a genuinely different use of the same structure from the top-10 leaderboard — one evicts to stay capped at size k, the other keeps exactly one live candidate per source at all times.',
+      ],
+    },
+    history: {
+      title: 'The FBI\'s Ten Most Wanted Fugitives list (1950–present)',
+      text: [
+        'Since 1950, the FBI has maintained a literal, continuously updated "Ten Most Wanted Fugitives" list. New candidates are proposed over time, and the list has always held a fixed size of ten — when a new nomination is serious enough to make the cut, it displaces whichever fugitive on the current list is judged the least significant threat among the ten, not the entire list rebuilt from scratch. This is a real, maintained, size-bounded ranking updated incrementally as new information arrives, evaluated only against the weakest current entry — precisely the operational shape of a size-k min-heap.',
+      ],
+    },
+    why: 'Top-k and k-way merge are easy to blur together because they share a data structure, so it helps to anchor them to two visibly different scenes — a single fixed-size leaderboard evicting its weakest member vs. K parallel logs each contributing one live candidate — rather than one blurry "heap problem" memory that collapses the distinction when you need it most.',
+  },
+  tricks: [
+    {
+      name: 'Always evict — an unconditionally growing heap silently loses the whole point',
+      idea: 'Skipping the size-k eviction step doesn\'t make the algorithm wrong in the sense of returning a bad answer — you can still recover a correct result some other way — but it silently abandons the O(log k) per-operation and O(k) space bounds that justified reaching for a heap over a full sort in the first place.',
+      before:
+`import heapq
+
+def find_kth_largest(nums, k):
+    heap = []
+    for num in nums:
+        heapq.heappush(heap, num)  # BUG: no eviction — heap grows to O(n)
+    # "works" by falling back to a full sort over the now-size-n heap,
+    # but this has thrown away the entire reason to use a heap
+    return heapq.nlargest(k, heap)[-1]`,
+      after:
+`import heapq
+
+def find_kth_largest(nums, k):
+    heap = []
+    for num in nums:
+        heapq.heappush(heap, num)
+        if len(heap) > k:
+            heapq.heappop(heap)  # keeps the heap bounded at size k
+    return heap[0]`,
+      explain: 'The buggy version still terminates and can still be coaxed into a correct answer, which is exactly what makes it a dangerous mistake to internalize — it "passes" small test cases while quietly paying O(n) space and O(n log n) time, the same cost as just sorting the array outright. The eviction line is not a nicety; it is the entire reason a heap beats a sort here.',
+    },
+    {
+      name: 'K-way merge: always push the popped source\'s next node back',
+      idea: 'In Merge K Sorted Lists, forgetting to re-push the next node from the list you just popped from doesn\'t crash or raise an error — it silently truncates that list to a single contributed node, producing a shorter-than-correct merged result that\'s easy to miss without checking total length.',
+      before:
+`import heapq
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def merge_k_lists(lists):
+    heap = []
+    for i, node in enumerate(lists):
+        if node:
+            heapq.heappush(heap, (node.val, i, node))
+
+    dummy = ListNode()
+    tail = dummy
+    while heap:
+        val, i, node = heapq.heappop(heap)
+        tail.next = node
+        tail = tail.next
+        # BUG: never pushes node.next back onto the heap —
+        # list i silently contributes only this one node and vanishes
+    return dummy.next`,
+      after:
+`import heapq
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def merge_k_lists(lists):
+    heap = []
+    for i, node in enumerate(lists):
+        if node:
+            heapq.heappush(heap, (node.val, i, node))
+
+    dummy = ListNode()
+    tail = dummy
+    while heap:
+        val, i, node = heapq.heappop(heap)
+        tail.next = node
+        tail = tail.next
+        if node.next:
+            heapq.heappush(heap, (node.next.val, i, node.next))
+    return dummy.next`,
+      explain: 'The heap is supposed to always hold one "frontier" candidate per still-active source. Popping a node without pushing its successor back permanently removes that source from consideration after contributing exactly one value, so the merge silently drops the remainder of that list instead of erroring — the <code>i</code> tiebreaker in the tuple exists precisely so this push-back can happen even when values collide, since ListNode objects aren\'t directly comparable.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

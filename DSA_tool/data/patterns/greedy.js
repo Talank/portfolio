@@ -9,6 +9,7 @@ window.PATTERNS['greedy'] = {
     'A greedy algorithm commits to one choice per step based only on the current state, with no backtracking and no exploring alternatives. This is fast (usually a single O(n) or O(n log n) pass) but only correct when the problem has the <b>greedy-choice property</b>: some locally optimal choice is guaranteed to be part of some globally optimal solution. Many problems that "look greedy" — most famously 0/1 knapsack — do not have this property, and a greedy heuristic there simply produces a wrong answer with no warning.',
     'The standard way to justify greedy correctness in an interview is an <b>exchange argument</b>: take any hypothetical optimal solution, find the first point where it diverges from what greedy would choose, and show you can swap that choice for the greedy one without making the solution any worse (often making it strictly better or leaving it unchanged). Applying this inductively along the whole solution shows greedy is at least as good as any optimum, hence itself optimal. If you cannot construct such an argument — or worse, you can construct a concrete counterexample where a different local choice does strictly better — that\'s the signal to fall back to DP, which explores all choices instead of committing to one.',
     'For Jump Game specifically: tracking "farthest index reachable so far" and updating it with <code>max(farthest, i + nums[i])</code> at every position is safe because farthest is monotonically non-decreasing and dominates any specific path that achieves it — you never need to know <i>which</i> sequence of jumps got you there, only how far you can now go, so there is nothing to undo or reconsider. That monotonic-dominance property is exactly the greedy-choice property for this problem, and is worth stating explicitly if asked to justify the approach.',
+    'The correctness of the Jump Game\'s greedy rule can be proven directly by induction on i, without any hand-wavy "clearly the farthest reach is the best we can do": the invariant is "farthest, after processing index i, equals the true maximum index reachable using only jumps that start at indices ≤ i." The base case (i=0) holds by definition. For the inductive step, assume the invariant holds after processing i-1; index i is only usable at all if i ≤ farthest (otherwise no reachable index chains into it), and if it is usable, the best it can contribute is i + nums[i], so farthest = max(farthest, i + nums[i]) is exactly the true reachable maximum after also considering index i — never an overestimate, because you only ever extend reachability from indices already proven reachable, and never an underestimate, because every usable index\'s contribution is folded in via max(). The greedy-choice property here isn\'t assumed, it falls directly out of this invariant.',
   ],
   recognitionSignals: [
     '"At each step, choose the ... that ..." phrasing, or a problem solvable by sorting once and then making a single forward pass (interval scheduling, activity selection).',
@@ -21,6 +22,74 @@ window.PATTERNS['greedy'] = {
     name: 'Jump Game (LeetCode 55)',
     statement: 'Given an array of non-negative integers nums, you start at index 0. Each element nums[i] represents the maximum jump length from that position. Determine whether you can reach the last index of the array.',
   },
+  story: {
+    onePiece: {
+      title: 'Buggy\'s circus, and the greedy act that finishes soonest wins the slot',
+      text: [
+        'Buggy\'s traveling circus has more acts wanting a slot than the day has room for, and every act insists its performance is the one that deserves the stage — Buggy doesn\'t referee that argument. To fit the maximum number of acts into one day, he only ever asks one question of whatever\'s left: which act, among the ones that don\'t conflict with what\'s already locked in, finishes soonest? He commits to that one and moves on, never reconsidering, never trying to sneak in the "best" act first.',
+        'It feels reckless — surely the flashiest act deserves priority — but that instinct is provably wrong. An act chosen only for being exciting might run long and block two shorter acts that could both have fit in the same window. Picking whichever act frees up the stage earliest, every single time, is what actually maximizes how many acts get performed — exactly the activity-selection greedy rule, and exactly why "finishes soonest" beats "looks best" as a scheduling criterion.',
+      ],
+    },
+    history: {
+      title: 'David Huffman, 1952',
+      text: [
+        'This is real computer science history: in 1952, David Huffman (then a student) devised an algorithm for optimal prefix-free binary codes by always merging the two lowest-frequency nodes into a single new node and repeating the process until one tree remains. It\'s a purely greedy, local rule — smallest two, every time, no lookahead — and it\'s provably globally optimal, verified by an exchange argument almost identical in structure to the one used for interval scheduling: swapping any other pairing for the smallest-two choice at the first point of difference never produces a shorter encoding.',
+      ],
+    },
+    why: 'Buggy\'s stage-slot problem gives interval scheduling a concrete, visualizable reason "finishing soonest" wins, while Huffman\'s real 1952 algorithm shows the same greedy-plus-exchange-argument structure earning a provable global optimum in an entirely different domain — two data points that make clear the underlying proof technique isn\'t specific to one problem.',
+  },
+  tricks: [
+    {
+      name: 'Jump Game: `>=`, not `>`, when checking if the last index is reached',
+      idea: 'Requiring the farthest reach to overshoot the last index instead of merely reach it rejects the single most common way to succeed: landing exactly on it.',
+      before:
+`def can_jump(nums):
+    farthest = 0
+    for i, step in enumerate(nums):
+        if i > farthest:
+            return False
+        farthest = max(farthest, i + step)
+        if farthest > len(nums) - 1:   # BUG: rejects landing exactly on the last index
+            return True
+    return True`,
+      after:
+`def can_jump(nums):
+    farthest = 0
+    for i, step in enumerate(nums):
+        if i > farthest:
+            return False
+        farthest = max(farthest, i + step)
+        if farthest >= len(nums) - 1:   # landing exactly on the last index is success
+            return True
+    return True`,
+      explain: '`farthest > len(nums) - 1` demands overshooting the last index, so a farthest reach that lands exactly on it gets missed and the loop keeps scanning past a case that was already solved. The fix is a one-character change, but it\'s the kind of boundary bug that passes every test case with slack past the target and fails only on the tight ones.',
+    },
+    {
+      name: 'Check `i > farthest` before updating farthest, not after',
+      idea: 'Updating farthest with nums[i] before confirming i itself is reachable lets an unreachable index illegitimately extend reachability, producing a false positive instead of correctly returning False.',
+      before:
+`def can_jump(nums):
+    farthest = 0
+    for i, step in enumerate(nums):
+        farthest = max(farthest, i + step)   # BUG: extends reachability using an index not yet proven reachable
+        if i > farthest:
+            return False
+        if farthest >= len(nums) - 1:
+            return True
+    return True`,
+      after:
+`def can_jump(nums):
+    farthest = 0
+    for i, step in enumerate(nums):
+        if i > farthest:          # check reachability of i BEFORE trusting nums[i]
+            return False
+        farthest = max(farthest, i + step)
+        if farthest >= len(nums) - 1:
+            return True
+    return True`,
+      explain: 'If index i is actually unreachable (i > farthest) but you update farthest using nums[i] anyway, you\'re pretending the algorithm stood at an index it never legitimately reached — silently fabricating reachability instead of correctly returning False. The check must gate the update, not follow it; swapping the two lines produces false positives on inputs with an early zero that should have ended the scan.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

@@ -9,6 +9,7 @@ window.PATTERNS['backtracking'] = {
     'Backtracking is DFS over an implicit tree of choices, where the defining move is the <b>undo</b>: after recursing into a choice, you revert the shared state (typically <code>path.append(x)</code> before the recursive call, <code>path.pop()</code> after it returns) before trying the next sibling choice at that level. Without the undo, sibling branches would see stale state from a previous branch — this is what separates backtracking from plain unconditional recursion.',
     'State should be mutated in place and restored, not rebuilt via fresh copies at every recursive call — that keeps each step O(1) instead of O(n). The one place you *do* need a copy is when recording a result: <code>res.append(path[:])</code>, never <code>res.append(path)</code>, because <code>path</code> is a single mutable object that every future backtrack step will keep changing.',
     '<b>Pruning</b> — cutting a branch early once it provably can\'t lead to a valid answer (remaining candidates fewer than still-needed count, running sum already exceeds target, etc.) — is what makes backtracking practical. It doesn\'t change the worst-case asymptotic ceiling (still O(2ⁿ) for subsets, O(n!) for permutations), but it\'s frequently the difference between a solution that finishes and one that times out on real inputs.',
+    'Correctness follows from a loop invariant maintained at every level of the recursion: immediately before each iteration of the for-loop inside <code>backtrack(start)</code>, <code>path</code> equals exactly the sequence of choices made along the current root-to-here path in the decision tree — no more, no less. The invariant is established by the append immediately before recursing and restored by the pop immediately after the recursive call returns, so control returning to any ancestor call always finds shared state bit-for-bit identical to what it was before that subtree was explored — precisely what guarantees sibling branches never observe leaked state from an already-finished branch. Termination is guaranteed because each recursive call strictly shrinks the remaining candidate range (<code>start</code> increases monotonically, or the remaining-choices set shrinks by one), bottoming out at a finite depth of at most n, so both exhaustiveness (every node of the decision tree is visited exactly once) and termination follow by induction on the size of the remaining search space.',
   ],
   recognitionSignals: [
     '"Generate all subsets/permutations/combinations", "find all ways to...", "return all valid arrangements" — phrasing asking for every valid configuration, not just one optimal value.',
@@ -21,6 +22,92 @@ window.PATTERNS['backtracking'] = {
     name: 'Subsets (LeetCode 78)',
     statement: 'Given an integer array nums of unique elements, return all possible subsets (the power set), with no duplicate subsets, in any order.',
   },
+  story: {
+    onePiece: {
+      title: 'Nami\'s treasure map with the branching false trails',
+      text: [
+        'Nami is tracing a treasure map riddled with forks — half the marked trails are real, half are decoys planted to waste a rival crew\'s time, and the only way to know which is which is to actually walk one. So she commits: marks her current position on the map as she advances down a trail, and keeps going, deeper and deeper, as long as the path continues. When a trail dead-ends against a cliff or loops back on itself, she doesn\'t start over from the ship — she erases her mark back to the last fork she remembers, and tries the next unexplored branch from exactly that point.',
+        'The discipline that makes this work is symmetric: every mark she makes on the way down gets erased on the way back, in the same order, so when she\'s back at a fork deciding on the next branch, the map looks exactly like it did the first time she stood there — no leftover pencil marks from the dead trail confusing which branches are already tried. Mark on the way down, erase on the way back, try the next branch with a clean map. That\'s the whole algorithm.',
+      ],
+    },
+    history: {
+      title: 'Theseus and the Labyrinth — Ariadne\'s thread',
+      text: [
+        'This is the flagship anecdote for backtracking precisely because it isn\'t a loose analogy — it\'s mechanically exact, and it\'s already the standard name used to teach this technique. Before Theseus enters the Labyrinth to face the Minotaur, Ariadne gives him a spool of thread. As he advances down each corridor, he unspools thread behind him — marking the path he\'s taken, exactly like pushing a frame onto a call stack. When a corridor dead-ends, he doesn\'t wander forward blindly; he follows the thread back, retracting it as he retreats, until he reaches the last junction where an untried corridor remains — exactly like popping the stack and undoing state back to the last choice point.',
+        'Every element of the algorithm has a physical counterpart in the myth: advancing into a new corridor is the recursive call; unspooling thread is the "mark this choice" step (<code>path.append(x)</code>); hitting the Minotaur or a dead end is a base case or failed branch; retracting the thread while retreating is the undo (<code>path.pop()</code>); and reaching a junction with a still-untried corridor is resuming the for-loop at the next candidate. Nothing about the mapping needs softening — it is the choose/explore/unchoose template, told three thousand years early.',
+      ],
+    },
+    why: 'Backtracking\'s defining discipline is the symmetric undo, which is easy to skip under interview pressure because the code still runs without it — it just silently corrupts later results. Anchoring "mark on the way down, erase on the way back" to Nami\'s map and, more precisely, to Ariadne\'s thread being paid out and reeled back in exact reverse order, gives you a physical reason the pop has to happen, not just a syntax rule to remember.',
+  },
+  tricks: [
+    {
+      name: 'Record a snapshot of path, not the live reference',
+      idea: 'path is a single mutable list that keeps changing after every recorded result, since later append/pop calls in the same recursion keep mutating it in place — appending the live object instead of a copy means every "recorded" subset silently changes too, as if they were all sharing one whiteboard instead of each getting their own photo.',
+      before:
+`def subsets(nums):
+    res = []
+    path = []
+
+    def backtrack(start):
+        res.append(path)  # BUG: appends the live list, not a snapshot
+        for i in range(start, len(nums)):
+            path.append(nums[i])
+            backtrack(i + 1)
+            path.pop()
+
+    backtrack(0)
+    return res`,
+      after:
+`def subsets(nums):
+    res = []
+    path = []
+
+    def backtrack(start):
+        res.append(path[:])  # copies path at this exact moment
+        for i in range(start, len(nums)):
+            path.append(nums[i])
+            backtrack(i + 1)
+            path.pop()
+
+    backtrack(0)
+    return res`,
+      explain: 'Every entry in res is supposed to be a frozen snapshot of what path looked like at one specific moment in the recursion. Since path keeps being mutated in place by every subsequent append/pop, storing the live reference means all of those "recorded" results are actually the same object — by the time backtrack(0) finally returns and path is back to [], every single entry in res has silently become [] too. path[:] copies the current contents into a brand-new list, which later mutations of path can no longer touch.',
+    },
+    {
+      name: 'Undo the choice after recursing — don\'t let path grow across sibling branches',
+      idea: 'Skipping path.pop() after the recursive call returns doesn\'t crash — it just leaves that branch\'s elements sitting in path when the loop moves on to try the next sibling, so every subset recorded afterward incorrectly includes leftover elements from a branch that\'s supposed to be fully undone.',
+      before:
+`def subsets(nums):
+    res = []
+    path = []
+
+    def backtrack(start):
+        res.append(path[:])
+        for i in range(start, len(nums)):
+            path.append(nums[i])
+            backtrack(i + 1)
+            # BUG: missing path.pop() — path keeps growing across sibling
+            # iterations instead of being restored before the next choice
+
+    backtrack(0)
+    return res`,
+      after:
+`def subsets(nums):
+    res = []
+    path = []
+
+    def backtrack(start):
+        res.append(path[:])
+        for i in range(start, len(nums)):
+            path.append(nums[i])
+            backtrack(i + 1)
+            path.pop()  # restore path to exactly what it was before this choice
+
+    backtrack(0)
+    return res`,
+      explain: 'Without the pop, once the loop advances from i to i+1 at some recursion level, path still contains nums[i] left over from the previous iteration, so the next branch is explored as if nums[i] and nums[i+1] were both chosen together — even though the algorithm is supposed to be trying nums[i+1] as an independent alternative to nums[i], not in addition to it. The pop is what makes sibling iterations of the same for-loop start from an identical, clean state every time.',
+    },
+  ],
   variants: [
     {
       company: 'Meta-style',

@@ -9,6 +9,7 @@ window.PATTERNS['merge-intervals'] = {
     'Sort the intervals by start value first — this is what turns an O(n²) all-pairs overlap check into a single O(n) linear sweep, because once sorted, an interval can only possibly overlap the <i>most recently merged</i> interval, never one further back.',
     'Maintain an output list. For each interval in sorted order, compare its start against the end of the last interval already in the output: if <code>start ≤ last.end</code>, they overlap (or touch) — extend <code>last.end</code> to <code>max(last.end, end)</code> (not just <code>end</code>, since a contained interval can have a smaller end than what\'s already merged). Otherwise, push the interval as a new, disjoint entry.',
     'This same "sort, then single sweep comparing against a running tail" skeleton is the basis for a whole family of interval problems — inserting into an already-sorted disjoint list, counting maximum overlap for room-scheduling, and intersecting two separate interval lists all reuse it with a different comparison or bookkeeping step.',
+    'The correctness proof is an induction on the output list, and it\'s worth stating explicitly: after processing the sorted intervals through some index i, assume every entry already in the output is pairwise disjoint (except possibly touching) and that each entry\'s end is the maximum end of everything merged into it so far. Because the input is sorted by start, the next interval\'s start is ≥ every previous interval\'s start; if it doesn\'t overlap the current tail, it also cannot overlap any earlier output entry, since every earlier entry\'s end is ≤ the tail\'s end (that\'s exactly what "maximum end so far" guarantees). That inductive step is what licenses comparing only against the single running tail instead of against the whole output list — it\'s a proof that the omitted comparisons could never have mattered, not just a convenient shortcut.',
   ],
   recognitionSignals: [
     'Problem gives a list of <code>[start, end]</code> pairs — meetings, ranges, time windows — and asks you to combine overlapping ones, count conflicts, or find gaps.',
@@ -21,6 +22,76 @@ window.PATTERNS['merge-intervals'] = {
     name: 'Merge Intervals (LeetCode 56)',
     statement: 'Given an array of intervals where intervals[i] = [start_i, end_i], merge all overlapping intervals and return an array of the non-overlapping intervals that cover all the intervals in the input.',
   },
+  story: {
+    onePiece: {
+      title: 'Marine HQ scheduling patrol shifts across the Grand Line',
+      text: [
+        'Marine HQ has a roster of vice-admirals, each assigned to patrol a stretch of the Grand Line during a specific window of time — Vice-Admiral A covers a stretch starting Monday and ending Thursday, Vice-Admiral B covers a stretch starting Wednesday and ending Saturday, and so on, dozens of overlapping assignments submitted in no particular order.',
+        'Command\'s first move is always the same: lay every shift out sorted by its start time. Once sorted, they walk down the list once, keeping a running "currently covered through" marker. If the next vice-admiral\'s patrol starts before that marker, their coverage folds into the current block and the marker extends to whichever end is later — Command never needs to glance back at earlier vice-admirals\' shifts to know they\'re already accounted for.',
+        'The moment a vice-admiral\'s patrol starts *after* the marker, that\'s a real gap in sea coverage — no ship watching that stretch of water — and a brand new coverage block begins. What falls out of this single pass is exactly what HQ needs: the total contiguous stretches of patrolled sea, and the gaps between them where a pirate crew could slip through unseen.',
+      ],
+    },
+    history: {
+      title: 'The General Time Convention, 1883',
+      text: [
+        'Before 1883, American railroads each kept their own local solar time — a train timetable in one city could be off by tens of minutes from a city just a few hundred miles east or west. With hundreds of independent local time "intervals" all slightly offset from each other, schedules routinely conflicted: two trains could each be running exactly on their own local schedule and still collide, because "the same time" meant different things in different places.',
+        'On November 18, 1883, the railroads\' General Time Convention collapsed that mess of overlapping, conflicting local times into a small handful of standardized time zones spanning the continent — a real, historical instance of taking a large set of overlapping intervals (each town\'s local time offset) and merging them down into the minimum number of non-overlapping, consistent ranges.',
+      ],
+    },
+    why: 'The merge-sweep is a short algorithm but an easy one to blank on mid-interview when asked to justify why a single running tail suffices. Marine HQ\'s patrol roster gives a concrete "why compare only against the most recent block" intuition, while the real 1883 time-zone consolidation anchors the *outcome* — overlapping ranges collapsing into a minimal covering set — in an event that actually happened, not just a textbook abstraction.',
+  },
+  tricks: [
+    {
+      name: 'Extend the merged end with max(), never overwrite it',
+      idea: 'A later interval in sorted-by-start order can be fully nested inside the interval already at the tail of the output, with a smaller end value. Overwriting the tail\'s end unconditionally throws away coverage that was already established.',
+      before:
+`def merge(intervals: list[list[int]]) -> list[list[int]]:
+    intervals.sort(key=lambda iv: iv[0])
+    merged = [intervals[0]]
+    for start, end in intervals[1:]:
+        if start <= merged[-1][1]:
+            merged[-1][1] = end   # BUG: overwrites instead of extending
+        else:
+            merged.append([start, end])
+    return merged`,
+      after:
+`def merge(intervals: list[list[int]]) -> list[list[int]]:
+    intervals.sort(key=lambda iv: iv[0])
+    merged = [intervals[0]]
+    for start, end in intervals[1:]:
+        if start <= merged[-1][1]:
+            merged[-1][1] = max(merged[-1][1], end)   # keep the larger end
+        else:
+            merged.append([start, end])
+    return merged`,
+      explain: 'Given [[1,10],[2,3]]: after sorting the order is unchanged. start=2 <= merged[-1][1]=10, so they merge — but the buggy version sets merged[-1][1] = 3, shrinking the output to [1,3] and silently losing the coverage from 3 to 10. max(10, 3) correctly keeps the tail at [1,10].',
+    },
+    {
+      name: 'Treat touching endpoints as overlapping',
+      idea: 'LeetCode 56 defines two intervals that merely touch at a shared endpoint (like [1,3] and [3,5]) as overlapping and requires them merged. Using a strict less-than comparison instead of <= misses exactly that boundary case.',
+      before:
+`def merge(intervals: list[list[int]]) -> list[list[int]]:
+    intervals.sort(key=lambda iv: iv[0])
+    merged = [intervals[0]]
+    for start, end in intervals[1:]:
+        if start < merged[-1][1]:   # BUG: strict <, misses touching intervals
+            merged[-1][1] = max(merged[-1][1], end)
+        else:
+            merged.append([start, end])
+    return merged`,
+      after:
+`def merge(intervals: list[list[int]]) -> list[list[int]]:
+    intervals.sort(key=lambda iv: iv[0])
+    merged = [intervals[0]]
+    for start, end in intervals[1:]:
+        if start <= merged[-1][1]:   # touching endpoints (start == tail end) also merge
+            merged[-1][1] = max(merged[-1][1], end)
+        else:
+            merged.append([start, end])
+    return merged`,
+      explain: 'Given [[1,3],[3,5]]: the shared endpoint 3 means these describe a single contiguous stretch, and LeetCode 56 expects [1,5] back. The buggy strict-< version treats start=3 < merged[-1][1]=3 as false, leaving them as two separate output intervals — technically correct-looking output that fails the problem\'s own definition of overlap.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

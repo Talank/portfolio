@@ -14,6 +14,40 @@
   <h1>Big-O Refresher + Pythonic Idioms</h1>
   <p class="lede">Every pattern after this page assumes you're fluent in the tools below. Skim fast if you already know them — the point is recognition speed, not novelty.</p>
 
+  <details class="story story-history">
+    <summary><span class="caret">▸</span> Why fluency (not just correctness) is the actual skill here <span class="badge">Story</span></summary>
+    <div class="story-body">
+      <p>At Bletchley Park during WWII, codebreakers didn't re-derive cryptographic theory for every incoming message — they drilled known shortcuts (cribs, common German phrasing, machine wiring quirks) until recognizing them was reflexive, because the volume of intercepted traffic made "figure it out from first principles each time" operationally useless. Turing's team won on throughput, not on any single message being solved more cleverly than a slower team could have managed eventually.</p>
+      <p>An interview is the same shape of problem at a smaller scale: you don't get credit for reinventing <code>Counter</code> with a hand-rolled dict-and-loop under time pressure, and every second spent doing that is a second not spent on the actual algorithmic idea the interviewer is grading. The idioms below are this course's "cribs" — drill them until they're reflexive, not derived.</p>
+    </div>
+  </details>
+
+  <details class="story story-onepiece">
+    <summary><span class="caret">▸</span> One Piece anecdote: Rayleigh's two years on Rusukaina Island <span class="badge">Story</span></summary>
+    <div class="story-body">
+      <p>After Whitebeard's war, Luffy doesn't get a montage of him slowly figuring out Haki from first principles in the middle of his next fight — that would get him killed. Instead he spends two full years on Rusukaina Island under Silvers Rayleigh, drilling Observation and Armament Haki over and over until they stop being something he thinks about and become something his body just does. When he shows up at Fishman Island and later Dressrosa, he isn't deriving Haki mid-swing; he's spending his attention on reading the actual fight in front of him, because the technique itself is already reflex.</p>
+      <p>The training island is the point: it's boring, repetitive, and happens <i>before</i> the fight that matters, precisely so none of that repetition has to happen live. That's exactly what this page is — the two years on Rusukaina before the real interview.</p>
+    </div>
+    <div class="story-why"><b>Why this sticks:</b> tying "practice now so it's reflex later" to a training-island montage instead of an abstract study tip gives you a concrete scene to picture the next time you catch yourself re-deriving <code>Counter</code> live instead of just typing it.</div>
+  </details>
+
+  <div class="race-demo card">
+    <b>The training-island effect, timed:</b> both snippets solve the same "count word frequencies" problem. Same brain, same problem — the only difference is which one required Rusukaina-style drilling beforehand.
+    <div class="race-track">
+      <div class="race-lane">
+        <span class="race-label">Manual dict-and-loop<br><small>(worked out live)</small></span>
+        <div class="race-bar"><div class="race-fill naive" id="race-naive"></div></div>
+        <span class="race-status" id="race-naive-status"></span>
+      </div>
+      <div class="race-lane">
+        <span class="race-label"><code>Counter(words)</code><br><small>(drilled reflex)</small></span>
+        <div class="race-bar"><div class="race-fill idiomatic" id="race-idiom"></div></div>
+        <span class="race-status" id="race-idiom-status"></span>
+      </div>
+    </div>
+    <button class="btn secondary" id="race-btn" style="margin-top:0.8rem;">▶ Run the training montage</button>
+  </div>
+
   <h2>Big-O, the fast version</h2>
   <table class="sched">
     <tr><th>Complexity</th><th>Typical source</th><th>~Max n for &lt;1s</th></tr>
@@ -33,6 +67,41 @@ defaultdict(list)           # groups without checking "if key not in dict"
 deque()                     # O(1) appendleft/popleft — a list is O(n) for these</code></pre>
   <div class="callout pitfall">Using a plain <code>list</code> as a queue (<code>list.pop(0)</code>) is O(n) per pop. Reach for <code>deque</code> the moment you need FIFO behavior — this alone silently turns an "O(n) BFS" solution into O(n²) if missed.</div>
 
+  <div class="trick">
+    <h4>Counter — frequency maps without the boilerplate</h4>
+    <p class="trick-idea">Anagram / frequency-comparison problems (e.g. "Valid Anagram", "Group Anagrams") all reduce to "build a count map, then compare."</p>
+    <div class="trick-code-row">
+      <div class="code-col before"><div class="label">✗ Manual</div><pre><code>counts = {}
+for ch in s:
+    if ch in counts:
+        counts[ch] += 1
+    else:
+        counts[ch] = 1</code></pre></div>
+      <div class="code-col after"><div class="label">✓ Idiomatic</div><pre><code>from collections import Counter
+counts = Counter(s)
+counts.most_common(3)   # [(ch, freq), ...] top-3, no manual sort</code></pre></div>
+    </div>
+    <p class="trick-explain"><code>Counter</code> IS a dict (subclasses it), so every dict method still works — you're only removing the "did I initialize this key yet" bookkeeping. <code>Counter(a) == Counter(b)</code> is also the entire "is anagram" check in one line.</p>
+  </div>
+
+  <div class="trick">
+    <h4>defaultdict — grouping without existence checks</h4>
+    <p class="trick-idea">"Group anagrams," "bucket by remainder," "adjacency list for a graph" are all the same shape: build a dict of lists (or sets) keyed by something derived from each element.</p>
+    <div class="trick-code-row">
+      <div class="code-col before"><div class="label">✗ Manual</div><pre><code>groups = {}
+for word in words:
+    key = ''.join(sorted(word))
+    if key not in groups:
+        groups[key] = []
+    groups[key].append(word)</code></pre></div>
+      <div class="code-col after"><div class="label">✓ Idiomatic</div><pre><code>from collections import defaultdict
+groups = defaultdict(list)
+for word in words:
+    groups[''.join(sorted(word))].append(word)</code></pre></div>
+    </div>
+    <p class="trick-explain">The whole point of <code>defaultdict</code>: accessing a missing key creates it with the factory's default (<code>list()</code>, <code>int()</code>, <code>set()</code>) instead of raising <code>KeyError</code> — one line disappears from every "group by" loop you'll ever write.</p>
+  </div>
+
   <h2>heapq — priority queues without a library</h2>
   <pre><code>import heapq
 
@@ -43,11 +112,42 @@ heapq.heappush(heap, -val)              # negate to simulate a max-heap
 heapq.heapify(existing_list)            # O(n) in-place, cheaper than n pushes
 heapq.nlargest(k, iterable)             # top-k in O(n log k), no manual heap needed</code></pre>
 
+  <div class="trick">
+    <h4>Top-K without sorting the whole array</h4>
+    <p class="trick-idea">"Find the k largest/smallest" only needs O(n log k), but the naive instinct is to pay O(n log n) sorting everything.</p>
+    <div class="trick-code-row">
+      <div class="code-col before"><div class="label">✗ Overkill</div><pre><code>def top_k(nums, k):
+    return sorted(nums, reverse=True)[:k]   # O(n log n) — sorts everything</code></pre></div>
+      <div class="code-col after"><div class="label">✓ Idiomatic</div><pre><code>import heapq
+def top_k(nums, k):
+    return heapq.nlargest(k, nums)          # O(n log k) — only tracks k at a time</code></pre></div>
+    </div>
+    <p class="trick-explain">Sorting throws away information you never needed: the relative order of everything *outside* the top k. A size-k heap only ever holds k elements, so each of the n pushes costs O(log k), not O(log n) — the gap matters a lot once k is small and n is huge (e.g. "top 10 of a billion logs").</p>
+  </div>
+
   <h2>bisect — binary search you don't have to write</h2>
   <pre><code>import bisect
 
 bisect.bisect_left(sorted_list, x)      # first index where x could be inserted, keeping sort
 bisect.insort(sorted_list, x)           # insert into a sorted list, O(n) but no re-sort</code></pre>
+
+  <div class="trick">
+    <h4>bisect over a hand-rolled binary search loop</h4>
+    <p class="trick-idea">"Find the first element ≥ x in a sorted array" is one of the most-rewritten loops in interviews, and it's easy to get the off-by-one boundary wrong live.</p>
+    <div class="trick-code-row">
+      <div class="code-col before"><div class="label">✗ Hand-rolled, error-prone</div><pre><code>lo, hi = 0, len(arr)
+while lo < hi:
+    mid = (lo + hi) // 2
+    if arr[mid] < x:
+        lo = mid + 1
+    else:
+        hi = mid
+first_ge_x = lo</code></pre></div>
+      <div class="code-col after"><div class="label">✓ Idiomatic</div><pre><code>import bisect
+first_ge_x = bisect.bisect_left(arr, x)</code></pre></div>
+    </div>
+    <p class="trick-explain">The hand-rolled version is correct, but it's exactly the kind of code where a tired off-by-one under interview pressure costs you the whole problem. <code>bisect_left</code>/<code>bisect_right</code> already encode the "first ≥ x" vs "first &gt; x" distinction correctly — use the library for the mechanical part, save your live-coding attention for the part of the problem that's actually novel.</p>
+  </div>
 
   <h2>itertools — combinatorics in one line</h2>
   <pre><code>from itertools import combinations, permutations, product, accumulate
@@ -56,6 +156,19 @@ combinations(items, r)      # choose r, order doesn't matter
 permutations(items, r)      # choose r, order matters
 product(a, b)               # cartesian product, replaces nested for-loops
 list(accumulate(nums))      # running prefix sums in one call</code></pre>
+
+  <div class="trick">
+    <h4>accumulate over a manual prefix-sum loop</h4>
+    <p class="trick-idea">Prefix sums show up constantly (range-sum queries, subarray-sum problems) and the manual loop is boilerplate you can skip entirely.</p>
+    <div class="trick-code-row">
+      <div class="code-col before"><div class="label">✗ Manual</div><pre><code>prefix = [0] * (len(nums) + 1)
+for i, v in enumerate(nums):
+    prefix[i + 1] = prefix[i] + v</code></pre></div>
+      <div class="code-col after"><div class="label">✓ Idiomatic</div><pre><code>from itertools import accumulate
+prefix = [0] + list(accumulate(nums))</code></pre></div>
+    </div>
+    <p class="trick-explain">Both give you <code>prefix[i]</code> = sum of the first <code>i</code> elements, so <code>sum(nums[a:b])</code> becomes <code>prefix[b] - prefix[a]</code> in O(1). The idiomatic version just removes a loop you'd otherwise write from scratch in nearly every prefix-sum problem.</p>
+  </div>
 
   <h2>Comprehensions, unpacking, and other reflexes</h2>
   <pre><code># comprehension over a manual loop + append
@@ -82,6 +195,56 @@ items.sort(key=lambda x: (-x.priority, x.name))
 # dict.get with a default instead of manual "if key in dict" checks
 count = freq.get(ch, 0) + 1</code></pre>
 
+  <h2>Sorting with a composite key instead of a custom comparator</h2>
+  <div class="trick">
+    <h4>Tuple keys replace multi-level comparator functions</h4>
+    <p class="trick-idea">"Sort by priority descending, then by name ascending" is a two-level sort that people reach for a custom <code>cmp</code> function for — Python's <code>key=</code> handles it in one tuple, and negating a number flips only that level's direction.</p>
+    <div class="trick-code-row">
+      <div class="code-col before"><div class="label">✗ Comparator-style thinking</div><pre><code>def compare(a, b):
+    if a.priority != b.priority:
+        return b.priority - a.priority   # descending
+    return (a.name > b.name) - (a.name < b.name)  # ascending
+# Python 3 has no cmp= for sort/sorted — this has to be
+# wrapped in functools.cmp_to_key, which is slower and verbose.</code></pre></div>
+      <div class="code-col after"><div class="label">✓ Idiomatic</div><pre><code>items.sort(key=lambda x: (-x.priority, x.name))
+# ties are broken left-to-right through the tuple, exactly like
+# a multi-level comparator, with no cmp_to_key wrapper needed</code></pre></div>
+    </div>
+    <p class="trick-explain">Tuples compare element-by-element, so <code>(-x.priority, x.name)</code> sorts by priority descending first (negation flips numeric direction only), then by name ascending as the tiebreaker — the exact semantics of a two-level comparator, in one line. This trick only flips cleanly for numbers; to sort a string field descending, sort ascending and call <code>.reverse()</code>, or wrap it in a small helper — negating a string will error.</p>
+  </div>
+
+  <h2>Building strings and checking membership at scale</h2>
+  <div class="trick">
+    <h4>''.join(...) over += in a loop</h4>
+    <p class="trick-idea">Strings are immutable in Python, so <code>s += chunk</code> inside a loop silently allocates a brand-new string every iteration — fine for a handful of iterations, a real O(n²) time bomb once n gets large (string-building problems, serializing a tree, etc.).</p>
+    <div class="trick-code-row">
+      <div class="code-col before"><div class="label">✗ O(n²) in the worst case</div><pre><code>result = ""
+for word in words:
+    result += word + " "   # each += copies the ENTIRE string so far</code></pre></div>
+      <div class="code-col after"><div class="label">✓ O(n)</div><pre><code>result = " ".join(words)   # one allocation, not one per word</code></pre></div>
+    </div>
+    <p class="trick-explain">This is the string-building analogue of the "list as a queue" pitfall above: both look like a single operation but hide a full-copy cost. Some CPython versions optimize the simplest <code>s += x</code> loop internally, but it's implementation-specific — don't rely on an interpreter detail when <code>str.join</code> is guaranteed O(n) and just as short to write.</p>
+  </div>
+  <div class="trick">
+    <h4>set for membership/intersection instead of list</h4>
+    <p class="trick-idea">"Have I seen this before?" and "what's common between these two collections?" are the two most common O(n) → O(1)/O(min(n,m)) upgrades available, and both are a one-word fix.</p>
+    <div class="trick-code-row">
+      <div class="code-col before"><div class="label">✗ O(n) per check</div><pre><code>seen = []
+for x in nums:
+    if x in seen:        # O(n) scan through a list, every single call
+        return True
+    seen.append(x)
+return False</code></pre></div>
+      <div class="code-col after"><div class="label">✓ O(1) per check</div><pre><code>seen = set()
+for x in nums:
+    if x in seen:        # O(1) average — hash lookup, not a scan
+        return True
+    seen.add(x)
+return False</code></pre></div>
+    </div>
+    <p class="trick-explain"><code>in</code> means something completely different depending on the container: O(n) for <code>list</code>/<code>tuple</code>, O(1) average for <code>set</code>/<code>dict</code>. The same swap turns "find common elements between two arrays" from an O(n·m) nested loop into <code>set(a) & set(b)</code> at O(n+m).</p>
+  </div>
+
   <div class="callout">None of this changes an algorithm's Big-O — it changes how fast and bug-free you write it under interview pressure, and interviewers explicitly notice fluent, idiomatic code as a signal.</div>
 
   <label class="checkbox-row">
@@ -101,6 +264,26 @@ count = freq.get(ch, 0) + 1</code></pre>
   const check = document.getElementById('complete-check');
   check.checked = isComplete('warmup');
   check.addEventListener('change', () => setComplete('warmup', check.checked));
+
+  function runRace() {
+    const naive = document.getElementById('race-naive');
+    const idiom = document.getElementById('race-idiom');
+    const naiveStatus = document.getElementById('race-naive-status');
+    const idiomStatus = document.getElementById('race-idiom-status');
+    [naive, idiom].forEach(el => { el.style.transition = 'none'; el.style.width = '0%'; });
+    [naiveStatus, idiomStatus].forEach(el => { el.classList.remove('show'); el.textContent = ''; });
+    void naive.offsetWidth; // force reflow so the reset above isn't batched with the run below
+    requestAnimationFrame(() => {
+      naive.style.transition = '';
+      idiom.style.transition = '';
+      naive.style.width = '100%';
+      idiom.style.width = '100%';
+    });
+    setTimeout(() => { idiomStatus.textContent = '✓ solved'; idiomStatus.classList.add('show'); }, 650);
+    setTimeout(() => { naiveStatus.textContent = '✓ solved (late)'; naiveStatus.classList.add('show'); }, 3250);
+  }
+  document.getElementById('race-btn').addEventListener('click', runRace);
+  setTimeout(runRace, 400);
 </script>
 </body>
 </html>

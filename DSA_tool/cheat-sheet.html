@@ -12,27 +12,44 @@
   <h1>Pattern Recognition Cheat Sheet</h1>
   <p class="lede">Keep this open during practice (and mentally rebuild it before a real interview). Read the problem, match it to a row, start talking through that pattern's approach.</p>
 
-  <table class="sched">
-    <tr><th>Pattern</th><th>Recognize when…</th><th>Complexity</th><th>Go-to structure</th></tr>
-    <tr><td><a href="pattern.html?id=two-pointers">Two Pointers</a></td><td>Sorted array/string, need a pair/triplet meeting a condition</td><td class="time">O(n) or O(n log n)</td><td>indices from both ends, or same-direction slow/fast</td></tr>
-    <tr><td><a href="pattern.html?id=sliding-window">Sliding Window</a></td><td>Contiguous subarray/substring, longest/shortest/count satisfying a condition</td><td class="time">O(n)</td><td>left/right pointers + hash map or running sum</td></tr>
-    <tr><td><a href="pattern.html?id=fast-slow-pointers">Fast & Slow Pointers</a></td><td>Cycle detection, find the middle, linked-list "kth from end"</td><td class="time">O(n)</td><td>two pointers moving at different speeds</td></tr>
-    <tr><td><a href="pattern.html?id=merge-intervals">Merge Intervals</a></td><td>Overlapping ranges, scheduling/meeting conflicts</td><td class="time">O(n log n)</td><td>sort by start, sweep and merge</td></tr>
-    <tr><td><a href="pattern.html?id=binary-search">Binary Search</a></td><td>Sorted array, or a monotonic search space ("minimize the maximum", "find the boundary")</td><td class="time">O(log n)</td><td>lo/hi/mid — watch off-by-one on the boundary condition</td></tr>
-    <tr><td><a href="pattern.html?id=hashing-patterns">Hashing Patterns</a></td><td>Need O(1) lookup, "have I seen this", complements, grouping</td><td class="time">O(n)</td><td>dict / set / Counter</td></tr>
-    <tr><td><a href="pattern.html?id=linked-list-reversal">Linked List Reversal</a></td><td>Reverse all or part of a list in place</td><td class="time">O(n) time, O(1) space</td><td>prev / curr / next pointer shuffle</td></tr>
-    <tr><td><a href="pattern.html?id=monotonic-stack">Monotonic Stack</a></td><td>Next greater/smaller element, histogram/skyline problems</td><td class="time">O(n)</td><td>stack kept strictly increasing or decreasing</td></tr>
-    <tr><td><a href="pattern.html?id=queue-deque">Queue / Deque</a></td><td>Sliding window max/min, level-order processing</td><td class="time">O(n)</td><td>deque holding indices (monotonic) or values</td></tr>
-    <tr><td><a href="pattern.html?id=tree-dfs-bfs">Tree DFS / BFS</a></td><td>Traverse/transform a tree, root-to-leaf paths</td><td class="time">O(n)</td><td>recursion (DFS) or explicit queue (BFS)</td></tr>
-    <tr><td><a href="pattern.html?id=binary-search-trees">Binary Search Trees</a></td><td>Validate/insert/search leveraging sorted order</td><td class="time">O(log n) avg, O(n) worst</td><td>inorder traversal of a BST is sorted — exploit that</td></tr>
-    <tr><td><a href="pattern.html?id=heaps-top-k">Heaps / Top-K</a></td><td>k largest/smallest, merge k sorted lists, running median</td><td class="time">O(n log k)</td><td>min-heap or max-heap capped at size k</td></tr>
-    <tr><td><a href="pattern.html?id=backtracking">Backtracking</a></td><td>Generate all subsets/permutations/combinations under constraints</td><td class="time">O(2ⁿ) / O(n!), pruned</td><td>recursion + make a choice, recurse, undo the choice</td></tr>
-    <tr><td><a href="pattern.html?id=graphs-bfs-dfs-topo-union">Graphs</a></td><td>Connectivity, shortest path (unweighted), dependency ordering, cycle detection</td><td class="time">O(V + E)</td><td>adjacency list + visited set; topo sort / union-find for ordering/grouping</td></tr>
-    <tr><td><a href="pattern.html?id=dynamic-programming">Dynamic Programming</a></td><td>Optimal substructure + overlapping subproblems — "count the ways", "min/max cost to…"</td><td class="time">usually O(n) – O(n²)</td><td>memoized recursion or bottom-up table; define the state first</td></tr>
-    <tr><td><a href="pattern.html?id=greedy">Greedy</a></td><td>A locally-optimal choice provably leads to the global optimum — often paired with sorting</td><td class="time">O(n log n)</td><td>sort, then single pass making the locally best choice</td></tr>
-    <tr><td><a href="pattern.html?id=bit-manipulation">Bit Manipulation</a></td><td>"Single number" tricks, subset enumeration via bitmask, O(1) extra space required</td><td class="time">O(n) or O(1)</td><td>XOR / AND / OR / shifts</td></tr>
-    <tr><td><a href="pattern.html?id=trie">Trie</a></td><td>Prefix search, autocomplete, "word dictionary" style lookups</td><td class="time">O(L) per operation (L = word length)</td><td>nested dict or fixed-size children array per node</td></tr>
-  </table>
+  <details class="story story-onepiece">
+    <summary><span class="caret">▸</span> One Piece anecdote: the Vivre Card <span class="badge">Story</span></summary>
+    <div class="story-body">
+      <p>A Vivre Card is a piece of paper stamped with a drop of someone's blood — hold it loosely and it doesn't just sit there, it burns down and tilts, pointing the way toward the person it's keyed to. Sanji uses a scrap of one across the entire Whole Cake Island arc to find his way back to the crew without ever needing to work out a route by reasoning: he just follows what the card is already telling him.</p>
+      <p>That's what this page is supposed to be, not a table you read top to bottom under time pressure. A real problem statement is the "person" you're trying to find; the row it belongs to should light up the moment enough of the right words are in front of you, the same way the card tilts on its own the instant it's close enough to sense its target.</p>
+    </div>
+    <div class="story-why"><b>Why this sticks:</b> a cheat sheet you scan line-by-line under pressure is just a slower brute-force search. Picturing a Vivre Card pointing rather than a table being read reframes the goal correctly — recognition should feel like it's happening <i>to</i> you, not something you go hunting for.</div>
+  </details>
+
+  <div class="vivre-finder">
+    <label for="vivre-input">🔥 Vivre Card Finder — type a phrase from the problem and watch the card point at your pattern</label>
+    <input id="vivre-input" type="text" placeholder="e.g. sorted array find pair, cycle in linked list, top k largest...">
+  </div>
+
+  <div class="vivre-wrap" id="vivre-wrap">
+    <div class="vivre-marker" id="vivre-marker">🔥</div>
+    <table class="sched" id="cheat-table">
+      <tr><th>Pattern</th><th>Recognize when…</th><th>Complexity</th><th>Go-to structure</th></tr>
+      <tr><td><a href="pattern.html?id=two-pointers">Two Pointers</a></td><td>Sorted array/string, need a pair/triplet meeting a condition</td><td class="time">O(n) or O(n log n)</td><td>indices from both ends, or same-direction slow/fast</td></tr>
+      <tr><td><a href="pattern.html?id=sliding-window">Sliding Window</a></td><td>Contiguous subarray/substring, longest/shortest/count satisfying a condition</td><td class="time">O(n)</td><td>left/right pointers + hash map or running sum</td></tr>
+      <tr><td><a href="pattern.html?id=fast-slow-pointers">Fast & Slow Pointers</a></td><td>Cycle detection, find the middle, linked-list "kth from end"</td><td class="time">O(n)</td><td>two pointers moving at different speeds</td></tr>
+      <tr><td><a href="pattern.html?id=merge-intervals">Merge Intervals</a></td><td>Overlapping ranges, scheduling/meeting conflicts</td><td class="time">O(n log n)</td><td>sort by start, sweep and merge</td></tr>
+      <tr><td><a href="pattern.html?id=binary-search">Binary Search</a></td><td>Sorted array, or a monotonic search space ("minimize the maximum", "find the boundary")</td><td class="time">O(log n)</td><td>lo/hi/mid — watch off-by-one on the boundary condition</td></tr>
+      <tr><td><a href="pattern.html?id=hashing-patterns">Hashing Patterns</a></td><td>Need O(1) lookup, "have I seen this", complements, grouping</td><td class="time">O(n)</td><td>dict / set / Counter</td></tr>
+      <tr><td><a href="pattern.html?id=linked-list-reversal">Linked List Reversal</a></td><td>Reverse all or part of a list in place</td><td class="time">O(n) time, O(1) space</td><td>prev / curr / next pointer shuffle</td></tr>
+      <tr><td><a href="pattern.html?id=monotonic-stack">Monotonic Stack</a></td><td>Next greater/smaller element, histogram/skyline problems</td><td class="time">O(n)</td><td>stack kept strictly increasing or decreasing</td></tr>
+      <tr><td><a href="pattern.html?id=queue-deque">Queue / Deque</a></td><td>Sliding window max/min, level-order processing</td><td class="time">O(n)</td><td>deque holding indices (monotonic) or values</td></tr>
+      <tr><td><a href="pattern.html?id=tree-dfs-bfs">Tree DFS / BFS</a></td><td>Traverse/transform a tree, root-to-leaf paths</td><td class="time">O(n)</td><td>recursion (DFS) or explicit queue (BFS)</td></tr>
+      <tr><td><a href="pattern.html?id=binary-search-trees">Binary Search Trees</a></td><td>Validate/insert/search leveraging sorted order</td><td class="time">O(log n) avg, O(n) worst</td><td>inorder traversal of a BST is sorted — exploit that</td></tr>
+      <tr><td><a href="pattern.html?id=heaps-top-k">Heaps / Top-K</a></td><td>k largest/smallest, merge k sorted lists, running median</td><td class="time">O(n log k)</td><td>min-heap or max-heap capped at size k</td></tr>
+      <tr><td><a href="pattern.html?id=backtracking">Backtracking</a></td><td>Generate all subsets/permutations/combinations under constraints</td><td class="time">O(2ⁿ) / O(n!), pruned</td><td>recursion + make a choice, recurse, undo the choice</td></tr>
+      <tr><td><a href="pattern.html?id=graphs-bfs-dfs-topo-union">Graphs</a></td><td>Connectivity, shortest path (unweighted), dependency ordering, cycle detection</td><td class="time">O(V + E)</td><td>adjacency list + visited set; topo sort / union-find for ordering/grouping</td></tr>
+      <tr><td><a href="pattern.html?id=dynamic-programming">Dynamic Programming</a></td><td>Optimal substructure + overlapping subproblems — "count the ways", "min/max cost to…"</td><td class="time">usually O(n) – O(n²)</td><td>memoized recursion or bottom-up table; define the state first</td></tr>
+      <tr><td><a href="pattern.html?id=greedy">Greedy</a></td><td>A locally-optimal choice provably leads to the global optimum — often paired with sorting</td><td class="time">O(n log n)</td><td>sort, then single pass making the locally best choice</td></tr>
+      <tr><td><a href="pattern.html?id=bit-manipulation">Bit Manipulation</a></td><td>"Single number" tricks, subset enumeration via bitmask, O(1) extra space required</td><td class="time">O(n) or O(1)</td><td>XOR / AND / OR / shifts</td></tr>
+      <tr><td><a href="pattern.html?id=trie">Trie</a></td><td>Prefix search, autocomplete, "word dictionary" style lookups</td><td class="time">O(L) per operation (L = word length)</td><td>nested dict or fixed-size children array per node</td></tr>
+    </table>
+  </div>
 
   <div class="callout" style="margin-top:1.5rem;">If two rows both seem to fit, that's often the point of a company variant — many "hard" interview questions are two patterns stacked (e.g. sliding window + hashing, or DP + binary search on the answer).</div>
 
@@ -42,6 +59,45 @@
   </footer>
 </main>
 <script src="js/app.js"></script>
-<script>buildHeader('cheat-sheet.html');</script>
+<script>
+buildHeader('cheat-sheet.html');
+
+(function () {
+  const input = document.getElementById('vivre-input');
+  const wrap = document.getElementById('vivre-wrap');
+  const marker = document.getElementById('vivre-marker');
+  const rows = Array.from(document.querySelectorAll('#cheat-table tr')).filter(tr => tr.querySelector('td'));
+
+  const STOPWORDS = new Set(['a', 'an', 'and', 'are', 'as', 'at', 'be', 'but', 'by', 'find', 'for',
+    'from', 'given', 'i', 'if', 'in', 'into', 'is', 'it', 'of', 'on', 'or', 'that', 'the', 'this',
+    'to', 'with', 'you', 'your']);
+
+  function score(tr, words) {
+    const text = tr.textContent.toLowerCase();
+    return words.reduce((s, w) => {
+      const re = new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b');
+      return s + (re.test(text) ? 1 : 0);
+    }, 0);
+  }
+
+  input.addEventListener('input', () => {
+    const query = input.value.trim().toLowerCase();
+    const words = query.split(/\s+/).filter(w => w.length >= 3 && !STOPWORDS.has(w));
+    let best = null, bestScore = 0;
+    rows.forEach(tr => {
+      const s = words.length ? score(tr, words) : 0;
+      tr.classList.toggle('vivre-match', words.length > 0 && s > 0);
+      tr.classList.toggle('vivre-dim', words.length > 0 && s === 0);
+      if (s > bestScore) { bestScore = s; best = tr; }
+    });
+    if (best && bestScore > 0) {
+      marker.style.top = (best.offsetTop + best.offsetHeight / 2) + 'px';
+      marker.classList.add('show');
+    } else {
+      marker.classList.remove('show');
+    }
+  });
+})();
+</script>
 </body>
 </html>

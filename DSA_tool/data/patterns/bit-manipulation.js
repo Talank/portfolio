@@ -9,6 +9,7 @@ window.PATTERNS['bit-manipulation'] = {
     'XOR has three properties worth memorizing cold: <code>x ^ x = 0</code> (a value cancels with itself), <code>x ^ 0 = x</code> (identity element), and it is commutative and associative, so the order you XOR values in never matters. That last property is what makes "find the element that appears once while everything else appears twice" solvable with a single accumulator swept across the array in any order — every duplicate pair cancels regardless of where the duplicates sit relative to each other.',
     'A handful of bit tricks recur constantly enough to be worth having memorized rather than re-derived under pressure: <code>n & (n - 1)</code> clears the lowest set bit (useful for counting set bits one at a time, or testing "is n a power of two" via <code>n & (n-1) == 0</code>); <code>n & -n</code> isolates the lowest set bit as its own value (useful in Fenwick/BIT trees, or splitting a set of numbers by one differing bit); enumerating all 2ⁿ subsets of n elements via a mask from 0 to 2ⁿ-1, reading bit i of the mask as "is element i included"; and iterating only the submasks of a fixed mask via <code>sub = (sub - 1) & mask</code>, which visits every submask in O(3ⁿ) total across all masks instead of O(4ⁿ).',
     'These tricks show up in interviews disguised as: "each element appears twice/three times except one" (XOR, or sum-of-bits-mod-3 for the triples variant), "count the number of 1 bits" (Brian Kernighan\'s <code>n & (n-1)</code> loop, or Python\'s built-in <code>int.bit_count()</code>), "generate all subsets/combinations" for small n (bitmask enumeration as a non-recursive alternative to backtracking), and "check if a number is a power of two/four" (bit-count and bit-position checks). The unifying tell is an explicit O(1)-extra-space constraint on a problem that would otherwise reach for a hash set or hash map.',
+    'The XOR-reduction trick isn\'t a coincidence of arithmetic, it\'s a direct consequence of (Z/2Z)^k — the set of k-bit integers under XOR — being an abelian group where every element is its own inverse: x ^ x = 0 (the identity) for every x, and commutativity/associativity mean a fold over any order of the array computes the same group sum. Formally, XOR-ing the whole array computes the group sum of all elements, and since every value appearing an even number of times contributes that value XORed with itself an even number of times — which telescopes to the identity — those terms vanish entirely from the sum, leaving exactly the values that appear an odd number of times. For Single Number, that\'s a single survivor; the same argument is why the naive trick breaks for triples (x^x^x = x, not the identity, since three is odd) and why the fix for "appears three times except one" has to track state mod 3 per bit instead of relying on a single XOR fold.',
   ],
   recognitionSignals: [
     '"Every element appears exactly twice except one which appears once" (or "exactly three times except one," or "exactly twice except two") → XOR-family reduction.',
@@ -21,6 +22,52 @@ window.PATTERNS['bit-manipulation'] = {
     name: 'Single Number (LeetCode 136)',
     statement: 'Given a non-empty array of integers nums where every element appears exactly twice except for one element which appears exactly once, find that single element, using O(n) time and O(1) extra space.',
   },
+  story: {
+    onePiece: {
+      title: 'Cipher Pol\'s Haki flags, and the Marine ledger that cancels its own duplicates',
+      text: [
+        'The World Government\'s Cipher Pol registry tracks every ability a person of interest has confirmed, and it does it with a single number, not a paragraph: each Haki type — Observation, Armament, Conqueror\'s — is just one bit in a profile. Checking "does this person have Conqueror\'s Haki" isn\'t a database lookup, it\'s a single bitwise AND against one fixed mask, and combining two profiles\' abilities is a single OR. The whole registry format is a bitmask because a bitmask is the compact, provably-correct encoding of a fixed set of yes/no flags.',
+        'A partially damaged Marine bounty ledger takes it further: it lists every pirate ID on a captured ship\'s manifest exactly twice — once from the initial sighting report, once from the capture report — except for one ID that appears only once, because that pirate slipped away before capture. Nobody wants to sort hundreds of smudged entries by hand. XOR every ID in the ledger together instead: every ID that appears twice cancels itself out exactly (x^x=0), in whatever order the smudged entries happen to be read, and the only ID left standing when the dust settles is the one that appeared once — the pirate who got away. That is LeetCode 136, Single Number, dressed up as a damaged manifest instead of an array.',
+      ],
+    },
+    history: {
+      title: 'Leibniz, binary, and the I Ching (1679–1703)',
+      text: [
+        'This is real, documented history, not a stretch: Gottfried Leibniz formalized binary arithmetic in the West in 1679. Later, in correspondence and notes from around 1703, he remarked on how closely the ancient Chinese I Ching hexagrams — patterns of broken and unbroken lines, a genuine 0/1 binary structure that predates him by well over a thousand years — resembled the binary number system he had just formalized. The bitwise tricks used constantly in interview problems today sit on top of a representation whose Western formalization is directly, provably tied to that historical episode.',
+      ],
+    },
+    why: 'The Cipher Pol / ledger framing gives XOR-cancellation a physical picture — pairs vanishing off a smudged manifest — while the Leibniz/I Ching history anchors why binary representation itself is the substrate these tricks operate on, which is useful to have separately memorable from the trick itself.',
+  },
+  tricks: [
+    {
+      name: 'Initialize the XOR accumulator to 0 and fold the whole array — don\'t seed it with nums[0]',
+      idea: 'Seeding the accumulator with nums[0] and then still looping over the entire array re-XORs nums[0] against itself, silently cancelling it before the real fold even starts.',
+      before:
+`def single_number(nums):
+    xor = nums[0]
+    for i in range(len(nums)):     # BUG: re-includes index 0, XOR-ing nums[0] with itself
+        xor ^= nums[i]
+    return xor`,
+      after:
+`def single_number(nums):
+    xor = 0
+    for num in nums:               # fold the WHOLE array against a 0 identity, no special-casing index 0
+        xor ^= num
+    return xor`,
+      explain: 'Seeding the accumulator with nums[0] and then looping over the entire array re-XORs nums[0] against itself, silently cancelling it out (x^x=0) — if nums[0] happens to be the single unique value, the function now returns the wrong answer instead of crashing. Starting from the identity element 0 and folding every element exactly once, with no special-cased first element, removes the entire class of off-by-one bugs here.',
+    },
+    {
+      name: '`n & (n - 1) == 0` also matches n = 0 — guard with n > 0',
+      idea: 'Clearing the lowest set bit and comparing to 0 detects "exactly one bit was set," but n = 0 has no bits set at all and satisfies the same equation, so the bare check wrongly calls 0 a power of two.',
+      before:
+`def is_power_of_two(n):
+    return n & (n - 1) == 0   # BUG: n=0 gives 0 & -1 == 0 -> wrongly reports True`,
+      after:
+`def is_power_of_two(n):
+    return n > 0 and n & (n - 1) == 0`,
+      explain: 'n & (n - 1) clears the lowest set bit, and for a true power of two that\'s the only bit set, so the result is 0 — but n = 0 has no set bits at all, and 0 & (0 - 1) is also 0 in Python\'s arbitrary-precision two\'s complement, so the bare expression incorrectly calls 0 a power of two. The n > 0 guard excludes the one input where "no bits differ" means "there were never any bits" rather than "there was exactly one, now cleared."',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

@@ -9,6 +9,7 @@ window.PATTERNS['binary-search'] = {
     'Classic binary search relies on the array being fully sorted. The interview-relevant generalization is <b>search space reduction</b>: as long as you can define a monotonic predicate — something that\'s false, then true (or vice versa) across the space, with no flip-flopping — you can binary search over that predicate even if the underlying array or answer range isn\'t literally sorted itself. "Rotated sorted array" is the bridge case: the array isn\'t fully sorted, but at every <code>mid</code>, at least one of the two halves provably is, which is enough structure to keep halving.',
     'The rotated-array trick: compare <code>nums[lo]</code> to <code>nums[mid]</code>. If <code>nums[lo] <= nums[mid]</code>, the left half <code>[lo, mid]</code> is internally sorted (no rotation point inside it), so you can cheaply check whether the target lies in that sorted range; otherwise the right half must be the sorted one. Either way you get a clean O(1) decision about which half to keep — the recursion never needs to know where the rotation point actually is.',
     'Past rotated arrays, the same "monotonic predicate, binary search the answer" idea shows up as "minimize/maximize X such that condition(X) holds" problems — capacity to ship packages within D days, minimum eating speed to finish bananas in time, split array to minimize the largest subarray sum. In all of these you binary search over the *answer value*, not over array indices, calling a feasibility check at each <code>mid</code>.',
+    'The correctness proof is a loop invariant, and it\'s worth spelling out precisely: at the start of every iteration, if target is present in nums at all, it lies within [lo, hi]. This holds trivially at the start (the range is the whole array). Each iteration preserves it because whichever half gets discarded is discarded on the strength of a proof, not a guess — e.g. "the left half is sorted, and target does not fall within its value range" logically rules out every single index in that half, with no exceptions to worry about. Since the discarded half is always ruled out completely, the invariant survives every iteration, and the loop can only end two ways: nums[mid] == target (found), or lo > hi with the invariant still holding (which forces target to be absent, since an empty range can\'t contain it).',
   ],
   recognitionSignals: [
     'Array is described as sorted, "rotated sorted", or "almost sorted", and a target must be found faster than O(n).',
@@ -21,6 +22,98 @@ window.PATTERNS['binary-search'] = {
     name: 'Search in Rotated Sorted Array (LeetCode 33)',
     statement: 'There is an integer array nums sorted in ascending order (with distinct values), possibly rotated at an unknown pivot index. Given the array after the rotation and an integer target, return the index of target if it is in nums, or -1 if it is not.',
   },
+  story: {
+    onePiece: {
+      title: 'Nami narrowing down the island with the signal',
+      text: [
+        'Nami has an eternal pose reading she needs to match to one island out of a long line of Grand Line islands, all charted in order along the route by distance. Checking every island one by one would burn through the Log Pose\'s patience and the crew\'s supplies long before she got an answer.',
+        'Instead she picks the island sitting in the exact middle of the remaining stretch of the map and compares its signal reading against the one she\'s hunting for. If the target signal is stronger, she knows — with certainty, not a guess — that every island in the weaker half of the map can be crossed off at once, because the readings only move in one direction as you travel that half of the route. She refolds the map to just the other half and repeats.',
+        'Each check throws away half of whatever islands were still in play, not by luck but because the ordering guarantees the discarded half provably can\'t contain the match. A few folds of the map later, one island is left, and it\'s the one.',
+      ],
+    },
+    history: {
+      title: '"Twenty Questions" and the 2^20 bound',
+      text: [
+        'The American radio and TV game show Twenty Questions, which took off in 1946, let a contestant identify almost any object a panel was thinking of using only yes/no questions — and the format banked on being able to nail it down in twenty questions or fewer.',
+        'The reason twenty is enough is a piece of information theory dressed up as parlor entertainment: each yes/no answer can only cut the space of remaining possibilities in half, so twenty well-chosen splits can distinguish among 2^20, or a bit over a million, candidates — because 2^20 > 10^6. It\'s a folk demonstration of exactly the log2(n) bound binary search achieves mechanically: each comparison halves the candidate set, so the number of comparisons needed scales with log2 of how many candidates you started with.',
+      ],
+    },
+    why: 'The log2(n) bound is trivial to state and easy to lose track of the *mechanism* for under pressure. Picturing Nami folding the chart in half with each comparison ties the halving directly to the code\'s lo/mid/hi bookkeeping, while Twenty Questions gives an independent, non-technical anchor for why halving compounds so fast — two separate paths back to the same log2(n) proof.',
+  },
+  tricks: [
+    {
+      name: 'Use <= (not <) when comparing nums[lo] to nums[mid]',
+      idea: 'When the left half of the current range has collapsed to a single element (lo == mid), it is trivially sorted — but a strict less-than self-comparison on that single element is always False, which routes the algorithm into the wrong branch and can discard the half actually containing the target.',
+      before:
+`def search(nums: list[int], target: int) -> int:
+    lo, hi = 0, len(nums) - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if nums[mid] == target:
+            return mid
+        if nums[lo] < nums[mid]:            # BUG: strict <, fails when lo == mid
+            if nums[lo] <= target < nums[mid]:
+                hi = mid - 1
+            else:
+                lo = mid + 1
+        else:
+            if nums[mid] < target <= nums[hi]:
+                lo = mid + 1
+            else:
+                hi = mid - 1
+    return -1`,
+      after:
+`def search(nums: list[int], target: int) -> int:
+    lo, hi = 0, len(nums) - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if nums[mid] == target:
+            return mid
+        if nums[lo] <= nums[mid]:           # <=, so a single-element left half still counts as sorted
+            if nums[lo] <= target < nums[mid]:
+                hi = mid - 1
+            else:
+                lo = mid + 1
+        else:
+            if nums[mid] < target <= nums[hi]:
+                lo = mid + 1
+            else:
+                hi = mid - 1
+    return -1`,
+      explain: 'With nums=[3,1], target=1: lo=0, hi=1, mid=0. nums[mid]=3 != target. The buggy check nums[lo] < nums[mid] is 3 < 3 = False, so it takes the "right half sorted" branch, checks 3 < 1 <= 1 (False), and sets hi = mid - 1 = -1 — the loop ends and wrongly returns -1 even though target=1 is at index 1. With <=, 3 <= 3 is True (the single-element left half is correctly treated as sorted), the left-half check 3 <= 1 < 3 is False, so lo advances to 1, and the next iteration finds the target.',
+    },
+    {
+      name: 'Record-and-narrow instead of return-on-match, for first/last occurrence',
+      idea: 'Find First and Last Position of Element (LeetCode 34) needs the *first* (or last) index of target among duplicates, not just any matching index. Returning the moment nums[mid] == target gives whichever occurrence binary search happens to land on, which is frequently not the boundary one.',
+      before:
+`def find_first(nums: list[int], target: int) -> int:
+    lo, hi = 0, len(nums) - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if nums[mid] == target:
+            return mid   # BUG: returns on ANY match, not necessarily the first occurrence
+        elif nums[mid] < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1`,
+      after:
+`def find_first(nums: list[int], target: int) -> int:
+    lo, hi = 0, len(nums) - 1
+    first = -1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if nums[mid] == target:
+            first = mid       # record this match...
+            hi = mid - 1      # ...then keep narrowing left for an earlier one
+        elif nums[mid] < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return first`,
+      explain: 'Given nums=[5,7,7,8,8,10], target=8: the buggy version computes mid=2 (value 7, too small, lo=3), then mid=4 (value 8) and returns 4 immediately — but the first occurrence of 8 is at index 3. The fixed version records first=4, keeps narrowing (hi=3), finds nums[3]=8 too, records first=3, and keeps narrowing until the range is exhausted, correctly returning 3.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

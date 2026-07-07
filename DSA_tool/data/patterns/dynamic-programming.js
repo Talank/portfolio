@@ -11,6 +11,7 @@ window.PATTERNS['dynamic-programming'] = {
     'Interviewers draw DP problems from a handful of recurring shapes, and recognizing the shape from the problem phrasing is most of the battle. <b>1D linear DP</b> (House Robber, Climbing Stairs, Maximum Subarray): dp[i] depends on a constant number of previous dp values (dp[i-1], dp[i-2], …); the state is "up to index i." <b>0/1 knapsack</b> (Partition Equal Subset Sum, Target Sum): each item is used at most once; dp[i][w] = best value using the first i items with capacity w, and the space-optimized 1D version must iterate the capacity loop <i>backward</i> to avoid reusing an item twice in the same pass. <b>Unbounded knapsack</b> (Coin Change, Coin Change II): items can be reused arbitrarily many times, so the capacity/amount loop typically runs <i>forward</i>, letting a single coin type contribute more than once. <b>LCS family</b> (Longest Common Subsequence, Edit Distance, Longest Common Substring): two input strings/sequences → 2D dp[i][j] over one index into each string, since the state must capture progress through both independently. <b>Interval DP</b> (Matrix Chain Multiplication, Burst Balloons, Palindrome Partitioning): dp[i][j] represents the answer over the subrange [i, j], and transitions split the interval at some pivot k — this requires iterating by increasing interval length, not by row/column index, since dp[i][j] depends on smaller sub-intervals strictly inside [i, j]. <b>Grid DP</b> (Unique Paths, Minimum Path Sum): dp[i][j] on the actual input grid, transition pulls from the top and/or left neighbor.',
     'The strongest signal for choosing 1D vs. 2D state is how many independent sequences the problem hands you and whether "adjacency" or "position within one array" is the only constraint. One array + a positional constraint ("no two adjacent," "at most k apart") → 1D. Two strings/arrays being compared or interleaved → 2D, with the state indexing into both. It\'s also common for a 2D recurrence to be provably reducible to O(1) or O(n) rolling space once you notice dp[i][j] only ever reads row i-1 (or i-1 and i-2) — a strong follow-up an interviewer will probe for after you get the O(n²)-space version working.',
     'A very common follow-up flips "return the optimal value" into "return the optimal solution itself" (the actual subsequence, path, or item set). The numeric dp table alone doesn\'t retain that information — you need either a parallel choice/parent table recorded during the fill, or a backward reconstruction pass that re-derives, at each cell, which transition produced it (by checking which candidate matches the stored value). Always ask out loud whether the interviewer wants the value or the construction — it changes what you need to store.',
+    'The correctness of any DP solution is ultimately a proof by strong induction over the state\'s dependency order, not just "it matches my mental model of the problem." You must show two things: the base case(s) are correct by direct computation (not by appeal to the recurrence), and the transition is correct assuming every state it reads from is already correct — i.e. dp[i] = max(dp[i-1], dp[i-2] + nums[i]) is valid only because dp[i-1] and dp[i-2] are themselves guaranteed correct by the induction hypothesis, which in turn requires that the order you fill states in respects every dependency (a DAG on the state space, never a cycle — if dp[i] ever depended on dp[i], the recurrence wouldn\'t even be well-defined). This is exactly why interval DP must iterate by increasing interval length rather than row/column index: only that order guarantees every sub-interval a state depends on has strictly smaller length and was therefore already computed and already correct.',
   ],
   recognitionSignals: [
     '"Maximum/minimum subsequence... no two adjacent" or "at most k apart" on a single array → 1D linear DP.',
@@ -24,6 +25,78 @@ window.PATTERNS['dynamic-programming'] = {
     name: 'House Robber (LeetCode 198)',
     statement: 'You are a professional robber planning to rob houses along a street. Each house has a nonnegative amount of money, and adjacent houses have connected security systems that will automatically alert the police if two adjacent houses are robbed on the same night. Given an integer array nums representing the money in each house, return the maximum amount of money you can rob without robbing two adjacent houses.',
   },
+  story: {
+    onePiece: {
+      title: 'Nami\'s cheapest route through the Grand Line, locked by the Log Pose',
+      text: [
+        'Nami plots the crew\'s route island by island, and she never redoes work she\'s already finished: once she\'s worked out the cheapest way to reach island B from Reverse Mountain, that answer is locked in — when she\'s figuring out the best route to island C, she just reuses "cheapest to reach B" as a building block instead of re-deriving every possible sub-route from scratch. That\'s optimal substructure and overlapping subproblems in one habit: the best route to C is built directly out of the best routes to whatever islands come immediately before it, and there\'s no reason to recompute those every time they come up again.',
+        'The Log Pose is what makes this legal in the first place. It locks onto the next island\'s magnetic field and physically won\'t let the ship sail backward against its pull — you\'re forced into a fixed forward order, island by island, with no doubling back. That constraint is exactly what a DP fill order needs: you can only trust "cheapest route to C" once every route it depends on has already been computed, which means the Log Pose\'s one-way lock is the sea-going version of "iterate the table in dependency order."',
+      ],
+    },
+    history: {
+      title: 'Richard Bellman and the RAND Corporation, 1950s',
+      text: [
+        'This one is real, documented history, not a stretched analogy: Richard Bellman coined the actual term "dynamic programming" in the 1950s while working at the RAND Corporation on multistage decision and resource-allocation problems, including missile-defense trajectory optimization. He later wrote candidly that he chose the word "dynamic" partly because it sounded impressive and was hard for politically hostile superiors to object to funding, since it had nothing to do with programming computers in the modern sense — "programming" at the time meant something closer to "planning" or "scheduling," as in a military program. The technique itself — breaking a multistage decision problem into overlapping subproblems solved once and reused — is exactly what shows up in every DP table you\'ve ever filled in.',
+      ],
+    },
+    why: 'Nami\'s route gives a mechanical, causal reason to feel optimal substructure — you can picture the specific reused sub-route — while Bellman\'s real story anchors why the technique is called that to an actual person under actual bureaucratic pressure, which tends to stick better than memorizing "dynamic programming" as an arbitrary label.',
+  },
+  tricks: [
+    {
+      name: 'House Robber: guard the dp array\'s base cases before reading dp[i-2]',
+      idea: 'The general transition dp[i] = max(dp[i-1], dp[i-2] + nums[i]) is only valid once i-2 is a real index. Applying it uniformly starting at i=0 doesn\'t crash in Python — negative indices silently wrap around and read from the end of the array — it just silently returns a wrong answer built from garbage.',
+      before:
+`def rob(nums):
+    n = len(nums)
+    dp = [0] * n
+    for i in range(n):
+        dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])  # BUG: dp[-1], dp[-2] wrap around silently at i=0, i=1
+    return dp[-1] if n else 0`,
+      after:
+`def rob(nums):
+    n = len(nums)
+    if n == 0:
+        return 0
+    if n == 1:
+        return nums[0]
+    dp = [0] * n
+    dp[0] = nums[0]
+    dp[1] = max(nums[0], nums[1])
+    for i in range(2, n):
+        dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])
+    return dp[-1]`,
+      explain: 'Python allows negative indices instead of raising an IndexError, so dp[-1] and dp[-2] at i=0 quietly read the (currently-zeroed) tail of the array rather than crashing — the bug produces a plausible-looking wrong number instead of an obvious failure. Explicitly seeding dp[0] and dp[1] before the general loop starts at i=2 is what actually enforces the precondition the recurrence assumes.',
+    },
+    {
+      name: '0/1 knapsack space-optimized to 1D: iterate capacity backward, or items get reused',
+      idea: 'Collapsing the 2D 0/1 knapsack table to a rolling 1D array over capacity only stays 0/1 (each item used at most once) if the capacity loop runs backward within each item\'s pass; forward iteration lets the same item feed into itself later in the same pass, silently turning it into unbounded knapsack.',
+      before:
+`def can_partition(nums):
+    total = sum(nums)
+    if total % 2:
+        return False
+    target = total // 2
+    dp = [False] * (target + 1)
+    dp[0] = True
+    for num in nums:
+        for w in range(num, target + 1):        # BUG: forward — reuses \`num\` multiple times in one pass
+            dp[w] = dp[w] or dp[w - num]
+    return dp[target]`,
+      after:
+`def can_partition(nums):
+    total = sum(nums)
+    if total % 2:
+        return False
+    target = total // 2
+    dp = [False] * (target + 1)
+    dp[0] = True
+    for num in nums:
+        for w in range(target, num - 1, -1):     # backward: each item contributes at most once per pass
+            dp[w] = dp[w] or dp[w - num]
+    return dp[target]`,
+      explain: 'Iterating w forward means dp[w - num] may already reflect this same num having been added earlier in the same inner loop, i.e. the item gets counted twice — exactly the unbounded-knapsack update rule (Coin Change uses this forward direction on purpose). Iterating backward guarantees dp[w - num] still reflects only the previous item\'s pass, preserving the "used at most once" invariant that Partition Equal Subset Sum requires.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

@@ -31,6 +31,7 @@ window.PATTERNS['sliding-window'] = {
     'A sliding window keeps two pointers, <code>left</code> and <code>right</code>, that both only ever move forward, defining a contiguous range. You grow the window by advancing <code>right</code>, and shrink it by advancing <code>left</code> whenever the window violates some condition (too many distinct characters, sum too large, a duplicate appeared, etc).',
     'Because each pointer visits every index at most once, the whole scan is O(n) total even though it looks like nested iteration — this is the "amortized" argument you should say out loud in an interview to justify the complexity.',
     'There are two flavors: <b>fixed-size</b> (window size k is given up front — you add one, remove one, every step) and <b>variable-size</b> (the window grows/shrinks based on a validity condition, and you track the best window seen).',
+    'Formally, the pattern is correct only when validity is monotonic in a precise sense: for a fixed <code>right</code>, define <code>L(right)</code> as the smallest <code>left</code> such that <code>[left, right]</code> is valid. The entire "never move left backward" argument depends on <code>L</code> being non-decreasing as <code>right</code> grows — extending the window can only ever force <code>left</code> to catch up, never fall behind where it already was. If that fails (a window can become valid again after growing past some point, then invalid again), the amortized O(n) argument doesn\'t just get slower, it becomes unsound — which is exactly why the monotonicity called out in recognitionSignals above is a precondition, not a nice-to-have.',
   ],
   recognitionSignals: [
     'Problem mentions a "contiguous subarray" or "substring" and asks for the longest / shortest / count that satisfies some condition.',
@@ -43,6 +44,76 @@ window.PATTERNS['sliding-window'] = {
     name: 'Longest Substring Without Repeating Characters (LeetCode 3)',
     statement: 'Given a string s, find the length of the longest substring without repeating characters.',
   },
+  story: {
+    onePiece: {
+      title: 'Sanji rationing the buffet for Luffy',
+      text: [
+        'Sanji has agreed to let Luffy eat his way down an endless buffet line, on one condition: the moment the food currently within Luffy\'s reach adds up to more than his stomach can hold, Sanji intervenes. Sanji isn\'t insane enough to re-tally every plate from the start of the line each time Luffy grabs something new — he just keeps a running total in his head and updates it one plate at a time.',
+        'Luffy keeps reaching for the next plate down the line — that\'s the window\'s right edge sliding forward, and each new plate\'s weight gets added straight onto the running total. As long as the total stays under his limit, Sanji lets it ride and just watches the total grow.',
+        'The instant the total tips over the limit, Sanji doesn\'t start over — he snatches the single oldest plate off the other end of Luffy\'s pile, the one that\'s been sitting there longest, subtracts its weight from the running total, and checks again. He keeps peeling plates off that end, one at a time, until the total is back under the limit — then Luffy is free to reach for more. Expand right while accumulating; the moment the running total violates the constraint, shrink from the left until it\'s valid again — nothing about the plates in the middle ever needs to be re-examined.',
+      ],
+    },
+    history: {
+      title: 'Bletchley Park and the crib-drag',
+      text: [
+        'WWII codebreakers at Bletchley Park often had a "crib" — a fragment of plaintext they strongly suspected appeared somewhere in an intercepted Enigma message, like a routine weather report that always opened with the same German phrase. They didn\'t know where in the ciphertext it started, only that it was in there somewhere.',
+        'So they slid the crib one position at a time along the length of the ciphertext, and at each offset checked a fixed, simple condition: Enigma\'s wiring guaranteed a letter could never encipher to itself, so any offset where a crib letter lined up with the same ciphertext letter was an immediate contradiction, ruling that position out on the spot. That\'s a fixed-size window walking across a longer sequence, testing one condition per position — not searching by content, but by position, exactly like checking a window of fixed length k for a property as it slides.',
+      ],
+    },
+    why: 'A window\'s "expand right, shrink left" rule is a clean invariant on paper but easy to fumble under interview pressure about which side moves first. Anchoring it to Sanji\'s plate-yanking (why shrink triggers, and from which end) and to a wartime crib sliding past ciphertext (why a fixed window tests one position at a time instead of searching for content) gives two independent images to fall back on if the algebra slips your mind.',
+  },
+  tricks: [
+    {
+      name: 'Guard against a stale duplicate index',
+      idea: 'The last-seen-index map can hold a position that is no longer inside the current window. Jumping left to it anyway moves left backward, which breaks the entire "left only advances" argument the O(n) bound depends on.',
+      before:
+`def length_of_longest_substring(s: str) -> int:
+    last_seen = {}
+    left = best = 0
+    for right, ch in enumerate(s):
+        if ch in last_seen:   # BUG: doesn't check whether last_seen[ch] is still in-window
+            left = last_seen[ch] + 1
+        last_seen[ch] = right
+        best = max(best, right - left + 1)
+    return best`,
+      after:
+`def length_of_longest_substring(s: str) -> int:
+    last_seen = {}
+    left = best = 0
+    for right, ch in enumerate(s):
+        if ch in last_seen and last_seen[ch] >= left:
+            left = last_seen[ch] + 1   # only jump if the duplicate is still inside the window
+        last_seen[ch] = right
+        best = max(best, right - left + 1)
+    return best`,
+      explain: 'Trace "abba": at right=2 (\'b\'), left correctly jumps to 2. At right=3 (\'a\'), the buggy version sees \'a\' at stale index 0 (already outside the window) and yanks left back to 1 — reporting best=3 for "bba", which contains a repeated \'b\' and is not a valid answer. The guarded version ignores the stale index and correctly keeps best=2.',
+    },
+    {
+      name: 'Off-by-one on window length',
+      idea: 'The width of an inclusive index range [left, right] is right - left + 1, not right - left. Dropping the +1 silently undercounts every window by exactly one character.',
+      before:
+`def length_of_longest_substring(s: str) -> int:
+    last_seen = {}
+    left = best = 0
+    for right, ch in enumerate(s):
+        if ch in last_seen and last_seen[ch] >= left:
+            left = last_seen[ch] + 1
+        last_seen[ch] = right
+        best = max(best, right - left)   # BUG: missing +1, undercounts window width
+    return best`,
+      after:
+`def length_of_longest_substring(s: str) -> int:
+    last_seen = {}
+    left = best = 0
+    for right, ch in enumerate(s):
+        if ch in last_seen and last_seen[ch] >= left:
+            left = last_seen[ch] + 1
+        last_seen[ch] = right
+        best = max(best, right - left + 1)   # width of an inclusive [left, right] range
+    return best`,
+      explain: 'On a string with no repeats at all, like "abc", the buggy version reports best=2 instead of 3 — right - left at the final step is 2 - 0 = 2, but the window actually spans three characters, indices 0 through 2 inclusive. This kind of bug is dangerous precisely because it never crashes and often survives a quick manual check.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',

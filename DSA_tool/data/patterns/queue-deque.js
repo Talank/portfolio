@@ -9,6 +9,7 @@ window.PATTERNS['queue-deque'] = {
     'A deque (double-ended queue) supports O(1) push/pop from <i>both</i> ends, which is exactly what a sliding-window running max/min needs: evict useless small (or large) candidates from the <b>back</b> as new elements arrive, and evict elements that have aged out of the window from the <b>front</b> by index. The front of the deque is always the current window\'s extreme value — no scanning, no heap.',
     'The monotonic-deque invariant is: values in the deque, read front to back, are strictly decreasing (for a running max) or increasing (for a running min). When a new element arrives, pop from the back any element it dominates (smaller-or-equal for a max-deque) — those elements can <i>never</i> be the answer again while the new, larger element remains in range, so keeping them around is pure waste, not a correctness requirement.',
     'A plain (single-ended) queue is also the backbone data structure of BFS traversal — FIFO order naturally explores a graph level by level. A useful extension is <b>0-1 BFS</b>: when edge weights are only 0 or 1, a deque can replace a full priority queue (Dijkstra) by pushing zero-weight relaxations to the <i>front</i> and one-weight relaxations to the <i>back</i>, keeping the queue implicitly sorted at O(1) per push instead of O(log n).',
+    'The correctness of the monotonic-deque maximum rests on an invariant that holds after every step: the deque, read front to back, contains a strictly decreasing sequence of values whose indices are all still inside the current window, and the true maximum of that window is always the value at the front. Evicting a value from the back is safe precisely because, for any two indices i < j still in range with nums[i] <= nums[j], index i can never be selected as the window\'s max as long as j remains in range — j is both larger and more recent, so it dominates i under every future window boundary. Evicting from the front is likewise safe because it only ever removes an index once it has fallen strictly outside [i-k+1, i], at which point it could not be a legal answer even if it were still the largest value seen. Because both evictions are justified by domination or expiry rather than heuristics, the front of the deque is provably the maximum at every step, not merely usually correct.',
   ],
   recognitionSignals: [
     '"Maximum/minimum of every contiguous window of size k" — the classic sliding-window-maximum signature; a heap also works but costs O(n log k) instead of O(n).',
@@ -21,6 +22,94 @@ window.PATTERNS['queue-deque'] = {
     name: 'Sliding Window Maximum (LeetCode 239)',
     statement: 'Given an array nums and a sliding window of size k moving from the left of the array to the right, return an array of the maximum value in the window at each position it slides to.',
   },
+  story: {
+    onePiece: {
+      title: 'Ring by ring outward, and the frontline lineup',
+      text: [
+        'When the Straw Hats land on an unfamiliar island chain, they don\'t explore by picking one direction and running as far as it goes before doubling back — that\'s how you miss half the map and backtrack constantly. Instead they fan out ring by ring: everything directly reachable from the ship gets checked first, then everything one step further out, then two steps further out, and so on, always finishing an entire ring before moving to the next. Nobody jumps ahead to a far island before the nearer ones are done — that strict, layer-by-layer, first-in-first-out order is exactly what a plain queue enforces for BFS.',
+        'Now picture the crew sailing through a stretch of the Grand Line where they keep running into rival fighters, but they only care about the toughest fighter they\'ve faced within roughly the last several encounters — the "current window." They keep a running lineup, strongest-active at the front. Every time somebody new shows up, anyone at the back of the lineup who\'s weaker than the newcomer gets sent home immediately — a weaker fighter who\'s also older can never again be the toughest in the window once someone stronger and more recent is around, so keeping them around costs nothing but bookkeeping. And whenever the fighter at the front finally ages out of the window entirely, they get dropped from the front too.',
+        'That two-ended eviction — new-and-weak dies at the back, old-and-expired leaves from the front — is precisely the monotonic-deque trick behind sliding-window maximum, and it\'s a genuinely different discipline from the plain FIFO queue driving the ring-by-ring BFS in the first scene, even though both live in a <code>deque</code>.',
+      ],
+    },
+    history: {
+      title: 'The Persian Royal Road relay, per Herodotus',
+      text: [
+        'Herodotus describes the Persian Empire\'s angarium: a relay system of mounted messengers and way-stations strung along the Royal Road, built so news or orders could move faster than any single rider could carry them alone. A message didn\'t travel start-to-finish with one messenger; it passed from station to station, each relay carrying it exactly one hop further before handing off to the next.',
+        'News radiating out from a capital this way naturally spreads in waves — everything one relay-hop away arrives before anything two hops away has a chance to, simply because of how the handoff chain works. That wave-by-wave, hop-by-hop propagation is a real ancient analog of breadth-first search: a queue of "currently being relayed" messages, processed strictly in the order they entered the system, radiating outward one layer at a time.',
+      ],
+    },
+    why: 'A deque quietly does two different jobs — strict FIFO order for BFS, two-ended eviction for sliding-window max — and conflating them is an easy way to blank under pressure; pinning each job to its own vivid scene keeps the two mechanics from blurring together in memory.',
+  },
+  tricks: [
+    {
+      name: 'Use collections.deque, never a plain list, for front eviction',
+      idea: 'A plain Python list makes pop(0) (and insert(0, ...)) an O(n) operation, since every remaining element has to shift down by one — silently degrading the whole sliding-window algorithm from O(n) to O(nk).',
+      before:
+`def max_sliding_window(nums, k):
+    dq = []  # BUG: plain list -- front eviction is O(n), not O(1)
+    result = []
+    for i, n in enumerate(nums):
+        while dq and nums[dq[-1]] <= n:
+            dq.pop()
+        dq.append(i)
+        if dq[0] <= i - k:
+            dq.pop(0)  # O(n) shift of every remaining element
+        if i >= k - 1:
+            result.append(nums[dq[0]])
+    return result`,
+      after:
+`from collections import deque
+
+def max_sliding_window(nums, k):
+    dq = deque()  # O(1) append/pop from BOTH ends
+    result = []
+    for i, n in enumerate(nums):
+        while dq and nums[dq[-1]] <= n:
+            dq.pop()
+        dq.append(i)
+        if dq[0] <= i - k:
+            dq.popleft()
+        if i >= k - 1:
+            result.append(nums[dq[0]])
+    return result`,
+      explain: 'collections.deque is implemented as a doubly linked list of blocks, giving true O(1) operations at both ends. A plain list is contiguous memory, so removing from the front means shifting every remaining element — fine for small k, but it silently turns the algorithm quadratic-ish (O(nk)) on large inputs without ever raising an error.',
+    },
+    {
+      name: 'Front-eviction must use <=, not <, against i - k',
+      idea: 'The window at index i is [i-k+1, i]; an index sitting at exactly i-k is one position stale and must be evicted on this exact step, not one step later.',
+      before:
+`from collections import deque
+
+def max_sliding_window(nums, k):
+    dq = deque()
+    result = []
+    for i, n in enumerate(nums):
+        while dq and nums[dq[-1]] <= n:
+            dq.pop()
+        dq.append(i)
+        if dq[0] < i - k:  # BUG: should be <=, evicts one step too late
+            dq.popleft()
+        if i >= k - 1:
+            result.append(nums[dq[0]])
+    return result`,
+      after:
+`from collections import deque
+
+def max_sliding_window(nums, k):
+    dq = deque()
+    result = []
+    for i, n in enumerate(nums):
+        while dq and nums[dq[-1]] <= n:
+            dq.pop()
+        dq.append(i)
+        if dq[0] <= i - k:
+            dq.popleft()
+        if i >= k - 1:
+            result.append(nums[dq[0]])
+    return result`,
+      explain: 'The valid window at index i is [i-k+1, i]. An index equal to i-k falls exactly one position before that range, so it is already stale and must be popped on this step. Using strict < instead of <= leaves that stale index at the front for one extra iteration, so the reported max can reflect a value that has already aged out of the window.',
+    },
+  ],
   variants: [
     {
       company: 'Amazon-style',

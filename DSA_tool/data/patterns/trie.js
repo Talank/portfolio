@@ -9,6 +9,7 @@ window.PATTERNS['trie'] = {
     'A trie (prefix tree) stores a set of strings by sharing common prefixes as shared paths from a root node. Each node holds a map from character to child node (a plain dict for an arbitrary alphabet, or a fixed 26-slot array for lowercase-only English) and a boolean <code>is_word</code> flag marking "a complete inserted word ends exactly here." Insert walks the word character by character, reusing existing child nodes when the prefix already exists and creating new nodes only once the shared prefix runs out, then flips <code>is_word</code> at the final node. Search does the same walk but additionally requires <code>is_word</code> to be true at the end; prefix/<code>startsWith</code> lookup only requires that the path exists at all, regardless of <code>is_word</code>.',
     'The complexity payoff — O(L) per operation, where L is the length of the word or prefix — is independent of how many other words are already stored, which is what a hash set of full strings cannot give you: a hash set answers "is this exact string present" in O(L) too, but it cannot efficiently answer "how many/which stored strings start with this prefix" without scanning the entire set. A trie localizes every string sharing a prefix under one shared subtree, so prefix queries are just "does this path exist," at the same O(L) cost as an exact lookup.',
     'Tries frequently combine with another pattern rather than standing alone: Word Search II builds one shared trie from an entire dictionary up front, then runs DFS/backtracking from every cell of a letter board simultaneously, using the trie to prune any path the instant it stops being a prefix of any dictionary word — this amortizes the search across all words instead of re-running an independent board search per word.',
+    'The correctness of trie search rests on a simple invariant, provable by induction on prefix length: after walking characters c_1, c_2, ..., c_k from the root, the node you land on (if any) represents exactly the set of all inserted strings that begin with the prefix c_1...c_k, and is_word at that node is true if and only if that exact prefix was itself inserted as a complete word. The base case is the root, representing the empty prefix shared by every stored string. The inductive step holds because insert() only ever creates a new child when the current character isn\'t already a key in the current node\'s children map — so two words sharing a k-character prefix are, by construction, forced onto the identical path for those first k characters, and diverge into separate subtrees only at the first character where they differ. That shared-path guarantee is what makes both search (walk the path, then check is_word) and startsWith (walk the path, ignore is_word) correct in exactly O(L) steps: the path either exists and is unique, or it doesn\'t exist at all — there\'s no other case to handle.',
   ],
   recognitionSignals: [
     '"Prefix," "startsWith," "autocomplete," or "find all words sharing a prefix" appears explicitly in the prompt.',
@@ -21,6 +22,100 @@ window.PATTERNS['trie'] = {
     name: 'Implement Trie / Prefix Tree (LeetCode 208)',
     statement: 'Implement a Trie class with insert(word), search(word) (exact match against previously inserted words), and startsWith(prefix) (true if any inserted word begins with prefix), each running in O(length of the input) time.',
   },
+  story: {
+    onePiece: {
+      title: 'The shared "D." branch in the World Government\'s name registry',
+      text: [
+        'Monkey D. Luffy. Portgas D. Ace. Marshall D. Teach. Gol D. Roger. Across the entire story, an unnerving number of the most dangerous, most plot-critical people share not a surname but a middle initial — the mysterious "Will of D." Imagine the World Government maintaining its surveillance registry as a trie over full names, branching letter by letter: \'M\', then \'o\', \'n\', \'k\', \'e\', \'y\', then the space, then the shared \'D\' node — and every single name whose path passes through that one "D." node gets flagged for elevated surveillance, no matter how differently the names continue afterward (\'Luffy\' branches one way past it, \'Teach\' another).',
+        'That\'s precisely what a trie\'s shared-prefix structure gives you for free: one node, "D.", shared by every flagged name, with the actual divergence — Luffy vs. Ace vs. Teach vs. Roger — happening only in the subtrees hanging off that single shared point. The registry doesn\'t need a rule per bloodline; it needs one shared node and a flag, and the branching structure sorts everyone downstream of it automatically.',
+      ],
+    },
+    history: {
+      title: 'The North American Numbering Plan',
+      text: [
+        'Real infrastructure, not analogy: the North American Numbering Plan (NANP) routes a phone call through a literal digit-by-digit prefix tree — the area code narrows the call to a region, the central office/exchange code narrows it further within that region, and the subscriber number resolves the exact line — with each additional digit dialed pruning the remaining search space down another level, exactly the way walking a trie one character at a time prunes down to fewer and fewer candidate words. Telephone switching equipment was, for decades, a physical embodiment of trie traversal built out of relays and digit-by-digit routing tables.',
+      ],
+    },
+    why: 'The "D." registry gives trie-sharing a single, precise in-universe image — one node, many names branching off it — while the NANP anchors the same digit-by-digit narrowing to a real infrastructure system built long before anyone called it a trie, which helps the idea generalize past "a data structure for strings" specifically.',
+  },
+  tricks: [
+    {
+      name: 'search() must check is_word; starts_with() must not',
+      idea: 'Both methods share the exact same traversal, so it\'s tempting to implement them identically — but a path existing is not the same claim as a complete word having been inserted there.',
+      before:
+`class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word):
+        node = self.root
+        for ch in word:
+            node = node.children.setdefault(ch, TrieNode())
+        node.is_word = True
+
+    def search(self, word):
+        return self._walk(word) is not None   # BUG: identical to starts_with -- no is_word check
+
+    def starts_with(self, prefix):
+        return self._walk(prefix) is not None
+
+    def _walk(self, s):
+        node = self.root
+        for ch in s:
+            node = node.children.get(ch)
+            if node is None:
+                return None
+        return node`,
+      after:
+`class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word):
+        node = self.root
+        for ch in word:
+            node = node.children.setdefault(ch, TrieNode())
+        node.is_word = True
+
+    def search(self, word):
+        node = self._walk(word)
+        return node is not None and node.is_word   # must land on a completed word, not just a valid path
+
+    def starts_with(self, prefix):
+        return self._walk(prefix) is not None
+
+    def _walk(self, s):
+        node = self.root
+        for ch in s:
+            node = node.children.get(ch)
+            if node is None:
+                return None
+        return node`,
+      explain: 'With only "cat" and "car" ever inserted, the buggy version has search("ca") return True (the path exists), when it must return False (no word "ca" was ever inserted). Only checking node.is_word at the end of the walk distinguishes "a path exists" from "a complete word was inserted here."',
+    },
+    {
+      name: 'Inserting a shorter word after a longer one that shares its path must still flip is_word on the existing node',
+      idea: 'If "cart" is already stored and you then insert "car", every node on car\'s path already exists — no new node gets created at all — so flipping is_word only "when we created something new" silently drops the shorter word.',
+      before:
+`def insert(self, word):
+    node = self.root
+    created_new_path = False
+    for ch in word:
+        if ch not in node.children:
+            node.children[ch] = TrieNode()
+            created_new_path = True
+        node = node.children[ch]
+    if created_new_path:            # BUG: assumes is_word only matters when new nodes were created
+        node.is_word = True`,
+      after:
+`def insert(self, word):
+    node = self.root
+    for ch in word:
+        node = node.children.setdefault(ch, TrieNode())
+    node.is_word = True   # always flip it, whether the final node was reused or brand new`,
+      explain: 'If \'cart\' is already in the trie and you then insert \'car\', every node on car\'s path already exists, so a version that only sets is_word "when we created something new" never marks "car" as a complete word, and search("car") wrongly returns False even though "car" was just inserted. is_word must be set unconditionally at the end of every insert, regardless of whether the walk reused existing nodes or built new ones.',
+    },
+  ],
   variants: [
     {
       company: 'Google-style',
