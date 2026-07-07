@@ -53,14 +53,65 @@
 
   <div class="callout" style="margin-top:1.5rem;">If two rows both seem to fit, that's often the point of a company variant — many "hard" interview questions are two patterns stacked (e.g. sliding window + hashing, or DP + binary search on the answer).</div>
 
+  <h2 style="margin-top:2.2rem;">Story Mode, animated — one One Piece scene per pattern</h2>
+  <p class="lede">Each pattern's anecdote, acted out. Open one and it plays itself — watch the scene, read the caption under each beat, and the row above stops being a line in a table and becomes a scene you can replay in your head mid-interview.</p>
+  <div id="story-anim-gallery"></div>
+
   <footer class="pagenav">
     <a href="index.html">← Dashboard</a>
     <a href="mock-interview.html">Mock Interview →</a>
   </footer>
 </main>
 <script src="js/app.js"></script>
+<script src="data/patterns/two-pointers.js"></script>
+<script src="data/patterns/sliding-window.js"></script>
+<script src="data/patterns/fast-slow-pointers.js"></script>
+<script src="data/patterns/merge-intervals.js"></script>
+<script src="data/patterns/binary-search.js"></script>
+<script src="data/patterns/hashing-patterns.js"></script>
+<script src="data/patterns/linked-list-reversal.js"></script>
+<script src="data/patterns/monotonic-stack.js"></script>
+<script src="data/patterns/queue-deque.js"></script>
+<script src="data/patterns/tree-dfs-bfs.js"></script>
+<script src="data/patterns/binary-search-trees.js"></script>
+<script src="data/patterns/heaps-top-k.js"></script>
+<script src="data/patterns/backtracking.js"></script>
+<script src="data/patterns/graphs-bfs-dfs-topo-union.js"></script>
+<script src="data/patterns/dynamic-programming.js"></script>
+<script src="data/patterns/greedy.js"></script>
+<script src="data/patterns/bit-manipulation.js"></script>
+<script src="data/patterns/trie.js"></script>
+<script src="data/story-anims.js"></script>
+<script src="js/story-anim-engine.js"></script>
 <script>
 buildHeader('cheat-sheet.html');
+
+// Story Mode gallery: one animated One Piece scene per pattern, text pulled
+// from the same story anchors the pattern pages use (single source of truth).
+(function () {
+  const ORDER = ['two-pointers', 'sliding-window', 'fast-slow-pointers', 'merge-intervals',
+    'binary-search', 'hashing-patterns', 'linked-list-reversal', 'monotonic-stack',
+    'queue-deque', 'tree-dfs-bfs', 'binary-search-trees', 'heaps-top-k', 'backtracking',
+    'graphs-bfs-dfs-topo-union', 'dynamic-programming', 'greedy', 'bit-manipulation', 'trie'];
+  const host = document.getElementById('story-anim-gallery');
+  ORDER.forEach(id => {
+    const p = (window.PATTERNS || {})[id];
+    if (!p || !p.story || !p.story.onePiece || !window.STORY_ANIMS[id]) return;
+    const text = p.story.onePiece.text;
+    const firstPara = Array.isArray(text) ? text[0] : text;
+    const det = document.createElement('details');
+    det.className = 'story story-onepiece';
+    det.innerHTML = `
+      <summary><span class="caret">▸</span> ${p.title} — ${p.story.onePiece.title} <span class="badge">Animated story</span></summary>
+      <div class="story-body">
+        <p>${firstPara}</p>
+        <div data-story-anim="${id}"></div>
+        <p style="margin:0.6rem 0 0;"><a href="pattern.html?id=${id}">Open the full ${p.title} pattern →</a></p>
+      </div>`;
+    host.appendChild(det);
+  });
+  mountStoryAnims(host);
+})();
 
 (function () {
   const input = document.getElementById('vivre-input');

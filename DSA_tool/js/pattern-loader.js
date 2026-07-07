@@ -40,7 +40,7 @@ function renderPattern(id) {
       <p style="margin:0.4rem 0 0;">${v.twist}</p>
     </div>`).join('');
   const notesHtml = (data.pythonSolution.notes || []).map(n => `<li>${n}</li>`).join('');
-  const storyHtml = renderStorySection(data.story);
+  const storyHtml = renderStorySection(data.story, id);
   const tricksHtml = renderTricksSection(data.tricks);
 
   root.innerHTML = `
@@ -91,6 +91,8 @@ function renderPattern(id) {
     renderArrayViz(document.getElementById('viz-container'), data.viz);
   }
 
+  if (window.mountStoryAnims) window.mountStoryAnims(root);
+
   renderQuiz(document.getElementById('quiz-container'), data.quiz);
 
   const check = document.getElementById('complete-check');
@@ -112,15 +114,19 @@ encoding — the more retrieval cues an idea is wired to, the easier it is to
 pull back out under interview pressure). Rendered as collapsible <details> so
 they're there when useful and out of the way during a fast review pass.
 */
-function renderStorySection(story) {
+function renderStorySection(story, id) {
   if (!story) return '';
   const asParas = t => (Array.isArray(t) ? t : [t]).map(p => `<p>${p}</p>`).join('');
   const blocks = [];
   if (story.onePiece) {
+    const hasAnim = window.STORY_ANIMS && window.STORY_ANIMS[id];
     blocks.push(`
       <details class="story story-onepiece">
-        <summary><span class="caret">▸</span> One Piece anecdote: ${story.onePiece.title} <span class="badge">Story</span></summary>
-        <div class="story-body">${asParas(story.onePiece.text)}</div>
+        <summary><span class="caret">▸</span> One Piece anecdote: ${story.onePiece.title} <span class="badge">${hasAnim ? 'Animated story' : 'Story'}</span></summary>
+        <div class="story-body">
+          ${asParas(story.onePiece.text)}
+          ${hasAnim ? `<div data-story-anim="${id}"></div>` : ''}
+        </div>
       </details>`);
   }
   if (story.history) {

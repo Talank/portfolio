@@ -431,3 +431,96 @@ footer.pagenav {
 
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ---- Story animation scenes (One Piece anecdotes, animated) ---- */
+.story-anim { margin: 0.9rem 0 0.2rem; }
+.sa-stage {
+  position: relative;
+  background: linear-gradient(180deg, #0d1b2a, #10263b);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.sa-prop {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: opacity 0.45s, filter 0.45s;
+}
+.sa-prop .sa-emoji {
+  font-size: 1.45rem;
+  line-height: 1;
+  filter: grayscale(0.3) brightness(0.8);
+  transition: filter 0.4s, transform 0.35s;
+}
+.sa-tag {
+  font: 600 0.72rem/1.15 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--text-dim);
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1px 5px;
+  white-space: nowrap;
+  transition: color 0.3s, border-color 0.3s, background 0.3s;
+}
+.sa-prop.sa-lit .sa-emoji { filter: none; transform: scale(1.18); }
+.sa-prop.sa-lit .sa-tag { color: var(--accent); border-color: var(--accent); }
+.sa-prop.sa-good .sa-emoji { filter: none; transform: scale(1.18); animation: viz-pop 0.45s ease; }
+.sa-prop.sa-good .sa-tag { color: var(--good); border-color: var(--good); }
+.sa-prop.sa-bad .sa-emoji { filter: none; animation: viz-pop 0.45s ease; }
+.sa-prop.sa-bad .sa-tag { color: var(--danger); border-color: var(--danger); }
+.sa-prop.sa-dim { opacity: 0.28; }
+.sa-prop.sa-off { opacity: 0; pointer-events: none; }
+.sa-actor {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+  transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1), top 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sa-actor .sa-emoji {
+  font-size: 1.7rem;
+  line-height: 1;
+  animation: sa-bob 2.4s ease-in-out infinite;
+}
+@keyframes sa-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.sa-name {
+  font-size: 0.62rem;
+  color: #cfe3f5;
+  background: rgba(13, 27, 42, 0.75);
+  padding: 0 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.sa-caption {
+  min-height: 3.4em;
+  padding: 0.55rem 0.2rem 0.35rem;
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+.sa-cap-in { animation: sa-fade 0.45s ease; }
+@keyframes sa-fade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.sa-controls { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.sa-controls button {
+  background: var(--bg-panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+.sa-controls button:hover { border-color: var(--accent); color: var(--accent); }
+.sa-controls .step-count { color: var(--text-dim); font-size: 0.78rem; }
