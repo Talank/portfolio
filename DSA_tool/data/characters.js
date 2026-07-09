@@ -24,7 +24,7 @@
   C.luffy = {
     name: 'Luffy',
     color: '#e94b3c',
-    voice: { pitch: 1.6, rate: 1.08, volume: 1, genderHint: 'male', style: 'energetic', emotion: 'happy', energy: 0.95, pauseScale: 0.9},
+    voice: { pitch: 1.6, rate: 1.0, volume: 1, genderHint: 'male', style: 'energetic', emotion: 'happy', energy: 0.95, pauseScale: 0.9},
     portrait: svg(
       '<circle cx="60" cy="68" r="30" fill="#f3c98b"/>' +               // face
       '<path d="M28 58 Q60 0 92 58 Q92 40 60 30 Q28 40 28 58Z" fill="#e0b23c"/>' + // straw hat cone
@@ -40,7 +40,7 @@
   C.nami = {
     name: 'Nami',
     color: '#f6ad55',
-    voice: { pitch: 1.5, rate: 1.04, volume: 1, genderHint: 'female', style: 'conversational', emotion: 'curious', energy: 0.8, pauseScale: 0.8 },
+    voice: { pitch: 1.5, rate: 1.00, volume: 1, genderHint: 'female', style: 'conversational', emotion: 'curious', energy: 0.8, pauseScale: 0.8 },
     portrait: svg(
       '<path d="M22 60 Q20 15 60 12 Q100 15 98 60 L88 60 Q86 28 60 26 Q34 28 32 60Z" fill="#f6a623"/>' + // orange hair
       '<circle cx="60" cy="68" r="28" fill="#f3c98b"/>' +
@@ -56,7 +56,7 @@
   C.robin = {
     name: 'Robin',
     color: '#8e5fc9',
-    voice: { pitch: 0.85, rate: 0.92, volume: 1, genderHint: 'female', style: 'conversational', emotion: 'curious', energy: 0.8, pauseScale: 0.8 },
+    voice: { pitch: 0.95, rate: 0.85, volume: 1, genderHint: 'female', style: 'conversational', emotion: 'curious', energy: 0.8, pauseScale: 0.8 },
     portrait: svg(
       '<path d="M20 55 Q18 10 60 8 Q102 10 100 55 L60 66Z" fill="#2b2340"/>' + // dark hair
       '<circle cx="60" cy="70" r="27" fill="#f0c9a0"/>' +
@@ -72,7 +72,7 @@
   C.usopp = {
     name: 'Usopp',
     color: '#6fae44',
-    voice: { pitch: 1.4, rate: 1.28, volume: 0.95, genderHint: 'male', style: 'conversational', emotion: 'curious', energy: 0.8, pauseScale: 0.8 },
+    voice: { pitch: 1.8, rate: 0.9, volume: 0.95, genderHint: 'male', style: 'conversational', emotion: 'curious', energy: 0.8, pauseScale: 1.1 },
     portrait: svg(
       '<circle cx="55" cy="72" r="26" fill="#c88a5a"/>' +                // face
       '<path d="M55 72 Q90 68 92 78 Q90 86 55 82Z" fill="#c88a5a"/>' +   // long nose
