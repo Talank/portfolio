@@ -115,6 +115,26 @@
     )
   };
 
+  C.brook = {
+    name: 'Brook',
+    color: '#cbd5e1',
+    voice: { pitch: 0.8, rate: 0.93, volume: 1, genderHint: 'male', style: 'theatrical', emotion: 'wistful', energy: 0.6, pauseScale: 1.15 },
+    portrait: svg(
+      '<path d="M16 48 Q10 4 60 2 Q110 4 104 48 Q92 28 60 28 Q28 28 16 48Z" fill="#1c1c1c"/>' + // afro silhouette
+      '<circle cx="60" cy="68" r="30" fill="#f5f2e8"/>' +                 // bare skull
+      '<circle cx="49" cy="66" r="7.5" fill="#141414"/>' +                // eye socket L
+      '<circle cx="71" cy="66" r="7.5" fill="#141414"/>' +                // eye socket R
+      '<path d="M56 80 Q60 86 64 80" fill="none" stroke="#141414" stroke-width="2.4" stroke-linecap="round"/>' + // nasal cavity
+      '<path d="M40 92 Q60 102 80 92" fill="none" stroke="#141414" stroke-width="2.4" stroke-linecap="round"/>' + // grin
+      '<rect x="39" y="91" width="4" height="7" fill="#141414"/>' +
+      '<rect x="49" y="94" width="4" height="7" fill="#141414"/>' +
+      '<rect x="59" y="95" width="4" height="7" fill="#141414"/>' +
+      '<rect x="69" y="94" width="4" height="7" fill="#141414"/>' +
+      '<rect x="79" y="91" width="4" height="7" fill="#141414"/>',        // grin teeth
+      '#2b2b3a'
+    )
+  };
+
   C.marine = {
     name: 'Marine Clerk',
     color: '#6b7f99',

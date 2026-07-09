@@ -1,6 +1,6 @@
 # DSA Interview Crash Course
 
-A local, static, zero-dependency crash course covering the ~18 patterns that generalize to almost all Google/Meta/Microsoft/Amazon-style coding interview questions — concept, an interactive animated walkthrough, real company-style variants, an idiomatic Python solution, a quiz, and a closing timed mock interview drill. Total size: a few MB (well under any storage concern). No node_modules, no build step, no video.
+A local, static, zero-dependency crash course covering the ~19 patterns that generalize to almost all Google/Meta/Microsoft/Amazon-style coding interview questions — concept, an interactive animated walkthrough, real company-style variants, an idiomatic Python solution, a quiz, and a closing timed mock interview drill. Total size: a few MB (well under any storage concern). No node_modules, no build step, no video.
 
 ## Run it
 

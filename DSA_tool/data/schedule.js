@@ -12,6 +12,7 @@ window.SCHEDULE = [
   { id: 'merge-intervals', title: 'Merge Intervals', category: 'Arrays & Two-Pointer Family', timeMin: 10, type: 'pattern' },
   { id: 'binary-search', title: 'Binary Search & Search Space Reduction', category: 'Arrays & Two-Pointer Family', timeMin: 15, type: 'pattern' },
   { id: 'hashing-patterns', title: 'Hashing Patterns', category: 'Hashing & Linear Structures', timeMin: 12, type: 'pattern' },
+  { id: 'prefix-sum', title: 'Prefix Sum', category: 'Hashing & Linear Structures', timeMin: 12, type: 'pattern' },
   { id: 'linked-list-reversal', title: 'Linked List In-Place Reversal', category: 'Hashing & Linear Structures', timeMin: 10, type: 'pattern' },
   { id: 'monotonic-stack', title: 'Monotonic Stack', category: 'Hashing & Linear Structures', timeMin: 12, type: 'pattern' },
   { id: 'queue-deque', title: 'Queue / Deque (Sliding Window Max, BFS Scaffolding)', category: 'Hashing & Linear Structures', timeMin: 10, type: 'pattern' },

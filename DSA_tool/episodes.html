@@ -24,7 +24,10 @@
   (function () {
     const episodes = window.EPISODES || {};
     const byPattern = {};
-    Object.values(episodes).forEach(e => { byPattern[e.patternId] = e; });
+    Object.values(episodes).forEach(e => {
+      (byPattern[e.patternId] = byPattern[e.patternId] || []).push(e);
+    });
+    Object.values(byPattern).forEach(list => list.sort((a, b) => a.epNumber - b.epNumber));
 
     const cats = [];
     const seen = new Set();
@@ -36,14 +39,14 @@
     root.innerHTML = cats.map(cat => {
       const mods = window.SCHEDULE.filter(m => m.type === 'pattern' && m.category === cat);
       const items = mods.map(m => {
-        const ep = byPattern[m.id];
-        if (ep) {
-          return `
+        const eps = byPattern[m.id];
+        if (eps && eps.length) {
+          return eps.map(ep => `
             <a class="module-card" href="episode.html?id=${ep.id}">
               <div class="pill done">Ep. ${ep.epNumber}</div>
               <h3 style="margin:0.4rem 0 0.2rem;">${ep.title}</h3>
               <p style="margin:0; color:var(--text-dim); font-size:0.85rem;">${ep.leetcode.name} (${ep.leetcode.difficulty}) — ${m.title}</p>
-            </a>`;
+            </a>`).join('');
         }
         return `
           <div class="module-card" style="opacity:0.55;">

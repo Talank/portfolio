@@ -105,14 +105,25 @@ function renderPattern(id) {
 
 function renderEpisodeLink(patternId) {
   const episodes = window.EPISODES || {};
-  const match = Object.values(episodes).find(e => e.patternId === patternId);
-  if (!match) return '';
+  const matches = Object.values(episodes)
+    .filter(e => e.patternId === patternId)
+    .sort((a, b) => a.epNumber - b.epNumber);
+  if (!matches.length) return '';
+  if (matches.length === 1) {
+    const match = matches[0];
+    return `
+      <div class="card" style="border-color: var(--accent);">
+        <b>🏴‍☠️ Now with a full episode:</b>
+        Episode ${match.epNumber} — "${match.title}" acts this problem out with characters, dialogue,
+        and an original soundtrack.
+        <a href="episode.html?id=${match.id}">Watch it ↗</a>
+      </div>`;
+  }
+  const items = matches.map(m => `<li>Episode ${m.epNumber} — "${m.title}" (${m.leetcode.name}) — <a href="episode.html?id=${m.id}">Watch it ↗</a></li>`).join('');
   return `
     <div class="card" style="border-color: var(--accent);">
-      <b>🏴‍☠️ Now with a full episode:</b>
-      Episode ${match.epNumber} — "${match.title}" acts this problem out with characters, dialogue,
-      and an original soundtrack.
-      <a href="episode.html?id=${match.id}">Watch it ↗</a>
+      <b>🏴‍☠️ Now with ${matches.length} full episodes:</b> this pattern gets extra story-mode reps.
+      <ul style="margin:0.4rem 0 0;">${items}</ul>
     </div>`;
 }
 

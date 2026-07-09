@@ -131,6 +131,23 @@
     ]
   };
 
+  const PS_X = [12, 27.2, 42.4, 57.6, 72.8, 88];
+  S['prefix-sum'] = {
+    h: 230,
+    props: track('d', [5, 3, 8, 2, 6, 4], 34, 12, 88, '🌊').concat(
+      PS_X.map((x, i) => ({ id: 'p' + i, label: '?', x: x, y: 68 }))
+    ),
+    actors: [{ id: 'nami', emoji: '🧭', label: 'Nami', x: 12, y: 88 }],
+    steps: [
+      { c: "A Log Pose only ever points toward the next island — it says nothing about how far the crew has already sailed. So Nami keeps her own running ledger. Day 0: 5 miles sailed. Running total: 5.", l: { p0: '5' }, p: { p0: 'lit', d0: 'lit' } },
+      { c: "Day 1: 3 more miles. She doesn't note '3' on its own — she writes the NEW total: 5 + 3 = 8.", l: { p1: '8' }, p: { p1: 'lit', d1: 'lit', p0: '' }, a: { nami: [PS_X[1], 88] } },
+      { c: 'Day 2: 8 more. New total: 8 + 8 = 16.', l: { p2: '16' }, p: { p2: 'lit', d2: 'lit', p1: '' }, a: { nami: [PS_X[2], 88] } },
+      { c: 'Day 3: 2 more (total 18). Day 4: 6 more (total 24). Day 5: 4 more (total 28) — the whole ledger built in one pass down the voyage.', l: { p3: '18', p4: '24', p5: '28' }, p: { p3: 'lit', p4: 'lit', p5: 'lit', d3: 'lit', d4: 'lit', d5: 'lit', p2: '' }, a: { nami: [PS_X[5], 88] } },
+      { c: "Weeks later: 'how far between day 1 and day 3?' No re-adding — running total after day 3 (18) minus running total before day 1, i.e. after day 0 (5): 13 miles. One subtraction.", p: { p3: 'good', p0: 'good' } },
+      { c: 'Ask again, day 2 through day 5: 28 minus 8 is 20. The ledger was built ONCE, O(n) — every range question after that is O(1), forever.', p: { p5: 'good', p1: 'good' } }
+    ]
+  };
+
   S['linked-list-reversal'] = {
     h: 220,
     props: [

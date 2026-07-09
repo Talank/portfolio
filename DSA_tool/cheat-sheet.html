@@ -36,6 +36,7 @@
       <tr><td><a href="pattern.html?id=merge-intervals">Merge Intervals</a></td><td>Overlapping ranges, scheduling/meeting conflicts</td><td class="time">O(n log n)</td><td>sort by start, sweep and merge</td></tr>
       <tr><td><a href="pattern.html?id=binary-search">Binary Search</a></td><td>Sorted array, or a monotonic search space ("minimize the maximum", "find the boundary")</td><td class="time">O(log n)</td><td>lo/hi/mid — watch off-by-one on the boundary condition</td></tr>
       <tr><td><a href="pattern.html?id=hashing-patterns">Hashing Patterns</a></td><td>Need O(1) lookup, "have I seen this", complements, grouping</td><td class="time">O(n)</td><td>dict / set / Counter</td></tr>
+      <tr><td><a href="pattern.html?id=prefix-sum">Prefix Sum</a></td><td>Range sum queries, "count subarrays summing to K", running total/product</td><td class="time">O(n) build, O(1) query</td><td>prefix array, or running aggregate + frequency map</td></tr>
       <tr><td><a href="pattern.html?id=linked-list-reversal">Linked List Reversal</a></td><td>Reverse all or part of a list in place</td><td class="time">O(n) time, O(1) space</td><td>prev / curr / next pointer shuffle</td></tr>
       <tr><td><a href="pattern.html?id=monotonic-stack">Monotonic Stack</a></td><td>Next greater/smaller element, histogram/skyline problems</td><td class="time">O(n)</td><td>stack kept strictly increasing or decreasing</td></tr>
       <tr><td><a href="pattern.html?id=queue-deque">Queue / Deque</a></td><td>Sliding window max/min, level-order processing</td><td class="time">O(n)</td><td>deque holding indices (monotonic) or values</td></tr>
@@ -69,6 +70,7 @@
 <script src="data/patterns/merge-intervals.js"></script>
 <script src="data/patterns/binary-search.js"></script>
 <script src="data/patterns/hashing-patterns.js"></script>
+<script src="data/patterns/prefix-sum.js"></script>
 <script src="data/patterns/linked-list-reversal.js"></script>
 <script src="data/patterns/monotonic-stack.js"></script>
 <script src="data/patterns/queue-deque.js"></script>
@@ -90,7 +92,7 @@ buildHeader('cheat-sheet.html');
 // from the same story anchors the pattern pages use (single source of truth).
 (function () {
   const ORDER = ['two-pointers', 'sliding-window', 'fast-slow-pointers', 'merge-intervals',
-    'binary-search', 'hashing-patterns', 'linked-list-reversal', 'monotonic-stack',
+    'binary-search', 'hashing-patterns', 'prefix-sum', 'linked-list-reversal', 'monotonic-stack',
     'queue-deque', 'tree-dfs-bfs', 'binary-search-trees', 'heaps-top-k', 'backtracking',
     'graphs-bfs-dfs-topo-union', 'dynamic-programming', 'greedy', 'bit-manipulation', 'trie'];
   const host = document.getElementById('story-anim-gallery');
