@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DSA Crash Course — Dashboard</title>
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
 </head>
 <body>
 <div id="site-header"></div>
@@ -31,10 +32,14 @@
   <div id="module-groups"></div>
 </main>
 <script src="data/schedule.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
 <script src="js/app.js"></script>
 <script>
   buildHeader('index.html');
   renderDashboard();
+  window.addEventListener('dsa:progress-synced', renderDashboard);
 </script>
 </body>
 </html>

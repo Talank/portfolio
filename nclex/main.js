@@ -10,6 +10,46 @@ let overallTimer; // This will hold the overall timer
 let questionTime; // This will hold the question time
 let overallTime; // This will hold the overall time
 let submittedAnswerCount;
+let maxDifficultyReached = 1; // Highest difficulty level reached this attempt
+
+// Saves a completed attempt to Supabase if signed in; a silent no-op
+// otherwise (the quiz itself never requires signing in — this only adds
+// cross-device history for users who opt into it).
+async function recordAttempt(score, correct, total, maxDifficulty) {
+    if (!window.AuthUI) return;
+    const session = await AuthUI.getSession();
+    if (!session) return;
+    try {
+        await sb.from('nclex_attempts').insert({
+            user_id: session.user.id,
+            score,
+            correct_answers: correct,
+            total_questions: total,
+            max_difficulty: maxDifficulty,
+        });
+    } catch (e) {
+        console.warn('nclex_attempts save failed (offline?)', e);
+    }
+    loadPastAttempts();
+}
+
+async function loadPastAttempts() {
+    const container = document.getElementById('past-attempts');
+    if (!container) return;
+    if (!window.AuthUI) { container.innerHTML = ''; return; }
+    const session = await AuthUI.getSession();
+    if (!session) { container.innerHTML = ''; return; }
+    const { data, error } = await sb.from('nclex_attempts').select('*').order('taken_at', { ascending: false }).limit(10);
+    if (error) {
+        console.warn('nclex_attempts load failed (offline?)', error);
+        return;
+    }
+    const rows = (data || []).map(a =>
+        `<div>${new Date(a.taken_at).toLocaleString()} — ${Number(a.score).toFixed(1)}% ` +
+        `(${a.correct_answers}/${a.total_questions}, max difficulty ${a.max_difficulty})</div>`
+    ).join('');
+    container.innerHTML = rows ? `<h3>Past attempts</h3>${rows}` : '';
+}
 
 function startTimers() {
     overallTime = 0;
@@ -86,11 +126,13 @@ function submitAnswer() {
     if (selectedOption === questions[currentIndex].answer) {
         correctAnswers++;
         consecutiveCorrectAnswers++;
+        maxDifficultyReached = Math.max(maxDifficultyReached, difficultyLevel);
         if (consecutiveCorrectAnswers === 10 && difficultyLevel === 5) {
             // The user has passed the test
             stopQuestionTimer();
             clearInterval(overallTimer);
             alert('Congratulations, you passed the test!');
+            recordAttempt(correctAnswers / submittedAnswerCount * 100, correctAnswers, submittedAnswerCount, maxDifficultyReached);
             return;
         }
         if (difficultyLevel < 5) {
@@ -138,6 +180,7 @@ function nextQuestion() {
         } else {
             alert('Sorry, you did not pass the test. Your score was ' + score + '%.');
         }
+        recordAttempt(score, correctAnswers, submittedAnswerCount, maxDifficultyReached);
     }
 }
     
@@ -157,6 +200,7 @@ function startTest() {
     document.getElementById('startTestButton').style.display = 'none';
     document.getElementById('testContainer').style.display = 'block';
     submittedAnswerCount=0;
+    maxDifficultyReached = 1;
     startTimers();
     loadJson();
 }

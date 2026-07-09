@@ -8,7 +8,7 @@ A local, static, zero-dependency crash course covering the ~19 patterns that gen
 ./start.sh
 ```
 
-Then open **http://localhost:8000**. (Uses `python3 -m http.server` — nothing else to install. Serving over `http://localhost` instead of double-clicking the HTML files is what makes saved progress and content loading work reliably across browsers.)
+Then open **http://localhost:8000/DSA_tool/**. (Uses `python3 -m http.server` from the repo root — nothing else to install. Serving over `http://localhost` instead of double-clicking the HTML files is what makes saved progress and content loading work reliably across browsers.)
 
 To stop: `Ctrl+C` in the terminal.
 

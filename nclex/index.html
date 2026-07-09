@@ -3,14 +3,22 @@
 <head>
     <title>NCLEX Mock Test</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="../shared/auth-ui.css">
 </head>
 <body>
+    <header id="nclex-header">
+        <div id="auth-widget"></div>
+    </header>
+
     <h1>Welcome to the NCLEX Mock Test</h1>
-    <p>This mock test will simulate the NCLEX examination. The difficulty level of the questions will adjust based on your answers. 
-    You pass the exam if you answer 10 consecutive questions correctly at the highest difficulty level or if your overall score is above 70%. 
+    <p>This mock test will simulate the NCLEX examination. The difficulty level of the questions will adjust based on your answers.
+    You pass the exam if you answer 10 consecutive questions correctly at the highest difficulty level or if your overall score is above 70%.
     The exam begins when you click the "Start Test" button. Good luck!</p>
+    <p style="color:#666; font-size:0.85rem;">The test itself is always free to use, signed in or not. Signing in just saves your score history across devices — otherwise it's remembered only in this browser.</p>
 
     <button id="startTestButton" onclick="startTest()">Start Test</button>
+
+    <div id="past-attempts"></div>
 
     <div id="testContainer" style="display: none;">
         <div id="timerContainer">
@@ -34,6 +42,15 @@
         <button onclick="nextQuestion()" id="nextQuestionButton" style="display: none;">Next Question</button>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../shared/supabase-client.js"></script>
+    <script src="../shared/auth-ui.js"></script>
     <script src="main.js"></script>
+    <script>
+        if (window.AuthUI) {
+            AuthUI.mount('auth-widget');
+            AuthUI.onChange(() => loadPastAttempts());
+        }
+    </script>
 </body>
 </html>

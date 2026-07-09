@@ -1,0 +1,67 @@
+/* shared/auth-ui.css — styled against DSA_tool's CSS vars, with fallbacks
+   for pages (like nclex) that don't define them. */
+.auth-widget {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+.auth-btn {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.82rem;
+  border-radius: var(--radius, 6px);
+  border: 1px solid var(--border, #ccc);
+  background: var(--accent, #2563eb);
+  color: #06120f;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.auth-btn:hover { filter: brightness(1.08); }
+
+.auth-btn-ghost {
+  background: transparent;
+  color: var(--text-dim, #666);
+  font-weight: 500;
+  border-color: var(--border, #ccc);
+}
+
+.auth-btn-google { background: var(--accent, #2563eb); color: #06120f; }
+
+.auth-email {
+  color: var(--text-dim, #666);
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.auth-form {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 0.4rem;
+}
+
+.auth-form input {
+  padding: 0.35rem 0.5rem;
+  border-radius: var(--radius, 6px);
+  border: 1px solid var(--border, #ccc);
+  background: var(--bg-panel-2, #fff);
+  color: var(--text, #111);
+  font-size: 0.82rem;
+}
+
+.auth-form-actions { display: flex; gap: 0.4rem; }
+
+.auth-form-msg {
+  flex-basis: 100%;
+  margin: 0.2rem 0 0;
+  font-size: 0.78rem;
+  color: var(--text-dim, #666);
+}

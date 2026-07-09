@@ -84,6 +84,11 @@ function renderPattern(id) {
       <input type="checkbox" id="complete-check">
       Mark "${data.title}" as complete
     </label>
+
+    <h2>My Notes</h2>
+    <div class="card">
+      <textarea id="module-notes" rows="5" style="width:100%; resize:vertical;" placeholder="Jot down anything worth remembering about this pattern — saved automatically, synced across devices if you're signed in."></textarea>
+    </div>
   `;
 
   if (data.viz.type === 'graph') {
@@ -99,6 +104,18 @@ function renderPattern(id) {
   const check = document.getElementById('complete-check');
   check.checked = isComplete(id);
   check.addEventListener('change', () => setComplete(id, check.checked));
+  window.addEventListener('dsa:progress-synced', () => { check.checked = isComplete(id); });
+
+  const notes = document.getElementById('module-notes');
+  notes.value = getNote(id);
+  let notesTimer;
+  notes.addEventListener('input', () => {
+    clearTimeout(notesTimer);
+    notesTimer = setTimeout(() => setNote(id, notes.value), 500);
+  });
+  window.addEventListener('dsa:notes-synced', () => {
+    if (document.activeElement !== notes) notes.value = getNote(id);
+  });
 
   renderPatternNav(id);
 }

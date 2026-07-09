@@ -3,6 +3,18 @@ body {
     padding: 20px;
 }
 
+#nclex-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+#past-attempts {
+    margin: 16px 0;
+    font-size: 0.9rem;
+    color: #444;
+}
+
 #timerContainer {
     display: flex;
     justify-content: space-between;

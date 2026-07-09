@@ -75,6 +75,8 @@ header.site nav {
 header.site nav a { color: var(--text-dim); }
 header.site nav a.active, header.site nav a:hover { color: var(--accent); }
 
+header.site .header-auth { margin-left: auto; }
+
 h1, h2, h3, h4 { color: #fff; line-height: 1.25; }
 h1 { font-size: 1.9rem; margin: 0.4rem 0 0.6rem; }
 h2 { font-size: 1.35rem; margin-top: 2.1rem; }
