@@ -524,3 +524,59 @@ footer.pagenav {
 }
 .sa-controls button:hover { border-color: var(--accent); color: var(--accent); }
 .sa-controls .step-count { color: var(--text-dim); font-size: 0.78rem; }
+
+/* ---- Episodes (cinematic scenes: dialogue + music/sfx) ---- */
+.ep-stage {
+  position: relative;
+  background: linear-gradient(180deg, #0d1b2a, #10263b);
+  border: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  overflow: hidden;
+}
+.ep-ledger-slot .sa-emoji { font-size: 1.1rem; opacity: 0.6; }
+.ep-ledger-slot .sa-tag { min-height: 1.1em; }
+.ep-ledger-slot.sa-off { opacity: 0.18; }
+.ep-rail {
+  display: grid;
+  grid-template-columns: 84px 1fr 84px;
+  gap: 0.7rem;
+  align-items: center;
+  background: var(--bg-panel);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  padding: 0.8rem 0.7rem;
+}
+.ep-portrait-slot { display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 96px; justify-content: center; }
+.ep-portrait { width: 68px; height: 68px; opacity: 0.35; transition: opacity 0.35s, transform 0.35s; filter: saturate(0.7); }
+.ep-portrait svg { width: 100%; height: 100%; display: block; }
+.ep-portrait.ep-active { opacity: 1; transform: scale(1.08); filter: saturate(1); animation: sa-bob 2.6s ease-in-out infinite; }
+.ep-portrait-name { font-size: 0.68rem; font-weight: 600; color: var(--text-dim); }
+.ep-bubble {
+  position: relative;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.65rem 0.9rem;
+  min-height: 4.2em;
+}
+.ep-bubble-name { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.02em; margin-bottom: 0.2rem; display: flex; align-items: center; }
+.ep-bubble-text { font-size: 0.92rem; line-height: 1.5; color: var(--text); animation: sa-fade 0.4s ease; }
+.ep-controls { border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--radius) var(--radius); padding: 0.6rem 0.7rem; background: var(--bg-panel); }
+.ep-controls button.ep-music-on { border-color: var(--accent); color: var(--accent); }
+.ep-speaking-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--text-dim); margin-right: 5px; flex: none;
+  transition: background 0.2s;
+}
+.ep-speaking-dot.ep-speaking {
+  background: var(--good);
+  animation: ep-pulse 0.9s ease-in-out infinite;
+}
+@keyframes ep-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(104, 211, 145, 0.55); }
+  50% { box-shadow: 0 0 0 5px rgba(104, 211, 145, 0); }
+}
+@media (max-width: 560px) {
+  .ep-rail { grid-template-columns: 56px 1fr 56px; }
+  .ep-portrait { width: 48px; height: 48px; }
+}

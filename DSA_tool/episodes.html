@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Piece Episodes — DSA Crash Course</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>One Piece Episodes</h1>
+  <p class="lede">Blind 75 (and a few patterns Blind 75 skips) retold as short original scenes — the Straw Hats
+  working the problem out loud, an animated prop board acting out the algorithm, and an original procedural
+  soundtrack. Everything here — the writing, the character portraits, the music and sound effects — is made for
+  this site; nothing is copied from the show.</p>
+  <div id="episode-groups"></div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="data/episodes.js"></script>
+<script src="js/app.js"></script>
+<script>
+  buildHeader('episodes.html');
+  (function () {
+    const episodes = window.EPISODES || {};
+    const byPattern = {};
+    Object.values(episodes).forEach(e => { byPattern[e.patternId] = e; });
+
+    const cats = [];
+    const seen = new Set();
+    window.SCHEDULE.filter(m => m.type === 'pattern').forEach(m => {
+      if (!seen.has(m.category)) { seen.add(m.category); cats.push(m.category); }
+    });
+
+    const root = document.getElementById('episode-groups');
+    root.innerHTML = cats.map(cat => {
+      const mods = window.SCHEDULE.filter(m => m.type === 'pattern' && m.category === cat);
+      const items = mods.map(m => {
+        const ep = byPattern[m.id];
+        if (ep) {
+          return `
+            <a class="module-card" href="episode.html?id=${ep.id}">
+              <div class="pill done">Ep. ${ep.epNumber}</div>
+              <h3 style="margin:0.4rem 0 0.2rem;">${ep.title}</h3>
+              <p style="margin:0; color:var(--text-dim); font-size:0.85rem;">${ep.leetcode.name} (${ep.leetcode.difficulty}) — ${m.title}</p>
+            </a>`;
+        }
+        return `
+          <div class="module-card" style="opacity:0.55;">
+            <div class="pill">Coming soon</div>
+            <h3 style="margin:0.4rem 0 0.2rem;">${m.title}</h3>
+            <p style="margin:0; color:var(--text-dim); font-size:0.85rem;">
+              <a href="pattern.html?id=${m.id}">Study the pattern ↗</a>
+            </p>
+          </div>`;
+      }).join('');
+      return `<h2>${cat}</h2><div class="grid">${items}</div>`;
+    }).join('');
+  })();
+</script>
+</body>
+</html>

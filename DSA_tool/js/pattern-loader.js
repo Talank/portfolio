@@ -61,6 +61,7 @@ function renderPattern(id) {
 
     <h2>Canonical problem: ${data.canonical.name}</h2>
     <p>${data.canonical.statement}</p>
+    ${renderEpisodeLink(id)}
 
     <div class="viz-box" id="viz-container"></div>
 
@@ -100,6 +101,19 @@ function renderPattern(id) {
   check.addEventListener('change', () => setComplete(id, check.checked));
 
   renderPatternNav(id);
+}
+
+function renderEpisodeLink(patternId) {
+  const episodes = window.EPISODES || {};
+  const match = Object.values(episodes).find(e => e.patternId === patternId);
+  if (!match) return '';
+  return `
+    <div class="card" style="border-color: var(--accent);">
+      <b>🏴‍☠️ Now with a full episode:</b>
+      Episode ${match.epNumber} — "${match.title}" acts this problem out with characters, dialogue,
+      and an original soundtrack.
+      <a href="episode.html?id=${match.id}">Watch it ↗</a>
+    </div>`;
 }
 
 function escapeHtml(str) {

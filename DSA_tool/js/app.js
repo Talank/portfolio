@@ -35,6 +35,7 @@ function buildHeader(active) {
     ['cheat-sheet.html', 'Cheat Sheet'],
     ['pythonic-idioms.html', 'Pythonic Idioms'],
     ['mock-interview.html', 'Mock Interview'],
+    ['episodes.html', 'One Piece Episodes'],
   ];
   const nav = links.map(([href, label]) =>
     `<a href="${href}" class="${active === href ? 'active' : ''}">${label}</a>`
