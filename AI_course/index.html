@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Engineer Course — Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>AI Engineer Course</h1>
+  <p class="lede">From "what even is a vector" to training, fine-tuning and deploying LLMs and building multi-framework agents — one ~34-hour path, zero filler. Every lesson: the real math, the real code, a One Piece story that acts the idea out (plus the occasional Big Bang Theory scene), an in-browser code lab that actually runs Python, a quiz, and the interview questions companies ask about that exact topic.</p>
+  <p class="lede">All music and sound effects are generated live in your browser with the Web Audio API — original compositions, so there is nothing copyrighted and nothing to license. Character portraits are original flat-vector art, not traced from any show.</p>
+
+  <div class="card">
+    <div id="overall-progress" class="progress-outer"><div class="progress-inner"></div></div>
+    <p id="progress-label" style="margin:0.6rem 0 0; color:var(--text-dim); font-size:0.9rem;"></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">How to use this</h2>
+    <ol>
+      <li><b>Go strictly in order.</b> The course is one long dependency chain: cosine similarity (Part 1) is the same dot product that powers attention (Part 5) and RAG retrieval (Part 7). Skipping math makes everything after it feel like magic; doing the math makes everything after it feel obvious.</li>
+      <li>In each lesson: read the concept, open the <b>One Piece story + animation</b> the first time through, expand any <b>Technicality corner</b> question you can't already answer out loud, then do the <b>Code Lab</b> — type the code yourself, run the tests in the browser.</li>
+      <li>Before marking a lesson complete, try the <b>interview questions</b> at the bottom out loud. If you can't explain it to an interviewer, you don't own it yet.</li>
+      <li>Keep the <a href="cheat-sheet.html">Cheat Sheet</a> open in a second tab — every formula and "which tool when" table in one place.</li>
+      <li>Finish with the <a href="interview.html">timed Interview Drill</a> — randomized questions from everything you studied, on a countdown, like the real thing.</li>
+    </ol>
+  </div>
+
+  <div id="module-groups"></div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>
+  buildHeader('index.html');
+  renderDashboard();
+  window.addEventListener('ai:progress-synced', renderDashboard);
+</script>
+</body>
+</html>

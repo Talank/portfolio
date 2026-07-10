@@ -1,0 +1,217 @@
+/* Loads data/lessons/<id>.js based on ?id=... and populates lesson.html.
+
+Lesson schema (window.LESSONS[id]):
+  id, title, category, timeMin, summary
+  goals      : [string]                          — "after this you can…" bullets
+  concept    : [{h, p: [htmlString], code}]      — sections; a p entry starting with
+               '<div'/'<pre'/'<ul'/'<ol'/'<table' is inserted raw (used for .math blocks)
+  story      : { onePiece: {title, text[]}, sitcom: {show, title, text[]}, why }
+  storyAnim  : story-anim-engine scene           — optional, mounted inside the One Piece story
+  episode    : episode-engine scene (props/ledger/steps with speaker dialogue)
+               — optional, a full voiced + scored scene, mounted in its own section
+  tech       : [{q, a}]                          — "Technicality corner": why this library/
+               function/math exists, what's under the hood
+  code       : {title, intro, code, notes[]}     — worked example to read
+  lab        : code-lab-engine spec              — in-browser editor + checkers (see engine)
+  quiz       : [{q, options[], correct, explain}]
+  pitfalls   : [string]
+  interview  : [{q, a}]                          — real interview questions + strong answers
+*/
+
+function qs(name) {
+  return new URLSearchParams(window.location.search).get(name);
+}
+
+function escapeHtml(str) {
+  return str.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+}
+
+const RAW_PREFIXES = ['<div', '<pre', '<ul', '<ol', '<table', '<blockquote'];
+function para(entry) {
+  const t = entry.trimStart();
+  return RAW_PREFIXES.some(p => t.startsWith(p)) ? entry : `<p>${entry}</p>`;
+}
+
+function loadLesson() {
+  const id = qs('id');
+  const root = document.getElementById('lesson-root');
+  if (!id) {
+    root.innerHTML = '<p>No lesson id given. <a href="index.html">Back to dashboard</a>.</p>';
+    return;
+  }
+  const script = document.createElement('script');
+  script.src = `data/lessons/${id}.js`;
+  script.onload = () => renderLesson(id);
+  script.onerror = () => {
+    root.innerHTML = `<p>Could not load lesson "${id}". <a href="index.html">Back to dashboard</a>.</p>`;
+  };
+  document.body.appendChild(script);
+}
+
+function renderLesson(id) {
+  const data = (window.LESSONS || {})[id];
+  const root = document.getElementById('lesson-root');
+  if (!data) {
+    root.innerHTML = `<p>Lesson "${id}" not found. <a href="index.html">Back to dashboard</a>.</p>`;
+    return;
+  }
+
+  document.title = `${data.title} — AI Engineer Course`;
+
+  const goalsHtml = (data.goals || []).length ? `
+    <div class="card goals-card">
+      <b>After this lesson you can:</b>
+      <ul class="signals">${data.goals.map(g => `<li>${g}</li>`).join('')}</ul>
+    </div>` : '';
+
+  const conceptHtml = (data.concept || []).map(sec => `
+    ${sec.h ? `<h2>${sec.h}</h2>` : ''}
+    ${(sec.p || []).map(para).join('')}
+    ${sec.code ? `<pre><code>${escapeHtml(sec.code)}</code></pre>` : ''}
+  `).join('');
+
+  const storyHtml = renderStorySection(data, id);
+  const episodeHtml = data.episode ? `
+    <h2>Animated Episode</h2>
+    <details class="story story-onepiece" id="episode-details" open>
+      <summary><span class="caret">▸</span> 🏴‍☠️ ${data.episode.title || 'Watch the crew act it out'} <span class="badge">Voiced episode</span></summary>
+      <div class="story-body">
+        <div id="episode-scene"></div>
+        <p style="color:var(--text-dim); font-size:0.8rem; margin-top:0.4rem;">
+          Music and sound effects are generated live in your browser (Web Audio API) — original
+          compositions, nothing sourced from any show. Click "Play episode" to start (browsers
+          require a click before audio can play).
+        </p>
+      </div>
+    </details>` : '';
+
+  const techHtml = (data.tech || []).length ? `
+    <h2>Technicality corner — what's actually going on</h2>
+    <p class="lede" style="font-size:0.92rem;">The questions you'd be embarrassed to ask out loud, answered properly: why the library exists, what the function call really does, where the math comes from.</p>
+    ${data.tech.map(t => `
+      <details class="tech">
+        <summary><span class="caret">▸</span> ${t.q}</summary>
+        <div class="tech-body">${(Array.isArray(t.a) ? t.a : [t.a]).map(para).join('')}</div>
+      </details>`).join('')}` : '';
+
+  const codeHtml = data.code ? `
+    <h2>${data.code.title || 'Worked example'}</h2>
+    ${data.code.intro ? `<p>${data.code.intro}</p>` : ''}
+    <pre><code>${escapeHtml(data.code.code)}</code></pre>
+    ${(data.code.notes || []).length ? `<ul>${data.code.notes.map(n => `<li>${n}</li>`).join('')}</ul>` : ''}` : '';
+
+  const pitfallsHtml = (data.pitfalls || []).length ? `
+    <h2>Pitfalls</h2>
+    ${data.pitfalls.map(p => `<div class="callout pitfall">${p}</div>`).join('')}` : '';
+
+  const interviewHtml = (data.interview || []).length ? `
+    <h2>Interview questions on this topic</h2>
+    <p class="lede" style="font-size:0.92rem;">Try answering out loud before opening each one — that's the rep that matters. These also feed the <a href="interview.html">timed drill</a>.</p>
+    ${data.interview.map(iv => `
+      <details class="tech interview-q">
+        <summary><span class="caret">▸</span> ${iv.q}</summary>
+        <div class="tech-body"><b>Strong answer:</b> ${(Array.isArray(iv.a) ? iv.a : [iv.a]).map(para).join('')}</div>
+      </details>`).join('')}` : '';
+
+  root.innerHTML = `
+    <div class="pill">${data.category}</div>
+    <div class="pill time">${data.timeMin} min</div>
+    <h1>${data.title}</h1>
+    <p class="lede">${data.summary}</p>
+    ${goalsHtml}
+    ${conceptHtml}
+    ${storyHtml}
+    ${episodeHtml}
+    ${techHtml}
+    ${codeHtml}
+    ${data.lab ? '<h2>Code Lab — prove it in code</h2><div id="lab-container"></div>' : ''}
+    ${(data.quiz || []).length ? '<h2>Quiz</h2><div id="quiz-container"></div>' : ''}
+    ${pitfallsHtml}
+    ${interviewHtml}
+    <label class="checkbox-row">
+      <input type="checkbox" id="complete-check">
+      Mark "${data.title}" as complete
+    </label>
+    <h2>My Notes</h2>
+    <div class="card">
+      <textarea id="module-notes" rows="5" style="width:100%; resize:vertical;" placeholder="Jot down anything worth remembering — saved automatically, synced across devices if you're signed in."></textarea>
+    </div>
+  `;
+
+  // Mount the inline story animation inside the One Piece story details.
+  if (data.storyAnim && window.renderStoryAnim) {
+    const mount = root.querySelector('[data-lesson-anim]');
+    if (mount) window.renderStoryAnim(mount, data.storyAnim);
+  }
+
+  if (data.episode && window.renderEpisode) {
+    renderEpisode(document.getElementById('episode-scene'), data.episode);
+  }
+
+  if (data.lab && window.renderCodeLab) {
+    renderCodeLab(document.getElementById('lab-container'), id, data.lab);
+  }
+
+  if ((data.quiz || []).length) {
+    renderQuiz(document.getElementById('quiz-container'), data.quiz);
+  }
+
+  const check = document.getElementById('complete-check');
+  check.checked = isComplete(id);
+  check.addEventListener('change', () => setComplete(id, check.checked));
+  window.addEventListener('ai:progress-synced', () => { check.checked = isComplete(id); });
+
+  const notes = document.getElementById('module-notes');
+  notes.value = getNote(id);
+  let notesTimer;
+  notes.addEventListener('input', () => {
+    clearTimeout(notesTimer);
+    notesTimer = setTimeout(() => setNote(id, notes.value), 500);
+  });
+  window.addEventListener('ai:notes-synced', () => {
+    if (document.activeElement !== notes) notes.value = getNote(id);
+  });
+
+  renderLessonNav(id);
+}
+
+function renderStorySection(data, id) {
+  const story = data.story;
+  if (!story) return '';
+  const asParas = t => (Array.isArray(t) ? t : [t]).map(p => `<p>${p}</p>`).join('');
+  const blocks = [];
+  if (story.onePiece) {
+    blocks.push(`
+      <details class="story story-onepiece" open>
+        <summary><span class="caret">▸</span> One Piece anecdote: ${story.onePiece.title} <span class="badge">${data.storyAnim ? 'Animated story' : 'Story'}</span></summary>
+        <div class="story-body">
+          ${asParas(story.onePiece.text)}
+          ${data.storyAnim ? '<div data-lesson-anim></div>' : ''}
+        </div>
+      </details>`);
+  }
+  if (story.sitcom) {
+    blocks.push(`
+      <details class="story story-history">
+        <summary><span class="caret">▸</span> ${story.sitcom.show} anecdote: ${story.sitcom.title} <span class="badge">Story</span></summary>
+        <div class="story-body">${asParas(story.sitcom.text)}</div>
+      </details>`);
+  }
+  if (!blocks.length) return '';
+  const why = story.why ? `<div class="story-why"><b>Why this sticks:</b> ${story.why}</div>` : '';
+  return `<h2>Story Mode</h2>${blocks.join('')}${why}`;
+}
+
+function renderLessonNav(id) {
+  const lessons = window.SCHEDULE.filter(m => m.type === 'lesson');
+  const idx = lessons.findIndex(m => m.id === id);
+  const nav = document.getElementById('lesson-footer-nav');
+  if (!nav || idx === -1) return;
+  const prev = idx === 0 ? { title: '← Dashboard', href: 'index.html' }
+    : { title: `← ${lessons[idx - 1].title}`, href: `lesson.html?id=${lessons[idx - 1].id}` };
+  const next = idx === lessons.length - 1 ? { title: 'Interview Drill →', href: 'interview.html' }
+    : { title: `${lessons[idx + 1].title} →`, href: `lesson.html?id=${lessons[idx + 1].id}` };
+  nav.innerHTML = `<a href="${prev.href}">${prev.title}</a><a href="${next.href}">${next.title}</a>`;
+}
+
+document.addEventListener('DOMContentLoaded', loadLesson);
