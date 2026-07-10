@@ -79,6 +79,30 @@ window.LESSONS['text-as-numbers'] = {
       { c: 'That\'s a search engine: sparse vectors, information-weighted, cosine-ranked. BM25 still runs this play inside modern RAG. 🏴‍☠️', p: { q: 'good', s3: 'good' } },
     ],
   },
+  conceptFlow: {
+    title: 'Clover\'s weighting, term by term',
+    intro: 'N=4 scrolls: "the" appears in all 4, "poneglyph" in just 1.',
+    stages: [
+      { label: 'Count', nodes: [
+        { id: 'tf', text: 'Term frequency\ncount in THIS scroll' },
+      ]},
+      { label: 'Rarity', nodes: [
+        { id: 'df', text: 'Document frequency\n"the": 4/4 scrolls · "poneglyph": 1/4' },
+      ]},
+      { label: 'Weight', nodes: [
+        { id: 'idf', text: 'idf = log(N/df)\nidf(the)=0 · idf(poneglyph)≈1.39' },
+      ]},
+      { label: 'Rank', nodes: [
+        { id: 'cosine', text: 'Cosine rank\ndirection, not magnitude' },
+      ]},
+    ],
+    steps: [
+      { active: ['tf'], note: 'Term frequency: count how often a word appears in THIS scroll.' },
+      { active: ['df'], note: '"The" appears in all 4 scrolls — everywhere. "Poneglyph" appears in only 1 of the 4.' },
+      { active: ['idf'], note: 'idf(the) = log(4/4) = 0 — muted to nothing, no stopword list required. idf(poneglyph) = log(4) ≈ 1.39 — a rare term becomes a beacon.' },
+      { active: ['cosine'], note: 'Rank scrolls by the cosine similarity of their tf-idf vectors, not raw magnitude — a one-page fragment squarely on-topic beats a 400-page almanac that mentions it once.' },
+    ],
+  },
   tech: [
     {
       q: 'What do CountVectorizer and TfidfVectorizer actually do when I call fit_transform?',
@@ -261,6 +285,36 @@ def search(query_tokens, corpus, vocab):
       explain: 'Vocabulary and idf are learned parameters (fit on train only), and transform must project new text into THAT space. Re-fitting changes column meanings entirely — predictions become garbage quietly.',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: TF-IDF & cosine search',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'A word appears in EVERY document of the corpus. Its idf (log N/df) is...', choices: [
+        { text: 'Maximal — appearing everywhere means it must be important', to: 'q1_wrong_max' },
+        { text: 'log(N) — proportional to corpus size', to: 'q1_wrong_logn' },
+        { text: '0 — the word carries no discriminating information', to: 'q1_right' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — df = N means log(N/N) = log(1) = 0. TF-IDF auto-mutes stopwords with no hand-built list; a word present everywhere has zero Shannon surprise value.', next: 'q2' },
+      q1_wrong_max: { end: true, correct: false, text: 'It\'s the opposite — appearing in EVERY document means the word can\'t help distinguish one document from another. Maximal idf goes to RARE words, not ubiquitous ones.', retry: 'q1' },
+      q1_wrong_logn: { end: true, correct: false, text: 'log(N) would be the idf of a word appearing in only 1 document (df=1). A word in ALL N documents has df=N, giving log(N/N)=log(1)=0 instead.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'Why rank TF-IDF documents by cosine similarity rather than raw dot product?', choices: [
+        { text: 'Cosine is computationally faster to calculate', to: 'q2_wrong_speed' },
+        { text: 'Raw dot products let long documents win purely on length; cosine compares topical direction only', to: 'q2_right' },
+        { text: 'Dot products can\'t be computed on sparse vectors', to: 'q2_wrong_sparse' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — the almanac problem: more words means a bigger vector means a bigger raw dot product, regardless of actual relevance. Cosine divides out magnitude, comparing direction (topic) only.', next: 'q3' },
+      q2_wrong_speed: { end: true, correct: false, text: 'Speed isn\'t the reason — in fact cosine requires an extra normalization step beyond a plain dot product. The real reason is about correctness: avoiding document-length bias in the ranking.', retry: 'q2' },
+      q2_wrong_sparse: { end: true, correct: false, text: 'Dot products work perfectly fine on sparse vectors (it\'s one of their main advantages, computationally). The issue with raw dot products is length bias, not any sparse-matrix limitation.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'Query "boat"; the target document is about ships but never uses the word "boat". What is the TF-IDF cosine similarity likely to be?', choices: [
+        { text: 'High — they mean essentially the same thing', to: 'q3_wrong_high' },
+        { text: 'Moderate — partial credit for related topic', to: 'q3_wrong_moderate' },
+        { text: '~0 — different words occupy different, orthogonal slots; meaning plays no role', to: 'q3_right' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — bag-of-words/TF-IDF gives each surface word its own independent slot. "boat" and "ship" share no slots, so they\'re orthogonal — exactly the failure that motivates word embeddings (Part 4).', },
+      q3_wrong_high: { end: true, correct: false, text: 'TF-IDF has no notion of MEANING at all — only exact surface word matches. "boat" and "ship" are completely different vocabulary slots, so similarity stays near zero despite the shared topic.', retry: 'q3' },
+      q3_wrong_moderate: { end: true, correct: false, text: 'There\'s no partial credit mechanism in bag-of-words vectors — a word either matches a vocabulary slot exactly or it doesn\'t. With zero shared vocabulary words, cosine similarity is essentially zero, not moderate.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Fitting the vectorizer on train+test together — idf and vocabulary leak test-set statistics. Split first; fit on train; transform everything else.',
     'Comparing documents with raw counts or raw dot products and wondering why long documents dominate every ranking.',

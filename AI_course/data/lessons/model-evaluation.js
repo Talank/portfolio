@@ -111,6 +111,33 @@ window.LESSONS['model-evaluation'] = {
       { c: 'F1 = harmonic mean ≈ 0.36 — the low precision drags it down hard. And HQ re-audits across 5 different weeks and averages: cross-validation, so one lucky week can\'t decide his fate.', p: { metric: 'good' }, l: { metric: 'F1 ≈ 0.36, CV over 5 weeks' } }
     ]
   },
+  conceptFlow: {
+    title: 'Smoker\'s audit, box by box',
+    intro: 'Same 1000-ship audit as the animation.',
+    stages: [
+      { label: 'Confusion boxes', nodes: [
+        { id: 'tp', text: 'TP: 45\ncaught' },
+        { id: 'fn', text: 'FN: 5\nmissed' },
+        { id: 'fp', text: 'FP: 155\nfalse alarms' },
+        { id: 'tn', text: 'TN: 795\ncorrectly ignored' },
+      ]},
+      { label: 'Misleading', nodes: [
+        { id: 'acc', text: 'Accuracy = 84%\nNezumi (flags nobody) = 95%!' },
+      ]},
+      { label: 'Split the errors', nodes: [
+        { id: 'pr', text: 'Precision = 22.5%\nRecall = 90%' },
+      ]},
+      { label: 'One honest number', nodes: [
+        { id: 'f1', text: 'F1 ≈ 0.36' },
+      ]},
+    ],
+    steps: [
+      { active: ['tp', 'fn', 'fp', 'tn'], note: '1000 ships, 50 real pirates. Smoker catches 45 (TP), misses 5 (FN), wrongly detains 155 merchants (FP), correctly waves through 795 (TN).' },
+      { active: ['acc'], note: 'Accuracy = (45+795)/1000 = 84%. But do-nothing Nezumi, who flags NO ONE, scores 95% — accuracy rewards ignoring rare pirates.' },
+      { active: ['pr'], note: 'Split the errors apart: precision = 45/200 = 22.5% (of ships flagged, how many were really pirates); recall = 45/50 = 90% (of real pirates, how many were caught).' },
+      { active: ['f1'], note: 'F1, the harmonic mean, punishes the imbalance: ≈0.36 — the weak precision drags it down hard, an honest single number neither raw accuracy nor recall alone would give.' },
+    ],
+  },
   tech: [
     {
       q: 'Why is F1 the harmonic mean and not the arithmetic mean?',
@@ -279,6 +306,36 @@ def auc(y_true, y_score):
       explain: 'The mean/std were computed using rows that later act as test data — information leaked into preprocessing. Pipeline + cross_val_score re-fits the scaler on training folds only, mirroring what deployment actually looks like.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: evaluation metrics',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'A disease affects 1 in 100 people. A test predicts "healthy" for everyone. Its accuracy and recall (for the disease class) are:', choices: [
+        { text: '99% accuracy, 0% recall', to: 'q1_right' },
+        { text: '99% accuracy, 99% recall', to: 'q1_wrong_bothhigh' },
+        { text: '50% accuracy, 0% recall', to: 'q1_wrong_50' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — correct on all 99 healthy people (99% accuracy) but catches 0 of the 1 sick person (0% recall). The accuracy paradox: a completely useless model can score deceptively high accuracy.', next: 'q2' },
+      q1_wrong_bothhigh: { end: true, correct: false, text: 'The model predicts "healthy" for EVERYONE, including the actually-sick person — so it catches zero real positive cases. Recall on the disease class must be 0%, not 99%.', retry: 'q1' },
+      q1_wrong_50: { end: true, correct: false, text: 'Accuracy counts ALL correct predictions, not just positive ones — 99 of 100 people are correctly called healthy, giving 99% accuracy, not 50%.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'AUC = 0.5 means the model...', choices: [
+        { text: 'Ranks a random positive above a random negative only half the time — no better than chance', to: 'q2_right' },
+        { text: 'Is correct on exactly 50% of examples', to: 'q2_wrong_correct' },
+        { text: 'Has precision exactly equal to recall', to: 'q2_wrong_pr' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — AUC = P(score of random positive > score of random negative). At 0.5, the model\'s ranking carries zero information beyond a coin flip.', next: 'q3' },
+      q2_wrong_correct: { end: true, correct: false, text: 'AUC doesn\'t measure raw accuracy at all — it\'s a pure ranking metric (probability a random positive outranks a random negative), completely independent of any particular accuracy figure.', retry: 'q2' },
+      q2_wrong_pr: { end: true, correct: false, text: 'AUC says nothing directly about precision or recall at any specific threshold — it summarizes ranking quality across ALL thresholds at once, not any one operating point\'s precision/recall balance.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'You standardize the WHOLE dataset with StandardScaler, then run 5-fold CV, and get a suspiciously great score. What\'s wrong?', choices: [
+        { text: 'Data leakage — the scaler saw the test folds\' statistics; it must be fit inside each fold', to: 'q3_right' },
+        { text: 'Nothing — scaling is deterministic, so the order of operations doesn\'t matter', to: 'q3_wrong_nothing' },
+        { text: 'You should have used 10 folds instead of 5', to: 'q3_wrong_folds' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — the mean/std used for scaling were computed using rows that later serve as test data in each fold, leaking test information into training. A Pipeline re-fits the scaler on training folds only, avoiding this.', },
+      q3_wrong_nothing: { end: true, correct: false, text: 'Order matters a great deal here — fitting the scaler on the FULL dataset means its statistics were computed partly from data that later acts as held-out test data within each CV fold, which is leakage regardless of scaling being deterministic.', retry: 'q3' },
+      q3_wrong_folds: { end: true, correct: false, text: 'The number of folds isn\'t the problem — the issue is WHEN the scaler was fit (on the whole dataset, before splitting), which leaks test-fold information into training regardless of how many folds you use.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Reporting accuracy on imbalanced data. First question in any evaluation: what is the class balance? If it is not near 50/50, reach for precision/recall/F1 or PR-AUC.',
     'Tuning hyperparameters against the test set. Every peek makes it a validation set; the final number becomes optimistically biased. Lock the test set away until the very end — one evaluation, ever.',

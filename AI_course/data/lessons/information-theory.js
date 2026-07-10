@@ -93,6 +93,32 @@ window.LESSONS['information-theory'] = {
       { c: 'An LLM in training is Nami revising the codebook: every gradient step shortens the code for what text actually does. Perplexity = "my code is as good as a fair PPL-sided die." 🏴‍☠️', p: { book: 'good', cost: 'good', m1: 'good' }, l: { book: 'model q → p' } },
     ],
   },
+  conceptFlow: {
+    title: 'Codebooks, quantified',
+    intro: 'Same three distributions as the code section.',
+    stages: [
+      { label: 'Reality', nodes: [
+        { id: 'truth', text: 'True frequencies\np = [0.7, 0.2, 0.1]' },
+      ]},
+      { label: "Nami's code", nodes: [
+        { id: 'nami', text: 'q = p\nmatches reality' },
+        { id: 'H', text: 'H(p) = 1.157 bits\nthe theoretical floor' },
+      ]},
+      { label: "Buggy's code", nodes: [
+        { id: 'buggy', text: 'q = [0.1, 0.2, 0.7]\nmismatched' },
+        { id: 'Hpq', text: 'H(p,q) = 2.522 bits\ncross-entropy' },
+      ]},
+      { label: 'The overhead', nodes: [
+        { id: 'kl', text: 'KL = H(p,q) − H(p)\n= 1.365 bits' },
+      ]},
+    ],
+    steps: [
+      { active: ['truth'], note: 'Reality: Straw Hat messages actually occur with frequencies p = [0.7, 0.2, 0.1].' },
+      { active: ['nami', 'H'], note: 'Nami\'s codebook matches reality exactly: average cost = H(p) = 1.157 bits — the theoretical floor no code can beat.' },
+      { active: ['buggy', 'Hpq'], note: 'Now use Buggy\'s mismatched codebook instead: average cost rises to H(p,q) = 2.522 bits — the cross-entropy.' },
+      { active: ['kl'], note: 'The extra waving is pure KL divergence: H(p,q) − H(p) = 1.365 bits — the exact, quantified price of believing the wrong world.' },
+    ],
+  },
   tech: [
     {
       q: 'Why is cross-entropy preferred over MSE for classification — mathematically, not just "it works better"?',
@@ -247,6 +273,36 @@ def perplexity_from_loss(loss_nats):
       explain: 'Pure reward maximization finds degenerate high-reward outputs (repetition, sycophancy, gibberish the reward model mis-scores). The KL leash constrains exploration to stay near the sane distribution learned in pretraining. Full story in Part 6.',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: entropy & cross-entropy',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'Which distribution over 4 outcomes has the HIGHEST entropy?', choices: [
+        { text: '[0.97, 0.01, 0.01, 0.01]', to: 'q1_wrong_peaked' },
+        { text: '[0.25, 0.25, 0.25, 0.25]', to: 'q1_right' },
+        { text: '[1, 0, 0, 0]', to: 'q1_wrong_certain' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — uniform means maximal uncertainty, hence maximal entropy (2 bits here). Any concentration toward one outcome reduces average surprise.', next: 'q2' },
+      q1_wrong_peaked: { end: true, correct: false, text: 'This distribution is heavily concentrated on one outcome — very LOW average surprise, hence low entropy, not high. Entropy is maximized by spreading probability out evenly.', retry: 'q1' },
+      q1_wrong_certain: { end: true, correct: false, text: 'This is total certainty — one outcome has probability 1. That\'s the MINIMUM possible entropy (exactly 0 bits), the opposite of what the question asks.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'A classifier assigns the TRUE class a probability of 0.01. Its cross-entropy loss on that example, in nats, is...', choices: [
+        { text: '0.01', to: 'q2_wrong_direct' },
+        { text: '−log(0.01) ≈ 4.6', to: 'q2_right' },
+        { text: '0.99', to: 'q2_wrong_complement' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — with a one-hot target, cross-entropy collapses to −log q(true class). The −log is exactly why confident mistakes dominate training: one such example outweighs dozens of mild ones.', next: 'q3' },
+      q2_wrong_direct: { end: true, correct: false, text: 'Cross-entropy is −log(probability), not the raw probability itself. −log(0.01) ≈ 4.6, a much larger (and correctly punishing) number.', retry: 'q2' },
+      q2_wrong_complement: { end: true, correct: false, text: 'That\'s just 1 minus the probability — not how cross-entropy is defined. The formula is −log q(true class) = −log(0.01) ≈ 4.6.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'KL(p‖q) = 0 exactly when...', choices: [
+        { text: 'p and q are independent', to: 'q3_wrong_independent' },
+        { text: 'p = q everywhere', to: 'q3_right' },
+        { text: 'H(p) = H(q), even if p and q differ', to: 'q3_wrong_entropy' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — KL is the extra cost of a mismatched codebook; it hits exactly zero only when beliefs match reality perfectly, everywhere.', },
+      q3_wrong_independent: { end: true, correct: false, text: 'Independence is a completely different concept (about joint vs. marginal probabilities of two variables) and doesn\'t apply here — KL compares two distributions over the SAME variable, and is zero only when they\'re identical.', retry: 'q3' },
+      q3_wrong_entropy: { end: true, correct: false, text: 'Two distinct distributions can absolutely share the same entropy value while still differing from each other everywhere — that alone does not make KL(p‖q) zero. Only p = q exactly gives KL = 0.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Applying softmax before <code>nn.CrossEntropyLoss</code> — it expects raw logits and applies log-softmax internally. The double-softmax bug trains, underperforms, and hides for weeks.',
     'Comparing perplexities across different tokenizers: PPL is per-token, so a model with a coarser tokenizer gets fewer, harder tokens — the numbers aren\'t comparable. (Bits-per-byte is the tokenizer-neutral metric.)',

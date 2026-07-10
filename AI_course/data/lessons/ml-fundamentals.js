@@ -87,6 +87,30 @@ window.LESSONS['ml-fundamentals'] = {
       { c: 'Same lesson for models: capacity + one narrow sample = memorized noise. Diverse data + right constraints = swordsmanship. 🏴‍☠️', p: { score: 'good' } },
     ],
   },
+  conceptFlow: {
+    title: 'Watching overfitting happen, degree by degree',
+    intro: 'Same twelve noisy points and the same three polynomial degrees as the code section.',
+    stages: [
+      { label: 'Degree 1', nodes: [
+        { id: 'd1', text: 'A line\ntrain 2.6, test 2.9 — underfit' },
+      ]},
+      { label: 'Degree 2', nodes: [
+        { id: 'd2', text: 'Matches the truth\ntrain 0.8, test 1.2 — healthy' },
+      ]},
+      { label: 'Degree 9', nodes: [
+        { id: 'd9train', text: 'Very flexible\ntrain 0.3 — best of the three!' },
+      ]},
+      { label: 'Reveal', nodes: [
+        { id: 'd9test', text: 'Same model\ntest 9+ — worst of the three!' },
+      ]},
+    ],
+    steps: [
+      { active: ['d1'], note: 'Degree 1 (a straight line): train MSE ~2.6, test MSE ~2.9 — bad on BOTH. Underfitting: too rigid to express the true curve at all.' },
+      { active: ['d2'], note: 'Degree 2 (matches the true quadratic shape): train MSE ~0.8, test MSE ~1.2 — both low, close together. Healthy.' },
+      { active: ['d9train'], note: 'Degree 9 (very flexible): train MSE ~0.3 — the BEST training score of the three. Looks tempting if you only check training error.' },
+      { active: ['d9test'], note: 'But test MSE explodes past 9 — the WORST of the three. Training error actively lied about quality: that gap IS overfitting, memorized noise.' },
+    ],
+  },
   tech: [
     {
       q: 'What do sklearn\'s .fit() and .predict() actually do — what\'s inside the black box?',
@@ -249,6 +273,36 @@ def diagnose(train_mse, val_mse):
       explain: 'Random splits scatter future rows into training — offline evaluation then measures "predicting the past from the future". Split by time: train on past, validate on future, always.',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: overfitting & bias-variance',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'Train MSE 0.02, validation MSE 4.1. Diagnosis and best first move?', choices: [
+        { text: 'Underfitting — use a bigger model', to: 'q1_wrong_bigger' },
+        { text: 'Overfitting — regularize, get more data, or simplify the model', to: 'q1_right' },
+        { text: 'Healthy — ship it', to: 'q1_wrong_ship' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — a huge train/val gap means the model memorized sample-specific noise (high variance). Bigger models make this worse; more data, regularization, early stopping, or a simpler model fix it.', next: 'q2' },
+      q1_wrong_bigger: { end: true, correct: false, text: 'A bigger model treats this as a bias problem, but the near-zero train error already proves the model has PLENTY of capacity. The huge train/val gap is the signature of variance, not bias — a bigger model would make it worse.', retry: 'q1' },
+      q1_wrong_ship: { end: true, correct: false, text: 'A validation error 200× the training error is a serious red flag, not a healthy pattern — this model will perform far worse in production than its training numbers suggest.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'More training data will NOT meaningfully help when a model is...', choices: [
+        { text: 'Overfitting', to: 'q2_wrong_overfit' },
+        { text: 'Underfitting (high bias)', to: 'q2_right' },
+        { text: 'Trained with SGD instead of full-batch gradient descent', to: 'q2_wrong_sgd' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — a straight line stays wrong about a U-shaped relationship no matter how many points you show it. Bias is a hypothesis-space limitation; more data specifically cures VARIANCE, not bias.', next: 'q3' },
+      q2_wrong_overfit: { end: true, correct: false, text: 'More data is exactly the classic cure for overfitting (variance) — it\'s underfitting (bias) where more data has little to no effect, since the model literally cannot express the true pattern at any sample size.', retry: 'q2' },
+      q2_wrong_sgd: { end: true, correct: false, text: 'The choice of optimizer (SGD vs full-batch) isn\'t what determines whether more data helps — that\'s purely a question of whether the model is bias-limited or variance-limited.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'Your time-series model looks great offline but performs terribly in production. The most classic cause is...', choices: [
+        { text: 'The model architecture is too small', to: 'q3_wrong_small' },
+        { text: 'A random (not temporal) train/test split let the model peek at the future during training', to: 'q3_right' },
+        { text: 'The learning rate was set too low', to: 'q3_wrong_lr' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — random splits scatter future rows into the training set, so offline evaluation secretly measures "predicting the past from the future." Time-series must split by time: train on past, validate on future, always.', },
+      q3_wrong_small: { end: true, correct: false, text: 'Model size doesn\'t explain an offline-vs-production GAP specifically — a too-small model would perform poorly offline too. This mismatch pattern is the signature of a leaky evaluation setup, not raw capacity.', retry: 'q3' },
+      q3_wrong_lr: { end: true, correct: false, text: 'Learning rate issues would show up as poor training convergence itself, not as a specific offline-good/production-bad mismatch. That mismatch pattern points to a leaky split, not an optimization hyperparameter.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Evaluating on training data — Joey grading his own French. Everything looks fluent from inside the training set.',
     'Fitting preprocessing (scalers, vocabularies, feature selection, PCA) on all data before splitting. The test set leaks into training through the statistics. Split first; fit transforms on train only.',

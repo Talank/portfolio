@@ -443,6 +443,16 @@ footer.pagenav {
   border-radius: var(--radius);
   overflow: hidden;
 }
+/* Inner layer, inset from the stage's true edges (the "margin" fix) — props are
+   positioned by % against THIS box, not the raw border box, so x:0/x:100 never
+   touch the frame. Scaled as a whole (the "zoom to fit / presentation" effect)
+   by story-anim-engine.js after measuring whether this step's content overflows. */
+.sa-stage-content {
+  position: absolute;
+  inset: 16px 14px;
+  transform-origin: 50% 50%;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+}
 .sa-prop {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -450,6 +460,8 @@ footer.pagenav {
   flex-direction: column;
   align-items: center;
   gap: 2px;
+  width: max-content;
+  max-width: 128px;
   transition: opacity 0.45s, filter 0.45s;
 }
 .sa-prop .sa-emoji {
@@ -459,13 +471,16 @@ footer.pagenav {
   transition: filter 0.4s, transform 0.35s;
 }
 .sa-tag {
-  font: 600 0.72rem/1.15 ui-monospace, SFMono-Regular, Menlo, monospace;
+  font: 600 0.72rem/1.25 ui-monospace, SFMono-Regular, Menlo, monospace;
   color: var(--text-dim);
   background: var(--bg-panel-2);
   border: 1px solid var(--border);
   border-radius: 5px;
-  padding: 1px 5px;
-  white-space: nowrap;
+  padding: 1px 6px;
+  max-width: 128px;
+  white-space: normal;
+  text-align: center;
+  word-break: break-word;
   transition: color 0.3s, border-color 0.3s, background 0.3s;
 }
 .sa-prop.sa-lit .sa-emoji { filter: none; transform: scale(1.18); }
@@ -525,7 +540,137 @@ footer.pagenav {
   font-size: 0.82rem;
 }
 .sa-controls button:hover { border-color: var(--accent); color: var(--accent); }
+.sa-controls button.sa-voice-on { border-color: var(--accent-2); color: var(--accent-2); }
+.sa-controls button:disabled { opacity: 0.45; cursor: not-allowed; }
 .sa-controls .step-count { color: var(--text-dim); font-size: 0.78rem; }
+
+/* ---- Concept flowchart (interactive pipeline diagram, js/concept-flow-engine.js) ----
+   Stage-column layout (flexbox) instead of x/y coordinates on purpose — it wraps
+   naturally on narrow screens instead of ever needing a fit-to-content zoom. */
+.cf-wrap { margin: 0.9rem 0 0.2rem; }
+.cf-title { font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+.cf-intro { color: var(--text-dim); font-size: 0.88rem; margin: 0 0 0.7rem; }
+.cf-board {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  background: linear-gradient(180deg, #0d1b2a, #10263b);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 0.8rem;
+}
+.cf-col { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; min-width: 132px; flex: 1 1 132px; }
+.cf-col-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); font-weight: 700; }
+.cf-col-nodes { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
+.cf-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 0.55rem;
+  cursor: pointer;
+  text-align: center;
+  transition: opacity 0.35s, border-color 0.3s, transform 0.2s, background 0.3s;
+  font-family: inherit;
+}
+.cf-node:hover { border-color: var(--accent); transform: translateY(-1px); }
+.cf-node-title { font-size: 0.82rem; font-weight: 600; color: var(--text); line-height: 1.3; }
+.cf-node-sub { font-size: 0.74rem; color: var(--text-dim); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; line-height: 1.3; }
+.cf-node.cf-dim { opacity: 0.35; }
+.cf-node.cf-active { border-color: var(--accent); background: rgba(79, 161, 255, 0.1); }
+.cf-node.cf-active .cf-node-title { color: var(--accent); }
+.cf-arrow { color: var(--text-dim); font-size: 1.3rem; flex: 0 0 auto; }
+@media (max-width: 640px) {
+  .cf-board { flex-direction: column; }
+  .cf-arrow { transform: rotate(90deg); }
+  .cf-col { width: 100%; }
+}
+
+/* ---- Self-test flowchart (branching decision tree, js/test-flow-engine.js) ---- */
+.tf-wrap { margin: 0.9rem 0 0.2rem; }
+.tf-header { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 0.6rem; }
+.tf-title { font-weight: 700; color: #fff; }
+.tf-voice {
+  background: var(--bg-panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.78rem;
+}
+.tf-voice:hover { border-color: var(--accent); color: var(--accent); }
+.tf-voice.sa-voice-on { border-color: var(--accent-2); color: var(--accent-2); }
+.tf-voice:disabled { opacity: 0.45; cursor: not-allowed; }
+.tf-trail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 0.4rem 0;
+  margin-bottom: 0.6rem;
+}
+.tf-trail:empty { display: none; }
+.tf-trail-node {
+  font-size: 0.76rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel-2);
+  color: var(--text-dim);
+  white-space: nowrap;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tf-trail-node.tf-trail-q { color: var(--text); }
+.tf-trail-node.tf-trail-good { border-color: var(--good); color: var(--good); }
+.tf-trail-node.tf-trail-bad { border-color: var(--danger); color: var(--danger); }
+.tf-trail-arrow { color: var(--text-dim); font-size: 0.8rem; line-height: 1; }
+.tf-current {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+.tf-current.tf-cap-in { animation: sa-fade 0.4s ease; }
+.tf-q-text { font-size: 0.98rem; color: var(--text); margin-bottom: 0.8rem; line-height: 1.45; }
+.tf-choices { display: flex; flex-direction: column; gap: 0.5rem; }
+.tf-choice {
+  text-align: left;
+  background: var(--bg-panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+.tf-choice:hover { border-color: var(--accent); background: rgba(79, 161, 255, 0.08); transform: translateX(2px); }
+.tf-feedback { padding: 0.75rem 0.9rem; border-radius: 8px; font-size: 0.92rem; line-height: 1.5; margin-bottom: 0.8rem; }
+.tf-feedback.tf-good { background: rgba(63, 185, 106, 0.1); border: 1px solid var(--good); color: var(--text); }
+.tf-feedback.tf-bad { background: rgba(240, 90, 90, 0.1); border: 1px solid var(--danger); color: var(--text); }
+.tf-continue {
+  background: var(--accent);
+  color: #06111f;
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+.tf-continue:hover { filter: brightness(1.08); }
+.tf-continue.tf-done { background: var(--bg-panel-2); color: var(--text-dim); cursor: default; }
 
 /* ---- Episodes (cinematic scenes: dialogue + music/sfx) ---- */
 .ep-stage {

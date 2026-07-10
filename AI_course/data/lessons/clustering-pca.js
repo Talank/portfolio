@@ -79,6 +79,30 @@ window.LESSONS['clustering-pca'] = {
       { c: 'Same dance on 768-d embeddings clusters your users\' queries, your RAG chunks, your agent\'s failures. Flags in meaning-space. 🏴‍☠️', p: { J: 'good' } },
     ],
   },
+  conceptFlow: {
+    title: 'The loot-sort dance, watched by J',
+    intro: 'Same inertia numbers as the animation.',
+    stages: [
+      { label: 'Plant', nodes: [
+        { id: 'flags', text: '4 flags, random spots\nJ = 4,810' },
+      ]},
+      { label: 'Assign', nodes: [
+        { id: 'assign', text: 'Each item → nearest flag\nJ = 3,200' },
+      ]},
+      { label: 'Update', nodes: [
+        { id: 'update', text: 'Flags walk to pile centers\nJ = 1,450' },
+      ]},
+      { label: 'Converge', nodes: [
+        { id: 'converge', text: 'Repeat until nothing moves\nJ = 905' },
+      ]},
+    ],
+    steps: [
+      { active: ['flags'], note: 'Four flags planted at random mid-deck. Nobody labeled anything. J = 4,810.' },
+      { active: ['assign'], note: 'ASSIGN: every item goes to its nearest flag. The piles are lopsided nonsense — but they are piles. J drops to 3,200.' },
+      { active: ['update'], note: 'UPDATE: each flag walks to the center of its own pile — the mean minimizes squared distance, that\'s what a mean IS. J drops to 1,450.' },
+      { active: ['converge'], note: 'Repeat — reassign, update, reassign — each step can only lower J. Nothing moves: converged at J=905. Coins, gems, medicine, charts: labels EMERGED, with no annotator.' },
+    ],
+  },
   tech: [
     {
       q: 'Why does the k-means update step use the mean — and what breaks if I use something else?',
@@ -253,6 +277,36 @@ def inertia(points, centroids, assignments):
       explain: 'Same disease as every distance-based method: income (0–10⁷) makes age (0–100) invisible in Euclidean distance. Standardize first. (Convergence still happens — to confidently wrong piles.)',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: k-means & PCA',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'The k-means update step moves each centroid to its cluster\'s MEAN because...', choices: [
+        { text: 'The mean is the fastest statistic to compute', to: 'q1_wrong_fast' },
+        { text: 'The mean is the point minimizing the sum of squared distances to the cluster members — exactly the objective being descended', to: 'q1_right' },
+        { text: 'It guarantees finding the global optimum', to: 'q1_wrong_global' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — setting d/dc Σ‖xᵢ−c‖²=0 gives c=mean exactly. Change the objective (L1 distance) and the right center changes too (median, giving k-medians).', next: 'q2' },
+      q1_wrong_fast: { end: true, correct: false, text: 'Computational speed isn\'t why the mean is used — it\'s used because it is the EXACT mathematical minimizer of the sum-of-squared-distances objective k-means is descending.', retry: 'q1' },
+      q1_wrong_global: { end: true, correct: false, text: 'Neither the assign nor the update step guarantees a global optimum — k-means only guarantees convergence to A local minimum, which is exactly why k-means++ and multiple restarts matter.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'Inertia (J) alone cannot be used to choose k because...', choices: [
+        { text: 'It is too computationally slow to evaluate at different k', to: 'q2_wrong_slow' },
+        { text: 'It always decreases as k grows — k=n gives J=0 and zero insight', to: 'q2_right' },
+        { text: 'It only works correctly in 2 dimensions', to: 'q2_wrong_2d' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — more centroids always shorten distances to the nearest one, so J monotonically falls with k. Use the elbow bend, the silhouette peak, or a downstream constraint instead.', next: 'q3' },
+      q2_wrong_slow: { end: true, correct: false, text: 'Computing J is cheap — that\'s not the issue. The real problem is that J is a monotonically decreasing function of k, so minimizing it directly just pushes you toward k=n (one cluster per point), which is useless.', retry: 'q2' },
+      q2_wrong_2d: { end: true, correct: false, text: 'Inertia works fine as a computation in any number of dimensions — the problem isn\'t dimensionality, it\'s that it always favors more clusters regardless of dimension.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'Running k-means on raw (uncentered, unscaled) mixed-unit features will...', choices: [
+        { text: 'Work fine — k-means is scale-invariant like decision trees', to: 'q3_wrong_fine' },
+        { text: 'Let the largest-scale feature dominate all distance calculations, exactly like it does for KNN', to: 'q3_right' },
+        { text: 'Cause the algorithm to fail to converge at all', to: 'q3_wrong_noconverge' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — the same disease as every distance-based method: an income feature spanning 0–10⁷ makes an age feature spanning 0–100 essentially invisible in Euclidean distance. Standardize first.', },
+      q3_wrong_fine: { end: true, correct: false, text: 'K-means is NOT scale-invariant — unlike trees, it computes actual Euclidean distances across features, so features with larger numeric ranges dominate the clustering.', retry: 'q3' },
+      q3_wrong_noconverge: { end: true, correct: false, text: 'K-means will still converge (the monotonic-decrease argument doesn\'t depend on scaling) — it just converges to confidently WRONG piles, dominated by whichever feature happens to have the largest scale.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Running k-means once with random init and trusting the result — Luffy\'s two-flags-in-the-coins. Use k-means++ and n_init ≥ 10.',
     'Choosing k by inertia. It always says "more". Silhouette, elbow, or the downstream constraint.',

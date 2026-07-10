@@ -95,6 +95,45 @@ window.LESSONS['vectors-cosine'] = {
       { c: 'Embedding search = Nami\'s test at scale: your query is a ship; the database returns the documents sailing the same way. 🏴‍☠️', p: { compass: 'good' }, l: { score: 'similarity!' } },
     ],
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: same numbers as above',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Input',
+        nodes: [
+          { id: 'a', text: 'Vector A\n[4, 2, 0] — long article' },
+          { id: 'b', text: 'Vector B\n[2, 1, 0] — short note' },
+        ],
+      },
+      {
+        label: 'Combine',
+        nodes: [
+          { id: 'dot', text: 'Dot product\n4·2 + 2·1 + 0·0 = 10' },
+          { id: 'mag', text: 'Magnitudes\n‖A‖=√20, ‖B‖=√5' },
+        ],
+      },
+      {
+        label: 'Normalize',
+        nodes: [
+          { id: 'div', text: 'Divide\n10 / (√20 × √5)' },
+        ],
+      },
+      {
+        label: 'Result',
+        nodes: [
+          { id: 'res', text: 'cos θ = 1.0\nsame direction' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['a', 'b'], note: 'Two vectors: a long pirate article and a short pirate note, as word-count vectors over [pirate, treasure, physics].' },
+      { active: ['dot'], note: 'Compute their dot product — multiply matching slots, sum: 4·2 + 2·1 + 0·0 = 10.' },
+      { active: ['mag'], note: 'Compute each vector\'s own length — the norm. ‖A‖ = √20, ‖B‖ = √5.' },
+      { active: ['div'], note: 'Divide the dot product by both magnitudes multiplied together. This one division is what cancels out length entirely.' },
+      { active: ['res'], note: 'What survives is pure direction: 10 / (√20×√5) = 1.0 — identical heading, even though B is half the length of A.' },
+    ],
+  },
   tech: [
     {
       q: 'Why does NumPy exist, and what does np.array actually give me over a Python list?',
@@ -239,6 +278,48 @@ def cosine_similarity(a, b):
       explain: 'Random directions in high-dimensional space are almost always nearly orthogonal — so even "modest" cosines like 0.3 between embeddings can indicate real relatedness. Thresholds must be calibrated on your data.',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: cosine similarity',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'cosine_similarity([6, 3], [2, 1]) — what\'s the answer, and can you get it without doing any arithmetic?',
+        choices: [
+          { text: 'Exactly 1.0 — [6,3] is a positive multiple of [2,1]', to: 'q1_right' },
+          { text: '0 — they look like unrelated numbers', to: 'q1_wrong_zero' },
+          { text: 'Can\'t tell without computing the norms', to: 'q1_wrong_calc' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: '[6,3] = 3 × [2,1] — pure positive scaling never changes direction, so the angle is 0° and cos(0) = 1 exactly. No arithmetic needed once you spot the scaling.', next: 'q2' },
+      q1_wrong_zero: { end: true, correct: false, text: '0 would mean perpendicular (90°) vectors. These two point in the exact same direction, just scaled by 3 — not unrelated at all.', retry: 'q1' },
+      q1_wrong_calc: { end: true, correct: false, text: 'You don\'t need to compute anything here — recognize that [6,3] is [2,1] scaled by 3, and scaling by a positive number never changes a vector\'s direction.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'Two documents are about the same topic, but one is 50× longer. Using their raw word-count vectors, which measure correctly reports them as similar?',
+        choices: [
+          { text: 'Euclidean distance', to: 'q2_wrong_euclid' },
+          { text: 'Cosine similarity', to: 'q2_right' },
+          { text: 'Raw (un-normalized) dot product', to: 'q2_wrong_dot' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Right — cosine divides out magnitude entirely, so document length stops mattering and only the word-usage PROPORTIONS get compared.', next: 'q3' },
+      q2_wrong_euclid: { end: true, correct: false, text: 'Euclidean distance is dominated by the length difference — a 50× longer document lands far away in raw distance even on the identical topic.', retry: 'q2' },
+      q2_wrong_dot: { end: true, correct: false, text: 'A raw dot product also grows with vector length — a longer document inflates the score without actually being more "similar" in content.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'You call cosine_similarity on two all-zero vectors (e.g. two stopword-only strings\' word-count vectors). What actually happens?',
+        choices: [
+          { text: 'It correctly returns 0', to: 'q3_wrong_zero' },
+          { text: 'It\'s undefined — you\'re dividing 0 by 0', to: 'q3_right' },
+          { text: 'It always returns 1.0', to: 'q3_wrong_one' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — both norms are 0, so the division itself is 0/0, undefined. Real code either raises an error or needs an explicit zero-vector check first; it does not silently pick a "sensible" value.' },
+      q3_wrong_zero: { end: true, correct: false, text: 'It does not silently return 0 — both norms are 0, so the division (0/0) is undefined, not a coincidentally correct-looking answer.', retry: 'q3' },
+      q3_wrong_one: { end: true, correct: false, text: 'Two identical (all-zero) vectors might tempt you toward 1.0, but you can\'t divide by a zero norm at all — it\'s undefined, not a default value.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Comparing raw dot products between vectors of different lengths and reading them as similarity. A long document beats a short one on dot product just by being long. Divide by the norms (or normalize first).',
     'Using cosine similarity when magnitude IS the signal — e.g. "total spend" vectors in fraud detection. Cosine would call a $10 shopper and a $10,000 shopper with the same category mix identical.',

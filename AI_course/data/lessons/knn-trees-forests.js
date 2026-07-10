@@ -78,6 +78,30 @@ window.LESSONS['knn-trees-forests'] = {
       { c: 'It was an ambush. Bagging = each nakama trained on different voyages; feature subsampling = each reads different clues. The crew is a random forest. 🏴‍☠️', p: { verdict: 'good' } },
     ],
   },
+  conceptFlow: {
+    title: 'The island council, one vote at a time',
+    intro: 'Same crew, same verdict as the animation.',
+    stages: [
+      { label: 'Precedent', nodes: [
+        { id: 'knn', text: 'Nami\'s KNN\n5 nearest islands → 4 hostile' },
+      ]},
+      { label: 'Sharp questions', nodes: [
+        { id: 'tree', text: 'Luffy\'s tree\n2 high-gain questions → hostile' },
+      ]},
+      { label: 'Overfit tree', nodes: [
+        { id: 'overtree', text: 'Zoro\'s deep tree\n"palm trees" superstition → hostile' },
+      ]},
+      { label: 'Vote', nodes: [
+        { id: 'forest', text: 'Council vote\n4–1 hostile — noise cancels' },
+      ]},
+    ],
+    steps: [
+      { active: ['knn'], note: 'Nami runs KNN: the 5 most-similar charted islands were 4 ambushes, 1 market. Her vote: hostile.' },
+      { active: ['tree'], note: 'Luffy runs a decision tree: "Marine flags? No." → "Waving or hiding? Hiding." Two high-information-gain questions. Vote: hostile.' },
+      { active: ['overtree'], note: 'Zoro\'s tree grew too deep: "three palm trees on the west beach = ambush" — one memorized coincidence from a single bad day. Overfitting, with branches.' },
+      { active: ['forest'], note: 'Five deep, flawed, CONFIDENT votes: 4–1 hostile. Each nakama\'s individual quirks are uncorrelated noise — the vote cancels them, and the shared signal survives.' },
+    ],
+  },
   tech: [
     {
       q: 'Gini vs entropy for splits — does the choice ever matter?',
@@ -260,6 +284,36 @@ def best_split(xs, labels):
       explain: 'Direction of the fix differs: forests average away instability; boosting stacks specialists on the residuals (and typically uses SHALLOW trees as the weak learners — the reverse of forests).',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: KNN, trees & forests',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'Increasing k in KNN moves predictions toward...', choices: [
+        { text: 'Higher variance (memorization)', to: 'q1_wrong_variance' },
+        { text: 'Higher bias (smoother, more "global majority" behavior)', to: 'q1_right' },
+        { text: 'Faster predictions', to: 'q1_wrong_speed' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — k=1 memorizes every noisy point (variance); k=n always predicts the global majority (bias). k slides along the same dial as tree depth and polynomial degree.', next: 'q2' },
+      q1_wrong_variance: { end: true, correct: false, text: 'That\'s the effect of DECREASING k (toward k=1), not increasing it. A LARGER k averages over more neighbors, smoothing predictions and increasing bias, not variance.', retry: 'q1' },
+      q1_wrong_speed: { end: true, correct: false, text: 'k doesn\'t meaningfully change prediction speed — KNN still has to find the nearest neighbors regardless of k. This is a bias-variance question, not a performance one.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'A tree considers splitting on "island has sand" — every island in the data has sand. Its information gain is...', choices: [
+        { text: 'Maximal — sand is clearly relevant to islands', to: 'q2_wrong_max' },
+        { text: 'About 0.5 — a moderate, generically useful split', to: 'q2_wrong_moderate' },
+        { text: 'Zero — the answer never changes, so the label distribution is unchanged', to: 'q2_right' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — a question with a CONSTANT answer leaves entropy unchanged: H(parent) equals the weighted H(children) exactly. Trees automatically ignore useless features this way.', next: 'q3' },
+      q2_wrong_max: { end: true, correct: false, text: 'Relevance to the general topic isn\'t what information gain measures — it measures whether the SPLIT separates the labels. Since every island answers "yes," this question can\'t distinguish hostile from friendly at all.', retry: 'q2' },
+      q2_wrong_moderate: { end: true, correct: false, text: 'A split needs at least two different answers among the data to provide ANY information gain. Since literally every example gives the same answer, the gain is exactly zero, not moderate.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'Which of these models breaks if you forget to standardize (scale) your features?', choices: [
+        { text: 'Decision tree', to: 'q3_wrong_tree' },
+        { text: 'Random forest', to: 'q3_wrong_forest' },
+        { text: 'KNN — distance calculations let the largest-scale feature dominate', to: 'q3_right' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — KNN (like k-means and RBF-SVM) computes distances across features; an unscaled large-range feature silently swamps every other feature in that calculation. Trees only compare values to thresholds within one feature at a time, so they\'re scale-invariant.', },
+      q3_wrong_tree: { end: true, correct: false, text: 'Trees split on "is this feature > threshold," entirely within one feature at a time — any monotonic rescaling changes nothing about which splits get chosen. Trees don\'t need scaling.', retry: 'q3' },
+      q3_wrong_forest: { end: true, correct: false, text: 'A random forest is just an ensemble of trees, and trees are scale-invariant for the same reason — they only compare thresholds within individual features, never mixing feature scales together.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'KNN on unscaled features — the widest-range feature silently becomes the only feature. Standardize first, always.',
     'Letting a lone tree grow unbounded and trusting its training accuracy. Depth is the variance knob; 1.000 train accuracy on noisy labels is a confession, not an achievement.',

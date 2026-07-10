@@ -89,6 +89,30 @@ window.LESSONS['linear-regression'] = {
       { c: 'Storm predicted within ±1 knot. Same loop, 10¹² dials instead of two: that\'s GPT training. 🏴‍☠️', p: { loss: 'good' } },
     ],
   },
+  conceptFlow: {
+    title: 'Nami\'s string, settling into the fuzz',
+    intro: 'The same MSE numbers as the animation above.',
+    stages: [
+      { label: 'Start', nodes: [
+        { id: 'init', text: 'w=0, b=5\nMSE = 180' },
+      ]},
+      { label: 'Fix height', nodes: [
+        { id: 'bfix', text: '∂L/∂b: uniformly too low\nraise b → MSE = 95' },
+      ]},
+      { label: 'Fix tilt', nodes: [
+        { id: 'wfix', text: '∂L/∂w: worse on big x\nsteepen w → MSE = 30' },
+      ]},
+      { label: 'Converge', nodes: [
+        { id: 'settle', text: 'Repeat until gradient ≈ 0\nMSE = 1.2' },
+      ]},
+    ],
+    steps: [
+      { active: ['init'], note: 'The line starts flat: w=0, b=5. Every point sits above it — MSE=180.' },
+      { active: ['bfix'], note: 'Predictions are uniformly too low — the b-gradient (average error) says "raise the whole line." MSE drops to 95.' },
+      { active: ['wfix'], note: 'Still too low specifically on big pressure drops — the w-gradient (error correlated with x) says "steepen the tilt." MSE drops to 30.' },
+      { active: ['settle'], note: 'Repeat — nudge tilt and height, re-read the misses — until nudging stops helping. Gradient ≈ 0: MSE settles at 1.2, the noise floor.' },
+    ],
+  },
   tech: [
     {
       q: 'What exactly does sklearn\'s LinearRegression().fit(X, y) do differently from my gradient descent?',
@@ -251,6 +275,36 @@ def fit_linear(xs, ys, lr=0.01, epochs=500):
       explain: 'A residual of ~9000 contributes ~8×10⁷ to the loss — millions of times more than typical points. MSE fits means, and means chase outliers. MAE/Huber are the robust alternatives.',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: linear regression',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'In ŷ = wx + b fitted to (pressure drop → wind speed), what does b represent?', choices: [
+        { text: 'The strongest possible storm', to: 'q1_wrong_strongest' },
+        { text: 'The predicted wind speed when the pressure drop is zero', to: 'q1_right' },
+        { text: 'The average wind speed across all storms', to: 'q1_wrong_average' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — the intercept is the prediction at x=0, exactly Sheldon\'s "baseline lecture" that exists even when Leonard isn\'t late.', next: 'q2' },
+      q1_wrong_strongest: { end: true, correct: false, text: 'b is not any kind of maximum — it\'s simply where the fitted line crosses x=0, the predicted y-value when the input feature is zero.', retry: 'q1' },
+      q1_wrong_average: { end: true, correct: false, text: 'The average wind speed across the dataset isn\'t generally what b equals (unless x also happens to average to 0). b is specifically the prediction AT x=0, not an average over all the data.', retry: 'q1' },
+      q2: { qid: 'q2', q: '∂L/∂b = (2/n)Σ(ŷᵢ − yᵢ) is best read as...', choices: [
+        { text: 'The correlation between the error and the input features', to: 'q2_wrong_corr' },
+        { text: 'The average error — "are we systematically predicting high or low?"', to: 'q2_right' },
+        { text: 'The variance of the model\'s predictions', to: 'q2_wrong_variance' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — uniformly-too-high predictions give a positive average error, which pushes b down. (The w-gradient is the error-times-x correlation instead — "are we wrong more on large x?")', next: 'q3' },
+      q2_wrong_corr: { end: true, correct: false, text: 'That\'s the description of the w-GRADIENT (which involves error times x), not the b-gradient — the b-gradient is simply the plain average of the error, with no x involved at all.', retry: 'q2' },
+      q2_wrong_variance: { end: true, correct: false, text: 'This formula has no squared or spread term — it\'s a plain average of the SIGNED errors, telling you the direction and size of systematic offset, not how spread out predictions are.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'One training label is corrupted: y = 9000 instead of 9. Under MSE, the fitted line will most likely...', choices: [
+        { text: 'Ignore it — it\'s just one point among hundreds', to: 'q3_wrong_ignore' },
+        { text: 'Shift noticeably toward it, since its error gets SQUARED into dominance', to: 'q3_right' },
+        { text: 'Become perfectly vertical', to: 'q3_wrong_vertical' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — a residual of ~9000 contributes roughly 8×10⁷ to the loss, dwarfing every normal point\'s contribution. MSE fits means, and means chase outliers hard; MAE/Huber are the robust alternatives.', },
+      q3_wrong_ignore: { end: true, correct: false, text: 'MSE specifically does NOT ignore outliers — squaring the error massively amplifies large residuals, so one corrupted label can noticeably drag the whole fitted line toward it.', retry: 'q3' },
+      q3_wrong_vertical: { end: true, correct: false, text: 'A single bad point pulls the line toward it but doesn\'t make it vertical — the other (correct) points still exert plenty of pull in their own direction, so the line shifts, it doesn\'t collapse.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Forgetting to update b (or initializing and never training it). The line gets the right slope at the wrong height, and the residuals all share a sign — that signature IS the untrained intercept.',
     'Training on unscaled multi-feature data and concluding "gradient descent doesn\'t work". It\'s a ravine problem; standardize (fit scaler on train only).',

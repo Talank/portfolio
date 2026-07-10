@@ -85,6 +85,30 @@ window.LESSONS['eigen-svd'] = {
       { c: 'PCA is Nami mapping a data-cloud\'s surge axes: the top eigenvectors of the covariance = the directions where the data really moves. 🏴‍☠️', p: { whirl: 'good' } },
     ],
   },
+  conceptFlow: {
+    title: 'Finding the whirlpool\'s axis',
+    intro: 'The exact same matrix as the hand example — A = [[2,1],[1,2]].',
+    stages: [
+      { label: 'Try', nodes: [
+        { id: 'vrand', text: 'Random direction\ngets bent to a new heading' },
+      ]},
+      { label: 'Search', nodes: [
+        { id: 'veig', text: 'Candidate axis\nv = [1, 1]' },
+      ]},
+      { label: 'Verify', nodes: [
+        { id: 'av', text: 'Av = [3, 3]\n= 3 · v — same direction!' },
+      ]},
+      { label: 'Repeat', nodes: [
+        { id: 'ak', text: 'Aᵏv → λᵏv\ndominates exponentially' },
+      ]},
+    ],
+    steps: [
+      { active: ['vrand'], note: 'Try a random direction — the whirlpool bends it to a completely new heading, like almost every direction.' },
+      { active: ['veig'], note: 'Search for the ONE direction the whirlpool cannot rotate — try v = [1, 1].' },
+      { active: ['av'], note: 'Check it: Av = [3, 3] = 3·v. Same direction, just scaled by 3 — an eigenvector, eigenvalue 3.' },
+      { active: ['ak'], note: 'Multiply by A repeatedly and this direction dominates exponentially — λᵏ. That is power iteration, PageRank, AND exploding gradients, all the same fact.' },
+    ],
+  },
   tech: [
     {
       q: 'How does np.linalg.eig actually find eigenvalues (and why shouldn\'t I solve det(A−λI)=0 like the textbook)?',
@@ -236,6 +260,36 @@ def eigenvalue_of(A, v):
       explain: '0.8⁵⁰ ≈ 1.4×10⁻⁵ — early layers learn nothing. This is why RNNs failed on long sequences and why initialization schemes, residual connections and eventually transformers exist.',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: eigenvectors & SVD',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'v is an eigenvector of A with eigenvalue 3. What is A(Av)?', choices: [
+        { text: '3v', to: 'q1_wrong_once' },
+        { text: '6v', to: 'q1_wrong_add' },
+        { text: '9v', to: 'q1_right' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — each application multiplies by λ: A(Av) = A(3v) = 3·(Av) = 3·3v = 9v. λᵏ growth under repetition is the whole exploding/vanishing gradients story.', next: 'q2' },
+      q1_wrong_once: { end: true, correct: false, text: 'That\'s only ONE application of A. You applied A twice (A of Av) — each application multiplies by λ again, so it compounds: 3 × 3 = 9, not 3.', retry: 'q1' },
+      q1_wrong_add: { end: true, correct: false, text: 'Eigenvalues compound by MULTIPLICATION under repeated application, not addition. Two applications of a ×3 stretch is ×9, not ×6.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'PCA\'s principal components are...', choices: [
+        { text: 'The rows of the data matrix with the largest norm', to: 'q2_wrong_rows' },
+        { text: 'Eigenvectors of the data\'s covariance matrix, ordered by eigenvalue', to: 'q2_right' },
+        { text: 'Random projections that happen to preserve distance', to: 'q2_wrong_random' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right. Top eigenvectors of the covariance matrix = directions of maximal variance; their eigenvalues = the variance captured along each. In practice usually computed via SVD of the centered data.', next: 'q3' },
+      q2_wrong_rows: { end: true, correct: false, text: 'Principal components are DIRECTIONS (axes), not individual data rows. They come from the covariance matrix\'s eigenvectors, describing how the whole cloud of points spreads.', retry: 'q2' },
+      q2_wrong_random: { end: true, correct: false, text: 'PCA components are specifically the directions of MAXIMUM variance, found by an exact optimization (the Rayleigh quotient argument) — not random, and not merely distance-preserving.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'Backprop through many layers multiplies the gradient by roughly the same matrix repeatedly. If its dominant stretch factor is 0.8, what happens to the gradient across 50 layers?', choices: [
+        { text: 'It stays stable', to: 'q3_wrong_stable' },
+        { text: 'It shrinks by roughly 0.8⁵⁰ ≈ 10⁻⁵ — it vanishes', to: 'q3_right' },
+        { text: 'It grows 50×', to: 'q3_wrong_grows' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — 0.8⁵⁰ ≈ 1.4×10⁻⁵. Early layers effectively stop learning. This is exactly why RNNs struggled on long sequences, and why initialization schemes, residual connections, and eventually attention exist.', },
+      q3_wrong_stable: { end: true, correct: false, text: 'Any stretch factor below 1, compounded 50 times, shrinks exponentially — not stable. Only a factor very close to exactly 1 stays roughly stable.', retry: 'q3' },
+      q3_wrong_grows: { end: true, correct: false, text: 'Growth happens when the dominant factor is ABOVE 1 (explosion). Here it\'s 0.8 — below 1 — so repeated multiplication shrinks the signal instead (vanishing).', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Reading eigenvectors from NumPy as rows. <code>np.linalg.eig</code> returns them as COLUMNS: <code>vecs[:, i]</code> goes with <code>vals[i]</code>.',
     'Running PCA without centering the data first — your "top component" then points at the mean, not along the variance.',

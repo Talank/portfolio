@@ -88,6 +88,31 @@ window.LESSONS['statistics-mle'] = {
       { c: 'Same logic ran the real German tank problem (statisticians ~270/mo, spies said 1400 — statisticians won). And GPT training = this scene, over trillions of tokens. 🏴‍☠️', p: { h1: 'good', h2: 'good', h3: 'good' } },
     ],
   },
+  conceptFlow: {
+    title: 'Robin\'s fleet estimate, step by step',
+    intro: 'Same hull numbers as the story — 042, 117, 189.',
+    stages: [
+      { label: 'Sample', nodes: [
+        { id: 'hulls', text: 'Observed\n042, 117, 189' },
+      ]},
+      { label: 'Candidates', nodes: [
+        { id: 'h1000', text: 'Fleet = 1000?\nP(this sample) ≈ 0.7%' },
+        { id: 'h190', text: 'Fleet ≈ 190?\nthis sample is typical' },
+      ]},
+      { label: 'Pick', nodes: [
+        { id: 'mle', text: 'MLE\nhighest-likelihood world wins' },
+      ]},
+      { label: 'Correct', nodes: [
+        { id: 'correction', text: 'Bias correction\nmax + max/n − 1 ≈ 251' },
+      ]},
+    ],
+    steps: [
+      { active: ['hulls'], note: 'Three captured hull numbers: 042, 117, 189. The full fleet size is invisible — estimate it from this sample.' },
+      { active: ['h1000'], note: 'Hypothesis: 1000 ships. All three draws landing under 190 would be a roughly 0.7% coincidence — low likelihood.' },
+      { active: ['h190', 'mle'], note: 'Hypothesis: about 190 ships. Now these exact numbers are completely typical. Highest likelihood wins — that IS maximum likelihood estimation.' },
+      { active: ['correction'], note: 'One correction: seeing the exact maximum is a little lucky, so nudge upward — max + max/n − 1 ≈ 251. Samples flatter themselves; good estimators compensate.' },
+    ],
+  },
   tech: [
     {
       q: 'Why does everyone work with LOG likelihood instead of likelihood?',
@@ -243,6 +268,36 @@ def fleet_estimate(serials):
       explain: 'Big cities have more of both. Only intervention (or careful causal inference) separates "moves together" from "moving one moves the other" — Sheldon\'s chocolates, not passive watching.',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: MLE & statistics',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'You flip a coin 20 times and get 13 heads. The MLE of P(heads) is...', choices: [
+        { text: '0.5 — coins are fair by assumption', to: 'q1_wrong_fair' },
+        { text: '0.65', to: 'q1_right' },
+        { text: '0.13', to: 'q1_wrong_count' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — 13/20 = 0.65, the p that makes the observed 13-heads-in-20 data most probable. A fairness PRIOR could pull an estimate back toward 0.5 (that\'s MAP, not MLE) — but pure MLE just answers "which p explains this data best."', next: 'q2' },
+      q1_wrong_fair: { end: true, correct: false, text: '0.5 is a PRIOR belief, not what the observed data itself supports. MLE asks only "which p makes THIS data most probable" — that\'s 13/20 = 0.65, no prior involved.', retry: 'q1' },
+      q1_wrong_count: { end: true, correct: false, text: 'That\'s just the raw head-count, not a probability estimate. MLE for a Bernoulli/binomial parameter is heads/total flips: 13/20 = 0.65.', retry: 'q1' },
+      q2: { qid: 'q2', q: '"Minimizing MSE" is mathematically equivalent to maximum likelihood estimation when you assume...', choices: [
+        { text: 'The model is linear', to: 'q2_wrong_linear' },
+        { text: 'Prediction errors (residuals) are Gaussian-distributed', to: 'q2_right' },
+        { text: 'The data has been normalized first', to: 'q2_wrong_norm' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — the Gaussian log-density of a residual is −(y−ŷ)²/2σ² + const, so maximizing total log-likelihood under that noise model is exactly minimizing summed squared error.', next: 'q3' },
+      q2_wrong_linear: { end: true, correct: false, text: 'The MSE-MLE equivalence has nothing to do with model linearity — it holds for ANY model shape, as long as the NOISE on the residuals is assumed Gaussian.', retry: 'q2' },
+      q2_wrong_norm: { end: true, correct: false, text: 'Normalization is a preprocessing convenience, not what makes MSE equal to a likelihood. The equivalence comes specifically from assuming Gaussian-distributed prediction errors.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'Cities with more firefighters have more fires. Therefore firefighters cause fires. What\'s the actual flaw in this reasoning?', choices: [
+        { text: 'The sample size is too small', to: 'q3_wrong_sample' },
+        { text: 'A confounder (city size) drives both variables — observational correlation alone can\'t establish the causal arrow', to: 'q3_right' },
+        { text: 'Fires aren\'t normally distributed', to: 'q3_wrong_normal' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — bigger cities have both more firefighters AND more fires. Only intervention (or careful causal inference) can separate "moves together" from "moving one moves the other."', },
+      q3_wrong_sample: { end: true, correct: false, text: 'Sample size isn\'t the issue here — even a huge, statistically solid sample would show this correlation. The problem is a hidden confounding variable (city size), not insufficient data.', retry: 'q3' },
+      q3_wrong_normal: { end: true, correct: false, text: 'The distribution shape of fires is irrelevant to this reasoning error. The flaw is purely about correlation vs. causation: a third variable explains both observed quantities.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Trusting MLE on tiny samples: 2/2 heads → "p = 1.0". Small data needs priors (regularization / pseudo-counts) or humility, ideally both.',
     'Multiplying many raw probabilities: 300 factors of ~0.1 underflow float64 to zero. Always sum logs.',

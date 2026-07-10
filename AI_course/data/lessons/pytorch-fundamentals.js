@@ -96,6 +96,30 @@ window.LESSONS['pytorch-fundamentals'] = {
       { c: 'On routine sails (validation), Franky doesn\'t record: torch.no_grad() — no blueprint updates, less paper, same ship. And the whole Sunny can be handed to another shipwright as a named parts list: the state_dict.', p: { blueprint: 'dim', ledger: 'good' } }
     ]
   },
+  conceptFlow: {
+    title: 'One training step aboard the Sunny',
+    intro: 'Same battle as the animation — hull, mast, cannon.',
+    stages: [
+      { label: 'Battle (forward)', nodes: [
+        { id: 'forward', text: 'hull → mast → cannon\nrecorded on the blueprint' },
+      ]},
+      { label: 'Damage', nodes: [
+        { id: 'damage', text: 'Shot misses by 12m\n= the loss' },
+      ]},
+      { label: 'Backward', nodes: [
+        { id: 'backward', text: 'loss.backward()\nblame flows back, fills .grad' },
+      ]},
+      { label: 'Repair', nodes: [
+        { id: 'repair', text: 'optimizer.step()\nreinforce by blame, then zero_grad()' },
+      ]},
+    ],
+    steps: [
+      { active: ['forward'], note: 'FORWARD: data flows hull → mast → cannon. Because this is a tracked engagement (requires_grad=True), every operation is recorded onto the blueprint as it happens.' },
+      { active: ['damage'], note: 'The shot lands 12 meters off. That number is the loss — the very end of the recorded chain.' },
+      { active: ['backward'], note: 'loss.backward(): the damage report flows BACKWARD through the blueprint, filling every part\'s .grad with its exact share of blame.' },
+      { active: ['repair'], note: 'optimizer.step() reinforces each part in proportion to its blame; zero_grad() wipes the slate so next battle\'s blame doesn\'t pile onto this one\'s.' },
+    ],
+  },
   tech: [
     {
       q: 'What is the actual difference between no_grad(), detach(), and requires_grad_(False)?',
@@ -280,6 +304,36 @@ def evaluate(model, loader, device):
       explain: 'nn.Module intercepts attribute assignment to register submodules; a list is just a list. nn.ModuleList/ModuleDict are the registering containers. Diagnostic: count model.parameters() against your expectation.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: PyTorch fundamentals',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'Tensor a has shape [32, 10] and tensor b has shape [10]. What does a + b do?', choices: [
+        { text: 'Broadcasts: b is added to each of the 32 rows — exactly how a bias applies across a batch', to: 'q1_right' },
+        { text: 'Raises a shape error immediately', to: 'q1_wrong_error' },
+        { text: 'Adds b to the first row only, leaving the rest unchanged', to: 'q1_wrong_firstrow' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — align shapes from the right: 10 matches 10, the missing batch dimension is treated as 1 and stretched to 32. Watch for the evil twin: [N,1] + [N] silently broadcasts to [N,N].', next: 'q2' },
+      q1_wrong_error: { end: true, correct: false, text: 'This is actually a VALID broadcast, not an error — the trailing dimensions match (10 and 10), so PyTorch happily stretches b across all 32 rows.', retry: 'q1' },
+      q1_wrong_firstrow: { end: true, correct: false, text: 'Broadcasting applies the operation to EVERY row, not just the first — b gets virtually copied across all 32 rows, exactly how a bias vector applies to an entire batch at once.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'You call loss.backward() twice per step without calling zero_grad() in between. What happens?', choices: [
+        { text: 'Gradients from both calls ADD together in .grad — updates use doubled/stale blame and training misbehaves silently', to: 'q2_right' },
+        { text: 'The second call simply overwrites the gradients from the first', to: 'q2_wrong_overwrite' },
+        { text: 'PyTorch raises an error immediately to prevent this', to: 'q2_wrong_error' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — .grad accumulates by design (this is exactly what makes gradient accumulation possible). Without zero_grad(), you silently optimize with the SUM of old and new gradients.', next: 'q3' },
+      q2_wrong_overwrite: { end: true, correct: false, text: 'PyTorch does NOT overwrite — .grad is deliberately additive/accumulating across backward() calls, precisely so techniques like gradient accumulation work. That accumulation is the actual trap here.', retry: 'q2' },
+      q2_wrong_error: { end: true, correct: false, text: 'No error is raised for the accumulation itself — this is a SILENT bug, which is exactly what makes it dangerous and worth knowing about explicitly.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'Layers stored in a plain Python list inside your nn.Module never train. Why?', choices: [
+        { text: 'Plain lists bypass __setattr__ registration, so parameters() never yields them and the optimizer never sees them — use nn.ModuleList instead', to: 'q3_right' },
+        { text: 'Python lists are immutable and can\'t hold trainable objects', to: 'q3_wrong_immutable' },
+        { text: 'The GPU cannot store Python list objects', to: 'q3_wrong_gpu' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — nn.Module intercepts attribute ASSIGNMENT to register submodules; a plain list is invisible to that mechanism. nn.ModuleList/ModuleDict are the registering containers built for exactly this case.', },
+      q3_wrong_immutable: { end: true, correct: false, text: 'Python lists are actually mutable (you can append, modify them freely) — that\'s not the issue at all. The real problem is that nn.Module\'s parameter-registration mechanism simply doesn\'t look inside plain lists.', retry: 'q3' },
+      q3_wrong_gpu: { end: true, correct: false, text: 'This isn\'t about GPU storage capability — individual tensors inside the list can still live on GPU fine. The issue is that PyTorch\'s parameter-discovery mechanism (model.parameters()) never finds modules stored in a plain list.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Calling model.forward(x) instead of model(x). The __call__ wrapper runs hooks and mode machinery; bypassing it works until the day it very much doesn\'t (hooks, compiled models).',
     'Logging with the raw loss tensor (losses.append(loss)) instead of loss.item(). Each stored tensor keeps its entire graph alive — the "memory slowly climbs every epoch" leak.',

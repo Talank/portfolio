@@ -81,6 +81,32 @@ window.LESSONS['matrices'] = {
       { c: 'A neural layer y = Wx + b is one ROOM: 512 rows of W = 512 detectors transforming the input space. Deep nets are rooms cast in sequence. 🏴‍☠️', p: { room: 'good' } },
     ],
   },
+  conceptFlow: {
+    title: 'Casting ROOM: one matrix, then two, then order flips',
+    intro: 'Same numbers as the story — click any box, or press Play.',
+    stages: [
+      { label: 'Input', nodes: [
+        { id: 'x', text: 'x\n[4, 1]' },
+      ]},
+      { label: 'One transform', nodes: [
+        { id: 'A', text: 'Matrix A\n[[2,0],[1,3]] — rows = detectors' },
+        { id: 'y', text: 'y = Ax\n[8, 7]' },
+      ]},
+      { label: 'Compose', nodes: [
+        { id: 'B', text: 'Matrix B\nstretch ×2' },
+        { id: 'AB', text: 'AB\n"B then A", one machine' },
+      ]},
+      { label: 'Order', nodes: [
+        { id: 'BA', text: 'BA\n"A then B" — a DIFFERENT machine' },
+      ]},
+    ],
+    steps: [
+      { active: ['x'], note: 'Start with an input vector: x = [4, 1].' },
+      { active: ['A', 'y'], note: 'Multiply by matrix A — each ROW of A is a dot product with x. y = Ax = [8, 7].' },
+      { active: ['B', 'AB'], note: 'Cast a second matrix B. The combined machine "apply B, then A" collapses into one new matrix: AB.' },
+      { active: ['BA'], note: 'Cast them in the OPPOSITE order — "apply A, then B" — and you get a genuinely different matrix: BA. Order matters, because composition order matters.' },
+    ],
+  },
   tech: [
     {
       q: 'Why do neural network layers use matrices at all?',
@@ -226,6 +252,36 @@ def matmul(A, B):
       explain: 'linear∘linear = linear: W₂(W₁x) = (W₂W₁)x. Depth only buys expressiveness when nonlinearities separate the layers — the entire reason activation functions exist (Part 3).',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: matrices',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'y = Wx where W has shape 512×768. What shape must x be, and what shape is y?', choices: [
+        { text: 'x: 512, y: 768', to: 'q1_wrong_swap' },
+        { text: 'x: 768, y: 512', to: 'q1_right' },
+        { text: 'Both must be 512', to: 'q1_wrong_both' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — the matrix EATS the inner dimension (768) and EMITS the outer one (512): 512 detector rows, each scanning a 768-dim input.', next: 'q2' },
+      q1_wrong_swap: { end: true, correct: false, text: 'That\'s backwards. An (m×n) matrix consumes an n-dim vector and produces an m-dim one — here m=512, n=768, so x is 768-dim and y is 512-dim.', retry: 'q1' },
+      q1_wrong_both: { end: true, correct: false, text: 'A matrix can (and usually does) change dimensionality — that\'s the whole point of a 512×768 (non-square) matrix. x and y have DIFFERENT sizes here.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'In NumPy, for two same-shaped square matrices A and B, what is the relationship between A * B and A @ B?', choices: [
+        { text: 'They always give the same result', to: 'q2_wrong_same' },
+        { text: 'Completely different results — elementwise (Hadamard) product vs. true matrix multiplication', to: 'q2_right' },
+        { text: 'A * B always throws an error on matrices', to: 'q2_wrong_error' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right. * is the Hadamard (elementwise) product; @ is matrix multiplication (composition of transformations). Both run without error on same-shaped square matrices, which is exactly why this bug hides so well.', next: 'q3' },
+      q2_wrong_same: { end: true, correct: false, text: 'They are NOT the same — this is one of this lesson\'s named pitfalls precisely because both run without error yet compute completely different things.', retry: 'q2' },
+      q2_wrong_error: { end: true, correct: false, text: 'A * B runs perfectly fine in NumPy on same-shaped matrices — it just computes the elementwise product, not a matrix multiplication. No error, wrong answer: the dangerous kind of bug.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'A square matrix has no inverse exactly when...', choices: [
+        { text: 'It contains some zero entries', to: 'q3_wrong_zeros' },
+        { text: 'It flattens some dimension away (rank < n), destroying information', to: 'q3_right' },
+        { text: 'It is not symmetric', to: 'q3_wrong_sym' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — invertibility means no information lost. Once two different inputs get mapped to the same output, no machine can un-mix them back to their originals.' },
+      q3_wrong_zeros: { end: true, correct: false, text: 'Zeros are fine — plenty of perfectly invertible matrices contain zeros (rotation matrices, for instance). The real condition is about rank, not about individual entries.', retry: 'q3' },
+      q3_wrong_sym: { end: true, correct: false, text: 'Symmetry is irrelevant to invertibility — rotation matrices are asymmetric and perfectly invertible. The real condition is full rank: no dimension gets flattened away.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Fixing shape errors by adding <code>.T</code> until it runs. It often "runs" while computing the wrong thing (e.g. dotting samples with samples instead of features with weights). Write the shape chain first: (batch, in) @ (in, out) → (batch, out).',
     'Confusing <code>A * B</code> (elementwise/Hadamard) with <code>A @ B</code> (matrix multiplication) in NumPy. Both run without error on same-shaped square matrices and give completely different results.',

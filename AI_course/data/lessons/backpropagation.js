@@ -102,6 +102,30 @@ window.LESSONS['backpropagation'] = {
       { c: 'One backward sweep prices every station\'s share of 12 m. Adjust each in proportion (gradient step), refire: 3 m. This sweep costs about one extra pass — not one pass per station. That\'s backprop.', p: { weather: 'lit', miss: 'good', note: 'good' }, l: { miss: 'next shot: 3 m ✓' } }
     ]
   },
+  conceptFlow: {
+    title: 'The cannon post-mortem, one hop backward at a time',
+    intro: 'Same 12-meter miss as the animation.',
+    stages: [
+      { label: 'Forward', nodes: [
+        { id: 'forward', text: 'wind → course → heading → aim\nmisses by 12 m' },
+      ]},
+      { label: 'Seed', nodes: [
+        { id: 'seed', text: 'Start at the miss\ndL/dL = 1' },
+      ]},
+      { label: 'Multiply local', nodes: [
+        { id: 'local', text: 'Usopp\'s local sensitivity\nblame = 12m × his slope' },
+      ]},
+      { label: 'Add at merges', nodes: [
+        { id: 'merge', text: 'Nami fed 2 paths\nblame = path₁ + path₂' },
+      ]},
+    ],
+    steps: [
+      { active: ['forward'], note: 'Forward: wind → course → heading → aim → shot. Each station remembers what it computed. The shot misses by 12m — the loss.' },
+      { active: ['seed'], note: 'Sweep BACKWARD starting at the miss, not forward from the wind — one output (the miss) to explain, many stations to price.' },
+      { active: ['local'], note: 'Usopp asks a purely LOCAL question: one degree of my aim = how many meters of miss? Multiply by the 12m arriving from downstream — his exact share of blame, no navigation knowledge required.' },
+      { active: ['merge'], note: 'Nami\'s course fed BOTH Zoro\'s steering and Usopp\'s wind correction. Where paths merge, blame ADDS: her total = the sum over both routes.' },
+    ],
+  },
   tech: [
     {
       q: 'What exactly does loss.backward() do in PyTorch?',
@@ -278,6 +302,36 @@ def grads(x, t, params):
       explain: 'This is why training VRAM ≫ inference VRAM, and why gradient checkpointing (recompute instead of store) exists. Inference throws each activation away immediately.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: backpropagation',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'In one sentence, what is backpropagation?', choices: [
+        { text: 'The chain rule applied backward through the computation graph, reusing shared sub-derivatives so all gradients cost about one extra pass', to: 'q1_right' },
+        { text: 'A separate learning algorithm that replaces gradient descent', to: 'q1_wrong_replaces' },
+        { text: 'Randomly perturbing weights and keeping whatever improves the loss', to: 'q1_wrong_random' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — backprop computes gradients; gradient descent (or Adam) then uses them to update weights. Two different jobs, and conflating them is a classic interview slip.', next: 'q2' },
+      q1_wrong_replaces: { end: true, correct: false, text: 'Backprop and gradient descent are complementary, not competing — backprop COMPUTES the gradient efficiently; gradient descent is what actually USES that gradient to update the weights.', retry: 'q1' },
+      q1_wrong_random: { end: true, correct: false, text: 'That describes a much less efficient search strategy (random perturbation) — backprop is the exact opposite: a precise, analytic computation of every gradient via the chain rule, not random trial and error.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'A value computed once feeds into two later branches of the network. What is its gradient?', choices: [
+        { text: 'The SUM of the gradients flowing back along both branches', to: 'q2_right' },
+        { text: 'The MAXIMUM of the two branch gradients', to: 'q2_wrong_max' },
+        { text: 'The PRODUCT of the two branch gradients', to: 'q2_wrong_product' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — the multivariate chain rule: total influence on the loss is the sum of influences through every path. Nami\'s course fed both steering and wind-correction — her blame is path₁ + path₂.', next: 'q3' },
+      q2_wrong_max: { end: true, correct: false, text: 'Gradients from multiple paths don\'t compete by taking a maximum — each path genuinely contributes its own share of influence on the loss, and those contributions ADD together.', retry: 'q2' },
+      q2_wrong_product: { end: true, correct: false, text: 'Multiplication is how gradients combine ALONG a single path (chain rule within one route) — but when a value feeds into SEPARATE branches, their contributions are summed, not multiplied.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'Ten hidden layers all use sigmoid activations. What is the most likely training pathology?', choices: [
+        { text: 'Vanishing gradients — each layer multiplies in σ\' ≤ 0.25, so early layers get roughly 0.25¹⁰ of the signal and barely learn', to: 'q3_right' },
+        { text: 'Exploding gradients, since sigmoids amplify signals', to: 'q3_wrong_explode' },
+        { text: 'Overfitting, since sigmoids memorize training examples', to: 'q3_wrong_overfit' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — the backward product of many factors ≤0.25 decays geometrically with depth. Standard fixes: ReLU, residual connections, normalization, and careful initialization.', },
+      q3_wrong_explode: { end: true, correct: false, text: 'Sigmoid\'s derivative is BOUNDED above by 0.25, not amplifying — multiplying many numbers ≤0.25 together makes the product shrink toward zero (vanishing), not grow (exploding).', retry: 'q3' },
+      q3_wrong_overfit: { end: true, correct: false, text: 'This is a gradient-flow problem, not a capacity/memorization problem — the symptom is early layers barely updating at all (vanishing gradients), which is actually closer to UNDERfitting than overfitting.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Calling backprop "the learning algorithm". Backprop only COMPUTES gradients; gradient descent (or Adam) does the learning. Precise language here signals real understanding in interviews.',
     'Forgetting optimizer.zero_grad() in PyTorch. backward() ACCUMULATES into .grad, so skipping the reset mixes last batch\'s blame into this batch — training limps mysteriously. (Accumulation is a feature: it enables gradient accumulation for large effective batches.)',

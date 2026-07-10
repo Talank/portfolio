@@ -106,6 +106,31 @@ window.LESSONS['neural-networks'] = {
       { c: 'Luffy combines: if EITHER lookout shouts → alarm. Two linear detectors + one combiner = XOR solved. Zoro and Sanji are the hidden layer; their instincts are learned features.', p: { verdict: 'good', nest: '' }, l: { verdict: 'y = A OR B → XOR ✓' }, a: { luffy: [50, 82] } }
     ]
   },
+  conceptFlow: {
+    title: 'XOR, solved by committee',
+    intro: 'Same neurons A and B as the worked example.',
+    stages: [
+      { label: 'The wall', nodes: [
+        { id: 'wall', text: 'One neuron\ncan\'t separate XOR' },
+      ]},
+      { label: 'Hidden layer', nodes: [
+        { id: 'a', text: 'Neuron A\na = ReLU(x1+x2) — "any on"' },
+        { id: 'b', text: 'Neuron B\nb = ReLU(x1+x2−1) — "both on"' },
+      ]},
+      { label: 'Combine', nodes: [
+        { id: 'combine', text: 'Output\ny = a − 2b' },
+      ]},
+      { label: 'Solved', nodes: [
+        { id: 'solved', text: '(0,0)→0 (1,0)→1\n(0,1)→1 (1,1)→0 ✓' },
+      ]},
+    ],
+    steps: [
+      { active: ['wall'], note: 'XOR\'s positive cases sit on opposite diagonal corners — no single straight line separates them from the negative cases.' },
+      { active: ['a'], note: 'Neuron A detects "at least one input on": a = ReLU(x1+x2). Still just a straight line — but a different one.' },
+      { active: ['b'], note: 'Neuron B detects "both inputs on": b = ReLU(x1+x2−1). Another straight line, positioned differently.' },
+      { active: ['combine', 'solved'], note: 'Combine: y = a − 2b. At (1,1): a=2, b=1, y=0 — B exactly cancels A when both are on. Two straight lines plus a combiner solve what no single line could.' },
+    ],
+  },
   tech: [
     {
       q: 'Why is a layer literally a matrix multiplication, and why do GPUs matter?',
@@ -253,6 +278,36 @@ def mlp_xor(x1, x2):
       explain: 'The theorem is about existence, not efficiency or trainability. Hierarchical functions (edges→parts→objects) need exponentially wide shallow nets but compact deep ones — layers reuse sub-features like code reuses functions.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: neurons & MLPs',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'You build a 10-layer network but use NO activation functions between layers. What can it compute?', choices: [
+        { text: 'Only linear functions — the ten matrices collapse into one matrix', to: 'q1_right' },
+        { text: 'Anything, given enough neurons', to: 'q1_wrong_anything' },
+        { text: 'Only XOR-like functions', to: 'q1_wrong_xor' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — W₁₀W₉…W₁x collapses to (one matrix)x. Composition of linear maps is linear, so all that depth buys exactly one straight-line boundary.', next: 'q2' },
+      q1_wrong_anything: { end: true, correct: false, text: 'More neurons doesn\'t fix this — the fundamental issue is algebraic: composing linear transformations, no matter how many or how wide, always collapses to a single linear transformation.', retry: 'q1' },
+      q1_wrong_xor: { end: true, correct: false, text: 'Without nonlinearities, the network can\'t even solve XOR — that\'s the WHOLE point of the XOR example. Pure linear composition is strictly LESS capable, not specifically XOR-shaped.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'Why can\'t a single neuron (perceptron) learn XOR?', choices: [
+        { text: 'XOR\'s positive examples sit on opposite diagonal corners — not separable by any single straight line', to: 'q2_right' },
+        { text: 'XOR has too many training examples for one neuron to handle', to: 'q2_wrong_examples' },
+        { text: 'The sigmoid activation saturates on binary (0/1) inputs', to: 'q2_wrong_saturate' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — (0,1) and (1,0) need to land on one side, (0,0) and (1,1) on the other, and geometrically no single hyperplane can do that. Two hidden neurons plus a combiner solve it.', next: 'q3' },
+      q2_wrong_examples: { end: true, correct: false, text: 'XOR only has 4 possible input combinations — that\'s a trivially small dataset. The limitation is purely geometric: a single line cannot separate points arranged on opposite diagonals, regardless of dataset size.', retry: 'q2' },
+      q2_wrong_saturate: { end: true, correct: false, text: 'Saturation is a gradient/training-speed issue, not a representational one. Even with a PERFECTLY trained single neuron, a linear decision boundary geometrically cannot separate XOR\'s diagonal pattern.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'Why is ReLU generally preferred over sigmoid for HIDDEN layers in deep networks?', choices: [
+        { text: 'Its gradient is exactly 1 for positive inputs, so gradients don\'t vanish as they multiply through many layers', to: 'q3_right' },
+        { text: 'It outputs values that can be directly interpreted as probabilities', to: 'q3_wrong_prob' },
+        { text: 'It is bounded between 0 and 1, like sigmoid', to: 'q3_wrong_bounded' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — sigmoid\'s derivative maxes out at just 0.25 and approaches 0 when saturated; multiplying many such small factors through depth kills the gradient. ReLU passes gradient 1 through every active unit, at any depth.', },
+      q3_wrong_prob: { end: true, correct: false, text: 'ReLU outputs unbounded non-negative values (0 to infinity), not probabilities — sigmoid is the one that outputs values in (0,1) suitable for probability interpretation, and that\'s specifically why sigmoid survives as an OUTPUT layer choice.', retry: 'q3' },
+      q3_wrong_bounded: { end: true, correct: false, text: 'ReLU is explicitly UNBOUNDED above (max(0,z) can be any positive value) — this is actually the opposite of sigmoid\'s bounded (0,1) range, and is part of why it avoids saturation-driven vanishing gradients.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Saying "neural networks are like the brain" in an interview. The analogy is historical branding; the honest description is "stacked linear maps with nonlinearities, trained by gradient descent". Lead with the math, mention the neuroscience inspiration only if asked.',
     'Forgetting the activation on hidden layers (a real, common bug: nn.Linear stacked directly on nn.Linear). The network silently becomes linear and plateaus at logistic-regression-level accuracy — no error message, just mediocrity.',

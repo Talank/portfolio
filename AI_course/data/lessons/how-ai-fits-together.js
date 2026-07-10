@@ -92,6 +92,35 @@ window.LESSONS['how-ai-fits-together'] = {
       { c: 'Agents & the job: you write the loop, the LLM is the engine. Every island\'s nakama fights beside you in the interview. ⚓', a: { ship: [93, 80] }, p: { i7: 'good' } },
     ],
   },
+  conceptFlow: {
+    title: 'What "training a model" literally means',
+    intro: 'Every model in this entire course — from linear regression to GPT-4-class LLMs — is this exact five-step loop, just with more numbers.',
+    stages: [
+      { label: 'Start', nodes: [
+        { id: 'data', text: 'Data\nlabeled examples' },
+        { id: 'model', text: 'Model\na function w/ tunable numbers' },
+      ]},
+      { label: 'Measure', nodes: [
+        { id: 'loss', text: 'Loss\nhow wrong the output is' },
+      ]},
+      { label: 'Adjust', nodes: [
+        { id: 'grad', text: 'Gradient\nwhich way to nudge (Part 1 calculus)' },
+      ]},
+      { label: 'Repeat', nodes: [
+        { id: 'update', text: 'Update\nnudge every number, a little' },
+      ]},
+      { label: 'Result', nodes: [
+        { id: 'weights', text: 'Weights file\nthe entire "model"' },
+      ]},
+    ],
+    steps: [
+      { active: ['data', 'model'], note: 'Start with data and a model — a model is just a function with tunable numbers inside, nothing more mystical than that.' },
+      { active: ['loss'], note: 'Run the model on the data, compare its output to the truth. That gap has a name: the loss.' },
+      { active: ['grad'], note: 'Calculus (Part 1) tells you exactly which direction to nudge each number to make the loss smaller — the gradient.' },
+      { active: ['update'], note: 'Nudge every number a little in that direction. That single nudge is one training step.' },
+      { active: ['weights'], note: 'Repeat millions of times. What is left when you stop is a weights file — the saved numbers ARE the model. That is the entire "training" story, at every scale in this course.' },
+    ],
+  },
   tech: [
     {
       q: 'What actually happens when I type "pip install numpy"?',
@@ -218,6 +247,36 @@ print("describe() works — your lab pipeline is alive.")`,
       explain: 'Weights = the learned numbers. The architecture code is separate (and small); the training data is long gone; and there is no fact database inside — knowledge is smeared across the numbers, which is why models can hallucinate.',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: the map',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'Is NLP a subset of deep learning?', choices: [
+        { text: 'No — NLP is a problem domain, currently mostly solved WITH deep learning', to: 'q1_right' },
+        { text: 'Yes — NLP only exists inside deep learning', to: 'q1_wrong_subset' },
+        { text: 'No — NLP has nothing to do with deep learning', to: 'q1_wrong_unrelated' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right. NLP is defined by the PROBLEM (making computers deal with language), not by the technique used to solve it — it was classical ML for decades before deep learning took over.', next: 'q2' },
+      q1_wrong_subset: { end: true, correct: false, text: 'NLP existed and was actively worked on for decades before deep learning existed (rule-based systems, then TF-IDF + logistic regression). It is a problem domain, not a technique.', retry: 'q1' },
+      q1_wrong_unrelated: { end: true, correct: false, text: 'They are very related today — almost every modern NLP system IS a deep learning model — just not by definition. NLP is the "what" (the problem); deep learning is one "how" (the current dominant technique).', retry: 'q1' },
+      q2: { qid: 'q2', q: 'A teammate says "the LLM looked up that fact in its internal database." What\'s the precise problem with this claim?', choices: [
+        { text: 'Nothing — that\'s basically how it works', to: 'q2_wrong_ok' },
+        { text: 'LLMs have no internal database — everything is compressed into learned weights, which is exactly why they can hallucinate', to: 'q2_right' },
+        { text: 'LLMs only ever answer using RAG, never their own weights', to: 'q2_wrong_ragonly' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right. There is no lookup table inside a model — knowledge is smeared, lossily, across billions of weight values learned during training. That\'s precisely the mechanism behind hallucination: the model reconstructs a plausible-sounding answer from compressed statistical patterns, not a stored fact.', next: 'q3' },
+      q2_wrong_ok: { end: true, correct: false, text: 'This is the single misunderstanding behind most bad product decisions around hallucination and RAG, per this lesson\'s pitfalls. A weights file contains numbers, not a database — try again.', retry: 'q2' },
+      q2_wrong_ragonly: { end: true, correct: false, text: 'Close in spirit (RAG DOES hand the model real retrieved text) but overstated — a model can and does answer from its own trained-in patterns with no RAG involved at all, which is exactly when hallucination risk is highest.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'You need a small, narrow-task model with strict data-privacy rules and zero internet access allowed at inference time. API model or self-hosted open-weight model?', choices: [
+        { text: 'API model — it will always be more capable', to: 'q3_wrong_api' },
+        { text: 'Self-hosted open-weight model — it matches the offline/privacy constraint directly', to: 'q3_right' },
+        { text: 'Doesn\'t matter, they\'re interchangeable', to: 'q3_wrong_same' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right. An API model\'s weights never leave the vendor\'s servers, and every call needs network access — a hard blocker for an air-gapped, privacy-strict requirement. A self-hosted open-weight model runs entirely on your own hardware, no network call required.' },
+      q3_wrong_api: { end: true, correct: false, text: 'Raw capability isn\'t the constraint here — network access and data leaving your infrastructure are hard requirements an API model structurally cannot satisfy, regardless of how capable it is.', retry: 'q3' },
+      q3_wrong_same: { end: true, correct: false, text: 'They differ in exactly the dimension this scenario cares about: where the weights run and whether a network call is required. Not interchangeable once privacy/offline constraints are non-negotiable.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Jumping straight to LangChain/agents because it demos well. You\'ll be the engineer who can\'t answer "why does your RAG retrieve garbage?" — the answer lives in Part 1 (cosine similarity) and Part 7 (chunking). The course order is the fastest path, not the scenic one.',
     'Confusing "the model learned" with "the model looked it up". LLMs have no database inside; everything is compressed into weights. This single misunderstanding causes most bad product decisions (and interview fails) around hallucination and RAG.',

@@ -90,6 +90,31 @@ window.LESSONS['probability'] = {
       { c: 'Every spam filter, fraud model and medical classifier is this scene: prior × likelihood ratio, per feature, renormalize. 🏴‍☠️', p: { prior: 'good', monster: 'bad' } },
     ],
   },
+  conceptFlow: {
+    title: 'Bayes\' rule: the disease test, step by step',
+    intro: 'Same numbers as the worked example — a 1% prior, a 90%-sensitive, 9%-false-positive test.',
+    stages: [
+      { label: 'Before', nodes: [
+        { id: 'prior', text: 'Prior\nP(sick) = 1%' },
+      ]},
+      { label: 'Test result', nodes: [
+        { id: 'sens', text: 'Sensitivity\nP(+ | sick) = 90%' },
+        { id: 'fpr', text: 'False-positive rate\nP(+ | healthy) = 9%' },
+      ]},
+      { label: 'Combine', nodes: [
+        { id: 'bayes', text: 'Bayes\' rule\n(0.9×0.01) / (0.9×0.01 + 0.09×0.99)' },
+      ]},
+      { label: 'After', nodes: [
+        { id: 'post', text: 'Posterior\n≈ 9.2% — NOT 90%' },
+      ]},
+    ],
+    steps: [
+      { active: ['prior'], note: 'Start with the prior: only 1% of patients actually have the disease.' },
+      { active: ['sens', 'fpr'], note: 'The test catches 90% of true cases, but also false-alarms on 9% of healthy patients.' },
+      { active: ['bayes'], note: 'Bayes\' rule combines them: likelihood times prior, divided by the total probability of testing positive at all.' },
+      { active: ['post'], note: 'The result: only about 9.2% chance of actually being sick — the rare prior dominates a moderately noisy test, the base-rate fallacy made concrete.' },
+    ],
+  },
   tech: [
     {
       q: 'Why do people keep saying an LLM "is" a probability distribution?',
@@ -244,6 +269,36 @@ def expected_value(outcomes, probs):
       explain: 'PDFs are densities, not probabilities — a narrow N(0, 0.01) peaks near 4. Only integrals (areas) are probabilities. Mixing these up is a classic interview filter.',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: probability & Bayes',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'A disease affects 1 in 1000 people. A test is 99% sensitive with a 2% false-positive rate. Someone tests positive. Roughly what\'s the chance they\'re actually sick?', choices: [
+        { text: '~99%', to: 'q1_wrong_99' },
+        { text: '~66%', to: 'q1_wrong_66' },
+        { text: '~5%', to: 'q1_right' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — (0.99×0.001)/(0.99×0.001 + 0.02×0.999) ≈ 0.047. Among 100,000 people: ~99 true positives drown under ~1998 false alarms. The rarer the condition, the more a "positive" is probably noise.', next: 'q2' },
+      q1_wrong_99: { end: true, correct: false, text: 'That confuses the test\'s SENSITIVITY (P(+|sick)=99%) with the posterior P(sick|+), which are different conditionals entirely — and the rare 1-in-1000 prior drags the real answer far below 99%.', retry: 'q1' },
+      q1_wrong_66: { end: true, correct: false, text: 'Closer, but still overestimating — with only a 0.1% prior, the ~2% false-positive rate applied to the huge healthy population generates far more false alarms than true positives generate real hits.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'P(A|B) = P(A). What does this tell you about A and B?', choices: [
+        { text: 'A and B are mutually exclusive', to: 'q2_wrong_exclusive' },
+        { text: 'A and B are independent — knowing B tells you nothing about A', to: 'q2_right' },
+        { text: 'A causes B', to: 'q2_wrong_causes' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — conditioning on B doesn\'t move belief about A at all. That\'s the definition of independence.', next: 'q3' },
+      q2_wrong_exclusive: { end: true, correct: false, text: 'Mutually exclusive is nearly the OPPOSITE case — if A and B can\'t both happen, then P(A|B) = 0, not P(A|B) = P(A).', retry: 'q2' },
+      q2_wrong_causes: { end: true, correct: false, text: 'This equation says the opposite of a causal link — B carries zero information about A. Causation would typically show up as P(A|B) being quite DIFFERENT from P(A).', retry: 'q2' },
+      q3: { qid: 'q3', q: 'A Gaussian probability density function (PDF) has height 2.3 at some point. What does this mean?', choices: [
+        { text: 'That outcome has probability 2.3 — impossible, the code must be buggy', to: 'q3_wrong_buggy' },
+        { text: 'Nothing is wrong — densities can exceed 1; only the AREA under the curve over an interval is a probability', to: 'q3_right' },
+        { text: 'The variance must be negative', to: 'q3_wrong_variance' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right. A PDF is a density, not a probability — a narrow, low-variance Gaussian can peak well above 1. Only integrating (finding area) over an interval gives you an actual probability.', },
+      q3_wrong_buggy: { end: true, correct: false, text: 'Nothing\'s broken — this is a common misconception. PDF HEIGHTS are not probabilities and are not bounded by 1; only areas under the curve are. A narrow, sharply-peaked Gaussian easily exceeds height 1.', retry: 'q3' },
+      q3_wrong_variance: { end: true, correct: false, text: 'Variance can\'t be negative by definition (it\'s an average of squared terms) — a density height above 1 is completely normal and unrelated to the sign of the variance.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Confusing P(A|B) with P(B|A) — "most drug users started with milk, therefore milk drinkers become drug users". Inverting the conditional is precisely what Bayes\' rule exists to do correctly (it costs you a prior).',
     'Ignoring base rates when evaluating classifiers on rare classes: a fraud model with 99% precision on a balanced benchmark can be mostly false alarms at a 0.1% real-world fraud rate.',

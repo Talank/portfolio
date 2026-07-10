@@ -89,6 +89,31 @@ window.LESSONS['logistic-regression'] = {
       { c: 'That night, "the merchant" turns out to be Luffy. Every weight nudges by (predicted − truth) × feature. The checkpoint learns. 🏴‍☠️', p: { sum: 'good' }, l: { f2: 'poster match +4.5' } },
     ],
   },
+  conceptFlow: {
+    title: 'Smoker\'s checkpoint, one traveler at a time',
+    intro: 'Same numbers as the animation: sword +2, poster match +4.',
+    stages: [
+      { label: 'Evidence', nodes: [
+        { id: 'sword', text: 'Sword visible\nweight +2' },
+        { id: 'poster', text: 'Poster resemblance\nweight +4' },
+      ]},
+      { label: 'Combine', nodes: [
+        { id: 'logit', text: 'Logit\nz = 2 + 4 = +6' },
+      ]},
+      { label: 'Convert', nodes: [
+        { id: 'sig', text: 'Sigmoid\nσ(6) ≈ 0.997' },
+      ]},
+      { label: 'Decide', nodes: [
+        { id: 'gate', text: 'Threshold check\n0.997 > 20% → arrest' },
+      ]},
+    ],
+    steps: [
+      { active: ['sword', 'poster'], note: 'A traveler shows evidence: a visible sword (+2), a faint poster resemblance (+4).' },
+      { active: ['logit'], note: 'Sum the weighted evidence into one raw score: z = 2+4 = +6. This is the LOGIT — any real number, not yet a probability.' },
+      { active: ['sig'], note: 'Squash it through the sigmoid: σ(6) ≈ 0.997. Now it speaks probability, not raw score.' },
+      { active: ['gate'], note: 'Compare to a threshold set by COSTS, not by reflex-0.5: 0.997 > 20% → arrest. A checkpoint where false arrests are costlier could use this exact same score against a very different bar.' },
+    ],
+  },
   tech: [
     {
       q: 'Where does the sigmoid formula come from? It looks arbitrary.',
@@ -266,6 +291,36 @@ def decide(p, cost_fp, cost_fn):
       explain: 'Features from the transformer → one linear score per vocabulary token → softmax → categorical distribution. You have now fully understood one entire component of GPT.',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: logistic regression',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'The logit z = w·x + b in logistic regression is...', choices: [
+        { text: 'The probability of class 1', to: 'q1_wrong_prob' },
+        { text: 'The log-odds: log(p/(1−p)) — the sigmoid is its inverse', to: 'q1_right' },
+        { text: 'The loss value', to: 'q1_wrong_loss' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — sigmoid converts log-odds to probability; each feature unit adds its weight to the log-odds, multiplying the odds by e^w. This is exactly what an LLM\'s "logits" are, pre-softmax.', next: 'q2' },
+      q1_wrong_prob: { end: true, correct: false, text: 'The logit z is an unbounded real number (can be any value, positive or negative) — it needs to be squashed through the sigmoid FIRST to become a probability in (0,1). z itself is the log-odds, not the probability.', retry: 'q1' },
+      q1_wrong_loss: { end: true, correct: false, text: 'The logit is computed BEFORE any loss is involved — it\'s simply the raw weighted-sum score w·x+b. The loss compares the sigmoid of this score against the true label.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'The gradient of cross-entropy loss through a sigmoid, with respect to the logit z, is...', choices: [
+        { text: 'ŷ(1−ŷ)', to: 'q2_wrong_deriv' },
+        { text: 'ŷ − y', to: 'q2_right' },
+        { text: '(ŷ − y)·ŷ(1−ŷ)', to: 'q2_wrong_mse' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — the log in cross-entropy and the exp in sigmoid cancel exactly, leaving pure (prediction − truth), with full gradient signal at any confidence level.', next: 'q3' },
+      q2_wrong_deriv: { end: true, correct: false, text: 'That\'s just the sigmoid\'s own derivative σ\'(z) in isolation — not the full gradient of the cross-entropy loss with respect to z, which is where the clean cancellation actually happens.', retry: 'q2' },
+      q2_wrong_mse: { end: true, correct: false, text: 'That extra ŷ(1−ŷ) factor is what you\'d get from MSE through a sigmoid — and it\'s exactly the saturation problem cross-entropy is specifically designed to avoid by cancelling that factor out.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'Fraud detection: a missed fraud costs $5,000, a false alarm costs $50. The cost-optimal threshold on P(fraud) is about...', choices: [
+        { text: '0.5', to: 'q3_wrong_half' },
+        { text: '0.99', to: 'q3_wrong_high' },
+        { text: '0.01 (≈ 50/5050)', to: 'q3_right' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — threshold = C_FP/(C_FP+C_FN) = 50/5050 ≈ 0.0099: flag anything above ~1%. Expensive misses push the threshold sharply DOWN, catching more fraud at the cost of more false alarms.', },
+      q3_wrong_half: { end: true, correct: false, text: '0.5 is only correct when both error types cost the same. Here a missed fraud costs 100× more than a false alarm — the optimal threshold should be pulled far below 0.5, not left at it.', retry: 'q3' },
+      q3_wrong_high: { end: true, correct: false, text: 'A HIGH threshold would be right if false alarms were the expensive mistake — here it\'s the opposite: missed fraud is far more costly, which pushes the threshold DOWN, not up.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Using MSE for classification "because it\'s simpler" — gradients vanish exactly on confidently-wrong examples, and the loss becomes non-convex. Sigmoid pairs with cross-entropy.',
     'Reflexive 0.5 thresholds. On imbalanced or cost-asymmetric problems (i.e., most real ones), 0.5 is almost never the right operating point.',

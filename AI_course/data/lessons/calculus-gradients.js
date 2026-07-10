@@ -92,6 +92,30 @@ window.LESSONS['calculus-gradients'] = {
       { c: 'Gradient ≈ 0: flat ground — the valley floor. Doctor reached; fever treated; convergence declared. 🏴‍☠️', a: { chopper: [80, 74] }, p: { s4: 'dim', valley: 'good' } },
     ],
   },
+  conceptFlow: {
+    title: 'One gradient descent loop, watched closely',
+    intro: 'Same L(w) = (3w−6)² and learning rate as the code section.',
+    stages: [
+      { label: 'Start', nodes: [
+        { id: 'w0', text: 'w = 0\nL(0) = 36' },
+      ]},
+      { label: 'Sense', nodes: [
+        { id: 'grad', text: 'dL/dw = 6(3w−6)\nat w=0: −36' },
+      ]},
+      { label: 'Step', nodes: [
+        { id: 'update', text: 'w ← w − η·∇L\nw = 0 − 0.05·(−36) = 1.8' },
+      ]},
+      { label: 'Repeat', nodes: [
+        { id: 'converge', text: 'Repeat\nw → 2.0, L → 0' },
+      ]},
+    ],
+    steps: [
+      { active: ['w0'], note: 'Start at w = 0. L(0) = 36 — far from the minimum.' },
+      { active: ['grad'], note: 'Compute the slope via the chain rule: dL/dw = 6(3w−6). At w=0 that\'s −36 — steeply downhill.' },
+      { active: ['update'], note: 'Step against the slope: w ← w − η·∇L. With η=0.05, w jumps from 0 to 1.8.' },
+      { active: ['converge'], note: 'Repeat. Each step the slope shrinks as the ground flattens — w glides smoothly toward 2.0, where L=0 and the gradient hits zero.' },
+    ],
+  },
   tech: [
     {
       q: 'How does the computer get derivatives — does PyTorch do algebra like I do on paper?',
@@ -233,6 +257,36 @@ def gradient_descent(f, w0, lr, steps):
       explain: 'Cost, primarily. Autodiff gets the ENTIRE gradient for ~2× one forward pass, regardless of parameter count. (Accuracy is also worse numerically, but cost is the killer.)',
     },
   ],
+  testFlow: {
+    title: 'Test yourself: derivatives & gradient descent',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'L(w) = (2w + 1)². By the chain rule, dL/dw is...', choices: [
+        { text: '2(2w+1)', to: 'q1_wrong_inner' },
+        { text: '4(2w+1)', to: 'q1_right' },
+        { text: '4w', to: 'q1_wrong_expand' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right. Outer u² → 2u, inner (2w+1) → 2 — multiply: 2(2w+1)·2 = 4(2w+1).', next: 'q2' },
+      q1_wrong_inner: { end: true, correct: false, text: 'You differentiated the outer function (u² → 2u) but dropped the inner factor — the derivative of (2w+1) itself, which is 2. The chain rule needs BOTH factors multiplied together.', retry: 'q1' },
+      q1_wrong_expand: { end: true, correct: false, text: 'That drops the constant entirely. Apply the chain rule directly: outer slope 2u times inner slope 2, evaluated with u=2w+1, giving 4(2w+1) — not a simplified 4w.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'Your training loss oscillates wildly for a few steps, then becomes NaN. Most likely fix?', choices: [
+        { text: 'Add more layers', to: 'q2_wrong_layers' },
+        { text: 'Lower the learning rate', to: 'q2_right' },
+        { text: 'Raise the learning rate', to: 'q2_wrong_raise' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — oscillate-then-explode is the textbook signature of overshooting: each step lands higher on the opposite wall of the valley. Lowering η (and/or clipping gradients) is the standard fix.', next: 'q3' },
+      q2_wrong_layers: { end: true, correct: false, text: 'More layers doesn\'t address the actual failure — the STEP SIZE is too large relative to the loss curvature, causing each update to overshoot. Adding capacity doesn\'t fix an overshooting optimizer.', retry: 'q2' },
+      q2_wrong_raise: { end: true, correct: false, text: 'That would make an overshooting problem worse, not better — bigger steps overshoot the valley floor even further, accelerating toward NaN.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'Why can\'t you train a classifier by directly maximizing accuracy with gradient descent?', choices: [
+        { text: 'Accuracy is too expensive to compute', to: 'q3_wrong_cost' },
+        { text: 'Accuracy is a step function — its gradient is zero almost everywhere, so there\'s no slope to follow', to: 'q3_right' },
+        { text: 'Accuracy only makes sense for regression problems', to: 'q3_wrong_regression' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right. Tiny weight nudges almost never flip a prediction, so accuracy stays flat with an occasional jump — zero gradient nearly everywhere. We minimize a smooth surrogate (cross-entropy) instead, whose gradient actually points toward better accuracy.' },
+      q3_wrong_cost: { end: true, correct: false, text: 'Cost isn\'t the issue — accuracy is cheap to compute. The real problem is that it provides no usable GRADIENT: it\'s flat almost everywhere, so gradient descent has nothing to follow.', retry: 'q3' },
+      q3_wrong_regression: { end: true, correct: false, text: 'Accuracy is specifically a CLASSIFICATION metric, not a regression one — the issue isn\'t which task type, it\'s that accuracy\'s step-function shape has no usable slope for gradient descent to follow.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Dropping the inner-function factor in the chain rule — d(3w−6)²/dw = 6(3w−6), not 2(3w−6). Verify with <code>numerical_gradient</code> whenever unsure; that habit scales to checking custom PyTorch layers.',
     'Tuning learning rate by vibes alone. Learn the signatures: loss NaN/oscillating → too big; loss creeping linearly → too small; loss down-then-flat early → fine, maybe decay it later.',

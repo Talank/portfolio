@@ -99,6 +99,30 @@ window.LESSONS['training-neural-nets'] = {
       { c: 'Momentum reaches the flag while SGD is still bouncing. Adam adds one more trick: a per-parameter ruler (÷√s̄) so steep walls and gentle floors each get a properly-sized step automatically.', a: { ship: [88, 48], hiker: [34, 60] }, p: { floor: 'good', meter: 'good' } }
     ]
   },
+  conceptFlow: {
+    title: 'Racing the ravine: SGD vs momentum',
+    intro: 'Same L(x,y) = x² + 10y² as the animation and the lab.',
+    stages: [
+      { label: 'The ravine', nodes: [
+        { id: 'ravine', text: 'L(x,y)=x²+10y²\nsteep walls, gentle floor' },
+      ]},
+      { label: 'Plain SGD', nodes: [
+        { id: 'sgd', text: 'Bounces wall to wall\nprogress: crawling' },
+      ]},
+      { label: 'Momentum', nodes: [
+        { id: 'cancel', text: 'Cross-valley pushes CANCEL\nin the running average' },
+      ]},
+      { label: 'Result', nodes: [
+        { id: 'accumulate', text: 'Along-valley pushes ACCUMULATE\nup to 10× faster' },
+      ]},
+    ],
+    steps: [
+      { active: ['ravine'], note: 'A ravine: brutally steep side walls, a gently sloping floor toward the minimum. One learning rate must survive both curvatures.' },
+      { active: ['sgd'], note: 'Plain SGD: the wall gradient dominates every step — the hiker bounces up, down, up, down while barely inching toward the minimum.' },
+      { active: ['cancel'], note: 'Momentum keeps a running velocity instead of reacting to each step alone. The alternating wall-pushes cancel inside that average.' },
+      { active: ['accumulate'], note: 'The consistently-rightward floor-pushes accumulate instead — up to 1/(1−β) ≈ 10× the single-step force. The ship barrels down the valley while the hiker still bounces.' },
+    ],
+  },
   tech: [
     {
       q: 'What do model.train() and model.eval() actually switch, and what goes wrong if I forget?',
@@ -268,6 +292,36 @@ def momentum(x0, y0, lr, beta, steps):
       explain: 'BatchNorm ties every example\'s statistics to its batchmates and needs running averages at eval. Sequence models with varying lengths and small/streamed batches need per-example normalization — LayerNorm (or RMSNorm in Llama).'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: training dynamics',
+    start: 'q1',
+    nodes: {
+      q1: { qid: 'q1', q: 'Training loss suddenly spikes to NaN in the middle of training. The FIRST knob to suspect is...', choices: [
+        { text: 'Learning rate too high (or exploding gradients) — reduce η and/or add gradient clipping', to: 'q1_right' },
+        { text: 'Batch size too small', to: 'q1_wrong_batch' },
+        { text: 'Too much dropout', to: 'q1_wrong_dropout' },
+      ]},
+      q1_right: { end: true, correct: true, text: 'Right — NaN loss is the divergence signature: steps overshoot so badly values blow past representable float range. Cut η by ~10× and add gradient clipping.', next: 'q2' },
+      q1_wrong_batch: { end: true, correct: false, text: 'A small batch size causes noisy, slow, or unstable-ish learning — but it doesn\'t typically cause outright NaN explosions. That signature specifically points to the learning rate/gradient magnitude.', retry: 'q1' },
+      q1_wrong_dropout: { end: true, correct: false, text: 'Excessive dropout would cause underfitting or noisy training curves, not a sudden NaN spike. NaN specifically signals numerical divergence — values overflowing — which points to the learning rate.', retry: 'q1' },
+      q2: { qid: 'q2', q: 'Why does momentum specifically help in ravine-shaped loss landscapes?', choices: [
+        { text: 'The oscillating cross-valley gradient components cancel in the running average while consistent along-valley components accumulate', to: 'q2_right' },
+        { text: 'It increases the learning rate globally for every parameter', to: 'q2_wrong_lr' },
+        { text: 'It computes exact second derivatives of the loss', to: 'q2_wrong_second' },
+      ]},
+      q2_right: { end: true, correct: true, text: 'Right — momentum\'s velocity is an exponential moving average of gradients: alternating-sign pushes (the walls) sum toward zero; same-sign pushes (the floor) sum toward up to 1/(1−β)× the single-step push.', next: 'q3' },
+      q2_wrong_lr: { end: true, correct: false, text: 'Momentum doesn\'t change the learning rate η itself — it changes what gets multiplied by η (a smoothed velocity instead of the raw instantaneous gradient), which is what cancels the zigzag.', retry: 'q2' },
+      q2_wrong_second: { end: true, correct: false, text: 'Momentum uses only first-order gradient information (an exponential moving average of past gradients) — it never computes or approximates second derivatives (curvature); that\'s the domain of methods like Newton\'s method or Adam\'s variance term.', retry: 'q2' },
+      q3: { qid: 'q3', q: 'Why do transformers use LayerNorm instead of BatchNorm?', choices: [
+        { text: 'LayerNorm normalizes each example independently across features — no batch-size dependence, identical train/eval behavior, works with variable-length sequences', to: 'q3_right' },
+        { text: 'LayerNorm is simply faster to compute than BatchNorm', to: 'q3_wrong_speed' },
+        { text: 'BatchNorm cannot be differentiated, so it can\'t be used with backprop', to: 'q3_wrong_diff' },
+      ]},
+      q3_right: { end: true, correct: true, text: 'Right — BatchNorm ties every example\'s statistics to its batchmates and needs running averages at inference. Sequence models with variable lengths and small/streamed batches need per-example normalization instead.', },
+      q3_wrong_speed: { end: true, correct: false, text: 'Computational speed isn\'t the deciding factor here — both are cheap. The real reason is behavioral: LayerNorm has no dependence on other examples in the batch, which matters enormously for variable-length sequences and small batches.', retry: 'q3' },
+      q3_wrong_diff: { end: true, correct: false, text: 'BatchNorm is fully differentiable and trains fine with backprop (it was the CNN-era default for years) — the issue transformers have with it is behavioral: batch-size dependence and a train/eval statistics mismatch, not differentiability.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Forgetting model.eval() + torch.no_grad() in the validation loop. Your metrics get computed with dropout firing and the autograd graph building — noisy numbers AND memory bloat. The pair belongs together in every eval loop, always.',
     'Tuning anything before the learning rate. η is the highest-leverage hyperparameter by an order of magnitude; sweep it in powers of 10 first (1e-4 → 1e-1), then touch the rest.',

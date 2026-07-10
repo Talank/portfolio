@@ -7,6 +7,9 @@ Lesson schema (window.LESSONS[id]):
                '<div'/'<pre'/'<ul'/'<ol'/'<table' is inserted raw (used for .math blocks)
   story      : { onePiece: {title, text[]}, sitcom: {show, title, text[]}, why }
   storyAnim  : story-anim-engine scene           — optional, mounted inside the One Piece story
+  conceptFlow: concept-flow-engine scene         — optional, an interactive click-through
+               pipeline diagram teaching the technical mechanism (distinct from storyAnim's
+               narrative scene); see js/concept-flow-engine.js for the schema
   episode    : episode-engine scene (props/ledger/steps with speaker dialogue)
                — optional, a full voiced + scored scene, mounted in its own section
   tech       : [{q, a}]                          — "Technicality corner": why this library/
@@ -14,6 +17,9 @@ Lesson schema (window.LESSONS[id]):
   code       : {title, intro, code, notes[]}     — worked example to read
   lab        : code-lab-engine spec              — in-browser editor + checkers (see engine)
   quiz       : [{q, options[], correct, explain}]
+  testFlow   : test-flow-engine scene            — optional, an interactive branching
+               "test yourself" decision tree, distinct from the quiz above; see
+               js/test-flow-engine.js for the schema
   pitfalls   : [string]
   interview  : [{q, a}]                          — real interview questions + strong answers
 */
@@ -71,6 +77,10 @@ function renderLesson(id) {
   `).join('');
 
   const storyHtml = renderStorySection(data, id);
+  const conceptFlowHtml = data.conceptFlow ? `
+    <h2>How it actually works — interactive walkthrough</h2>
+    <p class="lede" style="font-size:0.92rem;">Click any box to jump straight to it, or hit Play and listen — the mechanism, not another paragraph to read.</p>
+    <div id="concept-flow-container"></div>` : '';
   const episodeHtml = data.episode ? `
     <h2>Animated Episode</h2>
     <details class="story story-onepiece" id="episode-details" open>
@@ -113,6 +123,11 @@ function renderLesson(id) {
         <div class="tech-body"><b>Strong answer:</b> ${(Array.isArray(iv.a) ? iv.a : [iv.a]).map(para).join('')}</div>
       </details>`).join('')}` : '';
 
+  const testFlowHtml = data.testFlow ? `
+    <h2>Test yourself — interactive</h2>
+    <p class="lede" style="font-size:0.92rem;">A branching version of the quiz above: pick an answer, get real feedback, and if you're wrong you try that exact question again rather than just seeing the right answer.</p>
+    <div id="test-flow-container"></div>` : '';
+
   root.innerHTML = `
     <div class="pill">${data.category}</div>
     <div class="pill time">${data.timeMin} min</div>
@@ -121,11 +136,13 @@ function renderLesson(id) {
     ${goalsHtml}
     ${conceptHtml}
     ${storyHtml}
+    ${conceptFlowHtml}
     ${episodeHtml}
     ${techHtml}
     ${codeHtml}
     ${data.lab ? '<h2>Code Lab — prove it in code</h2><div id="lab-container"></div>' : ''}
     ${(data.quiz || []).length ? '<h2>Quiz</h2><div id="quiz-container"></div>' : ''}
+    ${testFlowHtml}
     ${pitfallsHtml}
     ${interviewHtml}
     <label class="checkbox-row">
@@ -142,6 +159,14 @@ function renderLesson(id) {
   if (data.storyAnim && window.renderStoryAnim) {
     const mount = root.querySelector('[data-lesson-anim]');
     if (mount) window.renderStoryAnim(mount, data.storyAnim);
+  }
+
+  if (data.conceptFlow && window.renderConceptFlow) {
+    renderConceptFlow(document.getElementById('concept-flow-container'), data.conceptFlow);
+  }
+
+  if (data.testFlow && window.renderTestFlow) {
+    renderTestFlow(document.getElementById('test-flow-container'), data.testFlow);
   }
 
   if (data.episode && window.renderEpisode) {
