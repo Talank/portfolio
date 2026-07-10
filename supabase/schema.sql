@@ -44,6 +44,46 @@ create policy "update own dsa_notes" on dsa_notes
 create policy "delete own dsa_notes" on dsa_notes
   for delete using (auth.uid() = user_id);
 
+-- ── AI Engineer Course: "lesson complete" progress ──────────────────────
+create table if not exists ai_progress (
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  module_id  text not null,
+  completed  boolean not null default true,
+  updated_at timestamptz not null default now(),
+  primary key (user_id, module_id)
+);
+
+alter table ai_progress enable row level security;
+
+create policy "select own ai_progress" on ai_progress
+  for select using (auth.uid() = user_id);
+create policy "insert own ai_progress" on ai_progress
+  for insert with check (auth.uid() = user_id);
+create policy "update own ai_progress" on ai_progress
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "delete own ai_progress" on ai_progress
+  for delete using (auth.uid() = user_id);
+
+-- ── AI Engineer Course: per-lesson free-text notes ──────────────────────
+create table if not exists ai_notes (
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  module_id  text not null,
+  note       text not null default '',
+  updated_at timestamptz not null default now(),
+  primary key (user_id, module_id)
+);
+
+alter table ai_notes enable row level security;
+
+create policy "select own ai_notes" on ai_notes
+  for select using (auth.uid() = user_id);
+create policy "insert own ai_notes" on ai_notes
+  for insert with check (auth.uid() = user_id);
+create policy "update own ai_notes" on ai_notes
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "delete own ai_notes" on ai_notes
+  for delete using (auth.uid() = user_id);
+
 -- ── NCLEX: quiz attempt history (append-only log) ───────────────────────
 create table if not exists nclex_attempts (
   id              uuid primary key default gen_random_uuid(),

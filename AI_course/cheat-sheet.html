@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheet — AI Engineer Course</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Cheat Sheet</h1>
+  <p class="lede">Every formula and every "which tool when" table from the course, in one scrollable page. Not a substitute for the lessons — a fast recall aid once you've actually done the labs. Organized by Part, in the same order as the dashboard.</p>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 1 — Math Foundations</h2>
+
+    <h3>Vectors, dot product, cosine similarity</h3>
+    <div class="math">a·b = Σ aᵢbᵢ = |a||b|cos(θ)&nbsp;&nbsp;&nbsp;&nbsp;cos_sim(a,b) = (a·b) / (|a||b|)<span class="mnote">cosine similarity = dot product on UNIT-LENGTH vectors. Range [-1, 1]. This one identity powers word2vec, attention scores, and RAG retrieval.</span></div>
+
+    <h3>Matrices &amp; eigenvectors</h3>
+    <div class="math">(AB)ᵢⱼ = Σₖ AᵢₖBₖⱼ&nbsp;&nbsp;&nbsp;&nbsp;Av = λv&nbsp;&nbsp;&nbsp;&nbsp;A = UΣVᵀ (SVD)<span class="mnote">an eigenvector's direction is unchanged by A, only scaled by λ. PCA finds directions of maximum variance via the covariance matrix's eigenvectors.</span></div>
+
+    <h3>Calculus &amp; the chain rule</h3>
+    <div class="math">dz/dx = (dz/dy)(dy/dx)&nbsp;&nbsp;&nbsp;&nbsp;∇f = [∂f/∂x₁, …, ∂f/∂xₙ]&nbsp;&nbsp;&nbsp;&nbsp;θ ← θ − η∇L(θ)<span class="mnote">backprop is the chain rule applied systematically through a computational graph, in reverse.</span></div>
+
+    <h3>Probability &amp; statistics</h3>
+    <div class="math">P(A|B) = P(B|A)P(A) / P(B)&nbsp;&nbsp;(Bayes)&nbsp;&nbsp;&nbsp;&nbsp;θ̂_MLE = argmax_θ Π p(xᵢ|θ)<span class="mnote">minimizing MSE ≡ maximizing likelihood under a Gaussian noise assumption. Minimizing cross-entropy ≡ maximizing likelihood under a categorical assumption.</span></div>
+
+    <h3>Information theory</h3>
+    <div class="math">H(p) = −Σ p(x)log p(x)&nbsp;&nbsp;&nbsp;&nbsp;CE(p,q) = −Σ p(x)log q(x)&nbsp;&nbsp;&nbsp;&nbsp;KL(p‖q) = CE(p,q) − H(p)<span class="mnote">cross-entropy loss = entropy of the true distribution + KL divergence from prediction to truth. Training pushes KL toward 0.</span></div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 2 — Classical ML</h2>
+
+    <h3>Linear &amp; logistic regression</h3>
+    <div class="math">ŷ = Xθ&nbsp;&nbsp;(normal eq: θ = (XᵀX)⁻¹Xᵀy)&nbsp;&nbsp;&nbsp;&nbsp;σ(z) = 1/(1+e⁻ᶻ)&nbsp;&nbsp;&nbsp;&nbsp;∂CE/∂z = ŷ − y<span class="mnote">the "predicted minus actual" gradient shows up everywhere: logistic regression, softmax classification, and the transformer's output layer.</span></div>
+
+    <h3>Model evaluation</h3>
+    <div class="math">precision = TP/(TP+FP)&nbsp;&nbsp;recall = TP/(TP+FN)&nbsp;&nbsp;F1 = 2·P·R/(P+R)&nbsp;&nbsp;bias² + variance + noise = error</div>
+
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Situation</th><th>Prioritize</th></tr>
+      <tr><td>Missing a positive is costly (fraud, disease)</td><td>High recall</td></tr>
+      <tr><td>A false alarm is costly (spam-blocking a real email)</td><td>High precision</td></tr>
+      <tr><td>Severe class imbalance</td><td>PR-AUC over ROC-AUC; never bare accuracy</td></tr>
+      <tr><td>Comparing error types with different $ cost</td><td>Cost-weighted threshold, not F1 (Part 8)</td></tr>
+    </table>
+    </div>
+
+    <h3>k-NN, trees, clustering</h3>
+    <div class="math">k-means: minimize Σᵢ ‖xᵢ − μ_{c(i)}‖²&nbsp;&nbsp;&nbsp;&nbsp;entropy-based split gain (decision trees)</div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 3 — Deep Learning</h2>
+
+    <h3>Neurons &amp; training</h3>
+    <div class="math">a = f(Wx+b)&nbsp;&nbsp;&nbsp;&nbsp;v ← βv + (1−β)∇L&nbsp;&nbsp;(momentum)&nbsp;&nbsp;&nbsp;&nbsp;Adam: m,v bias-corrected moments, θ ← θ − η·m̂/(√v̂+ε)</div>
+    <div class="math">LayerNorm(x) = γ·(x−μ)/√(σ²+ε) + β&nbsp;&nbsp;(per-token, not per-batch)</div>
+
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Need</th><th>Reach for</th></tr>
+      <tr><td>Nonlinearity, hidden layers</td><td>ReLU/GELU (dying-ReLU risk → GELU/Leaky)</td></tr>
+      <tr><td>Prevent co-adaptation / overfitting</td><td>Dropout (train only), weight decay, early stopping</td></tr>
+      <tr><td>Stabilize deep stacks</td><td>Residual connections + LayerNorm (pre-norm is the modern default)</td></tr>
+      <tr><td>Variable-length sequences in a batch</td><td>LayerNorm, not BatchNorm (batch-size independent)</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 4 — NLP</h2>
+    <div class="math">TF-IDF(t,d) = tf(t,d) · log(N / df(t))&nbsp;&nbsp;&nbsp;&nbsp;BPE: iteratively merge the most frequent adjacent symbol pair</div>
+    <div class="math">skip-gram objective: maximize Σ log σ(u_c·v_w) + Σ log σ(−u_neg·v_w)&nbsp;&nbsp;(negative sampling)</div>
+    <div class="math">Bahdanau attention: e = score(s,hᵢ) → α = softmax(e) → context = Σαᵢhᵢ</div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 5 — Transformers</h2>
+    <div class="math">Attention(Q,K,V) = softmax(QKᵀ/√dk)·V<span class="mnote">÷√dk keeps softmax out of its saturated region — variance of a raw dot product grows with dk.</span></div>
+    <div class="math">MultiHead(X) = Concat(head₁,…,head_h)·Wo&nbsp;&nbsp;&nbsp;&nbsp;headᵢ = Attention(XWqᵢ, XWkᵢ, XWvᵢ)</div>
+    <div class="math">PE(pos,2i) = sin(pos/10000^(2i/d))&nbsp;&nbsp;PE(pos,2i+1) = cos(pos/10000^(2i/d))</div>
+    <div class="math">block: x = x + Attn(LN(x));&nbsp;&nbsp;x = x + FFN(LN(x))&nbsp;&nbsp;(pre-norm)</div>
+
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Architecture</th><th>Attention</th><th>Good at</th><th>Examples</th></tr>
+      <tr><td>Encoder-only</td><td>Bidirectional, no mask</td><td>Classification, NER, extractive QA</td><td>BERT, RoBERTa</td></tr>
+      <tr><td>Decoder-only</td><td>Causal mask (past only)</td><td>Open-ended generation; scale → broad capability</td><td>GPT, LLaMA, most modern LLMs</td></tr>
+      <tr><td>Encoder-decoder</td><td>Bidirectional encoder + causal decoder + cross-attn</td><td>Structured input→output transforms</td><td>T5, BART, Whisper</td></tr>
+    </table>
+    </div>
+    <div class="math">params ≈ 12 · n_layers · d_model²&nbsp;&nbsp;(rough non-embedding parameter count)</div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 6 — LLM Engineering</h2>
+
+    <h3>Pretraining &amp; scaling</h3>
+    <div class="math">C ≈ 6ND&nbsp;&nbsp;(compute ≈ 6 × params × tokens)&nbsp;&nbsp;&nbsp;&nbsp;compute-optimal: D ≈ 20N&nbsp;&nbsp;(Chinchilla)</div>
+
+    <h3>Fine-tuning</h3>
+    <div class="math">LoRA: ΔW = BA,&nbsp;&nbsp;A: r×d_in, B: d_out×r, r≪d&nbsp;&nbsp;&nbsp;&nbsp;forward: h = xW + (α/r)·xAᵀBᵀ&nbsp;&nbsp;(W frozen)</div>
+
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Method</th><th>Trains</th><th>Best for</th></tr>
+      <tr><td>Full fine-tune</td><td>Every parameter</td><td>Large curated dataset + ample compute + genuine need for broad behavior change</td></tr>
+      <tr><td>LoRA</td><td>Small low-rank adapter (A, B)</td><td>Default choice — cheap, swappable, resistant to catastrophic forgetting</td></tr>
+      <tr><td>QLoRA</td><td>LoRA adapter, base quantized to 4-bit</td><td>LoRA's benefits when the base model doesn't fit in memory otherwise</td></tr>
+    </table>
+    </div>
+
+    <h3>Alignment</h3>
+    <div class="math">Bradley-Terry: P(chosen≻rejected) = σ(r(chosen)−r(rejected))</div>
+    <div class="math">DPO loss = −log σ( β·[log(π_θ(y_w|x)/π_ref(y_w|x)) − log(π_θ(y_l|x)/π_ref(y_l|x))] )</div>
+
+    <h3>Inference &amp; serving</h3>
+    <div class="math">temperature: softmax(logits/T)&nbsp;&nbsp;T&lt;1 sharpens, T&gt;1 flattens</div>
+    <div class="math">KV cache size ≈ 2 · n_layers · batch · n_heads · seq_len · d_head&nbsp;&nbsp;(linear in length AND batch)</div>
+
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Decoding strategy</th><th>Use when</th></tr>
+      <tr><td>Greedy / low temperature</td><td>Code, math, structured extraction — one reliable answer wanted</td></tr>
+      <tr><td>Temperature + top-p (nucleus)</td><td>Creative writing, brainstorming — variety wanted</td></tr>
+      <tr><td>Beam search</td><td>Translation-like tasks with a single "best" target — NOT open-ended chat (produces bland text)</td></tr>
+    </table>
+    </div>
+
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Path</th><th>Pros</th><th>Cons</th></tr>
+      <tr><td>Hosted API</td><td>Zero infra, frontier quality</td><td>Data leaves your infra, per-token cost, vendor dependency</td></tr>
+      <tr><td>Self-hosted (HF)</td><td>Full control, no per-token fee, full fine-tune rights</td><td>You own the serving stack + GPU cost</td></tr>
+      <tr><td>Local (Ollama)</td><td>Free, fully private, zero network dependency</td><td>Limited by local hardware, not for multi-user production</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 7 — RAG &amp; Agents</h2>
+
+    <h3>RAG</h3>
+    <div class="math">index-time: docs → chunks → embed → store&nbsp;&nbsp;&nbsp;&nbsp;query-time: question → embed → top-k search → prompt → answer</div>
+
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+      <tr><td>recall@k low</td><td>Retrieval failure</td><td>Tune chunk size/overlap, embedding model, or add re-ranking</td></tr>
+      <tr><td>recall@k fine, answer still wrong</td><td>Generation/faithfulness failure</td><td>Stronger grounding instructions, require citations</td></tr>
+    </table>
+    </div>
+
+    <h3>Agents</h3>
+    <div class="math">ReAct loop: Thought → Action → Observation → … → Final Answer</div>
+
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Framework style</th><th>Shape</th><th>Best for</th></tr>
+      <tr><td>Hand-rolled (agents-from-scratch)</td><td>Explicit while-loop</td><td>Small, well-scoped, low-branching agents</td></tr>
+      <tr><td>LangGraph</td><td>Explicit node/edge/state graph, cycles + checkpointing</td><td>Complex control flow, pause/resume, human-in-the-loop</td></tr>
+      <tr><td>CrewAI-style</td><td>Role/goal agents + tasks, framework orchestrates</td><td>Fast setup for a "team of specialists" shape</td></tr>
+      <tr><td>Platform-integrated (e.g. Google ADK)</td><td>Tight platform/cloud integration</td><td>Already committed to that platform; trades portability for convenience</td></tr>
+    </table>
+    </div>
+
+    <div class="math">MCP: M frameworks × N tools → M+N&nbsp;&nbsp;(one server per tool, one client per framework)</div>
+
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Question to ask</th><th>What it tells you</th></tr>
+      <tr><td>Does recall@k need fixing, or does generation need fixing?</td><td>Retrieval vs. generation failure (RAG)</td></tr>
+      <tr><td>Is the objective loosely specified with real-world actions available?</td><td>Reward-hacking / Goodhart risk — scope tools tightly</td></tr>
+      <tr><td>Is this action consequential and hard to reverse?</td><td>Requires an approval gate, not autonomous execution</td></tr>
+      <tr><td>Is this content from a retrieved doc or tool output?</td><td>Treat as untrusted — a real prompt-injection surface</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 8 — System Design Framework</h2>
+    <div class="math">1. Clarify → 2. Metrics (offline + online) → 3. Data → 4. Approach (start simple) → 5. Serving → 6. Monitor &amp; iterate</div>
+    <div class="math">expected_cost(threshold) = FP(threshold)·cost_fp + FN(threshold)·cost_fn&nbsp;&nbsp;(pick the threshold that minimizes THIS, not raw F1)</div>
+
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Interview type</th><th>Rewards</th></tr>
+      <tr><td>Production system design</td><td>A confident, well-justified, defensible design under stated constraints</td></tr>
+      <tr><td>Research conversation</td><td>Honest awareness of open questions, a falsifiable hypothesis, and naming what you don't yet know</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">"Which tool when" — the master table</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Goal</th><th>Reach for</th></tr>
+      <tr><td>Teach a model new FACTS, or facts that change often</td><td>RAG (retrieval), not fine-tuning</td></tr>
+      <tr><td>Teach a model a specific STYLE, FORMAT, or behavior</td><td>Fine-tuning (LoRA by default)</td></tr>
+      <tr><td>Adjust behavior toward human preferences (helpful/harmless/honest)</td><td>RLHF or DPO, after SFT</td></tr>
+      <tr><td>A task needs a real-world action, current data, or precise computation</td><td>An agent with a scoped tool, not a bigger model</td></tr>
+      <tr><td>A task is simple, well-defined, high-volume</td><td>Route to a small/cheap model, not the frontier tier by default</td></tr>
+      <tr><td>A task is genuinely open-ended, ambiguous, high-stakes reasoning</td><td>The most capable tier available, reserved for exactly this</td></tr>
+      <tr><td>Base model fits in memory, need to fine-tune</td><td>LoRA</td></tr>
+      <tr><td>Base model does NOT fit in memory</td><td>QLoRA</td></tr>
+      <tr><td>A workflow has loops/branches decided at runtime</td><td>LangGraph (or a hand-rolled loop if simple enough)</td></tr>
+      <tr><td>A workflow is a fixed, linear pipeline</td><td>A simple chain — no graph needed</td></tr>
+      <tr><td>An action is consequential and hard to reverse</td><td>Human-approval gate, regardless of model confidence</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:1.5rem;">Back to the <a href="index.html">dashboard</a>, or straight into the <a href="interview.html">timed interview drill</a>.</p>
+</main>
+<script src="data/schedule.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>
+buildHeader('cheat-sheet.html');
+</script>
+</body>
+</html>
