@@ -1,0 +1,85 @@
+{
+  "profile": {
+    "name": "Talank Baral",
+    "title": "PhD Student in Computer Science",
+    "affiliation": "George Mason University",
+    "photo": "Screen Shot 2023-10-30 at 2.09.23 PM.png",
+    "bio": "I am a PhD student in Computer Science at George Mason University specializing in software engineering. My research focuses on improving the speed and reliability of software testing and continuous integration using empirical methods and large language models (LLMs). I work on problems such as flaky test analysis and test execution optimization.",
+    "tags": ["Software Testing", "Continuous Integration", "Flaky Tests", "LLMs for SE"]
+  },
+
+  "news": [
+    {
+      "date": "2026-07",
+      "highlighted": true,
+      "html": "Paper <strong>\"TDRepro: A Neurosymbolic Approach to Reproducing Timing-Dependent Flaky Test Failures\"</strong> accepted to <strong>ASE 2026</strong>! &#127881;"
+    },
+    {
+      "date": "2026-07",
+      "highlighted": true,
+      "html": "Paper <strong>\"Test Coverage Analysis of Agentic Pull Requests\"</strong> accepted to <strong>ICSME 2026</strong>! &#127881;"
+    }
+  ],
+
+  "publications": [
+    {
+      "title": "TDRepro: A Neurosymbolic Approach to Reproducing Timing-Dependent Flaky Test Failures",
+      "authors": ["Shanto Rahman", "Talank Baral", "August Shi", "Wing Lam"],
+      "venue": "Accepted in ASE 2026",
+      "acceptanceRate": "8.82% direct acceptance",
+      "status": "accepted",
+      "links": []
+    },
+    {
+      "title": "Test Coverage Analysis of Agentic Pull Requests",
+      "authors": ["Atish Kumar Dipongkor", "Talank Baral", "Wing Lam", "Kevin Moran"],
+      "venue": "Accepted in ICSME 2026",
+      "acceptanceRate": "39%",
+      "status": "accepted",
+      "links": []
+    },
+    {
+      "title": "OptCD: Optimizing Continuous Development",
+      "authors": ["Talank Baral", "Emirhan Oğul", "Shanto Rahman", "August Shi", "Wing Lam"],
+      "venue": "In ICSE 2025, Proceedings of the 50th International Conference on Software Engineering, Demonstrations track, Ottawa, Ontario, Canada, 2025.",
+      "status": "published",
+      "links": [
+        { "label": "PDF", "url": "https://utexas.app.box.com/v/august-shi-ICSEDEMO2025" },
+        { "label": "Slides", "url": "https://1drv.ms/p/c/5330fe071b00d705/IQBK6gXfv8PFQYjCOczogVKjASVh2fNxGaCkWNQdzzOxJrM" }
+      ]
+    },
+    {
+      "title": "Optimizing Continuous Development By Detecting and Preventing Unnecessary Content Generation",
+      "authors": ["Talank Baral", "Shanto Rahman", "Bala Naren Chanumolu", "Basak Balci", "Tuna Tuncer", "August Shi", "Wing Lam"],
+      "venue": "In ASE 2023, Proceedings of the 38th Annual International Conference on Automated Software Engineering (ASE 2023), pages 901-913, Kirchberg, Luxembourg, Sept. 2023.",
+      "status": "published",
+      "acceptanceRate": "21%",
+      "links": [
+        { "label": "PDF", "url": "https://cs.gmu.edu/~winglam/publications/2023/BaralETAL23OptCD.pdf" },
+        { "label": "Slides", "url": "https://docs.google.com/presentation/d/12dBs4wr8ke9FBmAFul-a4obmPXsp0oacUnDMCHr-uwg/edit#slide=id.p" }
+      ]
+    }
+  ],
+
+  "experience": [
+    {
+      "role": "Graduate Research Assistant",
+      "period": "Spring 2023, Summer 2023, Fall 2023, Summer 2024, Fall 2024",
+      "html": "Worked at SEAR lab with <a href=\"https://cs.gmu.edu/~winglam/\" target=\"_blank\" rel=\"noopener\">Dr. Wing Lam</a>"
+    },
+    {
+      "role": "Graduate Teaching Assistant",
+      "period": "Fall 2022",
+      "html": "CS262"
+    },
+    {
+      "role": "Software Developer",
+      "period": "January 2020 &ndash; August 2022",
+      "html": "<a href=\"https://www.jankaritech.com/\" target=\"_blank\" rel=\"noopener\">JankariTech</a>"
+    }
+  ],
+
+  "blogs": {
+    "html": "You can find my blogs at <a href=\"https://dev.to/talank\" target=\"_blank\" rel=\"noopener\">dev.to</a>"
+  }
+}

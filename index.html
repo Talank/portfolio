@@ -1,83 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Talank</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Talank Baral</title>
+	<meta name="description" content="Talank Baral &ndash; PhD student in Computer Science at George Mason University, working on software testing and continuous integration.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<header>
-		<h1>Talank Baral</h1>
-		<nav>
-			<ul>
-				<li><a href="#about">About</a></li>
-				<li><a href="#publications">Publications</a></li>
-				<li><a href="#experience">Experience</a></li>
-				<li><a href="#blogs">Blogs</a></li>
-				<li><a href="resume.pdf" target="_blank">Resume</a></li> <!-- Added Resume link here -->
-			</ul>
-		</nav>
+	<header class="site-header">
+		<div class="header-inner">
+			<a class="brand" href="#top">Talank Baral</a>
+			<button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primaryNav">
+				<span></span><span></span><span></span>
+			</button>
+			<nav id="primaryNav">
+				<ul>
+					<li><a href="#about">About</a></li>
+					<li><a href="#news">News</a></li>
+					<li><a href="#publications">Publications</a></li>
+					<li><a href="#experience">Experience</a></li>
+					<li><a href="#blogs">Blogs</a></li>
+					<li><a class="resume-link" href="resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+				</ul>
+			</nav>
+		</div>
 	</header>
-	
-	<main>
-		<section id="about">
-			<h2>About Me</h2>
-			<img src="Screen Shot 2023-10-30 at 2.09.23 PM.png" width="300">
-			<!-- <p><b style="color: darkgreen;">I am actively seeking an internship opportunity for summer 2026.</b></p> -->
-			 <!-- <p style="color:#1e88e5; font-weight:600;">
-				🚀 Actively seeking a <strong>Summer 2026 internship</strong>.
-			</p> -->
-			<!-- <p>I am a CS Ph.D student at George Mason University (GMU). I am a part of the SEAR Lab which is led by <a href="https://cs.gmu.edu/~winglam/">Dr. Wing Lam</a>. My current area of research lies in the field of Software Testing, specifically in improving Continuous Integration (CI) systems. I did my undergraduate in Software Engineering at Pokhara University, Nepal.</p> -->
-			 <p>
-				I am a PhD student in Computer Science at George Mason University specializing in software engineering. My
-				research focuses on improving the speed and reliability of software testing and continuous integration using
-				empirical methods and large language models (LLMs). I work on problems such as flaky test analysis, and test
-				execution optimization
-			</p>
+
+	<main id="top">
+		<section id="about" class="about-section">
+			<div class="about-grid">
+				<img id="profilePhoto" class="profile-photo" src="" alt="" width="300">
+				<div class="about-text">
+					<p class="eyebrow" id="profileTitle"></p>
+					<h1 id="profileName"></h1>
+					<p class="bio" id="profileBio"></p>
+					<ul class="tag-list" id="profileTags"></ul>
+				</div>
+			</div>
 		</section>
 
-		<section id="publications">
+		<section id="news" class="section">
+			<h2>News</h2>
+			<ul class="news-list" id="newsList"></ul>
+		</section>
+
+		<section id="publications" class="section">
 			<h2>Publications</h2>
-			<h3>“Optimizing Continuous Development By Detecting and Preventing Unnecessary Content Generation”</h3>
-			<p>by <u>Talank Baral</u>, Shanto Rahman, Bala Naren Chanumolu, Basak Balci, Tuna Tuncer, August Shi, Wing Lam.<br>
-			<!-- <i>IEEE/ACM Conference on Automated Software Engineering<br> -->
-			<i>In ASE 2023, Proceedings of the 38th Annual International Conference on Automated Software Engineering, (Kirchberg, Luxembourg), 2023.</i>
-			(ASE 2023), pages 901-913, Kirchberg, Luxembourg, Sept. 2023</i><br>
-			Download: <a href="https://cs.gmu.edu/~winglam/publications/2023/BaralETAL23OptCD.pdf">PDF</a> <a href="https://docs.google.com/presentation/d/12dBs4wr8ke9FBmAFul-a4obmPXsp0oacUnDMCHr-uwg/edit#slide=id.p">slides</a>
-			</p>
-
-			<h3>“OptCD: Optimizing Continuous Development”</h3>
-			<p>by <u>Talank Baral</u>, Emirhan Oğul, Shanto Rahman, August Shi, Wing Lam.<br>
-			<i>In ICSE 2025, Proceedings of the 50th International Conference on Software Engineering, Demonstrations track, (Ottawa, Ontario, Canada), 2025.</i><br>
-			Download: <a href="https://utexas.app.box.com/v/august-shi-ICSEDEMO2025">PDF</a> <a href="https://1drv.ms/p/c/5330fe071b00d705/IQBK6gXfv8PFQYjCOczogVKjASVh2fNxGaCkWNQdzzOxJrM">Slides</a>
-			</p>
-
-			<h3>“TDRepro: A Neurosymbolic Approach to Reproducing Timing-Dependent Flaky Test Failures”</h3>
-			<p>by Shanto Rahman, <u>Talank Baral</u>, August Shi, Wing Lam.<br>
-			<i>Accepted in ASE 2026</i><br>
-			<i>PDF coming soon</i>
-
-			<h3>“Test Coverage Analysis of Agentic Pull Requests”</h3>
-			<p>by Atish Kumar Dipongkor, <u>Talank Baral</u>, Wing Lam, Kevin Moran.<br>
-			<i>Accepted in ICSME 2026</i><br>
-			<i>PDF coming soon</i>
+			<div class="pub-list" id="publicationsList"></div>
 		</section>
-		
-		<section id="experience">
+
+		<section id="experience" class="section">
 			<h2>Experience</h2>
-			<h3>Graduate Research Assistant:</h3>Spring 2023, Summer 2023, and Fall 2023, Summer 2024, Fall 2024 (Worked at SEAR lab with <a href="https://cs.gmu.edu/~winglam/">Dr. Wing Lam</a>)
-			<h3>Graduate Teaching Assistant:</h3> Fall 2022 (CS262)
-			<h3>Software Developer:</h3> January 2020 to August 2022 (<a href='https://www.jankaritech.com/'>JankariTech</a>)
+			<ol class="timeline" id="experienceList"></ol>
 		</section>
-		
-		<section id="blogs">
+
+		<section id="blogs" class="section">
 			<h2>Blogs</h2>
-			<p>You can find my blogs at <a href="https://dev.to/talank">dev.to</a></p>
+			<p id="blogsText"></p>
 		</section>
 	</main>
-	
-	<footer>
-		<p>Copyright &copy; 2023 Talank Baral.
+
+	<footer class="site-footer">
+		<p>&copy; <span id="year"></span> Talank Baral.</p>
 	</footer>
+
+	<script src="js/main.js" defer></script>
 </body>
 </html>
