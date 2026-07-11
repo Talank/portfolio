@@ -9,7 +9,8 @@
       "Intubate before continuing CPR"
     ],
     "a": 1,
-    "ex": "Epinephrine 1 mg is given after the 2nd shock in the shockable arm, then every 3–5 minutes."
+    "ex": "Epinephrine 1 mg is given after the 2nd shock in the shockable arm, then every 3–5 minutes.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -21,7 +22,8 @@
       "Calcium chloride"
     ],
     "a": 1,
-    "ex": "Amiodarone 300 mg (or lidocaine 1–1.5 mg/kg) is given after the 3rd shock in refractory VF/pVT."
+    "ex": "Amiodarone 300 mg (or lidocaine 1–1.5 mg/kg) is given after the 3rd shock in refractory VF/pVT.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -33,7 +35,8 @@
       "Atropine 1 mg"
     ],
     "a": 1,
-    "ex": "PEA/asystole survival depends on finding a reversible cause — antiarrhythmics have no role here, and atropine was removed from this pathway."
+    "ex": "PEA/asystole survival depends on finding a reversible cause — antiarrhythmics have no role here, and atropine was removed from this pathway.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -45,7 +48,8 @@
       "It isn't used during CPR"
     ],
     "a": 0,
-    "ex": "ETCO₂ ≥10 mmHg (ideally >20) reflects adequate compressions and cardiac output; a sudden sustained rise often signals ROSC."
+    "ex": "ETCO₂ ≥10 mmHg (ideally >20) reflects adequate compressions and cardiac output; a sudden sustained rise often signals ROSC.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -57,7 +61,8 @@
       "Only for asystole"
     ],
     "a": 2,
-    "ex": "Evidence shows no outcome benefit for vasopressin alone or combined with epinephrine compared with epinephrine alone."
+    "ex": "Evidence shows no outcome benefit for vasopressin alone or combined with epinephrine compared with epinephrine alone.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -69,7 +74,8 @@
       "60–80/min"
     ],
     "a": 1,
-    "ex": "100–120 compressions per minute is the target rate for adult CPR."
+    "ex": "100–120 compressions per minute is the target rate for adult CPR.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -81,7 +87,8 @@
       "Whatever produces a palpable pulse"
     ],
     "a": 1,
-    "ex": "Depth target is ≥2 in (5 cm), capped at 2.4 in (6 cm) — too shallow and too deep both reduce effectiveness/increase injury risk."
+    "ex": "Depth target is ≥2 in (5 cm), capped at 2.4 in (6 cm) — too shallow and too deep both reduce effectiveness/increase injury risk.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -93,7 +100,8 @@
       "Only when the compressor asks"
     ],
     "a": 1,
-    "ex": "Fatigue degrades compression quality well before it's subjectively felt — rotate on the 2-minute mark regardless."
+    "ex": "Fatigue degrades compression quality well before it's subjectively felt — rotate on the 2-minute mark regardless.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -105,7 +113,8 @@
       "1 breath every 10 seconds"
     ],
     "a": 1,
-    "ex": "With an advanced airway in place, ventilate once every 6 seconds (about 10/min) while compressions continue uninterrupted."
+    "ex": "With an advanced airway in place, ventilate once every 6 seconds (about 10/min) while compressions continue uninterrupted.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -117,7 +126,8 @@
       "A false capnography reading, ignore it"
     ],
     "a": 1,
-    "ex": "A sudden sustained ETCO₂ jump is often the earliest objective sign of ROSC, sometimes appearing before a pulse is felt."
+    "ex": "A sudden sustained ETCO₂ jump is often the earliest objective sign of ROSC, sometimes appearing before a pulse is felt.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -129,7 +139,8 @@
       "Give epinephrine before resuming compressions"
     ],
     "a": 1,
-    "ex": "Resume compressions immediately after any shock — pausing to check a pulse first only delays perfusion."
+    "ex": "Resume compressions immediately after any shock — pausing to check a pulse first only delays perfusion.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -141,7 +152,8 @@
       "Atropine"
     ],
     "a": 1,
-    "ex": "Lidocaine is dosed 1–1.5 mg/kg then 0.5–0.75 mg/kg; amiodarone uses fixed 300 mg then 150 mg doses."
+    "ex": "Lidocaine is dosed 1–1.5 mg/kg then 0.5–0.75 mg/kg; amiodarone uses fixed 300 mg then 150 mg doses.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -153,7 +165,8 @@
       "It is not given in this arm"
     ],
     "a": 1,
-    "ex": "Non-shockable rhythms get epinephrine as soon as feasible, unlike the shockable arm where it follows the 2nd shock."
+    "ex": "Non-shockable rhythms get epinephrine as soon as feasible, unlike the shockable arm where it follows the 2nd shock.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -165,7 +178,8 @@
       "Only used if hyperkalemia is suspected"
     ],
     "a": 1,
-    "ex": "Atropine was removed from the pulseless arrest pathway; it has no proven benefit in PEA/asystole."
+    "ex": "Atropine was removed from the pulseless arrest pathway; it has no proven benefit in PEA/asystole.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -177,7 +191,8 @@
       "Doubling the epinephrine dose"
     ],
     "a": 1,
-    "ex": "For refractory VF after 3 shocks, double sequential or vector-change defibrillation \"may be considered\" (Class IIb) — not yet routine first-line."
+    "ex": "For refractory VF after 3 shocks, double sequential or vector-change defibrillation \"may be considered\" (Class IIb) — not yet routine first-line.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -189,7 +204,8 @@
       "It has no measurable physiologic effect"
     ],
     "a": 1,
-    "ex": "Coronary perfusion pressure built up over compressions collapses fast during any pause and takes several compressions to restore."
+    "ex": "Coronary perfusion pressure built up over compressions collapses fast during any pause and takes several compressions to restore.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -201,7 +217,8 @@
       "Wait for the leader to ask if it was given"
     ],
     "a": 1,
-    "ex": "Closed-loop communication: repeat the order back, then confirm out loud once it's completed."
+    "ex": "Closed-loop communication: repeat the order back, then confirm out loud once it's completed.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -213,7 +230,8 @@
       "Switch to synchronized cardioversion"
     ],
     "a": 1,
-    "ex": "Reassess the rhythm at every check — a newly shockable rhythm means switching immediately to the shockable-arm sequence."
+    "ex": "Reassess the rhythm at every check — a newly shockable rhythm means switching immediately to the shockable-arm sequence.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -225,7 +243,8 @@
       "360 J"
     ],
     "a": 3,
-    "ex": "360 J is the standard maximum for monophasic defibrillators; biphasic devices use lower energies per manufacturer recommendation."
+    "ex": "360 J is the standard maximum for monophasic defibrillators; biphasic devices use lower energies per manufacturer recommendation.",
+    "difficulty": "medium"
   },
   {
     "cat": "arrest",
@@ -237,7 +256,8 @@
       "Lidocaine"
     ],
     "a": 2,
-    "ex": "Vasopressin is not recommended — it offers no benefit over epinephrine alone, whether given alone or combined with it."
+    "ex": "Vasopressin is not recommended — it offers no benefit over epinephrine alone, whether given alone or combined with it.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -249,7 +269,8 @@
       "Adenosine 6 mg"
     ],
     "a": 1,
-    "ex": "3 mg is the max atropine dose. Beyond that: pace and/or push a chronotropic infusion."
+    "ex": "3 mg is the max atropine dose. Beyond that: pace and/or push a chronotropic infusion.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -261,7 +282,8 @@
       "Atropine 1 mg"
     ],
     "a": 2,
-    "ex": "Adenosine 6 mg (then 12 mg if needed) is first-line drug therapy for stable narrow-regular SVT after vagal maneuvers."
+    "ex": "Adenosine 6 mg (then 12 mg if needed) is first-line drug therapy for stable narrow-regular SVT after vagal maneuvers.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -273,7 +295,8 @@
       "Oxygen"
     ],
     "a": 2,
-    "ex": "AV-nodal blockers (adenosine, beta-blockers, CCBs, digoxin) can accelerate conduction down the accessory pathway and precipitate VF in pre-excited AFib."
+    "ex": "AV-nodal blockers (adenosine, beta-blockers, CCBs, digoxin) can accelerate conduction down the accessory pathway and precipitate VF in pre-excited AFib.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -285,7 +308,8 @@
       "No shock — drugs only"
     ],
     "a": 1,
-    "ex": "Irregular wide-complex rhythms (polymorphic VT/torsades) are treated like VF — unsynchronized defibrillation, since there's no reliable R wave to sync to."
+    "ex": "Irregular wide-complex rhythms (polymorphic VT/torsades) are treated like VF — unsynchronized defibrillation, since there's no reliable R wave to sync to.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -297,7 +321,8 @@
       "360 J monophasic only"
     ],
     "a": 2,
-    "ex": "The 2025 update recommends starting at 200 J biphasic for irregular (atrial) arrhythmias like AFib/AFlutter."
+    "ex": "The 2025 update recommends starting at 200 J biphasic for irregular (atrial) arrhythmias like AFib/AFlutter.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -309,7 +334,8 @@
       "Patient anxiety about the rate"
     ],
     "a": 1,
-    "ex": "Instability is defined by symptoms/signs directly attributable to the fast rate, not the rate number alone."
+    "ex": "Instability is defined by symptoms/signs directly attributable to the fast rate, not the rate number alone.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -321,7 +347,8 @@
       "Atropine 1 mg"
     ],
     "a": 1,
-    "ex": "AFib/AFlutter with RVR is managed with rate control; adenosine won't convert it and isn't the treatment of choice."
+    "ex": "AFib/AFlutter with RVR is managed with rate control; adenosine won't convert it and isn't the treatment of choice.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -333,7 +360,8 @@
       "Permanent heart block"
     ],
     "a": 1,
-    "ex": "Adenosine's brief AV block can feel like the heart \"stopping\" for a second — warning the patient beforehand avoids unnecessary alarm."
+    "ex": "Adenosine's brief AV block can feel like the heart \"stopping\" for a second — warning the patient beforehand avoids unnecessary alarm.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -345,7 +373,8 @@
       "It's always artifact from a loose lead"
     ],
     "a": 1,
-    "ex": "Assume VT until proven otherwise, especially with known structural heart disease — that assumption drives safer management."
+    "ex": "Assume VT until proven otherwise, especially with known structural heart disease — that assumption drives safer management.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -357,7 +386,8 @@
       "The rhythm is sinus bradycardia in an asymptomatic patient"
     ],
     "a": 1,
-    "ex": "Pacing is reserved for symptomatic bradycardia refractory to (or unlikely to respond to) atropine."
+    "ex": "Pacing is reserved for symptomatic bradycardia refractory to (or unlikely to respond to) atropine.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -369,7 +399,8 @@
       "Aspirin and nitroglycerin"
     ],
     "a": 0,
-    "ex": "Dopamine 5–20 mcg/kg/min or epinephrine 2–10 mcg/min infusions are options alongside or instead of pacing."
+    "ex": "Dopamine 5–20 mcg/kg/min or epinephrine 2–10 mcg/min infusions are options alongside or instead of pacing.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -381,7 +412,8 @@
       "These blocks resolve on their own within seconds"
     ],
     "a": 1,
-    "ex": "High-grade infranodal block doesn't respond well to atropine's vagolytic mechanism, which acts at the AV node."
+    "ex": "High-grade infranodal block doesn't respond well to atropine's vagolytic mechanism, which acts at the AV node.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -393,7 +425,8 @@
       "Transcutaneous pacing"
     ],
     "a": 1,
-    "ex": "Vagal maneuvers are the first-line, drug-free step for stable narrow-regular SVT."
+    "ex": "Vagal maneuvers are the first-line, drug-free step for stable narrow-regular SVT.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -405,7 +438,8 @@
       "No second dose is given"
     ],
     "a": 1,
-    "ex": "If the first 6 mg dose fails to convert, a 12 mg dose follows, again as a rapid push with an immediate flush."
+    "ex": "If the first 6 mg dose fails to convert, a 12 mg dose follows, again as a rapid push with an immediate flush.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -417,7 +451,8 @@
       "This is only a comfort measure, not a pharmacologic necessity"
     ],
     "a": 1,
-    "ex": "Adenosine is cleared from the blood in seconds; a slow push means little to none reaches the heart intact."
+    "ex": "Adenosine is cleared from the blood in seconds; a slow push means little to none reaches the heart intact.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -429,7 +464,8 @@
       "Sedation is not relevant to this rhythm at all"
     ],
     "a": 1,
-    "ex": "True instability with a chaotic rhythm demands immediate defibrillation; sedation should never delay a life-saving shock."
+    "ex": "True instability with a chaotic rhythm demands immediate defibrillation; sedation should never delay a life-saving shock.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -441,7 +477,8 @@
       "Pads cannot be used if a device is present"
     ],
     "a": 1,
-    "ex": "Keep pacing/defibrillation pads more than 8 cm from an implanted device generator when possible."
+    "ex": "Keep pacing/defibrillation pads more than 8 cm from an implanted device generator when possible.",
+    "difficulty": "medium"
   },
   {
     "cat": "brady-tachy",
@@ -453,7 +490,8 @@
       "360 J, unsynchronized"
     ],
     "a": 1,
-    "ex": "100 J is the recommended starting synchronized energy for a wide-regular (monomorphic VT) rhythm."
+    "ex": "100 J is the recommended starting synchronized energy for a wide-regular (monomorphic VT) rhythm.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -465,7 +503,8 @@
       "5 mg total"
     ],
     "a": 2,
-    "ex": "1 mg doses repeated every 3–5 minutes, to a maximum total of 3 mg."
+    "ex": "1 mg doses repeated every 3–5 minutes, to a maximum total of 3 mg.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -477,7 +516,8 @@
       "Adenosine"
     ],
     "a": 1,
-    "ex": "Magnesium sulfate 1–2 g IV is first-line for torsades, regardless of serum magnesium level."
+    "ex": "Magnesium sulfate 1–2 g IV is first-line for torsades, regardless of serum magnesium level.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -489,7 +529,8 @@
       "Aspirin and nitroglycerin"
     ],
     "a": 0,
-    "ex": "\"C BIG K Drop\" — Calcium stabilizes the membrane; Bicarbonate and Insulin+Glucose shift potassium intracellularly; Kayexalate/dialysis actually removes it."
+    "ex": "\"C BIG K Drop\" — Calcium stabilizes the membrane; Bicarbonate and Insulin+Glucose shift potassium intracellularly; Kayexalate/dialysis actually removes it.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -501,7 +542,8 @@
       "0.5 mg/kg, then 1 mg/kg"
     ],
     "a": 1,
-    "ex": "6 mg rapid IV push + flush, then 12 mg if the rhythm doesn't convert."
+    "ex": "6 mg rapid IV push + flush, then 12 mg if the rhythm doesn't convert.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -513,7 +555,8 @@
       "Substitute atropine instead"
     ],
     "a": 1,
-    "ex": "Naloxone doesn't harm a non-opioid arrest — when uncertain, give it and keep ventilating/compressing."
+    "ex": "Naloxone doesn't harm a non-opioid arrest — when uncertain, give it and keep ventilating/compressing.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -525,7 +568,8 @@
       "5 mg IV/IO every 10 minutes"
     ],
     "a": 1,
-    "ex": "1 mg IV/IO every 3–5 minutes throughout the arrest, timed per the shockable/non-shockable branch rules."
+    "ex": "1 mg IV/IO every 3–5 minutes throughout the arrest, timed per the shockable/non-shockable branch rules.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -537,7 +581,8 @@
       "1 mg/kg"
     ],
     "a": 1,
-    "ex": "300 mg IV/IO bolus is the first dose, given after the 3rd shock."
+    "ex": "300 mg IV/IO bolus is the first dose, given after the 3rd shock.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -549,7 +594,8 @@
       "No second dose exists"
     ],
     "a": 1,
-    "ex": "The second dose is 150 mg — half the first dose."
+    "ex": "The second dose is 150 mg — half the first dose.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -561,7 +607,8 @@
       "5 mg/kg"
     ],
     "a": 1,
-    "ex": "1–1.5 mg/kg is the first dose; the second dose is 0.5–0.75 mg/kg."
+    "ex": "1–1.5 mg/kg is the first dose; the second dose is 0.5–0.75 mg/kg.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -573,7 +620,8 @@
       "A fixed 100 mg"
     ],
     "a": 1,
-    "ex": "0.5–0.75 mg/kg — roughly half of the first weight-based dose."
+    "ex": "0.5–0.75 mg/kg — roughly half of the first weight-based dose.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -585,7 +633,8 @@
       "1–2 mg/kg/min"
     ],
     "a": 1,
-    "ex": "5–20 mcg/kg/min, titrated to effect, is the standard bradycardia infusion range."
+    "ex": "5–20 mcg/kg/min, titrated to effect, is the standard bradycardia infusion range.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -597,7 +646,8 @@
       "1 mg/min"
     ],
     "a": 1,
-    "ex": "2–10 mcg/min is the typical infusion range, titrated to hemodynamic response."
+    "ex": "2–10 mcg/min is the typical infusion range, titrated to hemodynamic response.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -609,7 +659,8 @@
       "Atropine and dopamine"
     ],
     "a": 1,
-    "ex": "Calcium and bicarbonate are reserved for indications like hyperkalemia, CCB/beta-blocker overdose, or known severe acidosis — not routine arrest care."
+    "ex": "Calcium and bicarbonate are reserved for indications like hyperkalemia, CCB/beta-blocker overdose, or known severe acidosis — not routine arrest care.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -621,7 +672,8 @@
       "1000 mg IV"
     ],
     "a": 1,
-    "ex": "160–325 mg chewed (non-enteric, for faster absorption) unless there is a true contraindication."
+    "ex": "160–325 mg chewed (non-enteric, for faster absorption) unless there is a true contraindication.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -633,7 +685,8 @@
       "1 mg every 10 minutes"
     ],
     "a": 0,
-    "ex": "0.4 mg SL, repeatable every 5 minutes up to 3 total doses, if BP and other conditions allow."
+    "ex": "0.4 mg SL, repeatable every 5 minutes up to 3 total doses, if BP and other conditions allow.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -645,7 +698,8 @@
       "A normal ECG"
     ],
     "a": 0,
-    "ex": "RV infarct is preload-dependent; nitrates can cause profound hypotension in this setting."
+    "ex": "RV infarct is preload-dependent; nitrates can cause profound hypotension in this setting.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -657,7 +711,8 @@
       "1 mg subcutaneous only"
     ],
     "a": 0,
-    "ex": "0.4–2 mg via IV, IM, or intranasal route, repeatable as needed."
+    "ex": "0.4–2 mg via IV, IM, or intranasal route, repeatable as needed.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -669,7 +724,8 @@
       "Central access speeds up drug metabolism"
     ],
     "a": 1,
-    "ex": "Peripheral amiodarone infusions running for extended periods can cause phlebitis — worth flagging early for central access."
+    "ex": "Peripheral amiodarone infusions running for extended periods can cause phlebitis — worth flagging early for central access.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -681,7 +737,8 @@
       "Substitute atropine instead"
     ],
     "a": 1,
-    "ex": "Denervated transplanted hearts are more sensitive to adenosine — a reduced starting dose is prudent."
+    "ex": "Denervated transplanted hearts are more sensitive to adenosine — a reduced starting dose is prudent.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -693,7 +750,8 @@
       "It must be given via nebulizer instead"
     ],
     "a": 0,
-    "ex": "Adenosine can trigger transient bronchospasm in patients with reactive airway disease."
+    "ex": "Adenosine can trigger transient bronchospasm in patients with reactive airway disease.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -705,7 +763,8 @@
       "25 mg IV push"
     ],
     "a": 0,
-    "ex": "1–2 g IV, given faster (over a few minutes) if the patient is pulseless, slower otherwise."
+    "ex": "1–2 g IV, given faster (over a few minutes) if the patient is pulseless, slower otherwise.",
+    "difficulty": "medium"
   },
   {
     "cat": "pharm",
@@ -717,7 +776,8 @@
       "Nitroglycerin"
     ],
     "a": 1,
-    "ex": "Calcium is one of the specific reversible-cause indications for calcium salts, alongside hyperkalemia and tricyclic overdose."
+    "ex": "Calcium is one of the specific reversible-cause indications for calcium salts, alongside hyperkalemia and tricyclic overdose.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -729,7 +789,8 @@
       "Only if nitroglycerin is contraindicated"
     ],
     "a": 1,
-    "ex": "Routine oxygen for a non-hypoxic ACS patient offers no benefit and may increase infarct size."
+    "ex": "Routine oxygen for a non-hypoxic ACS patient offers no benefit and may increase infarct size.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -741,7 +802,8 @@
       "2 hours"
     ],
     "a": 1,
-    "ex": "CT (or MRI) should be completed and read within 20 minutes of ED arrival — part of the \"20-60-3\" targets."
+    "ex": "CT (or MRI) should be completed and read within 20 minutes of ED arrival — part of the \"20-60-3\" targets.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -753,7 +815,8 @@
       "Aspirin"
     ],
     "a": 1,
-    "ex": "Combining nitrates with PDE5 inhibitors can cause profound, refractory hypotension."
+    "ex": "Combining nitrates with PDE5 inhibitors can cause profound, refractory hypotension.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -765,7 +828,8 @@
       "24 hours"
     ],
     "a": 1,
-    "ex": "Fibrinolytics (tenecteplase/alteplase) are given within 4.5 hours of last known well, absent contraindications; thrombectomy extends to 24 hours for LVO in selected patients."
+    "ex": "Fibrinolytics (tenecteplase/alteplase) are given within 4.5 hours of last known well, absent contraindications; thrombectomy extends to 24 hours for LVO in selected patients.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -777,7 +841,8 @@
       "≤24 hours"
     ],
     "a": 1,
-    "ex": "≤90 minutes at a PCI-capable facility (≤120 minutes if transfer is required)."
+    "ex": "≤90 minutes at a PCI-capable facility (≤120 minutes if transfer is required).",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -789,7 +854,8 @@
       "The order no longer matters at all"
     ],
     "a": 1,
-    "ex": "\"ANOM\" better reflects current practice: aspirin first and fast, nitro if BP allows, oxygen only if hypoxic, morphine only as a last resort."
+    "ex": "\"ANOM\" better reflects current practice: aspirin first and fast, nitro if BP allows, oxygen only if hypoxic, morphine only as a last resort.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -801,7 +867,8 @@
       "≤2 hours"
     ],
     "a": 0,
-    "ex": "A 12-lead ECG should be obtained and interpreted within 10 minutes of first medical contact."
+    "ex": "A 12-lead ECG should be obtained and interpreted within 10 minutes of first medical contact.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -813,7 +880,8 @@
       "≤3 hours"
     ],
     "a": 1,
-    "ex": "≤30 minutes door-to-needle when fibrinolysis is the chosen reperfusion strategy."
+    "ex": "≤30 minutes door-to-needle when fibrinolysis is the chosen reperfusion strategy.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -825,7 +893,8 @@
       "Height and weight"
     ],
     "a": 1,
-    "ex": "These two facts drive nearly every downstream decision about fibrinolytic eligibility and timing."
+    "ex": "These two facts drive nearly every downstream decision about fibrinolytic eligibility and timing.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -837,7 +906,8 @@
       "Balance, Emesis, Face, Arm, Sensation, Temperature"
     ],
     "a": 0,
-    "ex": "Balance, Eyes, Face, Arm, Speech, Time — an expansion of the classic FAST that catches posterior-circulation strokes too."
+    "ex": "Balance, Eyes, Face, Arm, Speech, Time — an expansion of the classic FAST that catches posterior-circulation strokes too.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -849,7 +919,8 @@
       "Lactate"
     ],
     "a": 1,
-    "ex": "Hypoglycemia is a classic, immediately reversible stroke mimic — always check glucose right away."
+    "ex": "Hypoglycemia is a classic, immediately reversible stroke mimic — always check glucose right away.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -861,7 +932,8 @@
       "No BP limit applies"
     ],
     "a": 1,
-    "ex": "BP must be controlled to <185/110 mmHg before and during fibrinolytic therapy to reduce hemorrhage risk."
+    "ex": "BP must be controlled to <185/110 mmHg before and during fibrinolytic therapy to reduce hemorrhage risk.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -873,7 +945,8 @@
       "Up to 24 hours from last known well"
     ],
     "a": 3,
-    "ex": "Selected LVO patients can be eligible for thrombectomy up to 24 hours from last known well."
+    "ex": "Selected LVO patients can be eligible for thrombectomy up to 24 hours from last known well.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -885,7 +958,8 @@
       "Within 24 hours"
     ],
     "a": 1,
-    "ex": "Part of the \"20-60-3\" targets: CT within 20 min, needle within 60 min, stroke-unit admission within 3 hours."
+    "ex": "Part of the \"20-60-3\" targets: CT within 20 min, needle within 60 min, stroke-unit admission within 3 hours.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -897,7 +971,8 @@
       "It cannot be given IV"
     ],
     "a": 1,
-    "ex": "Reserved for pain refractory to nitrates, given concerns about masking symptom progression and possible worse outcomes with routine use."
+    "ex": "Reserved for pain refractory to nitrates, given concerns about masking symptom progression and possible worse outcomes with routine use.",
+    "difficulty": "medium"
   },
   {
     "cat": "acs-stroke",
@@ -909,7 +984,8 @@
       "Immediate synchronized cardioversion"
     ],
     "a": 1,
-    "ex": "NSTE-ACS is risk-stratified and anticoagulated rather than treated with immediate fibrinolysis, which is a STEMI-specific therapy."
+    "ex": "NSTE-ACS is risk-stratified and anticoagulated rather than treated with immediate fibrinolysis, which is a STEMI-specific therapy.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -921,7 +997,8 @@
       "Switch to synchronized mode"
     ],
     "a": 1,
-    "ex": "Resume compressions immediately after any shock — do not pause to check a pulse or rhythm first."
+    "ex": "Resume compressions immediately after any shock — do not pause to check a pulse or rhythm first.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -933,7 +1010,8 @@
       "No electrical therapy — drugs only"
     ],
     "a": 1,
-    "ex": "Any organized rhythm with a pulse that requires cardioversion gets synchronized shocks, timed to the R wave."
+    "ex": "Any organized rhythm with a pulse that requires cardioversion gets synchronized shocks, timed to the R wave.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -945,7 +1023,8 @@
       "A rising ETCO₂ alone"
     ],
     "a": 2,
-    "ex": "Electrical capture on the monitor isn't enough — you must also confirm a palpable pulse with each paced beat."
+    "ex": "Electrical capture on the monitor isn't enough — you must also confirm a palpable pulse with each paced beat.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -957,7 +1036,8 @@
       "No minimum distance required"
     ],
     "a": 1,
-    "ex": "Keep pads more than 8 cm away from an implanted device generator when possible."
+    "ex": "Keep pads more than 8 cm away from an implanted device generator when possible.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -969,7 +1049,8 @@
       "360 J biphasic"
     ],
     "a": 2,
-    "ex": "200 J biphasic is used when the device-specific recommended dose is unknown."
+    "ex": "200 J biphasic is used when the device-specific recommended dose is unknown.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -981,7 +1062,8 @@
       "360 J"
     ],
     "a": 3,
-    "ex": "360 J is the standard monophasic maximum."
+    "ex": "360 J is the standard monophasic maximum.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -993,7 +1075,8 @@
       "360 J"
     ],
     "a": 1,
-    "ex": "100 J is the current recommended starting dose for narrow-regular rhythms."
+    "ex": "100 J is the current recommended starting dose for narrow-regular rhythms.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -1005,7 +1088,8 @@
       "360 J"
     ],
     "a": 1,
-    "ex": "100 J is the recommended starting dose for wide-regular (monomorphic VT) rhythms."
+    "ex": "100 J is the recommended starting dose for wide-regular (monomorphic VT) rhythms.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -1017,7 +1101,8 @@
       "It automatically turns off during CPR"
     ],
     "a": 1,
-    "ex": "VF has no discernible, consistent R wave — a machine left in sync mode may wait indefinitely and never deliver the shock."
+    "ex": "VF has no discernible, consistent R wave — a machine left in sync mode may wait indefinitely and never deliver the shock.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -1029,7 +1114,8 @@
       "It resets the defibrillator permanently"
     ],
     "a": 1,
-    "ex": "A shock landing on the T wave (the vulnerable period) can itself induce VF — the exact rhythm you were treating for."
+    "ex": "A shock landing on the T wave (the vulnerable period) can itself induce VF — the exact rhythm you were treating for.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -1041,7 +1127,8 @@
       "Delay defibrillation until the patient stops sweating on their own"
     ],
     "a": 1,
-    "ex": "Wet or diaphoretic skin reduces pad contact and can cause current to arc across the chest instead of through it."
+    "ex": "Wet or diaphoretic skin reduces pad contact and can cause current to arc across the chest instead of through it.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -1053,7 +1140,8 @@
       "It is never an acceptable alternative"
     ],
     "a": 1,
-    "ex": "Anterior-posterior placement is a recognized alternative, sometimes favored for AFib cardioversion or when an implanted device is in the way."
+    "ex": "Anterior-posterior placement is a recognized alternative, sometimes favored for AFib cardioversion or when an implanted device is in the way.",
+    "difficulty": "medium"
   },
   {
     "cat": "electrical",
@@ -1065,7 +1153,8 @@
       "Switching to unsynchronized defibrillation"
     ],
     "a": 1,
-    "ex": "Transcutaneous pacing at capture thresholds is uncomfortable for a conscious patient — sedation/analgesia should be considered."
+    "ex": "Transcutaneous pacing at capture thresholds is uncomfortable for a conscious patient — sedation/analgesia should be considered.",
+    "difficulty": "medium"
   },
   {
     "cat": "foundations",
@@ -1077,7 +1166,8 @@
       "Attitude, Behavior, Communication, Documentation, Evaluation"
     ],
     "a": 0,
-    "ex": "Airway, Breathing, Circulation, Disability, Exposure — the ACLS primary survey, layered on top of the BLS survey."
+    "ex": "Airway, Breathing, Circulation, Disability, Exposure — the ACLS primary survey, layered on top of the BLS survey.",
+    "difficulty": "medium"
   },
   {
     "cat": "foundations",
@@ -1089,7 +1179,8 @@
       "Core body temperature"
     ],
     "a": 1,
-    "ex": "ETCO₂ reflects the adequacy of compressions and cardiac output, and a sudden rise can be an early ROSC signal."
+    "ex": "ETCO₂ reflects the adequacy of compressions and cardiac output, and a sudden rise can be an early ROSC signal.",
+    "difficulty": "medium"
   },
   {
     "cat": "foundations",
@@ -1101,7 +1192,8 @@
       "Leadership, followership, delegation, escalation, debriefing, charting"
     ],
     "a": 1,
-    "ex": "These six named elements are directly testable behaviors during a megacode, not just general advice."
+    "ex": "These six named elements are directly testable behaviors during a megacode, not just general advice.",
+    "difficulty": "medium"
   },
   {
     "cat": "foundations",
@@ -1113,7 +1205,8 @@
       "Order written, order filed, order reviewed after the code"
     ],
     "a": 1,
-    "ex": "Give → repeat back → confirm completion. This is the single most testable team-dynamics behavior on a megacode station."
+    "ex": "Give → repeat back → confirm completion. This is the single most testable team-dynamics behavior on a megacode station.",
+    "difficulty": "medium"
   },
   {
     "cat": "foundations",
@@ -1125,7 +1218,8 @@
       "Regularity, Rate, QRS width, P waves, PR interval"
     ],
     "a": 1,
-    "ex": "Rate, Regularity, P waves, PR interval, QRS width — asked in that order on every strip."
+    "ex": "Rate, Regularity, P waves, PR interval, QRS width — asked in that order on every strip.",
+    "difficulty": "medium"
   },
   {
     "cat": "foundations",
@@ -1137,7 +1231,8 @@
       "Too short to measure meaningfully"
     ],
     "a": 1,
-    "ex": "0.12 seconds is the cutoff; 0.14 s is wide, suggesting a ventricular origin or aberrant conduction."
+    "ex": "0.12 seconds is the cutoff; 0.14 s is wide, suggesting a ventricular origin or aberrant conduction.",
+    "difficulty": "medium"
   },
   {
     "cat": "foundations",
@@ -1149,7 +1244,8 @@
       "Ventricular fibrillation"
     ],
     "a": 1,
-    "ex": "Mobitz I produces a predictable, repeating pattern of progressive PR lengthening then a dropped beat — irregular, but in a regular pattern."
+    "ex": "Mobitz I produces a predictable, repeating pattern of progressive PR lengthening then a dropped beat — irregular, but in a regular pattern.",
+    "difficulty": "medium"
   },
   {
     "cat": "foundations",
@@ -1161,7 +1257,8 @@
       "Third-degree AV block"
     ],
     "a": 1,
-    "ex": "AFib has no repeating pattern to its irregularity — it is chaotic and unpredictable beat to beat."
+    "ex": "AFib has no repeating pattern to its irregularity — it is chaotic and unpredictable beat to beat.",
+    "difficulty": "medium"
   },
   {
     "cat": "foundations",
@@ -1173,7 +1270,8 @@
       "Site, Allergy, Medication, Pain, Level of consciousness, Exposure"
     ],
     "a": 0,
-    "ex": "SAMPLE: Signs/symptoms, Allergies, Medications, Past medical history, Last oral intake, Events leading up to the event."
+    "ex": "SAMPLE: Signs/symptoms, Allergies, Medications, Past medical history, Last oral intake, Events leading up to the event.",
+    "difficulty": "medium"
   },
   {
     "cat": "foundations",
@@ -1185,7 +1283,8 @@
       "It is only relevant in trauma cases"
     ],
     "a": 1,
-    "ex": "A full exposure can catch a hidden clue — like a fentanyl patch or unilateral breath sounds — that changes the whole differential."
+    "ex": "A full exposure can catch a hidden clue — like a fentanyl patch or unilateral breath sounds — that changes the whole differential.",
+    "difficulty": "medium"
   },
   {
     "cat": "foundations",
@@ -1197,7 +1296,8 @@
       "Only the most senior person may raise concerns"
     ],
     "a": 1,
-    "ex": "Constructive intervention means any team member can — and should — speak up in the moment if something looks wrong."
+    "ex": "Constructive intervention means any team member can — and should — speak up in the moment if something looks wrong.",
+    "difficulty": "medium"
   },
   {
     "cat": "foundations",
@@ -1209,7 +1309,8 @@
       "It replaces the need for closed-loop communication"
     ],
     "a": 1,
-    "ex": "Thinking out loud lets the whole team catch a missed differential or step before it becomes a problem."
+    "ex": "Thinking out loud lets the whole team catch a missed differential or step before it becomes a problem.",
+    "difficulty": "medium"
   },
   {
     "cat": "hts",
@@ -1221,7 +1322,8 @@
       "Hypovolemia — fluids"
     ],
     "a": 1,
-    "ex": "Absent unilateral breath sounds + JVD + tracheal deviation is the classic tension pneumothorax picture — treat with needle decompression."
+    "ex": "Absent unilateral breath sounds + JVD + tracheal deviation is the classic tension pneumothorax picture — treat with needle decompression.",
+    "difficulty": "medium"
   },
   {
     "cat": "hts",
@@ -1233,7 +1335,8 @@
       "Toxins — naloxone"
     ],
     "a": 1,
-    "ex": "JVD + muffled heart sounds + effusion history points to tamponade, treated with pericardiocentesis."
+    "ex": "JVD + muffled heart sounds + effusion history points to tamponade, treated with pericardiocentesis.",
+    "difficulty": "medium"
   },
   {
     "cat": "hts",
@@ -1245,7 +1348,8 @@
       "Hydrogen ion — bicarbonate first"
     ],
     "a": 1,
-    "ex": "Peaked T waves in a dialysis patient point to hyperkalemia; calcium is given first to stabilize the cardiac membrane."
+    "ex": "Peaked T waves in a dialysis patient point to hyperkalemia; calcium is given first to stabilize the cardiac membrane.",
+    "difficulty": "medium"
   },
   {
     "cat": "hts",
@@ -1257,7 +1361,8 @@
       "Hypoglycemia — dextrose"
     ],
     "a": 1,
-    "ex": "Severe environmental cold exposure with low core temp points to hypothermia, managed with active rewarming."
+    "ex": "Severe environmental cold exposure with low core temp points to hypothermia, managed with active rewarming.",
+    "difficulty": "medium"
   },
   {
     "cat": "hts",
@@ -1269,7 +1374,8 @@
       "Toxins"
     ],
     "a": 2,
-    "ex": "Prolonged immobility (like a long flight) is a classic risk factor for pulmonary embolism causing sudden collapse."
+    "ex": "Prolonged immobility (like a long flight) is a classic risk factor for pulmonary embolism causing sudden collapse.",
+    "difficulty": "medium"
   },
   {
     "cat": "hts",
@@ -1281,7 +1387,8 @@
       "Tension pneumothorax"
     ],
     "a": 0,
-    "ex": "Pre-arrest ischemic ECG changes in a patient with known coronary disease point toward coronary thrombosis as the cause."
+    "ex": "Pre-arrest ischemic ECG changes in a patient with known coronary disease point toward coronary thrombosis as the cause.",
+    "difficulty": "medium"
   },
   {
     "cat": "hts",
@@ -1293,7 +1400,8 @@
       "Hydrogen ion"
     ],
     "a": 1,
-    "ex": "Significant blood loss leads to hypovolemia — treated with fluids and blood products."
+    "ex": "Significant blood loss leads to hypovolemia — treated with fluids and blood products.",
+    "difficulty": "medium"
   },
   {
     "cat": "hts",
@@ -1305,7 +1413,8 @@
       "Hyperkalemia"
     ],
     "a": 1,
-    "ex": "Hypoxia is addressed directly by airway management and supplemental oxygen."
+    "ex": "Hypoxia is addressed directly by airway management and supplemental oxygen.",
+    "difficulty": "medium"
   },
   {
     "cat": "hts",
@@ -1317,7 +1426,8 @@
       "Only the code leader is allowed to consider the list"
     ],
     "a": 1,
-    "ex": "Stopping the search after finding one plausible cause risks missing a second contributing factor."
+    "ex": "Stopping the search after finding one plausible cause risks missing a second contributing factor.",
+    "difficulty": "medium"
   },
   {
     "cat": "hts",
@@ -1329,7 +1439,8 @@
       "Tension pneumothorax — needle decompression"
     ],
     "a": 0,
-    "ex": "Toxins are addressed with a specific antidote when one is available, without deviating from standard resuscitation otherwise."
+    "ex": "Toxins are addressed with a specific antidote when one is available, without deviating from standard resuscitation otherwise.",
+    "difficulty": "medium"
   },
   {
     "cat": "post-rosc",
@@ -1341,7 +1452,8 @@
       "No temperature target is used anymore"
     ],
     "a": 1,
-    "ex": "The 2025 update widened the target to 32–37.5°C, replacing the older strict 32–36°C range."
+    "ex": "The 2025 update widened the target to 32–37.5°C, replacing the older strict 32–36°C range.",
+    "difficulty": "medium"
   },
   {
     "cat": "post-rosc",
@@ -1353,7 +1465,8 @@
       "48–72 hours minimum, always"
     ],
     "a": 0,
-    "ex": "At least 24 hours of temperature control is recommended, with up to 36 hours considered reasonable."
+    "ex": "At least 24 hours of temperature control is recommended, with up to 36 hours considered reasonable.",
+    "difficulty": "medium"
   },
   {
     "cat": "post-rosc",
@@ -1365,7 +1478,8 @@
       "No specific target is used"
     ],
     "a": 1,
-    "ex": "MAP ≥65 mmHg is the simplified post-ROSC hemodynamic target."
+    "ex": "MAP ≥65 mmHg is the simplified post-ROSC hemodynamic target.",
+    "difficulty": "medium"
   },
   {
     "cat": "post-rosc",
@@ -1377,7 +1491,8 @@
       "No target — just use room air"
     ],
     "a": 1,
-    "ex": "92–98% avoids both hypoxia and the risks associated with hyperoxia, alongside normocapnia."
+    "ex": "92–98% avoids both hypoxia and the risks associated with hyperoxia, alongside normocapnia.",
+    "difficulty": "medium"
   },
   {
     "cat": "post-rosc",
@@ -1389,7 +1504,8 @@
       "It is only a comfort issue for the patient"
     ],
     "a": 1,
-    "ex": "Excessive ventilation lowers PaCO₂, which can constrict cerebral vessels and worsen brain perfusion."
+    "ex": "Excessive ventilation lowers PaCO₂, which can constrict cerebral vessels and worsen brain perfusion.",
+    "difficulty": "medium"
   },
   {
     "cat": "post-rosc",
@@ -1401,7 +1517,8 @@
       "Neuroprognostication is never performed"
     ],
     "a": 1,
-    "ex": "Prognostication is delayed at least 72 hours post-arrest/post-rewarming, and no single test is used in isolation."
+    "ex": "Prognostication is delayed at least 72 hours post-arrest/post-rewarming, and no single test is used in isolation.",
+    "difficulty": "medium"
   },
   {
     "cat": "post-rosc",
@@ -1413,7 +1530,8 @@
       "An exercise stress test"
     ],
     "a": 1,
-    "ex": "A 12-lead ECG is obtained promptly post-ROSC, and emergent cath is considered for STEMI or high suspicion of acute coronary occlusion."
+    "ex": "A 12-lead ECG is obtained promptly post-ROSC, and emergent cath is considered for STEMI or high suspicion of acute coronary occlusion.",
+    "difficulty": "medium"
   },
   {
     "cat": "post-rosc",
@@ -1425,7 +1543,8 @@
       "Fever is managed only with antibiotics"
     ],
     "a": 1,
-    "ex": "Fever above 37.5°C is treated aggressively regardless of whether active cooling is being used, since it worsens neurologic injury."
+    "ex": "Fever above 37.5°C is treated aggressively regardless of whether active cooling is being used, since it worsens neurologic injury.",
+    "difficulty": "medium"
   },
   {
     "cat": "post-rosc",
@@ -1437,7 +1556,8 @@
       "Permanent resolution of the original cause"
     ],
     "a": 1,
-    "ex": "Patients frequently re-arrest shortly after ROSC from unrecognized hypotension or hypoxia — vigilance shouldn't drop just because there's a pulse."
+    "ex": "Patients frequently re-arrest shortly after ROSC from unrecognized hypotension or hypoxia — vigilance shouldn't drop just because there's a pulse.",
+    "difficulty": "medium"
   },
   {
     "cat": "post-rosc",
@@ -1449,7 +1569,8 @@
       "Continuous pupillometry only"
     ],
     "a": 0,
-    "ex": "Continuous EEG is recommended in comatose post-arrest patients, since seizures are common and can be non-convulsive/easy to miss."
+    "ex": "Continuous EEG is recommended in comatose post-arrest patients, since seizures are common and can be non-convulsive/easy to miss.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1461,7 +1582,8 @@
       "0.30 s"
     ],
     "a": 1,
-    "ex": "0.12 s (three small boxes) is the cutoff. Narrow = supraventricular origin; wide = ventricular origin or aberrant conduction."
+    "ex": "0.12 s (three small boxes) is the cutoff. Narrow = supraventricular origin; wide = ventricular origin or aberrant conduction.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1473,7 +1595,8 @@
       "96 bpm"
     ],
     "a": 2,
-    "ex": "The 6-second method: count QRS complexes in 6 seconds and multiply by 10. 8 × 10 = 80 bpm. Works even for irregular rhythms."
+    "ex": "The 6-second method: count QRS complexes in 6 seconds and multiply by 10. 8 × 10 = 80 bpm. Works even for irregular rhythms.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1485,7 +1608,8 @@
       "150 bpm"
     ],
     "a": 1,
-    "ex": "1500 ÷ small boxes between R waves: 1500 ÷ 20 = 75 bpm. Only valid for regular rhythms."
+    "ex": "1500 ÷ small boxes between R waves: 1500 ÷ 20 = 75 bpm. Only valid for regular rhythms.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1497,7 +1621,8 @@
       "0.20 s"
     ],
     "a": 1,
-    "ex": "One small box = 0.04 s; one big box (5 small) = 0.20 s. These two numbers unlock every interval measurement."
+    "ex": "One small box = 0.04 s; one big box (5 small) = 0.20 s. These two numbers unlock every interval measurement.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1509,7 +1634,8 @@
       "0.32–0.40 s"
     ],
     "a": 1,
-    "ex": "0.12–0.20 s — up to one big box. Longer than one big box on every beat = 1st-degree AV block."
+    "ex": "0.12–0.20 s — up to one big box. Longer than one big box on every beat = 1st-degree AV block.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1521,7 +1647,8 @@
       "Mobitz I"
     ],
     "a": 1,
-    "ex": "Irregularly irregular + absent P waves + fibrillatory baseline = AFib. Sinus arrhythmia and MAT still have P waves."
+    "ex": "Irregularly irregular + absent P waves + fibrillatory baseline = AFib. Sinus arrhythmia and MAT still have P waves.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1533,7 +1660,8 @@
       "Ventricular tachycardia"
     ],
     "a": 1,
-    "ex": "Sawtooth flutter waves (atrial rate ≈ 300) are the signature of atrial flutter."
+    "ex": "Sawtooth flutter waves (atrial rate ≈ 300) are the signature of atrial flutter.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1545,7 +1673,8 @@
       "A prolonged QT interval"
     ],
     "a": 1,
-    "ex": "Flutter's atrial rate is ~300; with 2:1 conduction the ventricular rate lands almost exactly on 150 — the classic flutter-vs-SVT trap."
+    "ex": "Flutter's atrial rate is ~300; with 2:1 conduction the ventricular rate lands almost exactly on 150 — the classic flutter-vs-SVT trap.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1557,7 +1686,8 @@
       "3rd-degree AV block"
     ],
     "a": 1,
-    "ex": "\"Longer, longer, longer, drop — then you have a Wenckebach.\" The warning stretch before the drop is the giveaway."
+    "ex": "\"Longer, longer, longer, drop — then you have a Wenckebach.\" The warning stretch before the drop is the giveaway.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1569,7 +1699,8 @@
       "Sinus pause"
     ],
     "a": 1,
-    "ex": "\"If some Ps just don't get through, then you have a Mobitz II.\" No warning, fixed PR — and it's the dangerous one."
+    "ex": "\"If some Ps just don't get through, then you have a Mobitz II.\" No warning, fixed PR — and it's the dangerous one.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1581,7 +1712,8 @@
       "Junctional rhythm"
     ],
     "a": 2,
-    "ex": "\"If Ps and Qs don't agree, then you have a third degree.\" Two independent regular rhythms on one strip = complete block."
+    "ex": "\"If Ps and Qs don't agree, then you have a third degree.\" Two independent regular rhythms on one strip = complete block.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1593,7 +1725,8 @@
       "3rd-degree AV block"
     ],
     "a": 1,
-    "ex": "\"If the R is far from P, then you have a first degree.\" PR > 0.20 s, fixed, nothing dropped."
+    "ex": "\"If the R is far from P, then you have a first degree.\" PR > 0.20 s, fixed, nothing dropped.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1605,7 +1738,8 @@
       "T-wave direction"
     ],
     "a": 1,
-    "ex": "Sinus tach has P waves, ramps up and down gradually, usually < 150, and has an identifiable cause. SVT hides its Ps, flips on abruptly, and usually runs > 150."
+    "ex": "Sinus tach has P waves, ramps up and down gradually, usually < 150, and has an identifiable cause. SVT hides its Ps, flips on abruptly, and usually runs > 150.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1617,7 +1751,8 @@
       "Torsades de pointes"
     ],
     "a": 1,
-    "ex": "Wide + regular + uniform complexes = monomorphic VT — and \"wide = ventricle until proven otherwise\" is the safe default."
+    "ex": "Wide + regular + uniform complexes = monomorphic VT — and \"wide = ventricle until proven otherwise\" is the safe default.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1629,7 +1764,8 @@
       "Atrial flutter"
     ],
     "a": 2,
-    "ex": "The twisting spindle envelope is torsades — polymorphic VT associated with long QT. First-line drug: magnesium."
+    "ex": "The twisting spindle envelope is torsades — polymorphic VT associated with long QT. First-line drug: magnesium.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1641,7 +1777,8 @@
       "Delta waves"
     ],
     "a": 1,
-    "ex": "Long QT (drugs, hypokalemia, hypomagnesemia) sets the stage for torsades — the T-wave vulnerable period gets wider and easier to hit."
+    "ex": "Long QT (drugs, hypokalemia, hypomagnesemia) sets the stage for torsades — the T-wave vulnerable period gets wider and easier to hit.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1653,7 +1790,8 @@
       "The last epinephrine dose"
     ],
     "a": 1,
-    "ex": "\"Flat? Confirm before you call it.\" A loose lead mimics asystole, and fine VF — which is still shockable — can hide at low gain."
+    "ex": "\"Flat? Confirm before you call it.\" A loose lead mimics asystole, and fine VF — which is still shockable — can hide at low gain.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1665,7 +1803,8 @@
       "Fine VF requires synchronized cardioversion"
     ],
     "a": 1,
-    "ex": "Fine VF still gets defibrillated; asystole never does. Checking gain and a second lead can reveal a shock you'd otherwise miss."
+    "ex": "Fine VF still gets defibrillated; asystole never does. Checking gain and a second lead can reveal a shock you'd otherwise miss.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1677,7 +1816,8 @@
       "All AV blocks respond equally to atropine"
     ],
     "a": 1,
-    "ex": "Infranodal blocks (Mobitz II, wide-QRS 3rd-degree) sit below where atropine's vagolytic effect acts — plan for pacing early."
+    "ex": "Infranodal blocks (Mobitz II, wide-QRS 3rd-degree) sit below where atropine's vagolytic effect acts — plan for pacing early.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1689,7 +1829,8 @@
       "Atrial repolarization"
     ],
     "a": 1,
-    "ex": "P = atrial depolarization, QRS = ventricular depolarization, T = ventricular repolarization. (Atrial repolarization hides inside the QRS.)"
+    "ex": "P = atrial depolarization, QRS = ventricular depolarization, T = ventricular repolarization. (Atrial repolarization hides inside the QRS.)",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1701,7 +1842,8 @@
       "AV node conduction"
     ],
     "a": 1,
-    "ex": "The T wave is ventricular repolarization — the vulnerable period. R-on-T can trigger VF, which is exactly why cardioversion synchronizes to the R wave."
+    "ex": "The T wave is ventricular repolarization — the vulnerable period. R-on-T can trigger VF, which is exactly why cardioversion synchronizes to the R wave.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1713,7 +1855,8 @@
       "300 bpm"
     ],
     "a": 1,
-    "ex": "Count down the sequence per big box between R waves: 1 box=300, 2=150, 3=100, 4=75, 5=60, 6=50."
+    "ex": "Count down the sequence per big box between R waves: 1 box=300, 2=150, 3=100, 4=75, 5=60, 6=50.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1725,7 +1868,8 @@
       "Wenckebach"
     ],
     "a": 1,
-    "ex": "Multiple P-wave morphologies = multiple atrial foci = MAT. AFib, by contrast, has NO P waves at all."
+    "ex": "Multiple P-wave morphologies = multiple atrial foci = MAT. AFib, by contrast, has NO P waves at all.",
+    "difficulty": "medium"
   },
   {
     "cat": "ecg",
@@ -1737,6 +1881,1307 @@
       "It cannot be paced"
     ],
     "a": 1,
-    "ex": "Mobitz II is infranodal disease that drops beats unpredictably and can decompensate into 3rd-degree block abruptly — hence early pacing preparation."
+    "ex": "Mobitz II is infranodal disease that drops beats unpredictably and can decompensate into 3rd-degree block abruptly — hence early pacing preparation.",
+    "difficulty": "medium"
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "One small box on standard ECG paper equals how much time?",
+    "choices": [
+      "0.02 s",
+      "0.04 s",
+      "0.10 s",
+      "0.20 s"
+    ],
+    "a": 1,
+    "ex": "One small box = 0.04 s (at standard 25 mm/sec paper speed)."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "One large box (5 small boxes) on ECG paper equals how much time?",
+    "choices": [
+      "0.10 s",
+      "0.20 s",
+      "0.40 s",
+      "1.0 s"
+    ],
+    "a": 1,
+    "ex": "One large box = 5 × 0.04 s = 0.20 s."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "How many small boxes make up one large box?",
+    "choices": [
+      "3",
+      "4",
+      "5",
+      "10"
+    ],
+    "a": 2,
+    "ex": "Each large box is divided into 5 small boxes."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "What does the P wave represent?",
+    "choices": [
+      "Ventricular depolarization",
+      "Atrial depolarization",
+      "Ventricular repolarization",
+      "Atrial repolarization"
+    ],
+    "a": 1,
+    "ex": "The P wave is atrial depolarization — the electrical signature of the atria contracting."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "What does the QRS complex represent?",
+    "choices": [
+      "Atrial depolarization",
+      "Ventricular depolarization",
+      "Ventricular repolarization",
+      "SA node firing"
+    ],
+    "a": 1,
+    "ex": "QRS = ventricular depolarization, the largest deflection because ventricular muscle mass is greatest."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "What does the T wave represent?",
+    "choices": [
+      "Atrial depolarization",
+      "Ventricular depolarization",
+      "Ventricular repolarization",
+      "Atrial repolarization"
+    ],
+    "a": 2,
+    "ex": "The T wave is ventricular repolarization — the vulnerable period where R-on-T can trigger VF."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "What is the upper limit of a normal PR interval?",
+    "choices": [
+      "0.12 s",
+      "0.20 s",
+      "0.30 s",
+      "0.40 s"
+    ],
+    "a": 1,
+    "ex": "Normal PR is 0.12–0.20 s (up to one large box). Beyond 0.20 s on every beat is 1st-degree block."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "What is the lower limit of a normal PR interval?",
+    "choices": [
+      "0.08 s",
+      "0.12 s",
+      "0.16 s",
+      "0.20 s"
+    ],
+    "a": 1,
+    "ex": "0.12 s is the lower bound — a shorter PR raises concern for a pre-excitation pathway (e.g., WPW)."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "What QRS duration is considered narrow (supraventricular origin)?",
+    "choices": [
+      "< 0.08 s",
+      "< 0.12 s",
+      "< 0.16 s",
+      "< 0.20 s"
+    ],
+    "a": 1,
+    "ex": "Narrow = less than 0.12 s (three small boxes)."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "A 6-second rhythm strip shows 5 QRS complexes. Using the 6-second method, what is the rate?",
+    "choices": [
+      "30 bpm",
+      "40 bpm",
+      "50 bpm",
+      "60 bpm"
+    ],
+    "a": 2,
+    "ex": "5 complexes × 10 = 50 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "A 6-second strip shows 7 QRS complexes. What is the rate?",
+    "choices": [
+      "50 bpm",
+      "60 bpm",
+      "70 bpm",
+      "80 bpm"
+    ],
+    "a": 2,
+    "ex": "7 × 10 = 70 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "A 6-second strip shows 9 QRS complexes. What is the rate?",
+    "choices": [
+      "70 bpm",
+      "80 bpm",
+      "90 bpm",
+      "100 bpm"
+    ],
+    "a": 2,
+    "ex": "9 × 10 = 90 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "A 6-second strip shows 11 QRS complexes. What is the rate?",
+    "choices": [
+      "90 bpm",
+      "100 bpm",
+      "110 bpm",
+      "120 bpm"
+    ],
+    "a": 2,
+    "ex": "11 × 10 = 110 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "A 6-second strip shows only 4 QRS complexes. What is the rate?",
+    "choices": [
+      "30 bpm",
+      "40 bpm",
+      "50 bpm",
+      "60 bpm"
+    ],
+    "a": 1,
+    "ex": "4 × 10 = 40 bpm — bradycardic."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "A 6-second strip shows 15 QRS complexes. What is the rate?",
+    "choices": [
+      "120 bpm",
+      "130 bpm",
+      "140 bpm",
+      "150 bpm"
+    ],
+    "a": 3,
+    "ex": "15 × 10 = 150 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "Using the 1500 method, there are 25 small boxes between two R waves. What is the rate?",
+    "choices": [
+      "50 bpm",
+      "60 bpm",
+      "75 bpm",
+      "100 bpm"
+    ],
+    "a": 1,
+    "ex": "1500 ÷ 25 = 60 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "Using the 1500 method, there are 15 small boxes between two R waves. What is the rate?",
+    "choices": [
+      "75 bpm",
+      "90 bpm",
+      "100 bpm",
+      "120 bpm"
+    ],
+    "a": 2,
+    "ex": "1500 ÷ 15 = 100 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "Using the 1500 method, there are 10 small boxes between two R waves. What is the rate?",
+    "choices": [
+      "100 bpm",
+      "125 bpm",
+      "150 bpm",
+      "175 bpm"
+    ],
+    "a": 2,
+    "ex": "1500 ÷ 10 = 150 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "Using the 1500 method, there are 30 small boxes between two R waves. What is the rate?",
+    "choices": [
+      "40 bpm",
+      "50 bpm",
+      "60 bpm",
+      "75 bpm"
+    ],
+    "a": 1,
+    "ex": "1500 ÷ 30 = 50 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "Using the 1500 method, there are 20 small boxes between two R waves. What is the rate?",
+    "choices": [
+      "60 bpm",
+      "75 bpm",
+      "90 bpm",
+      "100 bpm"
+    ],
+    "a": 1,
+    "ex": "1500 ÷ 20 = 75 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "Using the 1500 method, there are 6 small boxes between two R waves. What is the rate?",
+    "choices": [
+      "200 bpm",
+      "220 bpm",
+      "250 bpm",
+      "300 bpm"
+    ],
+    "a": 2,
+    "ex": "1500 ÷ 6 = 250 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "Using the 1500 method, there are 5 small boxes between two R waves. What is the rate?",
+    "choices": [
+      "250 bpm",
+      "275 bpm",
+      "300 bpm",
+      "320 bpm"
+    ],
+    "a": 2,
+    "ex": "1500 ÷ 5 = 300 bpm — near the fastest physiologically conducted rate."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "The 1500 method for calculating heart rate is only accurate for which rhythms?",
+    "choices": [
+      "Any rhythm",
+      "Regular rhythms only",
+      "Irregular rhythms only",
+      "Rhythms with no P waves"
+    ],
+    "a": 1,
+    "ex": "1500 ÷ boxes assumes evenly spaced R waves — use the 6-second × 10 method instead for irregular rhythms like AFib."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "The QT interval is measured from the start of the QRS complex to the end of which wave?",
+    "choices": [
+      "The P wave",
+      "The R wave",
+      "The S wave",
+      "The T wave"
+    ],
+    "a": 3,
+    "ex": "QT spans from the start of ventricular depolarization (QRS onset) to the end of ventricular repolarization (T wave end)."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "Which segment is most commonly used in practice as the isoelectric baseline for measuring ST-segment elevation or depression?",
+    "choices": [
+      "The PR segment",
+      "The ST segment itself",
+      "The QT interval",
+      "The QRS complex"
+    ],
+    "a": 0,
+    "ex": "The flat PR segment (just before the QRS) is the standard practical reference line for judging ST deviation."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "A rhythm where every R-R interval is identical is described as:",
+    "choices": [
+      "Irregularly irregular",
+      "Regularly irregular",
+      "Regular",
+      "Chaotic"
+    ],
+    "a": 2,
+    "ex": "Identical, evenly spaced R-R intervals define a regular rhythm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "A QRS duration of 0.16 seconds is considered:",
+    "choices": [
+      "Narrow",
+      "Normal",
+      "Wide",
+      "Immeasurable"
+    ],
+    "a": 2,
+    "ex": "0.16 s is well above the 0.12 s cutoff — wide, ventricular or aberrant."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "Standard ECG paper speed is:",
+    "choices": [
+      "12.5 mm/sec",
+      "25 mm/sec",
+      "50 mm/sec",
+      "100 mm/sec"
+    ],
+    "a": 1,
+    "ex": "25 mm/sec is the standard speed that the small-box (0.04 s) and large-box (0.20 s) timing is based on."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "How many precordial (chest) leads are in a standard 12-lead ECG?",
+    "choices": [
+      "4",
+      "6",
+      "8",
+      "12"
+    ],
+    "a": 1,
+    "ex": "V1 through V6 — six precordial leads, plus six limb leads (I, II, III, aVR, aVL, aVF)."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "Lead II is the lead most commonly used for continuous cardiac monitoring because it typically shows:",
+    "choices": [
+      "The largest QRS complex on every patient",
+      "Clear P waves that make rhythm analysis easier",
+      "ST elevation best in all patients",
+      "The QT interval most accurately"
+    ],
+    "a": 1,
+    "ex": "Lead II usually runs roughly parallel to the heart's electrical axis and the atria, giving the clearest P waves for rhythm strip interpretation."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "An upright, rounded P wave immediately followed by a normal QRS at a normal rate reflects:",
+    "choices": [
+      "A junctional rhythm",
+      "A normal sinus impulse from the SA node",
+      "A ventricular escape beat",
+      "Atrial fibrillation"
+    ],
+    "a": 1,
+    "ex": "A normal-appearing P before every normal QRS at a normal rate is the signature of sinus rhythm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "The interval from the beginning of the P wave to the beginning of the QRS complex is called the:",
+    "choices": [
+      "QT interval",
+      "PR interval",
+      "ST segment",
+      "RR interval"
+    ],
+    "a": 1,
+    "ex": "PR interval — the time for the impulse to travel from the atria through the AV node to the ventricles."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "A regular sinus rhythm with a rate between 60–100 bpm and normal P-QRS-T morphology describes:",
+    "choices": [
+      "Sinus bradycardia",
+      "Normal sinus rhythm",
+      "Sinus tachycardia",
+      "Junctional rhythm"
+    ],
+    "a": 1,
+    "ex": "60–100 bpm with normal morphology is, by definition, normal sinus rhythm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "A heart rate below 60 bpm is generally classified as:",
+    "choices": [
+      "Tachycardia",
+      "Bradycardia",
+      "Normal",
+      "Asystole"
+    ],
+    "a": 1,
+    "ex": "Below 60 bpm = bradycardia, regardless of the underlying rhythm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "easy",
+    "q": "A heart rate above 100 bpm is generally classified as:",
+    "choices": [
+      "Bradycardia",
+      "Normal",
+      "Tachycardia",
+      "Flutter"
+    ],
+    "a": 2,
+    "ex": "Above 100 bpm = tachycardia, regardless of the underlying rhythm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Rate 96, regular rhythm, one normal upright P before every QRS, PR constant at 0.14 s, narrow QRS. This is:",
+    "choices": [
+      "Normal sinus rhythm",
+      "Sinus tachycardia",
+      "Sinus arrhythmia",
+      "First-degree AV block"
+    ],
+    "a": 0,
+    "ex": "96 bpm is within the 60–100 normal range, with every framework feature intact — normal sinus rhythm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Rate 132, regular, visible P waves before each narrow QRS, patient febrile with a clear source of infection. This is:",
+    "choices": [
+      "SVT",
+      "Sinus tachycardia",
+      "Atrial flutter",
+      "Junctional tachycardia"
+    ],
+    "a": 1,
+    "ex": "Visible P waves, a gradual rate response, and an identifiable cause (fever) point to sinus tachycardia, not SVT."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Rate 180, absolutely regular, no visible P waves, narrow QRS, patient reports the rate 'switched on' suddenly. This is:",
+    "choices": [
+      "Sinus tachycardia",
+      "Atrial fibrillation",
+      "SVT",
+      "Atrial flutter with variable block"
+    ],
+    "a": 2,
+    "ex": "Abrupt onset, no P waves, metronome-regular, narrow, and fast — classic SVT."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Irregularly irregular narrow-complex rhythm, rate 130, wavering fibrillatory baseline, no discrete P waves anywhere. This is:",
+    "choices": [
+      "Multifocal atrial tachycardia",
+      "Atrial fibrillation with RVR",
+      "Sinus arrhythmia",
+      "Wenckebach"
+    ],
+    "a": 1,
+    "ex": "No P waves at all + irregularly irregular = AFib, here with a rapid ventricular response."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Irregular narrow-complex rhythm with at least 3 distinct P-wave shapes and varying PR intervals beat to beat. This is:",
+    "choices": [
+      "Atrial fibrillation",
+      "Multifocal atrial tachycardia (MAT)",
+      "Atrial flutter",
+      "Sinus arrhythmia"
+    ],
+    "a": 1,
+    "ex": "Multiple P-wave morphologies (≥3) mean multiple atrial foci firing — MAT, often seen in severe COPD."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "A continuous sawtooth baseline at roughly 300/min underlies a perfectly regular ventricular rate of exactly 150. This is:",
+    "choices": [
+      "SVT",
+      "Atrial flutter with 2:1 conduction",
+      "Atrial fibrillation",
+      "Sinus tachycardia"
+    ],
+    "a": 1,
+    "ex": "Flutter's atrial rate (~300) divided by a fixed 2:1 conduction ratio lands the ventricular rate right at 150 — the classic flutter-mimics-SVT trap."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "The same sawtooth flutter baseline is present, but this time the ventricular rate is irregular because the conduction ratio keeps changing (sometimes 2:1, sometimes 4:1). This is:",
+    "choices": [
+      "Atrial flutter with variable block",
+      "Atrial fibrillation",
+      "Mobitz I",
+      "SVT"
+    ],
+    "a": 0,
+    "ex": "Flutter waves are still present and organized; only the conduction ratio is inconsistent, producing an irregular ventricular response."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "A wide-complex rhythm at 150 bpm, perfectly regular, with every complex an identical shape. The safest working diagnosis is:",
+    "choices": [
+      "SVT with aberrancy",
+      "Monomorphic ventricular tachycardia",
+      "Torsades de pointes",
+      "Atrial flutter with aberrancy"
+    ],
+    "a": 1,
+    "ex": "Wide + regular + uniform = monomorphic VT until proven otherwise — the safe default."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "A wide-complex rhythm at roughly 220 bpm shows QRS amplitude that grows and shrinks in a spindle-shaped envelope, and is irregular. This is:",
+    "choices": [
+      "Monomorphic VT",
+      "Coarse VF",
+      "Torsades de pointes",
+      "Mobitz II"
+    ],
+    "a": 2,
+    "ex": "The twisting, waxing-and-waning amplitude envelope is the signature of torsades de pointes."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "A single early, wide, bizarre QRS with no preceding P wave, followed by a full compensatory pause, occurs in an otherwise normal sinus rhythm. This is:",
+    "choices": [
+      "A junctional escape beat",
+      "A premature ventricular contraction (PVC)",
+      "A dropped beat",
+      "An atrial premature beat"
+    ],
+    "a": 1,
+    "ex": "Early + wide + no preceding P + compensatory pause = a PVC, a ventricular ectopic beat."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "PVCs that all share the exact same shape in a given lead are described as:",
+    "choices": [
+      "Multifocal",
+      "Unifocal",
+      "Bigeminal",
+      "Coupled"
+    ],
+    "a": 1,
+    "ex": "Same shape every time = unifocal — arising from a single irritable ventricular focus."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "PVCs that vary in shape from beat to beat, suggesting more than one irritable focus, are described as:",
+    "choices": [
+      "Unifocal",
+      "Multifocal",
+      "Isolated",
+      "Fusion beats"
+    ],
+    "a": 1,
+    "ex": "Varying PVC morphology suggests multiple ventricular foci — multifocal PVCs, generally more concerning than unifocal."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Every other beat on the strip is a PVC, in a repeating pattern. This pattern is called:",
+    "choices": [
+      "Trigeminy",
+      "Bigeminy",
+      "A couplet",
+      "A salvo"
+    ],
+    "a": 1,
+    "ex": "One normal beat, one PVC, repeating — bigeminy."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Two PVCs occurring back-to-back is called a:",
+    "choices": [
+      "Triplet",
+      "A run of VT",
+      "Couplet",
+      "Bigeminy"
+    ],
+    "a": 2,
+    "ex": "Two consecutive PVCs = a couplet; three or more in a row crosses into a run of VT."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Three or more consecutive PVCs in a row at a fast rate is generally defined as:",
+    "choices": [
+      "A couplet",
+      "A run of ventricular tachycardia",
+      "Bigeminy",
+      "Trigeminy"
+    ],
+    "a": 1,
+    "ex": "Three or more consecutive ventricular beats meets the definition of (nonsustained) VT."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "A narrow-complex escape rhythm arising from the AV junction typically fires at a rate of:",
+    "choices": [
+      "20–40 bpm",
+      "40–60 bpm",
+      "60–100 bpm",
+      "100–150 bpm"
+    ],
+    "a": 1,
+    "ex": "The AV junction's intrinsic escape rate is 40–60 bpm — faster than the ventricles, slower than the SA node."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "A ventricular escape rhythm, emerging when higher pacemakers fail, typically fires at a rate of:",
+    "choices": [
+      "20–40 bpm",
+      "40–60 bpm",
+      "60–100 bpm",
+      "100–150 bpm"
+    ],
+    "a": 0,
+    "ex": "The ventricles' own intrinsic escape rate is the slowest in the conduction system — 20–40 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Escape rhythms (junctional or ventricular) are best understood clinically as:",
+    "choices": [
+      "A dangerous primary arrhythmia to suppress immediately with antiarrhythmics",
+      "A protective backup pacemaker that should not be suppressed",
+      "Always requiring immediate defibrillation",
+      "A normal variant needing no attention at all"
+    ],
+    "a": 1,
+    "ex": "An escape rhythm is the heart's fail-safe when a higher pacemaker fails — suppressing it (e.g., with lidocaine given for 'PVCs') can leave the patient with nothing at all."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "The monitor shows a fine, irregular wavering line with no clear complexes, but the patient is awake, talking, and brushing their teeth. The most likely explanation is:",
+    "choices": [
+      "Fine ventricular fibrillation",
+      "Motion or muscle artifact",
+      "Asystole",
+      "Torsades de pointes"
+    ],
+    "a": 1,
+    "ex": "Always treat the patient, not the monitor — an awake, talking patient cannot be in VF or asystole. Check the leads before treating the strip."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Regularly spaced vertical spikes appear immediately before each wide QRS complex on a paced patient's monitor. This indicates:",
+    "choices": [
+      "Failure to capture",
+      "Appropriate ventricular pacing with capture",
+      "Failure to sense",
+      "Atrial fibrillation"
+    ],
+    "a": 1,
+    "ex": "A pacer spike immediately followed by a wide QRS is the signature of successful ventricular capture."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "A pacemaker spike is visible on the monitor but is NOT followed by a QRS complex. This is called:",
+    "choices": [
+      "Failure to sense",
+      "Failure to capture",
+      "Oversensing",
+      "Appropriate function"
+    ],
+    "a": 1,
+    "ex": "A spike that fails to produce a QRS means the paced stimulus did not depolarize the ventricle — failure to capture."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Progressive ECG changes with worsening hyperkalemia classically begin with:",
+    "choices": [
+      "Loss of P waves",
+      "Peaked, narrow T waves",
+      "A sine-wave pattern",
+      "Widened QRS complexes"
+    ],
+    "a": 1,
+    "ex": "Tall, narrow, peaked T waves are usually the earliest hyperkalemia ECG change."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "As hyperkalemia worsens beyond peaked T waves, the next expected ECG change is:",
+    "choices": [
+      "A shortened QT interval",
+      "Widening of the QRS and flattening/loss of P waves",
+      "Delta waves",
+      "ST elevation in all leads"
+    ],
+    "a": 1,
+    "ex": "Progressive hyperkalemia widens the QRS and erodes the P wave before the terminal sine-wave pattern."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "The most severe, pre-arrest ECG pattern associated with critical hyperkalemia is described as a:",
+    "choices": [
+      "Sawtooth pattern",
+      "Sine-wave pattern",
+      "Delta-wave pattern",
+      "Spike-and-dome pattern"
+    ],
+    "a": 1,
+    "ex": "A smooth, undulating sine-wave QRS-T merger is the terminal hyperkalemia pattern — a true emergency (calcium first)."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Hypokalemia classically produces which ECG change?",
+    "choices": [
+      "Peaked T waves",
+      "Prominent U waves with flattened T waves",
+      "A shortened QT interval",
+      "Delta waves"
+    ],
+    "a": 1,
+    "ex": "Hypokalemia flattens T waves and unmasks prominent U waves, and can prolong the QT/QU interval."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Digoxin effect classically produces which ST-segment appearance?",
+    "choices": [
+      "Diffuse concave ST elevation",
+      "A scooped or sagging ST depression",
+      "Flat, isoelectric ST segments",
+      "Peaked, tented ST segments"
+    ],
+    "a": 1,
+    "ex": "The classic 'Salvador Dalí mustache' scooped ST depression is digoxin effect, distinct from digoxin toxicity (a clinical/rhythm diagnosis, e.g., arrhythmias)."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "A prolonged QT interval is a specific risk factor for which lethal rhythm?",
+    "choices": [
+      "Atrial fibrillation",
+      "Torsades de pointes",
+      "Mobitz I",
+      "Sinus arrest"
+    ],
+    "a": 1,
+    "ex": "Long QT widens the ventricular vulnerable period, setting the stage for torsades de pointes."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Which electrolyte disturbance is a common, correctable cause of QT prolongation to check before giving a QT-prolonging drug?",
+    "choices": [
+      "Hyperkalemia",
+      "Hypomagnesemia",
+      "Hypernatremia",
+      "Hyperglycemia"
+    ],
+    "a": 1,
+    "ex": "Low magnesium (and low potassium) are classic, reversible causes of QT prolongation and torsades risk."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "ST-segment elevation of at least 1 mm in two contiguous limb leads (or 2 mm in contiguous precordial leads) is the ECG criterion used to diagnose:",
+    "choices": [
+      "Pericarditis",
+      "STEMI",
+      "Left bundle branch block",
+      "Digoxin effect"
+    ],
+    "a": 1,
+    "ex": "This is the standard STEMI ST-elevation threshold used to activate the cath lab pathway."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "ST elevation in leads II, III, and aVF localizes a STEMI to which wall, and which artery is usually responsible?",
+    "choices": [
+      "Anterior wall — LAD",
+      "Inferior wall — right coronary artery (RCA)",
+      "Lateral wall — circumflex artery",
+      "Posterior wall — RCA"
+    ],
+    "a": 1,
+    "ex": "II, III, aVF are the inferior leads; the RCA supplies the inferior wall in most people."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "ST elevation in leads V1–V4 localizes a STEMI to which wall, and which artery is usually responsible?",
+    "choices": [
+      "Inferior wall — RCA",
+      "Lateral wall — circumflex artery",
+      "Anterior wall — left anterior descending (LAD)",
+      "Posterior wall — RCA"
+    ],
+    "a": 2,
+    "ex": "V1–V4 are the anteroseptal/anterior leads, supplied by the LAD — the 'widow maker' vessel."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "ST elevation in leads I, aVL, V5, and V6 localizes a STEMI to which wall, and which artery is usually responsible?",
+    "choices": [
+      "Anterior wall — LAD",
+      "Lateral wall — circumflex artery",
+      "Inferior wall — RCA",
+      "Septal wall — LAD"
+    ],
+    "a": 1,
+    "ex": "I, aVL, V5, V6 are the lateral leads, typically supplied by the circumflex artery."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Diffuse, concave ST elevation across multiple leads with PR-segment depression, in a patient with pleuritic chest pain relieved by leaning forward, suggests:",
+    "choices": [
+      "Acute STEMI",
+      "Acute pericarditis",
+      "Digoxin toxicity",
+      "Hyperkalemia"
+    ],
+    "a": 1,
+    "ex": "Diffuse (not localized to one territory) concave ST elevation plus PR depression is the classic pericarditis pattern, distinct from the localized, convex ST elevation of STEMI."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "A rhythm strip shows P waves marching regularly at 90/min and QRS complexes marching regularly at 34/min, with no consistent relationship between them. What is this?",
+    "choices": [
+      "Mobitz II",
+      "Complete (3rd-degree) AV block",
+      "Sinus arrhythmia",
+      "Atrial flutter"
+    ],
+    "a": 1,
+    "ex": "Two independent, regular rhythms with no relationship between P and QRS is complete heart block."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "On a strip, PR intervals measure 0.16, 0.24, then 0.32 seconds on three consecutive beats, and then a QRS is dropped before the cycle restarts. This is:",
+    "choices": [
+      "Mobitz II",
+      "Mobitz I (Wenckebach)",
+      "Third-degree block",
+      "First-degree block"
+    ],
+    "a": 1,
+    "ex": "Progressive PR lengthening before a dropped beat is the hallmark of Wenckebach."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "On a strip, the PR interval is a constant 0.18 s on every conducted beat, but every third P wave is not followed by a QRS at all. This is:",
+    "choices": [
+      "Wenckebach",
+      "Mobitz II",
+      "Third-degree block",
+      "Sinus arrhythmia"
+    ],
+    "a": 1,
+    "ex": "A fixed PR with beats simply vanishing, no warning stretch, is Mobitz II."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "Every P wave on a strip is followed by a QRS, but the PR interval is a fixed 0.26 seconds on every single beat. This is:",
+    "choices": [
+      "Normal sinus rhythm",
+      "First-degree AV block",
+      "Mobitz I",
+      "Third-degree block"
+    ],
+    "a": 1,
+    "ex": "Every beat conducts, but the PR is fixed and prolonged beyond 0.20 s — first-degree AV block."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "A sudden pause appears on the strip with a missing P-QRS-T complex, and the pause is NOT an exact multiple of the underlying P-P interval. This best describes:",
+    "choices": [
+      "A dropped QRS with intact SA node firing (an AV-level dropped beat)",
+      "Sinus arrest",
+      "Mobitz I only",
+      "Third-degree block only"
+    ],
+    "a": 0,
+    "ex": "If the SA node's own timing is undisturbed (the pause doesn't fit its regular P-P cycle), the problem is downstream of the SA node, not the SA node itself."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "A sudden pause occurs where the missing beat's timing IS an exact multiple of the underlying P-P interval — the SA node itself seems to have skipped a beat on schedule. This best describes:",
+    "choices": [
+      "Sinus arrest or SA exit block",
+      "Mobitz II",
+      "Third-degree block",
+      "Atrial flutter"
+    ],
+    "a": 0,
+    "ex": "When the pause fits neatly into the SA node's own rhythm, the SA node itself failed to fire or its impulse failed to exit — sinus arrest/SA block."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "medium",
+    "q": "A fusion beat on a rhythm strip occurs when:",
+    "choices": [
+      "Two P waves merge into one",
+      "A sinus impulse and a ventricular ectopic impulse depolarize the ventricle at the same time, producing a hybrid QRS shape",
+      "The QRS and T wave overlap",
+      "Two PVCs occur back-to-back"
+    ],
+    "a": 1,
+    "ex": "A fusion beat blends a normally conducted beat with a ventricular ectopic beat — a helpful clue that a wide-complex rhythm has some normal conduction happening too."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "In atrial fibrillation, a wide, bizarre QRS follows a long R-R interval that itself follows a short R-R interval. This aberrantly conducted beat (not a true PVC) is best explained by:",
+    "choices": [
+      "Ashman phenomenon",
+      "R-on-T phenomenon",
+      "Wenckebach conduction",
+      "WPW conduction"
+    ],
+    "a": 0,
+    "ex": "A long-short cycle length change can produce aberrant conduction through a bundle branch still in its refractory period — Ashman phenomenon."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "Ashman phenomenon is clinically important mainly because it can be mistaken for:",
+    "choices": [
+      "Atrial flutter",
+      "A PVC, when the beat is actually supraventricular in origin with aberrant conduction",
+      "Torsades de pointes",
+      "Sinus arrest"
+    ],
+    "a": 1,
+    "ex": "Misreading an Ashman beat as a PVC can lead to unnecessary antiarrhythmic therapy in AFib."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "A short PR interval (< 0.12 s) combined with a slurred upstroke at the very start of the QRS (a delta wave) is the classic ECG signature of:",
+    "choices": [
+      "Wolff-Parkinson-White (WPW) syndrome",
+      "Mobitz II",
+      "Digoxin toxicity",
+      "Hyperkalemia"
+    ],
+    "a": 0,
+    "ex": "Short PR + delta wave = ventricular pre-excitation via an accessory pathway, as in WPW."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "In a patient with known WPW who develops atrial fibrillation, why are AV-nodal blocking drugs (adenosine, beta-blockers, CCBs, digoxin) dangerous?",
+    "choices": [
+      "They have no cardiac effect at all and are simply useless",
+      "They can block the normal AV node and preferentially accelerate conduction down the accessory pathway, risking VF",
+      "They always safely slow the accessory pathway",
+      "They convert the rhythm to asystole in every case"
+    ],
+    "a": 1,
+    "ex": "Blocking the AV node in pre-excited AFib removes the 'brake' on the accessory pathway, letting extremely fast atrial rates conduct straight to the ventricles — a setup for VF."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "The monitor shows a wide, chaotic, disorganized waveform with large amplitude and absolutely no repeating pattern. This is best classified as:",
+    "choices": [
+      "Fine VF",
+      "Coarse VF",
+      "Torsades de pointes",
+      "Artifact"
+    ],
+    "a": 1,
+    "ex": "Large-amplitude chaos with no organization is coarse VF — the freshest, most shockable form of VF."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "The monitor shows what looks like a flat line, but closer inspection reveals a faint, irregular, low-amplitude wavering. Increasing the gain and checking a second lead reveals small chaotic waves. This is:",
+    "choices": [
+      "True asystole",
+      "Fine ventricular fibrillation",
+      "Sinus arrest",
+      "Artifact from a loose lead"
+    ],
+    "a": 1,
+    "ex": "What looks like asystole at low gain can be fine VF — still shockable — which is exactly why gain and a second lead are checked before calling asystole."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "A patient is unresponsive and pulseless. The monitor shows an organized narrow-complex rhythm at 80 bpm with visible P waves. This clinical picture describes:",
+    "choices": [
+      "Sinus rhythm — no intervention needed",
+      "Pulseless electrical activity (PEA) — an organized ECG with no effective pulse",
+      "Asystole",
+      "Atrial fibrillation"
+    ],
+    "a": 1,
+    "ex": "PEA is a clinical diagnosis, not an ECG morphology — any organized rhythm without a palpable pulse qualifies."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "Which single feature actually distinguishes PEA from a 'normal' organized rhythm?",
+    "choices": [
+      "The QRS morphology on the monitor",
+      "Nothing visible on the ECG alone — PEA is defined by the absence of a pulse despite an organized rhythm",
+      "The heart rate shown on the monitor",
+      "The presence of P waves"
+    ],
+    "a": 1,
+    "ex": "You cannot diagnose PEA from the strip alone — it requires checking the patient and finding no pulse."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "A regular wide-complex tachycardia shows clear AV dissociation — P waves marching independently of the QRS, at a different rate, with no fixed relationship. This finding strongly favors:",
+    "choices": [
+      "SVT with aberrancy",
+      "Ventricular tachycardia",
+      "Atrial flutter",
+      "Sinus tachycardia with a bundle branch block"
+    ],
+    "a": 1,
+    "ex": "AV dissociation during a wide-complex tachycardia is one of the most reliable bedside clues for VT."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "In a wide-complex tachycardia, occasional narrow 'fusion' or 'capture' beats appearing among the wide complexes strongly suggest:",
+    "choices": [
+      "SVT with aberrancy",
+      "Ventricular tachycardia with intermittent normal conduction breaking through",
+      "Atrial flutter",
+      "Torsades de pointes"
+    ],
+    "a": 1,
+    "ex": "Fusion/capture beats mean the sinus impulse is occasionally getting through to a ventricle that's otherwise being driven by an ectopic ventricular focus — a VT-specific finding."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "A patient with a prior MI and known structural heart disease develops a new regular wide-complex tachycardia. Statistically, this rhythm is most likely to be:",
+    "choices": [
+      "SVT with aberrancy",
+      "Ventricular tachycardia",
+      "Sinus tachycardia",
+      "Atrial flutter"
+    ],
+    "a": 1,
+    "ex": "In patients with structural heart disease/scar, a new wide-complex tachycardia is VT the large majority of the time."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "Multifocal PVCs (varying shapes) are considered more clinically concerning than unifocal PVCs primarily because they suggest:",
+    "choices": [
+      "A single irritable focus that is easy to treat",
+      "Multiple irritable ventricular foci and potentially greater electrical instability",
+      "A completely benign normal variant",
+      "Digoxin toxicity exclusively"
+    ],
+    "a": 1,
+    "ex": "Multiple ventricular foci firing independently suggests broader myocardial irritability than a single reproducible focus."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "A PVC that lands directly on the preceding T wave (the ventricular 'vulnerable period') carries a specific risk of triggering:",
+    "choices": [
+      "First-degree AV block",
+      "Ventricular fibrillation (the R-on-T phenomenon)",
+      "Sinus arrest",
+      "Atrial fibrillation"
+    ],
+    "a": 1,
+    "ex": "A stimulus landing during the vulnerable repolarization window can precipitate VF — the same principle behind synchronizing cardioversion away from the T wave."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "Complete (3rd-degree) AV block with a NARROW QRS escape rhythm generally indicates the block is located:",
+    "choices": [
+      "Below the AV node (infranodal — bundle branches)",
+      "At or above the AV node (nodal)",
+      "In the SA node",
+      "In the atrium only"
+    ],
+    "a": 1,
+    "ex": "A narrow escape means a junctional pacemaker close to the AV node is taking over — a nodal-level block."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "Complete (3rd-degree) AV block with a WIDE QRS escape rhythm generally indicates the block is located:",
+    "choices": [
+      "At the AV node only",
+      "Low in the conduction system (infranodal — bundle branches/Purkinje)",
+      "In the SA node",
+      "In the atrium only"
+    ],
+    "a": 1,
+    "ex": "A wide, slow ventricular escape means the pacemaker is far downstream, in the ventricular conduction system itself."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "Why does the location of a complete heart block (nodal vs. infranodal) matter clinically?",
+    "choices": [
+      "It doesn't change management at all",
+      "Infranodal blocks have slower, less reliable escape rhythms and are more likely to need urgent pacing",
+      "Nodal blocks always need immediate defibrillation",
+      "Infranodal blocks are always asymptomatic and benign"
+    ],
+    "a": 1,
+    "ex": "An infranodal (ventricular) escape is slow and unstable — these patients decompensate faster and need pacing sooner than a nodal block with a brisker junctional escape."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "A rhythm strip shows a normal P wave, then a pause with no QRS or subsequent P wave for longer than the baseline P-P interval — the SA node itself seems to have failed to fire on schedule. This is:",
+    "choices": [
+      "Mobitz II",
+      "Sinus arrest",
+      "Sinus tachycardia",
+      "Third-degree block"
+    ],
+    "a": 1,
+    "ex": "A pause originating from SA node failure itself, not from a blocked P wave, is sinus arrest."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "A junctional rhythm can be distinguished from sinus rhythm by which classic P-wave finding?",
+    "choices": [
+      "Tall, peaked P waves",
+      "Absent P waves, an inverted P wave, or a P wave buried in/immediately after the QRS",
+      "Widened P waves",
+      "A biphasic P wave in V1 only"
+    ],
+    "a": 1,
+    "ex": "Junctional impulses conduct retrograde into the atria, so the P wave is absent, inverted, or hidden around the QRS rather than a normal upright P before it."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "An accelerated junctional rhythm typically runs at a rate of:",
+    "choices": [
+      "20–40 bpm",
+      "40–60 bpm",
+      "60–100 bpm",
+      "Over 150 bpm"
+    ],
+    "a": 2,
+    "ex": "60–100 bpm from the junction is 'accelerated' relative to its normal 40–60 escape rate; above 100 it's junctional tachycardia."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "A run of 3 or more PVCs at a rate over 100 bpm lasting less than 30 seconds and not causing hemodynamic collapse is classified as:",
+    "choices": [
+      "Sustained VT",
+      "Nonsustained ventricular tachycardia (NSVT)",
+      "A couplet",
+      "Accelerated idioventricular rhythm"
+    ],
+    "a": 1,
+    "ex": "NSVT is, by definition, self-terminating in under 30 seconds without hemodynamic collapse — still worth reporting, but a different animal from sustained VT."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "Accelerated idioventricular rhythm (AIVR) is a wide-complex rhythm typically running at:",
+    "choices": [
+      "20–40 bpm",
+      "40–120 bpm",
+      "150–250 bpm",
+      "Over 250 bpm"
+    ],
+    "a": 1,
+    "ex": "AIVR sits between the ventricles' intrinsic escape rate and true VT — roughly 40–120 bpm."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "AIVR is most classically seen in which clinical context, and how should it usually be managed?",
+    "choices": [
+      "Chronic stable angina — treat with beta-blockers",
+      "Reperfusion after successful fibrinolysis or PCI — usually just observed, not treated as VT",
+      "Severe hyperkalemia — treat with calcium",
+      "Digoxin toxicity — treat with digoxin immune Fab"
+    ],
+    "a": 1,
+    "ex": "AIVR is a classic, usually benign, self-limited reperfusion marker — suppressing it with antiarrhythmics is generally unnecessary and can be harmful."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "A biphasic, notched P wave in lead II (P mitrale) suggests:",
+    "choices": [
+      "Right atrial enlargement",
+      "Left atrial enlargement",
+      "Right ventricular hypertrophy",
+      "Left ventricular hypertrophy"
+    ],
+    "a": 1,
+    "ex": "A wide, notched 'M-shaped' P wave in lead II classically reflects left atrial enlargement, often from mitral valve disease."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "A tall, peaked P wave in lead II (P pulmonale) suggests:",
+    "choices": [
+      "Left atrial enlargement",
+      "Right atrial enlargement",
+      "Left ventricular hypertrophy",
+      "WPW"
+    ],
+    "a": 1,
+    "ex": "A tall, narrow, peaked P wave in lead II reflects right atrial enlargement, classically from pulmonary hypertension/cor pulmonale."
+  },
+  {
+    "cat": "ecg",
+    "difficulty": "hard",
+    "q": "On the monitor, the displayed heart rate suddenly reads double or half the patient's actual rate with no real change in their condition. What's the most likely explanation?",
+    "choices": [
+      "A brand-new arrhythmia has developed",
+      "The monitor is miscounting — e.g., double-counting a tall T wave, or missing alternating QRS complexes — always correlate with the printed strip and the patient",
+      "A new drug effect",
+      "Artifact from patient movement only"
+    ],
+    "a": 1,
+    "ex": "Digital rate counters can be fooled by tall T waves or low-amplitude QRS complexes — always verify a surprising number against the actual strip and the patient in front of you."
   }
 ]

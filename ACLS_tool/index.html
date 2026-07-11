@@ -657,10 +657,16 @@
             <option value="hts">H's &amp; T's</option>
             <option value="post-rosc">Post-ROSC</option>
           </select>
+          <select id="quizDifficulty" class="btn ghost" style="cursor:pointer;">
+            <option value="all">All levels</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
           <button class="btn" id="quizStart" type="button">Start / Restart</button>
           <span class="scoreline" id="quizScore">Score: 0 / 0</span>
         </div>
-        <p class="prose" style="font-size:.82rem;color:var(--ink-dim);">Study mode — one question at a time, immediate feedback. Draws from the same no-repeat pool as Mock Exam, so a reload won't hand you the same set twice in a row.</p>
+        <p class="prose" style="font-size:.82rem;color:var(--ink-dim);">Study mode — one question at a time, immediate feedback. Draws from the same no-repeat pool as Mock Exam, so a reload won't hand you the same set twice in a row. Difficulty is fully tagged for ECG; other categories default to Medium.</p>
         <div id="quizArea"></div>
       </div>
 
@@ -679,15 +685,23 @@
             <option value="hts">H's &amp; T's</option>
             <option value="post-rosc">Post-ROSC</option>
           </select>
+          <select id="mockDifficulty" class="btn ghost" style="cursor:pointer;">
+            <option value="all">All levels</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
           <select id="mockLength" class="btn ghost" style="cursor:pointer;">
             <option value="20">20 questions</option>
             <option value="35" selected>35 questions</option>
             <option value="50">50 questions</option>
+            <option value="75">75 questions</option>
+            <option value="100">100 questions</option>
             <option value="all">Full bank</option>
           </select>
           <button class="btn" id="mockStart" type="button">Start mock exam</button>
         </div>
-        <div id="mockArea"><p class="prose" style="color:var(--ink-dim);">Pick a length and category, then start. Question bank currently holds <span id="bankTotal" class="mono"></span> questions across 8 categories.</p></div>
+        <div id="mockArea"><p class="prose" style="color:var(--ink-dim);">Pick a length, category, and difficulty, then start. Question bank currently holds <span id="bankTotal" class="mono"></span> questions across 9 categories.</p></div>
       </div>
 
       <div class="tabpane" id="tab-drug">

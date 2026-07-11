@@ -614,15 +614,19 @@
     for(var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=arr[i]; arr[i]=arr[j]; arr[j]=t; }
     return arr;
   }
-  function getPoolIds(cat){
+  function getPoolIds(cat, diff){
     var ids=[];
-    questionBank.forEach(function(q,i){ if(cat==='all' || q.cat===cat) ids.push(i); });
+    questionBank.forEach(function(q,i){
+      var okCat = (cat==='all' || q.cat===cat);
+      var okDiff = (!diff || diff==='all' || (q.difficulty||'medium')===diff);
+      if(okCat && okDiff) ids.push(i);
+    });
     return ids;
   }
-  function drawFromDeck(cat, n){
-    var pool = getPoolIds(cat);
+  function drawFromDeck(cat, diff, n){
+    var pool = getPoolIds(cat, diff);
     if(!pool.length) return [];
-    var key = 'acls_deck_'+cat;
+    var key = 'acls_deck_'+cat+'_'+(diff||'all');
     var deck;
     try{ deck = JSON.parse(localStorage.getItem(key)||'[]'); }catch(e){ deck=[]; }
     deck = deck.filter(function(id){ return pool.indexOf(id)!==-1; });
@@ -641,15 +645,23 @@
     localStorage.setItem(key, JSON.stringify(rest));
     return drawn.map(function(id){
       var q = questionBank[id];
-      return {id:id, cat:q.cat, q:q.q, choices:q.choices, a:q.a, ex:q.ex};
+      return {id:id, cat:q.cat, q:q.q, choices:q.choices, a:q.a, ex:q.ex, difficulty:q.difficulty||'medium'};
     });
+  }
+
+  function difficultyPill(diff){
+    var d = diff||'medium';
+    var label = d.charAt(0).toUpperCase()+d.slice(1);
+    var cls = d==='easy' ? 'ok' : (d==='hard' ? 'crit' : 'caut');
+    return '<span class="pill '+cls+'" style="margin-left:8px;vertical-align:1px;">'+label+'</span>';
   }
 
   var quizState = {list:[], idx:0, score:0, total:0};
   function startQuiz(){
     var cat = document.getElementById('quizCategory').value;
-    var pool = getPoolIds(cat);
-    var list = drawFromDeck(cat, pool.length);
+    var diff = document.getElementById('quizDifficulty').value;
+    var pool = getPoolIds(cat, diff);
+    var list = drawFromDeck(cat, diff, pool.length);
     quizState = {list:list, idx:0, score:0, total:0};
     document.getElementById('quizScore').textContent = 'Score: 0 / 0';
     renderQuizQ();
@@ -664,7 +676,7 @@
       return;
     }
     var q = quizState.list[quizState.idx];
-    area.innerHTML = '<div class="card"><h3 style="margin-bottom:12px;">'+ (quizState.idx+1) +'. '+q.q+'</h3>'+
+    area.innerHTML = '<div class="card"><h3 style="margin-bottom:12px;">'+ (quizState.idx+1) +'. '+q.q+difficultyPill(q.difficulty)+'</h3>'+
       '<div class="choicegrid" id="quizChoices"></div>'+
       '<div class="feedback" id="quizFeedback"></div>'+
       '<div class="deck-controls" style="margin-top:14px;"><button class="btn" id="quizNext" type="button" disabled>Next question</button></div>'+
@@ -694,10 +706,11 @@
 
   function startMock(){
     var cat = document.getElementById('mockCategory').value;
+    var diff = document.getElementById('mockDifficulty').value;
     var lenSel = document.getElementById('mockLength').value;
-    var pool = getPoolIds(cat);
+    var pool = getPoolIds(cat, diff);
     var n = lenSel==='all' ? pool.length : Math.min(parseInt(lenSel,10), pool.length);
-    mockState = {list:drawFromDeck(cat, n), answers:{}, submitted:false, startTime:Date.now(), endTime:0};
+    mockState = {list:drawFromDeck(cat, diff, n), answers:{}, submitted:false, startTime:Date.now(), endTime:0};
     renderMock();
   }
 
@@ -720,7 +733,7 @@
     }
     mockState.list.forEach(function(q,i){
       var chosen = mockState.answers[i];
-      html += '<div class="card"><h3 style="margin-bottom:12px;">'+(i+1)+'. '+q.q+'</h3><div class="choicegrid" data-qi="'+i+'">';
+      html += '<div class="card"><h3 style="margin-bottom:12px;">'+(i+1)+'. '+q.q+difficultyPill(q.difficulty)+'</h3><div class="choicegrid" data-qi="'+i+'">';
       q.choices.forEach(function(choice, ci){
         var cls = 'choice';
         if(mockState.submitted){
