@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Epinephrine",
+    "doseShort": "1 mg q3–5min",
+    "indication": "Cardiac arrest (all rhythms); symptomatic bradycardia infusion.",
+    "dose": "1 mg IV/IO push every 3–5 min during arrest. Infusion 2–10 mcg/min for bradycardia/hypotension.",
+    "caution": "Standard vasopressor of ACLS — not a substitute for compressions; give right after compressions resume, not during the rhythm-check pause.",
+    "mnemonic": "\"1 milligram, every light change\" — 3 to 5 minutes."
+  },
+  {
+    "name": "Amiodarone",
+    "doseShort": "300 mg → 150 mg",
+    "indication": "Refractory VF/pVT (after 3rd shock); stable wide-complex tachycardia.",
+    "dose": "Arrest: 300 mg IV/IO bolus, then 150 mg for a second dose. Non-arrest infusion: 150 mg over 10 min.",
+    "caution": "Causes hypotension when pushed fast; peripheral infusions running long can cause phlebitis — flag for a central line if continuing past the code.",
+    "mnemonic": "\"300 the first time, cut it in half the second\" — 300 → 150."
+  },
+  {
+    "name": "Lidocaine",
+    "doseShort": "1–1.5 → 0.5–0.75 mg/kg",
+    "indication": "Alternative to amiodarone for refractory VF/pVT.",
+    "dose": "First dose 1–1.5 mg/kg IV/IO. Second dose 0.5–0.75 mg/kg.",
+    "caution": "Weight-based, unlike amiodarone's flat dosing — don't mix the two drugs' math up under pressure.",
+    "mnemonic": "\"1 to 1.5, then half that.\""
+  },
+  {
+    "name": "Atropine",
+    "doseShort": "1 mg q3–5min, max 3 mg",
+    "indication": "Symptomatic bradycardia. NOT used in PEA/asystole.",
+    "dose": "1 mg IV/IO, repeat every 3–5 min, maximum total 3 mg.",
+    "caution": "Unlikely to help high-grade block (Mobitz II, 3rd-degree with wide QRS) — don't delay pacing waiting on repeat doses.",
+    "mnemonic": "\"One at a time, up to three.\""
+  },
+  {
+    "name": "Adenosine",
+    "doseShort": "6 mg → 12 mg",
+    "indication": "Stable narrow-regular tachycardia (SVT), after vagal maneuvers fail.",
+    "dose": "6 mg rapid IV push immediately followed by a saline flush; if no conversion, 12 mg.",
+    "caution": "Very short half-life — push fast, flush faster. Reduce dose for transplanted hearts; caution in reactive airway disease (bronchospasm risk). Warn the patient about a brief pause/flushing sensation.",
+    "mnemonic": "\"6, then 12 — push it fast, flush it faster.\""
+  },
+  {
+    "name": "Dopamine",
+    "doseShort": "5–20 mcg/kg/min",
+    "indication": "Symptomatic bradycardia unresponsive to atropine, as an alternative/adjunct to pacing.",
+    "dose": "Infusion 5–20 mcg/kg/min, titrated to effect.",
+    "caution": "Titrate to the lowest effective rate — tachyarrhythmia and ectopy increase at higher doses.",
+    "mnemonic": "\"Start at 5, titrate to effect.\""
+  },
+  {
+    "name": "Magnesium sulfate",
+    "doseShort": "1–2 g IV",
+    "indication": "Torsades de pointes.",
+    "dose": "1–2 g IV over 5–60 min; give as a faster push over a few minutes if pulseless.",
+    "caution": "Watch for hypotension and loss of deep tendon reflexes with rapid or high-dose administration.",
+    "mnemonic": "\"Torsades? Think Mag.\""
+  },
+  {
+    "name": "Calcium chloride / Sodium bicarbonate",
+    "doseShort": "Special situations only",
+    "indication": "Hyperkalemia, calcium-channel-blocker or beta-blocker overdose, tricyclic overdose, known pre-existing severe acidosis.",
+    "dose": "Not weight-standardized for routine arrest use — dosed to the specific indication.",
+    "caution": "Not given routinely in cardiac arrest — reserve for a specifically identified \"T\" or \"H\" that calls for it.",
+    "mnemonic": "\"Not routine — only for the special H's and T's.\""
+  },
+  {
+    "name": "Aspirin",
+    "doseShort": "160–325 mg chewed",
+    "indication": "Suspected ACS.",
+    "dose": "160–325 mg, non-enteric, chewed for fast absorption.",
+    "caution": "Confirm no true aspirin allergy or active major bleed.",
+    "mnemonic": "\"First and fast\" — the A in ANOM."
+  },
+  {
+    "name": "Nitroglycerin",
+    "doseShort": "0.4 mg SL q5min ×3",
+    "indication": "ACS chest discomfort; hypertensive emergency.",
+    "dose": "0.4 mg sublingual, may repeat every 5 min up to 3 doses.",
+    "caution": "Hold if SBP < 90, suspected right ventricular infarct, or a PDE5 inhibitor (sildenafil-class) was taken in the last 24–48 h — risk of profound hypotension.",
+    "mnemonic": "\"No nitro on a soft pressure or a little blue pill.\""
+  },
+  {
+    "name": "Oxygen",
+    "doseShort": "Only if SpO₂ < 90%",
+    "indication": "Hypoxia or respiratory distress.",
+    "dose": "Titrate to SpO₂ 92–98%; not given routinely to normoxic patients.",
+    "caution": "Routine high-flow O₂ in a non-hypoxic ACS patient offers no benefit and may increase infarct size.",
+    "mnemonic": "\"More oxygen isn't automatically better.\""
+  },
+  {
+    "name": "Naloxone",
+    "doseShort": "0.4–2 mg, may repeat",
+    "indication": "Suspected opioid-associated life-threatening emergency.",
+    "dose": "0.4–2 mg IV/IM/IN; may repeat. Give without interrupting ventilations/CPR.",
+    "caution": "Doesn't harm a non-opioid arrest — when uncertain, give it and keep bagging.",
+    "mnemonic": "\"When in doubt, give it and keep breathing for them.\""
+  }
+]

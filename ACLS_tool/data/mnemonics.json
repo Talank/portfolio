@@ -1,0 +1,77 @@
+[
+  {
+    "label": "Rhythm ID",
+    "front": "Rate, Rhythm, P, PR, QRS",
+    "back": "The 5-question framework for reading any strip: rate, regularity, P waves, PR interval, QRS width. Everything else follows from these answers."
+  },
+  {
+    "label": "Cardiac arrest",
+    "front": "Shock, CPR, Drug",
+    "back": "Shockable-arm cadence: shock → 2 min CPR → rhythm check → shock again → epi after the 2nd shock, then amiodarone/lidocaine after the 3rd."
+  },
+  {
+    "label": "Epinephrine",
+    "front": "1 mg, every light change",
+    "back": "Epinephrine 1 mg IV/IO every 3–5 minutes during cardiac arrest."
+  },
+  {
+    "label": "Amiodarone",
+    "front": "300, then cut it in half",
+    "back": "300 mg first dose, 150 mg second dose for refractory VF/pVT."
+  },
+  {
+    "label": "Lidocaine",
+    "front": "1 to 1.5, then half that",
+    "back": "1–1.5 mg/kg first dose, 0.5–0.75 mg/kg second dose."
+  },
+  {
+    "label": "Atropine",
+    "front": "One at a time, up to three",
+    "back": "1 mg IV every 3–5 min, maximum total dose 3 mg, for symptomatic bradycardia."
+  },
+  {
+    "label": "Adenosine",
+    "front": "6, then 12 — push fast, flush faster",
+    "back": "6 mg rapid IV push + flush; 12 mg if no conversion. Very short half-life demands a fast push."
+  },
+  {
+    "label": "Bradycardia",
+    "front": "1, up to 3, then Pace or Push",
+    "back": "Atropine to a max of 3 mg; beyond that, transcutaneous pacing and/or dopamine or epinephrine infusion."
+  },
+  {
+    "label": "Sync vs. unsync",
+    "front": "Sync what's organized, shock what's chaos",
+    "back": "Any organized QRS being cardioverted gets synchronized shock. VF and irregular wide-complex rhythms get unsynchronized defibrillation."
+  },
+  {
+    "label": "H's & T's",
+    "front": "5 H's, 5 T's",
+    "back": "Hypovolemia, Hypoxia, Hydrogen ion, Hypo/Hyperkalemia, Hypothermia — Tension pneumothorax, Tamponade, Toxins, Thrombosis (pulmonary), Thrombosis (coronary)."
+  },
+  {
+    "label": "Hyperkalemia",
+    "front": "C BIG K Drop",
+    "back": "Calcium → Bicarbonate → Insulin+Glucose → Kayexalate/diuretics/Dialysis. Only the last step actually removes potassium."
+  },
+  {
+    "label": "ACS",
+    "front": "ANOM, not MONA",
+    "back": "Aspirin first and fast, Nitro if BP allows, Oxygen only if hypoxic, Morphine last resort for refractory pain."
+  },
+  {
+    "label": "Stroke",
+    "front": "20-60-3",
+    "back": "CT read within 20 min, door-to-needle within 60 min, stroke-unit admission within 3 hours."
+  },
+  {
+    "label": "Post-ROSC",
+    "front": "VITALS",
+    "back": "Ventilation target, Investigate the cause, Temperature control (32–37.5°C), Arterial pressure (MAP ≥65), Level of glucose, Seizure/EEG watch."
+  },
+  {
+    "label": "Team dynamics",
+    "front": "Say it, repeat it, confirm it",
+    "back": "Closed-loop communication: leader gives the order, team member repeats it back, then confirms once it's done."
+  }
+]

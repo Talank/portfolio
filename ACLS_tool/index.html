@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACLS_tool — Advanced Cardiovascular Life Support Prep</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+<div class="shell">
+  <div class="topbar">
+    <div class="brand"><span class="mark">❯_</span><span class="name">ACLS_tool</span><span class="sub">exam prep, RN edition</span></div>
+    <div class="ecgwrap"><canvas id="ecgHead" width="600" height="34"></canvas></div>
+    <button class="themebtn" id="themeToggle" type="button">Theme: Auto</button>
+  </div>
+
+  <nav class="side" id="sideNav" aria-label="Sections">
+    <div class="navgroup">
+      <div class="label">Foundations</div>
+      <button class="navbtn active" data-target="sec-overview"><span class="tag"></span>Overview</button>
+      <button class="navbtn" data-target="sec-approach"><span class="tag"></span>Approach &amp; Team</button>
+      <button class="navbtn" data-target="sec-rhythms"><span class="tag"></span>Rhythm Recognition</button>
+    </div>
+    <div class="navgroup">
+      <div class="label">Algorithms</div>
+      <button class="navbtn" data-target="sec-arrest"><span class="tag"></span>Cardiac Arrest</button>
+      <button class="navbtn" data-target="sec-brady"><span class="tag"></span>Bradycardia</button>
+      <button class="navbtn" data-target="sec-tachy"><span class="tag"></span>Tachycardia</button>
+      <button class="navbtn" data-target="sec-rosc"><span class="tag"></span>Post-ROSC Care</button>
+      <button class="navbtn" data-target="sec-acs"><span class="tag"></span>ACS</button>
+      <button class="navbtn" data-target="sec-stroke"><span class="tag"></span>Stroke</button>
+    </div>
+    <div class="navgroup">
+      <div class="label">Reference</div>
+      <button class="navbtn" data-target="sec-pharm"><span class="tag"></span>Drug Reference</button>
+      <button class="navbtn" data-target="sec-electrical"><span class="tag"></span>Electrical Therapy</button>
+      <button class="navbtn" data-target="sec-hts"><span class="tag"></span>H's &amp; T's</button>
+    </div>
+    <div class="navgroup">
+      <div class="label">Review</div>
+      <button class="navbtn" data-target="sec-mnemonics"><span class="tag"></span>Mnemonic Hub</button>
+      <button class="navbtn" data-target="sec-cheatsheet"><span class="tag"></span>Cheat Sheet</button>
+      <button class="navbtn" data-target="sec-practice"><span class="tag"></span>Practice &amp; Quiz</button>
+    </div>
+  </nav>
+
+  <main id="mainArea">
+
+    <!-- OVERVIEW -->
+    <section class="section active" id="sec-overview">
+      <div class="pagehead">
+        <div class="eyebrow">Start here</div>
+        <h1>Advanced Cardiovascular Life Support, past what BLS already taught you</h1>
+        <div class="dek">Built for a working RN with current BLS — not for someone learning CPR for the first time.</div>
+      </div>
+
+      <div class="callout skip">
+        <span class="ic">Skipping</span>
+        <p>Compression mechanics, rescue-breathing ratios, AED pad placement, choking response, one-rescuer vs two-rescuer sequencing. That's BLS territory you already hold. This tool starts where BLS ends: rhythm interpretation, drug therapy, electrical therapy, and the algorithms that sequence them under a team.</p>
+      </div>
+
+      <p class="prose">ACLS is BLS plus four things layered on top: a <b>monitor</b> (so you're treating a specific rhythm, not just "no pulse"), a <b>pharmacy</b> (so you know what to push and when), a <b>defibrillator with more settings than one button</b> (sync vs. unsync, energy selection), and a <b>team</b> you're either running or working inside of. Everything in this tool hangs off one of those four pegs.</p>
+
+      <div class="kpi">
+        <div><div class="n">6</div><div class="l">core algorithms</div></div>
+        <div><div class="n">12</div><div class="l">drugs to know cold</div></div>
+        <div><div class="n">15</div><div class="l">rhythms to ID on sight</div></div>
+        <div><div class="n">∞</div><div class="l">times you'll say "epi q3–5"</div></div>
+      </div>
+
+      <h3 style="margin-top:22px;">How the exam actually tests you</h3>
+      <p class="prose">Provider and renewal exams lean on scenario-based multiple choice: you're given a rhythm strip or a clinical vignette and asked for the <em>next</em> correct action, not a definition. The megacode/skills portion tests whether you can run an algorithm out loud under time pressure without freezing on drug math. Both reward pattern recognition over memorized trivia — which is why this tool leans on mnemonics and flashcards instead of walls of text.</p>
+
+      <h3 style="margin-top:22px;">Suggested order</h3>
+      <ol class="tight">
+        <li><b>Rhythm Recognition</b> — if you can't name the rhythm, the algorithm choice is a guess.</li>
+        <li><b>Cardiac Arrest → Bradycardia → Tachycardia</b> — the three algorithms that structure everything else.</li>
+        <li><b>Drug Reference + Electrical Therapy</b> — the tools those algorithms call on.</li>
+        <li><b>ACS, Stroke, Post-ROSC</b> — the "what happens after/around the arrest" algorithms.</li>
+        <li><b>Mnemonic Hub → Cheat Sheet → Practice</b> — compression and self-test in the last 48 hours before your exam.</li>
+      </ol>
+
+      <div class="callout pearl">
+        <span class="ic">Pearl</span>
+        <p>Content here reflects the 2020 AHA Guidelines for CPR &amp; ECC as updated by the 2025 focused update (published October 2025) — including the widened post-arrest temperature target (32–37.5°C), the 200 J starting energy for synchronized cardioversion of atrial arrhythmias, and Class IIb language on double sequential defibrillation. Always defer to your current AHA Provider Manual and your institution's protocols for certification purposes — this is a study aid, not a clinical reference.</p>
+      </div>
+    </section>
+
+    <!-- APPROACH & TEAM -->
+    <section class="section" id="sec-approach">
+      <div class="pagehead">
+        <div class="eyebrow">Foundations</div>
+        <h1>The Systematic Approach &amp; Team Dynamics</h1>
+        <div class="dek">One framework, run in order, every time — it's what keeps a code from becoming noise.</div>
+      </div>
+
+      <p class="prose">BLS survey (check responsiveness, call for help, C-A-B, defibrillate if indicated) still happens first — you know that part. ACLS adds two more passes: the <b>Primary Assessment</b> and the <b>Secondary Assessment</b>. Run both, in order, every time, even when the answer seems obvious.</p>
+
+      <div class="tablewrap"><table>
+        <tr><th>Primary — ABCDE</th><th>What you're actually doing</th></tr>
+        <tr><td class="mono">Airway</td><td>Patent? Need an advanced airway? If one's placed, confirm and continuously monitor with waveform capnography — not just a color-change device.</td></tr>
+        <tr><td class="mono">Breathing</td><td>Rate, effort, SpO₂, bilateral breath sounds. Avoid excessive ventilation — it raises intrathoracic pressure and drops coronary perfusion pressure during compressions.</td></tr>
+        <tr><td class="mono">Circulation</td><td>Monitor/leads on, pulse and BP, IV/IO access x2 if possible, identify the rhythm.</td></tr>
+        <tr><td class="mono">Disability</td><td>Quick neuro check — AVPU or GCS, pupils, glucose.</td></tr>
+        <tr><td class="mono">Exposure</td><td>Fully expose, look for the clue you'd otherwise miss — track marks, a med patch, JVD, unequal breath sounds.</td></tr>
+      </table></div>
+
+      <div class="tablewrap"><table>
+        <tr><th>Secondary Assessment</th><th></th></tr>
+        <tr><td class="mono">SAMPLE hx</td><td>Signs/symptoms, Allergies, Medications, Past history, Last oral intake, Events leading up.</td></tr>
+        <tr><td class="mono">H's &amp; T's</td><td>Search for reversible causes in parallel with treatment — see the dedicated <a href="#" data-jump="sec-hts">H's &amp; T's</a> page.</td></tr>
+      </table></div>
+
+      <div class="callout pearl">
+        <span class="ic">Pearl</span>
+        <p>Waveform capnography is quietly one of the highest-yield ACLS concepts: it confirms tube placement, gauges CPR quality (target ETCO₂ ≥ 10 mmHg, ideally &gt;20), and is often the earliest objective sign of ROSC — a sudden sustained jump in ETCO₂ during compressions, sometimes before you'd feel a pulse.</p>
+      </div>
+
+      <h3 style="margin-top:24px;">High-performance team dynamics</h3>
+      <p class="prose">AHA names this explicitly because it's a testable, distinct skill — not soft-skill filler.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>The six elements</h3>
+          <ul class="tight">
+            <li><b>Clear roles &amp; responsibilities</b> — everyone knows their job before it starts.</li>
+            <li><b>Knowing your limitations</b> — ask for help before you're in over your head.</li>
+            <li><b>Constructive intervention</b> — speak up if you see an error, respectfully and immediately.</li>
+            <li><b>Knowledge sharing</b> — think out loud; don't sit on a differential.</li>
+            <li><b>Closed-loop communication</b> — order given → order repeated back → order confirmed done.</li>
+            <li><b>Clear, direct messages</b> — no ambiguity, no shouted overlap.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Closed-loop, concretely</h3>
+          <p style="font-size:.9rem;">Leader: <em>"Give epinephrine 1 milligram IV now."</em><br>
+          Nurse: <em>"Giving epinephrine 1 milligram IV now."</em><br>
+          Nurse, after: <em>"Epinephrine 1 milligram IV given at 14:32."</em></p>
+          <p style="font-size:.9rem; margin-bottom:0;">Three steps, every drug, every shock. It's the single most testable team-dynamics behavior on a megacode station.</p>
+        </div>
+      </div>
+
+      <div class="callout caution">
+        <span class="ic">From the code cart</span>
+        <p>The quietest code is usually the best-run one. Closed-loop communication means <em>one voice giving orders, one voice confirming</em> — not everyone calling out the rhythm at once. If you're not the leader and not the one being addressed, you're either doing your task or watching the monitor.</p>
+      </div>
+    </section>
+
+    <!-- RHYTHM RECOGNITION -->
+    <section class="section" id="sec-rhythms">
+      <div class="pagehead">
+        <div class="eyebrow">Foundations</div>
+        <h1>Rhythm Recognition</h1>
+        <div class="dek">Five questions, asked in the same order, on every strip.</div>
+      </div>
+
+      <div class="card spine-accent">
+        <h3>The framework — <span class="mono" style="font-size:.85em;color:var(--ink-dim);">mnemonic: "Rate, Rhythm, P, PR, QRS"</span></h3>
+        <ol class="tight">
+          <li><b>Rate</b> — count it (6-second strip × 10, or 1500 ÷ small boxes between R waves).</li>
+          <li><b>Regularity</b> — regular, regularly irregular, or irregularly irregular.</li>
+          <li><b>P waves</b> — present? One per QRS? Same shape each time?</li>
+          <li><b>PR interval</b> — constant, lengthening, or unrelated to the QRS?</li>
+          <li><b>QRS width</b> — narrow (&lt;0.12s, supraventricular origin) or wide (≥0.12s, ventricular origin or aberrant conduction)?</li>
+        </ol>
+      </div>
+
+      <p class="prose">Everything downstream — which algorithm you open, which drug you reach for — falls out of those five answers. Narrow + irregular is a different drug than wide + regular, even though both can look "fast and scary" at first glance.</p>
+
+      <div class="tablewrap"><table>
+        <tr><th>Category</th><th>Rhythms</th><th>Disposition</th></tr>
+        <tr><td><span class="pill crit">Shockable</span></td><td>Ventricular fibrillation, pulseless ventricular tachycardia</td><td>Defibrillate immediately, no pulse check delay</td></tr>
+        <tr><td><span class="pill info">Non-shockable arrest</span></td><td>Asystole, PEA (organized rhythm, no pulse)</td><td>CPR + epinephrine ASAP, hunt H's &amp; T's</td></tr>
+        <tr><td><span class="pill caut">Unstable if symptomatic</span></td><td>Bradycardias, heart blocks, tachycardias</td><td>Treat per Bradycardia/Tachycardia algorithm</td></tr>
+        <tr><td><span class="pill ok">Often stable</span></td><td>Sinus rhythm variants, controlled AFib</td><td>Monitor, treat underlying cause</td></tr>
+      </table></div>
+
+      <h3 style="margin-top:22px;">Rhythm gallery</h3>
+      <p class="prose">Live-drawn strips — the same drawing engine used in the Practice rhythm drill. Tap a card to jump straight to timed drilling.</p>
+      <div id="rhythmGallery" class="flashgrid"></div>
+    </section>
+
+    <!-- CARDIAC ARREST -->
+    <section class="section" id="sec-arrest">
+      <div class="pagehead">
+        <div class="eyebrow">Algorithm</div>
+        <h1>Adult Cardiac Arrest</h1>
+        <div class="dek">VF/pVT and PEA/Asystole — one algorithm, two branches, same clock.</div>
+      </div>
+
+      <p class="prose">Start CPR, attach the monitor/defibrillator, and answer one question: is the rhythm shockable?</p>
+
+      <div class="algo-branch">
+        <div>
+          <div class="algo-col-head crit">Shockable — VF / pulseless VT</div>
+          <ul class="algo-steps">
+            <li class="crit" data-n="1"><b>Shock</b><span class="sm">Defibrillate immediately, unsynchronized.</span></li>
+            <li class="crit" data-n="2"><b>CPR × 2 min</b><span class="sm">Resume compressions instantly — no pulse check right after the shock.</span></li>
+            <li class="crit" data-n="3"><b>Rhythm check → still shockable? Shock again.</b><span class="sm">Then resume CPR immediately.</span></li>
+            <li class="crit" data-n="4"><b>Epinephrine 1 mg IV/IO</b><span class="sm">After the 2nd shock, then every 3–5 min.</span></li>
+            <li class="crit" data-n="5"><b>Consider advanced airway + capnography</b><span class="sm">Once available without stopping compressions.</span></li>
+            <li class="crit" data-n="6"><b>Amiodarone 300 mg (or lidocaine 1–1.5 mg/kg)</b><span class="sm">After the 3rd shock. Second dose: amiodarone 150 mg or lidocaine 0.5–0.75 mg/kg.</span></li>
+            <li class="crit" data-n="7"><b>Treat reversible causes; repeat cycle</b><span class="sm">Shock → CPR 2 min → rhythm check, drug every other cycle.</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="algo-col-head info">Non-shockable — PEA / Asystole</div>
+          <ul class="algo-steps">
+            <li data-n="1"><b>CPR × 2 min</b><span class="sm">No shock indicated.</span></li>
+            <li data-n="2"><b>Epinephrine 1 mg IV/IO ASAP</b><span class="sm">Give as soon as feasible, then every 3–5 min.</span></li>
+            <li data-n="3"><b>Rhythm/pulse check every 2 min</b><span class="sm">Rhythm becomes shockable? Switch branches.</span></li>
+            <li data-n="4"><b>Consider advanced airway + capnography</b><span class="sm">Same threshold as the shockable arm.</span></li>
+            <li data-n="5"><b>Hunt and treat H's &amp; T's aggressively</b><span class="sm">PEA/asystole survival hinges on finding the reversible cause — antiarrhythmics don't apply here.</span></li>
+            <li data-n="6"><b>Repeat cycle</b><span class="sm">CPR 2 min → epi q3–5min → reassess.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout caution">
+        <span class="ic">2025 update</span>
+        <p>Epinephrine timing now differs by branch: <b>shockable rhythms</b> get their first dose <em>after the 2nd shock</em>; <b>non-shockable rhythms</b> get it <em>as soon as feasible</em>. Vasopressin is not recommended as a substitute for or addition to epinephrine — there's no outcome benefit. Double sequential defibrillation (two defibrillators, near-simultaneous shocks) carries a Class IIb "may be considered" for refractory VF after 3 standard shocks fail — it is not yet a routine first-line step.</p>
+      </div>
+
+      <h3 style="margin-top:24px;">CPR quality cheat sheet</h3>
+      <div class="tablewrap"><table>
+        <tr><th>Parameter</th><th>Target</th></tr>
+        <tr><td>Rate</td><td class="mono">100–120/min</td></tr>
+        <tr><td>Depth</td><td class="mono">≥2 in (5 cm), not &gt;2.4 in (6 cm)</td></tr>
+        <tr><td>Recoil</td><td>Full chest recoil between compressions — don't lean</td></tr>
+        <tr><td>Interruptions</td><td class="mono">&lt;10 sec</td></tr>
+        <tr><td>Compressor rotation</td><td class="mono">Every 2 min</td> </tr>
+        <tr><td>Ventilation (advanced airway in place)</td><td class="mono">1 breath every 6 sec</td></tr>
+        <tr><td>ETCO₂ target</td><td class="mono">≥10 mmHg (aim &gt;20)</td></tr>
+      </table></div>
+
+      <div class="callout skip">
+        <span class="ic">Related</span>
+        <p><b>Opioid-associated life-threatening emergency:</b> assess responsiveness/breathing → call for help → if not breathing normally, start ventilations/CPR as indicated → give naloxone (0.4–2 mg IV/IM/IN, may repeat) as soon as available without interrupting resuscitation. If a non-opioid arrest, naloxone does no harm — when uncertain, give it anyway and keep ventilating.</p>
+      </div>
+
+      <div class="callout pearl">
+        <span class="ic">From the code cart</span>
+        <p>Push epinephrine right after compressions resume, not before — chasing the rhythm-check pause to give the drug is what actually delays the compressions generating coronary perfusion pressure. And confirm sync is <em>off</em> before you defibrillate; sync mode is for cardioversion, not for VF.</p>
+      </div>
+    </section>
+
+    <!-- BRADYCARDIA -->
+    <section class="section" id="sec-brady">
+      <div class="pagehead">
+        <div class="eyebrow">Algorithm</div>
+        <h1>Bradycardia With a Pulse</h1>
+        <div class="dek">HR &lt; 50 becomes a problem only when it's causing symptoms.</div>
+      </div>
+      <p class="prose">Identify and treat the underlying cause first. Monitor, O₂ if hypoxic, IV access, 12-lead if it doesn't delay therapy. The branch point is whether bradycardia is causing hypotension, acutely altered mental status, signs of shock, ischemic chest discomfort, or acute heart failure.</p>
+
+      <ul class="algo-steps" style="max-width:640px;">
+        <li data-n="1"><b>Persistent bradyarrhythmia causing symptoms?</b><span class="sm">If no — monitor and observe.</span></li>
+        <li class="crit" data-n="2"><b>Atropine 1 mg IV</b><span class="sm">Repeat every 3–5 min, max total 3 mg.</span></li>
+        <li class="crit" data-n="3"><b>Atropine ineffective, or unlikely to work</b><span class="sm">High-grade block (Mobitz II, 3rd-degree with wide QRS) often won't respond — don't wait on repeat doses.</span></li>
+        <li class="crit" data-n="4"><b>Transcutaneous pacing</b><span class="sm">And/or dopamine infusion 5–20 mcg/kg/min, and/or epinephrine infusion 2–10 mcg/min.</span></li>
+        <li class="crit" data-n="5"><b>Consider expert consult + transvenous pacing</b><span class="sm">Especially if pacing/pressors aren't holding.</span></li>
+      </ul>
+
+      <div class="callout caution">
+        <span class="ic">From the code cart</span>
+        <p>Full atropinization needs the full 3 mg. A single 1 mg dose in a high-degree block often just buys a few minutes of false reassurance — don't be surprised when you're setting up for pacing anyway. Also: transcutaneous pacing hurts. If the patient is conscious, sedate/analgese before you crank the current up.</p>
+      </div>
+
+      <div class="callout pearl">
+        <span class="ic">Mnemonic</span>
+        <p><b>"1, up to 3, then Pace or Push."</b> Atropine 1 mg doses, up to 3 mg max; beyond that, pace (transcutaneous) or push pressors (dopamine/epi infusion).</p>
+      </div>
+    </section>
+
+    <!-- TACHYCARDIA -->
+    <section class="section" id="sec-tachy">
+      <div class="pagehead">
+        <div class="eyebrow">Algorithm</div>
+        <h1>Tachycardia With a Pulse</h1>
+        <div class="dek">Unstable or stable first. Narrow or wide, regular or irregular, second.</div>
+      </div>
+
+      <div class="algo-branch">
+        <div>
+          <div class="algo-col-head crit">Unstable</div>
+          <ul class="algo-steps">
+            <li class="crit" data-n="1"><b>Hypotension, AMS, shock, ischemic pain, or acute HF caused by the tachycardia</b></li>
+            <li class="crit" data-n="2"><b>Immediate synchronized cardioversion</b><span class="sm">Sedate if time allows — don't delay if truly unstable.</span></li>
+            <li class="crit" data-n="3"><b>Exception: irregular wide-complex (polymorphic VT/torsades)</b><span class="sm">Treat as VF — unsynchronized defibrillation, not cardioversion.</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="algo-col-head info">Stable — 12-lead, then sort by width &amp; regularity</div>
+          <ul class="algo-steps">
+            <li data-n="1"><b>Narrow &amp; regular</b><span class="sm">Vagal maneuvers → adenosine 6 mg rapid IVP+flush → 12 mg if needed.</span></li>
+            <li data-n="2"><b>Narrow &amp; irregular</b><span class="sm">Likely AFib/AFlutter/MAT — rate control (β-blocker/CCB), avoid adenosine, consider anticoagulation.</span></li>
+            <li data-n="3"><b>Wide &amp; regular</b><span class="sm">Treat as VT until proven otherwise. Antiarrhythmic infusion (procainamide, amiodarone, or sotalol) — expert consult.</span></li>
+            <li data-n="4"><b>Wide &amp; irregular</b><span class="sm">Possible pre-excited AFib (WPW) — avoid AV-nodal blockers (adenosine, β-blocker, CCB, digoxin); expert consult.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout caution">
+        <span class="ic">From the code cart</span>
+        <p>Wide and weird, with a history of structural heart disease? It usually <em>is</em> VT — treat it that way rather than reaching for a nodal blocker on a hunch. And always warn the patient before adenosine: "you're going to feel your heart pause for a second, that's expected." Skip the warning and you'll have a very alarmed patient — and family — at bedside.</p>
+      </div>
+
+      <div class="callout pearl">
+        <span class="ic">Mnemonic</span>
+        <p><b>"Sync what's organized, shock what's chaos."</b> Any organized QRS you're cardioverting gets sync mode. VF and irregular wide-complex (no reliable QRS to sync to) get unsynchronized defibrillation.</p>
+      </div>
+    </section>
+
+    <!-- POST ROSC -->
+    <section class="section" id="sec-rosc">
+      <div class="pagehead">
+        <div class="eyebrow">Algorithm</div>
+        <h1>Post-Cardiac Arrest Care</h1>
+        <div class="dek">ROSC isn't the finish line — the next 20 minutes re-arrest more patients than the original event.</div>
+      </div>
+
+      <div class="card spine-accent">
+        <h3>The bundle — <span class="mono" style="font-size:.85em;color:var(--ink-dim);">mnemonic: "VITALS"</span></h3>
+        <ul class="tight">
+          <li><b>V</b>entilation — titrate to SpO₂ 92–98%, normocapnia; avoid hyperventilation.</li>
+          <li><b>I</b>nvestigate the cause — 12-lead ECG, echo, consider emergent cath if STEMI/high suspicion.</li>
+          <li><b>T</b>emperature control — 32–37.5°C for ≥24 hours in patients unresponsive to commands; treat any fever &gt;37.5°C aggressively.</li>
+          <li><b>A</b>rterial pressure — MAP ≥ 65 mmHg; fluids/vasopressors as needed.</li>
+          <li><b>L</b>evel of glucose — monitor and control.</li>
+          <li><b>S</b>eizure watch — continuous EEG in comatose patients; treat seizures.</li>
+        </ul>
+      </div>
+
+      <div class="callout caution">
+        <span class="ic">2025 update</span>
+        <p>Temperature target widened from the old 32–36°C to <b>32–37.5°C</b>, maintained ≥24 h (reasonable up to 36 h). Fever is actively avoided, but strict hypothermia is no longer mandated. Neuroprognostication is delayed at least 72 hours post-arrest and post-rewarming — no single exam finding or test is used in isolation.</p>
+      </div>
+
+      <div class="callout pearl">
+        <span class="ic">From the code cart</span>
+        <p>The first 20 minutes after ROSC are deceptively dangerous. Patients re-arrest most often here from unrecognized hypotension or hypoxia — not from the original cause repeating itself. Don't let the room relax just because there's a pulse.</p>
+      </div>
+    </section>
+
+    <!-- ACS -->
+    <section class="section" id="sec-acs">
+      <div class="pagehead">
+        <div class="eyebrow">Algorithm</div>
+        <h1>Acute Coronary Syndromes</h1>
+        <div class="dek">MONA is retired. The order and the conditions attached to each piece now matter.</div>
+      </div>
+
+      <p class="prose">Recognize early — chest discomfort ± radiation, dyspnea, diaphoresis, and remember atypical presentation is common in women, older adults, and people with diabetes. Get a 12-lead ECG within 10 minutes of first contact; don't let anything delay it.</p>
+
+      <div class="card spine-critical">
+        <h3>ANOM — MONA, reordered and rationed</h3>
+        <ul class="tight">
+          <li><b>A</b>spirin 160–325 mg, chewed, non-enteric, first and fast (unless a true contraindication).</li>
+          <li><b>N</b>itroglycerin 0.4 mg SL, may repeat q5min ×3 — hold if SBP &lt; 90, suspected RV infarct, or a PDE5-inhibitor (sildenafil-class) taken in the last 24–48h.</li>
+          <li><b>O</b>xygen only if SpO₂ &lt; 90% or respiratory distress — routine high-flow O₂ in a non-hypoxic patient doesn't help and may worsen infarct size.</li>
+          <li><b>M</b>orphine last, only for pain refractory to nitrates — used judiciously, not routinely.</li>
+        </ul>
+      </div>
+
+      <div class="tablewrap"><table>
+        <tr><th>Pathway</th><th>Target</th></tr>
+        <tr><td>ECG acquired</td><td class="mono">≤ 10 min of first medical contact</td></tr>
+        <tr><td>STEMI → PCI (door-to-balloon)</td><td class="mono">≤ 90 min (≤120 min if transferring)</td></tr>
+        <tr><td>STEMI → fibrinolysis (door-to-needle)</td><td class="mono">≤ 30 min, if PCI unavailable within 120 min</td></tr>
+        <tr><td>NSTE-ACS</td><td>Risk stratify (TIMI/GRACE), anticoagulate, admit</td></tr>
+      </table></div>
+
+      <div class="callout pearl">
+        <span class="ic">From the code cart</span>
+        <p>More oxygen is not automatically better here. A high-flow mask on a patient sitting at 96% doesn't improve outcomes and may increase infarct size — reach for it only when the number actually says hypoxic.</p>
+      </div>
+    </section>
+
+    <!-- STROKE -->
+    <section class="section" id="sec-stroke">
+      <div class="pagehead">
+        <div class="eyebrow">Algorithm</div>
+        <h1>Suspected Stroke</h1>
+        <div class="dek">Time is brain — quite literally, the treatment window is the whole algorithm.</div>
+      </div>
+
+      <div class="card spine-info">
+        <h3>Recognition — BE-FAST</h3>
+        <ul class="tight">
+          <li><b>B</b>alance — sudden loss of balance or coordination.</li>
+          <li><b>E</b>yes — sudden vision loss or double vision.</li>
+          <li><b>F</b>ace — facial droop, ask them to smile.</li>
+          <li><b>A</b>rm — arm drift or weakness, ask them to raise both.</li>
+          <li><b>S</b>peech — slurred or garbled speech, ask them to repeat a phrase.</li>
+          <li><b>T</b>ime — note exactly when the patient was last known well; it drives every downstream decision.</li>
+        </ul>
+      </div>
+
+      <div class="card spine-accent">
+        <h3>Time targets — <span class="mono" style="font-size:.85em;color:var(--ink-dim);">mnemonic: "20-60-3"</span></h3>
+        <ul class="tight">
+          <li>CT (or MRI) read within <b>20</b> minutes of ED arrival.</li>
+          <li>Door-to-needle (thrombolytic) within <b>60</b> minutes, ideally 30–45.</li>
+          <li>Admit to a stroke unit within <b>3</b> hours of arrival.</li>
+        </ul>
+      </div>
+
+      <ul class="tight">
+        <li>Fibrinolytic (tenecteplase or alteplase) within <b>4.5 hours</b> of last known well, if no contraindications (anticoagulation, recent surgery/bleed, uncontrolled BP).</li>
+        <li>Mechanical thrombectomy for large-vessel occlusion up to <b>24 hours</b> from last known well in selected patients.</li>
+        <li>BP: permissive hypertension unless giving a fibrinolytic, then keep &lt; 185/110 before and during treatment.</li>
+        <li>Check glucose immediately — hypoglycemia is a classic stroke mimic.</li>
+      </ul>
+
+      <div class="callout pearl">
+        <span class="ic">From the code cart</span>
+        <p>Ask about anticoagulant use and pin down last-known-well time before the patient even leaves the waiting room. Those two facts alone drive almost every decision that follows.</p>
+      </div>
+    </section>
+
+    <!-- PHARM -->
+    <section class="section" id="sec-pharm">
+      <div class="pagehead">
+        <div class="eyebrow">Reference</div>
+        <h1>Drug Reference</h1>
+        <div class="dek">Tap a drug to expand dose, indication, caution, and its mnemonic.</div>
+      </div>
+      <div id="drugAccordions"></div>
+    </section>
+
+    <!-- ELECTRICAL -->
+    <section class="section" id="sec-electrical">
+      <div class="pagehead">
+        <div class="eyebrow">Reference</div>
+        <h1>Electrical Therapy</h1>
+        <div class="dek">Three modes, three very different setups. Mixing them up is a real exam trap.</div>
+      </div>
+
+      <div class="tablewrap"><table>
+        <tr><th>Mode</th><th>Sync?</th><th>Used for</th><th>Energy</th></tr>
+        <tr><td><b>Defibrillation</b></td><td><span class="pill crit">Unsynchronized</span></td><td>VF, pulseless VT, polymorphic VT</td><td class="mono">120–200 J biphasic (mfr. rec., 200 J if unknown) / 360 J monophasic</td></tr>
+        <tr><td><b>Cardioversion</b> — narrow regular (SVT)</td><td><span class="pill ok">Synchronized</span></td><td>Unstable narrow-regular tachycardia</td><td class="mono">100 J</td></tr>
+        <tr><td><b>Cardioversion</b> — narrow irregular (AFib/AFlutter)</td><td><span class="pill ok">Synchronized</span></td><td>Unstable AFib/AFlutter</td><td class="mono">200 J biphasic</td></tr>
+        <tr><td><b>Cardioversion</b> — wide regular (monomorphic VT)</td><td><span class="pill ok">Synchronized</span></td><td>Unstable monomorphic VT</td><td class="mono">100 J</td></tr>
+        <tr><td><b>Transcutaneous pacing</b></td><td>n/a</td><td>Symptomatic bradycardia unresponsive to atropine</td><td class="mono">Rate 60–80/min, ↑ mA to capture</td></tr>
+      </table></div>
+
+      <div class="callout caution">
+        <span class="ic">From the code cart</span>
+        <p>Confirm the sync markers are actually landing on the R wave before you shock in sync mode — a sync failure that fires on a T wave can cause R-on-T and precipitate the exact rhythm (VF) you were trying to avoid. And after any shock, resume compressions immediately; don't pause to feel for a pulse first.</p>
+      </div>
+
+      <h3 style="margin-top:22px;">Pad placement pearls</h3>
+      <ul class="tight">
+        <li>Anterior-lateral is the default; anterior-posterior is the alternative (sometimes preferred for AFib cardioversion).</li>
+        <li>Keep pads &gt; 8 cm from an implanted pacemaker/ICD generator.</li>
+        <li>Remove nitro patches and excess chest hair issues before placement; dry the chest if diaphoretic.</li>
+        <li>For pacing, confirm both electrical capture (spike + wide QRS) <em>and</em> mechanical capture (a palpable pulse) — electrical capture alone isn't enough.</li>
+      </ul>
+    </section>
+
+    <!-- H's and T's -->
+    <section class="section" id="sec-hts">
+      <div class="pagehead">
+        <div class="eyebrow">Reference</div>
+        <h1>H's &amp; T's — Reversible Causes</h1>
+        <div class="dek">Run the full list out loud in every PEA/asystole arrest. It's what catches the one you'd otherwise miss.</div>
+      </div>
+
+      <div class="grid2">
+        <div class="card spine-info">
+          <h3>The 5 H's</h3>
+          <ul class="tight">
+            <li><b>Hypovolemia</b> — flat neck veins, history of bleeding/fluid loss → fluids, blood.</li>
+            <li><b>Hypoxia</b> — check airway, ventilation, SpO₂ → 100% O₂, secure airway.</li>
+            <li><b>Hydrogen ion (acidosis)</b> — known renal failure, prolonged arrest → ventilation, treat cause; bicarb only if specifically indicated.</li>
+            <li><b>Hypo-/Hyperkalemia</b> — dialysis patient, peaked or flattened T waves → see treatment below.</li>
+            <li><b>Hypothermia</b> — cold exposure history, low core temp → active rewarming.</li>
+          </ul>
+        </div>
+        <div class="card spine-caution">
+          <h3>The 5 T's</h3>
+          <ul class="tight">
+            <li><b>Tension pneumothorax</b> — absent breath sounds, JVD, tracheal deviation → needle decompression.</li>
+            <li><b>Tamponade, cardiac</b> — JVD, muffled heart sounds, history of trauma/effusion → pericardiocentesis.</li>
+            <li><b>Toxins</b> — overdose history, drug vials at scene → specific antidote (e.g., naloxone).</li>
+            <li><b>Thrombosis, pulmonary</b> — sudden collapse, recent surgery/immobility → consider fibrinolysis.</li>
+            <li><b>Thrombosis, coronary</b> — cardiac history, prior ECG changes → cath lab/fibrinolysis.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card spine-accent">
+        <h3>Hyperkalemia treatment — <span class="mono" style="font-size:.85em;color:var(--ink-dim);">mnemonic: "C BIG K Drop"</span></h3>
+        <ul class="tight">
+          <li><b>C</b>alcium chloride/gluconate — stabilizes the cardiac membrane first.</li>
+          <li><b>B</b>icarbonate — shifts K⁺ intracellularly.</li>
+          <li><b>I</b>nsulin (with <b>G</b>lucose) — drives K⁺ intracellularly.</li>
+          <li><b>K</b>ayexalate / diuretics / <b>D</b>ialysis — actually removes potassium from the body.</li>
+        </ul>
+      </div>
+
+      <div class="callout pearl">
+        <span class="ic">From the code cart</span>
+        <p>Say the whole list out loud during a code, even when it feels redundant — verbalizing it is what catches the tension pneumothorax you'd otherwise miss at minute 14, once everyone's attention has narrowed to the monitor.</p>
+      </div>
+    </section>
+
+    <!-- MNEMONIC HUB -->
+    <section class="section" id="sec-mnemonics">
+      <div class="pagehead">
+        <div class="eyebrow">Review</div>
+        <h1>Mnemonic Hub</h1>
+        <div class="dek">Every memory device on this site, in one flippable deck. Tap a card to reveal the payoff.</div>
+      </div>
+      <div class="deck-controls">
+        <button class="btn ghost" id="mnemShuffle" type="button">Shuffle</button>
+        <button class="btn ghost" id="mnemFlipAll" type="button">Flip all</button>
+      </div>
+      <div id="mnemDeck" class="flashgrid"></div>
+    </section>
+
+    <!-- CHEAT SHEET -->
+    <section class="section" id="sec-cheatsheet">
+      <div class="pagehead">
+        <div class="eyebrow">Review</div>
+        <h1>The One-Page Cheat Sheet</h1>
+        <div class="dek">Dense, numbers-first. This is the page for the morning of your exam.</div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>CPR quality</h3>
+          <div class="tablewrap"><table>
+            <tr><td>Rate</td><td class="num">100–120/min</td></tr>
+            <tr><td>Depth</td><td class="num">2–2.4 in</td></tr>
+            <tr><td>Interruptions</td><td class="num">&lt;10 sec</td></tr>
+            <tr><td>Rotate compressor</td><td class="num">q2min</td></tr>
+            <tr><td>Vent. w/ advanced airway</td><td class="num">1 breath/6 sec</td></tr>
+            <tr><td>ETCO₂ target</td><td class="num">≥10 mmHg</td></tr>
+          </table></div>
+        </div>
+        <div class="card">
+          <h3>Shock energy</h3>
+          <div class="tablewrap"><table>
+            <tr><td>Defib (VF/pVT)</td><td class="num">120–200 J biphasic</td></tr>
+            <tr><td>Cardiovert narrow reg.</td><td class="num">100 J</td></tr>
+            <tr><td>Cardiovert narrow irreg.</td><td class="num">200 J</td></tr>
+            <tr><td>Cardiovert wide reg.</td><td class="num">100 J</td></tr>
+            <tr><td>Wide irregular</td><td class="num">Defib, not sync</td></tr>
+          </table></div>
+        </div>
+        <div class="card">
+          <h3>Drug doses — arrest</h3>
+          <div class="tablewrap"><table>
+            <tr><td>Epinephrine</td><td class="num">1 mg q3–5min</td></tr>
+            <tr><td>Amiodarone</td><td class="num">300 mg → 150 mg</td></tr>
+            <tr><td>Lidocaine</td><td class="num">1–1.5 → 0.5–0.75 mg/kg</td></tr>
+            <tr><td>Magnesium (torsades)</td><td class="num">1–2 g IV</td></tr>
+          </table></div>
+        </div>
+        <div class="card">
+          <h3>Drug doses — non-arrest</h3>
+          <div class="tablewrap"><table>
+            <tr><td>Atropine</td><td class="num">1 mg q3–5min, max 3 mg</td></tr>
+            <tr><td>Adenosine</td><td class="num">6 mg → 12 mg</td></tr>
+            <tr><td>Dopamine</td><td class="num">5–20 mcg/kg/min</td></tr>
+            <tr><td>Naloxone</td><td class="num">0.4–2 mg, may repeat</td></tr>
+          </table></div>
+        </div>
+      </div>
+
+      <div class="card spine-accent">
+        <h3>H's &amp; T's, at a glance</h3>
+        <p style="margin-bottom:0; font-size:.9rem;">Hypovolemia · Hypoxia · Hydrogen ion · Hypo/Hyperkalemia · Hypothermia — Tension pneumo · Tamponade · Toxins · Thrombosis (pulm.) · Thrombosis (coronary)</p>
+      </div>
+
+      <div class="card spine-info">
+        <h3>Timing targets</h3>
+        <p style="margin-bottom:0; font-size:.9rem;">ECG ≤10 min · STEMI door-to-balloon ≤90 min · door-to-needle (STEMI) ≤30 min · Stroke CT ≤20 min · stroke door-to-needle ≤60 min · fibrinolytic window ≤4.5 h · thrombectomy window ≤24 h · post-ROSC temp 32–37.5°C ≥24h</p>
+      </div>
+    </section>
+
+    <!-- PRACTICE -->
+    <section class="section" id="sec-practice">
+      <div class="pagehead">
+        <div class="eyebrow">Practice</div>
+        <h1>Drill &amp; Self-Test</h1>
+        <div class="dek">Scores save locally in your browser — nothing leaves this page.</div>
+      </div>
+
+      <div class="tabbar">
+        <button class="tabbtn active" data-tab="tab-rhythm">Rhythm Drill</button>
+        <button class="tabbtn" data-tab="tab-quiz">Quiz</button>
+        <button class="tabbtn" data-tab="tab-mock">Mock Exam</button>
+        <button class="tabbtn" data-tab="tab-drug">Drug Dose Drill</button>
+      </div>
+
+      <div class="tabpane active" id="tab-rhythm">
+        <p class="prose">A strip is drawn live. Name it before checking.</p>
+        <div class="rhythmbox"><canvas id="rhythmCanvas" width="900" height="150"></canvas></div>
+        <div id="rhythmChoices" class="choicegrid"></div>
+        <div id="rhythmFeedback" class="feedback"></div>
+        <div class="deck-controls" style="margin-top:14px;">
+          <button class="btn" id="rhythmNext" type="button">New strip</button>
+          <span class="scoreline" id="rhythmScore">0 / 0</span>
+        </div>
+      </div>
+
+      <div class="tabpane" id="tab-quiz">
+        <div class="deck-controls">
+          <select id="quizCategory" class="btn ghost" style="cursor:pointer;">
+            <option value="all">All categories</option>
+            <option value="foundations">Foundations / Team</option>
+            <option value="arrest">Cardiac Arrest</option>
+            <option value="brady-tachy">Brady / Tachy</option>
+            <option value="pharm">Pharmacology</option>
+            <option value="acs-stroke">ACS / Stroke</option>
+            <option value="electrical">Electrical Therapy</option>
+            <option value="hts">H's &amp; T's</option>
+            <option value="post-rosc">Post-ROSC</option>
+          </select>
+          <button class="btn" id="quizStart" type="button">Start / Restart</button>
+          <span class="scoreline" id="quizScore">Score: 0 / 0</span>
+        </div>
+        <p class="prose" style="font-size:.82rem;color:var(--ink-dim);">Study mode — one question at a time, immediate feedback. Draws from the same no-repeat pool as Mock Exam, so a reload won't hand you the same set twice in a row.</p>
+        <div id="quizArea"></div>
+      </div>
+
+      <div class="tabpane" id="tab-mock">
+        <p class="prose">Exam-simulation mode: answer everything, then submit for a single score — like the real thing. Every retake pulls fresh, unseen questions from the full bank until it has to recycle.</p>
+        <div class="deck-controls">
+          <select id="mockCategory" class="btn ghost" style="cursor:pointer;">
+            <option value="all">All categories (mixed)</option>
+            <option value="foundations">Foundations / Team</option>
+            <option value="arrest">Cardiac Arrest</option>
+            <option value="brady-tachy">Brady / Tachy</option>
+            <option value="pharm">Pharmacology</option>
+            <option value="acs-stroke">ACS / Stroke</option>
+            <option value="electrical">Electrical Therapy</option>
+            <option value="hts">H's &amp; T's</option>
+            <option value="post-rosc">Post-ROSC</option>
+          </select>
+          <select id="mockLength" class="btn ghost" style="cursor:pointer;">
+            <option value="20">20 questions</option>
+            <option value="35" selected>35 questions</option>
+            <option value="50">50 questions</option>
+            <option value="all">Full bank</option>
+          </select>
+          <button class="btn" id="mockStart" type="button">Start mock exam</button>
+        </div>
+        <div id="mockArea"><p class="prose" style="color:var(--ink-dim);">Pick a length and category, then start. Question bank currently holds <span id="bankTotal" class="mono"></span> questions across 8 categories.</p></div>
+      </div>
+
+      <div class="tabpane" id="tab-drug">
+        <p class="prose">Recall the dose before you flip.</p>
+        <div class="deck-controls">
+          <button class="btn ghost" id="drugShuffle" type="button">Shuffle</button>
+        </div>
+        <div id="drugDeck" class="flashgrid"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="foot">
+  ACLS_tool — a self-study aid, not a substitute for your AHA Provider Manual, institutional protocols, or clinical judgment. Reflects the 2020 AHA Guidelines for CPR &amp; ECC with the 2025 focused update.
+</footer>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

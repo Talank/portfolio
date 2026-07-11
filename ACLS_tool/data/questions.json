@@ -1,0 +1,1454 @@
+[
+  {
+    "cat": "arrest",
+    "q": "A patient in VF has just received a second shock. Compressions have resumed. What happens next?",
+    "choices": [
+      "Check for a pulse immediately",
+      "Give epinephrine 1 mg IV/IO",
+      "Give amiodarone 300 mg",
+      "Intubate before continuing CPR"
+    ],
+    "a": 1,
+    "ex": "Epinephrine 1 mg is given after the 2nd shock in the shockable arm, then every 3–5 minutes."
+  },
+  {
+    "cat": "arrest",
+    "q": "Which drug is given first for refractory VF after the 3rd shock?",
+    "choices": [
+      "Atropine 1 mg",
+      "Amiodarone 300 mg",
+      "Adenosine 6 mg",
+      "Calcium chloride"
+    ],
+    "a": 1,
+    "ex": "Amiodarone 300 mg (or lidocaine 1–1.5 mg/kg) is given after the 3rd shock in refractory VF/pVT."
+  },
+  {
+    "cat": "arrest",
+    "q": "A patient in PEA is receiving CPR. What is the priority beyond epinephrine and good compressions?",
+    "choices": [
+      "Amiodarone 300 mg",
+      "Searching for and treating H's and T's",
+      "Synchronized cardioversion",
+      "Atropine 1 mg"
+    ],
+    "a": 1,
+    "ex": "PEA/asystole survival depends on finding a reversible cause — antiarrhythmics have no role here, and atropine was removed from this pathway."
+  },
+  {
+    "cat": "arrest",
+    "q": "What is the target ETCO₂ during effective CPR?",
+    "choices": [
+      "≥10 mmHg",
+      "≥40 mmHg",
+      "≤5 mmHg",
+      "It isn't used during CPR"
+    ],
+    "a": 0,
+    "ex": "ETCO₂ ≥10 mmHg (ideally >20) reflects adequate compressions and cardiac output; a sudden sustained rise often signals ROSC."
+  },
+  {
+    "cat": "arrest",
+    "q": "How is vasopressin currently used in the cardiac arrest algorithm?",
+    "choices": [
+      "1st-line, replacing epinephrine",
+      "Added to every 2nd epinephrine dose",
+      "Not recommended as a substitute for or addition to epinephrine",
+      "Only for asystole"
+    ],
+    "a": 2,
+    "ex": "Evidence shows no outcome benefit for vasopressin alone or combined with epinephrine compared with epinephrine alone."
+  },
+  {
+    "cat": "arrest",
+    "q": "What is the correct chest compression rate during adult CPR?",
+    "choices": [
+      "80–100/min",
+      "100–120/min",
+      "120–140/min",
+      "60–80/min"
+    ],
+    "a": 1,
+    "ex": "100–120 compressions per minute is the target rate for adult CPR."
+  },
+  {
+    "cat": "arrest",
+    "q": "What is the correct chest compression depth for an adult?",
+    "choices": [
+      "At least 1 inch",
+      "At least 2 inches, not more than 2.4 inches",
+      "At least 3 inches",
+      "Whatever produces a palpable pulse"
+    ],
+    "a": 1,
+    "ex": "Depth target is ≥2 in (5 cm), capped at 2.4 in (6 cm) — too shallow and too deep both reduce effectiveness/increase injury risk."
+  },
+  {
+    "cat": "arrest",
+    "q": "How often should the compressor role rotate during a code?",
+    "choices": [
+      "Every 30 seconds",
+      "Every 2 minutes",
+      "Every 5 minutes",
+      "Only when the compressor asks"
+    ],
+    "a": 1,
+    "ex": "Fatigue degrades compression quality well before it's subjectively felt — rotate on the 2-minute mark regardless."
+  },
+  {
+    "cat": "arrest",
+    "q": "Once an advanced airway is placed during arrest, what is the ventilation rate?",
+    "choices": [
+      "1 breath every 3 seconds",
+      "1 breath every 6 seconds, continuous compressions",
+      "2 breaths every 30 compressions",
+      "1 breath every 10 seconds"
+    ],
+    "a": 1,
+    "ex": "With an advanced airway in place, ventilate once every 6 seconds (about 10/min) while compressions continue uninterrupted."
+  },
+  {
+    "cat": "arrest",
+    "q": "What does a sudden, sustained rise in ETCO₂ during ongoing compressions most likely indicate?",
+    "choices": [
+      "The airway has dislodged",
+      "Return of spontaneous circulation (ROSC)",
+      "Hyperventilation",
+      "A false capnography reading, ignore it"
+    ],
+    "a": 1,
+    "ex": "A sudden sustained ETCO₂ jump is often the earliest objective sign of ROSC, sometimes appearing before a pulse is felt."
+  },
+  {
+    "cat": "arrest",
+    "q": "A rescuer wants to check a pulse immediately after delivering a defibrillation shock. What should actually happen?",
+    "choices": [
+      "Check the pulse first, then resume CPR if none is found",
+      "Resume chest compressions immediately, no pulse check first",
+      "Wait 30 seconds before doing anything",
+      "Give epinephrine before resuming compressions"
+    ],
+    "a": 1,
+    "ex": "Resume compressions immediately after any shock — pausing to check a pulse first only delays perfusion."
+  },
+  {
+    "cat": "arrest",
+    "q": "Which drug in the refractory-VF pathway uses weight-based dosing, unlike its 300 mg / 150 mg alternative?",
+    "choices": [
+      "Amiodarone",
+      "Lidocaine",
+      "Epinephrine",
+      "Atropine"
+    ],
+    "a": 1,
+    "ex": "Lidocaine is dosed 1–1.5 mg/kg then 0.5–0.75 mg/kg; amiodarone uses fixed 300 mg then 150 mg doses."
+  },
+  {
+    "cat": "arrest",
+    "q": "In the non-shockable (PEA/asystole) arm, when is the first dose of epinephrine given?",
+    "choices": [
+      "Only after the 3rd rhythm check",
+      "As soon as feasible, then every 3–5 minutes",
+      "Only after amiodarone has been given",
+      "It is not given in this arm"
+    ],
+    "a": 1,
+    "ex": "Non-shockable rhythms get epinephrine as soon as feasible, unlike the shockable arm where it follows the 2nd shock."
+  },
+  {
+    "cat": "arrest",
+    "q": "What is atropine's current role in the PEA/asystole algorithm?",
+    "choices": [
+      "1 mg IV every 3–5 minutes, same as bradycardia",
+      "It was removed from this pathway — no defined role",
+      "Only used for asystole, not PEA",
+      "Only used if hyperkalemia is suspected"
+    ],
+    "a": 1,
+    "ex": "Atropine was removed from the pulseless arrest pathway; it has no proven benefit in PEA/asystole."
+  },
+  {
+    "cat": "arrest",
+    "q": "VF persists after 3 standard defibrillation attempts. What may reasonably be considered per the 2025 update?",
+    "choices": [
+      "Stopping resuscitation",
+      "Double sequential defibrillation or vector-change defibrillation (Class IIb)",
+      "Switching immediately to synchronized cardioversion",
+      "Doubling the epinephrine dose"
+    ],
+    "a": 1,
+    "ex": "For refractory VF after 3 shocks, double sequential or vector-change defibrillation \"may be considered\" (Class IIb) — not yet routine first-line."
+  },
+  {
+    "cat": "arrest",
+    "q": "Why is minimizing interruptions in chest compressions to under 10 seconds so important?",
+    "choices": [
+      "It conserves rescuer energy",
+      "Coronary perfusion pressure drops quickly with any pause and takes multiple compressions to rebuild",
+      "It's only a documentation requirement",
+      "It has no measurable physiologic effect"
+    ],
+    "a": 1,
+    "ex": "Coronary perfusion pressure built up over compressions collapses fast during any pause and takes several compressions to restore."
+  },
+  {
+    "cat": "arrest",
+    "q": "During a code, how should a team member confirm they gave the ordered dose of epinephrine?",
+    "choices": [
+      "Give it silently and chart it later",
+      "State back the order, then state aloud that it was given",
+      "Only nod to the team leader",
+      "Wait for the leader to ask if it was given"
+    ],
+    "a": 1,
+    "ex": "Closed-loop communication: repeat the order back, then confirm out loud once it's completed."
+  },
+  {
+    "cat": "arrest",
+    "q": "A patient's rhythm changes from asystole to VF during a 2-minute CPR cycle. What should happen at the next rhythm check?",
+    "choices": [
+      "Continue treating as asystole",
+      "Recognize the shockable rhythm and defibrillate",
+      "Give atropine first",
+      "Switch to synchronized cardioversion"
+    ],
+    "a": 1,
+    "ex": "Reassess the rhythm at every check — a newly shockable rhythm means switching immediately to the shockable-arm sequence."
+  },
+  {
+    "cat": "arrest",
+    "q": "What is the typical maximum monophasic defibrillation energy?",
+    "choices": [
+      "150 J",
+      "200 J",
+      "270 J",
+      "360 J"
+    ],
+    "a": 3,
+    "ex": "360 J is the standard maximum for monophasic defibrillators; biphasic devices use lower energies per manufacturer recommendation."
+  },
+  {
+    "cat": "arrest",
+    "q": "Which of these is NOT part of the standard cardiac arrest drug sequence?",
+    "choices": [
+      "Epinephrine",
+      "Amiodarone",
+      "Vasopressin",
+      "Lidocaine"
+    ],
+    "a": 2,
+    "ex": "Vasopressin is not recommended — it offers no benefit over epinephrine alone, whether given alone or combined with it."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "A symptomatic bradycardic patient has received atropine 3 mg with no improvement. What is next?",
+    "choices": [
+      "Give a 4th dose of atropine",
+      "Transcutaneous pacing and/or a dopamine or epinephrine infusion",
+      "Synchronized cardioversion",
+      "Adenosine 6 mg"
+    ],
+    "a": 1,
+    "ex": "3 mg is the max atropine dose. Beyond that: pace and/or push a chronotropic infusion."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "A stable patient has a narrow, regular tachycardia at 180 bpm. Vagal maneuvers fail. Next step?",
+    "choices": [
+      "Synchronized cardioversion",
+      "Amiodarone infusion",
+      "Adenosine 6 mg rapid IV push",
+      "Atropine 1 mg"
+    ],
+    "a": 2,
+    "ex": "Adenosine 6 mg (then 12 mg if needed) is first-line drug therapy for stable narrow-regular SVT after vagal maneuvers."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "A patient with a wide, irregular tachycardia possibly from pre-excited AFib (WPW) — which drug should be avoided?",
+    "choices": [
+      "Amiodarone",
+      "Procainamide",
+      "Adenosine (an AV-nodal blocker)",
+      "Oxygen"
+    ],
+    "a": 2,
+    "ex": "AV-nodal blockers (adenosine, beta-blockers, CCBs, digoxin) can accelerate conduction down the accessory pathway and precipitate VF in pre-excited AFib."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "An unstable patient has an irregular wide-complex rhythm consistent with polymorphic VT. What's the correct electrical therapy?",
+    "choices": [
+      "Synchronized cardioversion at 100 J",
+      "Unsynchronized defibrillation",
+      "Transcutaneous pacing",
+      "No shock — drugs only"
+    ],
+    "a": 1,
+    "ex": "Irregular wide-complex rhythms (polymorphic VT/torsades) are treated like VF — unsynchronized defibrillation, since there's no reliable R wave to sync to."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "What energy is recommended to start synchronized cardioversion of unstable AFib with RVR?",
+    "choices": [
+      "50 J",
+      "100 J",
+      "200 J biphasic",
+      "360 J monophasic only"
+    ],
+    "a": 2,
+    "ex": "The 2025 update recommends starting at 200 J biphasic for irregular (atrial) arrhythmias like AFib/AFlutter."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "What defines an \"unstable\" tachycardia requiring immediate cardioversion?",
+    "choices": [
+      "Any heart rate over 150 bpm",
+      "Hypotension, altered mental status, shock, ischemic chest pain, or acute heart failure caused by the tachycardia",
+      "A wide QRS regardless of symptoms",
+      "Patient anxiety about the rate"
+    ],
+    "a": 1,
+    "ex": "Instability is defined by symptoms/signs directly attributable to the fast rate, not the rate number alone."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "A stable patient has narrow, irregular tachycardia (AFib with RVR). What is appropriate?",
+    "choices": [
+      "Adenosine 6 mg to convert the rhythm",
+      "Rate control with a beta-blocker or calcium-channel blocker",
+      "Immediate synchronized cardioversion",
+      "Atropine 1 mg"
+    ],
+    "a": 1,
+    "ex": "AFib/AFlutter with RVR is managed with rate control; adenosine won't convert it and isn't the treatment of choice."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "What transient effect should you warn a patient about before pushing adenosine?",
+    "choices": [
+      "Severe long-lasting chest pain",
+      "A brief pause/asystole sensation, flushing, or chest pressure",
+      "Immediate loss of consciousness",
+      "Permanent heart block"
+    ],
+    "a": 1,
+    "ex": "Adenosine's brief AV block can feel like the heart \"stopping\" for a second — warning the patient beforehand avoids unnecessary alarm."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "A stable patient has a regular, wide-complex tachycardia of uncertain origin. What is the safest default assumption?",
+    "choices": [
+      "It's SVT with aberrancy — treat with adenosine only",
+      "It's ventricular tachycardia — treat accordingly",
+      "It's always benign and needs no treatment",
+      "It's always artifact from a loose lead"
+    ],
+    "a": 1,
+    "ex": "Assume VT until proven otherwise, especially with known structural heart disease — that assumption drives safer management."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "Transcutaneous pacing is indicated for symptomatic bradycardia when:",
+    "choices": [
+      "Atropine hasn't been tried yet",
+      "Atropine is ineffective or unlikely to work (e.g., high-grade block)",
+      "The patient specifically requests it",
+      "The rhythm is sinus bradycardia in an asymptomatic patient"
+    ],
+    "a": 1,
+    "ex": "Pacing is reserved for symptomatic bradycardia refractory to (or unlikely to respond to) atropine."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "Besides pacing, what two infusion options exist for bradycardia refractory to atropine?",
+    "choices": [
+      "Dopamine and/or epinephrine infusion",
+      "Amiodarone and lidocaine infusion",
+      "Adenosine and atropine repeat dosing",
+      "Aspirin and nitroglycerin"
+    ],
+    "a": 0,
+    "ex": "Dopamine 5–20 mcg/kg/min or epinephrine 2–10 mcg/min infusions are options alongside or instead of pacing."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "Why might atropine be ineffective for Mobitz II or 3rd-degree block with a wide QRS?",
+    "choices": [
+      "The dose given is always too low",
+      "The block is often infranodal, below where atropine's vagolytic effect acts",
+      "Atropine only works on tachycardias",
+      "These blocks resolve on their own within seconds"
+    ],
+    "a": 1,
+    "ex": "High-grade infranodal block doesn't respond well to atropine's vagolytic mechanism, which acts at the AV node."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "What should be tried first in a stable patient with narrow, regular tachycardia, before any medication?",
+    "choices": [
+      "Synchronized cardioversion",
+      "Vagal maneuvers",
+      "Amiodarone infusion",
+      "Transcutaneous pacing"
+    ],
+    "a": 1,
+    "ex": "Vagal maneuvers are the first-line, drug-free step for stable narrow-regular SVT."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "What is the second adenosine dose if 6 mg does not convert the rhythm?",
+    "choices": [
+      "6 mg again",
+      "12 mg rapid IV push with flush",
+      "18 mg",
+      "No second dose is given"
+    ],
+    "a": 1,
+    "ex": "If the first 6 mg dose fails to convert, a 12 mg dose follows, again as a rapid push with an immediate flush."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "Why must adenosine be given as a rapid push immediately followed by a flush?",
+    "choices": [
+      "To reduce injection-site pain",
+      "Its half-life is extremely short — a slow push lets it metabolize before reaching the heart",
+      "It must mix with saline to become active",
+      "This is only a comfort measure, not a pharmacologic necessity"
+    ],
+    "a": 1,
+    "ex": "Adenosine is cleared from the blood in seconds; a slow push means little to none reaches the heart intact."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "An unstable patient has a clearly chaotic, wide, irregular rhythm suspicious for polymorphic VT. Should sedation delay treatment?",
+    "choices": [
+      "Yes, always sedate first no matter what",
+      "No — treat as VF with immediate unsynchronized defibrillation, sedation should not delay this",
+      "Only if the patient is conscious and calm",
+      "Sedation is not relevant to this rhythm at all"
+    ],
+    "a": 1,
+    "ex": "True instability with a chaotic rhythm demands immediate defibrillation; sedation should never delay a life-saving shock."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "A pacemaker-dependent patient needs transcutaneous pacing for a device malfunction. Where should the pacing pads be placed relative to the device generator?",
+    "choices": [
+      "Directly over the generator for best contact",
+      "At least 8 cm away from the generator",
+      "It doesn't matter where pads are placed",
+      "Pads cannot be used if a device is present"
+    ],
+    "a": 1,
+    "ex": "Keep pacing/defibrillation pads more than 8 cm from an implanted device generator when possible."
+  },
+  {
+    "cat": "brady-tachy",
+    "q": "What is the recommended synchronized cardioversion energy for unstable monomorphic VT?",
+    "choices": [
+      "50 J",
+      "100 J",
+      "200 J",
+      "360 J, unsynchronized"
+    ],
+    "a": 1,
+    "ex": "100 J is the recommended starting synchronized energy for a wide-regular (monomorphic VT) rhythm."
+  },
+  {
+    "cat": "pharm",
+    "q": "What is the maximum single-episode dose of atropine for symptomatic bradycardia?",
+    "choices": [
+      "1 mg total",
+      "2 mg total",
+      "3 mg total",
+      "5 mg total"
+    ],
+    "a": 2,
+    "ex": "1 mg doses repeated every 3–5 minutes, to a maximum total of 3 mg."
+  },
+  {
+    "cat": "pharm",
+    "q": "Which drug is first-line for torsades de pointes?",
+    "choices": [
+      "Amiodarone",
+      "Magnesium sulfate",
+      "Lidocaine",
+      "Adenosine"
+    ],
+    "a": 1,
+    "ex": "Magnesium sulfate 1–2 g IV is first-line for torsades, regardless of serum magnesium level."
+  },
+  {
+    "cat": "pharm",
+    "q": "A patient in cardiac arrest is a known dialysis patient with peaked T waves on the monitor. Along with calcium and dialysis, which two therapies shift potassium intracellularly?",
+    "choices": [
+      "Bicarbonate and insulin+glucose",
+      "Atropine and epinephrine",
+      "Amiodarone and lidocaine",
+      "Aspirin and nitroglycerin"
+    ],
+    "a": 0,
+    "ex": "\"C BIG K Drop\" — Calcium stabilizes the membrane; Bicarbonate and Insulin+Glucose shift potassium intracellularly; Kayexalate/dialysis actually removes it."
+  },
+  {
+    "cat": "pharm",
+    "q": "Adenosine dosing for stable SVT is best remembered as:",
+    "choices": [
+      "1 mg, then 2 mg",
+      "6 mg, then 12 mg",
+      "10 mg, then 20 mg",
+      "0.5 mg/kg, then 1 mg/kg"
+    ],
+    "a": 1,
+    "ex": "6 mg rapid IV push + flush, then 12 mg if the rhythm doesn't convert."
+  },
+  {
+    "cat": "pharm",
+    "q": "Naloxone is being given for a suspected opioid-associated arrest, but you're not fully certain of the cause. What should you do?",
+    "choices": [
+      "Withhold it until confirmed opioid-related",
+      "Give it anyway and continue ventilations/CPR",
+      "Give it only after ROSC",
+      "Substitute atropine instead"
+    ],
+    "a": 1,
+    "ex": "Naloxone doesn't harm a non-opioid arrest — when uncertain, give it and keep ventilating/compressing."
+  },
+  {
+    "cat": "pharm",
+    "q": "What is the epinephrine dose and interval during cardiac arrest?",
+    "choices": [
+      "0.1 mg every minute",
+      "1 mg IV/IO every 3–5 minutes",
+      "1 mg IV/IO once only",
+      "5 mg IV/IO every 10 minutes"
+    ],
+    "a": 1,
+    "ex": "1 mg IV/IO every 3–5 minutes throughout the arrest, timed per the shockable/non-shockable branch rules."
+  },
+  {
+    "cat": "pharm",
+    "q": "What is the first dose of amiodarone in refractory VF/pVT?",
+    "choices": [
+      "150 mg",
+      "300 mg",
+      "450 mg",
+      "1 mg/kg"
+    ],
+    "a": 1,
+    "ex": "300 mg IV/IO bolus is the first dose, given after the 3rd shock."
+  },
+  {
+    "cat": "pharm",
+    "q": "What is the second dose of amiodarone in refractory VF/pVT?",
+    "choices": [
+      "300 mg again",
+      "150 mg",
+      "75 mg",
+      "No second dose exists"
+    ],
+    "a": 1,
+    "ex": "The second dose is 150 mg — half the first dose."
+  },
+  {
+    "cat": "pharm",
+    "q": "What is the weight-based first dose of lidocaine in refractory VF/pVT?",
+    "choices": [
+      "0.5 mg/kg",
+      "1–1.5 mg/kg",
+      "2–3 mg/kg",
+      "5 mg/kg"
+    ],
+    "a": 1,
+    "ex": "1–1.5 mg/kg is the first dose; the second dose is 0.5–0.75 mg/kg."
+  },
+  {
+    "cat": "pharm",
+    "q": "What is lidocaine's second dose in refractory VF/pVT?",
+    "choices": [
+      "1–1.5 mg/kg again",
+      "0.5–0.75 mg/kg",
+      "2 mg/kg",
+      "A fixed 100 mg"
+    ],
+    "a": 1,
+    "ex": "0.5–0.75 mg/kg — roughly half of the first weight-based dose."
+  },
+  {
+    "cat": "pharm",
+    "q": "What is the dopamine infusion dose range for symptomatic bradycardia?",
+    "choices": [
+      "0.5–2 mcg/kg/min",
+      "5–20 mcg/kg/min",
+      "50–100 mcg/kg/min",
+      "1–2 mg/kg/min"
+    ],
+    "a": 1,
+    "ex": "5–20 mcg/kg/min, titrated to effect, is the standard bradycardia infusion range."
+  },
+  {
+    "cat": "pharm",
+    "q": "What is the epinephrine infusion dose range for bradycardia or post-ROSC hypotension?",
+    "choices": [
+      "0.1–0.5 mcg/min",
+      "2–10 mcg/min",
+      "50–100 mcg/min",
+      "1 mg/min"
+    ],
+    "a": 1,
+    "ex": "2–10 mcg/min is the typical infusion range, titrated to hemodynamic response."
+  },
+  {
+    "cat": "pharm",
+    "q": "Which drugs are NOT given routinely during cardiac arrest, and are reserved for specific reversible causes?",
+    "choices": [
+      "Epinephrine and amiodarone",
+      "Calcium and sodium bicarbonate",
+      "Lidocaine and magnesium",
+      "Atropine and dopamine"
+    ],
+    "a": 1,
+    "ex": "Calcium and bicarbonate are reserved for indications like hyperkalemia, CCB/beta-blocker overdose, or known severe acidosis — not routine arrest care."
+  },
+  {
+    "cat": "pharm",
+    "q": "What is the aspirin dose for suspected ACS?",
+    "choices": [
+      "81 mg enteric-coated",
+      "160–325 mg, chewed, non-enteric",
+      "650 mg swallowed whole",
+      "1000 mg IV"
+    ],
+    "a": 1,
+    "ex": "160–325 mg chewed (non-enteric, for faster absorption) unless there is a true contraindication."
+  },
+  {
+    "cat": "pharm",
+    "q": "What is the sublingual nitroglycerin dose and repeat interval in ACS?",
+    "choices": [
+      "0.4 mg, may repeat every 5 min up to 3 doses",
+      "4 mg, once only",
+      "0.04 mg every minute",
+      "1 mg every 10 minutes"
+    ],
+    "a": 0,
+    "ex": "0.4 mg SL, repeatable every 5 minutes up to 3 total doses, if BP and other conditions allow."
+  },
+  {
+    "cat": "pharm",
+    "q": "Beyond hypotension and recent PDE5-inhibitor use, what condition makes nitroglycerin dangerous to give?",
+    "choices": [
+      "Suspected right ventricular infarct",
+      "A history of seasonal allergies",
+      "Mild anxiety",
+      "A normal ECG"
+    ],
+    "a": 0,
+    "ex": "RV infarct is preload-dependent; nitrates can cause profound hypotension in this setting."
+  },
+  {
+    "cat": "pharm",
+    "q": "What are the dosing and route options for naloxone?",
+    "choices": [
+      "0.4–2 mg IV/IM/IN, may repeat",
+      "10 mg IV once only",
+      "0.1 mg/kg PO",
+      "1 mg subcutaneous only"
+    ],
+    "a": 0,
+    "ex": "0.4–2 mg via IV, IM, or intranasal route, repeatable as needed."
+  },
+  {
+    "cat": "pharm",
+    "q": "Why should amiodarone infusions running beyond the code be flagged for a central line?",
+    "choices": [
+      "It has no IV compatibility with saline",
+      "Prolonged peripheral infusions risk phlebitis",
+      "It must be given as an IM injection after the bolus",
+      "Central access speeds up drug metabolism"
+    ],
+    "a": 1,
+    "ex": "Peripheral amiodarone infusions running for extended periods can cause phlebitis — worth flagging early for central access."
+  },
+  {
+    "cat": "pharm",
+    "q": "A heart transplant patient needs adenosine for SVT. What adjustment should be considered?",
+    "choices": [
+      "Double the standard dose",
+      "Reduce the initial dose due to denervation hypersensitivity",
+      "No adjustment is needed",
+      "Substitute atropine instead"
+    ],
+    "a": 1,
+    "ex": "Denervated transplanted hearts are more sensitive to adenosine — a reduced starting dose is prudent."
+  },
+  {
+    "cat": "pharm",
+    "q": "Why is caution warranted when giving adenosine to a patient with reactive airway disease (asthma)?",
+    "choices": [
+      "Risk of transient bronchospasm",
+      "It permanently worsens lung function",
+      "It has no cardiac effect in these patients",
+      "It must be given via nebulizer instead"
+    ],
+    "a": 0,
+    "ex": "Adenosine can trigger transient bronchospasm in patients with reactive airway disease."
+  },
+  {
+    "cat": "pharm",
+    "q": "What is the magnesium sulfate dose range and route consideration for torsades de pointes?",
+    "choices": [
+      "1–2 g IV over 5–60 min (faster push if pulseless)",
+      "10 g IM once",
+      "0.5 g PO daily",
+      "25 mg IV push"
+    ],
+    "a": 0,
+    "ex": "1–2 g IV, given faster (over a few minutes) if the patient is pulseless, slower otherwise."
+  },
+  {
+    "cat": "pharm",
+    "q": "A patient with suspected calcium-channel-blocker overdose is in cardiac arrest. Which otherwise \"special-situation\" drug is specifically indicated here?",
+    "choices": [
+      "Amiodarone",
+      "Calcium chloride",
+      "Adenosine",
+      "Nitroglycerin"
+    ],
+    "a": 1,
+    "ex": "Calcium is one of the specific reversible-cause indications for calcium salts, alongside hyperkalemia and tricyclic overdose."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "In suspected ACS, when should supplemental oxygen be given?",
+    "choices": [
+      "To every patient, routinely",
+      "Only if SpO₂ < 90% or the patient is in respiratory distress",
+      "Only after aspirin is given",
+      "Only if nitroglycerin is contraindicated"
+    ],
+    "a": 1,
+    "ex": "Routine oxygen for a non-hypoxic ACS patient offers no benefit and may increase infarct size."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "What is the target door-to-CT time for suspected stroke?",
+    "choices": [
+      "5 minutes",
+      "20 minutes",
+      "60 minutes",
+      "2 hours"
+    ],
+    "a": 1,
+    "ex": "CT (or MRI) should be completed and read within 20 minutes of ED arrival — part of the \"20-60-3\" targets."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "Nitroglycerin should be withheld in ACS if the patient has taken which class of medication in the last 24–48 hours?",
+    "choices": [
+      "Statins",
+      "PDE5 inhibitors (e.g., sildenafil)",
+      "Beta-blockers",
+      "Aspirin"
+    ],
+    "a": 1,
+    "ex": "Combining nitrates with PDE5 inhibitors can cause profound, refractory hypotension."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "What is the fibrinolytic treatment window for ischemic stroke from last known well?",
+    "choices": [
+      "1 hour",
+      "4.5 hours",
+      "12 hours",
+      "24 hours"
+    ],
+    "a": 1,
+    "ex": "Fibrinolytics (tenecteplase/alteplase) are given within 4.5 hours of last known well, absent contraindications; thrombectomy extends to 24 hours for LVO in selected patients."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "STEMI door-to-balloon time target for primary PCI is:",
+    "choices": [
+      "≤30 minutes",
+      "≤90 minutes",
+      "≤4 hours",
+      "≤24 hours"
+    ],
+    "a": 1,
+    "ex": "≤90 minutes at a PCI-capable facility (≤120 minutes if transfer is required)."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "Why was the mnemonic MONA effectively retired in current ACS teaching?",
+    "choices": [
+      "Aspirin is no longer recommended",
+      "Oxygen and morphine are now conditional/last-resort, not routine first steps",
+      "Nitroglycerin is no longer used",
+      "The order no longer matters at all"
+    ],
+    "a": 1,
+    "ex": "\"ANOM\" better reflects current practice: aspirin first and fast, nitro if BP allows, oxygen only if hypoxic, morphine only as a last resort."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "What is the target time to acquire a 12-lead ECG in suspected ACS from first medical contact?",
+    "choices": [
+      "≤10 minutes",
+      "≤30 minutes",
+      "≤60 minutes",
+      "≤2 hours"
+    ],
+    "a": 0,
+    "ex": "A 12-lead ECG should be obtained and interpreted within 10 minutes of first medical contact."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "What is the door-to-needle time target for STEMI fibrinolysis when PCI is unavailable within 120 minutes?",
+    "choices": [
+      "≤10 minutes",
+      "≤30 minutes",
+      "≤90 minutes",
+      "≤3 hours"
+    ],
+    "a": 1,
+    "ex": "≤30 minutes door-to-needle when fibrinolysis is the chosen reperfusion strategy."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "What two facts should be obtained immediately for any suspected stroke patient?",
+    "choices": [
+      "Blood type and allergies",
+      "Last known well time and current anticoagulant use",
+      "Insurance status and next of kin",
+      "Height and weight"
+    ],
+    "a": 1,
+    "ex": "These two facts drive nearly every downstream decision about fibrinolytic eligibility and timing."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "What does the BE-FAST stroke mnemonic stand for?",
+    "choices": [
+      "Balance, Eyes, Face, Arm, Speech, Time",
+      "Breathing, Emergency, Face, Airway, Speech, Transport",
+      "Blood pressure, ECG, Fluids, Access, Stroke scale, Transfer",
+      "Balance, Emesis, Face, Arm, Sensation, Temperature"
+    ],
+    "a": 0,
+    "ex": "Balance, Eyes, Face, Arm, Speech, Time — an expansion of the classic FAST that catches posterior-circulation strokes too."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "What blood test should be checked immediately in suspected stroke, since it can perfectly mimic stroke symptoms?",
+    "choices": [
+      "Troponin",
+      "Glucose",
+      "White blood cell count",
+      "Lactate"
+    ],
+    "a": 1,
+    "ex": "Hypoglycemia is a classic, immediately reversible stroke mimic — always check glucose right away."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "What is the target blood pressure before and during fibrinolytic administration for ischemic stroke?",
+    "choices": [
+      "<220/120 mmHg",
+      "<185/110 mmHg",
+      "<140/90 mmHg",
+      "No BP limit applies"
+    ],
+    "a": 1,
+    "ex": "BP must be controlled to <185/110 mmHg before and during fibrinolytic therapy to reduce hemorrhage risk."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "What is the extended window for mechanical thrombectomy in eligible large-vessel-occlusion stroke patients?",
+    "choices": [
+      "4.5 hours",
+      "6 hours",
+      "12 hours",
+      "Up to 24 hours from last known well"
+    ],
+    "a": 3,
+    "ex": "Selected LVO patients can be eligible for thrombectomy up to 24 hours from last known well."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "What is the target time to admit a stroke patient to a dedicated stroke unit?",
+    "choices": [
+      "Within 30 minutes",
+      "Within 3 hours of arrival",
+      "Within 12 hours",
+      "Within 24 hours"
+    ],
+    "a": 1,
+    "ex": "Part of the \"20-60-3\" targets: CT within 20 min, needle within 60 min, stroke-unit admission within 3 hours."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "Why is morphine now used cautiously and only as a last resort in ACS, rather than routinely?",
+    "choices": [
+      "It has no analgesic effect in cardiac patients",
+      "Evidence links it to worse outcomes when used routinely; it may mask symptoms and delay other therapies",
+      "It is prohibitively expensive",
+      "It cannot be given IV"
+    ],
+    "a": 1,
+    "ex": "Reserved for pain refractory to nitrates, given concerns about masking symptom progression and possible worse outcomes with routine use."
+  },
+  {
+    "cat": "acs-stroke",
+    "q": "What are the management priorities for NSTE-ACS (non-ST-elevation ACS)?",
+    "choices": [
+      "Immediate fibrinolysis",
+      "Risk stratification (e.g., TIMI/GRACE), anticoagulation, and admission",
+      "Discharge home with outpatient follow-up",
+      "Immediate synchronized cardioversion"
+    ],
+    "a": 1,
+    "ex": "NSTE-ACS is risk-stratified and anticoagulated rather than treated with immediate fibrinolysis, which is a STEMI-specific therapy."
+  },
+  {
+    "cat": "electrical",
+    "q": "Immediately after delivering a defibrillation shock, what should happen next?",
+    "choices": [
+      "Check for a pulse",
+      "Resume chest compressions immediately",
+      "Give epinephrine before resuming CPR",
+      "Switch to synchronized mode"
+    ],
+    "a": 1,
+    "ex": "Resume compressions immediately after any shock — do not pause to check a pulse or rhythm first."
+  },
+  {
+    "cat": "electrical",
+    "q": "Which mode is used to cardiovert a stable-but-now-unstable monomorphic VT with a pulse?",
+    "choices": [
+      "Unsynchronized defibrillation",
+      "Synchronized cardioversion",
+      "Transcutaneous pacing only",
+      "No electrical therapy — drugs only"
+    ],
+    "a": 1,
+    "ex": "Any organized rhythm with a pulse that requires cardioversion gets synchronized shocks, timed to the R wave."
+  },
+  {
+    "cat": "electrical",
+    "q": "What confirms effective transcutaneous pacing?",
+    "choices": [
+      "Electrical capture (spike + wide QRS) alone",
+      "Mechanical capture (a palpable pulse) alone",
+      "Both electrical capture AND a palpable pulse",
+      "A rising ETCO₂ alone"
+    ],
+    "a": 2,
+    "ex": "Electrical capture on the monitor isn't enough — you must also confirm a palpable pulse with each paced beat."
+  },
+  {
+    "cat": "electrical",
+    "q": "Pacer pads should be placed at least how far from an implanted pacemaker or ICD generator?",
+    "choices": [
+      "1 cm",
+      "8 cm",
+      "20 cm",
+      "No minimum distance required"
+    ],
+    "a": 1,
+    "ex": "Keep pads more than 8 cm away from an implanted device generator when possible."
+  },
+  {
+    "cat": "electrical",
+    "q": "What is the default starting energy for unsynchronized defibrillation of VF when the biphasic manufacturer-recommended dose is unknown?",
+    "choices": [
+      "50 J",
+      "120 J",
+      "200 J",
+      "360 J biphasic"
+    ],
+    "a": 2,
+    "ex": "200 J biphasic is used when the device-specific recommended dose is unknown."
+  },
+  {
+    "cat": "electrical",
+    "q": "What is the typical maximum energy used for monophasic defibrillators?",
+    "choices": [
+      "150 J",
+      "200 J",
+      "270 J",
+      "360 J"
+    ],
+    "a": 3,
+    "ex": "360 J is the standard monophasic maximum."
+  },
+  {
+    "cat": "electrical",
+    "q": "What is the recommended starting synchronized cardioversion energy for an unstable narrow-regular SVT?",
+    "choices": [
+      "50 J",
+      "100 J",
+      "200 J",
+      "360 J"
+    ],
+    "a": 1,
+    "ex": "100 J is the current recommended starting dose for narrow-regular rhythms."
+  },
+  {
+    "cat": "electrical",
+    "q": "What is the recommended starting synchronized cardioversion energy for unstable monomorphic VT?",
+    "choices": [
+      "50 J",
+      "100 J",
+      "300 J",
+      "360 J"
+    ],
+    "a": 1,
+    "ex": "100 J is the recommended starting dose for wide-regular (monomorphic VT) rhythms."
+  },
+  {
+    "cat": "electrical",
+    "q": "Why must \"sync\" mode be turned OFF before defibrillating a patient in VF?",
+    "choices": [
+      "Sync mode uses less energy and won't work",
+      "There's no reliable R wave to sync to in VF, so the shock may never fire",
+      "Sync mode is only a training-mode setting",
+      "It automatically turns off during CPR"
+    ],
+    "a": 1,
+    "ex": "VF has no discernible, consistent R wave — a machine left in sync mode may wait indefinitely and never deliver the shock."
+  },
+  {
+    "cat": "electrical",
+    "q": "What is the danger of a synchronization malfunction that delivers a shock on the T wave?",
+    "choices": [
+      "No danger — the shock is simply wasted",
+      "R-on-T phenomenon, which can precipitate ventricular fibrillation",
+      "It causes third-degree heart block",
+      "It resets the defibrillator permanently"
+    ],
+    "a": 1,
+    "ex": "A shock landing on the T wave (the vulnerable period) can itself induce VF — the exact rhythm you were treating for."
+  },
+  {
+    "cat": "electrical",
+    "q": "What should be done to a diaphoretic patient's chest before applying defibrillation/cardioversion pads?",
+    "choices": [
+      "Nothing — pads work fine on wet skin",
+      "Dry the chest to ensure good contact and reduce arcing risk",
+      "Apply extra conductive gel over the sweat",
+      "Delay defibrillation until the patient stops sweating on their own"
+    ],
+    "a": 1,
+    "ex": "Wet or diaphoretic skin reduces pad contact and can cause current to arc across the chest instead of through it."
+  },
+  {
+    "cat": "electrical",
+    "q": "Anterior-posterior pad placement is sometimes preferred over anterior-lateral for:",
+    "choices": [
+      "VF defibrillation exclusively",
+      "Cardioversion of atrial fibrillation, or when device/anatomic constraints require it",
+      "Transcutaneous pacing exclusively",
+      "It is never an acceptable alternative"
+    ],
+    "a": 1,
+    "ex": "Anterior-posterior placement is a recognized alternative, sometimes favored for AFib cardioversion or when an implanted device is in the way."
+  },
+  {
+    "cat": "electrical",
+    "q": "For transcutaneous pacing in a conscious, symptomatic bradycardic patient, what should be considered before increasing current?",
+    "choices": [
+      "Immediate synchronized cardioversion instead",
+      "Sedation/analgesia, since pacing at capture threshold is uncomfortable",
+      "Nothing — pacing is painless",
+      "Switching to unsynchronized defibrillation"
+    ],
+    "a": 1,
+    "ex": "Transcutaneous pacing at capture thresholds is uncomfortable for a conscious patient — sedation/analgesia should be considered."
+  },
+  {
+    "cat": "foundations",
+    "q": "What are the five components of the Primary Assessment (ABCDE)?",
+    "choices": [
+      "Airway, Breathing, Circulation, Disability, Exposure",
+      "Assessment, Bleeding, CPR, Drugs, ECG",
+      "Airway, Bypass, Compressions, Defibrillation, Epinephrine",
+      "Attitude, Behavior, Communication, Documentation, Evaluation"
+    ],
+    "a": 0,
+    "ex": "Airway, Breathing, Circulation, Disability, Exposure — the ACLS primary survey, layered on top of the BLS survey."
+  },
+  {
+    "cat": "foundations",
+    "q": "Besides confirming advanced airway placement, what else does waveform capnography monitor?",
+    "choices": [
+      "Blood glucose trends",
+      "CPR quality/adequacy of circulation, and can be an early sign of ROSC",
+      "Serum potassium",
+      "Core body temperature"
+    ],
+    "a": 1,
+    "ex": "ETCO₂ reflects the adequacy of compressions and cardiac output, and a sudden rise can be an early ROSC signal."
+  },
+  {
+    "cat": "foundations",
+    "q": "What are the six elements of high-performance team dynamics named by AHA?",
+    "choices": [
+      "Speed, strength, stamina, skill, sedation, safety",
+      "Clear roles, knowing limitations, constructive intervention, knowledge sharing, closed-loop communication, clear messages",
+      "Airway, breathing, circulation, disability, exposure, documentation",
+      "Leadership, followership, delegation, escalation, debriefing, charting"
+    ],
+    "a": 1,
+    "ex": "These six named elements are directly testable behaviors during a megacode, not just general advice."
+  },
+  {
+    "cat": "foundations",
+    "q": "What are the three steps of closed-loop communication?",
+    "choices": [
+      "Order given, order ignored, order repeated later",
+      "Order given, order repeated back by the receiver, completion confirmed back to the leader",
+      "Order given, order questioned, order debated",
+      "Order written, order filed, order reviewed after the code"
+    ],
+    "a": 1,
+    "ex": "Give → repeat back → confirm completion. This is the single most testable team-dynamics behavior on a megacode station."
+  },
+  {
+    "cat": "foundations",
+    "q": "What is the correct order of the \"5 questions\" rhythm-recognition framework?",
+    "choices": [
+      "QRS, PR, P, Rhythm, Rate",
+      "Rate, Regularity, P waves, PR interval, QRS width",
+      "P waves, Rate, QRS width, Regularity, PR interval",
+      "Regularity, Rate, QRS width, P waves, PR interval"
+    ],
+    "a": 1,
+    "ex": "Rate, Regularity, P waves, PR interval, QRS width — asked in that order on every strip."
+  },
+  {
+    "cat": "foundations",
+    "q": "A QRS duration of 0.14 seconds is best described as:",
+    "choices": [
+      "Narrow (<0.12 s), supraventricular origin",
+      "Wide (≥0.12 s), suggesting ventricular origin or aberrant conduction",
+      "Within normal limits for any rhythm",
+      "Too short to measure meaningfully"
+    ],
+    "a": 1,
+    "ex": "0.12 seconds is the cutoff; 0.14 s is wide, suggesting a ventricular origin or aberrant conduction."
+  },
+  {
+    "cat": "foundations",
+    "q": "What does \"regularly irregular\" most classically describe?",
+    "choices": [
+      "Atrial fibrillation",
+      "A pattern like Wenckebach (Mobitz I), where irregularity follows a repeating pattern",
+      "Sinus tachycardia",
+      "Ventricular fibrillation"
+    ],
+    "a": 1,
+    "ex": "Mobitz I produces a predictable, repeating pattern of progressive PR lengthening then a dropped beat — irregular, but in a regular pattern."
+  },
+  {
+    "cat": "foundations",
+    "q": "What does \"irregularly irregular\" most classically describe?",
+    "choices": [
+      "First-degree AV block",
+      "Atrial fibrillation",
+      "Sinus arrhythmia",
+      "Third-degree AV block"
+    ],
+    "a": 1,
+    "ex": "AFib has no repeating pattern to its irregularity — it is chaotic and unpredictable beat to beat."
+  },
+  {
+    "cat": "foundations",
+    "q": "What does the SAMPLE history mnemonic stand for?",
+    "choices": [
+      "Signs/symptoms, Allergies, Medications, Past history, Last oral intake, Events leading up",
+      "Symptoms, Airway, Monitor, Pulse, Labs, ECG",
+      "Shock, Airway, Medications, Pacing, Labs, Epinephrine",
+      "Site, Allergy, Medication, Pain, Level of consciousness, Exposure"
+    ],
+    "a": 0,
+    "ex": "SAMPLE: Signs/symptoms, Allergies, Medications, Past medical history, Last oral intake, Events leading up to the event."
+  },
+  {
+    "cat": "foundations",
+    "q": "Why is exposure (the \"E\" in ABCDE) important even in an obvious cardiac event?",
+    "choices": [
+      "It is required for billing purposes only",
+      "It can reveal an overlooked clue — a medication patch, track marks, JVD, or asymmetric findings that change the differential",
+      "It has no clinical value in cardiac arrest",
+      "It is only relevant in trauma cases"
+    ],
+    "a": 1,
+    "ex": "A full exposure can catch a hidden clue — like a fentanyl patch or unilateral breath sounds — that changes the whole differential."
+  },
+  {
+    "cat": "foundations",
+    "q": "What is meant by \"constructive intervention\" in team dynamics?",
+    "choices": [
+      "Taking over the code without discussion",
+      "Speaking up respectfully and immediately if you observe a potential error",
+      "Waiting until after the code to mention concerns",
+      "Only the most senior person may raise concerns"
+    ],
+    "a": 1,
+    "ex": "Constructive intervention means any team member can — and should — speak up in the moment if something looks wrong."
+  },
+  {
+    "cat": "foundations",
+    "q": "Why should team members verbalize their reasoning (\"knowledge sharing\") during a code?",
+    "choices": [
+      "It is required for legal documentation only",
+      "It surfaces information or a differential the leader may not have considered, catching errors earlier",
+      "It slows the code down, which is intentional",
+      "It replaces the need for closed-loop communication"
+    ],
+    "a": 1,
+    "ex": "Thinking out loud lets the whole team catch a missed differential or step before it becomes a problem."
+  },
+  {
+    "cat": "hts",
+    "q": "A trauma patient in PEA arrest has absent breath sounds on one side, JVD, and tracheal deviation. Which reversible cause and treatment apply?",
+    "choices": [
+      "Cardiac tamponade — pericardiocentesis",
+      "Tension pneumothorax — needle decompression",
+      "Pulmonary thrombosis — fibrinolysis",
+      "Hypovolemia — fluids"
+    ],
+    "a": 1,
+    "ex": "Absent unilateral breath sounds + JVD + tracheal deviation is the classic tension pneumothorax picture — treat with needle decompression."
+  },
+  {
+    "cat": "hts",
+    "q": "A patient in PEA arrest has JVD, muffled heart sounds, and a recent history of pericardial effusion. Which reversible cause and treatment apply?",
+    "choices": [
+      "Tension pneumothorax — needle decompression",
+      "Cardiac tamponade — pericardiocentesis",
+      "Hyperkalemia — calcium",
+      "Toxins — naloxone"
+    ],
+    "a": 1,
+    "ex": "JVD + muffled heart sounds + effusion history points to tamponade, treated with pericardiocentesis."
+  },
+  {
+    "cat": "hts",
+    "q": "A dialysis patient in arrest has peaked T waves on the monitor. Which H is most likely, and what is given first?",
+    "choices": [
+      "Hypothermia — active rewarming",
+      "Hyperkalemia — calcium chloride/gluconate first",
+      "Hypovolemia — fluids",
+      "Hydrogen ion — bicarbonate first"
+    ],
+    "a": 1,
+    "ex": "Peaked T waves in a dialysis patient point to hyperkalemia; calcium is given first to stabilize the cardiac membrane."
+  },
+  {
+    "cat": "hts",
+    "q": "A patient found down outdoors in freezing weather has a very low core temperature. Which H, and what is the initial management?",
+    "choices": [
+      "Hypoxia — 100% oxygen",
+      "Hypothermia — active rewarming",
+      "Hydrogen ion — ventilation",
+      "Hypoglycemia — dextrose"
+    ],
+    "a": 1,
+    "ex": "Severe environmental cold exposure with low core temp points to hypothermia, managed with active rewarming."
+  },
+  {
+    "cat": "hts",
+    "q": "A patient with a history of a recent long-haul flight has sudden collapse in PEA. Which T is highly suspected?",
+    "choices": [
+      "Tension pneumothorax",
+      "Coronary thrombosis",
+      "Pulmonary thrombosis (embolism)",
+      "Toxins"
+    ],
+    "a": 2,
+    "ex": "Prolonged immobility (like a long flight) is a classic risk factor for pulmonary embolism causing sudden collapse."
+  },
+  {
+    "cat": "hts",
+    "q": "A patient with known coronary disease is found down with ST changes documented just before arrest. Which T is most likely?",
+    "choices": [
+      "Coronary thrombosis",
+      "Pulmonary thrombosis",
+      "Tamponade",
+      "Tension pneumothorax"
+    ],
+    "a": 0,
+    "ex": "Pre-arrest ischemic ECG changes in a patient with known coronary disease point toward coronary thrombosis as the cause."
+  },
+  {
+    "cat": "hts",
+    "q": "Which H should be suspected in a patient with a history of significant GI bleeding who then arrests?",
+    "choices": [
+      "Hypoxia",
+      "Hypovolemia",
+      "Hypothermia",
+      "Hydrogen ion"
+    ],
+    "a": 1,
+    "ex": "Significant blood loss leads to hypovolemia — treated with fluids and blood products."
+  },
+  {
+    "cat": "hts",
+    "q": "Which H relates to inadequate oxygen delivery and is addressed by securing the airway and giving oxygen?",
+    "choices": [
+      "Hypovolemia",
+      "Hypoxia",
+      "Hypothermia",
+      "Hyperkalemia"
+    ],
+    "a": 1,
+    "ex": "Hypoxia is addressed directly by airway management and supplemental oxygen."
+  },
+  {
+    "cat": "hts",
+    "q": "Why is it important to verbalize the full H's & T's list out loud, even when a cause seems obvious?",
+    "choices": [
+      "It is a legal requirement with no clinical value",
+      "A second, less obvious contributing cause can be missed if the search stops early",
+      "It wastes valuable code time and should be avoided",
+      "Only the code leader is allowed to consider the list"
+    ],
+    "a": 1,
+    "ex": "Stopping the search after finding one plausible cause risks missing a second contributing factor."
+  },
+  {
+    "cat": "hts",
+    "q": "Overdose vials are found at the scene of a witnessed collapse. Which T applies, and what is the general approach?",
+    "choices": [
+      "Toxins — give a specific antidote if one exists (e.g., naloxone) alongside standard resuscitation",
+      "Tamponade — pericardiocentesis",
+      "Thrombosis — fibrinolysis",
+      "Tension pneumothorax — needle decompression"
+    ],
+    "a": 0,
+    "ex": "Toxins are addressed with a specific antidote when one is available, without deviating from standard resuscitation otherwise."
+  },
+  {
+    "cat": "post-rosc",
+    "q": "What is the current post-ROSC targeted temperature management range for patients unresponsive to commands?",
+    "choices": [
+      "32–34°C only",
+      "32–37.5°C",
+      "36–40°C",
+      "No temperature target is used anymore"
+    ],
+    "a": 1,
+    "ex": "The 2025 update widened the target to 32–37.5°C, replacing the older strict 32–36°C range."
+  },
+  {
+    "cat": "post-rosc",
+    "q": "How long should temperature control be maintained post-ROSC?",
+    "choices": [
+      "At least 24 hours (reasonable up to 36 hours)",
+      "Exactly 1 hour",
+      "Only until the patient wakes up",
+      "48–72 hours minimum, always"
+    ],
+    "a": 0,
+    "ex": "At least 24 hours of temperature control is recommended, with up to 36 hours considered reasonable."
+  },
+  {
+    "cat": "post-rosc",
+    "q": "What mean arterial pressure (MAP) target is recommended post-ROSC?",
+    "choices": [
+      "≥50 mmHg",
+      "≥65 mmHg",
+      "≥90 mmHg",
+      "No specific target is used"
+    ],
+    "a": 1,
+    "ex": "MAP ≥65 mmHg is the simplified post-ROSC hemodynamic target."
+  },
+  {
+    "cat": "post-rosc",
+    "q": "What SpO₂ range should ventilation be titrated to post-ROSC?",
+    "choices": [
+      "85–90%",
+      "92–98%",
+      "100% at all times",
+      "No target — just use room air"
+    ],
+    "a": 1,
+    "ex": "92–98% avoids both hypoxia and the risks associated with hyperoxia, alongside normocapnia."
+  },
+  {
+    "cat": "post-rosc",
+    "q": "Why should hyperventilation specifically be avoided post-ROSC?",
+    "choices": [
+      "It has no physiologic effect",
+      "It can reduce cerebral blood flow and worsen neurologic outcome",
+      "It increases coronary perfusion pressure, which is dangerous",
+      "It is only a comfort issue for the patient"
+    ],
+    "a": 1,
+    "ex": "Excessive ventilation lowers PaCO₂, which can constrict cerebral vessels and worsen brain perfusion."
+  },
+  {
+    "cat": "post-rosc",
+    "q": "When should formal neuroprognostication testing be performed after ROSC?",
+    "choices": [
+      "Immediately upon ROSC",
+      "No earlier than 72 hours after arrest and after rewarming, using multiple modalities",
+      "Within the first hour only",
+      "Neuroprognostication is never performed"
+    ],
+    "a": 1,
+    "ex": "Prognostication is delayed at least 72 hours post-arrest/post-rewarming, and no single test is used in isolation."
+  },
+  {
+    "cat": "post-rosc",
+    "q": "What cardiac workup should be pursued post-ROSC regardless of whether the patient regains consciousness?",
+    "choices": [
+      "None — wait until the patient wakes up",
+      "A 12-lead ECG, with consideration of emergent angiography if STEMI/high suspicion",
+      "Only a chest X-ray",
+      "An exercise stress test"
+    ],
+    "a": 1,
+    "ex": "A 12-lead ECG is obtained promptly post-ROSC, and emergent cath is considered for STEMI or high suspicion of acute coronary occlusion."
+  },
+  {
+    "cat": "post-rosc",
+    "q": "Why is fever specifically dangerous post-ROSC, and how is it managed?",
+    "choices": [
+      "Fever is beneficial and should not be treated",
+      "Fever worsens neurologic injury — any temp above 37.5°C should be treated aggressively",
+      "Fever only matters if it exceeds 40°C",
+      "Fever is managed only with antibiotics"
+    ],
+    "a": 1,
+    "ex": "Fever above 37.5°C is treated aggressively regardless of whether active cooling is being used, since it worsens neurologic injury."
+  },
+  {
+    "cat": "post-rosc",
+    "q": "What is a common, dangerous, and under-recognized event in the first 20 minutes after ROSC?",
+    "choices": [
+      "Spontaneous full recovery with no further risk",
+      "Re-arrest from unrecognized hypotension or hypoxia",
+      "Immediate awakening in all patients",
+      "Permanent resolution of the original cause"
+    ],
+    "a": 1,
+    "ex": "Patients frequently re-arrest shortly after ROSC from unrecognized hypotension or hypoxia — vigilance shouldn't drop just because there's a pulse."
+  },
+  {
+    "cat": "post-rosc",
+    "q": "What monitoring is recommended for comatose post-arrest patients to detect a commonly missed complication?",
+    "choices": [
+      "Continuous EEG monitoring for seizures",
+      "Hourly urinalysis",
+      "Daily chest X-ray",
+      "Continuous pupillometry only"
+    ],
+    "a": 0,
+    "ex": "Continuous EEG is recommended in comatose post-arrest patients, since seizures are common and can be non-convulsive/easy to miss."
+  }
+]
