@@ -43,13 +43,12 @@
     container.appendChild(header);
 
     const voiceOk = !!(window.VoiceEngine && window.VoiceEngine.isSupported());
-    let narrationOn = voiceOk;
+    let narrationOn = false;
     if (!voiceOk) {
       btnVoice.textContent = '🗣 unsupported';
       btnVoice.disabled = true;
     } else {
-      btnVoice.textContent = '🗣 Narration: on';
-      btnVoice.classList.add('sa-voice-on');
+      btnVoice.textContent = '🗣 Narration: off';
     }
     btnVoice.addEventListener('click', () => {
       narrationOn = !narrationOn;
