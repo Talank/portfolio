@@ -95,6 +95,51 @@ window.LESSONS['self-attention'] = {
       { c: 'Training an apprentice reader to predict the NEXT glyph: Robin covers later glyphs with her hand. No peeking at the future — the causal mask.', p: { mask: 'good' }, a: { robin: [70, 60] } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: "beneath the sea lies…"',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Input',
+        nodes: [
+          { id: 'x', text: 'X: one row per token\n"beneath", "the", "sea", "lies"' },
+        ],
+      },
+      {
+        label: 'Q/K/V projections',
+        nodes: [
+          { id: 'q', text: 'Q = X·Wq\nwhat am I looking for?' },
+          { id: 'k', text: 'K = X·Wk\nwhat do I advertise?' },
+          { id: 'v', text: 'V = X·Wv\nwhat do I hand over?' },
+        ],
+      },
+      {
+        label: 'Raw scores',
+        nodes: [
+          { id: 'raw', text: 'Q·Kᵀ, unscaled\none strong match dominates — softmax collapses to one-hot' },
+        ],
+      },
+      {
+        label: 'Scaled + softmax',
+        nodes: [
+          { id: 'scaled', text: '÷ √dk, then softmax per row\nrich multi-way blend restored' },
+        ],
+      },
+      {
+        label: 'Output',
+        nodes: [
+          { id: 'out', text: 'weights · V\n"beneath"\'s new row: mostly "sea"\'s value' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['x'], note: 'Start with the input sequence as a matrix X — one embedding row per token. Self-attention will rebuild every row from scratch, using the OTHER rows.' },
+      { active: ['q', 'k', 'v'], note: 'Three separate learned projections of the SAME X: Q (what I need), K (what I advertise), V (what I actually hand over) — three different jobs, three different weight matrices.' },
+      { active: ['raw'], note: 'Compute Q·Kᵀ — every query dotted with every key, all n² pairs in one matmul. Left unscaled, dot-product variance grows with dk and softmax saturates near one-hot — one match steamrolls everything else.' },
+      { active: ['scaled'], note: 'Divide by √dk before softmax. This single division rescales variance back to ≈1 regardless of dimension, keeping softmax in its gradient-rich middle range instead of a saturated corner.' },
+      { active: ['out'], note: 'Multiply the softmax weights by V: "beneath"\'s output row becomes a weighted blend of every token\'s value — mostly "sea"\'s content, a little "the", barely "lies". No parser, no rules, purely learned compatibility.' },
+    ],
+  },
   tech: [
     {
       q: 'Derive precisely why dot products need the 1/√dk scale — not just "it helps", the actual variance argument.',
@@ -277,6 +322,48 @@ def self_attention(Q, K, V, mask=None):
       explain: 'RNN: O(n) sequential, information decays over distance. Self-attention: O(n²) but parallel and distance-independent. A clear win at typical lengths; the reason long-context is still an active engineering problem (FlashAttention, sparse attention, KV-caching).'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: self-attention Q/K/V',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'In self-attention, where do Q, K, and V actually come from?',
+        choices: [
+          { text: 'All three are learned linear projections (Wq, Wk, Wv) of the SAME input sequence X', to: 'q1_right' },
+          { text: 'Q comes from a decoder sequence; K and V come from a separate encoder sequence', to: 'q1_wrong_cross' },
+          { text: 'Q and K are fixed one-hot vectors; only V is learned', to: 'q1_wrong_onehot' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — same X, three different learned projections. That "self" (as opposed to cross-attention, where Q comes from one sequence and K/V from another) is exactly what makes it self-attention.', next: 'q2' },
+      q1_wrong_cross: { end: true, correct: false, text: 'That describes CROSS-attention — last lesson\'s decoder-queries-encoder setup. Self-attention specifically means Q, K, and V are all projections of the SAME sequence.', retry: 'q1' },
+      q1_wrong_onehot: { end: true, correct: false, text: 'All three — Q, K, AND V — are learned linear projections (Wq, Wk, Wv), none of them fixed or one-hot. That\'s what lets the model learn what to look for, what to advertise, and what to hand over.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'Why divide the dot-product scores by √dk before applying softmax?',
+        choices: [
+          { text: 'Raw dot-product variance grows with dk, and unscaled scores push softmax into a saturated, near one-hot regime with vanishing gradients', to: 'q2_right' },
+          { text: 'To make the attention weights sum to more than 1', to: 'q2_wrong_sum' },
+          { text: 'It\'s a historical convention carried over with no real mathematical justification', to: 'q2_wrong_convention' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — Var(q·k) ≈ dk under standard assumptions, so dividing by √dk restores unit variance regardless of dk, keeping softmax in its gradient-rich range instead of collapsing to a sharp one-hot.', next: 'q3' },
+      q2_wrong_sum: { end: true, correct: false, text: 'Softmax always makes a row sum to exactly 1, scaled or not — that\'s a property of softmax itself, unrelated to what\'s fed into it. The scale factor is about controlling the INPUT distribution to softmax, not its output sum.', retry: 'q2' },
+      q2_wrong_convention: { end: true, correct: false, text: 'There\'s a precise variance argument behind it (dot-product variance grows linearly with dk), not just convention — dropping it measurably degrades training at realistic dimensions like dk=64.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'What is the single mechanical difference between BERT-style and GPT-style self-attention?',
+        choices: [
+          { text: 'GPT applies a causal mask (each position attends only to itself and earlier positions); BERT applies no such mask (full bidirectional attention)', to: 'q3_right' },
+          { text: 'GPT uses dot-product scores while BERT uses cosine similarity', to: 'q3_wrong_score' },
+          { text: 'BERT has no Value projection, only Query and Key', to: 'q3_wrong_novalue' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — same Q/K/V formula in both, one additive triangular mask (−∞ / −1e9 on future positions) is the entire structural difference. That single mask is the whole GPT-vs-BERT framing for the next lesson.', next: null },
+      q3_wrong_score: { end: true, correct: false, text: 'Both use the same scaled dot-product score function — that\'s not where they differ. The difference is purely about WHICH positions are allowed to attend to which, via masking.', retry: 'q3' },
+      q3_wrong_novalue: { end: true, correct: false, text: 'BERT uses the full Q/K/V machinery just like GPT — no projection is missing. The difference is the causal mask GPT applies and BERT doesn\'t.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Saying "attention is just weighted averaging" without naming Q/K/V and the scaling factor — in an interview this reads as having watched a video, not implemented the math.',
     'Forgetting the √dk scale when asked to write the formula from memory — it is the single most commonly dropped term, and dropping it silently degrades training at realistic dimensions rather than crashing loudly.',

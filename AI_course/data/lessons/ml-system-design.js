@@ -91,6 +91,56 @@ window.LESSONS['ml-system-design'] = {
       { c: '"I don\'t know yet — here is exactly the evidence that would tell us" beats a confident, unverified claim.', p: { honest: 'good' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: the six-stage framework on fraud detection',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: '1. Clarify',
+        nodes: [
+          { id: 'clarify', text: 'Synchronous at checkout?\ntight latency budget; borderline cases → review queue, not auto-block' },
+        ],
+      },
+      {
+        label: '2. Metrics',
+        nodes: [
+          { id: 'metrics', text: 'Offline: precision/recall\nOnline: $ fraud losses vs $ lost to false blocks\nBridge: minimize EXPECTED COST, not raw F1' },
+        ],
+      },
+      {
+        label: '3. Data',
+        nodes: [
+          { id: 'data', text: 'Labels arrive DELAYED (weeks)\nleakage risk — split by TIME, not randomly' },
+        ],
+      },
+      {
+        label: '4. Approach',
+        nodes: [
+          { id: 'approach', text: 'v0 heuristic → v1 logistic regression\n→ v2 GBT ONLY if v1\'s specific failure justifies it' },
+        ],
+      },
+      {
+        label: '5. Serving',
+        nodes: [
+          { id: 'serving', text: 'Sub-100ms scoring at checkout\nmodel must be small enough for synchronous inference' },
+        ],
+      },
+      {
+        label: '6. Monitor',
+        nodes: [
+          { id: 'monitor', text: 'Rolling retrain — fraud is ADVERSARIAL\nA/B test any new version before full rollout' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['clarify'], note: 'Stage 1: before proposing anything, establish the actual constraints — synchronous decision, tight latency, and what happens to a flagged transaction. State assumptions explicitly when a question can\'t be fully answered.' },
+      { active: ['metrics'], note: 'Stage 2: the offline metric is a PROXY. False positives and false negatives have genuinely different dollar costs, so the real decision threshold minimizes expected cost, not a cost-agnostic statistic like F1.' },
+      { active: ['data'], note: 'Stage 3: fraud labels are confirmed weeks after the transaction — a real leakage risk if not handled. Split the evaluation by time, exactly the model-evaluation lesson\'s discipline.' },
+      { active: ['approach'], note: 'Stage 4: start with the simplest plausible approach and escalate only against a MEASURED limitation — a rule-based heuristic first, then logistic regression, then something more complex only if justified.' },
+      { active: ['serving'], note: 'Stage 5: a sub-100ms budget at checkout is a hard constraint that itself argues against an unnecessarily large or slow model.' },
+      { active: ['monitor'], note: 'Stage 6: a shipped v1 is a starting point. Fraud patterns adapt specifically to defeat the current model, so retraining on a rolling window and A/B testing new versions is part of the design, not an afterthought.' },
+    ],
+  },
   tech: [
     {
       q: 'Precisely, why does an interviewer prefer a candidate who states assumptions and asks clarifying questions over one who immediately proposes a specific architecture?',
@@ -252,6 +302,48 @@ def recommend_tier(is_high_stakes, has_labeled_data, latency_budget_ms):
       explain: 'Confidently asserting an untested claim works AGAINST a candidate in a research context specifically because the discipline is built around designing experiments to test claims that intuition alone cannot reliably validate.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: the system design framework',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'What is the single most common failure mode in ML/LLM system design interviews?',
+        choices: [
+          { text: 'Silently jumping to a specific architecture without asking clarifying questions or stating assumptions', to: 'q1_right' },
+          { text: 'Choosing a technically suboptimal but well-justified architecture', to: 'q1_wrong_suboptimal' },
+          { text: 'Proposing a simple baseline before a complex model', to: 'q1_wrong_baseline' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — a defensible, clearly-reasoned answer beats a "correct" answer arrived at silently, because the interviewer can only evaluate reasoning that was actually stated out loud.', next: 'q2' },
+      q1_wrong_suboptimal: { end: true, correct: false, text: 'A well-justified but not-quite-optimal design is actually fine — interviewers grade the reasoning process, not whether you landed on the single best possible architecture.', retry: 'q1' },
+      q1_wrong_baseline: { end: true, correct: false, text: 'That\'s the opposite of a failure mode — starting simple and justifying escalation is exactly the strong pattern this lesson recommends, not a mistake to avoid.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'Why should a fraud-detection system\'s decision threshold be chosen by minimizing expected COST rather than maximizing F1 or accuracy?',
+        choices: [
+          { text: 'False positives and false negatives have genuinely different dollar costs to the business, so the cost-minimizing threshold isn\'t generally the F1-optimal one', to: 'q2_right' },
+          { text: 'F1 score cannot be computed at all for imbalanced datasets like fraud detection', to: 'q2_wrong_cantcompute' },
+          { text: 'Cost-based thresholds are always mathematically identical to F1-optimal thresholds', to: 'q2_wrong_identical' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — the offline metric is a proxy; the real decision should weight errors by their actual business cost, which F1/accuracy do not account for by default. The lab\'s flipped-cost test proves the two thresholds genuinely diverge.', next: 'q3' },
+      q2_wrong_cantcompute: { end: true, correct: false, text: 'F1 can absolutely be computed on imbalanced data — that\'s not the issue. The issue is that F1 treats false positives and false negatives as equally costly, which is rarely true in a real business.', retry: 'q2' },
+      q2_wrong_identical: { end: true, correct: false, text: 'They are generally NOT identical — the lab\'s test deliberately flips the cost ratio and shows the winning threshold flips too, which is the whole point of cost-weighting.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'Why is proposing the simplest plausible approach first a strong system design answer rather than a weak or evasive one?',
+        choices: [
+          { text: 'It establishes a measurable baseline to justify escalation against, and surfaces data/labeling problems cheaply and early', to: 'q3_right' },
+          { text: 'It signals the candidate does not know how to build a sophisticated system', to: 'q3_wrong_signal' },
+          { text: 'Simple approaches are always sufficient and complex approaches are never justified', to: 'q3_wrong_always' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — without a baseline, there\'s no way to know whether added complexity is buying real improvement, and a baseline\'s specific failure pattern is exactly what justifies escalating to something more complex.', next: null },
+      q3_wrong_signal: { end: true, correct: false, text: 'The opposite is true — proposing the most complex option first, with no baseline to justify it against, is what reads as poor engineering judgment, not the reverse.', retry: 'q3' },
+      q3_wrong_always: { end: true, correct: false, text: 'Simple approaches aren\'t always sufficient — the point is to START there and escalate WHEN a specific, measured limitation justifies it, not to stop at simple regardless of outcome.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Diving straight into a specific architecture without first clarifying scale, latency, cost constraints, and what "success" means — the single most common and most avoidable system design interview mistake.',
     'Stopping at an offline ML metric ("we\'d optimize for F1") without connecting it to the actual business cost of different error types or proposing how to validate the offline metric against real online outcomes.',

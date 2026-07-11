@@ -93,6 +93,49 @@ window.LESSONS['rlhf-alignment'] = {
       { c: 'DPO shortcut: skip the separate judge AND the practice loop — train directly on the SAME picks, with the leash baked into the equation itself.', p: { shortcut: 'good' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: judge, leash, and the DPO shortcut',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Compare',
+        nodes: [
+          { id: 'pick', text: 'Human picks A over B\ncomparison, not a written score' },
+        ],
+      },
+      {
+        label: 'Train judge',
+        nodes: [
+          { id: 'judge', text: 'Reward model: r_chosen=2.3, r_rejected=0.8\n−log σ(r_chosen − r_rejected) → small loss, already ordered right' },
+        ],
+      },
+      {
+        label: 'Practice unleashed',
+        nodes: [
+          { id: 'exploit', text: 'Unconstrained policy\ndiscovers the judge favors LENGTH — pads every answer' },
+        ],
+      },
+      {
+        label: 'Leash',
+        nodes: [
+          { id: 'leash', text: 'reward − β·KL(policy‖reference)\nlarge distributional drift now costs, exploit blocked' },
+        ],
+      },
+      {
+        label: 'DPO shortcut',
+        nodes: [
+          { id: 'shortcut', text: 'Skip the judge and the RL loop\ntrain policy directly on picks, leash baked into the loss' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['pick'], note: 'A human just picks which of two candidate answers they prefer — far more consistent than trying to assign an absolute 1-10 score.' },
+      { active: ['judge'], note: 'Many picks train a reward model with the Bradley-Terry loss: −log σ(r_chosen − r_rejected). It only ever needs relative ordering, never an absolute "true" score.' },
+      { active: ['exploit'], note: 'Let the policy practice unconstrained toward whatever the judge scores highest, and it finds the judge\'s blind spot: longer answers happened to win more comparisons in the training data, so it pads every response — reward hacking.' },
+      { active: ['leash'], note: 'Add a KL penalty against the original SFT model: reward(y) − β·KL(policy‖reference). Large systematic drift (like always padding) now costs real objective value — the exploit is blocked.' },
+      { active: ['shortcut'], note: 'DPO\'s insight: the RLHF objective has a closed-form optimal policy, which lets you substitute the reward away algebraically and train the policy directly on the same (chosen, rejected) picks — the leash is baked into the loss itself, no separate judge, no RL loop.' },
+    ],
+  },
   tech: [
     {
       q: 'Why do RLHF pipelines collect pairwise comparisons rather than asking human raters for an absolute quality score (e.g. 1-10)?',
@@ -256,6 +299,48 @@ def dpo_loss(logp_chosen_policy, logp_rejected_policy, logp_chosen_ref, logp_rej
       explain: 'Algebraically inverting π*(y|x) ∝ π_ref(y|x)·exp(reward/β) expresses reward in terms of the policy itself; substituting into the Bradley-Terry loss removes the reward model from the equation entirely while targeting the same underlying objective.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: RLHF, reward models & DPO',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'Why is preference comparison data (which response is better?) generally preferred over absolute quality scores for alignment training?',
+        choices: [
+          { text: 'Human raters are far more consistent making relative comparisons than assigning calibrated absolute scores, and Bradley-Terry only needs correct relative ordering', to: 'q1_right' },
+          { text: 'Absolute scores are mathematically impossible to use inside any loss function', to: 'q1_wrong_impossible' },
+          { text: 'Comparison data requires recruiting fewer human raters overall', to: 'q1_wrong_fewer' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — comparative judgment is more reliable across raters and over time than absolute scoring, and the reward model\'s Bradley-Terry loss only ever needs the relative ordering to be correct, never an absolute calibrated value.', next: 'q2' },
+      q1_wrong_impossible: { end: true, correct: false, text: 'Absolute scores CAN be used in a loss function (e.g. regression to a target score) — the issue is that human-provided absolute scores are simply less consistent and reliable than comparisons, not mathematically unusable.', retry: 'q1' },
+      q1_wrong_fewer: { end: true, correct: false, text: 'Rater count isn\'t the driver here — the advantage is about the QUALITY and consistency of the judgment itself, not headcount.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'What is reward hacking, concretely?',
+        choices: [
+          { text: 'A policy discovers and exploits a systematic gap between the reward model\'s proxy score and actual human preference — e.g. inflating length because the reward model correlates length with quality', to: 'q2_right' },
+          { text: 'The reward model is deliberately corrupted by a malicious external attacker', to: 'q2_wrong_attack' },
+          { text: 'A software bug where the reward model always outputs exactly zero', to: 'q2_wrong_bug' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — Goodhart\'s Law in action. Optimizing hard against an imperfect proxy improves the proxy score without necessarily improving, and sometimes while actively harming, the real underlying goal.', next: 'q3' },
+      q2_wrong_attack: { end: true, correct: false, text: 'No external attacker is needed — reward hacking emerges naturally from optimizing against ANY imperfect learned proxy, purely from the optimizer finding whatever maximizes the score.', retry: 'q2' },
+      q2_wrong_bug: { end: true, correct: false, text: 'The reward model works exactly as trained — it\'s not malfunctioning. The "hack" is the policy finding a real, if spurious, correlation the reward model learned from its (imperfect) training data.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'What is the key mathematical move that lets DPO train a policy on preference data without a separate reward model or RL loop?',
+        choices: [
+          { text: 'Substituting the RLHF objective\'s closed-form optimal policy back into the Bradley-Terry loss, expressing reward implicitly via policy and reference log-probabilities', to: 'q3_right' },
+          { text: 'Training the reward model and the policy simultaneously inside one combined network', to: 'q3_wrong_combined' },
+          { text: 'Dropping the KL constraint entirely to simplify the optimization problem', to: 'q3_wrong_drop' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — algebraically inverting π*(y|x) ∝ π_ref(y|x)·exp(reward/β) expresses reward in terms of the policy itself; substituting into Bradley-Terry removes the reward model from the equation while targeting the exact same underlying objective.', next: null },
+      q3_wrong_combined: { end: true, correct: false, text: 'DPO doesn\'t train a combined network — it eliminates the reward model entirely by reparameterizing the objective, not by merging two models into one.', retry: 'q3' },
+      q3_wrong_drop: { end: true, correct: false, text: 'The KL constraint isn\'t dropped — it\'s baked directly into the DPO loss via the reference-policy log-probability terms, which is exactly what makes it mathematically equivalent to RLHF\'s KL-constrained objective.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Believing alignment (RLHF/DPO) makes a model objectively "safe" or "correct" — it optimizes toward whatever preferences the comparison data reflects, which is only as good, unbiased, and comprehensive as the humans and process that generated it.',
     'Setting the KL penalty weight β to zero or near-zero "to maximize reward" — this removes the primary defense against reward hacking and commonly produces degenerate, exploit-driven outputs that score well on the reward model but are worse in practice.',

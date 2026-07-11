@@ -86,6 +86,43 @@ window.LESSONS['classic-nlp-tasks'] = {
       { c: 'Stamp 5 — brand-new category never in the manual: compare the report against candidate labels via "does this entail that claim?" (zero-shot, no retraining).', p: { zeroshot: 'good' }, l: { zeroshot: 'zero-shot: SABOTAGE ✓' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: one report, five stamps',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Input',
+        nodes: [
+          { id: 'report', text: 'Report text\n"Luffy and crew sighted near Loguetown, causing alarm…"' },
+        ],
+      },
+      {
+        label: 'Shared encoder',
+        nodes: [
+          { id: 'encode', text: 'Tokenize + encode\nsame pretrained transformer, every task, every time' },
+        ],
+      },
+      {
+        label: 'Five stamps',
+        nodes: [
+          { id: 'sentiment', text: 'Sentiment\nNEGATIVE, score 0.94' },
+          { id: 'ner', text: 'NER\nPER: "Monkey D. Luffy", LOC: "Loguetown"' },
+          { id: 'qa', text: 'Extractive QA\n"Where sighted?" → span "Loguetown"' },
+          { id: 'summary', text: 'Summarization\n"Luffy crew sighted near Loguetown, alarming Marines."' },
+          { id: 'zeroshot', text: 'Zero-shot\n["sighting","smuggling","mutiny"] → sighting 0.81' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['report'], note: 'One report arrives. Every pipeline() call below starts from the exact same raw text.' },
+      { active: ['encode'], note: 'Tokenize and run the SAME pretrained transformer encoder — one shared "understanding", reused across every task shape. This is the expensive, load-once part.' },
+      { active: ['sentiment'], note: 'Stamp 1 — sequence classification: pool the whole sequence into one vector, one label for the ENTIRE report. "alarm" tips it NEGATIVE at 0.94.' },
+      { active: ['ner'], note: 'Stamp 2 — token classification: one tag per token, merged back into whole entities. "Monkey D. Luffy" (PER) and "Loguetown" (LOC), subword fragments stitched together.' },
+      { active: ['qa'], note: 'Stamp 3 — span extraction: predict start/end indices INTO the context, not generated text. The answer is a literal substring: "Loguetown".' },
+      { active: ['summary'], note: 'Stamp 4 — sequence generation: full encoder-decoder machinery (last lesson\'s seq2seq+attention, at scale) writes a brand-new condensed sentence.' },
+      { active: ['zeroshot'], note: 'Stamp 5 — zero-shot: reuse an entailment model with no new training. "Does this report entail \'this is about sighting\'?" — highest entailment wins, 0.81.' },
+    ],
+  },
   tech: [
     {
       q: 'Trace exactly what pipeline("sentiment-analysis")(text) does, step by step.',
@@ -243,6 +280,48 @@ def classify_new_report(text, candidate_labels):
       explain: 'Model + tokenizer loading is expensive (hundreds of MB, real load time). Build the pipeline ONCE at startup/module level and reuse the callable for every subsequent request.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: Hugging Face pipelines',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'What does pipeline("sentiment-analysis") actually bundle together under the hood?',
+        choices: [
+          { text: 'A tokenizer, a pretrained model\'s forward pass, and post-processing (softmax + argmax) into one callable', to: 'q1_right' },
+          { text: 'A rule-based keyword matcher scanning for positive/negative words', to: 'q1_wrong_rules' },
+          { text: 'A database lookup against pre-labeled reviews', to: 'q1_wrong_db' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — exactly the pieces you built by hand in earlier lessons: tokenize → embed → encode → pool → classify → post-process. pipeline() hides the wiring, not the concepts.', next: 'q2' },
+      q1_wrong_rules: { end: true, correct: false, text: 'No keyword matching involved — it\'s a full pretrained transformer forward pass. Keyword rules would miss "the acting was far from bad" entirely; a contextual model doesn\'t.', retry: 'q1' },
+      q1_wrong_db: { end: true, correct: false, text: 'No lookup or retrieval happens — the model computes a fresh prediction for arbitrary new text it has never seen, via tokenizer → encoder → classification head.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'Why does raw (non-aggregated) NER output fragment "Luffy" into pieces like "Lu" and "##ffy"?',
+        choices: [
+          { text: 'The tokenizer splits rare words into subword units, and the model predicts one tag per SUBWORD token, not per whole word', to: 'q2_right' },
+          { text: 'The NER model is malfunctioning on this input', to: 'q2_wrong_broken' },
+          { text: 'NER only works reliably on single-syllable words', to: 'q2_wrong_syllable' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — BPE/WordPiece splits rare words into fragments, and the model tags each fragment independently. aggregation_strategy="simple" is what stitches consecutive same-entity subwords back into one whole-word span.', next: 'q3' },
+      q2_wrong_broken: { end: true, correct: false, text: 'This is expected, correct behavior — not a bug. Every subword-tokenized NER model fragments rare words this way unless you explicitly request aggregation.', retry: 'q2' },
+      q2_wrong_syllable: { end: true, correct: false, text: 'Syllable count is irrelevant — subword splitting is driven by whether the word appeared often enough in BPE training to earn its own token, not by pronunciation.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'How does zero-shot classification label text into categories the model was never trained on?',
+        choices: [
+          { text: 'It reuses a natural-language-inference model, scoring each candidate label by "does the text entail \'this is about {label}\'?"', to: 'q3_right' },
+          { text: 'It fine-tunes a fresh model on the fly for each new label set you supply', to: 'q3_wrong_finetune' },
+          { text: 'It searches the web in real time for matching examples', to: 'q3_wrong_search' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — premise = the text, hypothesis = "This example is about {label}." Rank candidate labels by predicted entailment probability. Zero new training, zero labeled examples for the target task — the NLI trick.', next: null },
+      q3_wrong_finetune: { end: true, correct: false, text: 'No training happens at call time — that would be far too slow to be useful interactively. The whole point of "zero-shot" is reusing an already-trained NLI model with no further training.', retry: 'q3' },
+      q3_wrong_search: { end: true, correct: false, text: 'No web search involved — it\'s a single forward pass through a pretrained entailment model per candidate label, entirely offline/local.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Re-instantiating pipeline(...) inside a function that runs per-request — this reloads model weights every single call and can turn a 10ms inference into seconds of dead time.',
     'Feeding a long document straight into summarization or classification without checking the model\'s max sequence length — text silently gets truncated, and the model never sees what got cut off.',

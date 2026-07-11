@@ -86,6 +86,48 @@ window.LESSONS['using-models-apis'] = {
       { c: 'When Vegapunk raises his toll, the crew just flips the lever to their own brain instead. No scramble.', p: { panel: 'good', vegapunk: 'dim' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: one panel, three brains',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Three options',
+        nodes: [
+          { id: 'vegapunk', text: "Vegapunk's lab (hosted API)\nmost powerful, zero setup" },
+          { id: 'blueprint', text: 'Published blueprint (open-weight)\nfull control, you run it' },
+          { id: 'pocket', text: 'Pocket brain (local, Ollama-style)\nprivate, free, limited' },
+        ],
+      },
+      {
+        label: 'Real trade-offs',
+        nodes: [
+          { id: 'privacy', text: 'API: every question is heard\nby the lab — data leaves your ship' },
+          { id: 'license', text: 'Open-weight: check the fine print\ncommercial-use restrictions are real' },
+          { id: 'limited', text: 'Local: genuinely capped\nby what one machine can hold' },
+        ],
+      },
+      {
+        label: 'One interface',
+        nodes: [
+          { id: 'panel', text: 'One "ask the brain" panel\ngenerate(prompt) → str, one adapter per backend' },
+        ],
+      },
+      {
+        label: 'Swap freely',
+        nodes: [
+          { id: 'swap', text: 'Vegapunk raises his toll\ncrew flips the lever, no scramble' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['vegapunk', 'blueprint', 'pocket'], note: 'Three genuinely different ways to get a model: call a hosted API, download and self-host open-weight parameters, or run a small quantized model fully local.' },
+      { active: ['privacy'], note: 'The API sees every question — most capable, zero infrastructure, but your data leaves your control and cost scales per token.' },
+      { active: ['license'], note: 'Open-weight means the TRAINED PARAMETERS are published, not the training data or recipe — and "open" licenses vary: commercial-use restrictions are common and easy to miss.' },
+      { active: ['limited'], note: 'A local model is completely private and free after hardware cost, but capped by what a single machine\'s memory and compute can hold.' },
+      { active: ['panel'], note: 'Because real systems end up needing more than one of these, define one interface — generate(prompt, **params) -> str — with one adapter class per backend hiding its specific request shape and chat template.' },
+      { active: ['swap'], note: 'When circumstances change (a price hike, a new privacy requirement, a capability gap), swapping which backend handles a call becomes a configuration change, not a rewrite of application logic.' },
+    ],
+  },
   tech: [
     {
       q: 'Precisely, what does "open-weight" mean, and why is it a meaningfully different guarantee than "open-source"?',
@@ -266,6 +308,48 @@ def run_agnostic(provider, prompt):
       explain: 'Real differences in API shape, tokenization, required chat templates, and alignment-driven behavior all need to be isolated inside provider-specific adapters — a naive interface that ignores these can silently degrade output quality when switched.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: APIs, open-weight & tiers',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'What is the main trade-off of using a hosted commercial LLM API versus self-hosting an open-weight model?',
+        choices: [
+          { text: 'APIs need zero infrastructure and offer frontier-tier quality but send data to a third party and cost per token; self-hosting keeps data private but requires owning the whole serving stack', to: 'q1_right' },
+          { text: 'APIs are always cheaper than self-hosting at any volume, with no exceptions', to: 'q1_wrong_cheaper' },
+          { text: 'Self-hosted models are always strictly higher quality than hosted APIs', to: 'q1_wrong_quality' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — a genuine trade-off, not a strictly-better option in either direction: convenience and quality ceiling versus control and data privacy. The right choice depends on volume, data sensitivity, and team capability.', next: 'q2' },
+      q1_wrong_cheaper: { end: true, correct: false, text: 'API cost scales linearly with volume while self-hosting cost is largely fixed — above a break-even volume, self-hosting becomes cheaper. It is not always cheaper in either direction.', retry: 'q1' },
+      q1_wrong_quality: { end: true, correct: false, text: 'Self-hosted open-weight models have historically trailed the very best closed frontier models on the hardest reasoning tasks — quality is not automatically higher just because it\'s self-hosted.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'What does "open-weight" mean, and how does it differ from "open-source"?',
+        choices: [
+          { text: 'Open-weight publishes the trained parameters but typically not the training data or full training code — usable and fine-tunable, but not fully reproducible or auditable from scratch', to: 'q2_right' },
+          { text: 'Open-weight and open-source are interchangeable terms describing exactly the same guarantee', to: 'q2_wrong_same' },
+          { text: 'Open-weight means the model can only ever be used for non-commercial purposes', to: 'q2_wrong_noncommercial' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — traditional open-source lets you reproduce and fully audit an artifact from its source; open-weight lets you use and adapt the trained weights without that same reproducibility or data-provenance guarantee. Licenses vary per model and must be checked individually.', next: 'q3' },
+      q2_wrong_same: { end: true, correct: false, text: 'They are meaningfully different: open-source gives you the full source to reproduce an artifact from scratch; open-weight gives you only the trained numbers, with training data and recipe typically undisclosed.', retry: 'q2' },
+      q2_wrong_noncommercial: { end: true, correct: false, text: 'Not universally true — licenses vary widely per model. Some open-weight models do permit unrestricted commercial use; others restrict it above a certain size. It must be checked per model, not assumed either way.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'Why is "always use the biggest, most capable model" usually the wrong default for a system with multiple sub-tasks?',
+        choices: [
+          { text: 'Many sub-tasks are simple, high-volume, and well-defined enough that a smaller, cheaper, faster (often fine-tuned) model performs just as well at a fraction of the cost and latency', to: 'q3_right' },
+          { text: 'Larger frontier models are always less accurate than smaller ones on every task', to: 'q3_wrong_lessaccurate' },
+          { text: 'Smaller models fundamentally cannot be fine-tuned for any purpose', to: 'q3_wrong_nofinetune' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — model routing (matching tier to task difficulty) often cuts cost substantially while maintaining quality, since narrow, high-volume tasks are frequently better served by a small, specialized (LoRA-fine-tuned) model than by a large general one.', next: null },
+      q3_wrong_lessaccurate: { end: true, correct: false, text: 'The opposite is generally true — larger frontier models tend to be MORE accurate on hard, open-ended tasks. The issue is cost and latency for tasks that don\'t actually need that extra capability, not accuracy.', retry: 'q3' },
+      q3_wrong_nofinetune: { end: true, correct: false, text: 'Smaller open models are routinely fine-tuned (exactly the LoRA/QLoRA techniques from earlier lessons) — that fine-tunability is precisely what makes them competitive with larger models on narrow tasks.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Assuming all "open" LLMs share the same license terms — commercial-use restrictions, user-count thresholds, and prohibited-use clauses genuinely vary per model and must be checked individually before depending on a specific one.',
     'Comparing self-hosting cost to API cost using only the sticker price of GPU rental, ignoring utilization, operational overhead, and any quality gap that might require more tokens/retries to close — all three change the real break-even point.',

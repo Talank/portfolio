@@ -91,6 +91,51 @@ window.LESSONS['agent-memory-eval-safety'] = {
       { c: 'It fails only because of a standing rule: consequential actions always need separate confirmation — the rule never depended on anyone spotting the trick.', p: { rule: 'good' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: journal, review board, forged order',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Memory = RAG inward',
+        nodes: [
+          { id: 'journal', text: "Robin's journal\nsame chunk/embed/store/retrieve pipeline, pointed at her own past" },
+        ],
+      },
+      {
+        label: 'Outcome vs trajectory',
+        nodes: [
+          { id: 'outcome', text: 'Outcome: succeeded\noutcome-only eval would stop here — full marks' },
+          { id: 'path', text: 'Path: 3 rechecks, near miss\nfragile, lucky — invisible to outcome-only eval' },
+        ],
+      },
+      {
+        label: 'Audit the reviewer',
+        nodes: [
+          { id: 'spotcheck', text: "Nami spot-checks Robin's reviews\neven a trusted judge needs periodic auditing" },
+        ],
+      },
+      {
+        label: 'Prompt injection',
+        nodes: [
+          { id: 'forged', text: 'Forged line buried in the order\nindistinguishable in the moment from real content' },
+        ],
+      },
+      {
+        label: 'Standing rule',
+        nodes: [
+          { id: 'rule', text: 'Consequential actions always need separate confirmation\nthe rule never depended on spotting the trick' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['journal'], note: 'Robin\'s journal is not a new skill — it\'s her library technique (chunk, embed, store, retrieve) pointed at her own past missions instead of external documents. Long-term agent memory is exactly this.' },
+      { active: ['outcome'], note: 'A mission reaches the right outcome. An outcome-only evaluation would stop right here and mark it a full success.' },
+      { active: ['path'], note: 'But the PATH there shows real fragility — the same instrument rechecked three times, daylight nearly lost. Luck carried this one; it might not next time. Outcome-only evaluation is structurally blind to this.' },
+      { active: ['spotcheck'], note: 'Review doesn\'t scale personally, so Nami delegates first-pass review to Robin — but still spot-checks periodically. Even a trusted reviewer (or an LLM judge) can develop blind spots nobody notices without auditing.' },
+      { active: ['forged'], note: 'A routine-looking supply order arrives with a forged instruction buried inside it — indistinguishable in the moment from the real content around it, because both arrive through the exact same channel.' },
+      { active: ['rule'], note: 'It fails only because of a standing rule: consequential actions always require separate confirmation, no matter how legitimate the request looks. The rule catches the attack without anyone needing to spot the trick in real time.' },
+    ],
+  },
   tech: [
     {
       q: 'Precisely explain why "long-term agent memory" is not a new mechanism but an application of RAG, and what the persist/retrieve trade-offs are.',
@@ -298,6 +343,48 @@ def requires_approval(action_name, consequential_actions):
       explain: 'Input filtering, output validation, and action-level approval gates each catch different failure classes and each can individually fail — the combination, not any single layer, is what makes the system genuinely robust.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: memory, evaluation & guardrails',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'Why is "long-term agent memory" best understood as an application of RAG rather than a separate new mechanism?',
+        choices: [
+          { text: 'It uses the exact same chunk/embed/store/retrieve pipeline as document RAG, applied to summaries of the agent\'s own past interactions instead of external documents', to: 'q1_right' },
+          { text: 'Agent memory does not actually require embeddings or vector storage at all', to: 'q1_wrong_noembed' },
+          { text: 'Long-term memory is stored directly inside the model\'s weights via continuous background fine-tuning', to: 'q1_wrong_weights' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — same operations, different source material. Recognizing this means every trade-off from the embeddings-rag lesson (chunking/summarization, recall@k) transfers directly to memory design.', next: 'q2' },
+      q1_wrong_noembed: { end: true, correct: false, text: 'Long-term memory specifically DOES use embeddings and vector storage — that\'s precisely the mechanism it borrows wholesale from the embeddings-rag lesson.', retry: 'q1' },
+      q1_wrong_weights: { end: true, correct: false, text: 'No weight updates happen — memory is stored externally (in a vector database) and retrieved into context, exactly like RAG, not baked into the model\'s parameters.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'Why can an agent trajectory pass an outcome-only evaluation while still revealing a real reliability problem?',
+        choices: [
+          { text: 'Outcome-only evaluation only checks the final answer, so a fragile, repeated, or inefficient process that happened to land on the right answer still scores as fully correct', to: 'q2_right' },
+          { text: 'Outcome-only evaluation always fails any trajectory with more than one step', to: 'q2_wrong_stepfail' },
+          { text: 'Trajectory evaluation and outcome evaluation always produce identical results in practice', to: 'q2_wrong_identical' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — a stuck-loop-then-lucky-guess trajectory and a clean, efficient trajectory can score identically under outcome-only evaluation. Trajectory evaluation is what surfaces the underlying fragility before it causes a real failure on a harder case.', next: 'q3' },
+      q2_wrong_stepfail: { end: true, correct: false, text: 'Outcome-only evaluation doesn\'t care about step count at all — it only checks whether the FINAL answer matches, regardless of how many steps (or repeats) it took to get there.', retry: 'q2' },
+      q2_wrong_identical: { end: true, correct: false, text: 'They can diverge sharply — that\'s the entire point of this lesson\'s distinction. A trajectory can pass outcome evaluation while failing trajectory evaluation (or vice versa in principle).', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'Why is prompt injection structurally harder to fully solve than SQL injection?',
+        choices: [
+          { text: 'SQL injection has a protocol-level separation between code and data (parameterized queries); LLMs process instructions and untrusted content through the same channel with no equivalent hard separation', to: 'q3_right' },
+          { text: 'Prompt injection only affects models that were never aligned with RLHF or DPO', to: 'q3_wrong_rlhf' },
+          { text: 'SQL injection is actually a harder and less solved problem than prompt injection', to: 'q3_wrong_harder' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — parameterized queries mechanically prevent data from being reinterpreted as code. An LLM has no equivalent architectural guarantee that untrusted content can never be interpreted as an instruction, since both arrive as natural language in the same context window.', next: null },
+      q3_wrong_rlhf: { end: true, correct: false, text: 'Alignment training doesn\'t structurally prevent injection — even well-aligned models remain vulnerable, because the underlying architecture has no hard channel separation between instructions and content, regardless of alignment quality.', retry: 'q3' },
+      q3_wrong_harder: { end: true, correct: false, text: 'It\'s the opposite — SQL injection has a clean, well-established structural fix (parameterized queries). Prompt injection remains a genuinely unresolved problem precisely because no equivalent structural fix exists yet.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Persisting every raw interaction as long-term memory without summarization — expensive, noisy, and a real privacy liability, mirroring the embeddings-rag lesson\'s chunk-size dilution problem in a new context.',
     'Evaluating an agent only on final-answer correctness, missing fragile, inefficient, or stuck-loop trajectories that happened to land on the right answer this time but won\'t reliably next time.',

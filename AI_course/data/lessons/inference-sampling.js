@@ -98,6 +98,45 @@ window.LESSONS['inference-sampling'] = {
       { c: 'Fleet-wide demand: swap in new questions the instant old ones finish, and share notebook pages across overlapping requests instead of duplicating them.', p: { queue: 'good' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: from a stalling tower to a fleet-ready one',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'KV cache',
+        nodes: [
+          { id: 'notebook', text: 'Notebook of known glyphs\ncache K/V once, reuse — O(n²) → O(n)' },
+        ],
+      },
+      {
+        label: 'Pick the next token',
+        nodes: [
+          { id: 'locked', text: 'T→0 (locked): precision work\nalways the single most confident pick' },
+          { id: 'wobble', text: 'T=0.5–2.0, top-p: creative work\ncontrolled wobble among plausible options' },
+        ],
+      },
+      {
+        label: 'Avoid the beam trap',
+        nodes: [
+          { id: 'beam', text: 'Search for "best" full sentence\ntechnically higher-probability, reliably bland' },
+        ],
+      },
+      {
+        label: 'Shrink + serve',
+        nodes: [
+          { id: 'shrink', text: 'Quantize the FINISHED model\nprotect the ~1% high-leverage weights' },
+          { id: 'queue', text: 'Continuous batching + paged KV cache\nswap in new work instantly, share overlapping memory' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['notebook'], note: 'A token\'s key and value vectors never change once computed — cache them per layer instead of recomputing the whole sequence at every step. Generating token 50 now costs about the same as token 2.' },
+      { active: ['locked'], note: 'For exact, reliable output (transcription, code, math): sharpen the distribution toward greedy — softmax(logits/T) with T near 0, always the top pick.' },
+      { active: ['wobble'], note: 'For creative or varied output: raise T and/or apply top-p filtering — enough randomness to be genuinely different, bounded to the handful of plausible next tokens so it never goes unhinged.' },
+      { active: ['beam'], note: 'Searching explicitly for the single highest-JOINT-probability full sequence (beam search) sounds better but isn\'t: it finds the safest, most generic continuation at every fork — reliably the blandest possible output for open-ended generation.' },
+      { active: ['shrink', 'queue'], note: 'To deploy at scale: quantize the already-finished model down (protecting the small subset of weights that matter most), and serve with continuous batching plus a paged, shareable KV cache — new requests swap in instantly, overlapping prefixes share memory instead of duplicating it.' },
+    ],
+  },
   tech: [
     {
       q: 'Precisely compare top-k and top-p (nucleus) sampling — mechanics and why nucleus generally adapts better.',
@@ -291,6 +330,48 @@ def top_p_filter(probs, p):
       explain: 'QLoRA is a training-time technique enabling adapter training on limited hardware; GPTQ/AWQ are training-free, one-time transformations of a finished model for deployment.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: sampling, KV cache & serving',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'What is the main failure mode of greedy decoding on longer generations?',
+        choices: [
+          { text: 'Text degeneration — repetitive loops, since a repeated phrase\'s continuation is often the highest-probability next token precisely because it already appeared', to: 'q1_right' },
+          { text: 'It runs too slowly to be practical at any scale', to: 'q1_wrong_slow' },
+          { text: 'It cannot generate more than a single token in total', to: 'q1_wrong_onetoken' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — once committed to a slightly-suboptimal token (no backtracking, thanks to the causal mask), greedy decoding tends to fall into repetitive loops like "I think that I think that...", a well-documented degeneration pattern.', next: 'q2' },
+      q1_wrong_slow: { end: true, correct: false, text: 'Greedy decoding is actually the FASTEST decoding strategy (no search, no sampling overhead) — its problem is output quality on long generations, not speed.', retry: 'q1' },
+      q1_wrong_onetoken: { end: true, correct: false, text: 'Greedy decoding generates a full sequence, one token at a time, just like any other strategy — the issue is what kind of sequence it tends to produce over many steps, not a length limitation.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'What makes top-p (nucleus) sampling adapt better to different situations than a fixed top-k?',
+        choices: [
+          { text: 'The kept token set size varies with how peaked or flat the actual distribution is at each step, rather than being a fixed count regardless of confidence', to: 'q2_right' },
+          { text: 'Top-p is always computationally faster to run than top-k', to: 'q2_wrong_speed' },
+          { text: 'Top-p never allows more than one token to ever be sampled', to: 'q2_wrong_one' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — a confident step (one token dominates) naturally yields a small nucleus; an uncertain, flat step yields a larger one. The cutoff adapts to the distribution\'s actual shape, which a fixed k cannot do.', next: 'q3' },
+      q2_wrong_speed: { end: true, correct: false, text: 'Both require a sort over probabilities — there\'s no inherent speed advantage for top-p. The real advantage is adaptivity to each step\'s distribution shape, not raw computation speed.', retry: 'q2' },
+      q2_wrong_one: { end: true, correct: false, text: 'Top-p can and often does keep several tokens (whenever the distribution is flatter) — it can also keep just one when the model is very confident. The set size varies; it isn\'t fixed at one.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'Why does beam search tend to produce blander text than sampling for open-ended generation, despite finding higher joint-probability sequences?',
+        choices: [
+          { text: 'Real human text is not, token by token, always the maximum-probability continuation — maximizing joint sequence probability finds the safest, most generic continuation at every fork', to: 'q3_right' },
+          { text: 'Beam search is technically incapable of processing more than a few tokens total', to: 'q3_wrong_length' },
+          { text: 'Beam search is mathematically identical to greedy decoding, just renamed', to: 'q3_wrong_identical' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — interesting writing regularly takes locally lower-probability turns; explicitly maximizing joint probability systematically avoids exactly those turns, compounding into generic, forgettable output.', next: null },
+      q3_wrong_length: { end: true, correct: false, text: 'Beam search handles arbitrarily long sequences fine (with a beam width tracking top-B candidates throughout) — length isn\'t the limiting factor behind its blandness.', retry: 'q3' },
+      q3_wrong_identical: { end: true, correct: false, text: 'They\'re related but distinct: greedy always takes the single best NEXT token, while beam search tracks multiple candidate full SEQUENCES simultaneously, searching for the best overall joint probability — not the same algorithm.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Using greedy decoding by default for open-ended or creative tasks — it reliably produces repetitive, degenerate text on longer generations; reserve it (or very low temperature) for tasks that genuinely want a single deterministic best answer.',
     'Using beam search for chat or creative generation because it "finds the most probable sequence" — that\'s exactly why it produces bland output for these tasks; beam search is the right tool for translation-like tasks, not open-ended ones.',

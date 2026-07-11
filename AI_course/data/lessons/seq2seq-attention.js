@@ -88,6 +88,49 @@ window.LESSONS['seq2seq-attention'] = {
       { c: 'Sanji can see which glyph powered which sentence (the alignment heatmap). And Usopp asks: "why don\'t the glyphs glance at EACH OTHER?" — self-attention. Part 5 begins there.', p: { page: 'good', summary: 'good' }, l: { page: 'translation: accurate ✓' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: "the blue ship sails"',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Encoder states',
+        nodes: [
+          { id: 'h', text: 'h₁…h₄: one vector per source word\n"the","blue","ship","sails" — all kept, none discarded' },
+        ],
+      },
+      {
+        label: 'Query',
+        nodes: [
+          { id: 'query', text: 'Decoder state s\nabout to produce "bleu" — looking for color information' },
+        ],
+      },
+      {
+        label: 'Scores',
+        nodes: [
+          { id: 'scores', text: 'scores = H · s\none dot product per source position, all at once' },
+        ],
+      },
+      {
+        label: 'Weights',
+        nodes: [
+          { id: 'weights', text: 'softmax(scores)\n≈ [0.19, 0.42, 0.24, 0.16] — concentrated on "blue"' },
+        ],
+      },
+      {
+        label: 'Context',
+        nodes: [
+          { id: 'context', text: 'context = Σ weightᵢ·hᵢ\nmostly h₂\'s ("blue") content, others faintly mixed in' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['h'], note: 'Attention\'s fix to the bottleneck: keep EVERY encoder hidden state, one per source token, instead of collapsing them into a single summary vector.' },
+      { active: ['query'], note: 'The decoder is about to produce the French word for "blue". Its current state s is effectively "looking for" color information.' },
+      { active: ['scores'], note: 'Score compatibility between s and every source position with one matrix-vector product: scores = H · s — Part 1\'s dot product, batched over the whole sequence at once.' },
+      { active: ['weights'], note: 'Normalize the scores with softmax into a probability distribution over source positions: ≈ [0.19, 0.42, 0.24, 0.16] — "blue" dominates, but nothing is fully zeroed out.' },
+      { active: ['context'], note: 'Build the context as the weighted average of ALL encoder states using those weights — mostly h₂\'s content, with faint contributions from the rest. Next decoder step, a different query rebuilds this from scratch.' },
+    ],
+  },
   tech: [
     {
       q: 'Why softmax the scores instead of just using the raw dot products as weights?',
@@ -248,6 +291,48 @@ def attention(query, keys, values):
       explain: 'Self-attention (every token contextualizes from every other), learned Q/K/V projections (roles, like word2vec\'s u/v), and no recurrence (one parallel matmul). "Attention Is All You Need" = keep the mechanism, delete the RNN.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: seq2seq & attention',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'Why does vanilla (2014) seq2seq translation quality collapse as the source sentence gets longer?',
+        choices: [
+          { text: 'The entire source must compress into one fixed-size context vector — long inputs simply don\'t fit', to: 'q1_right' },
+          { text: 'The decoder\'s vocabulary is too small for longer sentences', to: 'q1_wrong_vocab' },
+          { text: 'RNNs are mathematically incapable of producing variable-length output', to: 'q1_wrong_varlen' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — one 512-dim vector must hold a 4-word greeting or a 60-word paragraph equally. Robin reciting with her back to the stone: fine for short inscriptions, catastrophic for long ones. Attention fixes this by keeping every encoder state accessible instead of compressing.', next: 'q2' },
+      q1_wrong_vocab: { end: true, correct: false, text: 'Vocabulary size is unrelated to sentence length — it\'s fixed regardless of how long any individual input is. The actual failure is the fixed-size context vector bottleneck.', retry: 'q1' },
+      q1_wrong_varlen: { end: true, correct: false, text: 'RNN decoders handle variable-length output fine (that\'s the whole point of generating token-by-token until <EOS>). The problem is upstream: the ENCODER\'s summary is fixed-size no matter the input length.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'During training with teacher forcing, what does the decoder receive as input at step t?',
+        choices: [
+          { text: 'The ground-truth previous target token, regardless of what the model itself predicted', to: 'q2_right' },
+          { text: 'The model\'s own sampled prediction from the previous step', to: 'q2_wrong_own' },
+          { text: 'The full source sentence, re-encoded fresh at every step', to: 'q2_wrong_resend' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — every step conditions on the CORRECT prefix, which gives stable, parallelizable training. The cost is exposure bias: at inference there\'s no teacher, so the model must ride its own (possibly wrong) outputs.', next: 'q3' },
+      q2_wrong_own: { end: true, correct: false, text: 'That\'s what happens at INFERENCE time, not during teacher-forced training. Feeding the model\'s own early, garbage predictions during training would let one error corrupt every subsequent step — exactly what teacher forcing avoids.', retry: 'q2' },
+      q2_wrong_resend: { end: true, correct: false, text: 'The source is encoded once per sentence (or attended over repeatedly, in the attention case) — it isn\'t re-encoded per decoder step. Teacher forcing is specifically about what feeds the DECODER\'s previous-token input.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'At each decoder step, the attention context vector is computed as…',
+        choices: [
+          { text: 'A softmax-weighted average of ALL encoder hidden states, with weights recomputed fresh from the current decoder state', to: 'q3_right' },
+          { text: 'The single encoder hidden state with the single highest score, selected outright', to: 'q3_wrong_argmax' },
+          { text: 'The final encoder hidden state, same as vanilla seq2seq, just relabeled', to: 'q3_wrong_final' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — scores → softmax → weighted sum, rebuilt at every single output step (Robin\'s glances resetting per sentence). Softness is exactly what keeps the mechanism differentiable and trainable end to end.', next: null },
+      q3_wrong_argmax: { end: true, correct: false, text: 'A hard argmax selection would have zero gradient almost everywhere — you couldn\'t backprop "where to look". Attention deliberately uses a SOFT weighted blend instead of a hard pick.', retry: 'q3' },
+      q3_wrong_final: { end: true, correct: false, text: 'That\'s exactly the bottleneck attention was built to eliminate. Attention uses ALL encoder states with per-step weights, not just the last one.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Describing attention as "the model focuses on important words" and stopping there. In interviews, give the mechanism: compatibility scores → softmax → weighted average, recomputed per step. The vague version signals tutorial-level knowledge.',
     'Forgetting that the context is a BLEND. Attention rarely puts weight 1.0 anywhere; downstream layers receive mixed information. Reasoning that assumes hard selection leads to wrong debugging conclusions.',

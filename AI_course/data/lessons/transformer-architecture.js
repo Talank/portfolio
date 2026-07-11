@@ -97,6 +97,56 @@ window.LESSONS['transformer-architecture'] = {
       { c: 'The refined representation heads to the NEXT floor. Stack this whole unit N times — 12, 24, 96 — and you have the transformer.', p: { out: 'good' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: one floor of the reading room',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Add position',
+        nodes: [
+          { id: 'pos', text: '+ positional encoding\nbefore anything else — content alone has no order' },
+        ],
+      },
+      {
+        label: 'Self-attention',
+        nodes: [
+          { id: 'attn', text: 'Multi-head self-attention\nevery token reads every other token at once' },
+        ],
+      },
+      {
+        label: 'Residual + norm',
+        nodes: [
+          { id: 'resnorm1', text: 'X + Attention(X), then LayerNorm\nthrough-beam: nothing is ever lost' },
+        ],
+      },
+      {
+        label: 'Feedforward',
+        nodes: [
+          { id: 'ffn', text: 'Feedforward (per-token)\nsame weights, every position, no cross-talk' },
+        ],
+      },
+      {
+        label: 'Residual + norm',
+        nodes: [
+          { id: 'resnorm2', text: 'X₁ + FFN(X₁), then LayerNorm\nsame through-beam pattern, again' },
+        ],
+      },
+      {
+        label: 'Stack ×N',
+        nodes: [
+          { id: 'stack', text: 'Repeat this whole floor N times\n12, 24, 96+ — the transformer' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['pos'], note: 'Self-attention alone is permutation-equivariant — it has no idea what order tokens came in. A position-dependent vector gets added to every token\'s embedding BEFORE the first attention layer, so order is baked in from the start.' },
+      { active: ['attn'], note: 'Multi-head self-attention (last lesson\'s full Q/K/V formula): every token gathers a weighted blend of information from every other token, all as one parallel computation.' },
+      { active: ['resnorm1'], note: 'Wrap it as X + Attention(X), then LayerNorm. The residual "through-beam" guarantees the original signal survives even if this particular attention pass has nothing useful to add — depth becomes safe to add.' },
+      { active: ['ffn'], note: 'A plain per-token MLP — same weights reused at every position, zero mixing across tokens (attention already did all the cross-token communication). Attention mixes ACROSS positions; the FFN mixes WITHIN one.' },
+      { active: ['resnorm2'], note: 'The exact same wrap, again: X₁ + FFN(X₁), then LayerNorm. Two sub-layers, same residual+norm pattern both times — that\'s the whole shape to memorize.' },
+      { active: ['stack'], note: 'Stack this entire floor N times, each one refining every token\'s representation with an ever-richer contextual picture. 12 floors, 24, 96+ — that repetition, plus a final linear+softmax layer, is the transformer.' },
+    ],
+  },
   tech: [
     {
       q: 'Why can\'t attention alone represent word order, and is positional encoding the only fix?',
@@ -272,6 +322,48 @@ def layer_norm_row(row, eps=1e-5):
       explain: 'Pre-norm keeps a clean, un-normalized residual highway all the way through the stack, which trains more stably at large depth — the reason most modern LLMs (GPT-2 onward, LLaMA) use it despite the 2017 original being post-norm.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: the transformer block',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'Why does a transformer need positional encoding at all?',
+        choices: [
+          { text: 'Self-attention\'s output is invariant to input order (permutation-equivariant) — without an explicit signal, shuffled tokens produce the same content-based attention patterns', to: 'q1_right' },
+          { text: 'It just speeds up convergence; attention would work fine without it, only slower', to: 'q1_wrong_speed' },
+          { text: 'It replaces the need for an embedding table entirely', to: 'q1_wrong_replace' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — QKᵀ/√dk·V is built entirely from content dot-products; no term depends on position index i or j. "The dog bit the man" and "the man bit the dog" would attend identically without an explicit position signal added in.', next: 'q2' },
+      q1_wrong_speed: { end: true, correct: false, text: 'It\'s not a speed optimization — without it the model literally CANNOT distinguish "the dog bit the man" from "the man bit the dog" by position at all, regardless of how long you train.', retry: 'q1' },
+      q1_wrong_replace: { end: true, correct: false, text: 'Positional encoding is ADDED to the embedding table\'s output, not a replacement for it — you still need the embedding lookup for content; position is a separate signal layered on top.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'What does the feedforward (FFN) sub-layer do that self-attention does NOT do?',
+        choices: [
+          { text: 'It processes each token\'s features independently, with no mixing across positions — attention already handled all cross-token communication', to: 'q2_right' },
+          { text: 'It computes the compatibility scores between every pair of tokens', to: 'q2_wrong_scores' },
+          { text: 'It applies the causal mask that blocks future positions', to: 'q2_wrong_mask' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — attention mixes ACROSS positions; the FFN (same weights, applied identically to every position) then processes WITHIN each position\'s features, independently. Complementary jobs, and most of a transformer\'s parameters actually live in the FFN.', next: 'q3' },
+      q2_wrong_scores: { end: true, correct: false, text: 'That\'s attention\'s job (QKᵀ), not the FFN\'s. The FFN runs entirely per-token — it never computes anything between different positions.', retry: 'q2' },
+      q2_wrong_mask: { end: true, correct: false, text: 'The causal mask is part of the self-attention sub-layer\'s score computation, not the feedforward sub-layer. The FFN has no notion of masking — it just transforms each token vector independently.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'Why are residual connections (X + Sublayer(X)) necessary for training very deep transformer stacks?',
+        choices: [
+          { text: 'They give the gradient an identity path backward through every layer, preventing vanishing gradients from multiplying many small Jacobians together across depth', to: 'q3_right' },
+          { text: 'They reduce the total number of trainable parameters in the model', to: 'q3_wrong_params' },
+          { text: 'They make LayerNorm unnecessary, so only one of the two is needed', to: 'q3_wrong_norm' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: '∂L/∂X = ∂L/∂Y·(I + ∂F/∂X) — that identity term guarantees a non-vanishing gradient path regardless of how small any individual sub-layer\'s own gradient is, across arbitrarily many stacked blocks. This is exactly why 96-layer transformers are trainable.', next: null },
+      q3_wrong_params: { end: true, correct: false, text: 'Residuals add essentially no extra parameters (just an elementwise addition) — the benefit is entirely about gradient flow during backpropagation, not model size.', retry: 'q3' },
+      q3_wrong_norm: { end: true, correct: false, text: 'Residuals and LayerNorm solve different problems and both remain necessary — residuals fix vanishing gradients from depth, LayerNorm keeps each layer\'s input distribution well-behaved. Removing either one hurts deep training.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Describing the transformer as "just attention" — attention is the one genuinely new idea, but residuals, LayerNorm, the FFN, and positional encoding are all load-bearing; remove any one and deep stacks stop training reliably or lose order information entirely.',
     'Forgetting that positional information must be added BEFORE the first attention layer (or injected into the attention computation itself, for relative schemes) — adding it only at the end, after attention has already thrown order away, does nothing.',

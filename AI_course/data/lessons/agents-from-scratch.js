@@ -90,6 +90,55 @@ window.LESSONS['agents-from-scratch'] = {
       { c: 'Nami\'s hard rule stops it: ask something NEW, or commit. A cap on how long the loop is allowed to run.', p: { cap: 'good' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: Nami\'s ReAct loop',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Thought',
+        nodes: [
+          { id: 'thought1', text: 'Thought: storm nearby?\nnot enough information yet' },
+        ],
+      },
+      {
+        label: 'Action → Observation',
+        nodes: [
+          { id: 'nest', text: 'Action: check crow\'s nest\na REAL tool call, not a guess' },
+          { id: 'obs1', text: 'Observation: clouds, distant\nactual result, fed back in' },
+        ],
+      },
+      {
+        label: 'Loop again',
+        nodes: [
+          { id: 'thought2', text: 'Thought: confirm with barometer\nconditioned on the real observation above' },
+          { id: 'obs2', text: 'Observation: pressure dropping slowly\nanother real result' },
+        ],
+      },
+      {
+        label: 'Final answer',
+        nodes: [
+          { id: 'final', text: 'Final Answer: heading + speed\nenough real information gathered' },
+        ],
+      },
+      {
+        label: 'Safety cap',
+        nodes: [
+          { id: 'stuck', text: 'Stuck loop: Usopp rechecks\nthe SAME reading 4 times' },
+          { id: 'cap', text: 'Hard cap: commit after a few checks\nask something NEW, or stop' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['thought1'], note: 'THOUGHT: reason in natural language about what\'s currently known and what\'s still uncertain — not enough information yet to commit to a heading.' },
+      { active: ['nest'], note: 'ACTION: request a specific real tool call — check the crow\'s nest. This is where something outside the model actually executes.' },
+      { active: ['obs1'], note: 'OBSERVATION: the actual result comes back — clouds, still distant — and gets fed into the transcript as real information, not a guess.' },
+      { active: ['thought2'], note: 'The NEXT Thought is conditioned on that real observation, not just prior beliefs — enough time for now, but confirm with the barometer before deciding speed.' },
+      { active: ['obs2'], note: 'Another Action → Observation cycle: pressure dropping slowly. Each loop iteration adds one more grounded fact.' },
+      { active: ['final'], note: 'Once a Thought concludes there\'s enough real information, the loop ends in a Final Answer instead of another Action.' },
+      { active: ['stuck'], note: 'The failure mode: Usopp rechecks the exact same reading four times hoping for a different answer — a deterministic tool will never give one. A stuck loop.' },
+      { active: ['cap'], note: 'Nami\'s hard rule stops it: ask something NEW, or commit. A cap on how long the loop is allowed to run — exactly max_steps in a real agent.' },
+    ],
+  },
   tech: [
     {
       q: 'Precisely explain why ReAct\'s interleaving of Thought and Action outperforms pure chain-of-thought reasoning alone.',
@@ -307,6 +356,48 @@ def run_agent(question, mock_responses, tools, max_steps=6):
       explain: 'The using-models-apis lesson\'s interface-first principle, extended: the loop should consume a consistent internal shape regardless of whether that shape came from a native function-calling API or a text-parsing fallback for models without one.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: agents, ReAct & tool use',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'What structurally distinguishes an "agent" from an ordinary single LLM call?',
+        choices: [
+          { text: 'The model can request that a real tool be executed, observe the actual result, and use it to decide its next step — a loop, not one prompt producing one final response', to: 'q1_right' },
+          { text: 'Agents use a fundamentally different neural network architecture than other LLMs', to: 'q1_wrong_arch' },
+          { text: 'Agents always execute faster than an ordinary single LLM call', to: 'q1_wrong_speed' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — every other lesson used "prompt in, response out." An agent introduces a loop with real tool execution and observation feedback driving the next decision, until a Thought concludes it has enough to answer.', next: 'q2' },
+      q1_wrong_arch: { end: true, correct: false, text: 'The underlying model architecture is unchanged — an agent is a CONTROL FLOW pattern (the calling code\'s loop), not a different neural network.', retry: 'q1' },
+      q1_wrong_speed: { end: true, correct: false, text: 'Agents are typically SLOWER than a single call — each loop iteration is another LLM call plus tool execution time. Speed isn\'t the distinguishing property.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'Why does ReAct interleave Thought and Action rather than doing all reasoning up front?',
+        choices: [
+          { text: 'Interleaving lets each Thought be conditioned on a REAL observation from the most recent tool call, letting the model catch and correct wrong assumptions mid-task', to: 'q2_right' },
+          { text: 'Interleaving makes the underlying model generate tokens faster', to: 'q2_wrong_speed' },
+          { text: 'Pure chain-of-thought reasoning is architecturally impossible for transformers', to: 'q2_wrong_impossible' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — pure upfront reasoning has no mechanism to check itself against reality, so an early wrong assumption compounds silently. ReAct\'s per-step real observations give the model genuine course-correction opportunities.', next: 'q3' },
+      q2_wrong_speed: { end: true, correct: false, text: 'Interleaving doesn\'t change token generation speed — if anything, the extra tool-call round trips make the overall process slower, not faster.', retry: 'q2' },
+      q2_wrong_impossible: { end: true, correct: false, text: 'Chain-of-thought reasoning works perfectly well in transformers (it\'s used constantly) — the issue with PURE chain-of-thought is that it\'s ungrounded, never checked against real information, not that it\'s impossible.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'What is the "stuck loop" failure mode in agents, and what is a direct way to guard against it?',
+        choices: [
+          { text: 'The model repeatedly calls the same tool with the same arguments without progress; comparing each new action against a short recent history catches and blocks the repeat', to: 'q3_right' },
+          { text: 'The model refuses to call any tools at all, ever', to: 'q3_wrong_refuse' },
+          { text: 'The underlying tool itself crashes and can never be called again', to: 'q3_wrong_crash' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — a deterministic tool called with identical arguments returns an identical result, so repeating it can never resolve the model\'s uncertainty. Detecting and blocking exact repeats (or forcing a different approach) is a cheap, high-value safeguard.', next: null },
+      q3_wrong_refuse: { end: true, correct: false, text: 'That describes a different failure mode entirely (under-using tools) — the "stuck loop" is specifically about OVER-repeating the exact same action without making progress.', retry: 'q3' },
+      q3_wrong_crash: { end: true, correct: false, text: 'A stuck loop doesn\'t require the tool to be broken at all — it can happen even with a perfectly functioning, deterministic tool, precisely because it keeps returning the same (unhelpful) result to the same repeated call.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Executing a model-requested tool call without validating the tool name and arguments first — a hallucinated or malformed tool request executed blindly is a real correctness and (for tools with side effects) safety risk.',
     'Building an agent loop with no max_steps cap "because the task usually finishes quickly" — the failure case (a confusing task, a model that gets stuck) is exactly when the cap matters most, and it costs nothing to have when the task DOES finish quickly.',

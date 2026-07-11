@@ -89,6 +89,42 @@ window.LESSONS['word-embeddings'] = {
       { c: 'The next machine must move each pin per-article: "Robin, in THIS story, is a scholar." A vector that shifts with context — that is attention\'s job, next lesson.', a: { robin: [40, 70] }, p: { news: 'good' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: Vegapunk\'s chart',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Raw IDs',
+        nodes: [
+          { id: 'onehot', text: 'One-hot / token IDs\n"ship"=4074, "sarcasm"=302 — equidistant, no geometry' },
+        ],
+      },
+      {
+        label: 'Distributional training',
+        nodes: [
+          { id: 'cluster', text: 'Co-occurrence clusters\nNami & Bepo both near "log pose","storm" → drift together' },
+        ],
+      },
+      {
+        label: 'Direction',
+        nodes: [
+          { id: 'analogy', text: 'Analogy arithmetic\nv_Law + (v_Nami − v_Luffy) ≈ v_Bepo' },
+        ],
+      },
+      {
+        label: 'Ceiling',
+        nodes: [
+          { id: 'polysemy', text: 'One pin per word\nRobin / Ms. All-Sunday — one vector, two senses, wrong for both' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['onehot'], note: 'Start: token IDs are arbitrary. ID 4074 ("ship") is no closer to 8802 ("boat") than to 302 ("sarcasm") — one-hot vectors are all equally distant, dot product 0.' },
+      { active: ['cluster'], note: 'Train on raw text with no labels: words that keep appearing in the same contexts get pulled together. Nami and Bepo both co-occur with "log pose" and "storm" — a navigator cluster forms with nobody defining "navigator".' },
+      { active: ['analogy'], note: 'Systematic context differences become consistent directions. The captain→navigator arrow from Luffy to Nami matches Law to Bepo — so v_Law + (v_Nami − v_Luffy) lands near v_Bepo. Arithmetic on meaning.' },
+      { active: ['polysemy'], note: 'The ceiling: Robin has two context-lives (Baroque Works assassin, Straw Hat scholar) but gets exactly ONE pin — it lands between both clusters, accurate for neither. One vector per word can\'t hold two senses.' },
+    ],
+  },
   tech: [
     {
       q: 'What is nn.Embedding actually — and why is it equivalent to a linear layer on one-hots?',
@@ -281,6 +317,48 @@ def analogy(a, b, c, vectors):
       explain: 'Vegapunk\'s one pin for Robin/Ms. All-Sunday. Contextual models keep the lookup as layer zero, then let attention move each occurrence to where THIS usage belongs.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: word embeddings & word2vec',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'Why are one-hot vectors useless as word representations?',
+        choices: [
+          { text: 'Every pair of one-hot vectors is equidistant with dot product 0 — no similarity structure for cosine or a model to use', to: 'q1_right' },
+          { text: 'They take up too much disk space to store', to: 'q1_wrong_size' },
+          { text: 'Neural networks cannot accept them as input', to: 'q1_wrong_input' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — one-hots are just IDs in vector costume: orthogonal, every pair equally "far". Embeddings replace them with dense learned vectors whose geometry actually encodes similarity.', next: 'q2' },
+      q1_wrong_size: { end: true, correct: false, text: 'Storage cost is a real but secondary issue. The fatal flaw is geometric: even ignoring size, one-hot vectors carry zero similarity structure — "ship" and "boat" are exactly as "far apart" as "ship" and "sarcasm".', retry: 'q1' },
+      q1_wrong_input: { end: true, correct: false, text: 'Networks accept one-hots fine (that\'s literally what an embedding lookup mathematically is). The problem isn\'t compatibility — it\'s that one-hot geometry carries no meaning for the network to exploit.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'In skip-gram with negative sampling, one training update on the real pair (ship, sails) does what?',
+        choices: [
+          { text: 'Pushes u_sails·v_ship up toward 1, and pushes dot products with a few random sampled words down', to: 'q2_right' },
+          { text: 'Computes a full softmax probability over the entire 50,000-word vocabulary', to: 'q2_wrong_softmax' },
+          { text: 'Increments a global co-occurrence count matrix by one', to: 'q2_wrong_count' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — binary classification: the true pair gets pushed toward "compatible", k≈5 random negative pairs get pushed toward "incompatible". Only ~6 vectors touched per update instead of the whole vocabulary.', next: 'q3' },
+      q2_wrong_softmax: { end: true, correct: false, text: 'That\'s the ORIGINAL skip-gram objective — and precisely what negative sampling was invented to avoid, because normalizing over 50k words per training pair is too slow at scale.', retry: 'q2' },
+      q2_wrong_count: { end: true, correct: false, text: 'That describes GloVe\'s approach (factorizing a pre-built co-occurrence matrix), not word2vec\'s. Skip-gram with negative sampling does gradient updates on vectors directly via a binary classification loss, no count matrix involved.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'What specific limitation of static embeddings (like word2vec) do contextual embeddings (BERT-style) fix?',
+        choices: [
+          { text: 'Polysemy — one vector per word forces different senses (e.g. "bank" river vs money) onto the same point; contextual models recompute each token\'s vector per sentence', to: 'q3_right' },
+          { text: 'Static embeddings cannot be compared using cosine similarity', to: 'q3_wrong_cosine' },
+          { text: 'Static embeddings require hand-labeled training data', to: 'q3_wrong_labels' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — Robin\'s one pin stuck between the assassin and scholar clusters. Contextual models keep the lookup table as layer zero, then let attention move each occurrence to where THIS particular usage belongs.', next: null },
+      q3_wrong_cosine: { end: true, correct: false, text: 'Cosine similarity works perfectly fine on static embeddings — it\'s literally how nearest-neighbor lookups like wv.most_similar() work. That\'s not the limitation being fixed.', retry: 'q3' },
+      q3_wrong_labels: { end: true, correct: false, text: 'Static embeddings are already self-supervised — no labels needed (that\'s the distributional hypothesis in action). The real ceiling is one-vector-per-word-type, not a labeling requirement.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Expecting antonym-awareness. "good" and "bad" share contexts, so their embeddings are NEIGHBORS. Embeddings encode relatedness/substitutability, not sentiment or logic — a sentiment classifier needs more than raw proximity.',
     'Comparing embeddings from two different training runs or models directly. Spaces are defined up to rotation — vectors only mean something RELATIVE to their own space. Aligning spaces is its own technique (Procrustes); naive cross-space cosine is noise.',

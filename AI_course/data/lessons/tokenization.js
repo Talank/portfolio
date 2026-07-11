@@ -82,6 +82,45 @@ window.LESSONS['tokenization'] = {
       { c: 'Robin\'s Poneglyph lexicon, same algorithm: fuse the most frequent glyph pairs for years, then read any new stone by decomposing into known fragments. Frequent = one glance; rare = a few pieces; stuck = never.', a: { robin: [50, 85] }, p: { corpus: 'good' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: the hug/pug corpus',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Start',
+        nodes: [
+          { id: 'corpus', text: 'Corpus, split into characters\nhug×10 pug×5 pun×12 bun×4 hugs×5' },
+        ],
+      },
+      {
+        label: 'Count pairs',
+        nodes: [
+          { id: 'counts', text: 'Adjacent pair counts\n(u,g)=20  (u,n)=16  (h,ug)=15' },
+        ],
+      },
+      {
+        label: 'Merge loop',
+        nodes: [
+          { id: 'merge1', text: 'Merge #1\n"ug" — (u,g) wins with 20' },
+          { id: 'merge2', text: 'Merge #2\n"un" — (u,n) now leads with 16' },
+          { id: 'merge3', text: 'Merge #3\n"hug" — (h,ug) now leads with 15' },
+        ],
+      },
+      {
+        label: 'Tokenize new text',
+        nodes: [
+          { id: 'newword', text: 'Replay merges on "bug"\nb-u-g → [b, ug] — never seen, never OOV' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['corpus'], note: 'Training starts with every word split into characters — h-u-g, p-u-g, p-u-n, b-u-n, h-u-g-s. The vocabulary is just the 7 letters.' },
+      { active: ['counts'], note: 'Count every adjacent symbol pair across the corpus, weighted by word frequency. (u,g) appears in hug, pug, hugs: 10+5+5 = 20 — the champion.' },
+      { active: ['merge1'], note: 'MERGE #1: every "u g" fuses into one symbol "ug", everywhere in the corpus. The corpus is now h-ug, p-ug, p-u-n, b-u-n, h-ug-s.' },
+      { active: ['merge2', 'merge3'], note: 'Recount from scratch: (u,n) now leads with 12+4=16 → merge "un". Recount again: (h,ug) leads with 15 → merge "hug". Common chunks become single tokens, in frequency order.' },
+      { active: ['newword'], note: 'Tokenizing NEW text just replays the merges in order: "bug" → b-u-g → apply merge #1 → ["b","ug"]. Never seen in training, never broken — that\'s how OOV disappears.' },
+    ],
+  },
   tech: [
     {
       q: 'What exactly does tokenizer(text) return in Hugging Face, and what do the pieces mean?',
@@ -268,6 +307,48 @@ def tokenize(word, merges):
       explain: 'More merges = more text per token = shorter sequences (O(n²) attention notices). But embeddings/softmax grow with k, and tail tokens train poorly (glitch-token risk). 32k–128k is the modern balance.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: BPE tokenization',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'Corpus: hug×10, pug×5, pun×12, bun×4, hugs×5 (split into characters). What is the FIRST BPE merge, and why?',
+        choices: [
+          { text: '(u,g) — it totals 10+5+5 = 20 occurrences, the highest of any pair', to: 'q1_right' },
+          { text: '(u,n) — it totals 16 occurrences', to: 'q1_wrong_un' },
+          { text: '(h,u) — "hug" is the most iconic word in the corpus', to: 'q1_wrong_hu' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — (u,g) appears in hug (10), pug (5), and hugs (5) = 20, beating every other pair. BPE always merges whichever pair has the highest total count, full stop — no notion of "importance".', next: 'q2' },
+      q1_wrong_un: { end: true, correct: false, text: '(u,n) totals 12+4=16 — real, but smaller than (u,g)\'s 20. It wins round TWO, after (u,g) is already merged and removed from the count.', retry: 'q1' },
+      q1_wrong_hu: { end: true, correct: false, text: 'BPE has no concept of a word being "iconic" — it is pure frequency counting over ADJACENT pairs. (h,u) isn\'t even the top pair once you count correctly: (u,g) at 20 wins.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'After training on that corpus, the tokenizer sees the brand-new word "mug" (never in training). What happens?',
+        choices: [
+          { text: 'It falls back to known fragments — "mug" → [m, ug], since "ug" was learned as a merge', to: 'q2_right' },
+          { text: 'It becomes a single <UNK> token, same as word-level tokenizers', to: 'q2_wrong_unk' },
+          { text: 'Tokenization fails with an error — the tokenizer has never seen "mug"', to: 'q2_wrong_error' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — replay the learned merges in order: "mug" → m-u-g → merge #1 applies to "u g" → ["m","ug"]. The novel letter "m" just stays a single character. Worst case, subwords fall all the way back to characters/bytes — that\'s why OOV is eliminated by construction.', next: 'q3' },
+      q2_wrong_unk: { end: true, correct: false, text: 'That\'s exactly the word-level failure mode subwords were built to avoid. BPE never needs <UNK> for a word made of known characters — it just decomposes into smaller known pieces.', retry: 'q2' },
+      q2_wrong_error: { end: true, correct: false, text: 'No error — every merge is just a character-pair replacement, and any string can be split into its base characters (or bytes) even with zero learned merges applying. Graceful degradation, not failure.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'Why does an LLM often fail to count the letters in "strawberry" even though it can define the word perfectly?',
+        choices: [
+          { text: 'The word arrives as a few opaque subword IDs (e.g. ["str","aw","berry"]) — individual letters were never separately present in the input', to: 'q3_right' },
+          { text: 'The model\'s vocabulary is too small to include long words', to: 'q3_wrong_vocab' },
+          { text: 'Counting letters requires a much larger model', to: 'q3_wrong_size' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — the model receives token IDs, not letters. Counting r\'s requires recalling memorized spelling rather than reading it off the input, which is why it\'s unreliable. Spell the word out with spaces and each letter becomes its own token — the model suddenly counts fine.', next: null },
+      q3_wrong_vocab: { end: true, correct: false, text: 'Vocabulary size is irrelevant here — "strawberry" tokenizes into a handful of subword IDs regardless of vocab size. The issue is that those IDs are opaque wholes, not that the word doesn\'t fit.', retry: 'q3' },
+      q3_wrong_size: { end: true, correct: false, text: 'Model size doesn\'t fix this — it\'s a structural input-representation issue, not a capacity issue. Even a much larger model still receives the same opaque subword IDs and must recall spelling rather than inspect it.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Using a different tokenizer than the model checkpoint\'s. Token IDs are meaningless across vocabularies — the model receives well-formed nonsense and outputs the same. AutoTokenizer.from_pretrained(same-name) is not optional.',
     'Forgetting that whitespace is part of the token. " hello" ≠ "hello" in byte-BPE; a prompt ending in a space steers the model differently than one that doesn\'t. When completions look subtly wrong, check the boundary.',

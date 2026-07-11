@@ -87,6 +87,52 @@ window.LESSONS['langchain-langgraph'] = {
       { c: 'But shown the same elaborate diagram before a trivial two-step errand, Usopp finds it MORE confusing than just being told directly. The diagram earns its cost only at real complexity.', p: { overkill: 'bad' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: from a shouted loop to a war-table graph',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Old loop',
+        nodes: [
+          { id: 'shout', text: 'Shouted, in-her-head loop\nfine for one ship, one small crew' },
+        ],
+      },
+      {
+        label: 'Draw the graph',
+        nodes: [
+          { id: 'board', text: 'War-table diagram: boxes + arrows\nnodes = functions, edges = what runs next' },
+        ],
+      },
+      {
+        label: 'Cycle + pause',
+        nodes: [
+          { id: 'loop_arrow', text: 'An arrow loops back\n"keep engaging" — a cycle, drawn as an edge' },
+          { id: 'pause', text: 'PAUSE box: wait for approval\ncheckpoint + wait for a human signal' },
+        ],
+      },
+      {
+        label: 'Inspect',
+        nodes: [
+          { id: 'anyone', text: 'Any crew can pick up from any box\nstate persisted, not stuck in one head' },
+          { id: 'replay', text: 'Replay exactly which path was taken\ntime-travel debugging, not log-reading' },
+        ],
+      },
+      {
+        label: 'Honest cost',
+        nodes: [
+          { id: 'overkill', text: 'Overkill for a simple errand\nthe diagram earns its cost only at real complexity' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['shout'], note: 'The old method: one navigator, an improvised loop, entirely in her head. Fine for a small operation — exactly the agents-from-scratch lesson\'s hand-rolled while-loop.' },
+      { active: ['board'], note: 'A multi-ship coordinated operation needs more. Franky draws the whole plan explicitly: boxes (nodes, functions over shared state) and arrows (edges, what runs next) — a graph, not code hidden in one person\'s head.' },
+      { active: ['loop_arrow'], note: '"Keep engaging until this condition is met" becomes an arrow that loops straight back to an earlier box — a cycle, expressed as data in the graph structure, not an implicit while-loop.' },
+      { active: ['pause'], note: 'At the riskiest step, an explicit PAUSE box: checkpoint the state and wait for Luffy\'s direct signal before committing — human-in-the-loop approval, structurally built in, not bolted on.' },
+      { active: ['anyone', 'replay'], note: 'Because the plan is checkpointed and drawn out rather than living in one head, any crew can pick up mid-operation, and afterward the crew can replay exactly which boxes and arrows were actually followed.' },
+      { active: ['overkill'], note: 'Shown the same elaborate diagram before a trivial two-step errand, Usopp finds it MORE confusing than being told plainly. The graph earns its complexity only once a task genuinely has branches and loops nobody could hold in their head.' },
+    ],
+  },
   tech: [
     {
       q: 'Precisely, what does a LangChain-style "Chain" provide over manually writing prompt-construction and model-calling code, and why does it fall short for genuine agent control flow?',
@@ -257,6 +303,48 @@ print("A minimal graph engine: linear chains, real cycles, and a safety cap. Lan
       explain: 'The framework\'s real value (standardization, observability, checkpointing, ecosystem reuse) scales with a workflow\'s genuine complexity — for a simple, well-understood task, hand-rolled code can remain the more legible, lower-dependency choice.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: LangChain & LangGraph',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'What does a LangChain "Chain" (or LCEL pipeline) provide over hand-written prompt-and-model-calling code?',
+        choices: [
+          { text: 'A reusable, composable object standardizing prompt templating, the model call, and output parsing into a declarative pipeline — well suited to fixed, linear workflows', to: 'q1_right' },
+          { text: 'A fundamentally different way of training the underlying language model', to: 'q1_wrong_training' },
+          { text: 'A guarantee that the underlying LLM will never hallucinate an answer', to: 'q1_wrong_guarantee' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — Chains package the exact plumbing built by hand in the embeddings-rag lesson\'s build_grounded_prompt() into a reusable, declarative form, a strong fit for fixed, linear pipelines.', next: 'q2' },
+      q1_wrong_training: { end: true, correct: false, text: 'A Chain never touches model training — it composes calls to an already-trained model (prompt → generate → parse). Training is a completely separate concern from this lesson.', retry: 'q1' },
+      q1_wrong_guarantee: { end: true, correct: false, text: 'No framework can guarantee zero hallucination — a Chain is purely a plumbing/composition convenience, not a correctness or safety guarantee about model outputs.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'Why does a linear chain abstraction struggle to express a genuine agent\'s control flow?',
+        choices: [
+          { text: 'An agent\'s control flow includes a cycle (repeating an unknown, runtime-determined number of times) and conditional branching decided dynamically — neither fits a fixed linear sequence', to: 'q2_right' },
+          { text: 'Chains are technically incapable of ever calling an external tool', to: 'q2_wrong_notool' },
+          { text: 'Agents never need to make more than a single LLM call in total', to: 'q2_wrong_onecall' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — the Thought/Action/Observation loop\'s cycle and runtime-decided branching have no natural expression in a fixed pipeline; that logic ends up living outside the chain, in ordinary wrapping code.', next: 'q3' },
+      q2_wrong_notool: { end: true, correct: false, text: 'Chains can absolutely include tool calls as one of their fixed steps — the limitation is specifically about REPEATING and BRANCHING that decision at runtime, not about tool use itself.', retry: 'q2' },
+      q2_wrong_onecall: { end: true, correct: false, text: 'That\'s exactly backwards — agents typically need MULTIPLE, runtime-determined LLM calls (the whole point of the Thought/Action/Observation loop), which is precisely what a fixed linear chain struggles to express.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'Why does checkpointing state at every node transition enable both pause/resume and human-in-the-loop approval?',
+        choices: [
+          { text: 'The full state is persisted at well-defined node boundaries, so execution can be safely interrupted and resumed from the last checkpoint — a node can use this same mechanism to deliberately pause and wait for approval', to: 'q3_right' },
+          { text: 'Checkpointing only ever saves the final output of a graph run, never intermediate state', to: 'q3_wrong_finalonly' },
+          { text: 'Human approval requires an entirely separate mechanism, unrelated to checkpointing', to: 'q3_wrong_separate' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — a node that pauses for approval is simply checkpointing and waiting. The exact same durable-state mechanism that makes ordinary pause/resume possible after an unplanned interruption also powers human-in-the-loop approval.', next: null },
+      q3_wrong_finalonly: { end: true, correct: false, text: 'Checkpointing persists the FULL state after every node transition, not just the final result — that\'s precisely what makes mid-run resumption possible at all.', retry: 'q3' },
+      q3_wrong_separate: { end: true, correct: false, text: 'Human-in-the-loop approval uses the SAME checkpointing mechanism — a node checkpoints its state and waits for an external signal, no separate system required.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Reaching for LangGraph (or any agent framework) by default, even for a simple, low-branching task where a hand-rolled loop would be simpler to write, debug, and maintain — match the tool to the task\'s actual complexity, not to what\'s trendy.',
     'Treating a framework\'s abstractions as magic rather than as a packaged version of mechanisms you can build (and did build, last lesson) by hand — this makes debugging unexpected framework behavior far harder than it needs to be.',

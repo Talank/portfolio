@@ -89,6 +89,51 @@ window.LESSONS['cnn-rnn-tour'] = {
       { c: 'Morgans\' solution: PRINT the original and have news coos drop the SAME newspaper on every island at once. Direct access to the source, path length 1, fully parallel. That is attention — see Part 5.', a: { coo: [90, 85] }, p: { press: 'good', i1: 'good', i2: 'good', i3: 'good', i4: 'good', i5: 'good' }, l: { i5: 'msg: 100% ✓' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: same relay chain as above',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Full story',
+        nodes: [
+          { id: 'msg100', text: 'Island 1\n"Straw Hat defeated a Warlord at Marineford" — msg: 100%' },
+        ],
+      },
+      {
+        label: 'Relay compounds',
+        nodes: [
+          { id: 'msg70', text: 'Island 2\nmsg: ~70%' },
+          { id: 'msg3040', text: 'Islands 3–4\nmsg: ~45% → ~30% (sequential — 4 waits for 3)' },
+        ],
+      },
+      {
+        label: 'Vanished',
+        nodes: [
+          { id: 'msg15', text: 'Island 5\n"some rookie caused trouble" — msg: ~15%' },
+        ],
+      },
+      {
+        label: 'LSTM patch',
+        nodes: [
+          { id: 'logbook', text: 'Logbook (gated cell)\nkeeps "Straw Hat" verbatim — msg: ~60%, still sequential' },
+        ],
+      },
+      {
+        label: 'Attention fix',
+        nodes: [
+          { id: 'press', text: "Morgans' press\nsame newspaper, every island, at once — path length 1, fully parallel" },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['msg100'], note: 'Island 1 holds the full story. The relay begins: one summary call to the next island — hₜ = compress(hₜ₋₁, new stuff).' },
+      { active: ['msg70'], note: 'Hop 2: a detail is already dropped. The hidden state is fixed-size, so something must go every single hop.' },
+      { active: ['msg3040'], note: 'Hops 3–4: decay compounds GEOMETRICALLY, and island 4 cannot hear anything until island 3 finishes its call — strictly sequential, zero parallelism.' },
+      { active: ['msg15'], note: 'Island 5 receives "some rookie caused trouble somewhere." Long-range information has vanished — exactly what BPTT gradients do across 100 timesteps when the same W_h compounds.' },
+      { active: ['logbook'], note: 'The LSTM patch: an explicit logbook (gated, additive cell state) copies key facts forward verbatim. Hops carry further — but it is still one small page, and still one call at a time.' },
+      { active: ['press'], note: "Morgans' real fix: PRINT the original and drop the SAME newspaper on every island simultaneously. Direct access to the source, path length 1, fully parallel compute. That is attention — Part 5 builds the press." },
+    ],
+  },
   tech: [
     {
       q: 'What does nn.Conv2d(3, 64, kernel_size=3, padding=1) actually allocate and compute?',
@@ -249,6 +294,48 @@ def rnn_steps(xs, wx, wh, h0=0.0):
       explain: 'Attention gives every token a direct (path-length-1) connection to every other, computed as one parallel matmul over the whole sequence. Those two fixes are the entire origin story of "Attention Is All You Need".'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: CNNs, RNNs, and why attention won',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'Conv2d(3→64, kernel_size=3) needs only 1,792 parameters, no matter the image resolution. Why?',
+        choices: [
+          { text: 'One small kernel per output channel is reused (slid) at every spatial position — weight sharing', to: 'q1_right' },
+          { text: 'Because feature maps are smaller than the input image', to: 'q1_wrong_fm' },
+          { text: 'Because convolutions use lower-precision floats internally', to: 'q1_wrong_prec' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Exactly — 64 kernels × (3×3×3) + 64 biases = 1,792, and that count depends only on kernel size and channels, never on H or W. Weight sharing is what makes the parameter count image-size independent.', next: 'q2' },
+      q1_wrong_fm: { end: true, correct: false, text: 'Feature-map size (shrunk by pooling/stride) affects COMPUTE and activation memory, not parameter count. Parameters live in the kernels, which never depend on image size.', retry: 'q1' },
+      q1_wrong_prec: { end: true, correct: false, text: 'Precision (float32 vs float16) changes memory per parameter, not the number of parameters. The efficiency here comes from reusing one kernel everywhere, not from how each number is stored.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'An RNN processes a 200-token sequence. Why does the loss at token 200 barely teach the network anything about token 5?',
+        choices: [
+          { text: 'BPTT multiplies the SAME W_h Jacobian ~195 times; with effective eigenvalue < 1 the gradient decays geometrically to ~zero over that distance', to: 'q2_right' },
+          { text: 'The hidden state vector is too small to hold that much information', to: 'q2_wrong_size' },
+          { text: 'RNNs silently truncate sequences longer than 100 tokens', to: 'q2_wrong_trunc' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Right — same-matrix products behave like W_h^distance, governed by its largest eigenvalue (the eigenvalue lesson meeting the backprop lesson). |λ|<1 ⇒ geometric decay ⇒ no usable gradient across 195 steps. This is the exact relay-chain fade from the concept flow above.', next: 'q3' },
+      q2_wrong_size: { end: true, correct: false, text: 'Hidden-state SIZE is a separate knob (and bigger states don\'t fix this). The problem is structural: the SAME recurrent matrix multiplies in at every single step, compounding geometrically regardless of how wide h is.', retry: 'q2' },
+      q2_wrong_trunc: { end: true, correct: false, text: 'No silent truncation happens — the network genuinely processes all 200 tokens. The information doesn\'t get cut off, it fades: it is repeatedly compressed and re-compressed until it is numerically gone.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'Which TWO specific properties of RNNs did attention/transformers eliminate?',
+        choices: [
+          { text: 'O(distance) paths between tokens (long-range fading) AND strictly sequential per-timestep computation (no parallelism)', to: 'q3_right' },
+          { text: 'Weight sharing and the use of nonlinear activation functions', to: 'q3_wrong_share' },
+          { text: 'The need for embeddings and for a softmax output layer', to: 'q3_wrong_embed' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Correct — attention gives every token a direct, path-length-1 connection to every other token, and computes the whole thing as one parallel matmul over the sequence. Those are precisely the two RNN killers from this lesson: fading memory and unparallelizable compute.', next: null },
+      q3_wrong_share: { end: true, correct: false, text: 'Transformers still use weight sharing (the same attention/FFN weights apply at every position) and still use nonlinear activations inside their feed-forward blocks — neither was eliminated.', retry: 'q3' },
+      q3_wrong_embed: { end: true, correct: false, text: 'Transformers still embed tokens into vectors and still use softmax (inside attention itself, to turn scores into weights). What changed is HOW tokens communicate — directly and in parallel, not through a sequential relay.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Memorizing architectures without their WHY. "CNN = conv+pool+fc" earns nothing in interviews; "weight sharing + locality as an inductive bias for translation structure" is the answer that lands. Same for RNNs: lead with the fixed-size state and the sequential bottleneck.',
     'Confusing equivariance with invariance. Conv layers are EQUIVARIANT (shift input → shifted output); pooling/global-average adds approximate INVARIANCE (shift input → same output). Interviewers enjoy this distinction.',

@@ -83,6 +83,49 @@ window.LESSONS['multi-framework-agents'] = {
       { c: 'A brand-new harbor posts one snail number and is immediately reachable by every crew everywhere — M+N, not M×N.', p: { harborB: 'good', crewA: 'good' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: a specialized crew, one universal protocol',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Specialized crew',
+        nodes: [
+          { id: 'crew', text: 'Nami/Sanji/Chopper/Robin\nnarrow role, focused tools, focused prompt each' },
+        ],
+      },
+      {
+        label: 'Coordinator delegates',
+        nodes: [
+          { id: 'delegate', text: "Luffy's real job\nrecognize which specialist a problem belongs to" },
+        ],
+      },
+      {
+        label: 'New failure mode',
+        nodes: [
+          { id: 'handoff', text: 'Ambiguous handoff\nwrong sail rigged — a bug neither agent alone would make' },
+        ],
+      },
+      {
+        label: 'Universal protocol',
+        nodes: [
+          { id: 'snail', text: 'Standard Den Den Mushi protocol\nbuilt once, per harbor — not once per crew' },
+        ],
+      },
+      {
+        label: 'M+N, not M×N',
+        nodes: [
+          { id: 'reach', text: 'Any crew reaches any harbor\none connection each, every combination works' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['crew'], note: 'The crew is specialized, not generalist — each member owns a narrow role and its own tools, exactly like a "researcher" agent versus a "writer" agent versus an "editor" agent.' },
+      { active: ['delegate'], note: 'Luffy\'s real job most of the time isn\'t doing every task himself — it\'s recognizing which specialist a problem belongs to and delegating, exactly a coordinator orchestrating a multi-agent crew.' },
+      { active: ['handoff'], note: 'A rushed, ambiguous handoff between two specialists causes a mistake neither would have made alone — a failure mode that ONLY exists at the boundary between agents, never inside a single well-scoped agent.' },
+      { active: ['snail'], note: 'Meanwhile, a standard protocol lets every crew reach every registered harbor — built once, per harbor, independent of which crew will eventually use it. This is what MCP does for tools instead of harbors.' },
+      { active: ['reach'], note: 'Any crew\'s snail dials straight through to any registered harbor using the exact same protocol — zero custom per-relationship setup. M crews + N harbors, not M×N custom arrangements.' },
+    ],
+  },
   tech: [
     {
       q: 'Precisely, what does multi-agent orchestration solve, and what NEW failure mode does it introduce that a single well-scoped agent cannot have?',
@@ -273,6 +316,48 @@ class MCPRegistry:
       explain: 'Knowing what a framework does underneath — its control-flow model, whether it speaks MCP, its orchestration philosophy — lets you judge a brand-new framework on its own merits rather than needing to be told which one to use.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: multi-agent frameworks & MCP',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'What is the core case for splitting an agent system into multiple specialized agents rather than one generalist agent?',
+        choices: [
+          { text: 'A narrow, focused prompt and toolset is measurably easier to get reliably good behavior from than one prompt covering many jobs, and makes debugging more tractable', to: 'q1_right' },
+          { text: 'Multiple agents always execute faster in wall-clock time than a single agent', to: 'q1_wrong_speed' },
+          { text: 'Multiple agents eliminate the need for any tool integrations entirely', to: 'q1_wrong_notools' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — the same "narrow specialization beats one overloaded generalist" theme from LoRA fine-tuning and model routing, applied to agent design, with the added benefit of isolating which specialist\'s output was at fault when debugging.', next: 'q2' },
+      q1_wrong_speed: { end: true, correct: false, text: 'The opposite is typically true — more agents means more LLM calls and real coordination overhead, usually making the system SLOWER, not faster, than a single well-scoped agent.', retry: 'q1' },
+      q1_wrong_notools: { end: true, correct: false, text: 'Multi-agent systems still need tool integrations just as much as single-agent systems — splitting into specialists doesn\'t remove the need for tools, it just distributes which agent holds which tools.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'What NEW failure mode does multi-agent orchestration introduce that a single well-scoped agent cannot have?',
+        choices: [
+          { text: 'Miscommunication in the handoff between agents — one agent\'s ambiguous or incomplete output can mislead another, even when neither agent\'s own reasoning was individually wrong', to: 'q2_right' },
+          { text: 'Multi-agent systems become structurally incapable of using any external tools', to: 'q2_wrong_notools' },
+          { text: 'Multi-agent systems can never produce a final answer to the user', to: 'q2_wrong_nofinal' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — a single agent has no inter-agent boundary for information to get lost crossing. Splitting work across agents introduces exactly this new class of coordination bug, like Nami\'s ambiguous instruction leading Usopp to rig the wrong sail.', next: 'q3' },
+      q2_wrong_notools: { end: true, correct: false, text: 'Multi-agent systems use tools just as much as single agents — often MORE tools in total, spread across specialists. Tool access isn\'t the issue here.', retry: 'q2' },
+      q2_wrong_nofinal: { end: true, correct: false, text: 'Multi-agent crews absolutely produce final answers (that\'s the whole point of the orchestration) — the new risk is specifically about information getting garbled BETWEEN agents along the way, not an inability to conclude.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'What problem does MCP (Model Context Protocol) solve?',
+        choices: [
+          { text: 'The M×N integration problem — every framework needing custom code for every tool — reduced to M+N by standardizing the client-server connection', to: 'q3_right' },
+          { text: 'MCP replaces the need for any agent framework to exist at all', to: 'q3_wrong_replace' },
+          { text: 'MCP is a technique for compressing a model\'s weights for cheaper serving', to: 'q3_wrong_compress' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — one MCP server per tool, one MCP client per framework, and any client can connect to any server via the same standard protocol. A new tool becomes immediately usable by every existing MCP-compatible framework with zero changes to any of them.', next: null },
+      q3_wrong_replace: { end: true, correct: false, text: 'MCP works alongside agent frameworks (LangGraph, CrewAI, etc.) — it standardizes how they connect to TOOLS, it doesn\'t replace the frameworks\' own orchestration logic.', retry: 'q3' },
+      q3_wrong_compress: { end: true, correct: false, text: 'MCP has nothing to do with model weights or quantization — it\'s a protocol standardizing how agent code discovers and calls external tools and data sources.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Defaulting to a multi-agent architecture because it sounds more sophisticated, when a single well-scoped agent (agents-from-scratch\'s pattern) would handle the task with less coordination overhead and fewer failure modes.',
     'Building custom, framework-specific integration code for a tool that already has (or could reasonably have) an MCP server — reinventing integration work a standard protocol already exists to eliminate.',

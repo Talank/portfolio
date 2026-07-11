@@ -93,6 +93,48 @@ window.LESSONS['embeddings-rag'] = {
       { c: '...versus the right section WAS pulled, but the answer ignored it anyway (generation failure). Different bugs, different fixes.', p: { ignored: 'bad' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: Robin\'s library, query to answer',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Chunk',
+        nodes: [
+          { id: 'sections', text: 'Overlapping sections\nchunk_size=200, overlap=40 — never split at a critical sentence' },
+        ],
+      },
+      {
+        label: 'Embed + index',
+        nodes: [
+          { id: 'tags', text: 'Topic fingerprints (embeddings)\nsimilar sections cluster together' },
+          { id: 'wings', text: 'Sorted into wings (IVF/HNSW)\nsearch only the closest wings, not the whole archive' },
+        ],
+      },
+      {
+        label: 'Retrieve',
+        nodes: [
+          { id: 'qtag', text: 'Question gets its own fingerprint\nsame embedding model, same space' },
+          { id: 'pulled', text: 'Top-k closest sections pulled\nnot the whole library, just the relevant few' },
+        ],
+      },
+      {
+        label: 'Two failure modes',
+        nodes: [
+          { id: 'gap', text: 'Retrieval failure\nright section never pulled at all' },
+          { id: 'ignored', text: 'Generation failure\nright section pulled, but answer ignored it' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['sections'], note: 'A long document is cut into overlapping chunks — not too short (loses context), not too long (dilutes the embedding), and overlap protects any sentence that would otherwise land exactly on a cut.' },
+      { active: ['tags'], note: 'Every chunk gets embedded into a fixed-size vector — the vectors-cosine lesson\'s geometry, industrialized, so similar-topic chunks land near each other in vector space.' },
+      { active: ['wings'], note: 'For a truly vast archive, chunks are pre-sorted (IVF clusters or an HNSW graph) so a search only ever touches a handful of the most promising regions, not every stored vector.' },
+      { active: ['qtag'], note: 'At query time, the question is embedded with the exact SAME model used at index-time — mismatched embedding models produce vectors that live in incomparable spaces.' },
+      { active: ['pulled'], note: 'Search returns the top-k closest chunks by cosine similarity — a small, focused set, not the entire corpus, handed directly into the LLM\'s context.' },
+      { active: ['gap'], note: 'Failure mode one: the relevant chunk was never retrieved in the first place. No prompt engineering fixes this — the LLM never saw it. Diagnosed with recall@k, measured in isolation from generation.' },
+      { active: ['ignored'], note: 'Failure mode two: the relevant chunk WAS retrieved and sat right in the context, but the model answered from its own memory instead of reading it. A completely different bug, fixed with grounding instructions and faithfulness checks, not retrieval changes.' },
+    ],
+  },
   tech: [
     {
       q: 'Why not just paste an entire large document (or corpus) directly into the LLM\'s context instead of building a retrieval pipeline?',
@@ -290,6 +332,48 @@ def build_grounded_prompt(query, retrieved_texts):
       explain: 'The expensive, more accurate re-ranking model only ever runs over a small shortlist (e.g. top-50) rather than the entire corpus, making high-accuracy scoring computationally affordable.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: embeddings, vector search & RAG',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'What problem does RAG solve that fine-tuning is poorly suited for?',
+        choices: [
+          { text: 'Giving the model access to specific, current, or frequently-changing facts, without needing to retrain whenever those facts change', to: 'q1_right' },
+          { text: 'Teaching the model a new response format or consistent tone', to: 'q1_wrong_format' },
+          { text: 'Making the model\'s forward pass run faster per token', to: 'q1_wrong_speed' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: '"Fine-tune for behavior, retrieve for knowledge" — RAG hands the model the current, actual text at query time rather than trying to bake facts into weights, so updating the source documents updates every subsequent answer immediately.', next: 'q2' },
+      q1_wrong_format: { end: true, correct: false, text: 'That\'s exactly what fine-tuning (SFT) IS well-suited for — teaching format and tone is a behavior-shaping task, the opposite of the knowledge-injection problem RAG solves.', retry: 'q1' },
+      q1_wrong_speed: { end: true, correct: false, text: 'RAG actually adds a retrieval step and typically a longer context — it doesn\'t make token generation itself faster. Its value is answer correctness and freshness, not raw speed.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'Why must chunks be neither too small nor too large?',
+        choices: [
+          { text: 'Too-small chunks lose surrounding context needed to answer well; too-large chunks dilute the embedding\'s topic signal and hurt retrieval precision', to: 'q2_right' },
+          { text: 'Chunk size only ever affects storage cost, never answer quality', to: 'q2_wrong_storage' },
+          { text: 'Larger chunks always improve both retrieval and generation quality', to: 'q2_wrong_larger' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Right — a chunk embedding is one fixed-size vector. Too much varied content dilutes it away from any one topic\'s region in vector space; too little content strips away the context needed to actually answer once retrieved.', next: 'q3' },
+      q2_wrong_storage: { end: true, correct: false, text: 'Chunk size has a direct, measurable effect on retrieval PRECISION (via embedding dilution) and on answer usability, not just storage footprint.', retry: 'q2' },
+      q2_wrong_larger: { end: true, correct: false, text: 'Larger chunks actually HURT retrieval precision by diluting the embedding across multiple topics, and waste context budget once retrieved — bigger is not automatically better.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'A RAG system gives a wrong answer. Recall@k testing shows the correct chunk WAS retrieved in the top-k. What kind of failure is this?',
+        choices: [
+          { text: 'A generation failure — the LLM had the right context but didn\'t use it faithfully; fixed with stronger grounding instructions or citation requirements', to: 'q3_right' },
+          { text: 'A retrieval failure — the embedding model must be replaced immediately', to: 'q3_wrong_retrieval' },
+          { text: 'This means the vector database itself is corrupted', to: 'q3_wrong_corrupt' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — if recall@k confirms the relevant chunk WAS retrieved, the bug is downstream, in how the LLM used (or ignored) the context it was given. A different problem from retrieval, needing a different fix entirely.', next: null },
+      q3_wrong_retrieval: { end: true, correct: false, text: 'Recall@k already confirmed retrieval worked correctly for this query — the relevant chunk made it into the top-k. Blaming the embedding model here would be fixing a component that isn\'t actually broken.', retry: 'q3' },
+      q3_wrong_corrupt: { end: true, correct: false, text: 'A successful retrieval (confirmed by recall@k) is strong evidence the vector database is working fine — the failure is happening after retrieval, in generation, not in storage or search.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Using a different embedding model at query-time than the one used at index-time — vectors from different embedding models don\'t live in a comparable space, and "similarity" between them is meaningless.',
     'Choosing chunk size and overlap arbitrarily without testing on real queries — this is one of the single highest-leverage tuning decisions in a RAG system, worth measuring (via recall@k) rather than guessing.',

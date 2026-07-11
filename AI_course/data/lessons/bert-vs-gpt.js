@@ -86,6 +86,51 @@ window.LESSONS['bert-vs-gpt'] = {
       { c: 'Scale the Writing Tower up enough, and she starts understanding almost as well as the Reading Tower — next-token prediction, done well enough, requires understanding as a side effect. This is most of why GPT-family (decoder-only) architecture ate the LLM era.', p: { guess2: 'good', fail: 'dim' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: one mask bit, two families',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Shared block',
+        nodes: [
+          { id: 'block', text: 'Same transformer block\nattention + FFN + residuals + norm, identical either way' },
+        ],
+      },
+      {
+        label: 'BERT: no mask',
+        nodes: [
+          { id: 'bert', text: 'No causal mask\nw_bert[0] nonzero at every position — sees the whole sequence' },
+        ],
+      },
+      {
+        label: 'GPT: causal mask',
+        nodes: [
+          { id: 'gpt', text: 'Causal mask added\nw_gpt[0] = [1,0,0,0,0] — only itself, nothing later' },
+        ],
+      },
+      {
+        label: 'Pretraining objective',
+        nodes: [
+          { id: 'mlm', text: 'BERT: masked LM\n"The [MASK] sat on the mat" → predict using BOTH sides' },
+          { id: 'clm', text: 'GPT: causal LM\n"The cat sat on the ___" → predict using ONLY the past' },
+        ],
+      },
+      {
+        label: 'Consequence',
+        nodes: [
+          { id: 'outcome', text: 'BERT: understanding, can\'t generate\nGPT: generation natively, understanding emerges at scale' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['block'], note: 'Both families stack the exact same transformer block from last lesson — multi-head attention plus FFN, wrapped in residuals and LayerNorm. Nothing differs here.' },
+      { active: ['bert'], note: 'BERT: no mask added before softmax. Position 0\'s attention weights are nonzero across ALL positions — it can freely look forward and backward.' },
+      { active: ['gpt'], note: 'GPT: a causal mask sets scores where j > i to −∞ before softmax. Position 0\'s weights collapse to [1,0,0,0,0] — it can only ever see itself.' },
+      { active: ['mlm'], note: 'That one masking bit determines what pretraining is even POSSIBLE: BERT can mask a word in the middle and predict it from both sides — masked language modeling.' },
+      { active: ['clm'], note: 'GPT can only ever predict the NEXT token from the past — causal language modeling. Every position gets a training signal, no random masking needed.' },
+      { active: ['outcome'], note: 'The consequence cascades all the way to deployment: BERT is architecturally excellent at understanding but cannot generate left-to-right; GPT generates natively, and at large enough scale, understanding emerges as a side effect of getting really good at next-token prediction.' },
+    ],
+  },
   tech: [
     {
       q: 'Precisely, why can BERT not be used for open-ended left-to-right text generation, architecturally?',
@@ -245,6 +290,48 @@ def clm_targets(tokens):
       explain: 'Encoder-decoder keeps a dedicated bidirectional read of the full source (via the encoder) plus autoregressive generation (via the decoder) connected through cross-attention — a strong fit for structured transformation tasks, even though decoder-only won the general-purpose race.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: BERT vs GPT',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'What is the ONE architectural bit that distinguishes a BERT-style block from a GPT-style block?',
+        choices: [
+          { text: 'Whether a causal mask is applied before the self-attention softmax — present (GPT) or absent (BERT)', to: 'q1_right' },
+          { text: 'BERT uses convolutional layers instead of self-attention', to: 'q1_wrong_conv' },
+          { text: 'GPT has no feedforward sub-layer', to: 'q1_wrong_ffn' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — same transformer block (attention + FFN + residuals + norm) in both. The presence or absence of the causal mask is the entire structural difference, and it cascades into everything else: pretraining objective, native strengths, deployment role.', next: 'q2' },
+      q1_wrong_conv: { end: true, correct: false, text: 'Both BERT and GPT are pure transformer stacks — no convolutions involved in either. The difference is purely about masking within self-attention, not the layer type.', retry: 'q1' },
+      q1_wrong_ffn: { end: true, correct: false, text: 'Both families include the standard feedforward sub-layer in every block — that machinery is identical. Only the presence of the causal mask on self-attention differs.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'Why can\'t BERT be fine-tuned to generate text left-to-right the way GPT does?',
+        choices: [
+          { text: 'Its bidirectional pretraining calibrated every layer\'s weights to expect right-context that simply doesn\'t exist yet during left-to-right generation', to: 'q2_right' },
+          { text: 'BERT has too few parameters compared to GPT', to: 'q2_wrong_size' },
+          { text: 'BERT was never trained on enough text to learn generation', to: 'q2_wrong_data' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — this isn\'t a missing skill you can fine-tune in, it\'s an architectural mismatch. Every one of BERT\'s layers learned transformations calibrated for a bidirectional-information world; feeding it a partial sequence at inference gives every layer inputs from a distribution it never learned to handle.', next: 'q3' },
+      q2_wrong_size: { end: true, correct: false, text: 'Parameter count is unrelated — you could scale BERT up enormously and it would still be structurally unable to generate left-to-right. The blocker is the bidirectional TRAINING regime, not model size.', retry: 'q2' },
+      q2_wrong_data: { end: true, correct: false, text: 'More training data wouldn\'t fix this — the issue isn\'t insufficient exposure, it\'s that BERT\'s pretraining objective (masked language modeling with full bidirectional context) is architecturally incompatible with sequential left-to-right generation.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'Why does GPT\'s causal language modeling objective have zero train/inference mismatch?',
+        choices: [
+          { text: 'Predicting the next token from only prior tokens is literally the same operation at both training time and generation time', to: 'q3_right' },
+          { text: 'GPT skips pretraining entirely and only learns at inference time', to: 'q3_wrong_notrain' },
+          { text: 'BERT has the same property, so this isn\'t actually a meaningful distinction', to: 'q3_wrong_same' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — teacher-forced next-token prediction during training and next-token generation at inference are the same procedure, differing only in whether the "true" prior token comes from the training corpus or the model\'s own prior output. BERT has no equivalent match between its pretraining task and any single downstream use.', next: null },
+      q3_wrong_notrain: { end: true, correct: false, text: 'GPT is very much pretrained (on massive next-token-prediction corpora) before it ever generates anything at inference — that pretraining is exactly what this question is about.', retry: 'q3' },
+      q3_wrong_same: { end: true, correct: false, text: 'BERT does NOT have this property — its masked-language-modeling pretraining (predict ~15% masked positions using bidirectional context) has no matching downstream task; classification/NER/QA are separately fine-tuned objectives layered on top.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Saying "BERT is for understanding, GPT is for generating" without being able to explain WHY — the causal mask is the mechanism; know it, don\'t just recite the label.',
     'Assuming BERT could generate text if you just "removed the mask restriction" at inference — the model\'s weights were trained under bidirectional assumptions at every layer; there is no clean way to retrofit autoregressive generation onto that training.',

@@ -92,6 +92,44 @@ window.LESSONS['minigpt-code'] = {
       { c: 'This works, but it\'s wasteful — remembering what the early floors already computed, instead of redoing it, is next month\'s project (Part 6: KV cache).', p: { waste: 'bad' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: the Writing Tower assembled',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Embed',
+        nodes: [
+          { id: 'dict', text: 'Shared dictionary\ntok_emb + pos_emb, weight-tied to the output head' },
+        ],
+      },
+      {
+        label: 'N causal floors',
+        nodes: [
+          { id: 'floors', text: 'N × TransformerBlock\npre-norm causal self-attention, then FFN, residuals throughout' },
+        ],
+      },
+      {
+        label: 'Predict',
+        nodes: [
+          { id: 'dial', text: 'Final LayerNorm → head\nlogits over the whole vocabulary, softmax + sample' },
+        ],
+      },
+      {
+        label: 'Generate loop',
+        nodes: [
+          { id: 'newglyph', text: 'Append new token\ncrop to block_size, feed back in' },
+          { id: 'waste', text: 'Reprocesses the WHOLE sequence again\nO(n²) — no KV cache yet' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['dict'], note: 'Token embedding plus a learned positional embedding, summed. The SAME matrix that looks up input tokens is tied to the output head — one shared "dictionary" for both reading and writing.' },
+      { active: ['floors'], note: 'The sequence passes through N identical pre-norm transformer blocks: LayerNorm → causal self-attention (register_buffer mask, never trained) → residual, then LayerNorm → GELU feedforward → residual.' },
+      { active: ['dial'], note: 'One final LayerNorm, then the weight-tied head projects back up to vocab_size logits — a probability over every possible next token, at every position.' },
+      { active: ['newglyph'], note: 'generate() takes ONLY the last position\'s logits, samples (or argmaxes) a next token, and appends it — cropping the context to block_size before every forward call.' },
+      { active: ['waste'], note: 'To produce the token AFTER that, the uncached model reprocesses the ENTIRE sequence from scratch through every layer — even though earlier tokens\' keys and values never changed. That\'s the honest O(n²) cost a KV cache (Part 6) eliminates.' },
+    ],
+  },
   tech: [
     {
       q: 'Why project Q, K, V with ONE nn.Linear(d_model, 3*d_model) instead of three separate nn.Linear(d_model, d_model) layers?',
@@ -364,6 +402,48 @@ class MiniGPT(nn.Module):
       explain: '12 × 12 × 768² ≈ 85,000,000 — close to GPT-2 small\'s actual non-embedding parameter count. The formula is a fast mental estimate from (n_layers, d_model) alone.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: building MiniGPT',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'Why does CausalSelfAttention use ONE nn.Linear(d_model, 3*d_model) instead of three separate Q/K/V linear layers?',
+        choices: [
+          { text: 'Mathematically identical to three separate projections, but one larger matmul is more GPU-efficient than three smaller ones', to: 'q1_right' },
+          { text: 'Three separate layers would compute a mathematically different, incorrect result', to: 'q1_wrong_different' },
+          { text: 'It reduces the number of attention heads the model can use', to: 'q1_wrong_heads' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — splitting one [d_model, 3*d_model] matrix into three chunks after a single matmul computes exactly the same Q, K, V as three separate layers. Purely a performance idiom: one GPU kernel launch instead of three.', next: 'q2' },
+      q1_wrong_different: { end: true, correct: false, text: 'The math is identical either way — splitting a fused matrix\'s output into three chunks gives the exact same Q, K, V values as three independent linear layers would. This is purely an efficiency choice, not a correctness one.', retry: 'q1' },
+      q1_wrong_heads: { end: true, correct: false, text: 'Head count is set independently (n_heads), unrelated to whether Q/K/V come from one fused layer or three separate ones. Fusing the projection changes nothing about how many heads exist.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'Why is the causal mask stored with self.register_buffer(...) rather than as a plain attribute or nn.Parameter?',
+        choices: [
+          { text: 'A buffer moves with .to(device) and saves with state_dict, but never receives a gradient or gets updated by the optimizer', to: 'q2_right' },
+          { text: 'register_buffer makes the mask trainable so it can adapt during backpropagation', to: 'q2_wrong_trainable' },
+          { text: 'Buffers are required for any tensor referenced inside forward()', to: 'q2_wrong_required' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — the mask is fixed structure the model needs (must be device-correct and checkpoint-correct) but must never be learned. register_buffer is PyTorch\'s purpose-built category for exactly that combination.', next: 'q3' },
+      q2_wrong_trainable: { end: true, correct: false, text: 'The opposite is true — register_buffer specifically EXCLUDES a tensor from gradients and optimizer updates. nn.Parameter is what makes something trainable; buffers are for fixed data.', retry: 'q2' },
+      q2_wrong_required: { end: true, correct: false, text: 'Plenty of tensors are used inside forward() without being buffers (e.g. anything computed fresh each call). register_buffer is specifically for persistent, non-trainable state that must travel with the model — not a blanket requirement.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'What does weight tying between the token embedding and the output head accomplish?',
+        choices: [
+          { text: 'Shares one matrix for both looking up input tokens and scoring output candidates, cutting a large parameter block roughly in half and often improving quality', to: 'q3_right' },
+          { text: 'It disables the output head entirely, relying only on the embedding table', to: 'q3_wrong_disable' },
+          { text: 'It ties the learning rates of two unrelated layers together during training', to: 'q3_wrong_lr' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — self.head.weight = self.tok_emb.weight shares the same [vocab_size, d_model] matrix for both roles, based on the idea that a token\'s meaning-as-input and identity-as-output are the same underlying representation. Often the single largest matrix in a small model.', next: null },
+      q3_wrong_disable: { end: true, correct: false, text: 'The output head still fully functions — it\'s a real Linear layer computing logits. Weight tying only means its WEIGHT matrix is the same tensor as the embedding table, not that it\'s disabled.', retry: 'q3' },
+      q3_wrong_lr: { end: true, correct: false, text: 'Weight tying shares the actual parameter tensor (so gradients from both uses accumulate into one shared tensor) — it has nothing to do with learning rates specifically.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Using a plain Python attribute (self.mask = ...) for the causal mask instead of register_buffer — it silently fails to move to GPU with the rest of the model, producing a device-mismatch crash the first time you train on CUDA.',
     'Forgetting @torch.no_grad() on generate() — without it, PyTorch builds and retains a full autograd graph across every generation step, wasting memory and time for computation that will never call .backward().',

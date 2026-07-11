@@ -99,6 +99,49 @@ window.LESSONS['llm-pretraining'] = {
       { c: 'But asked a direct question, it just rambles — never trained to distinguish "continue plausibly" from "actually help". A base model, not yet an assistant.', p: { confused: 'bad' }, l: { confused: 'gap closed by fine-tuning + alignment, next two lessons' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: Vegapunk\'s six satellites',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Collect',
+        nodes: [
+          { id: 'raw', text: 'York: raw archive\nevery island\'s transcripts, newspapers, ship\'s logs' },
+        ],
+      },
+      {
+        label: 'Clean',
+        nodes: [
+          { id: 'clean', text: 'Lilith: filter + dedupe\ndrop duplicated broadcasts, garbled static' },
+        ],
+      },
+      {
+        label: 'Scale',
+        nodes: [
+          { id: 'ratio', text: 'Atlas: D ≈ 20N\nbrain-size and archive-size grow together, not "just bigger"' },
+        ],
+      },
+      {
+        label: 'Distribute',
+        nodes: [
+          { id: 'satellites', text: 'Pythagoras: 6 satellites in parallel\neach processes a slice, syncing periodically' },
+        ],
+      },
+      {
+        label: 'Result',
+        nodes: [
+          { id: 'brain', text: 'Finished base model\nfluent completion — but rambles instead of answering' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['raw'], note: 'York hoards every transcript, newspaper, and log she can find — more raw material is always the starting move, before any cleaning happens.' },
+      { active: ['clean'], note: 'Lilith throws out duplicated broadcasts and garbled static. Deduplication matters more than intuition suggests: it prevents the model from memorizing repeats instead of generalizing.' },
+      { active: ['ratio'], note: 'Atlas discovers the real rule: brain-size (N) and archive-size (D) must grow together in a fixed ratio, D ≈ 20N — Edison\'s "just make it bigger" wastes tissue if the archive doesn\'t grow proportionally.' },
+      { active: ['satellites'], note: 'Pythagoras splits the surviving archive across all six satellites, each chewing through a different slice in parallel, periodically comparing notes — data parallelism, made concrete.' },
+      { active: ['brain'], note: 'The finished brain completes any sentence fluently on any topic — but asked a direct question, it just rambles. It was only ever trained to continue text plausibly, never to distinguish that from actually answering. A base model, not yet an assistant.' },
+    ],
+  },
   tech: [
     {
       q: 'State the Chinchilla scaling-law finding precisely, including the approximate compute formula and token-to-parameter ratio.',
@@ -279,6 +322,48 @@ def chinchilla_optimal_tokens(n_params, ratio=20):
       explain: 'Internet text following a question-like pattern includes helpful answers, but also more questions, tangents, and unresolved threads — pretraining alone has no mechanism to prefer the helpful continuation. That gap is what fine-tuning and alignment close.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: pretraining at scale',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'Why does deduplication matter so much in pretraining data, beyond just saving storage space?',
+        choices: [
+          { text: 'Undeduplicated data lets the model memorize repeated content instead of generalizing, measurably hurting downstream quality', to: 'q1_right' },
+          { text: 'It has no measurable effect on model quality, only on disk usage', to: 'q1_wrong_none' },
+          { text: 'It is required by tokenizer software just to function at all', to: 'q1_wrong_tokenizer' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — repeated near-duplicate content (boilerplate, mirrored articles, popular quoted passages) skews what the model effectively "sees" most often, encouraging memorization over generalization, and can even leak memorized boilerplate verbatim at inference.', next: 'q2' },
+      q1_wrong_none: { end: true, correct: false, text: 'It has a real, documented effect on downstream quality, not just storage — undeduplicated data is one of the most consequential, well-documented mistakes in pretraining pipelines.', retry: 'q1' },
+      q1_wrong_tokenizer: { end: true, correct: false, text: 'Tokenizers work fine on duplicated text — deduplication is a data-quality decision made upstream of tokenization, not a technical requirement for the tokenizer itself.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'What did the Chinchilla scaling-law finding establish about model size versus training data?',
+        choices: [
+          { text: 'For a fixed compute budget, model size and training tokens should scale together (roughly 20 tokens per parameter) — many earlier large models were under-trained relative to their size', to: 'q2_right' },
+          { text: 'Model size should always be maximized regardless of how much data is available', to: 'q2_wrong_maximize' },
+          { text: 'Training data size has no measurable effect on final model quality', to: 'q2_wrong_nodata' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — C ≈ 6ND, and the compute-optimal split found D ≈ 20N. GPT-3-era models had too many parameters relative to their training tokens for their compute budget — Atlas\'s ratio finding, in Vegapunk\'s lab.', next: 'q3' },
+      q2_wrong_maximize: { end: true, correct: false, text: 'That\'s exactly the mistake Chinchilla identified in earlier models — piling on parameters without proportionally more data wastes compute. Size and data must scale together.', retry: 'q2' },
+      q2_wrong_nodata: { end: true, correct: false, text: 'Data size has a major, measurable effect — it\'s one of the two knobs (alongside model size) that the whole scaling-law finding is about balancing correctly.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'Why is a freshly pretrained base model not yet a helpful assistant?',
+        choices: [
+          { text: 'Its only training objective was "predict the plausible next token" over internet text — nothing in that objective distinguishes a genuinely helpful answer from any other plausible continuation', to: 'q3_right' },
+          { text: 'It has not been trained on enough data to know basic facts', to: 'q3_wrong_facts' },
+          { text: 'It uses the wrong neural network architecture for holding a conversation', to: 'q3_wrong_arch' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — internet text following a question-like pattern includes helpful answers, but also more questions, tangents, and unresolved threads. Pretraining alone has no mechanism to prefer the helpful continuation — that gap is exactly what fine-tuning and alignment (next two lessons) close.', next: null },
+      q3_wrong_facts: { end: true, correct: false, text: 'A base model trained on trillions of tokens typically knows an enormous amount of factual content — the problem isn\'t missing knowledge, it\'s that nothing taught it to prefer a direct helpful answer over any other plausible continuation.', retry: 'q3' },
+      q3_wrong_arch: { end: true, correct: false, text: 'The architecture (the exact same causal transformer from MiniGPT) is perfectly capable of conversation — the gap is entirely about training OBJECTIVE, not architecture.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Assuming "bigger model" is always the right lever for better quality — Chinchilla showed that under a fixed compute budget, more training DATA at a smaller model size often wins; size and data must scale together.',
     'Confusing "compute-optimal" (minimizes training compute for a given loss) with "best real-world choice" — a model trained well past the Chinchilla ratio can be the right call when its huge deployment volume makes inference cost dominate the total cost, not training cost.',

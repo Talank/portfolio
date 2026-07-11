@@ -88,6 +88,51 @@ window.LESSONS['finetuning-lora'] = {
       { c: 'Result: the same vast knowledge, now genuinely helpful — and the base brain never forgot anything, because it was never touched.', p: { result: 'good' } }
     ]
   },
+  conceptFlow: {
+    title: 'The mechanism, step by step: freeze the brain, train the rudder',
+    intro: 'Click any box to jump straight there, or press Play and just listen.',
+    stages: [
+      {
+        label: 'Frozen base',
+        nodes: [
+          { id: 'brain', text: 'W: 4096×4096, frozen\n~16.8M parameters, requires_grad=False' },
+        ],
+      },
+      {
+        label: 'Small adapter',
+        nodes: [
+          { id: 'rudder', text: 'A, B at rank r=8\n65,536 trainable params — B starts at zero' },
+        ],
+      },
+      {
+        label: 'Combined forward',
+        nodes: [
+          { id: 'combined', text: 'h = xW + (α/r)·xAᵀBᵀ\nstep 0: adapter path = 0, identical to base' },
+        ],
+      },
+      {
+        label: 'SFT masking',
+        nodes: [
+          { id: 'masked', text: 'Instruction tokens: loss masked\nseen as context, never scored' },
+          { id: 'scored', text: 'Response tokens: loss scored\nevery gradient shapes "answer this way"' },
+        ],
+      },
+      {
+        label: 'Result',
+        nodes: [
+          { id: 'result', text: 'Direct, helpful answers\nsame knowledge intact — W was never touched' },
+        ],
+      },
+    ],
+    steps: [
+      { active: ['brain'], note: 'The pretrained weight matrix W is frozen completely — no gradients, no optimizer state for it at all. A 4096×4096 matrix has ~16.8M parameters, every one of them untouched.' },
+      { active: ['rudder'], note: 'A small low-rank adapter is bolted on alongside it: A (r×d_in) and B (d_out×r) at rank 8 — just 65,536 trainable parameters, roughly 256× fewer. B starts at all zeros.' },
+      { active: ['combined'], note: 'The forward pass adds the frozen path and the scaled adapter path. Because B starts at zero, ΔW = BA = 0 exactly at step 0 — the adapted model is numerically identical to the untouched base.' },
+      { active: ['masked'], note: 'Training pairs arrive as instruction → response. The instruction tokens are fed in as context but masked OUT of the loss — training on them would teach the model to predict more questions, not answers.' },
+      { active: ['scored'], note: 'Only the response tokens are scored. Every single gradient update shapes exactly "given this instruction, produce this response" — nothing else.' },
+      { active: ['result'], note: 'The result: the same vast pretrained knowledge, now genuinely helpful — and since W itself was never modified, nothing the base model already knew was at risk of being overwritten.' },
+    ],
+  },
   tech: [
     {
       q: 'Precisely, why is SFT loss computed only on response tokens, and what mechanism enforces that?',
@@ -259,6 +304,48 @@ def sft_loss_mask(n_instruction_tokens, n_response_tokens):
       explain: 'Fine-tuning shapes behavior well (style, format, following instructions) but is unreliable for injecting isolated new facts — retrieval (RAG, Part 7) is the better tool for giving a model access to current or specific information.'
     }
   ],
+  testFlow: {
+    title: 'Test yourself: SFT, LoRA & QLoRA',
+    start: 'q1',
+    nodes: {
+      q1: {
+        qid: 'q1',
+        q: 'Why is SFT loss masked to only the response tokens rather than computed over the whole sequence?',
+        choices: [
+          { text: 'Training on instruction tokens would teach the model to predict/continue the user\'s question — the opposite of the desired behavior', to: 'q1_right' },
+          { text: 'Masking instruction tokens speeds up tokenization', to: 'q1_wrong_speed' },
+          { text: 'The instruction tokens are never fed to the model at all, so there\'s nothing to score', to: 'q1_wrong_notfed' },
+        ],
+      },
+      q1_right: { end: true, correct: true, text: 'Right — the model still SEES instruction tokens as context (it needs them to know what it\'s responding to); the loss simply never scores predictions AT those positions, focusing all learning signal on "given this instruction, produce this response."', next: 'q2' },
+      q1_wrong_speed: { end: true, correct: false, text: 'Masking is about which positions contribute to the LOSS, not about tokenization speed — tokenization happens identically either way.', retry: 'q1' },
+      q1_wrong_notfed: { end: true, correct: false, text: 'The instruction tokens absolutely ARE fed to the model as input context — the model needs to read the question to generate a relevant answer. Only the LOSS computation skips them.', retry: 'q1' },
+      q2: {
+        qid: 'q2',
+        q: 'In LoRA, why is B initialized to all zeros while A gets small random values?',
+        choices: [
+          { text: 'So the adapter contributes exactly zero at the start (ΔW = BA = 0), making the adapted model identical to the frozen base before any training happens', to: 'q2_right' },
+          { text: 'Zero initialization is required for the base model\'s weights to load correctly', to: 'q2_wrong_load' },
+          { text: 'It has no functional purpose — it\'s purely a stylistic convention', to: 'q2_wrong_style' },
+        ],
+      },
+      q2_right: { end: true, correct: true, text: 'Exactly — any product involving the all-zero matrix B is zero, so ΔW = BA = 0 exactly at initialization regardless of A\'s values. Training then gradually introduces the learned correction rather than starting from a randomly-perturbed model.', next: 'q3' },
+      q2_wrong_load: { end: true, correct: false, text: 'The base model\'s own weights are completely unaffected by how A and B are initialized — B\'s zero-init is about the ADAPTER\'s starting behavior, unrelated to loading the frozen base.', retry: 'q2' },
+      q2_wrong_style: { end: true, correct: false, text: 'It has a very concrete functional purpose: guaranteeing the adapted model behaves identically to the untouched base at step 0, rather than starting from a randomly-perturbed version of it.', retry: 'q2' },
+      q3: {
+        qid: 'q3',
+        q: 'Why does QLoRA quantize the frozen base weights to 4 bits but keep the trainable LoRA matrices in higher precision?',
+        choices: [
+          { text: 'Frozen weights are only ever read in forward passes (a bounded approximation is fine); LoRA matrices are actively updated by gradient descent, and quantization error there accumulates and destabilizes training', to: 'q3_right' },
+          { text: 'Quantizing parameters that receive gradients is technically impossible in any deep learning framework', to: 'q3_wrong_impossible' },
+          { text: 'The frozen weights are quantized purely to save disk space, not memory during training', to: 'q3_wrong_disk' },
+        ],
+      },
+      q3_right: { end: true, correct: true, text: 'Right — read-only weights tolerate a small fixed error just fine; parameters under active gradient-based updates need enough precision that update noise doesn\'t compound into training instability, the same reasoning behind fp32 master weights in mixed-precision pretraining.', next: null },
+      q3_wrong_impossible: { end: true, correct: false, text: 'It\'s technically possible to quantize trainable parameters — the issue is that doing so measurably destabilizes training, not that frameworks forbid it.', retry: 'q3' },
+      q3_wrong_disk: { end: true, correct: false, text: 'The primary benefit is GPU memory during training and inference, not just disk space — quantizing the frozen base is exactly what lets a 65B model fit on a single 48GB GPU.', retry: 'q3' },
+    },
+  },
   pitfalls: [
     'Forgetting to freeze the base model\'s parameters (requires_grad = False) before wrapping it with a LoRA adapter — without this, the "frozen" backbone silently receives gradients too, defeating the memory savings and reintroducing catastrophic-forgetting risk.',
     'Not masking the instruction tokens out of the SFT loss — training on the full sequence unmasked measurably degrades response quality by wasting (and working against) gradient signal on predicting the user\'s own question.',
