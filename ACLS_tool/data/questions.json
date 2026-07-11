@@ -1450,5 +1450,293 @@
     ],
     "a": 0,
     "ex": "Continuous EEG is recommended in comatose post-arrest patients, since seizures are common and can be non-convulsive/easy to miss."
+  },
+  {
+    "cat": "ecg",
+    "q": "What QRS duration separates a narrow complex from a wide complex?",
+    "choices": [
+      "0.08 s",
+      "0.12 s",
+      "0.20 s",
+      "0.30 s"
+    ],
+    "a": 1,
+    "ex": "0.12 s (three small boxes) is the cutoff. Narrow = supraventricular origin; wide = ventricular origin or aberrant conduction."
+  },
+  {
+    "cat": "ecg",
+    "q": "A 6-second rhythm strip contains 8 QRS complexes. What is the heart rate?",
+    "choices": [
+      "48 bpm",
+      "60 bpm",
+      "80 bpm",
+      "96 bpm"
+    ],
+    "a": 2,
+    "ex": "The 6-second method: count QRS complexes in 6 seconds and multiply by 10. 8 × 10 = 80 bpm. Works even for irregular rhythms."
+  },
+  {
+    "cat": "ecg",
+    "q": "Using the 1500 method, a rhythm with 20 small boxes between R waves has a rate of:",
+    "choices": [
+      "50 bpm",
+      "75 bpm",
+      "100 bpm",
+      "150 bpm"
+    ],
+    "a": 1,
+    "ex": "1500 ÷ small boxes between R waves: 1500 ÷ 20 = 75 bpm. Only valid for regular rhythms."
+  },
+  {
+    "cat": "ecg",
+    "q": "On standard ECG paper, one small box represents how much time?",
+    "choices": [
+      "0.02 s",
+      "0.04 s",
+      "0.12 s",
+      "0.20 s"
+    ],
+    "a": 1,
+    "ex": "One small box = 0.04 s; one big box (5 small) = 0.20 s. These two numbers unlock every interval measurement."
+  },
+  {
+    "cat": "ecg",
+    "q": "What is the normal PR interval range?",
+    "choices": [
+      "0.04–0.08 s",
+      "0.12–0.20 s",
+      "0.20–0.32 s",
+      "0.32–0.40 s"
+    ],
+    "a": 1,
+    "ex": "0.12–0.20 s — up to one big box. Longer than one big box on every beat = 1st-degree AV block."
+  },
+  {
+    "cat": "ecg",
+    "q": "An irregularly irregular narrow-complex rhythm with no discernible P waves is:",
+    "choices": [
+      "Sinus arrhythmia",
+      "Atrial fibrillation",
+      "Atrial flutter",
+      "Mobitz I"
+    ],
+    "a": 1,
+    "ex": "Irregularly irregular + absent P waves + fibrillatory baseline = AFib. Sinus arrhythmia and MAT still have P waves."
+  },
+  {
+    "cat": "ecg",
+    "q": "A continuous sawtooth baseline between narrow QRS complexes indicates:",
+    "choices": [
+      "Atrial fibrillation",
+      "Atrial flutter",
+      "Sinus tachycardia",
+      "Ventricular tachycardia"
+    ],
+    "a": 1,
+    "ex": "Sawtooth flutter waves (atrial rate ≈ 300) are the signature of atrial flutter."
+  },
+  {
+    "cat": "ecg",
+    "q": "A regular narrow-complex tachycardia is running at exactly 150 bpm. What should you specifically look for?",
+    "choices": [
+      "Peaked T waves",
+      "Buried sawtooth waves — atrial flutter with 2:1 conduction",
+      "Delta waves",
+      "A prolonged QT interval"
+    ],
+    "a": 1,
+    "ex": "Flutter's atrial rate is ~300; with 2:1 conduction the ventricular rate lands almost exactly on 150 — the classic flutter-vs-SVT trap."
+  },
+  {
+    "cat": "ecg",
+    "q": "The PR interval progressively lengthens over several beats until a QRS is dropped, then the cycle repeats. This is:",
+    "choices": [
+      "1st-degree AV block",
+      "Mobitz I (Wenckebach)",
+      "Mobitz II",
+      "3rd-degree AV block"
+    ],
+    "a": 1,
+    "ex": "\"Longer, longer, longer, drop — then you have a Wenckebach.\" The warning stretch before the drop is the giveaway."
+  },
+  {
+    "cat": "ecg",
+    "q": "QRS complexes are intermittently dropped with NO change in the PR interval of conducted beats. This is:",
+    "choices": [
+      "Mobitz I (Wenckebach)",
+      "Mobitz II",
+      "1st-degree AV block",
+      "Sinus pause"
+    ],
+    "a": 1,
+    "ex": "\"If some Ps just don't get through, then you have a Mobitz II.\" No warning, fixed PR — and it's the dangerous one."
+  },
+  {
+    "cat": "ecg",
+    "q": "P waves march at 100/min while wide QRS complexes march independently at 38/min. This is:",
+    "choices": [
+      "Mobitz II",
+      "Sinus bradycardia with PVCs",
+      "3rd-degree (complete) AV block",
+      "Junctional rhythm"
+    ],
+    "a": 2,
+    "ex": "\"If Ps and Qs don't agree, then you have a third degree.\" Two independent regular rhythms on one strip = complete block."
+  },
+  {
+    "cat": "ecg",
+    "q": "Every beat shows a PR interval of 0.28 s, constant, with no dropped beats. This is:",
+    "choices": [
+      "Normal variant",
+      "1st-degree AV block",
+      "Mobitz II",
+      "3rd-degree AV block"
+    ],
+    "a": 1,
+    "ex": "\"If the R is far from P, then you have a first degree.\" PR > 0.20 s, fixed, nothing dropped."
+  },
+  {
+    "cat": "ecg",
+    "q": "Which two features best distinguish sinus tachycardia from SVT?",
+    "choices": [
+      "QRS width and amplitude",
+      "Visible P waves with gradual onset (sinus) vs no P waves with abrupt onset (SVT)",
+      "Heart rate above vs below 100",
+      "T-wave direction"
+    ],
+    "a": 1,
+    "ex": "Sinus tach has P waves, ramps up and down gradually, usually < 150, and has an identifiable cause. SVT hides its Ps, flips on abruptly, and usually runs > 150."
+  },
+  {
+    "cat": "ecg",
+    "q": "A wide-complex, regular tachycardia at 170 bpm with every complex identical is best called:",
+    "choices": [
+      "SVT with a bundle branch block, definitively",
+      "Monomorphic ventricular tachycardia",
+      "Atrial flutter",
+      "Torsades de pointes"
+    ],
+    "a": 1,
+    "ex": "Wide + regular + uniform complexes = monomorphic VT — and \"wide = ventricle until proven otherwise\" is the safe default."
+  },
+  {
+    "cat": "ecg",
+    "q": "A wide-complex tachycardia whose QRS amplitude cyclically grows and shrinks, appearing to twist around the baseline, is:",
+    "choices": [
+      "Coarse VF",
+      "Monomorphic VT",
+      "Torsades de pointes",
+      "Atrial flutter"
+    ],
+    "a": 2,
+    "ex": "The twisting spindle envelope is torsades — polymorphic VT associated with long QT. First-line drug: magnesium."
+  },
+  {
+    "cat": "ecg",
+    "q": "What ECG finding predisposes a patient to torsades de pointes?",
+    "choices": [
+      "A short PR interval",
+      "A prolonged QT interval",
+      "Peaked T waves",
+      "Delta waves"
+    ],
+    "a": 1,
+    "ex": "Long QT (drugs, hypokalemia, hypomagnesemia) sets the stage for torsades — the T-wave vulnerable period gets wider and easier to hit."
+  },
+  {
+    "cat": "ecg",
+    "q": "The monitor shows a nearly flat line. Before treating asystole, what should you verify?",
+    "choices": [
+      "Serum potassium",
+      "Lead connections, monitor gain, and the rhythm in a second lead",
+      "Blood pressure only",
+      "The last epinephrine dose"
+    ],
+    "a": 1,
+    "ex": "\"Flat? Confirm before you call it.\" A loose lead mimics asystole, and fine VF — which is still shockable — can hide at low gain."
+  },
+  {
+    "cat": "ecg",
+    "q": "Why does distinguishing fine VF from asystole matter so much?",
+    "choices": [
+      "It doesn't — treatment is identical",
+      "Fine VF is still a shockable rhythm; asystole is not",
+      "Asystole gets amiodarone; VF does not",
+      "Fine VF requires synchronized cardioversion"
+    ],
+    "a": 1,
+    "ex": "Fine VF still gets defibrillated; asystole never does. Checking gain and a second lead can reveal a shock you'd otherwise miss."
+  },
+  {
+    "cat": "ecg",
+    "q": "Which AV blocks are typically atropine-refractory because the block is below the AV node?",
+    "choices": [
+      "1st-degree and Mobitz I",
+      "Mobitz II and 3rd-degree with wide QRS",
+      "Sinus bradycardia",
+      "All AV blocks respond equally to atropine"
+    ],
+    "a": 1,
+    "ex": "Infranodal blocks (Mobitz II, wide-QRS 3rd-degree) sit below where atropine's vagolytic effect acts — plan for pacing early."
+  },
+  {
+    "cat": "ecg",
+    "q": "What does the P wave represent electrically?",
+    "choices": [
+      "Ventricular depolarization",
+      "Atrial depolarization",
+      "Ventricular repolarization",
+      "Atrial repolarization"
+    ],
+    "a": 1,
+    "ex": "P = atrial depolarization, QRS = ventricular depolarization, T = ventricular repolarization. (Atrial repolarization hides inside the QRS.)"
+  },
+  {
+    "cat": "ecg",
+    "q": "A shock accidentally delivered on the T wave risks inducing VF because the T wave represents:",
+    "choices": [
+      "Atrial depolarization",
+      "The ventricle's vulnerable repolarization period",
+      "A fully refractory ventricle that cannot be stimulated",
+      "AV node conduction"
+    ],
+    "a": 1,
+    "ex": "The T wave is ventricular repolarization — the vulnerable period. R-on-T can trigger VF, which is exactly why cardioversion synchronizes to the R wave."
+  },
+  {
+    "cat": "ecg",
+    "q": "Using the big-box counting method (300-150-100-75-60-50), R waves landing exactly 3 big boxes apart give a rate of:",
+    "choices": [
+      "75 bpm",
+      "100 bpm",
+      "150 bpm",
+      "300 bpm"
+    ],
+    "a": 1,
+    "ex": "Count down the sequence per big box between R waves: 1 box=300, 2=150, 3=100, 4=75, 5=60, 6=50."
+  },
+  {
+    "cat": "ecg",
+    "q": "A narrow-complex rhythm has P waves of at least three different shapes and an irregular rate. This is:",
+    "choices": [
+      "Atrial fibrillation",
+      "Multifocal atrial tachycardia (MAT)",
+      "Atrial flutter",
+      "Wenckebach"
+    ],
+    "a": 1,
+    "ex": "Multiple P-wave morphologies = multiple atrial foci = MAT. AFib, by contrast, has NO P waves at all."
+  },
+  {
+    "cat": "ecg",
+    "q": "Which feature makes Mobitz II more dangerous than Mobitz I?",
+    "choices": [
+      "It has a faster ventricular rate",
+      "It can progress to complete heart block suddenly, without warning",
+      "It always causes immediate cardiac arrest",
+      "It cannot be paced"
+    ],
+    "a": 1,
+    "ex": "Mobitz II is infranodal disease that drops beats unpredictably and can decompensate into 3rd-degree block abruptly — hence early pacing preparation."
   }
 ]

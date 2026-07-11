@@ -151,8 +151,8 @@
     <section class="section" id="sec-rhythms">
       <div class="pagehead">
         <div class="eyebrow">Foundations</div>
-        <h1>Rhythm Recognition</h1>
-        <div class="dek">Five questions, asked in the same order, on every strip.</div>
+        <h1>Rhythm Recognition — the ECG Lab</h1>
+        <div class="dek">Five questions, asked in the same order, on every strip — then a live lab that answers them in front of you, rhythm by rhythm.</div>
       </div>
 
       <div class="card spine-accent">
@@ -176,9 +176,44 @@
         <tr><td><span class="pill ok">Often stable</span></td><td>Sinus rhythm variants, controlled AFib</td><td>Monitor, treat underlying cause</td></tr>
       </table></div>
 
-      <h3 style="margin-top:22px;">Rhythm gallery</h3>
-      <p class="prose">Live-drawn strips — the same drawing engine used in the Practice rhythm drill. Tap a card to jump straight to timed drilling.</p>
-      <div id="rhythmGallery" class="flashgrid"></div>
+      <h3 style="margin-top:26px;">The ECG Lab</h3>
+      <p class="prose">Pick a rhythm. The monitor sweeps it live, and the five framework questions walk you through it — each step drawing its evidence directly on the strip: R-wave counts for rate, calipers for regularity, markers on every P wave, PR brackets, and QRS-width shading. Work left to right through the chips; the blocks are grouped at the end so you can drill them back-to-back against the block poem below.</p>
+
+      <div class="card" style="padding:14px 16px;">
+        <div class="chiprow" id="labChips"></div>
+        <div class="rhythmbox" style="margin:12px 0 10px;"><canvas id="labCanvas" width="900" height="190"></canvas></div>
+        <div class="deck-controls" style="margin-bottom:12px;">
+          <button class="btn ghost" id="labPlay" type="button">Pause sweep</button>
+          <span class="scoreline" id="labGroup"></span>
+        </div>
+        <div class="stepper" id="labStepper"></div>
+        <div class="lab-answer" id="labAnswer"></div>
+        <div class="lab-cards">
+          <div class="lab-card hallmark"><div class="lbl">Hallmark</div><div id="labHallmark"></div></div>
+          <div class="lab-card mnem"><div class="lbl">Mnemonic</div><div id="labMnem"></div></div>
+          <div class="lab-card confuse"><div class="lbl">Don't confuse with</div><div id="labConfuse"></div></div>
+          <div class="lab-card action"><div class="lbl">What you do about it</div><div id="labAction"></div></div>
+        </div>
+        <div class="deck-controls" style="margin-top:14px;">
+          <button class="btn" id="labDrill" type="button">Drill me on random strips →</button>
+        </div>
+      </div>
+
+      <div class="card spine-accent" style="margin-top:18px;">
+        <h3>The block poem — the only heart-block mnemonic you need</h3>
+        <p class="prose" style="font-style:italic; margin-bottom:10px;">
+          "If the R is far from P, then you have a <b>FIRST degree</b>.<br>
+          Longer, longer, longer, DROP — then you have a <b>WENCKEBACH</b>.<br>
+          If some Ps don't get through, then you have <b>MOBITZ II</b>.<br>
+          If Ps and Qs don't agree, then you have a <b>THIRD degree</b>."
+        </p>
+        <p style="font-size:.88rem; color:var(--ink-dim); margin-bottom:0;">Exam shortcut hiding inside it: the first two lines (1st degree, Wenckebach) are the benign, usually atropine-responsive blocks. The last two lines (Mobitz II, 3rd degree) are the dangerous, atropine-refractory ones — the poem's second half is your "prepare to pace" list.</p>
+      </div>
+
+      <div class="callout pearl">
+        <span class="ic">Exam habit</span>
+        <p>Never name a rhythm from its silhouette alone — the exam deliberately picks lookalikes (flutter 2:1 vs SVT, fine VF vs asystole, Mobitz II vs Wenckebach). Run the five questions in order every single time, even when you "recognize" the strip instantly. The framework is what catches the trap options.</p>
+      </div>
     </section>
 
     <!-- CARDIAC ARREST -->
@@ -613,6 +648,7 @@
           <select id="quizCategory" class="btn ghost" style="cursor:pointer;">
             <option value="all">All categories</option>
             <option value="foundations">Foundations / Team</option>
+            <option value="ecg">ECG Interpretation</option>
             <option value="arrest">Cardiac Arrest</option>
             <option value="brady-tachy">Brady / Tachy</option>
             <option value="pharm">Pharmacology</option>
@@ -634,6 +670,7 @@
           <select id="mockCategory" class="btn ghost" style="cursor:pointer;">
             <option value="all">All categories (mixed)</option>
             <option value="foundations">Foundations / Team</option>
+            <option value="ecg">ECG Interpretation</option>
             <option value="arrest">Cardiac Arrest</option>
             <option value="brady-tachy">Brady / Tachy</option>
             <option value="pharm">Pharmacology</option>

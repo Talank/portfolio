@@ -215,3 +215,38 @@
   .kpi .l{font-size:.72rem; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em;}
   footer.foot{padding:26px 34px 60px; color:var(--ink-faint); font-size:.78rem; max-width:960px;}
   .backtop{grid-column:2; }
+
+/* ---------- ECG Lab ---------- */
+.chiprow{display:flex; flex-wrap:wrap; gap:7px;}
+.chip{
+  background:var(--bg-raised); border:1px solid var(--line); color:var(--ink-dim);
+  border-radius:20px; padding:6px 13px; font:600 .78rem -apple-system,sans-serif; cursor:pointer;
+}
+.chip:hover{border-color:var(--accent); color:var(--ink);}
+.chip.active{background:var(--accent); border-color:var(--accent); color:var(--accent-ink); font-weight:700;}
+.chip.blockgroup{border-style:dashed;}
+#labCanvas{display:block; width:100%; height:190px;}
+.stepper{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;}
+.stepbtn{
+  flex:1; min-width:110px; background:var(--bg-raised); border:1px solid var(--line);
+  border-radius:8px; padding:9px 10px; cursor:pointer; text-align:left; color:var(--ink-dim);
+  font:600 .78rem -apple-system,sans-serif;
+}
+.stepbtn .n{display:block; font:800 .68rem var(--font-mono); color:var(--ink-faint); margin-bottom:3px;}
+.stepbtn:hover{border-color:var(--accent);}
+.stepbtn.active{background:var(--accent-a); border-color:var(--accent); color:var(--ink);}
+.stepbtn.active .n{color:var(--accent);}
+.lab-answer{
+  min-height:52px; padding:12px 14px; border-radius:8px; margin-bottom:14px;
+  background:var(--bg-raised); border:1px solid var(--line); border-left:3px solid var(--accent);
+  font-size:.92rem; color:var(--ink);
+}
+.lab-answer b{color:var(--accent);}
+.lab-cards{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+@media (max-width:720px){ .lab-cards{grid-template-columns:1fr;} }
+.lab-card{background:var(--bg-raised); border:1px solid var(--line); border-radius:8px; padding:11px 13px; font-size:.86rem; color:var(--ink);}
+.lab-card .lbl{font:700 .64rem -apple-system,sans-serif; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); margin-bottom:5px;}
+.lab-card.mnem{border-left:3px solid var(--accent); background:var(--accent-a);}
+.lab-card.confuse{border-left:3px solid var(--caution);}
+.lab-card.action{border-left:3px solid var(--info);}
+.lab-card.hallmark{border-left:3px solid var(--ink-faint);}

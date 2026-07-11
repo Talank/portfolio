@@ -73,5 +73,50 @@
     "label": "Team dynamics",
     "front": "Say it, repeat it, confirm it",
     "back": "Closed-loop communication: leader gives the order, team member repeats it back, then confirms once it's done."
+  },
+  {
+    "label": "Heart blocks",
+    "front": "The block poem",
+    "back": "\"If the R is far from P, then you have a FIRST degree. Longer, longer, longer, DROP — then you have a WENCKEBACH. If some Ps don't get through, then you have MOBITZ II. If Ps and Qs don't agree, then you have a THIRD degree.\""
+  },
+  {
+    "label": "ECG boxes",
+    "front": "0.04 small, 0.20 big",
+    "back": "One small box = 0.04 s, one big box = 0.20 s. PR normal ≤ 1 big box; QRS narrow < 3 small boxes."
+  },
+  {
+    "label": "Rate by boxes",
+    "front": "300-150-100-75-60-50",
+    "back": "Rate per big box between R waves: 1 box = 300, 2 = 150, 3 = 100, 4 = 75, 5 = 60, 6 = 50. For irregular rhythms use the 6-second × 10 method instead."
+  },
+  {
+    "label": "AFib",
+    "front": "Can't tap your foot to it? It's fibbing",
+    "back": "Irregularly irregular with no P waves = atrial fibrillation until proven otherwise."
+  },
+  {
+    "label": "Flutter",
+    "front": "Sawtooth = flutter; 150 on the dot? Look for teeth",
+    "back": "Continuous sawtooth baseline = atrial flutter (atrial rate ≈ 300). A ventricular rate pinned at ~150 suggests flutter with 2:1 conduction masquerading as SVT."
+  },
+  {
+    "label": "Wide QRS",
+    "front": "Wide = ventricle, until proven otherwise",
+    "back": "A wide-complex tachycardia is treated as VT unless you have strong proof it's SVT with aberrancy — the safe default on exams and at the bedside."
+  },
+  {
+    "label": "Sinus tach vs SVT",
+    "front": "Sinus tach has a story; SVT flips a switch",
+    "back": "Sinus tach: visible Ps, gradual onset, usually < 150, an identifiable cause. SVT: hidden Ps, abrupt onset, usually > 150."
+  },
+  {
+    "label": "Flat line",
+    "front": "Flat? Leads, gain, second lead",
+    "back": "Before calling asystole: check lead connections, turn up the gain, and confirm in a second lead — fine VF is still shockable and loves to hide."
+  },
+  {
+    "label": "Torsades",
+    "front": "Twisting? Think Torsades. Torsades? Think Mag",
+    "back": "The twisting party-streamer envelope = torsades de pointes, bred by long QT. First-line: magnesium 1–2 g IV; defibrillate (not sync) if pulseless."
   }
 ]

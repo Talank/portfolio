@@ -17,12 +17,13 @@
   Promise.all([
     fetch('data/questions.json').then(function(r){ if(!r.ok) throw new Error('questions.json: '+r.status); return r.json(); }),
     fetch('data/drugs.json').then(function(r){ if(!r.ok) throw new Error('drugs.json: '+r.status); return r.json(); }),
-    fetch('data/mnemonics.json').then(function(r){ if(!r.ok) throw new Error('mnemonics.json: '+r.status); return r.json(); })
+    fetch('data/mnemonics.json').then(function(r){ if(!r.ok) throw new Error('mnemonics.json: '+r.status); return r.json(); }),
+    fetch('data/rhythms.json').then(function(r){ if(!r.ok) throw new Error('rhythms.json: '+r.status); return r.json(); })
   ]).then(function(res){
-    boot(res[0], res[1], res[2]);
+    boot(res[0], res[1], res[2], res[3]);
   }).catch(showLoadError);
 
-  function boot(questionBank, drugs, mnemonics){
+  function boot(questionBank, drugs, mnemonics, rhythmsInfo){
   var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------------- theme ---------------- */
@@ -145,13 +146,16 @@
     var dur=6, fs=240, N=dur*fs;
     var samp=new Float32Array(N);
     var rnd = seededRand(seed||42);
-    function idx(t){ return Math.max(0,Math.min(N-1,Math.round(t*fs))); }
-    function addAt(t, fn){ if(t<0||t>dur) return; fn(); }
-    var rate, beats=[], pTimes=[];
+    var beats=[];
+    // event annotations for the ECG Lab: P-wave times, QRS times, QRS width (s)
+    var evP=[], evQ=[], evQW=0.08;
 
     function narrowRegular(rateBpm, hasP, prS){
       var rr=60/rateBpm, t=0.15;
       while(t<dur+1){ beats.push(t); t+=rr; }
+      if(hasP) evP=beats.slice();
+      evQ=beats.map(function(b){ return b+(hasP?prS:0); });
+      evQW=0.08;
       for(var i=0;i<N;i++){ var tt=i/fs; var v=0;
         beats.forEach(function(bt){
           if(hasP) v+=gauss(tt,bt,0.045,0.10);
@@ -164,6 +168,7 @@
     function wideRegular(rateBpm, amp){
       var rr=60/rateBpm, t=0.15;
       while(t<dur+1){ beats.push(t); t+=rr; }
+      evQ=beats.slice(); evQW=0.18;
       for(var i=0;i<N;i++){ var tt=i/fs; var v=0;
         beats.forEach(function(bt){ v+=qrsShape(tt,bt,0.18,amp||1.15); });
         samp[i]=v;
@@ -172,6 +177,7 @@
     function afib(rateBpm){
       var rr=60/rateBpm, t=0.15;
       while(t<dur+1){ beats.push(t); t+= rr*(0.55+rnd()*0.9); }
+      evQ=beats.slice(); evQW=0.08;
       for(var i=0;i<N;i++){ var tt=i/fs;
         var v = 0.045*Math.sin(tt*2*Math.PI*7.3)+0.03*Math.sin(tt*2*Math.PI*11.1+1)+0.02*(rnd()-0.5);
         beats.forEach(function(bt){ v+=qrsShape(tt,bt,0.08,1.0); v+=gauss(tt,bt+0.20,0.07,0.18); });
@@ -181,6 +187,7 @@
     function aflutter(){
       var rr=60/150, t=0.15;
       while(t<dur+1){ beats.push(t); t+=rr*2; }
+      evQ=beats.slice(); evQW=0.08;
       for(var i=0;i<N;i++){ var tt=i/fs;
         var v=0.14*Math.sin(tt*2*Math.PI*4.9 - Math.PI/2)*0.5+0.07*Math.sin(tt*2*Math.PI*4.9);
         beats.forEach(function(bt){ v+=qrsShape(tt,bt,0.08,1.0); });
@@ -188,10 +195,10 @@
       }
     }
     function torsades(){
-      var rr=60/220, t=0.15, env=0;
+      var rr=60/220, t=0.15;
       while(t<dur+1){ beats.push(t); t+=rr; }
+      evQ=beats.slice(); evQW=0.16;
       for(var i=0;i<N;i++){ var tt=i/fs;
-        var envelope=Math.sin(tt*2*Math.PI*0.5);
         var v=0;
         beats.forEach(function(bt){ var localEnv=Math.sin(bt*2*Math.PI*0.5); v+=qrsShape(tt,bt,0.16,0.9*localEnv); });
         samp[i]=v;
@@ -211,6 +218,7 @@
       var t=0.15, pr=0.16, cycle=0;
       var pTimesL=[], qrsTimesL=[];
       while(t<dur+1){ pTimesL.push(t); if(cycle<3){ qrsTimesL.push(t+pr); pr+=0.07; } else { pr=0.16; } cycle=(cycle+1)%4; t+=60/88; }
+      evP=pTimesL; evQ=qrsTimesL; evQW=0.08;
       for(var i=0;i<N;i++){ var tt=i/fs; var v=0;
         pTimesL.forEach(function(pt){ v+=gauss(tt,pt,0.045,0.10); });
         qrsTimesL.forEach(function(qt){ v+=qrsShape(tt,qt,0.08,1.0); v+=gauss(tt,qt+0.20,0.07,0.2); });
@@ -220,6 +228,7 @@
     function mobitz2(){
       var t=0.15, n=0, pTimesL=[], qrsTimesL=[];
       while(t<dur+1){ pTimesL.push(t); if(n%3!==2){ qrsTimesL.push(t+0.16); } n++; t+=60/95; }
+      evP=pTimesL; evQ=qrsTimesL; evQW=0.08;
       for(var i=0;i<N;i++){ var tt=i/fs; var v=0;
         pTimesL.forEach(function(pt){ v+=gauss(tt,pt,0.045,0.10); });
         qrsTimesL.forEach(function(qt){ v+=qrsShape(tt,qt,0.08,1.0); v+=gauss(tt,qt+0.20,0.07,0.2); });
@@ -230,6 +239,7 @@
       var pt=0.1, qt=0.3, pTimesL=[], qrsTimesL=[];
       while(pt<dur+1){ pTimesL.push(pt); pt+=60/100; }
       while(qt<dur+1){ qrsTimesL.push(qt); qt+=60/38; }
+      evP=pTimesL; evQ=qrsTimesL; evQW=0.19;
       for(var i=0;i<N;i++){ var tt=i/fs; var v=0;
         pTimesL.forEach(function(p){ v+=gauss(tt,p,0.045,0.09); });
         qrsTimesL.forEach(function(q){ v+=qrsShape(tt,q,0.19,1.05); });
@@ -255,7 +265,8 @@
       case 'third_degree': thirdDegree(); break;
       default: narrowRegular(75,true,0.16);
     }
-    return samp;
+    var inRange = function(t){ return t>=0 && t<=dur; };
+    return {samp:samp, p:evP.filter(inRange), q:evQ.filter(inRange), qw:evQW, dur:dur};
   }
 
   function drawSamples(canvas, samples, color, animT){
