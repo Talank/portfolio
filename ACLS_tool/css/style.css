@@ -250,3 +250,6 @@
 .lab-card.confuse{border-left:3px solid var(--caution);}
 .lab-card.action{border-left:3px solid var(--info);}
 .lab-card.hallmark{border-left:3px solid var(--ink-faint);}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]) .rhythmbox{background:#f4efe2;}
+}

@@ -310,42 +310,269 @@
   };
   var rhythmKeys = Object.keys(rhythmMeta);
 
+  /* ---------------- theme-aware canvas palette ---------------- */
+  var palette = {};
+  function refreshPalette(){
+    var cs = getComputedStyle(document.documentElement);
+    palette.accent  = cs.getPropertyValue('--accent').trim()  || '#34e08a';
+    palette.accentInk = cs.getPropertyValue('--accent-ink').trim() || '#04140c';
+    palette.caution = cs.getPropertyValue('--caution').trim() || '#e8b23c';
+    palette.info    = cs.getPropertyValue('--info').trim()    || '#4fb6dd';
+    palette.dim     = cs.getPropertyValue('--ink-dim').trim() || '#7fa596';
+  }
+  refreshPalette();
+
   // header animated strip (always normal sinus)
   var headCanvas = document.getElementById('ecgHead');
-  var headSamples = genSamples('sinus_normal', 7);
+  var headSamples = genSamples('sinus_normal', 7).samp;
   var headT = 0;
   function tickHead(){
-    if(!prefersReduced){ headT += 1.6; drawSamples(headCanvas, headSamples, getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#34e08a', headT); }
-    else if(headT===0){ headT=1; drawSamples(headCanvas, headSamples, '#34e08a', 0); }
+    if(!prefersReduced){ headT += 1.6; drawSamples(headCanvas, headSamples, palette.accent, headT); }
+    else if(headT===0){ headT=1; drawSamples(headCanvas, headSamples, palette.accent, 0); }
     requestAnimationFrame(tickHead);
   }
   requestAnimationFrame(tickHead);
 
-  // rhythm gallery on Rhythm Recognition page
-  var galleryTypes = ['sinus_normal','sinus_tach','afib','vt_mono','vf_coarse','third_degree'];
-  var gallery = document.getElementById('rhythmGallery');
-  galleryTypes.forEach(function(type){
-    var box = document.createElement('div');
-    box.className = 'flash';
-    box.style.cursor='pointer';
-    box.innerHTML = '<div class="flash-f" style="position:static; height:100%;"><div class="lbl">Tap to drill</div>'+
-      '<canvas width="300" height="90" style="width:100%;height:80px;background:#04120c;border-radius:6px;margin:6px 0;"></canvas>'+
-      '<div style="font:700 .82rem -apple-system,sans-serif;">'+rhythmMeta[type].label+'</div></div>';
-    box.addEventListener('click', function(){ goTo('sec-practice'); document.querySelector('.tabbtn[data-tab="tab-rhythm"]').click(); nextRhythm(); });
-    gallery.appendChild(box);
-    var cv = box.querySelector('canvas');
-    setTimeout(function(){ drawSamples(cv, genSamples(type, 99), '#34e08a', 0); }, 10);
+  /* ---------------- ECG Lab ----------------
+     A live monitor-style sweep of the selected rhythm, plus a step-through
+     of the five framework questions. Each step draws its evidence directly
+     on the strip: numbered R waves, R-R calipers, P markers, PR brackets,
+     QRS-width shading. Teaching text comes from data/rhythms.json. */
+  var labSteps = [
+    {key:'overview', tag:'SWEEP',  label:'Watch it run'},
+    {key:'rate',     tag:'STEP 1', label:'Rate'},
+    {key:'reg',      tag:'STEP 2', label:'Regularity'},
+    {key:'p',        tag:'STEP 3', label:'P waves'},
+    {key:'pr',       tag:'STEP 4', label:'PR interval'},
+    {key:'qrs',      tag:'STEP 5', label:'QRS width'}
+  ];
+  var labState = {type:'sinus_normal', gen:null, step:0, playing:!prefersReduced, t0:performance.now()};
+  var labCanvas = document.getElementById('labCanvas');
+  var labChips = document.getElementById('labChips');
+  var labStepper = document.getElementById('labStepper');
+
+  rhythmKeys.forEach(function(type){
+    var c = document.createElement('button');
+    c.type='button';
+    c.className = 'chip' + (rhythmsInfo[type] && rhythmsInfo[type].group==='AV block' ? ' blockgroup' : '');
+    c.textContent = rhythmMeta[type].label;
+    c.dataset.type = type;
+    c.addEventListener('click', function(){ setLabRhythm(type); });
+    labChips.appendChild(c);
   });
+
+  labSteps.forEach(function(s, i){
+    var b = document.createElement('button');
+    b.type='button'; b.className='stepbtn';
+    b.innerHTML = '<span class="n">'+s.tag+'</span>'+s.label;
+    b.addEventListener('click', function(){ setLabStep(i); });
+    labStepper.appendChild(b);
+  });
+
+  function setLabRhythm(type){
+    labState.type = type;
+    labState.gen = genSamples(type, 42);
+    labState.t0 = performance.now();
+    Array.prototype.forEach.call(labChips.children, function(c){ c.classList.toggle('active', c.dataset.type===type); });
+    var info = rhythmsInfo[type];
+    document.getElementById('labGroup').textContent = info.group;
+    document.getElementById('labHallmark').textContent = info.hallmark;
+    document.getElementById('labMnem').textContent = info.mnemonic;
+    document.getElementById('labConfuse').textContent = info.confuse;
+    document.getElementById('labAction').textContent = info.action;
+    setLabStep(labState.step);
+  }
+
+  function setLabStep(i){
+    labState.step = i;
+    Array.prototype.forEach.call(labStepper.children, function(b, bi){ b.classList.toggle('active', bi===i); });
+    var info = rhythmsInfo[labState.type];
+    var gen = labState.gen;
+    var ans = document.getElementById('labAnswer');
+    var key = labSteps[i].key;
+    var hint = ' <span style="color:var(--ink-dim);font-size:.85em;">';
+    if(key==='overview'){
+      ans.innerHTML = '<b>'+rhythmMeta[labState.type].label+'</b> — '+info.group+'.'+hint+'Watch a couple of full sweeps to get the gestalt, then walk steps 1–5. Each step marks its evidence on the strip.</span>';
+    } else if(key==='rate'){
+      var counted = gen.q.length ? gen.q.length : 0;
+      ans.innerHTML = '<b>Rate:</b> '+info.rate+(counted ? hint+'This is a 6-second strip — the numbered R waves count '+counted+', so '+counted+' × 10 = '+(counted*10)+'/min.</span>' : '');
+    } else if(key==='reg'){
+      ans.innerHTML = '<b>Regularity:</b> '+info.regular+(gen.q.length>1 ? hint+'Calipers between R waves: green = equal spacing, amber = unequal.</span>' : '');
+    } else if(key==='p'){
+      ans.innerHTML = '<b>P waves:</b> '+info.p;
+    } else if(key==='pr'){
+      ans.innerHTML = '<b>PR interval:</b> '+info.pr+(gen.p.length&&gen.q.length ? hint+'Brackets under the baseline join each P to its QRS: green = constant PR, amber = changing or unrelated.</span>' : '');
+    } else {
+      ans.innerHTML = '<b>QRS width:</b> '+info.qrs+(gen.q.length ? hint+'Shaded bands sit over each QRS: green = narrow (&lt;0.12 s), amber = wide.</span>' : '');
+    }
+  }
+
+  function drawLab(){
+    if(!labCanvas || !labState.gen) return;
+    var ctx = labCanvas.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio||1, 2);
+    var cw = labCanvas.clientWidth||900, ch = labCanvas.clientHeight||190;
+    if(labCanvas.width!==cw*dpr) labCanvas.width=cw*dpr;
+    if(labCanvas.height!==ch*dpr) labCanvas.height=ch*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,cw,ch);
+    var gen = labState.gen, samples = gen.samp, N = samples.length, dur = gen.dur;
+    var mid = ch*0.58, scale = ch*0.30;
+    function tx(t){ return (t/dur)*cw; }
+    function ty(t){ var k=Math.max(0,Math.min(N-1,Math.round(t/dur*N))); return mid - samples[k]*scale; }
+
+    // grid — big boxes every 0.2 s
+    ctx.strokeStyle='rgba(127,165,150,0.13)'; ctx.lineWidth=1;
+    for(var gx=0; gx<=cw; gx+=cw/(dur*5)){ ctx.beginPath(); ctx.moveTo(gx,0); ctx.lineTo(gx,ch); ctx.stroke(); }
+    for(var gy=0; gy<ch; gy+=ch/6){ ctx.beginPath(); ctx.moveTo(0,gy); ctx.lineTo(cw,gy); ctx.stroke(); }
+
+    // trace with monitor-style sweep: bright behind the head, dim ahead, gap at the head
+    function strokeRange(x0,x1,alpha){
+      if(x1<=x0) return;
+      ctx.save();
+      ctx.beginPath(); ctx.rect(x0,0,x1-x0,ch); ctx.clip();
+      ctx.globalAlpha=alpha;
+      ctx.strokeStyle=palette.accent; ctx.lineWidth=1.9; ctx.lineJoin='round'; ctx.lineCap='round';
+      ctx.beginPath();
+      for(var x=0;x<=cw;x++){
+        var k=Math.min(N-1,Math.floor(x/cw*N));
+        var py=mid - samples[k]*scale;
+        if(x===0) ctx.moveTo(x,py); else ctx.lineTo(x,py);
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
+    var sweeping = labState.playing && !prefersReduced;
+    if(sweeping){
+      var elapsed=(performance.now()-labState.t0)/1000;
+      var sweepX=((elapsed/dur)%1)*cw;
+      var gap=cw*0.055;
+      strokeRange(0,sweepX,1);
+      strokeRange(sweepX+gap,cw,0.30);
+      ctx.fillStyle=palette.accent;
+      ctx.beginPath(); ctx.arc(sweepX, mid - samples[Math.min(N-1,Math.floor(sweepX/cw*N))]*scale, 3, 0, 7); ctx.fill();
+    } else {
+      strokeRange(0,cw,1);
+    }
+
+    // annotations
+    var key = labSteps[labState.step].key;
+    ctx.font='700 11px ui-monospace, Menlo, monospace';
+    ctx.textAlign='center';
+    function banner(msg){
+      ctx.font='700 12px -apple-system, sans-serif';
+      ctx.fillStyle=palette.caution;
+      ctx.fillText(msg, cw/2, 20);
+      ctx.font='700 11px ui-monospace, Menlo, monospace';
+    }
+    if(key==='rate'){
+      if(gen.q.length){
+        gen.q.forEach(function(t,i){
+          var x=tx(t), y=Math.max(13, ty(t)-16);
+          ctx.fillStyle=palette.accent;
+          ctx.beginPath(); ctx.arc(x,y,9,0,7); ctx.fill();
+          ctx.fillStyle=palette.accentInk;
+          ctx.fillText(String(i+1), x, y+3.5);
+        });
+      } else { banner('No organized R waves to count — no rate exists here'); }
+    }
+    if(key==='reg'){
+      if(gen.q.length>1){
+        var ints=[]; for(var i=1;i<gen.q.length;i++) ints.push(gen.q[i]-gen.q[i-1]);
+        var med=ints.slice().sort(function(a,b){return a-b;})[Math.floor(ints.length/2)];
+        var y=16;
+        for(var i=1;i<gen.q.length;i++){
+          var x0=tx(gen.q[i-1]), x1=tx(gen.q[i]);
+          var even=Math.abs(ints[i-1]-med)/med < 0.08;
+          ctx.strokeStyle= even ? palette.accent : palette.caution;
+          ctx.lineWidth=1.5;
+          ctx.beginPath();
+          ctx.moveTo(x0,y); ctx.lineTo(x1,y);
+          ctx.moveTo(x0,y-4); ctx.lineTo(x0,y+4);
+          ctx.moveTo(x1,y-4); ctx.lineTo(x1,y+4);
+          ctx.stroke();
+        }
+      } else { banner('No beats to compare — chaos or silence has no regularity'); }
+    }
+    if(key==='p'){
+      if(gen.p.length){
+        gen.p.forEach(function(t){
+          var x=tx(t), y=ty(t)-9;
+          ctx.fillStyle=palette.info;
+          ctx.beginPath(); ctx.arc(x,y,3.2,0,7); ctx.fill();
+          ctx.fillText('P', x, y-8);
+        });
+        ctx.fillStyle=palette.info;
+      } else if(labState.type==='aflutter'){ banner('No true P waves — the whole baseline is continuous sawtooth flutter'); }
+      else { banner('No organized P waves on this rhythm'); }
+    }
+    if(key==='pr'){
+      if(gen.p.length && gen.q.length){
+        var pairs=[], prVals=[];
+        gen.q.forEach(function(qt){
+          var best=null;
+          gen.p.forEach(function(pt){ if(pt<qt && qt-pt<0.45 && (best===null||pt>best)) best=pt; });
+          if(best!==null){ pairs.push([best,qt]); prVals.push(qt-best); }
+        });
+        if(pairs.length){
+          var consistent=true;
+          if(prVals.length>1){
+            var mn=Math.min.apply(null,prVals), mx=Math.max.apply(null,prVals);
+            consistent=(mx-mn)<0.03;
+          }
+          var yb=ch-14;
+          ctx.strokeStyle = consistent ? palette.accent : palette.caution;
+          ctx.lineWidth=1.5;
+          pairs.forEach(function(pr){
+            var x0=tx(pr[0]), x1=tx(pr[1]);
+            ctx.beginPath();
+            ctx.moveTo(x0,yb-5); ctx.lineTo(x0,yb); ctx.lineTo(x1,yb); ctx.lineTo(x1,yb-5);
+            ctx.stroke();
+          });
+          if(!consistent) banner(labState.type==='third_degree' ? 'No two PR brackets match — Ps and QRSs are strangers' : 'PR is changing — watch it stretch');
+        } else { banner('No P pairs with any QRS'); }
+      } else { banner('No measurable PR — '+(gen.p.length ? 'no QRS to pair with' : 'no P waves exist here')); }
+    }
+    if(key==='qrs'){
+      if(gen.q.length){
+        var wide = gen.qw>=0.12;
+        ctx.fillStyle = wide ? 'rgba(232,178,60,0.20)' : 'rgba(52,224,138,0.15)';
+        gen.q.forEach(function(t){
+          var x=tx(t-gen.qw/2), w=Math.max(6,(gen.qw/dur)*cw);
+          ctx.fillRect(x,6,w,ch-12);
+        });
+      } else { banner('No QRS complexes at all — that is the finding'); }
+    }
+  }
+
+  function tickLab(){
+    if(document.getElementById('sec-rhythms').classList.contains('active')){ drawLab(); }
+    requestAnimationFrame(tickLab);
+  }
+  requestAnimationFrame(tickLab);
+
+  var labPlayBtn = document.getElementById('labPlay');
+  if(prefersReduced){ labPlayBtn.style.display='none'; }
+  labPlayBtn.addEventListener('click', function(){
+    labState.playing = !labState.playing;
+    if(labState.playing){ labState.t0 = performance.now(); }
+    labPlayBtn.textContent = labState.playing ? 'Pause sweep' : 'Resume sweep';
+  });
+  document.getElementById('labDrill').addEventListener('click', function(){
+    goTo('sec-practice');
+    document.querySelector('.tabbtn[data-tab="tab-rhythm"]').click();
+    nextRhythm();
+  });
+  setLabRhythm('sinus_normal');
 
   /* ---------------- rhythm drill ---------------- */
   var rhythmScore = {right:0, total:0};
   var curRhythmType = null;
   function nextRhythm(){
     curRhythmType = rhythmKeys[Math.floor(Math.random()*rhythmKeys.length)];
-    var samples = genSamples(curRhythmType, Math.floor(Math.random()*9999));
+    var samples = genSamples(curRhythmType, Math.floor(Math.random()*9999)).samp;
     var canvas = document.getElementById('rhythmCanvas');
-    var accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#34e08a';
-    drawSamples(canvas, samples, accent, 0);
+    drawSamples(canvas, samples, palette.accent, 0);
     var choices = [rhythmMeta[curRhythmType].label];
     var pool = rhythmKeys.filter(function(k){ return k!==curRhythmType; });
     while(choices.length<4 && pool.length){
@@ -538,8 +765,8 @@
 
   /* redraw canvases on theme change (grid/color) */
   var mo = new MutationObserver(function(){
-    var accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#34e08a';
-    if(curRhythmType){ var c=document.getElementById('rhythmCanvas'); drawSamples(c, genSamples(curRhythmType, 1), accent, 0); }
+    refreshPalette();
+    if(curRhythmType){ var c=document.getElementById('rhythmCanvas'); drawSamples(c, genSamples(curRhythmType, 1).samp, palette.accent, 0); }
   });
   mo.observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
 
