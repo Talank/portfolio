@@ -106,3 +106,43 @@ create policy "delete own nclex_attempts" on nclex_attempts
 
 create index if not exists nclex_attempts_user_taken_idx
   on nclex_attempts (user_id, taken_at desc);
+
+-- ── Full-Stack Java Course: "lesson complete" progress ───────────────────
+create table if not exists java_progress (
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  module_id  text not null,
+  completed  boolean not null default true,
+  updated_at timestamptz not null default now(),
+  primary key (user_id, module_id)
+);
+
+alter table java_progress enable row level security;
+
+create policy "select own java_progress" on java_progress
+  for select using (auth.uid() = user_id);
+create policy "insert own java_progress" on java_progress
+  for insert with check (auth.uid() = user_id);
+create policy "update own java_progress" on java_progress
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "delete own java_progress" on java_progress
+  for delete using (auth.uid() = user_id);
+
+-- ── Full-Stack Java Course: per-lesson free-text notes ───────────────────
+create table if not exists java_notes (
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  module_id  text not null,
+  note       text not null default '',
+  updated_at timestamptz not null default now(),
+  primary key (user_id, module_id)
+);
+
+alter table java_notes enable row level security;
+
+create policy "select own java_notes" on java_notes
+  for select using (auth.uid() = user_id);
+create policy "insert own java_notes" on java_notes
+  for insert with check (auth.uid() = user_id);
+create policy "update own java_notes" on java_notes
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "delete own java_notes" on java_notes
+  for delete using (auth.uid() = user_id);

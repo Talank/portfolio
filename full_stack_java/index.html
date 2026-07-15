@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full-Stack Java Course — Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Full-Stack Java Course</h1>
+  <p class="lede">From "what exactly is the JVM" to shipping a cross-platform app on desktop, web and iPhone — one ~43-hour path that ends with you building <b>LogPose</b>: your own research-log manager with NLP-powered semantic search ("what ideas did I have about flaky tests?"), designed in Part 14 and built by <i>you</i>, not for you. Every lesson: the real mechanics, real Java code, a One Piece story that acts the idea out (plus Big Bang Theory and Friends scenes), interactive animated diagrams, a code lab, a quiz, and the interview questions companies ask about that exact topic.</p>
+  <p class="lede">Core path: Java language → JVM internals → collections (yes, HashMap vs LinkedHashMap, properly) → modern Java & concurrency → Maven → every kind of testing → PostgreSQL → Spring → frontend → JavaFX & games → cross-platform (Mac/iOS via Gluon) → NLP search in Java → capstone. Gradle and other build systems close it out, as requested by the boss (you). Where a topic overlaps the <a href="../DSA_tool/index.html">DSA course</a> or the <a href="../AI_course/index.html">AI course</a>, lessons link there instead of re-teaching it.</p>
+  <p class="lede">All music and sound effects are generated live in your browser with the Web Audio API — original compositions, nothing to license. Character portraits are original flat-vector art, not traced from any show.</p>
+
+  <div class="card">
+    <div id="overall-progress" class="progress-outer"><div class="progress-inner"></div></div>
+    <p id="progress-label" style="margin:0.6rem 0 0; color:var(--text-dim); font-size:0.9rem;"></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">How to use this</h2>
+    <ol>
+      <li><b>Go strictly in order.</b> The course is one dependency chain aimed at the capstone: the <code>equals/hashCode</code> contract (Part 1) is why <code>HashMap</code> works (Part 3), which is why JPA entity identity is subtle (Part 8), which is why LogPose's data model looks the way it does (Part 14).</li>
+      <li>In each lesson: read the concept, open the <b>story + animation</b> the first time through, click through the <b>interactive walkthrough</b>, expand any <b>Technicality corner</b> question you can't already answer out loud, then do the <b>Code Lab</b> — type the code yourself, check it in the browser, then run it for real in <code>jshell</code> or Maven.</li>
+      <li>Before marking a lesson complete, try the <b>interview questions</b> at the bottom out loud. If you can't explain it to an interviewer, you don't own it yet.</li>
+      <li>Keep the <a href="cheat-sheet.html">Cheat Sheet</a> open in a second tab — every "which collection/annotation/tool when" table in one place.</li>
+      <li>Finish with the <a href="interview.html">timed Interview Drill</a> — randomized questions from everything you studied, on a countdown, like the real thing.</li>
+    </ol>
+  </div>
+
+  <div id="module-groups"></div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>
+  buildHeader('index.html');
+  renderDashboard();
+  window.addEventListener('java:progress-synced', renderDashboard);
+</script>
+</body>
+</html>
