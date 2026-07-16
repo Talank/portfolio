@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheet — Linux Course</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Cheat Sheet</h1>
+  <p class="lede">Every "which command/flag when" table from the course, in one scrollable page. Not a substitute for the lessons — a fast recall aid once you've actually done the labs. Grows as each Part gets written; organized in the same order as the dashboard.</p>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 0 — Orientation & Terminal</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>man &lt;cmd&gt;</code></td><td>Full manual page for a command</td></tr>
+      <tr><td><code>&lt;cmd&gt; --help</code></td><td>Quick usage summary</td></tr>
+      <tr><td><code>whoami</code></td><td>Current logged-in user</td></tr>
+      <tr><td><code>echo $SHELL</code></td><td>Your current shell</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:2rem;">More tables land here as each Part of the course is written — filesystem & permissions, processes & systemd, regex & sed/awk, bash scripting, networking & SSH, package managers.</p>
+</main>
+<script src="data/schedule.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>buildHeader('cheat-sheet.html');</script>
+</body>
+</html>

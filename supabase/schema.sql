@@ -146,3 +146,107 @@ create policy "update own java_notes" on java_notes
   for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "delete own java_notes" on java_notes
   for delete using (auth.uid() = user_id);
+
+-- ── Linux / Emacs / CI-CD courses: "lesson complete" progress + notes ────
+-- Same shape as java_progress/java_notes, one pair of tables per course.
+create table if not exists linux_progress (
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  module_id  text not null,
+  completed  boolean not null default true,
+  updated_at timestamptz not null default now(),
+  primary key (user_id, module_id)
+);
+alter table linux_progress enable row level security;
+create policy "select own linux_progress" on linux_progress
+  for select using (auth.uid() = user_id);
+create policy "insert own linux_progress" on linux_progress
+  for insert with check (auth.uid() = user_id);
+create policy "update own linux_progress" on linux_progress
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "delete own linux_progress" on linux_progress
+  for delete using (auth.uid() = user_id);
+
+create table if not exists linux_notes (
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  module_id  text not null,
+  note       text not null default '',
+  updated_at timestamptz not null default now(),
+  primary key (user_id, module_id)
+);
+alter table linux_notes enable row level security;
+create policy "select own linux_notes" on linux_notes
+  for select using (auth.uid() = user_id);
+create policy "insert own linux_notes" on linux_notes
+  for insert with check (auth.uid() = user_id);
+create policy "update own linux_notes" on linux_notes
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "delete own linux_notes" on linux_notes
+  for delete using (auth.uid() = user_id);
+
+create table if not exists emacs_progress (
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  module_id  text not null,
+  completed  boolean not null default true,
+  updated_at timestamptz not null default now(),
+  primary key (user_id, module_id)
+);
+alter table emacs_progress enable row level security;
+create policy "select own emacs_progress" on emacs_progress
+  for select using (auth.uid() = user_id);
+create policy "insert own emacs_progress" on emacs_progress
+  for insert with check (auth.uid() = user_id);
+create policy "update own emacs_progress" on emacs_progress
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "delete own emacs_progress" on emacs_progress
+  for delete using (auth.uid() = user_id);
+
+create table if not exists emacs_notes (
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  module_id  text not null,
+  note       text not null default '',
+  updated_at timestamptz not null default now(),
+  primary key (user_id, module_id)
+);
+alter table emacs_notes enable row level security;
+create policy "select own emacs_notes" on emacs_notes
+  for select using (auth.uid() = user_id);
+create policy "insert own emacs_notes" on emacs_notes
+  for insert with check (auth.uid() = user_id);
+create policy "update own emacs_notes" on emacs_notes
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "delete own emacs_notes" on emacs_notes
+  for delete using (auth.uid() = user_id);
+
+create table if not exists cicd_progress (
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  module_id  text not null,
+  completed  boolean not null default true,
+  updated_at timestamptz not null default now(),
+  primary key (user_id, module_id)
+);
+alter table cicd_progress enable row level security;
+create policy "select own cicd_progress" on cicd_progress
+  for select using (auth.uid() = user_id);
+create policy "insert own cicd_progress" on cicd_progress
+  for insert with check (auth.uid() = user_id);
+create policy "update own cicd_progress" on cicd_progress
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "delete own cicd_progress" on cicd_progress
+  for delete using (auth.uid() = user_id);
+
+create table if not exists cicd_notes (
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  module_id  text not null,
+  note       text not null default '',
+  updated_at timestamptz not null default now(),
+  primary key (user_id, module_id)
+);
+alter table cicd_notes enable row level security;
+create policy "select own cicd_notes" on cicd_notes
+  for select using (auth.uid() = user_id);
+create policy "insert own cicd_notes" on cicd_notes
+  for insert with check (auth.uid() = user_id);
+create policy "update own cicd_notes" on cicd_notes
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "delete own cicd_notes" on cicd_notes
+  for delete using (auth.uid() = user_id);
