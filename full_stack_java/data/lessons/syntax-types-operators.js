@@ -246,13 +246,27 @@ window.LESSONS['syntax-types-operators'] = {
       { re: 'SCORE\\s*:\\s*\\d\\s*/\\s*6', flags: 'i', must: true, hint: 'Run all six in jshell and record an honest SCORE: n/6.', pass: 'score recorded — honest reps ✓' }
     ],
     run: 'open <code>jshell</code> and type each snippet exactly; for (5), declare the Integers on one line each and compare. Every miss is gold: it marks the exact spot your mental model diverged from the JVM\'s.',
-    solution: `// 1) x == 5        — y got a copy of the value; coins in separate pockets
-// 2) m[0] == 6     — arrays are objects; n is a second map to the same chest
-// 3) 9/4 == 2 (truncation)    9/4.0 == 2.25 (promotion to double)
-// 4) "id" + 4 + 2 == "id42"   4 + 2 + "id" == "6id"  (left-to-right evaluation)
-// 5) 100: true (Integer cache, same object)   200: false (fresh objects)
+    solution: `// 1) int x = 5; int y = x; y++;        → x == ?
+// PREDICTION 1: x == 5 — y got a copy of the value; coins in separate pockets
+
+// 2) int[] m = {5}; int[] n = m; n[0]++; → m[0] == ?
+// PREDICTION 2: m[0] == 6 — arrays are objects; n is a second map to the same chest
+
+// 3) 9 / 4 == ?        9 / 4.0 == ?
+// PREDICTION 3: 9/4 == 2 (truncation)    9/4.0 == 2.25 (promotion to double)
+
+// 4) "id" + 4 + 2 == ?     4 + 2 + "id" == ?
+// PREDICTION 4: "id" + 4 + 2 == id42   4 + 2 + "id" == 6id  (left-to-right evaluation)
+
+// 5) Integer p1 = 100, p2 = 100; p1 == p2 == ?   ...and with 200?
+// PREDICTION 5: true then false — 100 is cached (same object), 200 is not (fresh objects)
 //    — and either way, == on wrappers is the wrong question: use .equals()
-// 6) (int) 7.99 == 7  — casting truncates toward zero, never rounds`,
+
+// 6) (int) 7.99 == ?
+// PREDICTION 6: 7 — casting truncates toward zero, never rounds
+
+// After verifying in jshell, record your score:
+// SCORE: 6/6`,
     notes: [
       'A miss on (2) means re-watching the Nami animation — the map-copy picture has to be automatic before Part 3\'s collections, where EVERYTHING is references.',
       'A miss on (5) in the safe direction (predicting false/false) is fine philosophically — the cache is an implementation efficiency. Predicting true/true means == and .equals() aren\'t separated yet; that separation is this Part\'s closing lesson.',

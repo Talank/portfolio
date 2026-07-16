@@ -261,7 +261,7 @@ class ReportTools {
       { re: 'priority\\s*\\(\\s*\\)\\s*==\\s*1', must: true, hint: 'Filter on e.priority() == 1.', pass: 'filters priority 1 ✓' },
       { re: 'countByTag[\\s\\S]*?groupingBy\\s*\\([\\s\\S]*?Collectors\\.counting\\s*\\(', must: true, hint: 'countByTag must use Collectors.groupingBy(..., Collectors.counting()).', pass: 'countByTag uses groupingBy + counting ✓' },
       { re: 'firstTitleWithTag[\\s\\S]*?\\.filter\\s*\\([\\s\\S]*?\\.findFirst\\s*\\(\\s*\\)[\\s\\S]*?\\.map\\s*\\(', must: true, hint: 'firstTitleWithTag must chain .filter(...).findFirst().map(...) and return the Optional directly.', pass: 'firstTitleWithTag pipeline shape ✓' },
-      { re: 'Optional\\s*<\\s*String\\s*>\\s+firstTitleWithTag[\\s\\S]*?\\{[\\s\\S]*?\\.orElse', must: false, hint: 'Do NOT call .orElse(...) inside firstTitleWithTag — return the Optional itself, let the caller decide.', pass: 'no premature orElse ✓' },
+      { re: 'Optional\\s*<\\s*String\\s*>\\s+firstTitleWithTag[\\s\\S]{0,160}\\.orElse', must: false, hint: 'Do NOT call .orElse(...) inside firstTitleWithTag — return the Optional itself, let the caller decide.', pass: 'no premature orElse ✓' },
       { re: 'LogEntry::title', must: true, hint: 'Use the method reference LogEntry::title for the map step(s).', pass: 'uses LogEntry::title ✓' }
     ],
     run: 'add a main method with a small List.of(...) of LogEntry values (reuse the demo data shape), call all three methods, and print the results — confirm firstTitleWithTag returns Optional.empty() for a tag that doesn\'t exist rather than throwing. javac ReportTools.java && java ReportTools.',

@@ -262,10 +262,10 @@ public class LogImporter {
     }
 }
 
-// ANSWER: catch (Exception e) would also swallow the ArithmeticException we deliberately let
-// propagate AND any unforeseen bug (NPE, etc.), collapsing distinct failures into one blind
-// handler and destroying the caller's ability to react to them differently. Catch only what
-// you can actually handle.`,
+// ANSWER: catching the broad Exception type would also swallow the ArithmeticException we
+// deliberately let propagate AND any unforeseen bug (NPE, etc.), collapsing distinct failures
+// into one blind handler and destroying the caller's ability to react to them differently.
+// Catch only what you can actually handle.`,
     notes: [
       'The divide-by-zero is left uncaught on purpose: it\'s an unchecked ArithmeticException signalling the caller broke the precondition (b != 0). Catching it here would hide a caller bug — fail fast, let it surface.',
       'The NumberFormatException is wrapped into an IllegalArgumentException with the cause, so the caller sees one coherent "bad input" abstraction while the original parse failure stays chained under "Caused by:".',

@@ -330,7 +330,8 @@ public class Hello {
     'Believing "Java is slow because it\'s interpreted" — that was 1997\'s Java. Modern HotSpot JIT-compiles hot paths to native code with runtime-informed optimizations; long-running Java services routinely compete with C++ on throughput. (Startup time and memory footprint are the honest criticisms — and Part 12\'s GraalVM addresses exactly those.)',
     'Telling users to "install Java first" for your app — the modern pattern (Java 11+) bundles a trimmed runtime inside the app with jlink/jpackage. If your deployment plan involves end users downloading a JRE, you\'re shipping like it\'s 2009.',
     'Treating bytecode as secret — it decompiles trivially (javap -c shows it in seconds). Never ship credentials or secret logic in .class files handed to users.',
-    'Conflating "Java the language" with "the JVM the platform" — Kotlin/Scala/Clojure run on the JVM without being Java, and (via GraalVM, Part 12) Java can run with no JVM at all. Keeping the two ideas separate makes both the ecosystem and the iOS story make sense.'
+    'Conflating "Java the language" with "the JVM the platform" — Kotlin/Scala/Clojure run on the JVM without being Java, and (via GraalVM, Part 12) Java can run with no JVM at all. Keeping the two ideas separate makes both the ecosystem and the iOS story make sense.',
+    'Assuming any JVM can ship a JIT everywhere it runs — Apple\'s App Store policy forbids apps from generating and executing new code at runtime on iOS, which is exactly what a JIT does. GraalVM native-image (Part 12) sidesteps this by compiling everything ahead-of-time, before the app ever reaches a device.'
   ],
   interview: [
     {

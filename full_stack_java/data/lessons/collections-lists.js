@@ -275,10 +275,10 @@ class Tasks {
     }
 }
 
-// ANSWER: A for-each calling items.remove(...) inside throws ConcurrentModificationException.
-// The behavior is called FAIL-FAST: the iterator tracks a modification count and, on detecting
-// that the collection changed structurally underneath it (via anything but the iterator itself),
-// stops immediately with a loud exception instead of silently skipping or corrupting elements.`,
+// ANSWER: ConcurrentModificationException — the behavior is called fail-fast.
+// The iterator tracks a modification count and, on detecting that the collection changed
+// structurally underneath it (via anything but the iterator itself), stops immediately with a
+// loud exception instead of silently skipping or corrupting elements.`,
     notes: [
       'removeIf is the concise, correct tool — it mutates through the iterator internally, so no ConcurrentModificationException. Writing the same loop as a for-each with .remove inside is the classic bug it prevents.',
       'List.copyOf gives callers a read-only snapshot while the internal list stays private and mutable — the Part 1 encapsulation fix done with real collections. Immutable lists are also thread-safe for free.',
