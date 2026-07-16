@@ -26,7 +26,127 @@
     </div>
   </div>
 
-  <p class="lede" style="margin-top:2rem;">More tables land here as each Part of the course is written — filesystem & permissions, processes & systemd, regex & sed/awk, bash scripting, networking & SSH, package managers.</p>
+  <div class="card">
+    <h2 style="margin-top:0;">Part 1 — Filesystem & Files</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>pwd</code> / <code>cd</code> / <code>ls -la</code></td><td>Where am I / move / list (including hidden files)</td></tr>
+      <tr><td><code>cp -r</code>, <code>mv</code>, <code>rm -r</code></td><td>Copy/move/remove, recursively for directories</td></tr>
+      <tr><td><code>cat</code>, <code>less</code>, <code>head -n</code>, <code>tail -n</code></td><td>Dump, page, first N lines, last N lines</td></tr>
+      <tr><td><code>tail -f</code></td><td>Follow a growing file live</td></tr>
+      <tr><td><code>chmod u+x</code> / <code>chmod 755</code></td><td>Symbolic vs numeric permission change</td></tr>
+      <tr><td><code>chown user:group</code></td><td>Change owner and group</td></tr>
+      <tr><td><code>ln -s target link</code></td><td>Create a symlink</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 2 — Users, Processes & Services</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>id</code>, <code>groups</code></td><td>Current UID/GID and group memberships</td></tr>
+      <tr><td><code>sudo &lt;cmd&gt;</code></td><td>Run one command as root, using YOUR password</td></tr>
+      <tr><td><code>ps aux</code>, <code>top</code></td><td>List / live-monitor processes</td></tr>
+      <tr><td><code>kill PID</code> / <code>kill -9 PID</code></td><td>SIGTERM (polite) / SIGKILL (forced)</td></tr>
+      <tr><td><code>jobs</code>, <code>fg</code>, <code>bg</code>, <code>Ctrl-Z</code></td><td>List / foreground / background / suspend a job</td></tr>
+      <tr><td><code>nohup cmd &amp;</code></td><td>Survive terminal close (ignore SIGHUP)</td></tr>
+      <tr><td><code>systemctl status/start/stop/enable --now</code></td><td>Manage a systemd service</td></tr>
+      <tr><td><code>journalctl -u &lt;service&gt; -f</code></td><td>Follow a service's logs live</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 3 — Text, Pipes & Regex</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>cmd &gt; file</code> / <code>&gt;&gt; file</code></td><td>Redirect stdout, overwrite / append</td></tr>
+      <tr><td><code>cmd 2&gt;&amp;1</code></td><td>Redirect stderr to wherever stdout points (order matters)</td></tr>
+      <tr><td><code>a | b</code></td><td>Pipe a's stdout into b's stdin</td></tr>
+      <tr><td><code>grep -i / -v / -n / -c / -r</code></td><td>Case-insensitive / invert / line numbers / count / recursive</td></tr>
+      <tr><td><code>grep -A/-B/-C N</code></td><td>N lines of context after/before/both</td></tr>
+      <tr><td><code>. * + ? {n,m} ^ $</code></td><td>Any char, 0+, 1+, 0-1, exact range, start, end</td></tr>
+      <tr><td><code>[abc] [^abc] [a-z]</code></td><td>One of, none of, range character class</td></tr>
+      <tr><td><code>( ) |</code> (grep -E)</td><td>Grouping and alternation (unescaped in ERE)</td></tr>
+      <tr><td><code>sed 's/old/new/g'</code></td><td>Global find-and-replace (add -i to edit in place)</td></tr>
+      <tr><td><code>awk -F: '{print $1}'</code></td><td>Print field 1, split on custom delimiter</td></tr>
+      <tr><td><code>awk 'NR&gt;1{print $2}'</code></td><td>Skip header row, print field 2</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 4 — Shell & Bash Scripting</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>which cmd</code> / <code>type cmd</code></td><td>Show which file PATH resolves a command to</td></tr>
+      <tr><td><code>#!/usr/bin/env bash</code></td><td>Portable shebang (PATH-based lookup)</td></tr>
+      <tr><td><code>$1 $2 $@ $# $0</code></td><td>Args, all args, arg count, script name</td></tr>
+      <tr><td><code>"$var"</code></td><td>Always quote expansions to avoid word-splitting</td></tr>
+      <tr><td><code>$?</code></td><td>Exit code of the last command (0 = success)</td></tr>
+      <tr><td><code>[[ "$a" -lt "$b" ]]</code></td><td>Numeric comparison (use -eq/-lt/-gt, not =/&lt;)</td></tr>
+      <tr><td><code>while read -r line; do ...; done &lt; file</code></td><td>Correct line-by-line file reading</td></tr>
+      <tr><td><code>result=$(myfunc arg)</code></td><td>Capture a function's echoed "return value"</td></tr>
+      <tr><td><code>set -euo pipefail</code></td><td>Stop on error / unset var / failed pipe stage</td></tr>
+      <tr><td><code>trap 'cleanup' EXIT</code></td><td>Guaranteed cleanup, however the script ends</td></tr>
+      <tr><td><code>bash -x script.sh</code></td><td>Trace every command with expanded variables</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 5 — Networking & SSH</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>dig +short domain</code></td><td>Resolve a domain to its IP</td></tr>
+      <tr><td><code>curl -I url</code></td><td>Fetch headers only</td></tr>
+      <tr><td><code>curl -sS -o file url</code></td><td>Silent but still show errors, save to file</td></tr>
+      <tr><td><code>ssh-keygen -t ed25519</code></td><td>Generate a new SSH key pair</td></tr>
+      <tr><td><code>ssh-copy-id user@host</code></td><td>Authorize your public key on a remote server</td></tr>
+      <tr><td><code>~/.ssh/config</code> (Host/HostName/User/Port/IdentityFile)</td><td>Per-server connection shortcuts</td></tr>
+      <tr><td><code>eval "$(ssh-agent -s)"; ssh-add key</code></td><td>Unlock a passphrase-protected key once per session</td></tr>
+      <tr><td><code>scp file user@host:/path</code></td><td>One-off copy over SSH</td></tr>
+      <tr><td><code>rsync -avz src/ user@host:/dst/</code></td><td>Sync only the delta (note the trailing slash!)</td></tr>
+      <tr><td><code>rsync --dry-run --delete</code></td><td>Preview a mirroring sync before committing</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 6 — Packages & Archives</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>sudo apt update</code></td><td>Refresh the package index (installs nothing)</td></tr>
+      <tr><td><code>sudo apt upgrade</code></td><td>Actually install newer versions</td></tr>
+      <tr><td><code>sudo apt install / remove / purge</code></td><td>Install / uninstall (keep config) / uninstall (delete config)</td></tr>
+      <tr><td><code>tar -czvf a.tar.gz dir/</code></td><td>Bundle + gzip-compress</td></tr>
+      <tr><td><code>tar -tzvf a.tar.gz</code></td><td>List contents WITHOUT extracting</td></tr>
+      <tr><td><code>tar -xzvf a.tar.gz</code></td><td>Extract into the current directory</td></tr>
+      <tr><td><code>zip -r a.zip dir/</code> / <code>unzip -l a.zip</code></td><td>Create a zip / list its contents</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 7 — Toward CI/CD</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>min hour dom month dow cmd</code></td><td>5-field crontab syntax</td></tr>
+      <tr><td><code>crontab -e / -l / -r</code></td><td>Edit / list / remove your own crontab</td></tr>
+      <tr><td><code>... &gt;&gt; log 2&gt;&amp;1</code> in a cron line</td><td>Capture output — cron discards it silently otherwise</td></tr>
+      <tr><td><code>unshare --pid --fork --mount-proc bash</code></td><td>Create a new PID namespace directly (no Docker needed)</td></tr>
+      <tr><td>namespaces vs cgroups</td><td>What a process can SEE vs what it can USE</td></tr>
+    </table>
+    </div>
+  </div>
 </main>
 <script src="data/schedule.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

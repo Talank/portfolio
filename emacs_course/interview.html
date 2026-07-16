@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Drill — Emacs Course</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Timed Interview Drill</h1>
+  <p class="lede">Randomized real-interview questions pulled from every lesson. For each: answer <b>out loud</b> — definitions, math, trade-offs — before the timer dies, then compare against the strong answer. This trains retrieval under pressure, which is the actual skill interviews test. Aim to drill in every session once you're past Part 3.</p>
+
+  <div class="card" id="setup-card">
+    <h2 style="margin-top:0;">Session</h2>
+    <div class="actions">
+      <button class="btn" id="start-quick">Quick Drill — 8 questions (~15 min)</button>
+      <button class="btn secondary" id="start-full">Full Mock — 16 questions (~35 min)</button>
+      <button class="btn secondary" id="start-studied">Only lessons I've completed</button>
+    </div>
+    <p id="pool-status" style="color:var(--text-dim); font-size:0.85rem;">Loading question bank…</p>
+  </div>
+
+  <div class="card" id="session-card" style="display:none;">
+    <div class="pill" id="q-progress"></div>
+    <div class="pill time" id="q-topic-tag"></div>
+    <h2 id="q-text" style="margin-top:0.8rem;"></h2>
+    <div class="timer" id="q-timer">02:00</div>
+    <div class="actions">
+      <button class="btn" id="reveal-btn">Reveal Strong Answer</button>
+      <button class="btn secondary" id="skip-btn">Skip</button>
+    </div>
+    <div id="reveal-panel" class="callout" style="display:none;">
+      <div id="r-answer"></div>
+      <p style="margin-top:0.6rem;"><a id="r-link" href="#">Review the full lesson →</a></p>
+      <div class="actions" style="margin-top:0.6rem;">
+        <button class="btn secondary" id="self-good">I nailed it ✓</button>
+        <button class="btn secondary" id="self-bad">Needs review ✗</button>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="next-btn" style="display:none;">Next Question →</button>
+    </div>
+  </div>
+
+  <div class="card" id="done-card" style="display:none;">
+    <h2 style="margin-top:0;">Session complete</h2>
+    <p id="done-summary"></p>
+    <div id="review-list"></div>
+    <div class="actions">
+      <a class="btn" href="index.html">Back to Dashboard</a>
+      <button class="btn secondary" id="restart-btn">Run Another Session</button>
+    </div>
+  </div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>
+buildHeader('interview.html');
+
+let pool = [];
+let session = [];
+let idx = 0;
+let timerHandle = null;
+let timeLeft = 120;
+let selfScores = [];
+
+const lessonIds = window.SCHEDULE.filter(m => m.type === 'lesson').map(m => m.id);
+let loaded = 0;
+lessonIds.forEach(id => {
+  const s = document.createElement('script');
+  s.src = `data/lessons/${id}.js`;
+  s.onload = onScriptSettled;
+  s.onerror = onScriptSettled;
+  document.body.appendChild(s);
+});
+
+function onScriptSettled() {
+  loaded++;
+  if (loaded < lessonIds.length) return;
+  const lessons = window.LESSONS || {};
+  const byId = {};
+  window.SCHEDULE.forEach(m => { byId[m.id] = m; });
+  pool = [];
+  Object.values(lessons).forEach(les => {
+    (les.interview || []).forEach(iv => {
+      pool.push({ q: iv.q, a: iv.a, lessonId: les.id, lessonTitle: (byId[les.id] || {}).title || les.title });
+    });
+  });
+  document.getElementById('pool-status').textContent =
+    `${pool.length} questions loaded across ${Object.keys(lessons).length} lessons.`;
+}
+
+function pick(n, onlyStudied) {
+  let candidates = pool;
+  if (onlyStudied) {
+    candidates = pool.filter(item => isComplete(item.lessonId));
+    if (!candidates.length) {
+      alert('No completed lessons yet — complete a few first, or run the normal drill.');
+      return null;
+    }
+  }
+  const shuffled = candidates.slice().sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, Math.min(n, shuffled.length));
+}
+
+function fmt(t) {
+  const m = String(Math.floor(t / 60)).padStart(2, '0');
+  const s = String(t % 60).padStart(2, '0');
+  return `${m}:${s}`;
+}
+
+function startSession(n, onlyStudied) {
+  const picked = pick(n, onlyStudied);
+  if (!picked) return;
+  session = picked;
+  idx = 0;
+  selfScores = [];
+  document.getElementById('setup-card').style.display = 'none';
+  document.getElementById('done-card').style.display = 'none';
+  document.getElementById('session-card').style.display = 'block';
+  showQuestion();
+}
+
+function showQuestion() {
+  const item = session[idx];
+  document.getElementById('q-progress').textContent = `Question ${idx + 1} / ${session.length}`;
+  document.getElementById('q-topic-tag').textContent = item.lessonTitle;
+  document.getElementById('q-text').textContent = item.q;
+  document.getElementById('reveal-panel').style.display = 'none';
+  document.getElementById('next-btn').style.display = 'none';
+  document.getElementById('reveal-btn').style.display = '';
+  document.getElementById('skip-btn').style.display = '';
+  timeLeft = 120;
+  updateTimer();
+  clearInterval(timerHandle);
+  timerHandle = setInterval(() => {
+    timeLeft--;
+    updateTimer();
+    if (timeLeft <= 0) { clearInterval(timerHandle); reveal(); }
+  }, 1000);
+}
+
+function updateTimer() {
+  const el = document.getElementById('q-timer');
+  el.textContent = fmt(Math.max(0, timeLeft));
+  el.style.color = timeLeft <= 15 ? 'var(--danger)' : '';
+}
+
+function reveal() {
+  clearInterval(timerHandle);
+  const item = session[idx];
+  const paras = (Array.isArray(item.a) ? item.a : [item.a]).map(p => `<p>${p}</p>`).join('');
+  document.getElementById('r-answer').innerHTML = `<b>Strong answer:</b>${paras}`;
+  document.getElementById('r-link').href = `lesson.html?id=${item.lessonId}`;
+  document.getElementById('reveal-panel').style.display = 'block';
+  document.getElementById('reveal-btn').style.display = 'none';
+  document.getElementById('skip-btn').style.display = 'none';
+  document.getElementById('next-btn').style.display = '';
+}
+
+function next() {
+  if (idx >= session.length - 1) { finish(); return; }
+  idx++;
+  showQuestion();
+}
+
+function finish() {
+  clearInterval(timerHandle);
+  document.getElementById('session-card').style.display = 'none';
+  document.getElementById('done-card').style.display = 'block';
+  const good = selfScores.filter(s => s.ok).length;
+  document.getElementById('done-summary').textContent =
+    `You self-scored ${good} / ${selfScores.length} answered confidently.`;
+  const weak = selfScores.filter(s => !s.ok);
+  document.getElementById('review-list').innerHTML = weak.length
+    ? '<p><b>Review these lessons:</b></p><ul>' + weak.map(s =>
+        `<li><a href="lesson.html?id=${s.lessonId}">${s.lessonTitle}</a> — "${s.q}"</li>`).join('') + '</ul>'
+    : '<p>Nothing flagged for review. 🎉</p>';
+}
+
+document.getElementById('start-quick').addEventListener('click', () => startSession(8, false));
+document.getElementById('start-full').addEventListener('click', () => startSession(16, false));
+document.getElementById('start-studied').addEventListener('click', () => startSession(10, true));
+document.getElementById('reveal-btn').addEventListener('click', reveal);
+document.getElementById('skip-btn').addEventListener('click', () => { selfScores.push({ ...session[idx], ok: false }); next(); });
+document.getElementById('next-btn').addEventListener('click', () => {
+  if (!selfScores.find(s => s.q === session[idx].q)) selfScores.push({ ...session[idx], ok: true });
+  next();
+});
+document.getElementById('self-good').addEventListener('click', () => { selfScores.push({ ...session[idx], ok: true }); next(); });
+document.getElementById('self-bad').addEventListener('click', () => { selfScores.push({ ...session[idx], ok: false }); next(); });
+document.getElementById('restart-btn').addEventListener('click', () => {
+  document.getElementById('done-card').style.display = 'none';
+  document.getElementById('setup-card').style.display = 'block';
+});
+</script>
+</body>
+</html>

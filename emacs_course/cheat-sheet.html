@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheet — Emacs Course</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Cheat Sheet</h1>
+  <p class="lede">Every keybinding table from the course, in one scrollable page. Not a substitute for the lessons — a fast recall aid once you've actually done the labs. Notation: <code>C-x</code> = Control+x, <code>M-x</code> = Meta+x (Option, once Part 1 sets that up), <code>s-x</code> = Super/Cmd+x. Grows as each Part gets written; organized in the same order as the dashboard.</p>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 0-1 — Orientation & Mac Keybindings</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Keys</th><th>What it does</th></tr>
+      <tr><td><code>C-g</code></td><td>Cancel/abort whatever is currently happening — the universal panic button</td></tr>
+      <tr><td><code>C-x C-c</code></td><td>Quit Emacs</td></tr>
+      <tr><td><code>C-h t</code></td><td>Launch the built-in interactive tutorial</td></tr>
+      <tr><td><code>C-h k</code> then a key</td><td>Describe exactly what that key sequence runs</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:2rem;">More tables land here as each Part of the course is written — buffers/windows/files, core editing (kill ring, search), your init.el, packages, modes, Org mode, project navigation, Magit, and TRAMP.</p>
+</main>
+<script src="data/schedule.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>buildHeader('cheat-sheet.html');</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emacs Course — Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Emacs Course</h1>
+  <p class="lede">Everything you need to go from "never opened Emacs" to genuinely comfortable daily-driving it — on a <b>Mac</b>, specifically, which is why Part 1 is entirely about getting Meta/Super set up correctly before anything else, rather than fighting the keyboard the whole way through. Buffers, windows, the kill ring, search, your own init.el, packages via use-package, major/minor modes, Org mode, project navigation, Magit, and TRAMP (editing a remote SSH file as if it were local — the exact bridge back to the Linux course). Taught the same way as the other courses: real mechanics, a One Piece story that acts the idea out (plus Big Bang Theory and Friends scenes), interactive animated diagrams, a practice lab, a quiz, and the interview questions companies actually ask.</p>
+  <p class="lede">Every lesson teaches the essentials by default — flip <b>Essentials → Full Depth</b> in the header any time you want a topic's deeper mechanism, edge cases, and "why it's actually built that way." Nothing is gated behind it; it's purely how far a lesson goes.</p>
+  <p class="lede">All music and sound effects are generated live in your browser with the Web Audio API — original compositions, nothing to license. Character portraits are original flat-vector art, not traced from any show.</p>
+
+  <div class="card">
+    <div id="overall-progress" class="progress-outer"><div class="progress-inner"></div></div>
+    <p id="progress-label" style="margin:0.6rem 0 0; color:var(--text-dim); font-size:0.9rem;"></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">How to use this</h2>
+    <ol>
+      <li><b>Do Part 1 before anything else, even if you're impatient to start editing.</b> Every later lesson's keybindings assume Option is set up as Meta — skip it and half the muscle memory you build will be fighting macOS's own Option-key accent shortcuts instead of Emacs.</li>
+      <li>In each lesson: read the concept, open the <b>story + animation</b> the first time through, click through the <b>interactive walkthrough</b>, expand any <b>Technicality corner</b> question you can't already answer out loud, then do the <b>Practice Lab</b> — type the keybinding/elisp yourself, check it in the browser, then try it for real in your own Emacs.</li>
+      <li>Before marking a lesson complete, try the <b>interview questions</b> at the bottom out loud.</li>
+      <li>Keep the <a href="cheat-sheet.html">Cheat Sheet</a> open in a second tab — every keybinding table in one place.</li>
+      <li>Finish with the <a href="interview.html">timed Interview Drill</a> — randomized questions from everything you studied, on a countdown.</li>
+    </ol>
+  </div>
+
+  <div id="module-groups"></div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>
+  buildHeader('index.html');
+  renderDashboard();
+  window.addEventListener('emacs:progress-synced', renderDashboard);
+</script>
+</body>
+</html>
