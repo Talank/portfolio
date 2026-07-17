@@ -11,10 +11,10 @@ Nepali speech-synthesis voice.
   Loaded by `js/presentation-engine.js`. **Generated — do not hand-edit.**
 - `manifest.json` — same data, for tooling.
 
-> The English Presentation tab has a parallel setup under `data/english/audio/`
-> (voice `en-US-AvaMultilingualNeural`). The `generate_audio.py` script is
-> identical in both dirs — it auto-detects the language from its own path and
-> picks the voice + spoken-text normalization accordingly.
+> The English track under `data/english/audio/` uses a **different** engine —
+> Kokoro-82M (`af_heart`), a local neural TTS that sounds more natural. Its
+> `generate_audio.py` is Kokoro-specific; see that dir's README. Both tracks feed
+> the same page (`presentation.html`) via a narration-language toggle.
 
 ## Voice
 

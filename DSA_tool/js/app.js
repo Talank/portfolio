@@ -158,8 +158,7 @@ function buildHeader(active) {
     ['pythonic-idioms.html', 'Pythonic Idioms'],
     ['mock-interview.html', 'Mock Interview'],
     ['episodes.html', 'One Piece Episodes'],
-    ['nepali.html', 'नेपाली Presentation'],
-    ['english.html', 'English Presentation'],
+    ['presentation.html', 'Presentation'],
   ];
   const nav = links.map(([href, label]) =>
     `<a href="${href}" class="${active === href ? 'active' : ''}">${label}</a>`

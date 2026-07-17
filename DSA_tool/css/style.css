@@ -622,6 +622,25 @@ footer.pagenav {
 .np-time { color: var(--text-dim); font-size: 0.72rem; font-variant-numeric: tabular-nums; min-width: 76px; text-align: right; }
 .np-controls { border-top: none; }
 
+/* Narration-language toggle (नेपाली ⇄ English) */
+.np-indexhead, .np-deckhead {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+}
+.np-deckhead { margin-bottom: 0.2rem; }
+.np-narr { display: flex; align-items: center; gap: 0.5rem; }
+.np-narr-label { color: var(--text-dim); font-size: 0.78rem; }
+.np-langtoggle {
+  display: inline-flex; border: 1px solid var(--border); border-radius: 999px;
+  overflow: hidden; background: var(--bg-panel);
+}
+.np-langtoggle .np-lang {
+  background: transparent; color: var(--text-dim); border: none; cursor: pointer;
+  padding: 0.35rem 0.9rem; font-size: 0.85rem; transition: background 0.2s, color 0.2s;
+}
+.np-langtoggle .np-lang:hover { color: var(--text); }
+.np-langtoggle .np-lang.active { background: var(--accent); color: #05242b; font-weight: 700; }
+
 /* ---- Episodes (cinematic scenes: dialogue + music/sfx) ---- */
 .ep-stage {
   position: relative;
