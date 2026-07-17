@@ -250,3 +250,37 @@ create policy "update own cicd_notes" on cicd_notes
   for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "delete own cicd_notes" on cicd_notes
   for delete using (auth.uid() = user_id);
+
+create table if not exists aivideo_progress (
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  module_id  text not null,
+  completed  boolean not null default true,
+  updated_at timestamptz not null default now(),
+  primary key (user_id, module_id)
+);
+alter table aivideo_progress enable row level security;
+create policy "select own aivideo_progress" on aivideo_progress
+  for select using (auth.uid() = user_id);
+create policy "insert own aivideo_progress" on aivideo_progress
+  for insert with check (auth.uid() = user_id);
+create policy "update own aivideo_progress" on aivideo_progress
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "delete own aivideo_progress" on aivideo_progress
+  for delete using (auth.uid() = user_id);
+
+create table if not exists aivideo_notes (
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  module_id  text not null,
+  note       text not null default '',
+  updated_at timestamptz not null default now(),
+  primary key (user_id, module_id)
+);
+alter table aivideo_notes enable row level security;
+create policy "select own aivideo_notes" on aivideo_notes
+  for select using (auth.uid() = user_id);
+create policy "insert own aivideo_notes" on aivideo_notes
+  for insert with check (auth.uid() = user_id);
+create policy "update own aivideo_notes" on aivideo_notes
+  for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "delete own aivideo_notes" on aivideo_notes
+  for delete using (auth.uid() = user_id);

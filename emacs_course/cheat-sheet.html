@@ -14,7 +14,7 @@
   <p class="lede">Every keybinding table from the course, in one scrollable page. Not a substitute for the lessons — a fast recall aid once you've actually done the labs. Notation: <code>C-x</code> = Control+x, <code>M-x</code> = Meta+x (Option, once Part 1 sets that up), <code>s-x</code> = Super/Cmd+x. Grows as each Part gets written; organized in the same order as the dashboard.</p>
 
   <div class="card">
-    <h2 style="margin-top:0;">Part 0-1 — Orientation & Mac Keybindings</h2>
+    <h2 style="margin-top:0;">Part 0 — Orientation & Starting Emacs</h2>
     <div class="cmp-wrap">
     <table class="cmp">
       <tr><th>Keys</th><th>What it does</th></tr>
@@ -22,11 +22,138 @@
       <tr><td><code>C-x C-c</code></td><td>Quit Emacs</td></tr>
       <tr><td><code>C-h t</code></td><td>Launch the built-in interactive tutorial</td></tr>
       <tr><td><code>C-h k</code> then a key</td><td>Describe exactly what that key sequence runs</td></tr>
+      <tr><td><code>C-h f</code> / <code>C-h v</code></td><td>Describe a function / describe a variable</td></tr>
+      <tr><td><code>emacs --daemon</code></td><td>Start a persistent background Emacs server</td></tr>
+      <tr><td><code>emacsclient -c</code></td><td>Open a new GUI frame connected to the running daemon</td></tr>
     </table>
     </div>
   </div>
 
-  <p class="lede" style="margin-top:2rem;">More tables land here as each Part of the course is written — buffers/windows/files, core editing (kill ring, search), your init.el, packages, modes, Org mode, project navigation, Magit, and TRAMP.</p>
+  <div class="card">
+    <h2 style="margin-top:0;">Part 1 — The Mac Keybinding Model</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Keys / Setting</th><th>What it does</th></tr>
+      <tr><td><code>Option</code> ↦ <code>Meta</code></td><td>Default GUI Emacs.app mapping — Option is your M- key</td></tr>
+      <tr><td><code>mac-option-modifier</code></td><td>Elisp variable controlling what Option sends (nil = normal accented-char Option)</td></tr>
+      <tr><td><code>mac-right-option-modifier</code></td><td>Set Right Option separately — keep it typing accented characters while Left Option is Meta</td></tr>
+      <tr><td>Terminal.app → "Use Option as Meta key"</td><td>Required checkbox for M- to work in terminal Emacs</td></tr>
+      <tr><td>iTerm2 → Left/Right Option "Esc+"</td><td>Same idea, set independently per side, unlike Terminal.app</td></tr>
+      <tr><td><code>Esc</code> then a key</td><td>Universal Meta fallback — works everywhere, no config needed</td></tr>
+      <tr><td><code>mac-command-modifier</code></td><td>What Command sends (rebind away from macOS OS-level shortcuts if desired)</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 2 — Buffers, Windows, Frames & Files</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Keys</th><th>What it does</th></tr>
+      <tr><td><code>C-x b</code></td><td>Switch to another buffer</td></tr>
+      <tr><td><code>C-x C-b</code></td><td>List all open buffers</td></tr>
+      <tr><td><code>C-x k</code></td><td>Kill (close) a buffer</td></tr>
+      <tr><td><code>C-x 2</code> / <code>C-x 3</code></td><td>Split window horizontally / vertically</td></tr>
+      <tr><td><code>C-x o</code></td><td>Move to the other window</td></tr>
+      <tr><td><code>C-x 1</code></td><td>Close all other windows (keep just this one)</td></tr>
+      <tr><td><code>C-x 5 2</code></td><td>Open a new frame</td></tr>
+      <tr><td><code>C-x C-f</code></td><td>Find/open a file (or directory → Dired)</td></tr>
+      <tr><td><code>C-x C-s</code></td><td>Save the current buffer</td></tr>
+      <tr><td><code>M-x</code></td><td>Run any command by name (the minibuffer)</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 3 — Core Editing</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Keys</th><th>What it does</th></tr>
+      <tr><td><code>C-f</code> / <code>C-b</code></td><td>Forward / backward one character</td></tr>
+      <tr><td><code>M-f</code> / <code>M-b</code></td><td>Forward / backward one word</td></tr>
+      <tr><td><code>C-n</code> / <code>C-p</code></td><td>Next / previous line</td></tr>
+      <tr><td><code>C-a</code> / <code>C-e</code></td><td>Beginning / end of line</td></tr>
+      <tr><td><code>M-&lt;</code> / <code>M-&gt;</code></td><td>Beginning / end of buffer</td></tr>
+      <tr><td><code>C-k</code></td><td>Kill to end of line</td></tr>
+      <tr><td><code>C-y</code></td><td>Yank (paste) the most recent kill</td></tr>
+      <tr><td><code>M-y</code></td><td>Cycle back through the kill ring after a yank</td></tr>
+      <tr><td><code>C-SPC</code></td><td>Set the mark (start a region)</td></tr>
+      <tr><td><code>C-w</code> / <code>M-w</code></td><td>Kill / copy the region</td></tr>
+      <tr><td><code>C-_</code> or <code>C-x u</code></td><td>Undo</td></tr>
+      <tr><td><code>C-s</code> / <code>C-r</code></td><td>Incremental search forward / backward</td></tr>
+      <tr><td><code>M-%</code></td><td>Query-replace</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 4 — Customization & Config</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Keys / Concept</th><th>What it does</th></tr>
+      <tr><td><code>~/.emacs.d/init.el</code></td><td>Your init file — evaluated top to bottom, once, at startup</td></tr>
+      <tr><td><code>custom-file</code></td><td>Separate file for Customize-generated settings, kept out of init.el</td></tr>
+      <tr><td><code>M-x eval-buffer</code></td><td>Reload the current file's Lisp without restarting Emacs</td></tr>
+      <tr><td><code>package-initialize</code></td><td>Must run before any use-package <code>:ensure</code> call</td></tr>
+      <tr><td><code>use-package foo :ensure t</code></td><td>Install foo from a configured archive if missing</td></tr>
+      <tr><td><code>:config</code></td><td>Runs after the package loads</td></tr>
+      <tr><td><code>:bind</code></td><td>Sets keys and lazy-loads the package on first use</td></tr>
+      <tr><td><code>global-set-key (kbd "...") 'cmd</code></td><td>Bind a key globally</td></tr>
+      <tr><td><code>define-key map (kbd "...") 'cmd</code></td><td>Bind a key in one specific keymap/mode</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 5 — Modes: The Emacs Superpower</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Keys / Concept</th><th>What it does</th></tr>
+      <tr><td>Major mode</td><td>Exactly one per buffer — defines what kind of thing this buffer is</td></tr>
+      <tr><td>Minor mode</td><td>Any number stacked on top — an optional add-on behavior</td></tr>
+      <tr><td><code>auto-mode-alist</code></td><td>Filename pattern → major mode mapping</td></tr>
+      <tr><td><code>C-c a</code></td><td>Org agenda (once bound)</td></tr>
+      <tr><td><code>C-c c</code></td><td>Org capture (once bound)</td></tr>
+      <tr><td><code>TAB</code> on an Org heading</td><td>Cycle that heading's visibility (fold/unfold)</td></tr>
+      <tr><td><code>C-c C-t</code></td><td>Cycle an Org item's TODO state</td></tr>
+      <tr><td><code>C-c C-c</code> in a code block</td><td>org-babel: execute the block in place</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 6 — Working With Code</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Keys</th><th>What it does</th></tr>
+      <tr><td><code>C-x p f</code></td><td>project.el: find file in current project</td></tr>
+      <tr><td><code>C-x p g</code></td><td>project.el: grep/search across the project</td></tr>
+      <tr><td><code>C-x p b</code></td><td>project.el: switch to a buffer belonging to this project</td></tr>
+      <tr><td><code>M-x imenu</code></td><td>Jump to a symbol defined in the current buffer</td></tr>
+      <tr><td><code>M-x eglot</code></td><td>Connect the current buffer to an available language server</td></tr>
+      <tr><td><code>M-.</code></td><td>xref: jump to a symbol's definition (LSP-accurate once eglot is connected)</td></tr>
+      <tr><td><code>M-,</code></td><td>xref: jump back to where you were</td></tr>
+      <tr><td>completion-at-point</td><td>LSP-aware (type/structure-based) once eglot is connected, text-based otherwise</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 7 — Terminal, Shell, Remote & Capstone</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Keys / Path</th><th>What it does</th></tr>
+      <tr><td><code>M-x shell</code></td><td>Real system shell ($SHELL) as a genuine subprocess</td></tr>
+      <tr><td><code>M-x eshell</code></td><td>Emacs's own Lisp-native shell — no subprocess, mixes Lisp into commands</td></tr>
+      <tr><td><code>C-x g</code></td><td>Magit: open magit-status</td></tr>
+      <tr><td><code>s</code> / <code>u</code> in Magit</td><td>Stage / unstage a hunk or file</td></tr>
+      <tr><td><code>c c</code> then <code>C-c C-c</code></td><td>Magit: start a commit message, then confirm it</td></tr>
+      <tr><td><code>/ssh:user@host:/path</code></td><td>TRAMP: open a remote file over SSH as if local</td></tr>
+      <tr><td><code>/ssh:user@host&#124;sudo:root@host:/path</code></td><td>TRAMP: chain SSH then sudo on the same connection</td></tr>
+      <tr><td><code>C-x d /ssh:user@host:/path/</code></td><td>Dired on a remote directory — every operation runs remotely</td></tr>
+    </table>
+    </div>
+  </div>
 </main>
 <script src="data/schedule.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
