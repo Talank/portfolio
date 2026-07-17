@@ -1,10 +1,16 @@
 /* नेपाली Presentation engine.
    Slide decks live in data/nepali/<id>.js (window.NEPALI_DECKS[id]). The slide
    text stays in English; the narration is a Nepali script (Devanagari, with
-   technical terms left in English) spoken by the browser's speech synthesizer —
-   like a presenter in Nepal explaining English slides. Narration is split into
-   sentences and spoken one utterance at a time (works around Chrome's long-
-   utterance cutoff) with read-along highlighting in the transcript. */
+   technical terms left in English) — like a presenter in Nepal explaining
+   English slides.
+
+   Narration is played from *pre-rendered* MP3 files (one per slide) generated
+   with a neural Nepali voice (ne-NP-HemkalaNeural via edge-tts). The manifest
+   at data/nepali/audio/manifest.js (window.NEPALI_AUDIO) maps each deck+slide
+   to its MP3 and per-sentence start times, which drive the read-along
+   transcript highlight. This replaces the old browser speechSynthesis path,
+   which had no real Nepali voice on most machines. A tiny speechSynthesis
+   fallback remains only for slides whose audio is somehow missing. */
 
 (function () {
   'use strict';
@@ -34,54 +40,24 @@
     'trie': 'अक्षरैपिच्छे हाँगा हाल्ने रूख',
   };
 
-  const VOICE_KEY = 'dsa-np-voice';
-  const RATE_KEY = 'dsa-np-rate';
+  const RATE_KEY = 'dsa-np-rate';   // now: audio playbackRate (media stays in sync)
   const AUTO_KEY = 'dsa-np-auto';
+  const AUDIO_BASE = 'data/nepali/audio/';
 
   function qs(name) { return new URLSearchParams(window.location.search).get(name); }
   function esc(str) { return String(str).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
 
-  /* ---------------- Voice handling ---------------- */
-
-  let voices = [];
-
-  function ttsSupported() { return typeof window.speechSynthesis !== 'undefined'; }
-
-  function refreshVoices() {
-    if (!ttsSupported()) return [];
-    voices = window.speechSynthesis.getVoices() || [];
-    return voices;
-  }
-
-  /* Rank: Nepali first, then Hindi (every Devanagari-capable browser voice we
-     can realistically expect — reads Nepali text understandably), then Indian
-     English, then the rest. */
-  function voiceRank(v) {
-    if (/^ne/i.test(v.lang) || /nepali/i.test(v.name)) return 0;
-    if (/^hi/i.test(v.lang) || /hindi|हिन्दी/i.test(v.name)) return 1;
-    if (/^en-IN/i.test(v.lang)) return 2;
-    return 3;
-  }
-
-  function sortedVoices() {
-    return refreshVoices().slice().sort((a, b) => voiceRank(a) - voiceRank(b) || a.name.localeCompare(b.name));
-  }
-
-  function pickDefaultVoice() {
-    const saved = localStorage.getItem(VOICE_KEY);
-    const all = sortedVoices();
-    if (saved) {
-      const m = all.find(v => v.voiceURI === saved);
-      if (m) return m;
-    }
-    return all[0] || null;
-  }
-
-  /* Split Devanagari narration into sentence chunks. Chrome's synthesizer
-     silently dies on long utterances, so we always speak sentence-by-sentence. */
+  /* Sentence split — MUST match the Python generator (generate_audio.py) so the
+     transcript spans line up 1:1 with the manifest's per-sentence timings. */
   function splitSentences(text) {
     const parts = String(text).match(/[^।!?]+[।!?]*/g) || [];
     return parts.map(s => s.trim()).filter(Boolean);
+  }
+
+  function fmtTime(sec) {
+    if (!isFinite(sec) || sec < 0) sec = 0;
+    const m = Math.floor(sec / 60), s = Math.floor(sec % 60);
+    return m + ':' + String(s).padStart(2, '0');
   }
 
   /* ---------------- Player state ---------------- */
@@ -89,69 +65,138 @@
   let deck = null;
   let slideIdx = 0;
   let playing = false;
-  let session = 0;          // bumped to invalidate in-flight utterance chains
-  let chunkEls = [];        // transcript sentence spans of current slide
+  let session = 0;            // bumped to invalidate stale async callbacks
+  let chunkEls = [];          // transcript sentence spans of current slide
+  let audioEl = null;         // single reused <audio>
+  let prefetchEl = null;      // hidden element that warms the next slide's file
 
-  function stopSpeech() {
-    session++;
-    if (ttsSupported()) window.speechSynthesis.cancel();
+  function ttsSupported() { return typeof window.speechSynthesis !== 'undefined'; }
+
+  /* Manifest lookup for the current slide (or a given index). */
+  function audioInfo(idx) {
+    idx = (idx == null) ? slideIdx : idx;
+    const a = window.NEPALI_AUDIO;
+    if (!a || !a.decks || !deck) return null;
+    const d = a.decks[deck.id];
+    return d ? d[idx] : null;
   }
 
   function currentRate() {
     const r = parseFloat(localStorage.getItem(RATE_KEY));
-    return isNaN(r) ? 0.85 : r;   // soothing default: slower than normal speech
+    if (isNaN(r)) return 1.0;              // audio already baked to a soothing pace
+    return Math.min(1.5, Math.max(0.7, r));
   }
 
-  function autoplayOn() {
-    return localStorage.getItem(AUTO_KEY) !== '0';
+  function autoplayOn() { return localStorage.getItem(AUTO_KEY) !== '0'; }
+
+  function getAudioEl() {
+    if (!audioEl) {
+      audioEl = new Audio();
+      audioEl.preload = 'auto';
+    }
+    return audioEl;
   }
 
-  function speakSlide(onAllDone) {
-    const mySession = ++session;
+  /* Stop any playback and invalidate in-flight callbacks. */
+  function stopAudio() {
+    session++;
+    if (audioEl) { try { audioEl.pause(); } catch (e) {} }
     if (ttsSupported()) window.speechSynthesis.cancel();
-    const chunks = splitSentences(deck.slides[slideIdx].narration);
-    if (!ttsSupported() || !chunks.length) {
-      if (onAllDone) setTimeout(onAllDone, 1200);
-      return;
-    }
-    const voice = pickDefaultVoice();
-    const rate = currentRate();
-
-    function speakChunk(i) {
-      if (mySession !== session) return;
-      if (i >= chunks.length) {
-        markChunk(-1);
-        if (onAllDone) onAllDone();
-        return;
-      }
-      markChunk(i);
-      const u = new SpeechSynthesisUtterance(chunks[i]);
-      if (voice) u.voice = voice;
-      u.lang = voice ? voice.lang : 'ne-NP';
-      u.rate = rate;
-      u.pitch = 1;
-      u.volume = 1;
-      let done = false;
-      const next = () => {
-        if (done || mySession !== session) return;
-        done = true;
-        speakChunk(i + 1);
-      };
-      u.onend = next;
-      u.onerror = next;
-      // Safety net for browsers that silently drop an utterance.
-      setTimeout(next, Math.max(5000, chunks[i].length * 260 / rate));
-      try { window.speechSynthesis.speak(u); } catch (e) { next(); }
-    }
-    speakChunk(0);
   }
 
-  /* Read-along highlight: i = active sentence, -1 = none (all done). */
+  function prefetch(idx) {
+    const info = audioInfo(idx);
+    if (!info || !info.file) return;
+    if (!prefetchEl) prefetchEl = new Audio();
+    prefetchEl.preload = 'auto';
+    prefetchEl.src = AUDIO_BASE + info.file;
+  }
+
+  /* Read-along highlight: i = active sentence, -1 = none. */
   function markChunk(i) {
     chunkEls.forEach((el, idx) => {
       el.classList.toggle('np-now', idx === i);
       el.classList.toggle('np-said', i !== -1 ? idx < i : true);
     });
+  }
+
+  function activeSentence(t, starts) {
+    let idx = 0;
+    for (let i = 0; i < starts.length; i++) {
+      if (t + 0.05 >= starts[i]) idx = i; else break;
+    }
+    return idx;
+  }
+
+  function updateScrub() {
+    const a = audioEl;
+    const bar = document.getElementById('np-scrub');
+    const tlabel = document.getElementById('np-time');
+    if (!a || !bar) return;
+    const dur = isFinite(a.duration) && a.duration > 0 ? a.duration : (audioInfo() || {}).dur || 0;
+    bar.max = dur || 0;
+    if (!bar.dragging) bar.value = a.currentTime || 0;
+    if (tlabel) tlabel.textContent = fmtTime(a.currentTime) + ' / ' + fmtTime(dur);
+  }
+
+  /* Play the current slide's narration audio; call onEnded when it finishes. */
+  function playSlideAudio(onEnded) {
+    const info = audioInfo();
+    if (!info || !info.file) { speakSlideTTS(onEnded); return; }
+
+    const mySession = ++session;
+    const a = getAudioEl();
+    const starts = info.sentences || [];
+
+    a.onended = null; a.ontimeupdate = null; a.onerror = null;
+    a.src = AUDIO_BASE + info.file;
+    a.playbackRate = currentRate();
+
+    a.ontimeupdate = () => {
+      if (mySession !== session) return;
+      markChunk(activeSentence(a.currentTime, starts));
+      updateScrub();
+    };
+    a.onended = () => {
+      if (mySession !== session) return;
+      markChunk(starts.length - 1);
+      chunkEls.forEach(el => el.classList.add('np-said'));
+      updateScrub();
+      if (onEnded) onEnded();
+    };
+    a.onerror = () => {
+      if (mySession !== session) return;
+      speakSlideTTS(onEnded);      // graceful fallback if the file won't load
+    };
+
+    markChunk(0);
+    prefetch(slideIdx + 1);
+    const p = a.play();
+    if (p && p.catch) p.catch(() => { /* autoplay policy — ignored, click retries */ });
+  }
+
+  /* Minimal browser-TTS fallback: only used when a slide's MP3 is unavailable. */
+  function speakSlideTTS(onAllDone) {
+    const mySession = ++session;
+    const chunks = splitSentences(deck.slides[slideIdx].narration);
+    if (!ttsSupported() || !chunks.length) {
+      if (onAllDone) setTimeout(() => { if (mySession === session) onAllDone(); }, 1200);
+      return;
+    }
+    window.speechSynthesis.cancel();
+    function speakChunk(i) {
+      if (mySession !== session) return;
+      if (i >= chunks.length) { markChunk(-1); if (onAllDone) onAllDone(); return; }
+      markChunk(i);
+      const u = new SpeechSynthesisUtterance(chunks[i]);
+      u.lang = 'ne-NP'; u.rate = 0.85;
+      let done = false;
+      const next = () => { if (done || mySession !== session) return; done = true; speakChunk(i + 1); };
+      u.onend = next; u.onerror = next;
+      setTimeout(next, Math.max(5000, chunks[i].length * 260 / 0.85));
+      try { window.speechSynthesis.speak(u); } catch (e) { next(); }
+    }
+    speakChunk(0);
   }
 
   /* ---------------- Rendering ---------------- */
@@ -176,10 +221,10 @@
       mnemonics instead of a word-for-word reading. जुन कुरा अङ्ग्रेजीमा छिटो बुझिँदैन, त्यही कुरा कथा र
       सूत्रसहित बिस्तारै, शान्त आवाजमा।</p>
       <div class="card">
-        <b>आवाजको बारेमा:</b> narration तपाईंकै browser को speech synthesizer ले पढ्छ। नेपाली voice भएका
-        browser निकै कम छन्, त्यसैले <b>Google हिन्दी</b> (Chrome मा हुन्छ) जस्तो Devanagari पढ्न जान्ने voice
-        छानिन्छ — नेपाली लेखाइ राम्रैसँग बुझिन्छ। Player भित्रको dropdown बाट voice फेर्न र speed घटाएर अझ
-        soothing बनाउन सकिन्छ।
+        <b>आवाजको बारेमा:</b> narration अब browser को robotic आवाजले होइन, <b>असली neural नेपाली स्वर</b>ले
+        भनिन्छ — पहिल्यै record गरिएका audio फाइलहरू बजाइन्छन्, त्यसैले जुनसुकै browser मा एउटै मीठो, शान्त
+        आवाज सुनिन्छ। बोलिरहेको वाक्य transcript मा हाइलाइट हुन्छ; कुनै वाक्यमा click गरे त्यहीँबाट सुन्न
+        सकिन्छ। तल Player भित्रको speed slider ले चाहेअनुसार अझ बिस्तारै वा छिटो पार्न मिल्छ।
       </div>
       ${groups}`;
     document.getElementById('nepali-footer-nav').innerHTML = '';
@@ -203,18 +248,31 @@
         ${slideBodyHtml(s)}
       </div>`;
     const chunks = splitSentences(s.narration);
+    const starts = (audioInfo() || {}).sentences || [];
     chunkEls = [];
     const tr = document.getElementById('np-transcript-body');
     tr.innerHTML = '';
-    chunks.forEach(c => {
+    chunks.forEach((c, i) => {
       const span = document.createElement('span');
       span.className = 'np-chunk';
       span.textContent = c + ' ';
+      span.title = 'यहाँबाट सुन्नुहोस्';
+      span.addEventListener('click', () => seekToSentence(i, starts));
       tr.appendChild(span);
       chunkEls.push(span);
     });
     document.getElementById('np-prev').disabled = slideIdx === 0;
     document.getElementById('np-next').disabled = slideIdx === deck.slides.length - 1;
+    updateScrub();
+  }
+
+  function seekToSentence(i, starts) {
+    const t = starts[i];
+    if (t == null) return;
+    if (!playing) { playCurrent(); }
+    const a = getAudioEl();
+    const apply = () => { a.currentTime = t; markChunk(i); };
+    if (a.readyState >= 1) apply(); else a.addEventListener('loadedmetadata', apply, { once: true });
   }
 
   function setPlayLabel() {
@@ -224,7 +282,7 @@
   function playCurrent() {
     playing = true;
     setPlayLabel();
-    speakSlide(() => {
+    playSlideAudio(() => {
       if (!playing) return;
       const mySession = session;
       if (autoplayOn() && slideIdx < deck.slides.length - 1) {
@@ -243,7 +301,7 @@
 
   function pause() {
     playing = false;
-    stopSpeech();
+    stopAudio();
     markChunk(-1);
     chunkEls.forEach(el => el.classList.remove('np-said'));
     setPlayLabel();
@@ -251,7 +309,7 @@
 
   function goTo(idx) {
     const wasPlaying = playing;
-    stopSpeech();
+    stopAudio();
     slideIdx = Math.max(0, Math.min(deck.slides.length - 1, idx));
     renderSlide();
     if (wasPlaying) playCurrent(); else pause();
@@ -277,6 +335,10 @@
       <p class="lede">${esc(deck.titleNe)} — ${deck.intro} (${patternLink})</p>
 
       <div class="np-stage" id="np-stage"></div>
+      <div class="np-progress">
+        <input type="range" id="np-scrub" min="0" max="0" step="0.1" value="0" aria-label="Narration position">
+        <span class="np-time" id="np-time">0:00 / 0:00</span>
+      </div>
       <div class="np-controls">
         <button class="btn" id="np-play">▶ सुन्नुहोस्</button>
         <button id="np-replay" title="यही slide फेरि">🔁 फेरि</button>
@@ -284,16 +346,13 @@
         <button id="np-next">अर्को ⏭</button>
         <label class="np-opt"><input type="checkbox" id="np-auto"> auto-advance</label>
         <span class="np-flex"></span>
-        <label class="np-opt">Voice
-          <select id="np-voice"></select>
-        </label>
         <label class="np-opt">Speed
-          <input type="range" id="np-rate" min="0.6" max="1.2" step="0.05">
+          <input type="range" id="np-rate" min="0.7" max="1.5" step="0.05">
           <span id="np-rate-val"></span>
         </label>
       </div>
       <div class="np-transcript">
-        <div class="np-label">🎙 Narration transcript — बोलिरहेको वाक्य हाइलाइट हुन्छ</div>
+        <div class="np-label">🎙 Narration transcript — बोलिरहेको वाक्य हाइलाइट हुन्छ (click गरे त्यहीँबाट सुनिन्छ)</div>
         <div id="np-transcript-body"></div>
       </div>
       <p id="np-voice-hint" style="color:var(--text-dim); font-size:0.82rem;"></p>`;
@@ -318,31 +377,28 @@
     rate.addEventListener('input', () => {
       localStorage.setItem(RATE_KEY, rate.value);
       rateVal.textContent = parseFloat(rate.value).toFixed(2) + 'x';
+      if (audioEl) audioEl.playbackRate = currentRate();   // live, no restart needed
     });
 
-    function fillVoices() {
-      const sel = document.getElementById('np-voice');
-      if (!sel) return;
-      const all = sortedVoices();
-      const chosen = pickDefaultVoice();
-      sel.innerHTML = all.map(v =>
-        `<option value="${esc(v.voiceURI)}" ${chosen && v.voiceURI === chosen.voiceURI ? 'selected' : ''}>${esc(v.name)} (${esc(v.lang)})</option>`
-      ).join('') || '<option>(no voices found)</option>';
-      const hint = document.getElementById('np-voice-hint');
-      if (!ttsSupported()) {
-        hint.textContent = 'This browser has no speech synthesis — slides and the transcript still work, just without audio.';
-      } else if (!all.some(v => voiceRank(v) <= 1)) {
-        hint.textContent = 'नेपाली/हिन्दी voice भेटिएन — Chrome desktop मा "Google हिन्दी" voice आउँछ, त्यसले Devanagari राम्ररी पढ्छ। अहिलेलाई English voice ले नै पढ्नेछ (accent अनौठो सुनिन्छ)।';
-      } else {
-        hint.textContent = '';
-      }
-    }
-    fillVoices();
-    if (ttsSupported()) window.speechSynthesis.onvoiceschanged = fillVoices;
-    document.getElementById('np-voice').addEventListener('change', e => {
-      localStorage.setItem(VOICE_KEY, e.target.value);
-      if (playing) { pause(); playCurrent(); }
+    // Scrubber: drag to seek within the current narration.
+    const scrub = document.getElementById('np-scrub');
+    scrub.addEventListener('input', () => {
+      scrub.dragging = true;
+      const a = getAudioEl();
+      if (isFinite(a.duration)) a.currentTime = parseFloat(scrub.value);
+      const starts = (audioInfo() || {}).sentences || [];
+      markChunk(activeSentence(parseFloat(scrub.value), starts));
     });
+    scrub.addEventListener('change', () => { scrub.dragging = false; });
+
+    // No Nepali voice on this machine? With pre-rendered audio it no longer
+    // matters — only note the rare case where audio is entirely unavailable.
+    const hint = document.getElementById('np-voice-hint');
+    if (!window.NEPALI_AUDIO) {
+      hint.textContent = 'Pre-rendered narration (manifest) not found — falling back to the browser voice, which may not read Nepali well. Run data/nepali/audio/generate_audio.py to build the audio.';
+    } else {
+      hint.textContent = '';
+    }
 
     document.addEventListener('keydown', e => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
@@ -360,20 +416,31 @@
       (prev ? `<a href="nepali.html?id=${prev.id}">← ${esc(prev.title)}</a>` : `<a href="nepali.html">← सबै presentation</a>`) +
       (next ? `<a href="nepali.html?id=${next.id}">${esc(next.title)} →</a>` : `<a href="nepali.html">सबै presentation →</a>`);
 
-    window.addEventListener('beforeunload', stopSpeech);
+    prefetch(0);
+    window.addEventListener('beforeunload', stopAudio);
   }
 
   function boot() {
     const id = qs('id');
-    if (!id) { renderIndex(); return; }
-    const script = document.createElement('script');
-    script.src = `data/nepali/${id}.js`;
-    script.onload = () => renderDeck(id);
-    script.onerror = () => {
-      document.getElementById('nepali-root').innerHTML =
-        `<p>Could not load deck "${esc(id)}". <a href="nepali.html">← सबै presentation</a></p>`;
+    // Manifest first (small), then the deck. Both via <script> so it works over
+    // file:// too, matching how decks are loaded.
+    const loadDeck = () => {
+      if (!id) { renderIndex(); return; }
+      const script = document.createElement('script');
+      script.src = `data/nepali/${id}.js`;
+      script.onload = () => renderDeck(id);
+      script.onerror = () => {
+        document.getElementById('nepali-root').innerHTML =
+          `<p>Could not load deck "${esc(id)}". <a href="nepali.html">← सबै presentation</a></p>`;
+      };
+      document.body.appendChild(script);
     };
-    document.body.appendChild(script);
+    if (window.NEPALI_AUDIO) { loadDeck(); return; }
+    const man = document.createElement('script');
+    man.src = `${AUDIO_BASE}manifest.js`;
+    man.onload = loadDeck;
+    man.onerror = loadDeck;   // proceed without audio manifest (TTS fallback)
+    document.body.appendChild(man);
   }
 
   document.addEventListener('DOMContentLoaded', boot);
