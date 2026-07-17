@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CI/CD & Containers Course — Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>CI/CD &amp; Containers Course</h1>
+  <p class="lede">The direct sequel to the Linux course: that course's closing lesson demystified a container as "just a process," restricted by namespaces (what it can see) and cgroups (what it can use). This course starts exactly there and builds up to actually shipping software — Docker images and the Dockerfile, multi-container apps with Compose, real orchestration with Kubernetes (Pods, Deployments, Services, ConfigMaps, storage), and a CI/CD pipeline (GitHub Actions) that builds, tests, and deploys automatically on every push. Taught the same way as the other courses: real mechanics, a One Piece story that acts the idea out (plus Big Bang Theory and Friends scenes), interactive animated diagrams, a manifest lab, a quiz, and the interview questions companies actually ask.</p>
+  <p class="lede">Every lesson teaches the essentials by default — flip <b>Essentials → Full Depth</b> in the header any time you want a topic's deeper mechanism, edge cases, and "why it's actually built that way." Nothing is gated behind it; it's purely how far a lesson goes.</p>
+  <p class="lede">All music and sound effects are generated live in your browser with the Web Audio API — original compositions, nothing to license. Character portraits are original flat-vector art, not traced from any show.</p>
+
+  <div class="card">
+    <div id="overall-progress" class="progress-outer"><div class="progress-inner"></div></div>
+    <p id="progress-label" style="margin:0.6rem 0 0; color:var(--text-dim); font-size:0.9rem;"></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">How to use this</h2>
+    <ol>
+      <li><b>Docker (Parts 0-3) before Kubernetes (Parts 4-5) before CI/CD (Parts 6-7).</b> Each part assumes the previous one's vocabulary — Kubernetes Pods are built from the same images the Docker lessons teach you to write, and the pipeline lessons deploy exactly what the Kubernetes lessons teach you to write manifests for.</li>
+      <li>In each lesson: read the concept, open the <b>story + animation</b> the first time through, click through the <b>interactive walkthrough</b>, expand any <b>Technicality corner</b> question you can't already answer out loud, then do the <b>Manifest Lab</b> — write the Dockerfile/YAML yourself, check it in the browser, then try it for real against your own Docker daemon or cluster.</li>
+      <li>Before marking a lesson complete, try the <b>interview questions</b> at the bottom out loud.</li>
+      <li>Keep the <a href="cheat-sheet.html">Cheat Sheet</a> open in a second tab — every command and manifest pattern in one place.</li>
+      <li>Finish with the <a href="interview.html">timed Interview Drill</a> — randomized questions from everything you studied, on a countdown.</li>
+    </ol>
+  </div>
+
+  <div id="module-groups"></div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>
+  buildHeader('index.html');
+  renderDashboard();
+  window.addEventListener('cicd:progress-synced', renderDashboard);
+</script>
+</body>
+</html>

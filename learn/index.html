@@ -135,19 +135,19 @@
 </header>
 <main class="wrap">
   <h1>Learn</h1>
-  <p class="lede">Six <b>local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices.</p>
+  <p class="lede">Seven <b>local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices.</p>
 
   <div class="stats-row" id="statsRow">
-    <div class="stat"><span class="n">6</span><span class="l">courses</span></div>
-    <div class="stat"><span class="n">178</span><span class="l">lessons</span></div>
-    <div class="stat"><span class="n">~126h</span><span class="l">total content</span></div>
+    <div class="stat"><span class="n">7</span><span class="l">courses</span></div>
+    <div class="stat"><span class="n">200</span><span class="l">lessons</span></div>
+    <div class="stat"><span class="n">~140h</span><span class="l">total content</span></div>
     <div class="stat"><span class="n" id="overallPct">0%</span><span class="l">your progress</span></div>
   </div>
 
   <div class="grid" id="courseGrid"></div>
 
   <footer class="site">
-    <p>A CI/CD &amp; Docker/Kubernetes course — the natural sequel to Linux — is planned next, picking up from the container bridge lesson at the end of the Linux course. Not started yet.</p>
+    <p>All seven courses above are fully built and ready to use.</p>
   </footer>
 </main>
 <script>
@@ -181,6 +181,11 @@
       dir: '../DSA_tool/', title: 'DSA Crash Course',
       desc: 'The ~19 patterns that generalize to almost all Google/Meta/Microsoft/Amazon-style coding interview questions, each with a walkthrough, real variants, and a timed mock interview drill.',
       lessons: 20, lessonsBuilt: 19, hours: 4.5, status: 'progress', progressKey: 'dsa-progress-v1',
+    },
+    {
+      dir: '../cicd_course/', title: 'CI/CD & Containers Course',
+      desc: 'The direct sequel to Linux: Docker images and the Dockerfile, multi-container apps with Compose, real orchestration with Kubernetes, and a CI/CD pipeline that builds, tests, and deploys automatically on every push.',
+      lessons: 22, hours: 13.5, status: 'done', progressKey: 'cicd-progress-v1',
     },
   ];
 
@@ -223,18 +228,7 @@
           <p class="progress-label">${done > 0 ? pct + '% complete (' + Math.min(done, built) + '/' + built + ')' : 'Not started'}</p>
           <a class="go" href="${c.dir}index.html">${done > 0 ? 'Continue' : 'Start'}</a>
         </div>`;
-    }).join('') + `
-        <div class="card soon">
-          <div class="card-top">
-            <h2>CI/CD &amp; Docker/Kubernetes</h2>
-            <span class="badge soon">Coming soon</span>
-          </div>
-          <p class="desc">Containers, Docker, Kubernetes, and CI/CD pipelines — the direct sequel to the Linux course's closing bridge lesson on namespaces and cgroups.</p>
-          <div class="meta"><span>Not started</span></div>
-          <div class="progress-outer"><div class="progress-inner" style="width:0%"></div></div>
-          <p class="progress-label">Not started</p>
-          <a class="go" href="#">Planned</a>
-        </div>`;
+    }).join('');
 
     const overallPct = totalLessons > 0 ? Math.round((totalDone / totalLessons) * 100) : 0;
     document.getElementById('overallPct').textContent = overallPct + '%';

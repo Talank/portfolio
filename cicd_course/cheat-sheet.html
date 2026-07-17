@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheet — CI/CD & Containers Course</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Cheat Sheet</h1>
+  <p class="lede">Every command and manifest pattern from the course, in one scrollable page. Not a substitute for the lessons — a fast recall aid once you've actually done the labs. Grows as each Part gets written; organized in the same order as the dashboard.</p>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 0 — From Process to Pipeline</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>docker --version</code></td><td>Confirm the Docker CLI is installed (does NOT confirm the daemon is reachable)</td></tr>
+      <tr><td><code>docker info</code></td><td>The real daemon-reachability check — errors clearly if dockerd is not running</td></tr>
+      <tr><td><code>docker run hello-world</code></td><td>Pull and run the canonical "it works" test image</td></tr>
+      <tr><td><code>docker run -it &lt;image&gt; sh</code></td><td>Run a container and drop into an interactive shell inside it</td></tr>
+      <tr><td><code>docker ps</code> / <code>docker ps -a</code></td><td>List running containers / all containers including stopped ones</td></tr>
+      <tr><td><code>sudo systemctl start docker</code></td><td>Start the Docker daemon on Linux (enable --now to also start on boot)</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 1 — Docker Fundamentals</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command / Instruction</th><th>What it does</th></tr>
+      <tr><td><code>docker images</code></td><td>List local images (read-only templates) — never changes as containers run</td></tr>
+      <tr><td><code>FROM &lt;base&gt;</code></td><td>Start a Dockerfile from an existing image's layer stack</td></tr>
+      <tr><td><code>RUN &lt;cmd&gt;</code></td><td>Executes at BUILD time; result becomes a permanent image layer</td></tr>
+      <tr><td><code>COPY &lt;src&gt; &lt;dest&gt;</code></td><td>Copy files from the build context into the image at build time</td></tr>
+      <tr><td><code>WORKDIR &lt;path&gt;</code></td><td>Set the working directory for every following instruction</td></tr>
+      <tr><td><code>ENV KEY=value</code></td><td>Bake a runtime environment variable into the image (visible in every container)</td></tr>
+      <tr><td><code>EXPOSE &lt;port&gt;</code></td><td>Documentation only — does NOT publish the port; use -p at docker run</td></tr>
+      <tr><td><code>CMD ["cmd", "arg"]</code></td><td>Default command executed at CONTAINER START (not build time); JSON-array form preferred</td></tr>
+      <tr><td><code>docker build -t &lt;name&gt; .</code></td><td>Build an image from the Dockerfile in the current directory</td></tr>
+      <tr><td><code>docker run -d --name X -p H:C -e K=V img</code></td><td>Run detached, named, port-published, with an env var</td></tr>
+      <tr><td><code>docker logs [-f] [--tail N] &lt;c&gt;</code></td><td>Read a container's stdout/stderr; -f follows live</td></tr>
+      <tr><td><code>docker exec -it &lt;c&gt; sh</code></td><td>Interactive shell inside a running container (last resort, after logs)</td></tr>
+      <tr><td><code>docker stop</code> / <code>docker kill</code></td><td>Graceful (SIGTERM + grace period) vs. immediate (SIGKILL) stop</td></tr>
+      <tr><td><code>docker rm &lt;c&gt;</code></td><td>Remove a stopped container (add -f to force-remove a running one)</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 2 — Building Good Images</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Pattern / Command</th><th>What it does</th></tr>
+      <tr><td>Copy manifest, RUN install, THEN copy rest of source</td><td>Maximizes build-cache reuse — dependency layer stays cached on source-only changes</td></tr>
+      <tr><td><code>FROM node:20 AS build</code> ... <code>COPY --from=build</code></td><td>Multi-stage build — only copy the finished artifact into the final, slim stage</td></tr>
+      <tr><td><code>ARG</code></td><td>Build-time-only variable; NOT automatically present in the running container</td></tr>
+      <tr><td><code>RUN --mount=type=secret,id=X</code></td><td>Use a credential during build without ever writing it into a layer</td></tr>
+      <tr><td><code>docker history &lt;image&gt;</code></td><td>See every layer's size and originating instruction</td></tr>
+      <tr><td><code>docker tag src:tag registry/ns/repo:tag</code></td><td>Add a new name for the same image content (no duplication)</td></tr>
+      <tr><td><code>docker push / docker pull</code></td><td>Upload to / download from a registry</td></tr>
+      <tr><td>Tag with a commit SHA, never <code>:latest</code></td><td>Makes "what is running" and rollback unambiguous</td></tr>
+      <tr><td><code>@sha256:...</code> (digest)</td><td>Content-hash reference — cannot be reassigned to different content</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 3 — Multi-Container Apps</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command / Key</th><th>What it does</th></tr>
+      <tr><td><code>docker network create &lt;name&gt;</code></td><td>User-defined network — enables DNS-based reachability by container name</td></tr>
+      <tr><td><code>host.docker.internal</code></td><td>Reach the HOST machine (not another container) from inside a container</td></tr>
+      <tr><td><code>docker volume create &lt;name&gt;</code></td><td>Named volume — Docker-managed, survives container removal</td></tr>
+      <tr><td><code>-v name:/path</code> vs <code>-v /host/path:/path</code></td><td>Named volume (portable) vs. bind mount (tied to one host path)</td></tr>
+      <tr><td><code>docker compose up [-d]</code></td><td>Create the stack's network, start every declared service</td></tr>
+      <tr><td><code>docker compose stop</code></td><td>Stop containers, keep them + network + volumes</td></tr>
+      <tr><td><code>docker compose down [-v]</code></td><td>Stop + remove containers/network (add -v to also delete volumes — data loss)</td></tr>
+      <tr><td><code>depends_on</code></td><td>Controls START ORDER only — not a readiness guarantee</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 4 — Kubernetes Fundamentals</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Concept / Command</th><th>What it does</th></tr>
+      <tr><td>Declarative desired state</td><td>Declare WHAT should be true; a controller continuously reconciles reality toward it</td></tr>
+      <tr><td>API server</td><td>The single component every kubectl command and controller talks to</td></tr>
+      <tr><td><code>kubectl apply -f pod.yaml</code></td><td>Submit a manifest's desired state to the API server</td></tr>
+      <tr><td>Pod</td><td>Smallest deployable unit — one or more containers sharing network/storage, ephemeral by design</td></tr>
+      <tr><td><code>kind: Deployment</code>, <code>replicas: N</code></td><td>Continuously maintains N healthy Pod replicas, replacing failed ones automatically</td></tr>
+      <tr><td><code>selector.matchLabels</code></td><td>How a Deployment identifies its own Pods — by label, never by name</td></tr>
+      <tr><td><code>kind: Service</code></td><td>Stable name/address, load-balancing across whichever matching Pods are ready</td></tr>
+      <tr><td><code>kubectl get pods -l app=X</code></td><td>List Pods matching a label</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 5 — Kubernetes in Practice</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Concept / Command</th><th>What it does</th></tr>
+      <tr><td><code>kind: ConfigMap</code></td><td>Non-sensitive key-value config, referenced by name from a Pod template</td></tr>
+      <tr><td><code>kind: Secret</code></td><td>Same shape as ConfigMap; base64-ENCODED (not encrypted) by default — better access control, not cryptographic protection alone</td></tr>
+      <tr><td><code>envFrom: configMapRef</code> / <code>secretKeyRef</code></td><td>Inject config/secret values as environment variables</td></tr>
+      <tr><td><code>kind: PersistentVolumeClaim</code></td><td>Request for durable storage that follows a Pod across node reschedules</td></tr>
+      <tr><td><code>storageClassName</code></td><td>References a StorageClass for automatic (dynamic) PV provisioning</td></tr>
+      <tr><td><code>kubectl describe pod &lt;name&gt;</code></td><td>Full status + Events section — check FIRST for scheduling/pull failures</td></tr>
+      <tr><td><code>kubectl logs [--previous] [-c container]</code></td><td>Container output; --previous for a crashed instance's last logs</td></tr>
+      <tr><td><code>kubectl exec -it &lt;pod&gt; -- sh</code></td><td>Interactive shell inside a Pod (last resort)</td></tr>
+      <tr><td>Pending / ImagePullBackOff / CrashLoopBackOff</td><td>Not scheduled / image pull failed / container starts then keeps crashing</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 6 — CI/CD Pipelines</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Concept / Syntax</th><th>What it does</th></tr>
+      <tr><td>CI</td><td>Automatically build+test every push — value is speed of feedback</td></tr>
+      <tr><td>Continuous Delivery vs. Deployment</td><td>Human approval gate before prod, vs. fully automatic deploy on pipeline pass</td></tr>
+      <tr><td>checkout &rarr; build &rarr; test &rarr; push &rarr; deploy</td><td>Standard stage order — each stage is a real gate for the next</td></tr>
+      <tr><td><code>on: push: branches: [main]</code></td><td>Trigger on push to a specific branch</td></tr>
+      <tr><td><code>on: pull_request</code></td><td>Trigger on PR open/update — build+test only, before merge</td></tr>
+      <tr><td><code>uses: actions/checkout@v4</code></td><td>Pre-built action — clones the triggering commit onto the runner</td></tr>
+      <tr><td><code>run: &lt;shell cmd&gt;</code></td><td>Execute a raw command on the runner</td></tr>
+      <tr><td><code>&#36;{{ secrets.NAME }}</code></td><td>Reference an encrypted secret — never written into the committed YAML</td></tr>
+      <tr><td><code>&#36;{{ github.sha }}</code></td><td>The triggering commit SHA — used as the image tag, automating "never :latest"</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 7 — Shipping It &amp; Capstone</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Concept / Command</th><th>What it does</th></tr>
+      <tr><td><code>strategy.rollingUpdate.maxUnavailable</code></td><td>Max declared replicas allowed unavailable during a rollout</td></tr>
+      <tr><td><code>strategy.rollingUpdate.maxSurge</code></td><td>Max extra Pods allowed temporarily during a rollout</td></tr>
+      <tr><td><code>livenessProbe</code></td><td>Failing this RESTARTS the container — "is it broken"</td></tr>
+      <tr><td><code>readinessProbe</code></td><td>Failing this REMOVES it from Service traffic, no restart — "is it ready right now"</td></tr>
+      <tr><td><code>kubectl rollout status deployment/X --timeout=Ns</code></td><td>Blocks until the rollout genuinely completes — the real success signal, not just a returned command</td></tr>
+      <tr><td><code>kubectl rollout undo deployment/X</code></td><td>Fast rollback — reverts to the previous ReplicaSet, kept scaled to zero</td></tr>
+      <tr><td>Four-layer map</td><td>Docker (package) &rarr; Compose (one machine) &rarr; Kubernetes (many machines, reliable) &rarr; CI/CD (automate the whole path)</td></tr>
+    </table>
+    </div>
+  </div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>buildHeader('cheat-sheet.html');</script>
+</body>
+</html>
