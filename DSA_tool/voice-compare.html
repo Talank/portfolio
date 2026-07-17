@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voice comparison — English narration</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 760px; margin: 2rem auto; padding: 0 1rem;
+         background: #0e1621; color: #e6edf3; line-height: 1.5; }
+  h1 { font-size: 1.5rem; } h2 { margin-top: 1.8rem; font-size: 1.1rem; color: #4fd1c5; }
+  .sentence { background: #16202c; border-left: 3px solid #4fd1c5; padding: .7rem 1rem; border-radius: 0 8px 8px 0; font-style: italic; }
+  .row { display: flex; align-items: center; gap: .8rem; padding: .55rem 0; border-bottom: 1px solid #223; flex-wrap: wrap; }
+  .name { min-width: 240px; font-weight: 600; }
+  .tag { font-size: .72rem; color: #8b98a5; }
+  audio { height: 34px; }
+  .rec { color: #7ee787; font-weight: 700; }
+  .note { color: #8b98a5; font-size: .85rem; }
+</style>
+</head>
+<body>
+  <h1>English narration — voice comparison</h1>
+  <p class="note">Same sentence in every voice. Tell me which number you like and I'll re-render all 100 English slides with it.</p>
+  <div class="sentence">"Picture the crowd at Asan bazaar in Kathmandu. With a hash map, you find your friend in big O of one — no searching, no waiting. That is the whole trick."</div>
+
+  <h2>Kokoro — local neural model (most natural, fully offline)</h2>
+  <p class="note">Nothing leaves your machine — generation runs locally. Generally warmer / less robotic than edge-tts.</p>
+  <div class="row"><span class="name">1. Kokoro af_heart <span class="rec">(recommended)</span></span><audio controls preload="none" src="data/english/audio/_samples/kokoro-af_heart.wav"></audio></div>
+  <div class="row"><span class="name">2. Kokoro af_bella</span><audio controls preload="none" src="data/english/audio/_samples/kokoro-af_bella.wav"></audio></div>
+  <div class="row"><span class="name">3. Kokoro af_nicole <span class="tag">(soft/ASMR-ish)</span></span><audio controls preload="none" src="data/english/audio/_samples/kokoro-af_nicole.wav"></audio></div>
+  <div class="row"><span class="name">4. Kokoro bf_emma <span class="tag">(British)</span></span><audio controls preload="none" src="data/english/audio/_samples/kokoro-bf_emma.wav"></audio></div>
+
+  <h2>edge-tts — Microsoft neural (current tab uses #5)</h2>
+  <p class="note">Text is sent to Microsoft to synthesize; MP3s then served locally.</p>
+  <div class="row"><span class="name">5. Ava <span class="tag">(current)</span></span><audio controls preload="none" src="data/english/audio/_samples/edge-en-US-AvaMultilingualNeural.mp3"></audio></div>
+  <div class="row"><span class="name">6. Emma</span><audio controls preload="none" src="data/english/audio/_samples/edge-en-US-EmmaMultilingualNeural.mp3"></audio></div>
+  <div class="row"><span class="name">7. Andrew <span class="tag">(male)</span></span><audio controls preload="none" src="data/english/audio/_samples/edge-en-US-AndrewMultilingualNeural.mp3"></audio></div>
+  <div class="row"><span class="name">8. Brian <span class="tag">(male)</span></span><audio controls preload="none" src="data/english/audio/_samples/edge-en-US-BrianMultilingualNeural.mp3"></audio></div>
+  <div class="row"><span class="name">9. Jenny</span><audio controls preload="none" src="data/english/audio/_samples/edge-en-US-JennyNeural.mp3"></audio></div>
+  <div class="row"><span class="name">10. Sonia <span class="tag">(British)</span></span><audio controls preload="none" src="data/english/audio/_samples/edge-en-GB-SoniaNeural.mp3"></audio></div>
+  <div class="row"><span class="name">11. Natasha <span class="tag">(Australian)</span></span><audio controls preload="none" src="data/english/audio/_samples/edge-en-AU-NatashaNeural.mp3"></audio></div>
+</body>
+</html>

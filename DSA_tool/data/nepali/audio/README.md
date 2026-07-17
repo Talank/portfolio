@@ -8,8 +8,13 @@ Nepali speech-synthesis voice.
 - `*.mp3` — one file per slide, named `<deck-id>-<slide-index>.mp3`.
 - `manifest.js` — `window.NEPALI_AUDIO`; maps each deck+slide to its MP3 and the
   per-sentence start times (media seconds) that drive the transcript highlight.
-  Loaded by `js/nepali-engine.js`. **Generated — do not hand-edit.**
+  Loaded by `js/presentation-engine.js`. **Generated — do not hand-edit.**
 - `manifest.json` — same data, for tooling.
+
+> The English Presentation tab has a parallel setup under `data/english/audio/`
+> (voice `en-US-AvaMultilingualNeural`). The `generate_audio.py` script is
+> identical in both dirs — it auto-detects the language from its own path and
+> picks the voice + spoken-text normalization accordingly.
 
 ## Voice
 
