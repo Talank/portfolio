@@ -11,17 +11,157 @@
 <div id="site-header"></div>
 <main class="wrap">
   <h1>Cheat Sheet</h1>
-  <p class="lede">Every model, command, and pipeline recipe from the course in one place. Grows as lessons are added.</p>
+  <p class="lede">Every model, command, and pipeline recipe from the course in one place. Not a substitute for the lessons — a fast recall aid once you've done the labs. Organized in the same order as the dashboard.</p>
 
   <div class="card">
     <h2 style="margin-top:0;">Part 0 — The Product & the Plan</h2>
+    <div class="cmp-wrap">
     <table class="cmp">
       <tr><th>Thing</th><th>What it is</th></tr>
       <tr><td>DenDen Studio</td><td>The capstone app: voice sample + picture + description → animated talking video</td></tr>
       <tr><td>Ollama</td><td>Local LLM runtime — pull, run, and serve open models with one command</td></tr>
-      <tr><td>Hugging Face Hub</td><td>The open-model registry — weights, model cards, licenses, <code>transformers</code> integration</td></tr>
+      <tr><td>Hugging Face Hub</td><td><code>transformers</code> + model registry — weights, model cards, licenses</td></tr>
+      <tr><td>Tutorial-only repo</td><td>The course teaches; it never ships app code, model weights, or media assets</td></tr>
+      <tr><td>The plan document</td><td>The one schema shared across director, executor, frontend, and cache keys — the thread through every later Part</td></tr>
     </table>
-    <p style="color:var(--text-dim); font-size:0.9rem;">Tables for the remaining Parts are filled in as their lessons are written.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 1 — Local LLM Core Skills</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Thing</th><th>What it is</th></tr>
+      <tr><td><code>ollama pull model:tag</code></td><td>Download a model — always pin the FULL tag, never <code>latest</code></td></tr>
+      <tr><td><code>ollama run</code> / <code>ollama serve</code></td><td>Interactive chat / the local HTTP API other code calls</td></tr>
+      <tr><td>GGUF quantization (Q4_K_M, Q5_K_M, Q8_0…)</td><td>Fewer bits per weight → less VRAM, some quality loss; K-quants vary bits by layer importance</td></tr>
+      <tr><td>Temperature 0</td><td>Deterministic, reproducible output — the default for structured/tool-calling requests</td></tr>
+      <tr><td>Constrained decoding / JSON schema</td><td>The decoder can only emit tokens that keep the output schema-valid — invalid shapes are unpickable, not just discouraged</td></tr>
+      <tr><td>Tool-calling loop</td><td>Model emits a tool call → your code runs it → result appended as a message → repeat, capped by an iteration limit</td></tr>
+      <tr><td>Registry-checked arguments</td><td>Never trust a tool argument blindly — validate against the real enum/registry before executing</td></tr>
+      <tr><td>Vision encoder → LLM token space</td><td>How a VLM "sees": an image becomes patch embeddings projected into the same space as text tokens</td></tr>
+      <tr><td>Jurisdiction rule</td><td>VLM handles semantics (what/who), a deterministic detector handles geometry (exact coordinates) — never let one guess the other's domain</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 2 — Voice: TTS, Cloning & Swapping</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Thing</th><th>What it is</th></tr>
+      <tr><td>Two-stage TTS</td><td>Acoustic model (text → mel spectrogram) → vocoder (mel → waveform)</td></tr>
+      <tr><td>Piper</td><td>Fast, lightweight, fully open-license TTS — good default for commercial use</td></tr>
+      <tr><td>XTTS</td><td>High-quality zero-shot voice cloning — CPML license, non-commercial by default, check terms</td></tr>
+      <tr><td>Bark</td><td>Expressive, non-verbal-sound-capable TTS; higher compute cost</td></tr>
+      <tr><td>Vocoder family</td><td>Griffin-Lim (classical, artifacty) → WaveNet → HiFi-GAN-class parallel neural vocoders (fast, high quality)</td></tr>
+      <tr><td>Speaker embedding</td><td>A fixed-length vector capturing "what this voice sounds like," used to condition zero-shot cloning</td></tr>
+      <tr><td>Consent registry</td><td><code>VOICES[voice_id]</code> — the one gate every synthesis call must pass; checked fresh, never cached</td></tr>
+      <tr><td>Whisper / faster-whisper</td><td>Open speech-to-text with word-level timestamps; an encoder-decoder seq2seq model</td></tr>
+      <tr><td>VAD (voice activity detection)</td><td>Gates STT input to real speech spans — prevents Whisper's hallucination-on-silence failure mode</td></tr>
+      <tr><td>RVC-class voice conversion</td><td>Disentangles content (HuBERT features) from pitch (F0) from timbre — swaps timbre only, direct audio-to-audio</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 3 — Making Pictures Talk</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Thing</th><th>What it is</th></tr>
+      <tr><td>Wav2Lip-class</td><td>Inpainting family: repaints the mouth region onto an existing frame, audio-driven</td></tr>
+      <tr><td>SadTalker-class</td><td>Coefficient-driven: predicts 3D Morphable Model coefficients from audio, renders the full face</td></tr>
+      <tr><td>LivePortrait-class</td><td>Motion-transfer family: drives a still image with motion extracted from a driving video</td></tr>
+      <tr><td>SyncNet-class discriminator</td><td>Contrastive audio-visual matching used to train/score lip-sync accuracy</td></tr>
+      <tr><td>Aliveness layer</td><td>Blinks, drift, breathing, emphasis — the idle-channel details that keep a talking head from looking dead</td></tr>
+      <tr><td>Gesture library</td><td>Parametric, reusable motion templates for named actions (wave, nod, lean-in)</td></tr>
+      <tr><td>AnimateDiff/SVD-class diffusion</td><td>Generative video diffusion for ambient/atmospheric motion a fixed template can't express</td></tr>
+      <tr><td>Hybrid decomposition</td><td>Route subject actions to the gesture library, ambient motion to diffusion; composite at render time</td></tr>
+      <tr><td>Audio is the clock</td><td>In live/realtime sync, video always adapts to audio timing, never the reverse</td></tr>
+      <tr><td>Degradation ladder</td><td>A pre-agreed, ordered list of quality cuts (resolution, fps, model size) to hold latency budget under load</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 4 — The Editing UX</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Thing</th><th>What it is</th></tr>
+      <tr><td>Two-layer timeline</td><td>Dense generated base layer + sparse editable delta/edit-list layer, composited at render time</td></tr>
+      <tr><td>Edit list</td><td>An ordered, toggleable log of deltas — what makes undo and non-destructive editing possible</td></tr>
+      <tr><td>Motion path</td><td>A parametric Bézier curve; watch the arc-length reparameterization trap (raw parameter ≠ constant speed)</td></tr>
+      <tr><td>Coordinate transform stack</td><td>screen → canvas → video-frame → domain, each step a possible bug (inverted-Y, unscaled devicePixelRatio)</td></tr>
+      <tr><td>Direct-manipulation contract</td><td>Visible = grabbable, &lt;100ms feedback, constraints enforced live during drag, one commit per release</td></tr>
+      <tr><td>Edit-tool registry</td><td>The fixed set of named tools (adjust_clip, add_gesture, toggle_edit…) an LLM edit request may call — nothing outside it</td></tr>
+      <tr><td>Ambiguity resolution ladder</td><td>explicit reference &gt; current selection &gt; recency &gt; uniqueness, in that priority order</td></tr>
+      <tr><td>Echo/preview/revert loop</td><td>Every NL edit states plainly what it did before committing — the trust mechanism for language-driven edits</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 5 — Pipeline Engineering</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Thing</th><th>What it is</th></tr>
+      <tr><td><code>ffprobe</code></td><td>Inspect a media file's duration, streams, codecs without decoding it</td></tr>
+      <tr><td><code>ffmpeg -i in -map ... out</code></td><td>Deterministic glue: extract, normalize, mux, caption-burn, concat</td></tr>
+      <tr><td>Content-addressed cache key</td><td>SHA-256 hash of canonicalized stage inputs — identical inputs anywhere hit the same cached output</td></tr>
+      <tr><td>Cascade invalidation</td><td>A changed upstream hash automatically changes every downstream key that depends on it — no manual bookkeeping</td></tr>
+      <tr><td>Atomic artifact write</td><td>Write to a temp path, rename on success — a crash mid-write never leaves a corrupt "finished" artifact</td></tr>
+      <tr><td>The plan schema</td><td>voice + stages + gestures + ambient + params + unmatched, as one constrained document the director emits</td></tr>
+      <tr><td>Reject vs. repair</td><td>Encoding mistakes get repaired (bounded loop); policy violations (unauthorized voice) get rejected outright, never repaired</td></tr>
+      <tr><td>Plan boldly, pay marginally</td><td>The director always emits a complete plan; content-keyed caching means unchanged stages cost nothing to re-plan</td></tr>
+      <tr><td>Bounded replanning</td><td>Alternative plans on failure, no repeated plan hashes, hard cap (e.g. 2) before escalating to a human</td></tr>
+      <tr><td>VRAM residency: max, not sum</td><td>Sequential batch stages need only the PEAK single-stage footprint; co-resident live-mode stages need the SUM</td></tr>
+      <tr><td>K-quants / AWQ / GPTQ</td><td>Block quantization / importance-aware quantization — quality cost varies sharply by model type (diffusion tolerates least)</td></tr>
+      <tr><td>Golden-set gating</td><td>Every quant/model swap is validated against a fixed golden set before it becomes default — never eyeballed once and shipped</td></tr>
+      <tr><td>Cost-per-MB eviction</td><td>Cache eviction ranks by remake cost per MB freed, with pins for protected entries — not plain LRU</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 6 — Shipping It</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Thing</th><th>What it is</th></tr>
+      <tr><td>Content-hash upload</td><td>Verify magic bytes (not extension/content-type), hash at the door — the same hash the cache keys on</td></tr>
+      <tr><td>Resumable/chunked upload</td><td>Offset-tagged chunks; reconnect resumes from the last acked offset instead of byte zero</td></tr>
+      <tr><td>202 Accepted</td><td>Job creation returns instantly with a job_id — the response is a receipt, not a result</td></tr>
+      <tr><td>Idempotency-Key header</td><td>Client-generated key on submission; a retried request with a matching plan hash returns the SAME job, no duplicate work</td></tr>
+      <tr><td>SSE (Server-Sent Events)</td><td>One-directional progress stream over plain HTTP — chosen over WebSockets (no duplex need) and polling (no interval to tune)</td></tr>
+      <tr><td>Last-Event-ID</td><td>Browser resends this on reconnect; server replays only the buffered gap, then continues live — no missed or duplicate events</td></tr>
+      <tr><td>Error envelope <code>retryable</code> field</td><td>Explicit signal for retry-with-backoff vs. show-and-stop, instead of inferring policy from status codes</td></tr>
+      <tr><td>One source of truth (frontend)</td><td>One plan object in memory; every panel (timeline, preview, cost) is a pure view of a slice of it</td></tr>
+      <tr><td>Optimistic vs. pessimistic UI</td><td>Optimistic for locally-verifiable edits (drag); pessimistic/wait for anything the UI can't predict (NL edit)</td></tr>
+      <tr><td>Scoped, revocable consent grant</td><td>Personal/commercial/project scope + expiry + revoked flag — checked fresh on every generation, never cached</td></tr>
+      <tr><td>Provenance manifest</td><td>Signed, tamper-evident record of what generated an asset — embedded AT generation time, never bolted on after</td></tr>
+      <tr><td>In-media watermark</td><td>Redundant to metadata — survives re-encoding/compression that strips sidecar metadata outright</td></tr>
+      <tr><td>Misuse review queue</td><td>Public-figure name matches + volume anomalies route to a human — narrow hard-block list, everything else reviewed, not auto-rejected</td></tr>
+      <tr><td>Audit trail minimization</td><td>Keep grant id + content hash + decision; skip raw scripts/media and unneeded fingerprinting by default</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 7 — Evaluation & Capstone</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Thing</th><th>What it is</th></tr>
+      <tr><td>Proxy metric</td><td>Cheap, automated, runs on every render (sync offset, no-reference audio/frame quality) — measures ONLY what it was built to measure</td></tr>
+      <tr><td>Sync offset</td><td>Cross-correlate audio envelope vs. mouth-motion signal; the offset with peak correlation is the measured lag</td></tr>
+      <tr><td>No-reference quality score</td><td>A small model predicting human-perceived quality with no "correct" reference to diff against</td></tr>
+      <tr><td>Golden-set regression harness</td><td>Fixed, deliberately varied inputs (angles, tones, voice types) run through every model/config change, diffed per-input against baseline</td></tr>
+      <tr><td>Borderline routing</td><td>Values just inside a pass threshold route to human review too — "barely passed" is as untrustworthy as "barely failed"</td></tr>
+      <tr><td>Stratified human sampling</td><td>100% of borderline/new-version renders + a small random baseline slice of clean ones, scored against a fixed rubric</td></tr>
+      <tr><td>The automation ceiling</td><td>"Does this look natural" is semantic judgment, not a geometric measurement — no proxy metric closes that gap</td></tr>
+      <tr><td>Minimum viable capstone slice</td><td>One model per stage, but the COMPLETE director → validate → execute → cache loop — narrow models, full architecture</td></tr>
+      <tr><td>Build order</td><td>Sequence by what unblocks the most downstream work (caching/queue first, plan schema next) — not by what's easiest or most exciting</td></tr>
+      <tr><td>The five recurring invariants</td><td>Jurisdiction, content-addressed caching, propose-never-execute, reject-vs-repair, scoped consent — reasserted at every layer on purpose</td></tr>
+    </table>
+    </div>
   </div>
 </main>
 <script src="data/schedule.js"></script>

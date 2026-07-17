@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn — Talank Baral</title>
+<meta name="description" content="Local, static, zero-dependency courses: Linux, Emacs, AI Video, Full-Stack Java, AI Engineering, DSA interview prep.">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-panel: #151b23;
+    --bg-panel-2: #1c2430;
+    --border: #2d3646;
+    --text: #dbe2ef;
+    --text-dim: #8b98ac;
+    --accent: #4fd1c5;
+    --accent-2: #f6ad55;
+    --good: #68d391;
+    --warn: #f6ad55;
+    --radius: 10px;
+    --maxw: 1080px;
+    font-size: 16px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+
+  header.site {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .bar {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 1rem 1.25rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-weight: 700; font-size: 1.1rem; color: var(--text); }
+  .brand span { color: var(--accent); }
+  .bar a.back { color: var(--text-dim); font-size: 0.9rem; }
+  .bar a.back:hover { color: var(--text); }
+
+  h1 { font-size: 2rem; margin: 0 0 0.5rem; }
+  p.lede { color: var(--text-dim); max-width: 760px; margin: 0 0 1rem; }
+  p.lede b { color: var(--text); }
+
+  .stats-row {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    margin: 1.5rem 0 2rem;
+    padding: 1rem 1.25rem;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .stat { display: flex; flex-direction: column; }
+  .stat .n { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+  .stat .l { font-size: 0.8rem; color: var(--text-dim); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.1rem;
+  }
+  .card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.35rem;
+    display: flex; flex-direction: column;
+    transition: border-color 0.15s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+  .card h2 { margin: 0; font-size: 1.15rem; color: var(--text); }
+  .badge {
+    font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 0.2rem 0.55rem; border-radius: 999px;
+    white-space: nowrap;
+  }
+  .badge.done { background: rgba(104,211,145,0.15); color: var(--good); border: 1px solid rgba(104,211,145,0.35); }
+  .badge.progress { background: rgba(246,173,85,0.15); color: var(--warn); border: 1px solid rgba(246,173,85,0.35); }
+  .badge.soon { background: rgba(139,152,172,0.12); color: var(--text-dim); border: 1px solid var(--border); }
+
+  .card p.desc {
+    color: var(--text-dim); font-size: 0.88rem;
+    margin: 0.6rem 0 0.9rem;
+    flex-grow: 1;
+  }
+  .card .meta {
+    display: flex; gap: 1rem; font-size: 0.78rem; color: var(--text-dim);
+    margin-bottom: 0.8rem;
+  }
+  .progress-outer {
+    height: 6px; border-radius: 999px; background: var(--bg-panel-2);
+    overflow: hidden; margin-bottom: 0.9rem;
+  }
+  .progress-inner { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
+  .progress-label { font-size: 0.75rem; color: var(--text-dim); margin: -0.6rem 0 0.9rem; }
+
+  .card a.go {
+    display: inline-block; text-align: center;
+    padding: 0.55rem 0.9rem;
+    background: var(--bg-panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.9rem; font-weight: 600;
+  }
+  .card a.go:hover { background: var(--accent); color: #0d1117; border-color: var(--accent); text-decoration: none; }
+
+  .card.soon { opacity: 0.6; }
+  .card.soon a.go { pointer-events: none; background: transparent; color: var(--text-dim); border-style: dashed; }
+
+  footer.site {
+    margin-top: 3rem; padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim); font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="bar">
+    <div class="brand">Talank Baral <span>/ Learn</span></div>
+    <a class="back" href="../index.html">&larr; talankbaral.com</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Learn</h1>
+  <p class="lede">Six <b>local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices.</p>
+
+  <div class="stats-row" id="statsRow">
+    <div class="stat"><span class="n">6</span><span class="l">courses</span></div>
+    <div class="stat"><span class="n">178</span><span class="l">lessons</span></div>
+    <div class="stat"><span class="n">~126h</span><span class="l">total content</span></div>
+    <div class="stat"><span class="n" id="overallPct">0%</span><span class="l">your progress</span></div>
+  </div>
+
+  <div class="grid" id="courseGrid"></div>
+
+  <footer class="site">
+    <p>A CI/CD &amp; Docker/Kubernetes course — the natural sequel to Linux — is planned next, picking up from the container bridge lesson at the end of the Linux course. Not started yet.</p>
+  </footer>
+</main>
+<script>
+  const COURSES = [
+    {
+      dir: '../linux_course/', title: 'Linux Course',
+      desc: 'The filesystem, permissions, processes & services, text processing & regex, bash scripting, networking & SSH, and package management — genuinely comfortable on a Linux box.',
+      lessons: 26, hours: 17, status: 'done', progressKey: 'linux-progress-v1',
+    },
+    {
+      dir: '../emacs_course/', title: 'Emacs Course',
+      desc: 'From "never opened Emacs" to daily-driving it: buffers, the kill ring, your own init.el, use-package, major/minor modes, Org mode, project navigation, Magit, and TRAMP.',
+      lessons: 22, hours: 13, status: 'done', progressKey: 'emacs-progress-v1',
+    },
+    {
+      dir: '../ai_video_course/', title: 'AI Video Course',
+      desc: 'Build an LLM-powered content-creation app end to end — the capstone, DenDen Studio, turns a photo, a voice sample, and a description into an animated talking video. Open-source models only.',
+      lessons: 22, hours: 14, status: 'done', progressKey: 'aivideo-progress-v1',
+    },
+    {
+      dir: '../full_stack_java/', title: 'Full-Stack Java Course',
+      desc: 'The JVM, collections, modern Java, concurrency, Maven, testing, PostgreSQL, Spring, frontend, JavaFX, and cross-platform apps — converging on a capstone research-log manager, LogPose.',
+      lessons: 51, lessonsBuilt: 50, hours: 43, status: 'progress', progressKey: 'java-progress-v1',
+    },
+    {
+      dir: '../AI_course/', title: 'AI Engineer Course',
+      desc: 'From "what even is a vector" through training, fine-tuning, and deploying LLMs, to building multi-framework agents — the real math, the real code, zero filler.',
+      lessons: 40, lessonsBuilt: 39, hours: 34, status: 'progress', progressKey: 'ai-progress-v1',
+    },
+    {
+      dir: '../DSA_tool/', title: 'DSA Crash Course',
+      desc: 'The ~19 patterns that generalize to almost all Google/Meta/Microsoft/Amazon-style coding interview questions, each with a walkthrough, real variants, and a timed mock interview drill.',
+      lessons: 20, lessonsBuilt: 19, hours: 4.5, status: 'progress', progressKey: 'dsa-progress-v1',
+    },
+  ];
+
+  function readProgress(key) {
+    try {
+      const obj = JSON.parse(localStorage.getItem(key) || '{}');
+      return Object.values(obj).filter(Boolean).length;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  function render() {
+    const grid = document.getElementById('courseGrid');
+    let totalLessons = 0, totalDone = 0;
+
+    grid.innerHTML = COURSES.map(c => {
+      const built = c.lessonsBuilt || c.lessons;
+      const done = readProgress(c.progressKey);
+      const pct = built > 0 ? Math.round((Math.min(done, built) / built) * 100) : 0;
+      totalLessons += built;
+      totalDone += Math.min(done, built);
+
+      const badge = c.status === 'done'
+        ? `<span class="badge done">Complete</span>`
+        : `<span class="badge progress">${built}/${c.lessons} lessons</span>`;
+
+      return `
+        <div class="card">
+          <div class="card-top">
+            <h2>${c.title}</h2>
+            ${badge}
+          </div>
+          <p class="desc">${c.desc}</p>
+          <div class="meta">
+            <span>${built} lessons</span>
+            <span>~${c.hours}h</span>
+          </div>
+          <div class="progress-outer"><div class="progress-inner" style="width:${pct}%"></div></div>
+          <p class="progress-label">${done > 0 ? pct + '% complete (' + Math.min(done, built) + '/' + built + ')' : 'Not started'}</p>
+          <a class="go" href="${c.dir}index.html">${done > 0 ? 'Continue' : 'Start'}</a>
+        </div>`;
+    }).join('') + `
+        <div class="card soon">
+          <div class="card-top">
+            <h2>CI/CD &amp; Docker/Kubernetes</h2>
+            <span class="badge soon">Coming soon</span>
+          </div>
+          <p class="desc">Containers, Docker, Kubernetes, and CI/CD pipelines — the direct sequel to the Linux course's closing bridge lesson on namespaces and cgroups.</p>
+          <div class="meta"><span>Not started</span></div>
+          <div class="progress-outer"><div class="progress-inner" style="width:0%"></div></div>
+          <p class="progress-label">Not started</p>
+          <a class="go" href="#">Planned</a>
+        </div>`;
+
+    const overallPct = totalLessons > 0 ? Math.round((totalDone / totalLessons) * 100) : 0;
+    document.getElementById('overallPct').textContent = overallPct + '%';
+  }
+
+  render();
+</script>
+</body>
+</html>
