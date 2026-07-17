@@ -527,6 +527,82 @@ footer.pagenav {
 .sa-controls button:hover { border-color: var(--accent); color: var(--accent); }
 .sa-controls .step-count { color: var(--text-dim); font-size: 0.78rem; }
 
+/* ---- नेपाली Presentation (narrated slide decks) ---- */
+.np-stage {
+  background: linear-gradient(180deg, #0d1b2a, #10263b);
+  border: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 1.4rem 1.7rem 1.6rem;
+  min-height: 280px;
+}
+.np-count { color: var(--text-dim); font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.np-slide-heading { margin: 0.35rem 0 0.8rem; font-size: 1.45rem; }
+.np-slide ul { margin: 0.5rem 0 0.5rem 1.2rem; padding: 0; }
+.np-slide li { margin: 0.45rem 0; }
+.np-big {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--accent-2);
+  line-height: 1.55;
+  margin: 0.7rem 0 0.9rem;
+}
+.np-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 0.65rem 0.8rem;
+}
+.np-controls button:not(.btn) {
+  background: var(--bg-panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.np-controls button:not(.btn):hover:not([disabled]) { border-color: var(--accent); color: var(--accent); }
+.np-controls button[disabled] { opacity: 0.4; cursor: default; }
+.np-flex { flex: 1; }
+.np-opt { display: flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: var(--text-dim); }
+.np-opt select {
+  max-width: 200px;
+  background: var(--bg-panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.8rem;
+}
+.np-opt input[type="range"] { width: 90px; accent-color: var(--accent); }
+.np-transcript {
+  margin-top: 1rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 0.8rem 1rem;
+  font-size: 1.02rem;
+  line-height: 1.9;
+}
+.np-transcript .np-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  margin-bottom: 0.45rem;
+  font-weight: 700;
+}
+.np-chunk { color: var(--text-dim); transition: color 0.25s, background 0.25s; border-radius: 4px; }
+.np-chunk.np-said { color: var(--text); }
+.np-chunk.np-now { color: #fff; background: rgba(79, 209, 197, 0.16); box-shadow: 0 0 0 3px rgba(79, 209, 197, 0.16); }
+.module-card .mc-meta.np-ne { color: var(--accent-2); }
+
 /* ---- Episodes (cinematic scenes: dialogue + music/sfx) ---- */
 .ep-stage {
   position: relative;
