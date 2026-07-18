@@ -1,0 +1,3801 @@
+{
+ "voices": {
+  "luffy": {
+   "voice": "en-US-GuyNeural",
+   "rate": "+13%",
+   "pitch": "+12Hz"
+  },
+  "nami": {
+   "voice": "en-US-JennyNeural",
+   "rate": "+4%",
+   "pitch": "+9Hz"
+  },
+  "usopp": {
+   "voice": "en-US-BrianNeural",
+   "rate": "+7%",
+   "pitch": "+22Hz"
+  },
+  "zoro": {
+   "voice": "en-US-ChristopherNeural",
+   "rate": "-5%",
+   "pitch": "-12Hz"
+  },
+  "robin": {
+   "voice": "en-GB-SoniaNeural",
+   "rate": "-8%",
+   "pitch": "-5Hz"
+  },
+  "chopper": {
+   "voice": "en-US-AnaNeural",
+   "rate": "+6%",
+   "pitch": "+0Hz"
+  },
+  "brook": {
+   "voice": "en-GB-ThomasNeural",
+   "rate": "-3%",
+   "pitch": "-14Hz"
+  }
+ },
+ "decks": {
+  "two-sum": [
+   {
+    "file": "two-sum-0.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.262
+   },
+   {
+    "file": "two-sum-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.37
+   },
+   {
+    "file": "two-sum-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.073
+   },
+   {
+    "file": "two-sum-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.299
+   },
+   {
+    "file": "two-sum-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.348
+   },
+   {
+    "file": "two-sum-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.212
+   },
+   {
+    "file": "two-sum-6.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 8.438
+   },
+   {
+    "file": "two-sum-7.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 5.907
+   },
+   {
+    "file": "two-sum-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.812
+   }
+  ],
+  "two-sum-ii": [
+   {
+    "file": "two-sum-ii-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 9.626
+   },
+   {
+    "file": "two-sum-ii-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 8.894
+   },
+   {
+    "file": "two-sum-ii-2.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.325
+   },
+   {
+    "file": "two-sum-ii-3.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 4.077
+   },
+   {
+    "file": "two-sum-ii-4.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 5.841
+   },
+   {
+    "file": "two-sum-ii-5.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 5.993
+   },
+   {
+    "file": "two-sum-ii-6.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.091
+   },
+   {
+    "file": "two-sum-ii-7.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 10.199
+   }
+  ],
+  "longest-substring": [
+   {
+    "file": "longest-substring-0.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 10.013
+   },
+   {
+    "file": "longest-substring-1.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 12.771
+   },
+   {
+    "file": "longest-substring-2.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 4.625
+   },
+   {
+    "file": "longest-substring-3.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 8.415
+   },
+   {
+    "file": "longest-substring-4.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 6.453
+   },
+   {
+    "file": "longest-substring-5.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 11.274
+   },
+   {
+    "file": "longest-substring-6.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 7.821
+   },
+   {
+    "file": "longest-substring-7.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 10.401
+   }
+  ],
+  "linked-list-cycle": [
+   {
+    "file": "linked-list-cycle-0.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 8.894
+   },
+   {
+    "file": "linked-list-cycle-1.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 16.922
+   },
+   {
+    "file": "linked-list-cycle-2.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 5.442
+   },
+   {
+    "file": "linked-list-cycle-3.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 12.075
+   },
+   {
+    "file": "linked-list-cycle-4.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 8.02
+   },
+   {
+    "file": "linked-list-cycle-5.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 13.443
+   },
+   {
+    "file": "linked-list-cycle-6.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.666
+   }
+  ],
+  "merge-intervals-ep": [
+   {
+    "file": "merge-intervals-ep-0.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 13.947
+   },
+   {
+    "file": "merge-intervals-ep-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 3.079
+   },
+   {
+    "file": "merge-intervals-ep-2.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 11.346
+   },
+   {
+    "file": "merge-intervals-ep-3.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 6.855
+   },
+   {
+    "file": "merge-intervals-ep-4.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 6.839
+   },
+   {
+    "file": "merge-intervals-ep-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.685
+   },
+   {
+    "file": "merge-intervals-ep-6.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 11.5
+   }
+  ],
+  "search-rotated-sorted-array": [
+   {
+    "file": "search-rotated-sorted-array-0.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.022
+   },
+   {
+    "file": "search-rotated-sorted-array-1.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 3.59
+   },
+   {
+    "file": "search-rotated-sorted-array-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 4.728
+   },
+   {
+    "file": "search-rotated-sorted-array-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 16.236
+   },
+   {
+    "file": "search-rotated-sorted-array-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.231
+   },
+   {
+    "file": "search-rotated-sorted-array-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.372
+   },
+   {
+    "file": "search-rotated-sorted-array-6.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 5.177
+   },
+   {
+    "file": "search-rotated-sorted-array-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.307
+   }
+  ],
+  "daily-temperatures": [
+   {
+    "file": "daily-temperatures-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 14.416
+   },
+   {
+    "file": "daily-temperatures-1.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 6.53
+   },
+   {
+    "file": "daily-temperatures-2.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 12.255
+   },
+   {
+    "file": "daily-temperatures-3.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 7.384
+   },
+   {
+    "file": "daily-temperatures-4.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 3.623
+   },
+   {
+    "file": "daily-temperatures-5.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 10.093
+   },
+   {
+    "file": "daily-temperatures-6.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 8.084
+   },
+   {
+    "file": "daily-temperatures-7.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 15.619
+   },
+   {
+    "file": "daily-temperatures-8.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 14.019
+   },
+   {
+    "file": "daily-temperatures-9.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 8.341
+   },
+   {
+    "file": "daily-temperatures-10.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 16.063
+   },
+   {
+    "file": "daily-temperatures-11.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 6.156
+   }
+  ],
+  "next-greater-element-ii": [
+   {
+    "file": "next-greater-element-ii-0.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 20.425
+   },
+   {
+    "file": "next-greater-element-ii-1.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.223
+   },
+   {
+    "file": "next-greater-element-ii-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.595
+   },
+   {
+    "file": "next-greater-element-ii-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.152
+   },
+   {
+    "file": "next-greater-element-ii-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 4.864
+   },
+   {
+    "file": "next-greater-element-ii-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.823
+   },
+   {
+    "file": "next-greater-element-ii-6.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 11.899
+   },
+   {
+    "file": "next-greater-element-ii-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 17.391
+   },
+   {
+    "file": "next-greater-element-ii-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 15.87
+   },
+   {
+    "file": "next-greater-element-ii-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 5.603
+   }
+  ],
+  "largest-rectangle-histogram": [
+   {
+    "file": "largest-rectangle-histogram-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 18.027
+   },
+   {
+    "file": "largest-rectangle-histogram-1.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 6.733
+   },
+   {
+    "file": "largest-rectangle-histogram-2.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 18.491
+   },
+   {
+    "file": "largest-rectangle-histogram-3.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 8.856
+   },
+   {
+    "file": "largest-rectangle-histogram-4.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 9.08
+   },
+   {
+    "file": "largest-rectangle-histogram-5.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 24.41
+   },
+   {
+    "file": "largest-rectangle-histogram-6.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 7.83
+   },
+   {
+    "file": "largest-rectangle-histogram-7.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 8.516
+   },
+   {
+    "file": "largest-rectangle-histogram-8.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 24.163
+   },
+   {
+    "file": "largest-rectangle-histogram-9.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 15.829
+   }
+  ],
+  "online-stock-span": [
+   {
+    "file": "online-stock-span-0.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 15.709
+   },
+   {
+    "file": "online-stock-span-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.776
+   },
+   {
+    "file": "online-stock-span-2.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 8.594
+   },
+   {
+    "file": "online-stock-span-3.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 2.395
+   },
+   {
+    "file": "online-stock-span-4.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.589
+   },
+   {
+    "file": "online-stock-span-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 16.478
+   },
+   {
+    "file": "online-stock-span-6.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 8.786
+   },
+   {
+    "file": "online-stock-span-7.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 21.863
+   },
+   {
+    "file": "online-stock-span-8.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 23.185
+   },
+   {
+    "file": "online-stock-span-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 6.515
+   }
+  ],
+  "range-sum-query-immutable": [
+   {
+    "file": "range-sum-query-immutable-0.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.154
+   },
+   {
+    "file": "range-sum-query-immutable-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 12.139
+   },
+   {
+    "file": "range-sum-query-immutable-2.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.974
+   },
+   {
+    "file": "range-sum-query-immutable-3.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 15.18
+   },
+   {
+    "file": "range-sum-query-immutable-4.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 14.832
+   },
+   {
+    "file": "range-sum-query-immutable-5.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 2.594
+   },
+   {
+    "file": "range-sum-query-immutable-6.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 11.755
+   },
+   {
+    "file": "range-sum-query-immutable-7.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.331
+   }
+  ],
+  "subarray-sum-equals-k": [
+   {
+    "file": "subarray-sum-equals-k-0.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.397
+   },
+   {
+    "file": "subarray-sum-equals-k-1.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.582
+   },
+   {
+    "file": "subarray-sum-equals-k-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.728
+   },
+   {
+    "file": "subarray-sum-equals-k-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 18.043
+   },
+   {
+    "file": "subarray-sum-equals-k-4.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 6.215
+   },
+   {
+    "file": "subarray-sum-equals-k-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.972
+   },
+   {
+    "file": "subarray-sum-equals-k-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 16.073
+   },
+   {
+    "file": "subarray-sum-equals-k-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.704
+   },
+   {
+    "file": "subarray-sum-equals-k-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 18.75
+   },
+   {
+    "file": "subarray-sum-equals-k-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.296
+   }
+  ],
+  "continuous-subarray-sum": [
+   {
+    "file": "continuous-subarray-sum-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 13.715
+   },
+   {
+    "file": "continuous-subarray-sum-1.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 15.374
+   },
+   {
+    "file": "continuous-subarray-sum-2.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 14.93
+   },
+   {
+    "file": "continuous-subarray-sum-3.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 15.502
+   },
+   {
+    "file": "continuous-subarray-sum-4.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 6.12
+   },
+   {
+    "file": "continuous-subarray-sum-5.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 9.498
+   },
+   {
+    "file": "continuous-subarray-sum-6.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 17.804
+   },
+   {
+    "file": "continuous-subarray-sum-7.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 9.489
+   }
+  ],
+  "product-of-array-except-self": [
+   {
+    "file": "product-of-array-except-self-0.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.09
+   },
+   {
+    "file": "product-of-array-except-self-1.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 5.974
+   },
+   {
+    "file": "product-of-array-except-self-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.09
+   },
+   {
+    "file": "product-of-array-except-self-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 15.214
+   },
+   {
+    "file": "product-of-array-except-self-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.44
+   },
+   {
+    "file": "product-of-array-except-self-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.486
+   },
+   {
+    "file": "product-of-array-except-self-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.75
+   },
+   {
+    "file": "product-of-array-except-self-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.413
+   },
+   {
+    "file": "product-of-array-except-self-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.081
+   },
+   {
+    "file": "product-of-array-except-self-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.533
+   },
+   {
+    "file": "product-of-array-except-self-10.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 9.447
+   }
+  ],
+  "reverse-linked-list": [
+   {
+    "file": "reverse-linked-list-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 9.907
+   },
+   {
+    "file": "reverse-linked-list-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 14.063
+   },
+   {
+    "file": "reverse-linked-list-2.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 4.974
+   },
+   {
+    "file": "reverse-linked-list-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 22.826
+   },
+   {
+    "file": "reverse-linked-list-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.847
+   },
+   {
+    "file": "reverse-linked-list-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.885
+   },
+   {
+    "file": "reverse-linked-list-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 15.421
+   },
+   {
+    "file": "reverse-linked-list-7.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.666
+   },
+   {
+    "file": "reverse-linked-list-8.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 5.303
+   }
+  ],
+  "reverse-linked-list-ii": [
+   {
+    "file": "reverse-linked-list-ii-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 11.671
+   },
+   {
+    "file": "reverse-linked-list-ii-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 6.997
+   },
+   {
+    "file": "reverse-linked-list-ii-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.152
+   },
+   {
+    "file": "reverse-linked-list-ii-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.524
+   },
+   {
+    "file": "reverse-linked-list-ii-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.885
+   },
+   {
+    "file": "reverse-linked-list-ii-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.046
+   },
+   {
+    "file": "reverse-linked-list-ii-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.13
+   },
+   {
+    "file": "reverse-linked-list-ii-7.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 4.885
+   },
+   {
+    "file": "reverse-linked-list-ii-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.196
+   },
+   {
+    "file": "reverse-linked-list-ii-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.11
+   }
+  ],
+  "swap-nodes-in-pairs": [
+   {
+    "file": "swap-nodes-in-pairs-0.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 9.889
+   },
+   {
+    "file": "swap-nodes-in-pairs-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.313
+   },
+   {
+    "file": "swap-nodes-in-pairs-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 15.516
+   },
+   {
+    "file": "swap-nodes-in-pairs-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.261
+   },
+   {
+    "file": "swap-nodes-in-pairs-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.12
+   },
+   {
+    "file": "swap-nodes-in-pairs-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.288
+   },
+   {
+    "file": "swap-nodes-in-pairs-6.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 6.288
+   },
+   {
+    "file": "swap-nodes-in-pairs-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.081
+   },
+   {
+    "file": "swap-nodes-in-pairs-8.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 4.526
+   }
+  ],
+  "sliding-window-maximum": [
+   {
+    "file": "sliding-window-maximum-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 17.161
+   },
+   {
+    "file": "sliding-window-maximum-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 12.2
+   },
+   {
+    "file": "sliding-window-maximum-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 25.476
+   },
+   {
+    "file": "sliding-window-maximum-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.155
+   },
+   {
+    "file": "sliding-window-maximum-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.538
+   },
+   {
+    "file": "sliding-window-maximum-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 16.386
+   },
+   {
+    "file": "sliding-window-maximum-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 15.258
+   },
+   {
+    "file": "sliding-window-maximum-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.111
+   },
+   {
+    "file": "sliding-window-maximum-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.815
+   },
+   {
+    "file": "sliding-window-maximum-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.315
+   },
+   {
+    "file": "sliding-window-maximum-10.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.141
+   },
+   {
+    "file": "sliding-window-maximum-11.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.832
+   },
+   {
+    "file": "sliding-window-maximum-12.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 8.208
+   }
+  ],
+  "moving-average-from-data-stream": [
+   {
+    "file": "moving-average-from-data-stream-0.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 12.571
+   },
+   {
+    "file": "moving-average-from-data-stream-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 9.425
+   },
+   {
+    "file": "moving-average-from-data-stream-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 17.008
+   },
+   {
+    "file": "moving-average-from-data-stream-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.804
+   },
+   {
+    "file": "moving-average-from-data-stream-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.312
+   },
+   {
+    "file": "moving-average-from-data-stream-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.234
+   },
+   {
+    "file": "moving-average-from-data-stream-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 19.035
+   },
+   {
+    "file": "moving-average-from-data-stream-7.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 6.405
+   },
+   {
+    "file": "moving-average-from-data-stream-8.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 6.359
+   }
+  ],
+  "design-circular-deque": [
+   {
+    "file": "design-circular-deque-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 13.823
+   },
+   {
+    "file": "design-circular-deque-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.146
+   },
+   {
+    "file": "design-circular-deque-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.718
+   },
+   {
+    "file": "design-circular-deque-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.911
+   },
+   {
+    "file": "design-circular-deque-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.174
+   },
+   {
+    "file": "design-circular-deque-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.198
+   },
+   {
+    "file": "design-circular-deque-6.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 7.78
+   },
+   {
+    "file": "design-circular-deque-7.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 5.264
+   },
+   {
+    "file": "design-circular-deque-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.168
+   },
+   {
+    "file": "design-circular-deque-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.016
+   },
+   {
+    "file": "design-circular-deque-10.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 10.0
+   },
+   {
+    "file": "design-circular-deque-11.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 5.171
+   }
+  ],
+  "binary-tree-level-order-traversal": [
+   {
+    "file": "binary-tree-level-order-traversal-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 14.089
+   },
+   {
+    "file": "binary-tree-level-order-traversal-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.445
+   },
+   {
+    "file": "binary-tree-level-order-traversal-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.279
+   },
+   {
+    "file": "binary-tree-level-order-traversal-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.791
+   },
+   {
+    "file": "binary-tree-level-order-traversal-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.168
+   },
+   {
+    "file": "binary-tree-level-order-traversal-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.518
+   },
+   {
+    "file": "binary-tree-level-order-traversal-6.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 7.137
+   },
+   {
+    "file": "binary-tree-level-order-traversal-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.671
+   },
+   {
+    "file": "binary-tree-level-order-traversal-8.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 8.451
+   }
+  ],
+  "maximum-depth-of-binary-tree": [
+   {
+    "file": "maximum-depth-of-binary-tree-0.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 12.112
+   },
+   {
+    "file": "maximum-depth-of-binary-tree-1.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.592
+   },
+   {
+    "file": "maximum-depth-of-binary-tree-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.289
+   },
+   {
+    "file": "maximum-depth-of-binary-tree-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.429
+   },
+   {
+    "file": "maximum-depth-of-binary-tree-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.74
+   },
+   {
+    "file": "maximum-depth-of-binary-tree-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.971
+   },
+   {
+    "file": "maximum-depth-of-binary-tree-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.033
+   },
+   {
+    "file": "maximum-depth-of-binary-tree-7.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 8.296
+   },
+   {
+    "file": "maximum-depth-of-binary-tree-8.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 6.158
+   }
+  ],
+  "diameter-of-binary-tree": [
+   {
+    "file": "diameter-of-binary-tree-0.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 16.238
+   },
+   {
+    "file": "diameter-of-binary-tree-1.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 6.559
+   },
+   {
+    "file": "diameter-of-binary-tree-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 17.283
+   },
+   {
+    "file": "diameter-of-binary-tree-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.625
+   },
+   {
+    "file": "diameter-of-binary-tree-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 18.764
+   },
+   {
+    "file": "diameter-of-binary-tree-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.087
+   },
+   {
+    "file": "diameter-of-binary-tree-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 16.033
+   },
+   {
+    "file": "diameter-of-binary-tree-7.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 12.837
+   },
+   {
+    "file": "diameter-of-binary-tree-8.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.135
+   }
+  ],
+  "validate-binary-search-tree": [
+   {
+    "file": "validate-binary-search-tree-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 9.766
+   },
+   {
+    "file": "validate-binary-search-tree-1.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.218
+   },
+   {
+    "file": "validate-binary-search-tree-2.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 6.392
+   },
+   {
+    "file": "validate-binary-search-tree-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.008
+   },
+   {
+    "file": "validate-binary-search-tree-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.204
+   },
+   {
+    "file": "validate-binary-search-tree-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.084
+   },
+   {
+    "file": "validate-binary-search-tree-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.125
+   },
+   {
+    "file": "validate-binary-search-tree-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.858
+   },
+   {
+    "file": "validate-binary-search-tree-8.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.733
+   },
+   {
+    "file": "validate-binary-search-tree-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 5.896
+   },
+   {
+    "file": "validate-binary-search-tree-10.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 6.434
+   }
+  ],
+  "lowest-common-ancestor-of-a-bst": [
+   {
+    "file": "lowest-common-ancestor-of-a-bst-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 9.907
+   },
+   {
+    "file": "lowest-common-ancestor-of-a-bst-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 13.642
+   },
+   {
+    "file": "lowest-common-ancestor-of-a-bst-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 19.538
+   },
+   {
+    "file": "lowest-common-ancestor-of-a-bst-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.861
+   },
+   {
+    "file": "lowest-common-ancestor-of-a-bst-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.4
+   },
+   {
+    "file": "lowest-common-ancestor-of-a-bst-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.989
+   },
+   {
+    "file": "lowest-common-ancestor-of-a-bst-6.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 9.387
+   },
+   {
+    "file": "lowest-common-ancestor-of-a-bst-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.566
+   },
+   {
+    "file": "lowest-common-ancestor-of-a-bst-8.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.566
+   },
+   {
+    "file": "lowest-common-ancestor-of-a-bst-9.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 5.461
+   }
+  ],
+  "kth-smallest-element-in-a-bst": [
+   {
+    "file": "kth-smallest-element-in-a-bst-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 9.988
+   },
+   {
+    "file": "kth-smallest-element-in-a-bst-1.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 15.978
+   },
+   {
+    "file": "kth-smallest-element-in-a-bst-2.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.194
+   },
+   {
+    "file": "kth-smallest-element-in-a-bst-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 4.439
+   },
+   {
+    "file": "kth-smallest-element-in-a-bst-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 2.659
+   },
+   {
+    "file": "kth-smallest-element-in-a-bst-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.918
+   },
+   {
+    "file": "kth-smallest-element-in-a-bst-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.736
+   },
+   {
+    "file": "kth-smallest-element-in-a-bst-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.899
+   },
+   {
+    "file": "kth-smallest-element-in-a-bst-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.152
+   },
+   {
+    "file": "kth-smallest-element-in-a-bst-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 5.31
+   },
+   {
+    "file": "kth-smallest-element-in-a-bst-10.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 8.269
+   }
+  ],
+  "kth-largest-element-in-an-array": [
+   {
+    "file": "kth-largest-element-in-an-array-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 9.579
+   },
+   {
+    "file": "kth-largest-element-in-an-array-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.754
+   },
+   {
+    "file": "kth-largest-element-in-an-array-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 16.223
+   },
+   {
+    "file": "kth-largest-element-in-an-array-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 3.868
+   },
+   {
+    "file": "kth-largest-element-in-an-array-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.799
+   },
+   {
+    "file": "kth-largest-element-in-an-array-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.111
+   },
+   {
+    "file": "kth-largest-element-in-an-array-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 5.92
+   },
+   {
+    "file": "kth-largest-element-in-an-array-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 5.566
+   },
+   {
+    "file": "kth-largest-element-in-an-array-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.474
+   },
+   {
+    "file": "kth-largest-element-in-an-array-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.668
+   },
+   {
+    "file": "kth-largest-element-in-an-array-10.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 6.228
+   },
+   {
+    "file": "kth-largest-element-in-an-array-11.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 4.208
+   }
+  ],
+  "top-k-frequent-elements": [
+   {
+    "file": "top-k-frequent-elements-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 8.972
+   },
+   {
+    "file": "top-k-frequent-elements-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 9.976
+   },
+   {
+    "file": "top-k-frequent-elements-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 15.367
+   },
+   {
+    "file": "top-k-frequent-elements-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 4.547
+   },
+   {
+    "file": "top-k-frequent-elements-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.978
+   },
+   {
+    "file": "top-k-frequent-elements-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.918
+   },
+   {
+    "file": "top-k-frequent-elements-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.848
+   },
+   {
+    "file": "top-k-frequent-elements-7.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 5.0
+   },
+   {
+    "file": "top-k-frequent-elements-8.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 8.328
+   },
+   {
+    "file": "top-k-frequent-elements-9.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 5.882
+   }
+  ],
+  "merge-k-sorted-lists": [
+   {
+    "file": "merge-k-sorted-lists-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 15.152
+   },
+   {
+    "file": "merge-k-sorted-lists-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.478
+   },
+   {
+    "file": "merge-k-sorted-lists-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.549
+   },
+   {
+    "file": "merge-k-sorted-lists-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 5.974
+   },
+   {
+    "file": "merge-k-sorted-lists-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.008
+   },
+   {
+    "file": "merge-k-sorted-lists-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.364
+   },
+   {
+    "file": "merge-k-sorted-lists-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.432
+   },
+   {
+    "file": "merge-k-sorted-lists-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.364
+   },
+   {
+    "file": "merge-k-sorted-lists-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.943
+   },
+   {
+    "file": "merge-k-sorted-lists-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.546
+   },
+   {
+    "file": "merge-k-sorted-lists-10.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 3.148
+   },
+   {
+    "file": "merge-k-sorted-lists-11.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.467
+   },
+   {
+    "file": "merge-k-sorted-lists-12.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.414
+   },
+   {
+    "file": "merge-k-sorted-lists-13.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 5.734
+   }
+  ],
+  "subsets": [
+   {
+    "file": "subsets-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 8.341
+   },
+   {
+    "file": "subsets-1.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.497
+   },
+   {
+    "file": "subsets-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 5.064
+   },
+   {
+    "file": "subsets-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 5.774
+   },
+   {
+    "file": "subsets-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 5.91
+   },
+   {
+    "file": "subsets-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.677
+   },
+   {
+    "file": "subsets-6.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.43
+   },
+   {
+    "file": "subsets-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.864
+   },
+   {
+    "file": "subsets-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.747
+   },
+   {
+    "file": "subsets-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.492
+   },
+   {
+    "file": "subsets-10.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 6.471
+   },
+   {
+    "file": "subsets-11.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 9.842
+   }
+  ],
+  "permutations": [
+   {
+    "file": "permutations-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 11.46
+   },
+   {
+    "file": "permutations-1.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 15.136
+   },
+   {
+    "file": "permutations-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 2.536
+   },
+   {
+    "file": "permutations-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 4.968
+   },
+   {
+    "file": "permutations-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.152
+   },
+   {
+    "file": "permutations-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.647
+   },
+   {
+    "file": "permutations-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.378
+   },
+   {
+    "file": "permutations-7.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 8.425
+   },
+   {
+    "file": "permutations-8.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 16.414
+   },
+   {
+    "file": "permutations-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.491
+   },
+   {
+    "file": "permutations-10.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 13.868
+   }
+  ],
+  "combination-sum": [
+   {
+    "file": "combination-sum-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 12.114
+   },
+   {
+    "file": "combination-sum-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 11.911
+   },
+   {
+    "file": "combination-sum-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.816
+   },
+   {
+    "file": "combination-sum-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 3.967
+   },
+   {
+    "file": "combination-sum-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 5.856
+   },
+   {
+    "file": "combination-sum-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.715
+   },
+   {
+    "file": "combination-sum-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.706
+   },
+   {
+    "file": "combination-sum-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 20.978
+   },
+   {
+    "file": "combination-sum-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.943
+   },
+   {
+    "file": "combination-sum-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 5.476
+   },
+   {
+    "file": "combination-sum-10.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 8.14
+   }
+  ],
+  "number-of-islands": [
+   {
+    "file": "number-of-islands-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 11.869
+   },
+   {
+    "file": "number-of-islands-1.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 10.46
+   },
+   {
+    "file": "number-of-islands-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 20.652
+   },
+   {
+    "file": "number-of-islands-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.894
+   },
+   {
+    "file": "number-of-islands-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.785
+   },
+   {
+    "file": "number-of-islands-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.609
+   },
+   {
+    "file": "number-of-islands-6.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 10.993
+   },
+   {
+    "file": "number-of-islands-7.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 10.389
+   },
+   {
+    "file": "number-of-islands-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 4.386
+   },
+   {
+    "file": "number-of-islands-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 9.159
+   },
+   {
+    "file": "number-of-islands-10.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 11.053
+   }
+  ],
+  "course-schedule": [
+   {
+    "file": "course-schedule-0.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 19.921
+   },
+   {
+    "file": "course-schedule-1.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 18.111
+   },
+   {
+    "file": "course-schedule-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 4.928
+   },
+   {
+    "file": "course-schedule-3.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 13.413
+   },
+   {
+    "file": "course-schedule-4.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 9.675
+   },
+   {
+    "file": "course-schedule-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 8.882
+   },
+   {
+    "file": "course-schedule-6.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 4.495
+   },
+   {
+    "file": "course-schedule-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.468
+   },
+   {
+    "file": "course-schedule-8.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.257
+   },
+   {
+    "file": "course-schedule-9.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 10.947
+   }
+  ],
+  "number-of-provinces": [
+   {
+    "file": "number-of-provinces-0.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 14.002
+   },
+   {
+    "file": "number-of-provinces-1.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 17.677
+   },
+   {
+    "file": "number-of-provinces-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.516
+   },
+   {
+    "file": "number-of-provinces-3.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.212
+   },
+   {
+    "file": "number-of-provinces-4.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 8.161
+   },
+   {
+    "file": "number-of-provinces-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.364
+   },
+   {
+    "file": "number-of-provinces-6.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 9.004
+   },
+   {
+    "file": "number-of-provinces-7.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 9.316
+   }
+  ],
+  "climbing-stairs": [
+   {
+    "file": "climbing-stairs-0.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 11.167
+   },
+   {
+    "file": "climbing-stairs-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.998
+   },
+   {
+    "file": "climbing-stairs-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.024
+   },
+   {
+    "file": "climbing-stairs-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.274
+   },
+   {
+    "file": "climbing-stairs-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.509
+   },
+   {
+    "file": "climbing-stairs-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.387
+   },
+   {
+    "file": "climbing-stairs-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.455
+   },
+   {
+    "file": "climbing-stairs-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.14
+   },
+   {
+    "file": "climbing-stairs-8.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 6.538
+   },
+   {
+    "file": "climbing-stairs-9.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 6.434
+   }
+  ],
+  "house-robber": [
+   {
+    "file": "house-robber-0.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 13.413
+   },
+   {
+    "file": "house-robber-1.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 3.319
+   },
+   {
+    "file": "house-robber-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.946
+   },
+   {
+    "file": "house-robber-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.011
+   },
+   {
+    "file": "house-robber-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.421
+   },
+   {
+    "file": "house-robber-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.958
+   },
+   {
+    "file": "house-robber-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.319
+   },
+   {
+    "file": "house-robber-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.843
+   },
+   {
+    "file": "house-robber-8.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 8.584
+   },
+   {
+    "file": "house-robber-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.104
+   },
+   {
+    "file": "house-robber-10.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 7.053
+   }
+  ],
+  "coin-change": [
+   {
+    "file": "coin-change-0.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 13.197
+   },
+   {
+    "file": "coin-change-1.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 5.899
+   },
+   {
+    "file": "coin-change-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 18.03
+   },
+   {
+    "file": "coin-change-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.913
+   },
+   {
+    "file": "coin-change-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.516
+   },
+   {
+    "file": "coin-change-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.976
+   },
+   {
+    "file": "coin-change-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 16.807
+   },
+   {
+    "file": "coin-change-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 16.929
+   },
+   {
+    "file": "coin-change-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 19.239
+   },
+   {
+    "file": "coin-change-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.735
+   },
+   {
+    "file": "coin-change-10.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 7.671
+   }
+  ],
+  "jump-game": [
+   {
+    "file": "jump-game-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 11.942
+   },
+   {
+    "file": "jump-game-1.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 3.269
+   },
+   {
+    "file": "jump-game-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 19.293
+   },
+   {
+    "file": "jump-game-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.708
+   },
+   {
+    "file": "jump-game-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.391
+   },
+   {
+    "file": "jump-game-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.19
+   },
+   {
+    "file": "jump-game-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.611
+   },
+   {
+    "file": "jump-game-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.826
+   },
+   {
+    "file": "jump-game-8.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 8.628
+   },
+   {
+    "file": "jump-game-9.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 8.763
+   }
+  ],
+  "gas-station": [
+   {
+    "file": "gas-station-0.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 14.038
+   },
+   {
+    "file": "gas-station-1.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 3.546
+   },
+   {
+    "file": "gas-station-2.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 24.784
+   },
+   {
+    "file": "gas-station-3.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 13.99
+   },
+   {
+    "file": "gas-station-4.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.697
+   },
+   {
+    "file": "gas-station-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 9.363
+   },
+   {
+    "file": "gas-station-6.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 9.988
+   },
+   {
+    "file": "gas-station-7.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 9.808
+   },
+   {
+    "file": "gas-station-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 18.226
+   },
+   {
+    "file": "gas-station-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 5.553
+   },
+   {
+    "file": "gas-station-10.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 10.842
+   }
+  ],
+  "min-arrows-burst-balloons": [
+   {
+    "file": "min-arrows-burst-balloons-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 19.264
+   },
+   {
+    "file": "min-arrows-burst-balloons-1.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 7.255
+   },
+   {
+    "file": "min-arrows-burst-balloons-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 22.323
+   },
+   {
+    "file": "min-arrows-burst-balloons-3.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 7.231
+   },
+   {
+    "file": "min-arrows-burst-balloons-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.429
+   },
+   {
+    "file": "min-arrows-burst-balloons-5.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 11.285
+   },
+   {
+    "file": "min-arrows-burst-balloons-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.114
+   },
+   {
+    "file": "min-arrows-burst-balloons-7.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 5.409
+   },
+   {
+    "file": "min-arrows-burst-balloons-8.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.524
+   },
+   {
+    "file": "min-arrows-burst-balloons-9.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 8.842
+   }
+  ],
+  "single-number": [
+   {
+    "file": "single-number-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 11.32
+   },
+   {
+    "file": "single-number-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.853
+   },
+   {
+    "file": "single-number-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.899
+   },
+   {
+    "file": "single-number-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.859
+   },
+   {
+    "file": "single-number-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 6.365
+   },
+   {
+    "file": "single-number-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 5.349
+   },
+   {
+    "file": "single-number-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 4.748
+   },
+   {
+    "file": "single-number-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.011
+   },
+   {
+    "file": "single-number-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.274
+   },
+   {
+    "file": "single-number-9.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 6.882
+   },
+   {
+    "file": "single-number-10.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.71
+   },
+   {
+    "file": "single-number-11.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.909
+   }
+  ],
+  "number-of-1-bits": [
+   {
+    "file": "number-of-1-bits-0.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 12.972
+   },
+   {
+    "file": "number-of-1-bits-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 11.118
+   },
+   {
+    "file": "number-of-1-bits-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.913
+   },
+   {
+    "file": "number-of-1-bits-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.492
+   },
+   {
+    "file": "number-of-1-bits-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 1.286
+   },
+   {
+    "file": "number-of-1-bits-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.546
+   },
+   {
+    "file": "number-of-1-bits-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 1.286
+   },
+   {
+    "file": "number-of-1-bits-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.165
+   },
+   {
+    "file": "number-of-1-bits-8.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 6.737
+   },
+   {
+    "file": "number-of-1-bits-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.434
+   },
+   {
+    "file": "number-of-1-bits-10.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.534
+   }
+  ],
+  "counting-bits": [
+   {
+    "file": "counting-bits-0.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 11.714
+   },
+   {
+    "file": "counting-bits-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 8.884
+   },
+   {
+    "file": "counting-bits-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 16.997
+   },
+   {
+    "file": "counting-bits-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.962
+   },
+   {
+    "file": "counting-bits-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.72
+   },
+   {
+    "file": "counting-bits-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.91
+   },
+   {
+    "file": "counting-bits-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.747
+   },
+   {
+    "file": "counting-bits-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.924
+   },
+   {
+    "file": "counting-bits-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.87
+   },
+   {
+    "file": "counting-bits-9.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 8.316
+   },
+   {
+    "file": "counting-bits-10.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 7.526
+   }
+  ],
+  "implement-trie-prefix-tree": [
+   {
+    "file": "implement-trie-prefix-tree-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 9.556
+   },
+   {
+    "file": "implement-trie-prefix-tree-1.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 4.024
+   },
+   {
+    "file": "implement-trie-prefix-tree-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.345
+   },
+   {
+    "file": "implement-trie-prefix-tree-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.34
+   },
+   {
+    "file": "implement-trie-prefix-tree-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.353
+   },
+   {
+    "file": "implement-trie-prefix-tree-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 12.127
+   },
+   {
+    "file": "implement-trie-prefix-tree-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.312
+   },
+   {
+    "file": "implement-trie-prefix-tree-7.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 5.282
+   },
+   {
+    "file": "implement-trie-prefix-tree-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.56
+   },
+   {
+    "file": "implement-trie-prefix-tree-9.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 7.535
+   },
+   {
+    "file": "implement-trie-prefix-tree-10.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 6.75
+   },
+   {
+    "file": "implement-trie-prefix-tree-11.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.017
+   }
+  ],
+  "design-add-and-search-words": [
+   {
+    "file": "design-add-and-search-words-0.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 10.348
+   },
+   {
+    "file": "design-add-and-search-words-1.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.623
+   },
+   {
+    "file": "design-add-and-search-words-2.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 11.046
+   },
+   {
+    "file": "design-add-and-search-words-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.375
+   },
+   {
+    "file": "design-add-and-search-words-4.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 12.25
+   },
+   {
+    "file": "design-add-and-search-words-5.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.445
+   },
+   {
+    "file": "design-add-and-search-words-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 15.217
+   },
+   {
+    "file": "design-add-and-search-words-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.56
+   },
+   {
+    "file": "design-add-and-search-words-8.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.445
+   },
+   {
+    "file": "design-add-and-search-words-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.06
+   },
+   {
+    "file": "design-add-and-search-words-10.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 5.05
+   }
+  ],
+  "replace-words": [
+   {
+    "file": "replace-words-0.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.212
+   },
+   {
+    "file": "replace-words-1.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 9.521
+   },
+   {
+    "file": "replace-words-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 12.228
+   },
+   {
+    "file": "replace-words-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.568
+   },
+   {
+    "file": "replace-words-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.299
+   },
+   {
+    "file": "replace-words-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 8.474
+   },
+   {
+    "file": "replace-words-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 5.462
+   },
+   {
+    "file": "replace-words-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.655
+   },
+   {
+    "file": "replace-words-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.062
+   },
+   {
+    "file": "replace-words-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.628
+   },
+   {
+    "file": "replace-words-10.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 6.276
+   },
+   {
+    "file": "replace-words-11.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.834
+   }
+  ],
+  "group-anagrams": [
+   {
+    "file": "group-anagrams-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 12.734
+   },
+   {
+    "file": "group-anagrams-1.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 7.75
+   },
+   {
+    "file": "group-anagrams-2.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 14.976
+   },
+   {
+    "file": "group-anagrams-3.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 5.613
+   },
+   {
+    "file": "group-anagrams-4.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 4.485
+   },
+   {
+    "file": "group-anagrams-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 4.1
+   },
+   {
+    "file": "group-anagrams-6.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 3.343
+   },
+   {
+    "file": "group-anagrams-7.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 3.235
+   },
+   {
+    "file": "group-anagrams-8.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 5.216
+   },
+   {
+    "file": "group-anagrams-9.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 6.789
+   },
+   {
+    "file": "group-anagrams-10.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.931
+   }
+  ],
+  "longest-consecutive-sequence": [
+   {
+    "file": "longest-consecutive-sequence-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 12.792
+   },
+   {
+    "file": "longest-consecutive-sequence-1.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.613
+   },
+   {
+    "file": "longest-consecutive-sequence-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 20.367
+   },
+   {
+    "file": "longest-consecutive-sequence-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.927
+   },
+   {
+    "file": "longest-consecutive-sequence-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.701
+   },
+   {
+    "file": "longest-consecutive-sequence-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.829
+   },
+   {
+    "file": "longest-consecutive-sequence-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.437
+   },
+   {
+    "file": "longest-consecutive-sequence-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.553
+   },
+   {
+    "file": "longest-consecutive-sequence-8.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 8.0
+   },
+   {
+    "file": "longest-consecutive-sequence-9.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.303
+   }
+  ],
+  "container-with-most-water": [
+   {
+    "file": "container-with-most-water-0.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 13.447
+   },
+   {
+    "file": "container-with-most-water-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.813
+   },
+   {
+    "file": "container-with-most-water-2.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 3.953
+   },
+   {
+    "file": "container-with-most-water-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 22.541
+   },
+   {
+    "file": "container-with-most-water-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.929
+   },
+   {
+    "file": "container-with-most-water-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 11.563
+   },
+   {
+    "file": "container-with-most-water-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.642
+   },
+   {
+    "file": "container-with-most-water-7.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 9.177
+   },
+   {
+    "file": "container-with-most-water-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.616
+   },
+   {
+    "file": "container-with-most-water-9.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 4.316
+   }
+  ],
+  "three-sum": [
+   {
+    "file": "three-sum-0.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 18.093
+   },
+   {
+    "file": "three-sum-1.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 7.583
+   },
+   {
+    "file": "three-sum-2.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 14.339
+   },
+   {
+    "file": "three-sum-3.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.584
+   },
+   {
+    "file": "three-sum-4.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 13.666
+   },
+   {
+    "file": "three-sum-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.284
+   },
+   {
+    "file": "three-sum-6.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 9.651
+   },
+   {
+    "file": "three-sum-7.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.562
+   },
+   {
+    "file": "three-sum-8.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 10.684
+   },
+   {
+    "file": "three-sum-9.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 10.142
+   },
+   {
+    "file": "three-sum-10.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 7.899
+   }
+  ],
+  "minimum-window-substring": [
+   {
+    "file": "minimum-window-substring-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 11.741
+   },
+   {
+    "file": "minimum-window-substring-1.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.378
+   },
+   {
+    "file": "minimum-window-substring-2.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.406
+   },
+   {
+    "file": "minimum-window-substring-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.918
+   },
+   {
+    "file": "minimum-window-substring-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 15.693
+   },
+   {
+    "file": "minimum-window-substring-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.53
+   },
+   {
+    "file": "minimum-window-substring-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.531
+   },
+   {
+    "file": "minimum-window-substring-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.884
+   },
+   {
+    "file": "minimum-window-substring-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 7.378
+   },
+   {
+    "file": "minimum-window-substring-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.016
+   },
+   {
+    "file": "minimum-window-substring-10.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.365
+   },
+   {
+    "file": "minimum-window-substring-11.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 9.688
+   },
+   {
+    "file": "minimum-window-substring-12.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.569
+   }
+  ],
+  "longest-repeating-character-replacement": [
+   {
+    "file": "longest-repeating-character-replacement-0.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 17.655
+   },
+   {
+    "file": "longest-repeating-character-replacement-1.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 3.291
+   },
+   {
+    "file": "longest-repeating-character-replacement-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 27.537
+   },
+   {
+    "file": "longest-repeating-character-replacement-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.307
+   },
+   {
+    "file": "longest-repeating-character-replacement-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.307
+   },
+   {
+    "file": "longest-repeating-character-replacement-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 11.644
+   },
+   {
+    "file": "longest-repeating-character-replacement-6.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.804
+   },
+   {
+    "file": "longest-repeating-character-replacement-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 19.946
+   },
+   {
+    "file": "longest-repeating-character-replacement-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 17.187
+   },
+   {
+    "file": "longest-repeating-character-replacement-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 21.223
+   },
+   {
+    "file": "longest-repeating-character-replacement-10.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 6.737
+   },
+   {
+    "file": "longest-repeating-character-replacement-11.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.367
+   }
+  ],
+  "linked-list-cycle-ii": [
+   {
+    "file": "linked-list-cycle-ii-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 17.301
+   },
+   {
+    "file": "linked-list-cycle-ii-1.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 17.217
+   },
+   {
+    "file": "linked-list-cycle-ii-2.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 4.945
+   },
+   {
+    "file": "linked-list-cycle-ii-3.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 10.106
+   },
+   {
+    "file": "linked-list-cycle-ii-4.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 6.184
+   },
+   {
+    "file": "linked-list-cycle-ii-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 19.47
+   },
+   {
+    "file": "linked-list-cycle-ii-6.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 7.889
+   },
+   {
+    "file": "linked-list-cycle-ii-7.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 7.146
+   },
+   {
+    "file": "linked-list-cycle-ii-8.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.35
+   },
+   {
+    "file": "linked-list-cycle-ii-9.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 8.211
+   }
+  ],
+  "middle-of-the-linked-list": [
+   {
+    "file": "middle-of-the-linked-list-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 13.586
+   },
+   {
+    "file": "middle-of-the-linked-list-1.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 5.203
+   },
+   {
+    "file": "middle-of-the-linked-list-2.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 17.26
+   },
+   {
+    "file": "middle-of-the-linked-list-3.mp3",
+    "speaker": "brook",
+    "voice": "en-GB-ThomasNeural",
+    "dur": 9.832
+   },
+   {
+    "file": "middle-of-the-linked-list-4.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 6.502
+   },
+   {
+    "file": "middle-of-the-linked-list-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 11.563
+   },
+   {
+    "file": "middle-of-the-linked-list-6.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 7.487
+   },
+   {
+    "file": "middle-of-the-linked-list-7.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 6.582
+   }
+  ],
+  "insert-interval": [
+   {
+    "file": "insert-interval-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 12.979
+   },
+   {
+    "file": "insert-interval-1.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 12.752
+   },
+   {
+    "file": "insert-interval-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 13.628
+   },
+   {
+    "file": "insert-interval-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 19.076
+   },
+   {
+    "file": "insert-interval-4.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 17.867
+   },
+   {
+    "file": "insert-interval-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.517
+   },
+   {
+    "file": "insert-interval-6.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 6.582
+   },
+   {
+    "file": "insert-interval-7.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 8.184
+   }
+  ],
+  "non-overlapping-intervals": [
+   {
+    "file": "non-overlapping-intervals-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 16.846
+   },
+   {
+    "file": "non-overlapping-intervals-1.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 7.991
+   },
+   {
+    "file": "non-overlapping-intervals-2.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 14.076
+   },
+   {
+    "file": "non-overlapping-intervals-3.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 7.248
+   },
+   {
+    "file": "non-overlapping-intervals-4.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 11.731
+   },
+   {
+    "file": "non-overlapping-intervals-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 10.974
+   },
+   {
+    "file": "non-overlapping-intervals-6.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 5.97
+   },
+   {
+    "file": "non-overlapping-intervals-7.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 12.043
+   },
+   {
+    "file": "non-overlapping-intervals-8.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 8.717
+   },
+   {
+    "file": "non-overlapping-intervals-9.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 8.447
+   }
+  ],
+  "find-minimum-in-rotated-sorted-array": [
+   {
+    "file": "find-minimum-in-rotated-sorted-array-0.mp3",
+    "speaker": "usopp",
+    "voice": "en-US-BrianNeural",
+    "dur": 15.806
+   },
+   {
+    "file": "find-minimum-in-rotated-sorted-array-1.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 5.062
+   },
+   {
+    "file": "find-minimum-in-rotated-sorted-array-2.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 12.536
+   },
+   {
+    "file": "find-minimum-in-rotated-sorted-array-3.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 20.373
+   },
+   {
+    "file": "find-minimum-in-rotated-sorted-array-4.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 5.697
+   },
+   {
+    "file": "find-minimum-in-rotated-sorted-array-5.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 16.346
+   },
+   {
+    "file": "find-minimum-in-rotated-sorted-array-6.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 3.019
+   },
+   {
+    "file": "find-minimum-in-rotated-sorted-array-7.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 14.7
+   },
+   {
+    "file": "find-minimum-in-rotated-sorted-array-8.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 4.353
+   },
+   {
+    "file": "find-minimum-in-rotated-sorted-array-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 9.986
+   },
+   {
+    "file": "find-minimum-in-rotated-sorted-array-10.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 5.47
+   },
+   {
+    "file": "find-minimum-in-rotated-sorted-array-11.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 15.026
+   }
+  ],
+  "koko-eating-bananas": [
+   {
+    "file": "koko-eating-bananas-0.mp3",
+    "speaker": "nami",
+    "voice": "en-US-JennyNeural",
+    "dur": 14.952
+   },
+   {
+    "file": "koko-eating-bananas-1.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 9.303
+   },
+   {
+    "file": "koko-eating-bananas-2.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 14.941
+   },
+   {
+    "file": "koko-eating-bananas-3.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 17.335
+   },
+   {
+    "file": "koko-eating-bananas-4.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 15.035
+   },
+   {
+    "file": "koko-eating-bananas-5.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.229
+   },
+   {
+    "file": "koko-eating-bananas-6.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 10.106
+   },
+   {
+    "file": "koko-eating-bananas-7.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 10.367
+   },
+   {
+    "file": "koko-eating-bananas-8.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 10.283
+   },
+   {
+    "file": "koko-eating-bananas-9.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.747
+   },
+   {
+    "file": "koko-eating-bananas-10.mp3",
+    "speaker": "chopper",
+    "voice": "en-US-AnaNeural",
+    "dur": 12.17
+   },
+   {
+    "file": "koko-eating-bananas-11.mp3",
+    "speaker": "robin",
+    "voice": "en-GB-SoniaNeural",
+    "dur": 8.791
+   },
+   {
+    "file": "koko-eating-bananas-12.mp3",
+    "speaker": "luffy",
+    "voice": "en-US-GuyNeural",
+    "dur": 8.23
+   },
+   {
+    "file": "koko-eating-bananas-13.mp3",
+    "speaker": "zoro",
+    "voice": "en-US-ChristopherNeural",
+    "dur": 8.132
+   }
+  ]
+ }
+}

@@ -659,6 +659,27 @@ footer.pagenav {
   border-radius: var(--radius) var(--radius) 0 0;
   overflow: hidden;
 }
+/* Animated themed backdrop behind the prop board (js/episode-engine.js). */
+.ep-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.ep-backdrop-svg { width: 100%; height: 100%; display: block; }
+.ep-stage .sa-prop { z-index: 1; }
+/* Lit props gently float and glow so the "active" element reads at a glance. */
+.ep-stage .sa-prop.sa-lit .sa-emoji {
+  animation: ep-bob 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+@keyframes ep-bob {
+  0%, 100% { transform: scale(1.18) translateY(0); }
+  50% { transform: scale(1.18) translateY(-3px); }
+}
+.ep-stage .sa-prop.sa-good .sa-emoji { filter: drop-shadow(0 0 7px var(--good)); }
+.ep-stage .sa-prop.sa-bad .sa-emoji { filter: drop-shadow(0 0 7px var(--danger)); }
 .ep-ledger-slot .sa-emoji { font-size: 1.1rem; opacity: 0.6; }
 .ep-ledger-slot .sa-tag { min-height: 1.1em; }
 .ep-ledger-slot.sa-off { opacity: 0.18; }

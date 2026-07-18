@@ -1,0 +1,2548 @@
+{
+ "two-sum": [
+  {
+   "speaker": "luffy",
+   "line": "The merchant wants exactly 600,000 Berries for the map piece — not a coin more, not a coin less — and he only accepts TWO chests at once!"
+  },
+  {
+   "speaker": "nami",
+   "line": "There are only three chests here, so we could just try every pair by hand... but that gets ugly fast if there are hundreds of them."
+  },
+  {
+   "speaker": "robin",
+   "line": "Then let's not check every pair. I'll remember every chest we've already opened — and for each new one, I only need to ask: 'have I already seen the amount that completes it?'"
+  },
+  {
+   "speaker": "robin",
+   "line": "Chest one: 300,000. I need 300,000 more to reach the target — nothing in my notes yet. I'll log it and move on."
+  },
+  {
+   "speaker": "robin",
+   "line": "Chest two: 200,000. I need 400,000 more — still nothing logged that matches. Log this one too."
+  },
+  {
+   "speaker": "robin",
+   "line": "Chest three: 400,000. I need 200,000 more to complete it — and that's already in my notes, from chest two!"
+  },
+  {
+   "speaker": "nami",
+   "line": "Chest two and chest three — 200,000 plus 400,000 is exactly 600,000. That's the pair."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! And you never even touched chest one again! Meat time!"
+  },
+  {
+   "speaker": "robin",
+   "line": "That's the whole trick: check the notes before you write anything new down, and you only ever look at each chest once. One pass, one pair — never re-comparing chests against each other directly."
+  }
+ ],
+ "two-sum-ii": [
+  {
+   "speaker": "usopp",
+   "line": "Iceburg's blueprint says the crossbeam brace needs two salvaged plates that weigh EXACTLY 25 stone together. Over or under and the whole frame's stress rating is wrong."
+  },
+  {
+   "speaker": "nami",
+   "line": "Six plates on the rack, already sorted lightest to heaviest. We are NOT weighing every possible pair — that's fifteen trips up this ladder."
+  },
+  {
+   "speaker": "nami",
+   "line": "Lightest plate and heaviest plate, together: 4 plus 20 is 24. One short. The only honest fix is the light end giving us more."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Then I step in from the light end — plate 7 instead of plate 4."
+  },
+  {
+   "speaker": "nami",
+   "line": "7 plus 20 is 27 — now we're over. Heavy end steps down."
+  },
+  {
+   "speaker": "usopp",
+   "line": "7 plus 16 is 23 — short again. Light end steps in once more, to plate 9."
+  },
+  {
+   "speaker": "nami",
+   "line": "9 plus 16 is 25. Exact. Plates three and five come off the rack."
+  },
+  {
+   "speaker": "usopp",
+   "line": "And plate 4, plate 20 — never touched again after we stepped past them. Once an end steps inward, it never steps back out. That's the whole trick, Iceburg-san!"
+  }
+ ],
+ "longest-substring": [
+  {
+   "speaker": "brook",
+   "line": "Fifty years alone on the Rumbar's deck, and I only had this much of the melody left in my head — I promised Laboon I'd play the whole thing someday. Yohoho."
+  },
+  {
+   "speaker": "chopper",
+   "line": "But some of the notes repeat! If I hum a note twice in the same phrase it sounds muddy — you said so yourself. What's the LONGEST clean run in here, with no note repeated?"
+  },
+  {
+   "speaker": "brook",
+   "line": "First note: B. A phrase of one, and it's clean so far."
+  },
+  {
+   "speaker": "brook",
+   "line": "I, then N, then K — none of them repeat anything still ringing in the phrase. The window just keeps growing to the right."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Next note's a B again — and we already have one ringing, back at the start of the phrase!"
+  },
+  {
+   "speaker": "brook",
+   "line": "So the phrase can no longer start before the note right after that old B. Drop it from the front — the window's left edge jumps forward, not one note at a time, straight to where it needs to be."
+  },
+  {
+   "speaker": "brook",
+   "line": "Last note: S. Nothing in the current phrase repeats it — the window grows again, and this is the longest clean run yet."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Five notes, never checking a note twice against the whole phrase — just remembering the last place you saw each one. That's amazing, Brook!"
+  }
+ ],
+ "linked-list-cycle": [
+  {
+   "speaker": "luffy",
+   "line": "Ships go into the Florian Triangle's fog and just... never come back out, right? Let's find out if our OWN charted course is one of those loops before we sail it for real."
+  },
+  {
+   "speaker": "chopper",
+   "line": "I'll walk the route at normal speed, one waypoint per minute. You go Gear Second — two waypoints a minute. If the course loops, you'll catch up to me eventually. If it doesn't, you just sail off the edge of the chart and we're done."
+  },
+  {
+   "speaker": "luffy",
+   "line": "One minute in: I'm already two waypoints ahead, at C. You're only at B."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Two minutes: I've reached C. You've raced ahead to E — through D. If this route were a straight line to open sea, you'd just keep pulling away from me forever."
+  },
+  {
+   "speaker": "luffy",
+   "line": "But it's NOT a straight line — past E, the fog loops back to C! So my next two steps put me right back at D... and you're walking into D too!"
+  },
+  {
+   "speaker": "chopper",
+   "line": "We're standing on the same waypoint. The fast route lapped the slow one — that ONLY happens if the course loops. It's the Florian Triangle, alright. We chart around it."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI, no ghost ship's getting the Sunny! And I didn't even need a map of every waypoint we'd already visited — just two speeds!"
+  }
+ ],
+ "merge-intervals-ep": [
+  {
+   "speaker": "zoro",
+   "line": "We stole Baroque Works' patrol logs. Four watch shifts on the palace wall, sorted by the hour each one starts. We need to get Vivi's group in through a gap in the watch — not fight through it."
+  },
+  {
+   "speaker": "nami",
+   "line": "First shift: hours 2 to 5."
+  },
+  {
+   "speaker": "nami",
+   "line": "Next shift starts at hour 4 — before the first one even ends at 5. That's not a second watch, that's the SAME watch overlapping. Merge them: 2 to 8."
+  },
+  {
+   "speaker": "zoro",
+   "line": "Hour 11 starts after hour 8 — nobody's watching in between. New block."
+  },
+  {
+   "speaker": "nami",
+   "line": "But hour 12 overlaps THAT one before it's done at 13. Merge again: 11 to 16."
+  },
+  {
+   "speaker": "nami",
+   "line": "Two guarded stretches, start to finish: 2 to 8, and 11 to 16. Everything else — including the three hours between 8 and 11 — is open air."
+  },
+  {
+   "speaker": "zoro",
+   "line": "We didn't need to know who was on which shift, or when any ONE guard blinks. Just where the merged blocks end — and where they don't reach. That's our window."
+  }
+ ],
+ "search-rotated-sorted-array": [
+  {
+   "speaker": "robin",
+   "line": "The old dynasty stored these scrolls by year, earliest to latest. Then the tremor spun this shelf — it's no longer sorted start to end, but it's not random either. We want the scroll marked 20."
+  },
+  {
+   "speaker": "luffy",
+   "line": "So how do we search a sorted shelf that isn't sorted anymore?!"
+  },
+  {
+   "speaker": "robin",
+   "line": "We still check the middle first. Scroll three: '10'."
+  },
+  {
+   "speaker": "robin",
+   "line": "The FIRST scroll reads '50', bigger than the middle one — that proves the left side is the half that got wrapped around. The right side, 10 through 40, is still in honest year order, and 20 falls inside that range. So we hunt to the right."
+  },
+  {
+   "speaker": "robin",
+   "line": "Middle of what's left: scroll five, '30'. Our target is smaller, and this little stretch is still sorted — so 20 has to sit before it."
+  },
+  {
+   "speaker": "robin",
+   "line": "Which leaves exactly one scroll. Scroll four: '20'. Found."
+  },
+  {
+   "speaker": "luffy",
+   "line": "Three checks for seven scrolls! ...but how did you know WHICH half was the honest one?"
+  },
+  {
+   "speaker": "robin",
+   "line": "A single rotation only ever breaks the order in one place. So at every split, at least one half is still perfectly sorted — I just compare its two ends to know which one to trust, and rule out the other half entirely."
+  }
+ ],
+ "daily-temperatures": [
+  {
+   "speaker": "usopp",
+   "line": "LADIES AND GENTLEMEN! Corrida Colosseum block battle undercard! Bring me every gladiator's power reading as they step in, one at a time, and I've gotta tell the crowd: how many MORE entrances until somebody finally tops THIS one?!"
+  },
+  {
+   "speaker": "usopp",
+   "line": "First in: power 73. Nobody's beaten him yet — he goes on my 'still waiting' list, on top."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Power 74 steps in — stronger than 73! That settles it: gladiator one is topped after exactly ONE more entrance. He's off my list; 74 takes his spot."
+  },
+  {
+   "speaker": "usopp",
+   "line": "75 tops 74 — same story, ONE entrance later. 75 takes the spot on my list now."
+  },
+  {
+   "speaker": "luffy",
+   "line": "71's nowhere near strong enough to touch 75!"
+  },
+  {
+   "speaker": "usopp",
+   "line": "Right — so he doesn't knock anyone out. He just joins the waiting list BEHIND 75. Both stay up, and my list is no longer just one name — it's ordered strongest-first."
+  },
+  {
+   "speaker": "usopp",
+   "line": "69's weaker still — joins the back of the list too. Three unresolved gladiators now, strictly getting weaker toward the back."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Now 72 walks in. He beats 69 at the BACK of my list — one entrance, resolved. Then he beats 71 too — that one waited TWO entrances. But he does NOT beat 75, still standing at the front. Two knockouts, one arrival."
+  },
+  {
+   "speaker": "usopp",
+   "line": "76 flattens what's left of my list — beats 72 (one entrance) AND beats 75, who'd been waiting since gladiator two — FOUR entrances. The whole list is empty. 76 stands alone."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Last one in: 73. Doesn't beat 76. Joins the list — and the show's over before anyone tops him."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Gladiator six and seven — 76 and 73 — nobody ever showed up to beat them. Their wait stays 0. And notice: I never once rewound the tape to recheck an earlier fighter. Every gladiator gets resolved the SECOND somebody stronger walks in — or never."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI, so the 'wait' list only ever GROWS at the back and gets chopped from the top — you never have to go digging through the middle!"
+  }
+ ],
+ "next-greater-element-ii": [
+  {
+   "speaker": "chopper",
+   "line": "Big Mom's tea table is ROUND — five treats, tier heights 5, 3, 8, 3, 6, going clockwise from the top. For each treat, what's the next TALLER one clockwise? And since the table's a circle, 'next' is allowed to wrap all the way back around to the start!"
+  },
+  {
+   "speaker": "robin",
+   "line": "First treat: 5 layers. Nothing taller has shown up yet — it just waits."
+  },
+  {
+   "speaker": "robin",
+   "line": "Next, clockwise: 3 layers. Shorter than 5 — it just joins behind it on the wait list."
+  },
+  {
+   "speaker": "robin",
+   "line": "Third treat: 8 layers — taller than the 3 right behind it in line, AND taller than the 5 before that. Both resolve at once, answer 8 for each. The wait list is empty again."
+  },
+  {
+   "speaker": "robin",
+   "line": "Fourth: 3 layers again. Shorter than 8 — waits."
+  },
+  {
+   "speaker": "robin",
+   "line": "Fifth: 6 layers. Taller than the 3 waiting behind it — that one resolves, answer 6. But NOT taller than the 8 still standing before it, so that one keeps waiting."
+  },
+  {
+   "speaker": "chopper",
+   "line": "We're back at the top of the table — but the 8-layer treat is STILL undefeated, and the 6-layer one is still waiting behind it. Since it's round, we just... keep going?"
+  },
+  {
+   "speaker": "robin",
+   "line": "Exactly — one more lap. Passing the 5-layer and 3-layer treats again changes nothing, they're already resolved. But passing the 8-layer treat a SECOND time — it finally tops the 6-layer treat still waiting behind it. Found by wrapping around."
+  },
+  {
+   "speaker": "robin",
+   "line": "One treat never gets topped, even after two full laps — the 8-layer one itself. Its answer stays 'none.' And we only ever circled the table TWICE total, not once per treat — still O(n), not O(n²)."
+  },
+  {
+   "speaker": "luffy",
+   "line": "So a round table just means: walk it twice instead of once, but the stack doesn't care that it's round at all!"
+  }
+ ],
+ "largest-rectangle-histogram": [
+  {
+   "speaker": "usopp",
+   "line": "Dock One's got six stacks of salvaged lumber, different heights, lined up in a row. Iceburg wants ONE tarp — a single rectangle — laid across as many CONSECUTIVE stacks as possible. Snag is, the tarp can only stand as tall as the SHORTEST stack it covers, or it sags into the gap."
+  },
+  {
+   "speaker": "chopper",
+   "line": "First stack: 2 feet. Nothing to compare yet — just note it and keep going."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Second stack: only 1 foot — shorter than the first! That means the 2-foot stack can NEVER anchor a tarp past this point. Close it out right now: 2 feet tall, exactly 1 stack wide. 2 square feet — our best so far."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Third: 5 feet — taller than the 1-foot stack waiting. No closing yet, just stack it onto the wait list."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Fourth: 6 feet, taller still. The wait list keeps growing — strictly increasing heights, bottom to top."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Fifth: only 2 feet. Shorter than BOTH the 6-footer and the 5-footer. First, the 6-foot stack closes out — by itself, just 1 stack wide: 6 square feet. Then the 5-foot stack closes out too — and now it stretches across where the 6-footer USED to stand: 5 tall, 2 wide, 10 square feet!"
+  },
+  {
+   "speaker": "chopper",
+   "line": "Sixth and last: 3 feet, taller than what's waiting. Stack it — nothing closes yet."
+  },
+  {
+   "speaker": "usopp",
+   "line": "No more stacks coming in — but three are STILL sitting on the wait list, and every single one still needs an answer. Close them out, right to left."
+  },
+  {
+   "speaker": "chopper",
+   "line": "The 3-footer only ever had 1 stack under it: 3 square feet. The 2-footer, once the 3-foot stack is gone, actually spans FOUR stacks: 2 times 4 is 8. And the very FIRST stack we ever placed — 1 foot tall — once everything taller is cleared, spans the whole dock: all 6 stacks, 6 square feet."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Biggest tarp on the whole dock: still 10 square feet, from stacks three and four. And that flush-at-the-end step — closing out whoever's LEFT once the stacks run out — is the part everybody forgets. The wait list doesn't resolve itself just because there's nothing new arriving."
+  }
+ ],
+ "online-stock-span": [
+  {
+   "speaker": "nami",
+   "line": "Every day of this voyage, I log the day's total haul — and I want to know, the SECOND I write it down, how many days in a row, counting backward from today, were all worth LESS than or equal to today. No peeking ahead — I only know today's number when I log it."
+  },
+  {
+   "speaker": "nami",
+   "line": "Day 0: 100k. First entry, nothing behind it to compare. Span: 1."
+  },
+  {
+   "speaker": "nami",
+   "line": "Day 1: 80k. Worse than yesterday — can't absorb anything behind it. Span: 1, on its own."
+  },
+  {
+   "speaker": "luffy",
+   "line": "That's a bad haul day, Nami!"
+  },
+  {
+   "speaker": "nami",
+   "line": "Day 2: 60k. Even worse. Span: 1 again — three straight days now that just sit on the ledger, none of them beating the one before."
+  },
+  {
+   "speaker": "nami",
+   "line": "Day 3: 70k — beats yesterday's 60k! I don't just say 'span 1' — I ABSORB yesterday's whole span into mine: 1 (mine) plus 1 (theirs) is 2. But 70 does NOT beat day 1's 80k, so I stop absorbing there."
+  },
+  {
+   "speaker": "nami",
+   "line": "Day 4: 60k again — worse than yesterday's 70k. Can't absorb anything. Back down to span 1."
+  },
+  {
+   "speaker": "nami",
+   "line": "Day 5: 75k. Beats yesterday's 60k — absorb its span of 1. THEN beats day 3's 70k too — and that one's span was already 2, since it had already absorbed day 2! Absorb that whole chain: 1 plus 1 plus 2 is 4. Stops there — 75 doesn't beat day 1's 80k."
+  },
+  {
+   "speaker": "nami",
+   "line": "Day 6: 85k — our best haul yet! Beats yesterday's 75k, absorbing its span of 4. THEN beats day 1's 80k too, absorbing its span of 1. Total: 1 plus 4 plus 1 is 6 — six days running, all at or below today, every single one of them chained together without ever re-reading a single day's price twice."
+  },
+  {
+   "speaker": "luffy",
+   "line": "Only day 0's 100k is still standing above us! SHISHISHI, we're on a hot streak, Nami!"
+  }
+ ],
+ "range-sum-query-immutable": [
+  {
+   "speaker": "luffy",
+   "line": "Nami, how far did we sail between the crab island and the singing cliffs?"
+  },
+  {
+   "speaker": "nami",
+   "line": "Hang on — before I answer that by hand, I'm writing down a running total for the WHOLE voyage, once. Day 0: 5 miles. Running total after day 0: 5."
+  },
+  {
+   "speaker": "nami",
+   "line": "Day 1: 3 more miles. I don't just note '3' — I write the NEW total: 5 plus 3 is 8. Day 2: 8 more, total 16."
+  },
+  {
+   "speaker": "nami",
+   "line": "Day 3: 2 more, total 18. Day 4: 6 more, total 24. Day 5: 4 more, total 28. Ledger's done — built ONCE, in a single pass down the whole voyage."
+  },
+  {
+   "speaker": "nami",
+   "line": "So: how far from day 1 to day 3? I don't re-add a single mile. Running total AFTER day 3, minus running total BEFORE day 1 — which is just the total after day 0. 18 minus 5 is 13."
+  },
+  {
+   "speaker": "luffy",
+   "line": "Ooh — what about day 2 through day 5?!"
+  },
+  {
+   "speaker": "nami",
+   "line": "Same trick: total after day 5 minus total after day 1. 28 minus 8 is 20. I could answer a THOUSAND more of these and never touch the raw distances again."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI, you only walked the voyage once, and now you can answer forever!"
+  }
+ ],
+ "subarray-sum-equals-k": [
+  {
+   "speaker": "robin",
+   "line": "This corridor's wall is carved with a running sequence of numbers — some marked with a subtractive stroke. I want every stretch of CONSECUTIVE glyphs that adds to exactly 5, this shrine's sacred number."
+  },
+  {
+   "speaker": "robin",
+   "line": "Before reading a single glyph, I log one thing for free: a running total of 0, meaning 'nothing read yet.' That's what lets a stretch starting at the very FIRST glyph get counted too."
+  },
+  {
+   "speaker": "robin",
+   "line": "First glyph: +2. Running total: 2. To close a stretch HERE, I'd need to have already logged a total of 2 minus 5 — negative 3. I haven't. Log today's total and move on."
+  },
+  {
+   "speaker": "robin",
+   "line": "Second glyph: +3. Running total: 5. I need a PREVIOUS total of 5 minus 5 — zero. And I logged exactly that, before I'd even read a glyph! Glyphs one and two together sum to 5. First stretch found."
+  },
+  {
+   "speaker": "chopper",
+   "line": "You never rescanned! You just asked your notes if you'd already seen that number!"
+  },
+  {
+   "speaker": "robin",
+   "line": "Third glyph: -2, the subtractive mark. Running total: 3. Need 3 minus 5 — negative 2. Not logged. Log 3 and continue."
+  },
+  {
+   "speaker": "robin",
+   "line": "Fourth glyph: +5, on its own. Running total: 8. Need 8 minus 5 — three. I logged THAT one just now, from glyph three! So glyph four, all by itself, is a stretch that sums to 5."
+  },
+  {
+   "speaker": "robin",
+   "line": "Fifth: +1, total 9, need 4 — not logged. Sixth: -3, total 6, need 1 — not logged. Log both and keep walking."
+  },
+  {
+   "speaker": "robin",
+   "line": "Seventh, last glyph: +4. Running total: 10. Need 10 minus 5 — five. And I logged THAT one all the way back after glyph two! So glyphs THREE through SEVEN — five glyphs, subtractive marks and all — also sum to 5."
+  },
+  {
+   "speaker": "robin",
+   "line": "Three stretches — a pair, a lone glyph, and a five-glyph run — found in one walk down the wall. The number I ever needed to have already seen was always today's total minus 5."
+  }
+ ],
+ "continuous-subarray-sum": [
+  {
+   "speaker": "usopp",
+   "line": "The Going Merry's booster tank holds fuel in units of 8 — one full cycle. I log units burned every day. Is there ever a stretch of AT LEAST TWO consecutive days that burns an exact multiple of 8 — clean cycles, zero left over?"
+  },
+  {
+   "speaker": "usopp",
+   "line": "Day 0: burned 9. Running total: 9. Here's the trick — I don't care about the total itself, only the REMAINDER after dividing by 8: 9 mod 8 is 1. Never seen remainder 1 — log it, tagged to day 0."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Day 1: 3 more, total 12. Remainder: 12 mod 8 is 4. New — log it. Day 2: 6 more, total 18. Remainder: 18 mod 8 is 2. Also new — log it."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Day 3: burned 8 more — a FULL tank, all by itself! Running total 26. Remainder: 26 mod 8 is 2. I've SEEN that remainder — at day 2! But day 2 to day 3 is only ONE day apart."
+  },
+  {
+   "speaker": "chopper",
+   "line": "But day 3 burned EXACTLY 8 — a whole tank! Doesn't that count?!"
+  },
+  {
+   "speaker": "usopp",
+   "line": "Not on its own — the rule needs a STRETCH of at least two days working together, not one lucky day. I keep the OLDER day-2 remainder logged, and I do NOT count this one."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Day 4: 2 more, total 28. Remainder: 28 mod 8 is 4 — and THAT remainder was logged all the way back at day 1! Days 2 through 4: three whole days, burning 6 plus 8 plus 2, sixteen units — exactly two full tanks."
+  },
+  {
+   "speaker": "usopp",
+   "line": "That's the one everybody forgets — checking the gap length BEFORE celebrating a remainder match. A lone perfect day doesn't prove a cycle. A stretch does."
+  }
+ ],
+ "product-of-array-except-self": [
+  {
+   "speaker": "robin",
+   "line": "The Gate of Justice control panel — four dials. CP9 designed it so no single dial's correct setting can be read off directly: each dial's true value has to equal the PRODUCT of all three OTHER dials."
+  },
+  {
+   "speaker": "zoro",
+   "line": "So multiply the other three together for each dial. What's the problem?"
+  },
+  {
+   "speaker": "robin",
+   "line": "One dial currently reads zero. The lazy shortcut — multiply ALL four dials, then divide by each one — breaks the instant you divide by that zero. We need a way that never divides at all."
+  },
+  {
+   "speaker": "robin",
+   "line": "First sweep, left to right: a running product of everything BEFORE each dial. Nothing sits before dial one — its 'before' product is 1. Carry dial one's own value, 4, forward for whoever's next."
+  },
+  {
+   "speaker": "robin",
+   "line": "Dial two: everything before it is just dial one — 'before' product 4. Dial three: everything before it is dial one and two — 4 times 3 is 12."
+  },
+  {
+   "speaker": "robin",
+   "line": "Dial four: everything before it includes the zero dial — so its 'before' product is 0. That's not a mistake to fix — dial three genuinely erases everything that comes after it."
+  },
+  {
+   "speaker": "robin",
+   "line": "Second sweep, right to left: a running product of everything AFTER each dial, combined with what we already have. Dial four: nothing after it — combine with 1. Its answer stays 0."
+  },
+  {
+   "speaker": "robin",
+   "line": "Dial three: everything after it is just dial four, value 5. Combine: 12 times 5 is 60. Dial three's true setting is 60."
+  },
+  {
+   "speaker": "robin",
+   "line": "Dial two: everything after it includes dial three's zero — 4 times 0 is 0. Dial one: everything after it also includes that same zero — 1 times 0 is 0."
+  },
+  {
+   "speaker": "robin",
+   "line": "Final dial: 0 too, for the same reason. Three of the four true settings are zero, and only dial three actually matters — and we never divided by the zero dial that would have crashed the whole calculation."
+  },
+  {
+   "speaker": "zoro",
+   "line": "Two clean sweeps. Left to right, then right to left. No division anywhere. Let's move."
+  }
+ ],
+ "reverse-linked-list": [
+  {
+   "speaker": "usopp",
+   "line": "Picture it: a shipwreck survivor's escape trail — sign one points to sign two, sign two points to sign three, and sign three points at nothing, because that is where the trail used to end!"
+  },
+  {
+   "speaker": "nami",
+   "line": "Problem is, we are leaving FROM sign three. If we want a trail that guides someone back the way we came, every single arrow needs to point the opposite direction — and we can only carry a couple of signs in our hands at once, not the whole trail."
+  },
+  {
+   "speaker": "zoro",
+   "line": "Wrong way is basically my specialty. Let's go."
+  },
+  {
+   "speaker": "robin",
+   "line": "Three hands is all it takes. One hand — prev — holds the last sign we already flipped, empty at the start. One hand — curr — holds the sign we are working on right now, starting at sign one. And before we flip curr's arrow, we write down where it used to point, in a third hand, next — or we would lose the rest of the trail forever."
+  },
+  {
+   "speaker": "robin",
+   "line": "Sign one: I note that it used to point to sign two — that's next. Now I flip sign one's arrow to point at prev, which is nothing yet. Prev becomes sign one. Curr moves up to sign two."
+  },
+  {
+   "speaker": "robin",
+   "line": "Sign two: next is sign three. Flip sign two's arrow back to point at prev, sign one. Prev becomes sign two, curr moves up to sign three."
+  },
+  {
+   "speaker": "robin",
+   "line": "Sign three: next is nothing — the old end of the trail. Flip sign three's arrow back to point at prev, sign two. Prev becomes sign three, and curr runs off the end. We're out of signs to flip."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Now sign three points to two, two points to one, and one points at nothing — the trail runs the exact opposite way!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Told you. Every trail I walk ends up backward eventually."
+  }
+ ],
+ "reverse-linked-list-ii": [
+  {
+   "speaker": "usopp",
+   "line": "Same trail, five signs this time: one through five. But the merchant only wants the MIDDLE stretch flipped — signs two through four. Signs one and five stay exactly as they are."
+  },
+  {
+   "speaker": "nami",
+   "line": "And we still only get one walk down the trail — no rebuilding it from scratch, no spare pile of signs on the side."
+  },
+  {
+   "speaker": "robin",
+   "line": "First, walk to the sign just before position two — that's sign one. Call it the anchor. Everything after the anchor is the stretch we're allowed to touch."
+  },
+  {
+   "speaker": "robin",
+   "line": "Curr starts at sign two — it will end up as the TAIL of the flipped stretch, so it stays put the whole time. Each round, I grab whatever sign currently sits right after curr, and re-hang it directly after the anchor instead."
+  },
+  {
+   "speaker": "robin",
+   "line": "Round one: the sign right after curr is three. Pull it out, hang it right after the anchor. Trail now reads one, three, two, four, five."
+  },
+  {
+   "speaker": "robin",
+   "line": "Round two: curr — still sign two — now has sign four sitting right after it. Pull four out, hang it right after the anchor too. Trail reads one, four, three, two, five."
+  },
+  {
+   "speaker": "robin",
+   "line": "That's right minus left — two rounds — and positions two through four are fully flipped. I never touched sign one or sign five."
+  },
+  {
+   "speaker": "chopper",
+   "line": "So sign one and sign five never even noticed anything happened?"
+  },
+  {
+   "speaker": "robin",
+   "line": "Exactly. That's the whole point of stopping the anchor exactly one sign before the range — everything outside it just stays wired to whatever the range's new ends turn out to be."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI, half a trail flipped and nobody had to redraw the whole map!"
+  }
+ ],
+ "swap-nodes-in-pairs": [
+  {
+   "speaker": "luffy",
+   "line": "Four crew members lined up for the relay, one through four! Vivi says we gotta swap every NEIGHBORING pair — but only by re-tying the baton cords, no starting the line over from scratch!"
+  },
+  {
+   "speaker": "nami",
+   "line": "So runner one and two trade spots, then runner three and four trade spots. If there's an odd runner left alone at the very end with no partner, they just stay put."
+  },
+  {
+   "speaker": "robin",
+   "line": "Same trick as always — an anchor standing just before the current pair. Point the anchor at the SECOND runner, point the first runner at whatever came after the second, then point the second runner back at the first. That's the whole swap."
+  },
+  {
+   "speaker": "robin",
+   "line": "Pair one done: the anchor now points to runner two, runner two points to runner one, and runner one points to whatever comes next — runner three. The line reads two, one, three, four so far."
+  },
+  {
+   "speaker": "robin",
+   "line": "Move the anchor up to runner one, since that pair is finished. Next pair: three and four."
+  },
+  {
+   "speaker": "robin",
+   "line": "Pair two done: runner one now points to runner four, runner four points to runner three, and runner three points to nothing — the end of the line. Final order: two, one, four, three."
+  },
+  {
+   "speaker": "chopper",
+   "line": "We never had to write down a whole new list — we just kept re-tying three cords at a time?"
+  },
+  {
+   "speaker": "robin",
+   "line": "Exactly — one anchor, one pair, three arrows rewired, every round. Constant extra space."
+  },
+  {
+   "speaker": "zoro",
+   "line": "Fine. Just don't make me swap with Sanji."
+  }
+ ],
+ "sliding-window-maximum": [
+  {
+   "speaker": "usopp",
+   "line": "Eight wave-height readings roll in off the bow: one, three, minus one, minus three, five, three, six, seven! Nami wants the TALLEST wave in every stretch of three consecutive readings, sliding one at a time, all the way down the line!"
+  },
+  {
+   "speaker": "nami",
+   "line": "Checking all three readings by hand for every single window works, but with eight numbers that's already six windows re-scanned from scratch. On a real logbook with thousands of readings, that's far too slow."
+  },
+  {
+   "speaker": "robin",
+   "line": "We don't need to re-scan. Keep a lineup of candidate wave heights, largest to smallest, front to back — the moment a new reading beats whoever's waiting at the back, those smaller ones get tossed immediately, since they can never win a window while a taller wave still stands in front of them. And before reading off the front as our answer, we always check whether that front reading has aged out of the current window entirely."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading one: height one. Lineup is empty, so it just joins: [1]."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading two: height three. Bigger than the one at the back of the lineup, so one gets tossed out first — then three joins alone: [3]."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading three: minus one. Smaller than the back of the lineup, so it just joins behind: [3, -1]. Now three readings are in view — window complete. The tallest is whoever's at the very front: three."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading four: minus three. Also smaller than the back, joins behind: [3, -1, -3]. Front is still three, and three is still inside our three-wide window, so the answer stays three."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading five: height five! Bigger than everyone currently waiting, so minus three, minus one, AND three all get tossed — five stands alone: [5]. New tallest: five."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading six: height three. Smaller than the back (five), so it just joins behind: [5, 3]. Front is still five — still tallest."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading seven: height six. Bigger than three AND five, so both get tossed — six stands alone: [6]."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading eight, the last one: height seven. Bigger than six, tosses it too — seven stands alone: [7]. Tallest of the final window: seven."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Every window's tallest wave, and nobody ever had to look backward — only forward, tossing the little ones overboard!"
+  },
+  {
+   "speaker": "chopper",
+   "line": "And a wave only ever gets tossed out once, right? So it's not nearly as much work as it looked at first!"
+  }
+ ],
+ "moving-average-from-data-stream": [
+  {
+   "speaker": "chopper",
+   "line": "New vitals reading every few seconds — but a single reading jumps all over the place! I only want the average of the LAST three readings, updated every time a new one comes in."
+  },
+  {
+   "speaker": "nami",
+   "line": "Recomputing the sum of the last three from scratch every single time works, but on a long stream that's a lot of repeated adding for numbers we already added before."
+  },
+  {
+   "speaker": "robin",
+   "line": "So don't repeat it. Keep a small line of at most three readings, plus a running total. Add the new reading to the total and to the back of the line — and the moment the line grows past three, drop the oldest one off the front, subtracting it from the total too."
+  },
+  {
+   "speaker": "robin",
+   "line": "First reading: one. Line: [1]. Total: one. Average of one reading: 1.0."
+  },
+  {
+   "speaker": "robin",
+   "line": "Second reading: ten. Line: [1, 10]. Total: eleven. Average of two readings: 5.5."
+  },
+  {
+   "speaker": "robin",
+   "line": "Third reading: three. Line: [1, 10, 3] — full, exactly three readings. Total: fourteen. Average: about 4.67."
+  },
+  {
+   "speaker": "robin",
+   "line": "Fourth reading: five. The line is already full, so before adding five, drop the oldest reading — one — off the front, and subtract it from the total. New total: thirteen. Now add five: line [10, 3, 5], total eighteen."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Average of the last three, every time, and you never re-added the same number twice!"
+  },
+  {
+   "speaker": "chopper",
+   "line": "That's exactly the smoothing I needed — one running total, one small line, done."
+  }
+ ],
+ "design-circular-deque": [
+  {
+   "speaker": "usopp",
+   "line": "Behold! The Legendary Three-Peg Rum Barrel of Baratie! Exactly three pegs, arranged in a ring — sacks can be hung from the FRONT peg or the BACK peg, and pulled off from either end too. But there is no fourth peg. Ever."
+  },
+  {
+   "speaker": "nami",
+   "line": "And we are not shifting every sack over each time something changes — the barrel just tracks which peg is currently the front and which is currently the rear, and walks around the ring."
+  },
+  {
+   "speaker": "robin",
+   "line": "insertLast, one: hang sack one on an empty peg, and mark it BOTH the front and the rear, since it's the only sack in the barrel."
+  },
+  {
+   "speaker": "robin",
+   "line": "insertLast, two: hang sack two on the next peg around, and move the rear marker up to it."
+  },
+  {
+   "speaker": "robin",
+   "line": "insertFront, three: hang sack three on the peg just BEFORE the current front, and move the front marker back to it. Now all three pegs are full: three, one, two."
+  },
+  {
+   "speaker": "robin",
+   "line": "insertFront, four: every peg is already hung. There's nowhere to put it — return false, and the barrel doesn't change at all."
+  },
+  {
+   "speaker": "usopp",
+   "line": "getRear! The peg marked rear is holding sack two — so getRear returns two, no lifting required, just a peek!"
+  },
+  {
+   "speaker": "nami",
+   "line": "isFull, checked: three pegs, three sacks. True."
+  },
+  {
+   "speaker": "robin",
+   "line": "deleteLast: lift sack two off the rear peg, and move the rear marker back one peg, to sack one. The barrel now holds three, one — one peg free again."
+  },
+  {
+   "speaker": "robin",
+   "line": "insertFront, four again: now there IS a free peg, just before the current front. Hang four there, and move the front marker to it. Barrel: four, three, one."
+  },
+  {
+   "speaker": "brook",
+   "line": "Yohohoho! And getFront now returns four, the newest sack at the front peg — though I have no lips left to whistle at how tidy that ring buffer is."
+  },
+  {
+   "speaker": "zoro",
+   "line": "No shifting, no new barrel. Just walk the ring."
+  }
+ ],
+ "binary-tree-level-order-traversal": [
+  {
+   "speaker": "usopp",
+   "line": "The Marine watchtower has three floors of guards: the commander alone at the top — room three. Below, two lieutenants — rooms nine and twenty. Below THEM, two grunts — rooms fifteen and seven, both guarding under room twenty."
+  },
+  {
+   "speaker": "nami",
+   "line": "We are not sneaking straight down to the grunts. We clear a floor COMPLETELY before descending to the next one — record every room on this floor, then move to their doors."
+  },
+  {
+   "speaker": "robin",
+   "line": "That's a queue, not a stack. Push the root in first: room three. Queue: [3]."
+  },
+  {
+   "speaker": "robin",
+   "line": "Before draining, I snapshot how many rooms are on this floor — right now, just one. Pop room three, record it as this level's list, and push its two children, nine and twenty, onto the back of the queue."
+  },
+  {
+   "speaker": "robin",
+   "line": "New floor, new snapshot: two rooms waiting. Pop room nine — it has no children, nothing to push. Pop room twenty — push ITS two children, fifteen and seven, onto the back."
+  },
+  {
+   "speaker": "robin",
+   "line": "Final floor: two rooms, fifteen and seven. Pop both, neither has children, nothing more gets pushed. Queue is empty — we've cleared every floor."
+  },
+  {
+   "speaker": "chopper",
+   "line": "So the snapshot number is what keeps us from mixing a grunt from THIS floor in with a lieutenant from the last one?"
+  },
+  {
+   "speaker": "robin",
+   "line": "Exactly — grab that count once, drain exactly that many before you check the count again. New children pushed mid-floor never get counted until the NEXT floor's snapshot."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Top floor first, then both floors under it, together, never skipping ahead! Now let's go get the commander!"
+  }
+ ],
+ "maximum-depth-of-binary-tree": [
+  {
+   "speaker": "chopper",
+   "line": "This ruin has branching tunnels — from the entrance, LEFT goes to a passage, RIGHT goes to another. I want to know how many tunnel-lengths deep the FARTHEST dead end goes."
+  },
+  {
+   "speaker": "robin",
+   "line": "Ask each branch how deep IT goes, and trust the answer. A tunnel with no branches past it is one level deep, all by itself."
+  },
+  {
+   "speaker": "robin",
+   "line": "Left branch from the entrance, room nine: no further branches. Depth one."
+  },
+  {
+   "speaker": "robin",
+   "line": "Right branch from the entrance, room twenty: not a dead end — it splits again into room fifteen and room seven. Ask THEM first."
+  },
+  {
+   "speaker": "robin",
+   "line": "Room fifteen: no further branches. Depth one. Room seven: same, no further branches. Depth one."
+  },
+  {
+   "speaker": "robin",
+   "line": "So room twenty's depth is one MORE than the deeper of its two children — both are depth one, so room twenty is depth two."
+  },
+  {
+   "speaker": "robin",
+   "line": "Back at the entrance: left branch was depth one, right branch was depth two. The entrance's own depth is one more than the DEEPER of the two — one more than two."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Three tunnel-lengths deep, straight down through room twenty and room fifteen or room seven! Let's go find treasure!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Every dead end reports back up. No need to check the whole map at once."
+  }
+ ],
+ "diameter-of-binary-tree": [
+  {
+   "speaker": "nami",
+   "line": "Five crewmates are posted at lookout points, connected like a family tree: one at the center, two and three branching off from one, and four and five branching off from two. I want the LONGEST rope bridge connecting any two of them — and it doesn't have to pass through the center."
+  },
+  {
+   "speaker": "brook",
+   "line": "Yohohoho, a bridge that may skip the captain entirely? How delightfully mutinous."
+  },
+  {
+   "speaker": "robin",
+   "line": "Measure it from the bottom up. At every crewmate, ask: how tall is my left branch, and how tall is my right branch? The longest bridge crossing through ME is left-height plus right-height — track the biggest one we see anywhere in the tree, not just at the center."
+  },
+  {
+   "speaker": "robin",
+   "line": "Crewmate four: no branches at all. Height one. Crewmate five: same, height one. Neither contributes a bridge on their own."
+  },
+  {
+   "speaker": "robin",
+   "line": "Crewmate two: left branch height one (crewmate four), right branch height one (crewmate five). A bridge through crewmate two spans one plus one — two rope-lengths. That's our best so far. Crewmate two's own height is one more than the taller branch: two."
+  },
+  {
+   "speaker": "robin",
+   "line": "Crewmate three: no branches. Height one. No bridge to track there."
+  },
+  {
+   "speaker": "robin",
+   "line": "The center, crewmate one: left branch height two (crewmate two's whole side), right branch height one (crewmate three). A bridge through the center spans two plus one — THREE rope-lengths. That beats our previous best of two."
+  },
+  {
+   "speaker": "nami",
+   "line": "Three rope-lengths, running from crewmate four or five, through crewmate two, through the center, out to crewmate three. And it never mattered that the center was involved — the math treated it the same as any other post."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Longest bridge on the whole island, and we found it just by asking every post how tall its own branches were!"
+  }
+ ],
+ "validate-binary-search-tree": [
+  {
+   "speaker": "usopp",
+   "line": "Sengoku found this filed as a proper Bounty Ledger — a search tree, sorted so anyone can find a name by going left for smaller, right for bigger! But is it REAL, or forged?"
+  },
+  {
+   "speaker": "robin",
+   "line": "The rule for a real one is strict: at EVERY node, everything in its left branch must be smaller, and everything in its right branch must be bigger — no matter how many levels down."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Can't we just check each entry against its own parent? That seems like less work."
+  },
+  {
+   "speaker": "robin",
+   "line": "That's the trap. A node has to obey EVERY ancestor above it, not just the one directly above. So as I go down, I'll carry a valid range — a floor and a ceiling — that narrows at each branch."
+  },
+  {
+   "speaker": "robin",
+   "line": "Root: 10, range is wide open. Fine. Its left branch must now stay below 10; its right branch must stay above 10."
+  },
+  {
+   "speaker": "robin",
+   "line": "Left to 5, range (-inf, 10): 5 fits, no children to check. That whole branch is clean."
+  },
+  {
+   "speaker": "robin",
+   "line": "Right to 15, range (10, inf): 15 fits. Its left child now inherits BOTH bounds — must stay above 10 (from the root) AND below 15 (from its own parent)."
+  },
+  {
+   "speaker": "robin",
+   "line": "15's left child is 6. Range required: (10, 15). 6 is below 15, sure — but it is NOT above 10. Forged."
+  },
+  {
+   "speaker": "nami",
+   "line": "And there's the con — if we'd only compared 6 to its direct parent, 15, it would've looked perfectly fine. The root's rule has to follow every entry all the way down."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! One sneaky little 6 stuffed two levels deep, and the WHOLE ledger's a fake!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Answer: false. We didn't even need to check 20 once the left side broke it."
+  }
+ ],
+ "lowest-common-ancestor-of-a-bst": [
+  {
+   "speaker": "usopp",
+   "line": "Two scouts are posted on this sorted lookout tree — one at value 3, one at value 5. Command wants the lowest post that watches over BOTH of them."
+  },
+  {
+   "speaker": "nami",
+   "line": "The safe way: walk from the root all the way down to 3, walk from the root all the way down to 5, write down both full paths, then compare them to see where they last agree. Works, but it's two walks and two lists."
+  },
+  {
+   "speaker": "robin",
+   "line": "We can do it in ONE walk, because this is a search tree. At each post, compare both 3 and 5 to the post's value: if BOTH are smaller, the answer is further left. If BOTH are bigger, further right. The moment they land on different sides, that post IS the answer."
+  },
+  {
+   "speaker": "robin",
+   "line": "Start at 6: is 3 < 6? Yes. Is 5 < 6? Yes. Both smaller — go left."
+  },
+  {
+   "speaker": "robin",
+   "line": "At 2: is 3 < 2? No. Is 5 < 2? No. Both are BIGGER than 2 — go right."
+  },
+  {
+   "speaker": "robin",
+   "line": "At 4: 3 is smaller than 4, but 5 is bigger than 4. They finally split! This is the deepest post where the two trails part ways — so 4 is the lowest common ancestor."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Wait, what if one scout IS an ancestor of the other, like p=2 and q=4? Does the trick still work?"
+  },
+  {
+   "speaker": "robin",
+   "line": "Yes — at post 2, 4 wouldn't be strictly less than 2, so we'd stop right there and 2 itself is the split point, since 2 is an ancestor of 4 by definition."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! And we never even looked at 0, 8, 7, or 9 — straight down the middle and stop the second the trail forks!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "One pass, no stored paths. That's the whole trick."
+  }
+ ],
+ "kth-smallest-element-in-a-bst": [
+  {
+   "speaker": "usopp",
+   "line": "Sengoku's vault is sorted like a search tree: k = 3. We need the 3rd-smallest bounty on file — without dumping every entry out and sorting them again."
+  },
+  {
+   "speaker": "robin",
+   "line": "Here's the trick: an INORDER walk — all of the left branch, then the node itself, then all of the right branch — visits every BST node in strictly ascending order automatically. That's just what left-smaller/right-bigger means, applied recursively."
+  },
+  {
+   "speaker": "nami",
+   "line": "So instead of pulling all six values into a list and sorting — O(n log n) — we walk in that order and just COUNT, stopping the instant we hit the k-th one."
+  },
+  {
+   "speaker": "robin",
+   "line": "Dive left first, as far as it goes: 5 to 3."
+  },
+  {
+   "speaker": "robin",
+   "line": "Still left: 3 to 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "Still left: 2 to 1 — no left child left. This is the smallest value in the whole tree, so the walk finally visits it first."
+  },
+  {
+   "speaker": "robin",
+   "line": "Visit 1: count = 1. Not k yet. 1 has no right child either, so step back up to 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "Visit 2: count = 2. Still not k. No right child under 2 either, so step back up to 3."
+  },
+  {
+   "speaker": "robin",
+   "line": "Visit 3: count = 3. That's k! The 3rd smallest value is 3 — stop right here."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! And we never even had to look at 4, 5, or 6!"
+  },
+  {
+   "speaker": "chopper",
+   "line": "That early stop matters a lot when k is small but the vault has thousands of entries — no reason to sort the whole thing."
+  }
+ ],
+ "kth-largest-element-in-an-array": [
+  {
+   "speaker": "usopp",
+   "line": "Weatheria's tracking six storm readings: 3, 2, 1, 5, 6, 4. We need the SECOND-strongest one, k = 2."
+  },
+  {
+   "speaker": "nami",
+   "line": "Sort all six and grab index 1 — that works, but it's O(n log n) and we'd re-sort readings we don't even care about."
+  },
+  {
+   "speaker": "robin",
+   "line": "Instead, keep a min-heap that holds only the k STRONGEST readings seen so far. Every time it grows past size k, evict the weakest one inside it. Whatever survives on top at the end is exactly the k-th largest."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading 3: heap has room, just drop it in."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading 2: heap has room (size 2 = k), drop it in too. Weakest on top is 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading 1: push it in, now size 3 — over capacity. Evict the weakest, which is 1 itself."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading 5: push, size 3, evict weakest — that's 2 this time."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading 6: push, size 3, evict weakest — 3 goes."
+  },
+  {
+   "speaker": "robin",
+   "line": "Reading 4: push, size 3, evict weakest — 4 is the smallest of the three, so it's the one that leaves immediately."
+  },
+  {
+   "speaker": "robin",
+   "line": "No readings left. The weakest survivor still sitting on top of our size-2 heap is 5 — that's the 2nd-strongest storm."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! We only ever kept two readings around at once, no matter how many storms rolled in!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "That's the point — the heap never holds more than k."
+  }
+ ],
+ "top-k-frequent-elements": [
+  {
+   "speaker": "usopp",
+   "line": "The Marines seized six wanted posters: 1, 1, 1, 2, 2, 3. HQ only has wall space for the k = 2 most REPRINTED faces."
+  },
+  {
+   "speaker": "nami",
+   "line": "First, count how often each face shows up — that part's unavoidable. Tally: 1 appears 3 times, 2 appears 2 times, 3 appears once."
+  },
+  {
+   "speaker": "robin",
+   "line": "Now, instead of sorting all the distinct faces by count, keep a min-heap of size k keyed on frequency — the k MOST reprinted faces seen so far. Whenever it grows past k, evict whichever one has the LOWEST count."
+  },
+  {
+   "speaker": "robin",
+   "line": "Face 1, count 3: heap has room, drop it in."
+  },
+  {
+   "speaker": "robin",
+   "line": "Face 2, count 2: heap has room (size 2 = k), drop it in too. Lowest count on top is 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "Face 3, count 1: push it, size 3 — over capacity. Evict the lowest count in the heap, which is face 3 itself."
+  },
+  {
+   "speaker": "robin",
+   "line": "No faces left to check. Whatever survives in the heap IS our answer, in any order."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Poor guy with just one poster never even had a chance!"
+  },
+  {
+   "speaker": "chopper",
+   "line": "And notice we only ever compare COUNTS in the heap, not the face values — the values just ride along as the payload."
+  },
+  {
+   "speaker": "zoro",
+   "line": "Two posters on the wall. Order doesn't matter, only the set does."
+  }
+ ],
+ "merge-k-sorted-lists": [
+  {
+   "speaker": "usopp",
+   "line": "Three separate route maps, each already sorted by distance: [1,4,5], [1,3,4], and [2,6]. The Log Pose needs them merged into ONE single sorted route."
+  },
+  {
+   "speaker": "nami",
+   "line": "Dump every stop into one pile and sort it fresh — that works, but it throws away the fact that each map is already sorted."
+  },
+  {
+   "speaker": "robin",
+   "line": "Instead: a min-heap holding just the CURRENT front stop of each map. Always take the smallest front overall, then bring that same map's next stop up to take its place."
+  },
+  {
+   "speaker": "robin",
+   "line": "Fronts loaded: map A shows 1, map B shows 1, map C shows 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "Smallest is 1 from map A. Take it, output grows. Map A's next stop, 4, enters the heap."
+  },
+  {
+   "speaker": "robin",
+   "line": "Smallest is 1 from map B. Take it. Map B's next, 3, enters."
+  },
+  {
+   "speaker": "robin",
+   "line": "Smallest is 2 from map C. Take it. Map C's next, 6, enters."
+  },
+  {
+   "speaker": "robin",
+   "line": "Smallest is 3 from map B. Take it. Map B's next, 4, enters."
+  },
+  {
+   "speaker": "robin",
+   "line": "Two fronts tied at 4 — take either, say map A's. It has no stops left after this."
+  },
+  {
+   "speaker": "robin",
+   "line": "Take map B's 4. Map B is now fully exhausted — nothing new enters for it."
+  },
+  {
+   "speaker": "robin",
+   "line": "Take 5, map A's last stop."
+  },
+  {
+   "speaker": "robin",
+   "line": "Take 6, map C's last stop. Heap's empty — every map is fully spent."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! One clean route out of three tangled ones!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "The heap only ever holds one stop per map — never more than k at a time."
+  }
+ ],
+ "subsets": [
+  {
+   "speaker": "usopp",
+   "line": "Three treasure emblems on the table: 1, 2, 3. The archivists want every possible bag we could pack — including the empty bag and the bag with everything."
+  },
+  {
+   "speaker": "robin",
+   "line": "For each emblem, in order, we either pack it or skip it. And here's the key: EVERY partial bag we build along the way is itself a valid answer — not just the finished ones. Record it, then keep going deeper."
+  },
+  {
+   "speaker": "robin",
+   "line": "Bag is empty right now — that counts as subset #1 all by itself."
+  },
+  {
+   "speaker": "robin",
+   "line": "Pack 1. New bag [1] — record it, subset #2."
+  },
+  {
+   "speaker": "robin",
+   "line": "Pack 2 on top of 1. Bag [1,2] — subset #3."
+  },
+  {
+   "speaker": "robin",
+   "line": "Pack 3 on top. Bag [1,2,3] — subset #4. Nothing left after 3, so UNDO it — unpack 3, unpack 2 — back to just [1]."
+  },
+  {
+   "speaker": "nami",
+   "line": "That's the backtrack — we don't restart from scratch, we just take the last item back out and try the NEXT option in its place."
+  },
+  {
+   "speaker": "robin",
+   "line": "With 1 still packed, try 3 instead of 2. Bag [1,3] — subset #5. Fully unpack back to empty."
+  },
+  {
+   "speaker": "robin",
+   "line": "Bag empty again. Skip 1 entirely, pack 2. Bag [2] — subset #6. Pack 3 too: [2,3] — subset #7. Unpack both."
+  },
+  {
+   "speaker": "robin",
+   "line": "Only 3 left to try alone: bag [3] — subset #8. Unpack it — nothing left to try anywhere."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Eight bags out of three emblems — empty, three singles, three pairs, and the full haul!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Two choices per emblem, three emblems: 2×2×2 = 8. Every combo, exactly once."
+  }
+ ],
+ "permutations": [
+  {
+   "speaker": "usopp",
+   "line": "Three crewmates — 1, 2, 3 — need a lookout ORDER for the Crow's Nest. Unlike splitting loot, order matters here: [1,2,3] and [3,2,1] are different rotations."
+  },
+  {
+   "speaker": "robin",
+   "line": "Fill the rotation one slot at a time: pick any crewmate not already placed, add them to the line, and recurse. Once the line is full, record it — then undo the last pick and try the next unused crewmate in that slot."
+  },
+  {
+   "speaker": "robin",
+   "line": "Slot 1: place 1."
+  },
+  {
+   "speaker": "robin",
+   "line": "Slot 2: only 2 or 3 remain unused — place 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "Slot 3: only 3 remains — place it. Line is full: [1,2,3] — rotation #1!"
+  },
+  {
+   "speaker": "robin",
+   "line": "Undo slot 3, undo slot 2 — back to [1]. Now try 3 in slot 2 instead, since 2 was already tried there."
+  },
+  {
+   "speaker": "robin",
+   "line": "Slot 2: place 3. Slot 3: only 2 left — place it. [1,3,2] — rotation #2! Then fully undo back to an empty line."
+  },
+  {
+   "speaker": "nami",
+   "line": "Every branch under '1 first' is used up — two rotations found. Same process starting with 2 first, then with 3 first."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Starting with 2: [2,1,3] and [2,3,1]. Starting with 3: [3,1,2] and [3,2,1]. Same choose-recurse-undo dance, every time."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Six full rotations out of three lookouts!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "3 choices for slot 1, times 2 for slot 2, times 1 for slot 3 — 3! = 6. Order matters, so it grows a lot faster than subsets did."
+  }
+ ],
+ "combination-sum": [
+  {
+   "speaker": "usopp",
+   "line": "Punk Hazard's toll gate takes coins worth 2, 3, 6, or 7 — reuse any coin as many times as you like — and it must land on EXACTLY 7. Find every way to pay it."
+  },
+  {
+   "speaker": "nami",
+   "line": "Brute-forcing every possible pile of coins gets messy fast. Better: keep adding coins and track the running total, but the moment it goes OVER 7, that pile is dead — stop right there."
+  },
+  {
+   "speaker": "robin",
+   "line": "And to avoid counting [2,3] and [3,2] as different piles, only add coins at the CURRENT position or later in the list — never go back to an earlier coin type."
+  },
+  {
+   "speaker": "robin",
+   "line": "Add a 2. Pile [2], sum 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "Add another 2 (reuse allowed). Pile [2,2], sum 4."
+  },
+  {
+   "speaker": "robin",
+   "line": "Add a third 2. Pile [2,2,2], sum 6. Still under 7 — keep going."
+  },
+  {
+   "speaker": "robin",
+   "line": "A fourth 2 would push the sum to 8 — over target. Dead end, undo it. Try 3 instead: pile [2,2,3], sum 7. EXACT MATCH — pay accepted!"
+  },
+  {
+   "speaker": "robin",
+   "line": "Undo all the way back to empty. Try starting with 3 alone, or 6 alone — 3+3+3=9, 3+6=9, 6+6=12, 6+7=13 — every path through them overshoots 7 without ever landing on it exactly. All dead ends."
+  },
+  {
+   "speaker": "robin",
+   "line": "Last candidate: 7 alone. Pile [7], sum 7 — EXACT MATCH again!"
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Two ways through the gate: three coins, or just the one big 7!"
+  },
+  {
+   "speaker": "chopper",
+   "line": "Pruning the moment the sum passes 7 is what saves us — no point building a taller pile once it's already too heavy."
+  }
+ ],
+ "number-of-islands": [
+  {
+   "speaker": "usopp",
+   "line": "The great cartographer Usopp presents: the reef chart, redrawn after last night's storm! Every square is either dry land or open sea — but the storm scrambled the shoreline into pieces!"
+  },
+  {
+   "speaker": "chopper",
+   "line": "But some land squares are right next to each other! Do we count each square as its own tiny island, or do the touching ones count as one big island?"
+  },
+  {
+   "speaker": "robin",
+   "line": "One big island — but only if they touch up, down, left, or right. Diagonal doesn't count. So here's the plan: scan every square once. The moment we find land we haven't charted yet, we flood outward from it, marking every connected land square as the SAME island before we move on."
+  },
+  {
+   "speaker": "robin",
+   "line": "Top-left corner, (0,0): land, and unmarked. New island! I'll flood outward from here."
+  },
+  {
+   "speaker": "robin",
+   "line": "Its right neighbor (0,1) is also land — same island, mark it too. Its neighbor below (0,1)'s square, (1,1), is land as well — still the same flood."
+  },
+  {
+   "speaker": "robin",
+   "line": "No more unmarked land touches this cluster. That flood is finished — three squares, one island."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Keep scanning! (0,2) sea, skip. (1,0) sea, skip. (1,2) sea, skip. (2,0) and (2,1), both sea, skip and skip!"
+  },
+  {
+   "speaker": "chopper",
+   "line": "Bottom-right corner, (2,2) — land, and it's never been touched by either flood! That has to be a brand new island, all on its own."
+  },
+  {
+   "speaker": "robin",
+   "line": "Correct — nothing connects to it. Its own island."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Two islands, and we only ever floated over each square ONE time! Perfect for exploring — and for lunch, if either one has meat!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Scan once. Flood once per new landmass. Never re-check a square that's already been claimed. That's the whole technique."
+  }
+ ],
+ "course-schedule": [
+  {
+   "speaker": "zoro",
+   "line": "Four trials to earn passage past this island. The scroll says Trial 1 needs Trial 0 done first, Trial 2 also needs Trial 0, and Trial 3 needs BOTH Trial 1 and Trial 2 finished before you can attempt it. Can we even complete all four, or is there a loop trapping us?"
+  },
+  {
+   "speaker": "robin",
+   "line": "Count how many un-cleared prerequisites each trial still has — its 'in-degree'. Trial 0 needs none. Trial 1 and Trial 2 each need one. Trial 3 needs two. Any trial with zero remaining prerequisites can be attempted right now."
+  },
+  {
+   "speaker": "robin",
+   "line": "Only Trial 0 starts at zero, so it goes in the queue first."
+  },
+  {
+   "speaker": "nami",
+   "line": "Clear Trial 0. Now anything that listed Trial 0 as a prerequisite gets to drop it — Trial 1's count goes from 1 to 0, Trial 2's count goes from 1 to 0. Both join the queue."
+  },
+  {
+   "speaker": "nami",
+   "line": "Clear Trial 1. Trial 3 needed it — drop Trial 3's count from 2 to 1. Not zero yet, so Trial 3 still waits."
+  },
+  {
+   "speaker": "nami",
+   "line": "Clear Trial 2. Trial 3 needed this one too — drop its count from 1 to 0. NOW Trial 3 joins the queue."
+  },
+  {
+   "speaker": "nami",
+   "line": "Clear Trial 3. Nothing left waiting on anything."
+  },
+  {
+   "speaker": "robin",
+   "line": "We cleared all four trials — exactly numCourses of them. If even one trial had been stuck forever above zero, that would mean a cycle: two trials each secretly waiting on the other. But nothing got stuck here."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! No loop, no trap — just do them in this order: 0, then 1 and 2 in either order, then 3!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Peel off whatever's free right now, update what depended on it, repeat. If the queue ever runs dry before every trial is cleared, it's impossible."
+  }
+ ],
+ "number-of-provinces": [
+  {
+   "speaker": "nami",
+   "line": "Big Mom's tea table has a seat for every city on this stretch of the Grand Line. The invitation list tells us which pairs of cities have a DIRECT road between them. We need to know: how many separate travel clusters are there in total?"
+  },
+  {
+   "speaker": "robin",
+   "line": "Give every city its own little flag at first — each one is its own boss, its own root. Whenever we find a direct road between two cities, we merge their flags: one root absorbs the other. At the end, we just count how many distinct roots survive."
+  },
+  {
+   "speaker": "robin",
+   "line": "City 0 and City 1: isConnected says 1 — a direct road. Merge them. City 1's flag now points to City 0's root."
+  },
+  {
+   "speaker": "nami",
+   "line": "City 0 and City 2: isConnected says 0. No road, no merge — leave them as they are."
+  },
+  {
+   "speaker": "nami",
+   "line": "City 1 and City 2: also 0. Still no road. City 2 stays its own boss the whole time."
+  },
+  {
+   "speaker": "robin",
+   "line": "That's every pair checked. City 0 and City 1 share one root now; City 2 kept its own. Two distinct roots on the table."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Two tea tables' worth of guests, then! One big one for City 0 and City 1, and a lonely little one for City 2!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Union what's directly linked, let the roots settle, count what's left standing. Never had to trace a single full path by hand."
+  }
+ ],
+ "climbing-stairs": [
+  {
+   "speaker": "chopper",
+   "line": "Five steps up to the crow's nest! On every move I can hop up 1 step or 2 steps. How many different ways could I hop all the way to the top?"
+  },
+  {
+   "speaker": "nami",
+   "line": "If we try to list every possible sequence of hops by hand it balloons fast. Better to build the answer step by step, using the answers for SMALLER staircases we've already solved."
+  },
+  {
+   "speaker": "robin",
+   "line": "Base cases first. Standing at step 0 already, doing nothing, counts as exactly 1 way. And there's exactly 1 way to reach step 1 — a single hop."
+  },
+  {
+   "speaker": "robin",
+   "line": "Every step after that: you either hopped 1 from the step before it, or hopped 2 from the step before THAT. So ways(step) = ways(step-1) + ways(step-2)."
+  },
+  {
+   "speaker": "robin",
+   "line": "Step 2: ways(1) + ways(0) = 1 + 1 = 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "Step 3: ways(2) + ways(1) = 2 + 1 = 3."
+  },
+  {
+   "speaker": "robin",
+   "line": "Step 4: ways(3) + ways(2) = 3 + 2 = 5."
+  },
+  {
+   "speaker": "robin",
+   "line": "Step 5, the crow's nest itself: ways(4) + ways(3) = 5 + 3 = 8."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Eight different ways up, and we barely climbed at all — we just added two numbers, five times!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "You never need the whole staircase in memory, either. Just the last two numbers."
+  }
+ ],
+ "house-robber": [
+  {
+   "speaker": "nami",
+   "line": "Five houses on this street, holding 2, 7, 9, 3, and 1 thousand Berries. Rob two houses that are next-door neighbors and both alarms scream at once. What's the most we can walk away with?"
+  },
+  {
+   "speaker": "luffy",
+   "line": "Easy! Just rob all five!"
+  },
+  {
+   "speaker": "robin",
+   "line": "The alarms won't allow that, captain. For each house, we only have two honest choices: skip it and keep whatever was best up to the house before it, or rob it and add its loot to whatever was best up to TWO houses before it."
+  },
+  {
+   "speaker": "robin",
+   "line": "House 0: nothing before it to conflict with. Best so far: rob it. 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "House 1: rob it alone (7) beats keeping house 0's 2. Best so far: 7 — meaning house 0's plan gets replaced."
+  },
+  {
+   "speaker": "robin",
+   "line": "House 2: skip it and keep 7, OR rob it plus whatever was best before house 1 (which was house 0's 2): 9 + 2 = 11. 11 beats 7 — rob houses 0 and 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "House 3: skip it, keep 11, OR rob it plus the best before house 2 (house 1's 7): 3 + 7 = 10. 11 still wins — skip house 3 entirely."
+  },
+  {
+   "speaker": "robin",
+   "line": "House 4: skip it, keep 11, OR rob it plus the best before house 3 (still 11, from houses 0 and 2): 1 + 11 = 12. 12 wins!"
+  },
+  {
+   "speaker": "nami",
+   "line": "Houses 0, 2, and 4: 2 + 9 + 1 = 12,000 Berries, and not one pair of them is adjacent."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! 12,000 Berries of meat money!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Every house only ever looks two decisions back. No need to keep the whole street in your head."
+  }
+ ],
+ "coin-change": [
+  {
+   "speaker": "nami",
+   "line": "We owe exactly 6 Berries for the Log Pose, and our coin pouch only has denominations of 1, 3, and 4. We can use as many of each as we like — what's the FEWEST coins that add up to exactly 6?"
+  },
+  {
+   "speaker": "chopper",
+   "line": "Trying every combination of coins sounds like it could take forever if the amount's big!"
+  },
+  {
+   "speaker": "robin",
+   "line": "So build it up instead. For every amount from 0 to 6, ask: for each coin no bigger than this amount, what's 1 plus the fewest coins needed for (amount minus that coin)? Take the smallest result. Amount 0 needs 0 coins — that's free."
+  },
+  {
+   "speaker": "robin",
+   "line": "Amount 1: only coin 1 fits. 1 + ways(0) = 1 + 0 = 1 coin."
+  },
+  {
+   "speaker": "robin",
+   "line": "Amount 2: only coin 1 fits (twice, effectively). 1 + ways(1) = 1 + 1 = 2 coins."
+  },
+  {
+   "speaker": "robin",
+   "line": "Amount 3: coin 1 gives 1 + ways(2) = 3. But coin 3 gives 1 + ways(0) = 1. The smaller wins — just 1 coin."
+  },
+  {
+   "speaker": "robin",
+   "line": "Amount 4: coin 1 gives 1 + ways(3) = 2. Coin 3 gives 1 + ways(1) = 2. Coin 4 gives 1 + ways(0) = 1. Smallest is 1 coin."
+  },
+  {
+   "speaker": "robin",
+   "line": "Amount 5: coin 1 gives 1 + ways(4) = 2. Coin 3 gives 1 + ways(2) = 3. Coin 4 gives 1 + ways(1) = 2. Smallest is 2 coins."
+  },
+  {
+   "speaker": "robin",
+   "line": "Amount 6, the target: coin 1 gives 1 + ways(5) = 3. Coin 3 gives 1 + ways(3) = 2. Coin 4 gives 1 + ways(2) = 3. Smallest is 2 coins — that's coin 3 twice."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Two coins, both threes, and we're set sail!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Every amount only ever needs the answers already sitting below it. Nothing gets recomputed twice."
+  }
+ ],
+ "jump-game": [
+  {
+   "speaker": "usopp",
+   "line": "Five stepping stones across the current, each one lets you leap forward AT MOST as many stones as its power number says. Starting on stone 0, can the great Captain Usopp reach stone 4, the goal?"
+  },
+  {
+   "speaker": "luffy",
+   "line": "Just jump as far as you can, every time, right?"
+  },
+  {
+   "speaker": "robin",
+   "line": "That instinct is almost right — let's make it precise. Walk the stones left to right and track the FARTHEST stone reachable so far. If we ever reach a stone that's beyond that farthest mark, we're stuck in the water. If the farthest mark ever reaches or passes the goal, we've made it."
+  },
+  {
+   "speaker": "robin",
+   "line": "Stone 0, power 2: farthest reach becomes 0 + 2 = stone 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "Stone 1 is within reach (1 ≤ 2). Its power 3 pushes us to 1 + 3 = stone 4 — already the goal stone!"
+  },
+  {
+   "speaker": "robin",
+   "line": "Stone 2 is within reach (2 ≤ 4). Its power 1 only reaches stone 3 — no improvement, farthest stays 4."
+  },
+  {
+   "speaker": "robin",
+   "line": "Stone 3 is within reach (3 ≤ 4). Its power 1 only reaches stone 4 — still no improvement, farthest stays 4."
+  },
+  {
+   "speaker": "robin",
+   "line": "Stone 4, the goal itself, is within reach (4 ≤ 4). We're done — it's reachable!"
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Fishman Island, here we come! And we didn't even need to know the EXACT path, just that we could always reach far enough!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "One pass, one running number. The second the current position outruns the farthest reach, stop — it's over."
+  }
+ ],
+ "gas-station": [
+  {
+   "speaker": "nami",
+   "line": "Five gas stations on this ring route. Each one gives you a set amount of fuel, but it costs a set amount to reach the NEXT station. We start with an empty tank — which station lets us make the full loop without ever running dry?"
+  },
+  {
+   "speaker": "luffy",
+   "line": "Just try starting at every station and see which one works?"
+  },
+  {
+   "speaker": "nami",
+   "line": "That works, but it is slow to redo the whole loop five separate times. Here's the shortcut: if total gas across the whole route is at least total cost, SOME starting station must work. Walk the loop once, tracking the running tank from a candidate start — the moment the tank goes negative, none of the stations we just tried could have been the true start, so move the candidate to the very next station and reset the tank to zero."
+  },
+  {
+   "speaker": "nami",
+   "line": "Station 0: gain 1, spend 3, net -2. Tank drops to -2 — negative! Station 0 can't be the start. Try station 1 next, tank resets to 0."
+  },
+  {
+   "speaker": "nami",
+   "line": "Station 1: gain 2, spend 4, net -2. Tank drops to -2 again — negative! Move on to station 2, reset."
+  },
+  {
+   "speaker": "nami",
+   "line": "Station 2: gain 3, spend 5, net -2. Negative again! Move on to station 3, reset."
+  },
+  {
+   "speaker": "nami",
+   "line": "Station 3: gain 4, spend 1, net +3. Tank climbs to 3 — positive, keep station 3 as our candidate and keep going."
+  },
+  {
+   "speaker": "nami",
+   "line": "Station 4: gain 5, spend 2, net +3. Tank climbs to 6 — still positive, and that was the last station on the loop."
+  },
+  {
+   "speaker": "robin",
+   "line": "Total gas (1+2+3+4+5 = 15) equals total cost (3+4+5+1+2 = 15), so a valid start does exist — and since the tank never went negative again after we locked in station 3, that's the one."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Fill up at station 3 and we sail the whole loop without running dry!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Every time the tank goes negative, it wasn't the driver's fault — it was every station tried so far. Wipe the slate, start fresh from the next one."
+  }
+ ],
+ "min-arrows-burst-balloons": [
+  {
+   "speaker": "usopp",
+   "line": "Behold! Four balloons strung along the wall, each spanning a range: 10-to-16, 2-to-8, 1-to-6, and 7-to-12. One arrow fired straight up at a single point bursts EVERY balloon whose range includes that point. What's the fewest arrows the great sniper Usopp needs to pop them all?"
+  },
+  {
+   "speaker": "chopper",
+   "line": "There are only four, but if there were hundreds, trying every possible arrow position sounds impossible!"
+  },
+  {
+   "speaker": "robin",
+   "line": "First, sort the balloons by where they END: 1–6, then 2–8, then 7–12, then 10–16. Now the rule is simple — always aim the next arrow at the END of the earliest still-unburst balloon. That one arrow is guaranteed to also burst every later balloon that starts before or at that point."
+  },
+  {
+   "speaker": "usopp",
+   "line": "First balloon, 1–6: no arrow fired yet. Fire one at x = 6, its end point!"
+  },
+  {
+   "speaker": "robin",
+   "line": "Next, 2–8: it starts at 2, which is at or before our arrow at 6. Already burst — no new arrow needed."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Next, 7–12: it starts at 7, which is PAST our arrow at 6. This one survived! Fire a second arrow at its end, x = 12."
+  },
+  {
+   "speaker": "robin",
+   "line": "Last, 10–16: it starts at 10, which is at or before our arrow at 12. Already burst by the same second arrow — no new arrow needed."
+  },
+  {
+   "speaker": "usopp",
+   "line": "All four balloons down, and it only took TWO arrows! The legendary sniper strikes again!"
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Usopp, that was actually really cool!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Sort by where things end, not where they start. Fire only when forced to. Nothing fancier than that."
+  }
+ ],
+ "single-number": [
+  {
+   "speaker": "usopp",
+   "line": "Gather round! Five cards on the table at the Sabaody duel ring — and legend says every card has an exact rival among the others, matched down to the bit... except ONE, the Unrivaled Card!"
+  },
+  {
+   "speaker": "nami",
+   "line": "With only five cards I could just compare every pair by hand, sure. But if this table had ten thousand cards, checking every pair against every other one would take forever."
+  },
+  {
+   "speaker": "robin",
+   "line": "There is an operation called XOR — it flips a bit where two numbers disagree and leaves it alone where they agree. Two identical numbers XORed together always land on zero."
+  },
+  {
+   "speaker": "robin",
+   "line": "And zero XORed with anything just gives back that thing unchanged. So if I fold every card into one running total, any card with a rival cancels itself out completely — no matter what order they arrive in."
+  },
+  {
+   "speaker": "robin",
+   "line": "Card one: 4. Running total was 000, now it is 100."
+  },
+  {
+   "speaker": "robin",
+   "line": "Card two: 1. Fold it in — total becomes 101."
+  },
+  {
+   "speaker": "robin",
+   "line": "Card three: 2. Total becomes 111."
+  },
+  {
+   "speaker": "robin",
+   "line": "Card four: 1 again — its rival! Folding it in flips those same bits right back, so the 1's worth cancels out of the total. New total: 110."
+  },
+  {
+   "speaker": "robin",
+   "line": "Card five: 2 again — its rival too! Cancel it out the same way. New total: 100."
+  },
+  {
+   "speaker": "zoro",
+   "line": "Every card that had a partner is gone from the total now. Only the 4 never got cancelled."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! The Unrivaled Card is the 4! We never even had to write down which cards we'd already seen!"
+  },
+  {
+   "speaker": "robin",
+   "line": "That is the whole trick: one running XOR, one pass, no lookup table needed — the pairs cancel themselves out of existence."
+  }
+ ],
+ "number-of-1-bits": [
+  {
+   "speaker": "chopper",
+   "line": "n is 1011 in binary — eleven! But how many of these four lanterns are actually lit? I only count two hands' worth of fingers, this is confusing!"
+  },
+  {
+   "speaker": "nami",
+   "line": "We could just walk through all 32 bit positions of a real integer and check each one for a 1. It works, but most positions are already zero — that is a lot of wasted checks."
+  },
+  {
+   "speaker": "robin",
+   "line": "There is a shortcut: n AND (n minus 1) always clears out the lowest lit lantern and leaves every other lantern exactly as it was. So we just repeat that and count each clear, until n goes dark."
+  },
+  {
+   "speaker": "robin",
+   "line": "n is 1011, n-1 is 1010. AND them together and the lowest lantern — bit0 — snuffs out. Count: 1."
+  },
+  {
+   "speaker": "robin",
+   "line": "Snuffed."
+  },
+  {
+   "speaker": "robin",
+   "line": "n is now 1010, n-1 is 1001. AND them and the next lowest lantern — bit1 — snuffs out. Count: 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "Snuffed."
+  },
+  {
+   "speaker": "robin",
+   "line": "n is now 1000, n-1 is 0111. AND them and the last lantern — bit3 — snuffs out too. Count: 3."
+  },
+  {
+   "speaker": "zoro",
+   "line": "n's zero now. Nothing left to clear. Three lanterns were lit."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Three! And that middle lantern was never even lit, we didn't waste a single check on it!"
+  },
+  {
+   "speaker": "robin",
+   "line": "That is the whole idea: only spend a step for each 1-bit that actually exists, instead of marching past every position whether it is lit or not."
+  }
+ ],
+ "counting-bits": [
+  {
+   "speaker": "brook",
+   "line": "Yohohoho~ We need the bit-count for every number from 0 to 5 — though I have no bits to count myself, being all bone! Shall we compute each one fresh, from nothing?"
+  },
+  {
+   "speaker": "nami",
+   "line": "Recomputing from scratch for every single number is wasteful — we would be redoing work we basically already did for a smaller number just a few steps ago."
+  },
+  {
+   "speaker": "robin",
+   "line": "Every number i is just its own half — i shifted right by one bit — with maybe one extra 1-bit tacked on at the end. So bits[i] = bits[i >> 1] + (i's last bit). We only ever look back at answers we already have."
+  },
+  {
+   "speaker": "robin",
+   "line": "i=0 is our base case: zero has no bits at all. bits[0] = 0."
+  },
+  {
+   "speaker": "robin",
+   "line": "i=1: half of 1 is 0, and 1's last bit is 1. bits[1] = bits[0] + 1 = 1."
+  },
+  {
+   "speaker": "robin",
+   "line": "i=2: half of 2 is 1, and 2's last bit is 0. bits[2] = bits[1] + 0 = 1."
+  },
+  {
+   "speaker": "robin",
+   "line": "i=3: half of 3 is 1, and 3's last bit is 1. bits[3] = bits[1] + 1 = 2."
+  },
+  {
+   "speaker": "robin",
+   "line": "i=4: half of 4 is 2, and 4's last bit is 0. bits[4] = bits[2] + 0 = 1."
+  },
+  {
+   "speaker": "robin",
+   "line": "i=5: half of 5 is 2, and 5's last bit is 1. bits[5] = bits[2] + 1 = 2."
+  },
+  {
+   "speaker": "zoro",
+   "line": "0, 1, 1, 2, 1, 2. Every answer built off one we already had."
+  },
+  {
+   "speaker": "brook",
+   "line": "How elegant — not a single number computed twice from scratch! A tidy tune, wouldn't you agree?"
+  }
+ ],
+ "implement-trie-prefix-tree": [
+  {
+   "speaker": "usopp",
+   "line": "Watch this, I'm building a scroll-tree! One node per letter, growing down from a single root — so any word that starts the same way shares the same trunk!"
+  },
+  {
+   "speaker": "chopper",
+   "line": "How do you even put a whole word like 'apple' into it?"
+  },
+  {
+   "speaker": "robin",
+   "line": "Letter by letter. Starting at the root, for each letter I either follow an existing branch or grow a brand new one — then I step down onto it before reading the next letter."
+  },
+  {
+   "speaker": "robin",
+   "line": "a-p-p-l-e: five new branches grow straight down from the root. The very last one gets marked as a true word ending, not just a passing letter."
+  },
+  {
+   "speaker": "robin",
+   "line": "search('apple') just retraces that same path. Every letter exists, and the final node is flagged as a word ending — so it returns true."
+  },
+  {
+   "speaker": "nami",
+   "line": "Now try search('app'). The path a-p-p exists — we can walk it fine — but that second 'p' node was only ever a pass-through on the way to 'apple'. It was never flagged as an ending."
+  },
+  {
+   "speaker": "robin",
+   "line": "So search('app') returns false. Existing on the path is not enough — the node has to be specifically marked as somebody's actual word ending."
+  },
+  {
+   "speaker": "luffy",
+   "line": "But what if I just want to know if ANY word starts with 'app', I don't care if 'app' itself is a whole word?"
+  },
+  {
+   "speaker": "robin",
+   "line": "That is startsWith — same walk, but we skip the end-flag check entirely. The path a-p-p exists, so startsWith('app') returns true, even though search('app') just told us false."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Now insert('app')! No new branches needed at all — that second 'p' node already exists, we just raise its ending flag."
+  },
+  {
+   "speaker": "zoro",
+   "line": "search('app') returns true now. Same tree, one flag flipped."
+  },
+  {
+   "speaker": "robin",
+   "line": "That is a trie in full: shared trunks for shared prefixes, and a single flag per node deciding whether that exact point is a real word."
+  }
+ ],
+ "design-add-and-search-words": [
+  {
+   "speaker": "brook",
+   "line": "Yohoho~ Three wanted posters go up on the same board tonight: bad, dad, mad. All rhyme, all three letters, all end the same way!"
+  },
+  {
+   "speaker": "robin",
+   "line": "Same trie idea as always — each word gets its own branch from the root, and the very last letter of each gets flagged as a true ending."
+  },
+  {
+   "speaker": "nami",
+   "line": "Someone asks for 'pad'. With three posters up that is nothing, but imagine thousands — we do not want to compare 'pad' letter-by-letter against every single stored word by hand."
+  },
+  {
+   "speaker": "robin",
+   "line": "We do not have to. At the root we look for a branch labeled 'p' — there is none. Dead end immediately, no letters left to check."
+  },
+  {
+   "speaker": "zoro",
+   "line": "search('bad') is the easy case. Walk b, a, d — every letter matches a real branch, and the last one is flagged. True."
+  },
+  {
+   "speaker": "luffy",
+   "line": "Now the weird one — '.ad'. That dot could be ANYTHING! How do you follow a branch that isn't even a real letter?"
+  },
+  {
+   "speaker": "robin",
+   "line": "You do not follow one branch — you try all of them. At a '.', branch out into every child the current node has, and keep searching down each one. If even ONE of those paths finishes as a match, the whole search is true."
+  },
+  {
+   "speaker": "robin",
+   "line": "'.ad': at the root the dot tries b, d, and m all at once. Following 'b' first: then 'a' matches for real, then 'd' matches and it is flagged. Found a match — stop right there."
+  },
+  {
+   "speaker": "nami",
+   "line": "And 'b..'? First letter is fixed as 'b', no wildcard there. But the next two are both dots — so from the 'b' branch, try every child at each level."
+  },
+  {
+   "speaker": "robin",
+   "line": "From 'b', the only child is 'a' — the first dot matches it. From there, the only child is the flagged 'd' — the second dot matches that too. True."
+  },
+  {
+   "speaker": "zoro",
+   "line": "Every dot just means: branch into all children here instead of one."
+  }
+ ],
+ "replace-words": [
+  {
+   "speaker": "luffy",
+   "line": "The newspaper's full of huge fancy words — cattle, rattled, battery! Let's shrink every last one of 'em down to its root!"
+  },
+  {
+   "speaker": "usopp",
+   "line": "First we plant the roots in a scroll-tree: cat, bat, rat. Three branches from one trunk, each one flagged where the root word ends."
+  },
+  {
+   "speaker": "robin",
+   "line": "Now for every word in the sentence, we walk it letter by letter down this tree. The instant we hit a flagged ending, we stop and swap in that root — we do not even look at the rest of the word."
+  },
+  {
+   "speaker": "robin",
+   "line": "'the': first letter 't' is not even a branch at the root. No match at all — it stays exactly as 'the'."
+  },
+  {
+   "speaker": "robin",
+   "line": "'cattle': c-a-t reaches a flagged ending after only three letters. We stop right there, ignoring 't', 'l', 'e' — swap in 'cat'."
+  },
+  {
+   "speaker": "nami",
+   "line": "That is the key part: stop at the FIRST flagged root you reach, the shortest one. We never need to keep matching to the end of the full word."
+  },
+  {
+   "speaker": "robin",
+   "line": "'was': 'w' is not a branch at the root either. Stays as-is."
+  },
+  {
+   "speaker": "robin",
+   "line": "'rattled': r-a-t reaches a flagged ending. Stop, ignore 't', 'l', 'e', 'd' — swap in 'rat'."
+  },
+  {
+   "speaker": "robin",
+   "line": "'by' and 'the' again: neither one even starts down a branch that exists. Both stay unchanged."
+  },
+  {
+   "speaker": "robin",
+   "line": "'battery': b-a-t reaches a flagged ending. Stop, ignore 't', 'e', 'r', 'y' — swap in 'bat'."
+  },
+  {
+   "speaker": "zoro",
+   "line": "'the cat was rat by the bat.' Every long word traded for its shortest root."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Way faster than reading the whole big word every time!"
+  }
+ ],
+ "group-anagrams": [
+  {
+   "speaker": "usopp",
+   "line": "Six wanted-poster scrolls came off the same press, but the ink smudged and the letters got shuffled on half of them — eat, tea, tan, ate, nat, bat. Some of these are the SAME name in disguise!"
+  },
+  {
+   "speaker": "chopper",
+   "line": "How do we know which ones are really the same name spelled differently, without checking every scroll against every other scroll?"
+  },
+  {
+   "speaker": "nami",
+   "line": "We don't compare scroll to scroll at all. Sort the letters INSIDE each name alphabetically first — two names that are anagrams of each other always collapse to the exact same sorted spelling. That sorted spelling becomes the label on a filing box."
+  },
+  {
+   "speaker": "nami",
+   "line": "\"eat\" sorted is \"a-e-t\". No box with that label yet — open a new one."
+  },
+  {
+   "speaker": "nami",
+   "line": "\"tea\" sorted is also \"a-e-t\" — straight into the same box as \"eat\"."
+  },
+  {
+   "speaker": "nami",
+   "line": "\"tan\" sorted is \"a-n-t\" — a new label, a new box."
+  },
+  {
+   "speaker": "nami",
+   "line": "\"ate\" sorted is \"a-e-t\" again — box one."
+  },
+  {
+   "speaker": "nami",
+   "line": "\"nat\" sorted is \"a-n-t\" — box two."
+  },
+  {
+   "speaker": "nami",
+   "line": "\"bat\" sorted is \"a-b-t\" — nothing matches. A third box."
+  },
+  {
+   "speaker": "zoro",
+   "line": "Three boxes. One pass. Never opened a scroll twice."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! Same crew, different aliases — can't fool a filing box! So, is any of these boxes food?"
+  }
+ ],
+ "longest-consecutive-sequence": [
+  {
+   "speaker": "usopp",
+   "line": "The Log Pose lists six island coordinates in whatever order the current dropped them in — 100, 4, 200, 1, 3, 2 — and somewhere in that mess is the longest unbroken CHAIN of islands, each exactly one degree east of the last!"
+  },
+  {
+   "speaker": "luffy",
+   "line": "Easy! Just line them up smallest to biggest and walk the line!"
+  },
+  {
+   "speaker": "robin",
+   "line": "Sorting works, Luffy, but it costs extra time just to line them up. There's a faster way: drop every coordinate into a set for instant checking, then only START walking a chain from an island that has NO island directly to its west — because that means nothing shorter completes it. It has to be a true beginning."
+  },
+  {
+   "speaker": "robin",
+   "line": "Island 100 — is 99 anywhere on the list? No. So 100 begins a chain. Walk east: is 101 on the list? No. Chain length one."
+  },
+  {
+   "speaker": "robin",
+   "line": "Island 4 — is 3 on the list? Yes. Then 4 can never be a chain's start, only its middle — skip it without walking anywhere."
+  },
+  {
+   "speaker": "robin",
+   "line": "Island 200 — is 199 on the list? No, another true start. Walk east: 201 isn't there either. Chain length one, no better than before."
+  },
+  {
+   "speaker": "robin",
+   "line": "Island 1 — is 0 on the list? No! A true start. Walk east: 2 is there, 3 is there, 4 is there, 5 is not. That chain runs four islands deep."
+  },
+  {
+   "speaker": "robin",
+   "line": "Island 3 and island 2 each have a western neighbor already on the list, so they were never chain starts at all — just the middle of the chain we already counted, from island 1."
+  },
+  {
+   "speaker": "zoro",
+   "line": "Four islands, one look each. That's the longest run: 1, 2, 3, 4."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! And we never even had to sort the map!"
+  }
+ ],
+ "container-with-most-water": [
+  {
+   "speaker": "zoro",
+   "line": "Nine stone pillars, all different heights. Wall off two of them and the gap between holds rainwater — but only up to whichever pillar is SHORTER. Height above that just spills over the top."
+  },
+  {
+   "speaker": "nami",
+   "line": "Checking every pair by hand is thirty-six comparisons for just nine pillars. That's not a plan, that's a chore."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Is there a way to skip pairs without even looking at them?"
+  },
+  {
+   "speaker": "robin",
+   "line": "Start at the two outer pillars — the widest gap there is. Whichever one is shorter is the bottleneck. Moving the TALLER pillar's pointer inward only shrinks the width and can never raise that bottleneck, so it can never help. Only stepping the SHORTER pillar inward has any chance of finding something taller. That's the only move we ever make."
+  },
+  {
+   "speaker": "robin",
+   "line": "Pillar 0 is height 1, pillar 8 is height 7. Width eight, bottleneck height one — eight units of water. The left pillar is shorter, so it steps in."
+  },
+  {
+   "speaker": "nami",
+   "line": "Pillar 1 is height 8, pillar 8 is still height 7. Width seven, bottleneck height seven — forty-nine! Now the RIGHT pillar is the shorter one, so it steps in next."
+  },
+  {
+   "speaker": "robin",
+   "line": "From here the gap only keeps narrowing — pillar 8 down to 7, then 6, then 5, then 4, then 3, then 2 — and none of those widths, even against pillar 1's wall of eight, can multiply back up to forty-nine."
+  },
+  {
+   "speaker": "chopper",
+   "line": "So the two walls just keep marching toward each other until they meet, and whatever the biggest number we wrote down was — that stays the answer?"
+  },
+  {
+   "speaker": "robin",
+   "line": "Exactly. Once the pointers meet, we stop. Best area found: forty-nine, between pillar 1 and pillar 8."
+  },
+  {
+   "speaker": "zoro",
+   "line": "One pass. Never move the tall one."
+  }
+ ],
+ "three-sum": [
+  {
+   "speaker": "brook",
+   "line": "Yohoho — imagine the ship's ledger as a row of six entries, already sorted from biggest debt to biggest credit: minus four, minus one, minus one, zero, one, two. Somewhere in here are THREE entries that balance to exactly zero, with no entry counted twice."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Do we have to check every possible group of three? With six entries that's already twenty different trios!"
+  },
+  {
+   "speaker": "nami",
+   "line": "Not one at a time. The ledger is sorted, so we fix ONE entry as the anchor, then hunt the other two with a two-pointer sweep on the rest — the exact same trick as balancing a two-person split, just repeated for every possible anchor."
+  },
+  {
+   "speaker": "nami",
+   "line": "Anchor at minus four. Left pointer starts right after it, right pointer at the far end: minus one and two."
+  },
+  {
+   "speaker": "nami",
+   "line": "Minus four plus minus one plus two is minus three — too low. Only sliding the left pointer up can raise that sum, and it never catches up before the pointers cross. No triplet starts with minus four."
+  },
+  {
+   "speaker": "nami",
+   "line": "Anchor moves to the next entry: minus one. Left resets just after it, right resets to the far end."
+  },
+  {
+   "speaker": "nami",
+   "line": "Minus one plus minus one plus two is zero — balanced! Log this trio, then slide both pointers inward to keep hunting under the same anchor."
+  },
+  {
+   "speaker": "nami",
+   "line": "Left steps to zero, right steps to one: minus one plus zero plus one is zero again — a second balanced trio!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Next anchor candidate is another minus one — the same value we already anchored on. Skip it, or we'd just log the same two trios twice."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Anchor moves to zero: zero plus one plus two is three — too high, and the pointers are already meeting each other. Nothing there."
+  },
+  {
+   "speaker": "brook",
+   "line": "Two trios, no repeats. The ledger balances to zero exactly twice. Yohoho!"
+  }
+ ],
+ "minimum-window-substring": [
+  {
+   "speaker": "usopp",
+   "line": "This parchment reads A-D-O-B-E-C-O-D-E-B-A-N-C, and somewhere inside it is the SMALLEST possible stretch that still holds one A, one B, and one C. Find it, and only it gets copied out!"
+  },
+  {
+   "speaker": "luffy",
+   "line": "Just find any place where A, B, and C are all sitting close together, right? Why does it matter if it's the SMALLEST one?"
+  },
+  {
+   "speaker": "nami",
+   "line": "Because every letter of parchment we copy costs us ink and time — the smaller the excerpt, the less we haul back to the ship."
+  },
+  {
+   "speaker": "robin",
+   "line": "So: grow a window from the right until it holds every letter we need, then shrink it from the left as far as it'll still hold all of them, recording the smallest valid window each time. Expand to satisfy, shrink to tighten."
+  },
+  {
+   "speaker": "robin",
+   "line": "Expanding right — A, D, O, B, E, C. The moment C lands, at index five, I finally have one A, one B, one C. First valid window: index zero through five."
+  },
+  {
+   "speaker": "robin",
+   "line": "Try shrinking from the left — but dropping index zero throws away my only A. Invalid. So I stop shrinking there and keep pushing the right edge instead."
+  },
+  {
+   "speaker": "robin",
+   "line": "O, D, E, B go by — nothing new needed — until index ten brings a second A. Valid again, but now the window stretches all the way from index one to index ten."
+  },
+  {
+   "speaker": "robin",
+   "line": "Now shrink hard — D, O, that extra B, and E all peel off the left edge without losing A, B, or C, since I still have the C at index five and the new A at index ten."
+  },
+  {
+   "speaker": "robin",
+   "line": "One more drop takes the C at index five with it — invalid. Stop shrinking, push right again."
+  },
+  {
+   "speaker": "robin",
+   "line": "N goes by, then a second C lands at index twelve. Valid once more, window six through twelve."
+  },
+  {
+   "speaker": "robin",
+   "line": "Shrink again — O, D, E, and that extra B all peel off, and I still hold my A, my B, my C. Index nine through twelve: B, A, N, C. Four letters — the smallest yet."
+  },
+  {
+   "speaker": "nami",
+   "line": "Try to drop the B at index nine and the window loses its only B — invalid, and there's no more parchment to the right. Four letters is as small as it gets."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! BANC! ...is that a snack?"
+  }
+ ],
+ "longest-repeating-character-replacement": [
+  {
+   "speaker": "brook",
+   "line": "A banner sewn letter by letter — A, A, B, A, B, B, A. We want the longest stretch that could be repainted into ONE repeated letter, but the sewing budget only allows repainting k = 1 patch. Yohoho, threadbare economics!"
+  },
+  {
+   "speaker": "luffy",
+   "line": "Why not just repaint the WHOLE banner into one letter?"
+  },
+  {
+   "speaker": "robin",
+   "line": "Because the budget is only one patch, Luffy — that's what makes it hard. Grow a window to the right, and track the highest count any single letter has reached inside it so far — call it the record. The window stays affordable exactly when its length minus that record is at most our budget, because that difference IS how many patches repainting would cost. Cross the budget, shrink one letter off the left, and check again."
+  },
+  {
+   "speaker": "robin",
+   "line": "First letter, A. Record for A is one. Window length one, cost zero. Affordable — window grows."
+  },
+  {
+   "speaker": "robin",
+   "line": "Second letter, A again. Record climbs to two. Window length two, cost zero. Still affordable."
+  },
+  {
+   "speaker": "robin",
+   "line": "Third letter, B. The record stays at two — B hasn't caught up. Window length three, cost one. Exactly at budget — still affordable."
+  },
+  {
+   "speaker": "robin",
+   "line": "Fourth letter, A. Record climbs to three. Window length four, cost one. Still exactly at budget."
+  },
+  {
+   "speaker": "robin",
+   "line": "Fifth letter, B. Record still three. Window length is now five — index zero through four — cost five minus three is two. Over budget! Drop the leftmost letter, index zero. Window shrinks to indices one through four, length four, cost back to one."
+  },
+  {
+   "speaker": "robin",
+   "line": "Sixth letter, B. Record holds at three. Window stretches to indices one through five, length five, cost two — over budget again. Drop index one. Window shrinks to indices two through five, length four, cost one."
+  },
+  {
+   "speaker": "robin",
+   "line": "Last letter, A. Record holds at three. Window stretches to indices two through six, length five, cost two — over budget once more, and the banner's out of letters after this. Drop index two. Window shrinks to indices three through six, length four, cost one — that's as far as we get."
+  },
+  {
+   "speaker": "zoro",
+   "line": "Four letters, one patch, no better window left to check. That's the answer."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI! One patch of paint and we get a banner four letters strong. Iron Pirate Luffy approves!"
+  }
+ ],
+ "linked-list-cycle-ii": [
+  {
+   "speaker": "usopp",
+   "line": "Four scrolls on this treasure trail: three, then two, then zero, then negative four. But the last one doesn't lead off the map — it loops back into the trail somewhere earlier! Last time we only needed to know IF a trail loops. This time the Log Pose needs the EXACT scroll where the loop begins."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Same trick as the Florian Triangle — I walk one scroll at a time, you go Gear Second, two scrolls at a time. When we land on the same scroll, we know it loops. But that meeting scroll won't be where the loop actually STARTS — not yet."
+  },
+  {
+   "speaker": "luffy",
+   "line": "One step in — I'm already at scroll zero. You're only at scroll two."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Two steps in — I've caught up to scroll zero. And you... you're back at scroll two? The trail looped you right back around already!"
+  },
+  {
+   "speaker": "luffy",
+   "line": "Three steps — I'm at negative four. And... so are you! Same scroll!"
+  },
+  {
+   "speaker": "robin",
+   "line": "That meeting scroll isn't where the loop begins — it's just wherever you two happened to collide. Here's the fix: send one of you all the way back to the very first scroll, scroll three. Leave the other exactly where you met. Now both of you walk at the SAME plain, one-scroll-a-time pace."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Back at the start — scroll three. You stay put at negative four, even if your legs want to keep running."
+  },
+  {
+   "speaker": "luffy",
+   "line": "One step each — you go from three to two. I go from negative four to... two! Same scroll again!"
+  },
+  {
+   "speaker": "robin",
+   "line": "And that's the proof — wherever you two meet on this second, equal-speed walk is exactly where the loop begins. Scroll two is the front door of the loop."
+  },
+  {
+   "speaker": "zoro",
+   "line": "Straight line, three to two. Loop after that: two, zero, negative four — forever."
+  }
+ ],
+ "middle-of-the-linked-list": [
+  {
+   "speaker": "usopp",
+   "line": "Five flags strung along the cliff path, marking the way to the buried Den Den Mushi — numbered one through five in order. We need to plant a marker at the exact MIDDLE flag. Only rule: no measuring the path twice."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Can't we just count all five flags, then walk to flag number three?"
+  },
+  {
+   "speaker": "nami",
+   "line": "That's counting the whole path once, then walking part of it again — two passes. There's a way to do it in ONE walk: send one of us at normal speed and one at double speed, together. When the fast walker runs out of path, the slow walker is standing exactly on the middle flag."
+  },
+  {
+   "speaker": "brook",
+   "line": "Yohohoho, a race where the loser wins just by standing still in the middle! Though — skeleton, I have no stamina to spend either way!"
+  },
+  {
+   "speaker": "nami",
+   "line": "One step for the slow walker: flag two. Two steps for the fast one: flag three."
+  },
+  {
+   "speaker": "nami",
+   "line": "Another step slow: flag three. Another double-step fast: through flag four, landing on flag five — the very last flag. No path left ahead of it."
+  },
+  {
+   "speaker": "zoro",
+   "line": "Fast walker's out of road. Slow walker's on flag three. That's the middle."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI, and neither of us ever had to count anything first! We just walked until one of us ran out of path!"
+  }
+ ],
+ "insert-interval": [
+  {
+   "speaker": "usopp",
+   "line": "Two ships already have dock slots booked at Water 7: hours one to three, and hours six to nine. Now a third ship radios in wanting hours two to five — and it isn't on the schedule yet. Where does it fit?"
+  },
+  {
+   "speaker": "nami",
+   "line": "If it doesn't overlap anybody, we just slot it in wherever it belongs by start hour and we're done. But if it DOES overlap an existing booking, we can't just staple it in — the two bookings have to become one longer one."
+  },
+  {
+   "speaker": "robin",
+   "line": "So we walk the schedule once, in order, and ask three questions about each existing slot: does it end before the new one even starts? Does it start after the new one ends? Or does it overlap?"
+  },
+  {
+   "speaker": "robin",
+   "line": "First slot, one to three. It doesn't end before hour two — its end, three, is past our new booking's start. And it doesn't start after hour five either. That's overlap. We swallow it into the new booking: the low end stays one, the high end stretches to five."
+  },
+  {
+   "speaker": "robin",
+   "line": "Second slot, six to nine. Does it start after our now-grown booking ends at five? Yes — six is past five. No overlap. That means our merged booking is finished growing, and this slot stands entirely on its own, right after it."
+  },
+  {
+   "speaker": "nami",
+   "line": "One to five, then six to nine. Two slots on the board, in order — and the new ship folded straight into slot one without anybody reshuffling the whole schedule by hand."
+  },
+  {
+   "speaker": "luffy",
+   "line": "So the new ship didn't even need its OWN dock — it just moved into ship one's spot and made it bigger! SHISHISHI!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "One pass. Keep what ends before you start, merge whatever overlaps, keep what starts after you end."
+  }
+ ],
+ "non-overlapping-intervals": [
+  {
+   "speaker": "usopp",
+   "line": "Four scouts radio in wanting the watchtower tonight — shift windows of one to four, two to three, three to five, and six to eight o'clock. Some of those windows overlap. We can only grant the shifts that never overlap each other, and I want as few scouts turned away as possible."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Feels natural to just grant whoever asked with the EARLIEST start first — scout one, one to four. Lock that in and work forward from there, right?"
+  },
+  {
+   "speaker": "robin",
+   "line": "Not quite. Sort by when each shift ENDS instead of when it starts. The window that frees the tower soonest — two to three — should always be the one we lock in first, no matter who asked, or when."
+  },
+  {
+   "speaker": "nami",
+   "line": "Two to three doesn't conflict with anything yet, so it's free — keep it. Tower's booked until hour three."
+  },
+  {
+   "speaker": "nami",
+   "line": "Next shortest-to-end: scout one's one to four. But it STARTS at hour one — before hour three, when the tower's already booked. Overlap. Turn this one away."
+  },
+  {
+   "speaker": "nami",
+   "line": "Next: three to five. Starts right at hour three, the moment the tower frees up — no overlap. Keep it. Booked until hour five now."
+  },
+  {
+   "speaker": "usopp",
+   "line": "Last one: six to eight. Starts well after hour five. Clean. Keep it too."
+  },
+  {
+   "speaker": "nami",
+   "line": "Three shifts kept, only one scout turned away. If I'd locked in scout one's LONG shift first like I almost suggested, it would have blocked both two-to-three AND three-to-five — we'd have kept fewer overall."
+  },
+  {
+   "speaker": "luffy",
+   "line": "So the shift that gets OUT OF THE WAY fastest wins the tower first, even if it asked last! SHISHISHI, that's just like leaving room for everyone at the dinner table!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Sort by end. Keep it if it starts on or after the last one you kept ends. Count what you drop."
+  }
+ ],
+ "find-minimum-in-rotated-sorted-array": [
+  {
+   "speaker": "usopp",
+   "line": "Okay, I MIGHT have tripped into the garden sundial this morning. The seven hour-stones used to run smallest to biggest all the way around — now they're spun to some unknown point. There's exactly one smallest stone hiding in the ring. Find it, and we know exactly how far it turned."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Can't we just look at all seven stones and see which one is smallest?"
+  },
+  {
+   "speaker": "nami",
+   "line": "With seven, sure. With seven hundred, we'd be here all night. It's still HALF sorted at any split — same trick as always: cut it in half and figure out which half is hiding the smallest one."
+  },
+  {
+   "speaker": "nami",
+   "line": "Middle stone, index three: marked seven. Compare it to the LAST stone in range, index six, marked two. Seven is bigger than two — stones only ever drop from big back to small once, at the turnover point, and that hasn't happened yet by index three. So the smallest stone is still ahead, past the middle."
+  },
+  {
+   "speaker": "nami",
+   "line": "Throw away index zero through three entirely. Search only four through six."
+  },
+  {
+   "speaker": "nami",
+   "line": "New middle: index five, marked one. Compare to the last stone in THIS range, index six, marked two. One is smaller — the turnover already happened at or before index five, so the smallest is index five or something before it, never past it."
+  },
+  {
+   "speaker": "nami",
+   "line": "Search shrinks to index four through five."
+  },
+  {
+   "speaker": "nami",
+   "line": "Middle now: index four, marked zero. Compare to the last stone in range, index five, marked one. Zero is smaller — same logic. The smallest is index four or before, never past it."
+  },
+  {
+   "speaker": "nami",
+   "line": "That shrinks the range to exactly one stone: index four."
+  },
+  {
+   "speaker": "robin",
+   "line": "One stone left in range means we're done — a range of exactly one is always, trivially, its own smallest. Stone marked zero it is."
+  },
+  {
+   "speaker": "luffy",
+   "line": "SHISHISHI, so the sundial used to start counting right THERE, and Usopp spun it four stones too far!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "Compare the middle to the edge of your range, not to some target. Bigger than the edge, the drop's still ahead — go right. Smaller or equal, the drop already happened — stay left, keep the middle in play."
+  }
+ ],
+ "koko-eating-bananas": [
+  {
+   "speaker": "nami",
+   "line": "Sunny casts off in exactly eight hours — the tide won't wait a minute longer. There are four banana piles left on the dock: three, six, seven, and eleven bananas. And Luffy will not leave without every single one eaten first."
+  },
+  {
+   "speaker": "luffy",
+   "line": "I'll eat every pile! Just tell me how many bananas an hour to go so it fits EXACTLY in eight hours — and not one banana an hour faster than I have to, my stomach has limits!"
+  },
+  {
+   "speaker": "chopper",
+   "line": "Remember the rule — you eat from only ONE pile per hour, at whatever speed you pick. If the pile runs out partway through the hour, that hour is still used up; you can't start a new pile until the next one begins."
+  },
+  {
+   "speaker": "robin",
+   "line": "So we aren't searching the piles at all — we're searching every POSSIBLE eating speed, from one banana an hour up to eleven, enough to clear the biggest pile in a single hour. Somewhere in that range is the slowest speed that still finishes on time. Binary search for it."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Try the middle speed: six bananas an hour. Pile three needs one hour, pile six needs one hour, pile seven needs two hours, pile eleven needs two hours. Six hours total."
+  },
+  {
+   "speaker": "robin",
+   "line": "Six hours fits inside our eight-hour limit with room to spare, so speed six works — but something slower might work too. Keep searching the lower half."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Middle of what's left: three bananas an hour. One hour, two hours, three hours, four hours — ten hours total."
+  },
+  {
+   "speaker": "robin",
+   "line": "Ten hours blows past our eight-hour limit. Speed three is too slow — Luffy needs to eat faster than that. Search the upper half instead."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Middle of four to six: five bananas an hour. One hour, two hours, two hours, three hours — eight hours total."
+  },
+  {
+   "speaker": "robin",
+   "line": "Eight hours lands exactly on the limit — that still counts as finishing on time. Five works. Try slower still."
+  },
+  {
+   "speaker": "chopper",
+   "line": "Middle of four to five: four bananas an hour. One hour, two hours, two hours, three hours — eight hours total, again exactly at the limit."
+  },
+  {
+   "speaker": "robin",
+   "line": "Four also finishes exactly on time, and there's nothing slower left in range to test. Four bananas an hour is the floor."
+  },
+  {
+   "speaker": "luffy",
+   "line": "Four it is! ...wait, that's SLOWER than I wanted to eat! Ugh — fine. SHISHISHI, still bananas!"
+  },
+  {
+   "speaker": "zoro",
+   "line": "We never searched the piles themselves — only the speeds. Same halving trick, aimed at a different range."
+  }
+ ]
+}

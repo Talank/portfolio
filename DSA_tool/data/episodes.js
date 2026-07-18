@@ -12,7 +12,7 @@
 
   E['two-sum'] = {
     id: 'two-sum',
-    epNumber: 1,
+    epNumber: 16,
     title: 'The Twin-Chest Riddle',
     patternId: 'hashing-patterns',
     leetcode: { name: 'Two Sum', number: 1, difficulty: 'Easy', url: 'https://leetcode.com/problems/two-sum/' },
@@ -98,7 +98,7 @@
 
   E['two-sum-ii'] = {
     id: 'two-sum-ii',
-    epNumber: 2,
+    epNumber: 3,
     title: 'The Keel of the Thousand Sunny',
     patternId: 'two-pointers',
     leetcode: { name: 'Two Sum II — Input Array Is Sorted', number: 167, difficulty: 'Medium', url: 'https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/' },
@@ -185,7 +185,7 @@
 
   E['longest-substring'] = {
     id: 'longest-substring',
-    epNumber: 3,
+    epNumber: 4,
     title: "Bink's Sake, Never Twice in a Row",
     patternId: 'sliding-window',
     leetcode: { name: 'Longest Substring Without Repeating Characters', number: 3, difficulty: 'Medium', url: 'https://leetcode.com/problems/longest-substring-without-repeating-characters/' },
@@ -271,7 +271,7 @@
 
   E['linked-list-cycle'] = {
     id: 'linked-list-cycle',
-    epNumber: 4,
+    epNumber: 7,
     title: 'The Fog That Never Lets Go',
     patternId: 'fast-slow-pointers',
     leetcode: { name: 'Linked List Cycle', number: 141, difficulty: 'Easy', url: 'https://leetcode.com/problems/linked-list-cycle/' },
@@ -349,7 +349,7 @@
 
   E['merge-intervals-ep'] = {
     id: 'merge-intervals-ep',
-    epNumber: 5,
+    epNumber: 10,
     title: 'The Three Open Hours of Alubarna',
     patternId: 'merge-intervals',
     leetcode: { name: 'Merge Intervals', number: 56, difficulty: 'Medium', url: 'https://leetcode.com/problems/merge-intervals/' },
@@ -427,7 +427,7 @@
 
   E['search-rotated-sorted-array'] = {
     id: 'search-rotated-sorted-array',
-    epNumber: 6,
+    epNumber: 13,
     title: 'The Spun Shelf Beneath Alubarna',
     patternId: 'binary-search',
     leetcode: { name: 'Search in Rotated Sorted Array', number: 33, difficulty: 'Medium', url: 'https://leetcode.com/problems/search-in-rotated-sorted-array/' },
@@ -521,7 +521,7 @@
 
   E['daily-temperatures'] = {
     id: 'daily-temperatures',
-    epNumber: 7,
+    epNumber: 27,
     title: 'The Corrida Colosseum Undercard',
     patternId: 'monotonic-stack',
     leetcode: { name: 'Daily Temperatures', number: 739, difficulty: 'Medium', url: 'https://leetcode.com/problems/daily-temperatures/' },
@@ -631,7 +631,7 @@
 
   E['next-greater-element-ii'] = {
     id: 'next-greater-element-ii',
-    epNumber: 8,
+    epNumber: 26,
     title: "Big Mom's Round Tea Table",
     patternId: 'monotonic-stack',
     leetcode: { name: 'Next Greater Element II', number: 503, difficulty: 'Medium', url: 'https://leetcode.com/problems/next-greater-element-ii/' },
@@ -730,7 +730,7 @@
 
   E['largest-rectangle-histogram'] = {
     id: 'largest-rectangle-histogram',
-    epNumber: 9,
+    epNumber: 29,
     title: 'The Widest Tarp on Dock One',
     patternId: 'monotonic-stack',
     leetcode: { name: 'Largest Rectangle in Histogram', number: 84, difficulty: 'Hard', url: 'https://leetcode.com/problems/largest-rectangle-in-histogram/' },
@@ -835,7 +835,7 @@
 
   E['online-stock-span'] = {
     id: 'online-stock-span',
-    epNumber: 10,
+    epNumber: 28,
     title: "Nami's Running Haul Ledger",
     patternId: 'monotonic-stack',
     leetcode: { name: 'Online Stock Span', number: 901, difficulty: 'Medium', url: 'https://leetcode.com/problems/online-stock-span/' },
@@ -938,7 +938,7 @@
 
   E['range-sum-query-immutable'] = {
     id: 'range-sum-query-immutable',
-    epNumber: 11,
+    epNumber: 19,
     title: "Nami's Running Voyage Ledger",
     patternId: 'prefix-sum',
     leetcode: { name: 'Range Sum Query - Immutable', number: 303, difficulty: 'Easy', url: 'https://leetcode.com/problems/range-sum-query-immutable/' },
@@ -1027,7 +1027,7 @@
 
   E['subarray-sum-equals-k'] = {
     id: 'subarray-sum-equals-k',
-    epNumber: 12,
+    epNumber: 22,
     title: 'The Sacred Number of Shandora',
     patternId: 'prefix-sum',
     leetcode: { name: 'Subarray Sum Equals K', number: 560, difficulty: 'Medium', url: 'https://leetcode.com/problems/subarray-sum-equals-k/' },
@@ -1126,7 +1126,7 @@
 
   E['continuous-subarray-sum'] = {
     id: 'continuous-subarray-sum',
-    epNumber: 13,
+    epNumber: 21,
     title: 'The Coup de Burst Fuel Cycle',
     patternId: 'prefix-sum',
     leetcode: { name: 'Continuous Subarray Sum', number: 523, difficulty: 'Medium', url: 'https://leetcode.com/problems/continuous-subarray-sum/' },
@@ -1213,7 +1213,7 @@
 
   E['product-of-array-except-self'] = {
     id: 'product-of-array-except-self',
-    epNumber: 14,
+    epNumber: 20,
     title: 'The Gate of Justice Dial Lock',
     patternId: 'prefix-sum',
     leetcode: { name: 'Product of Array Except Self', number: 238, difficulty: 'Medium', url: 'https://leetcode.com/problems/product-of-array-except-self/' },
@@ -1319,7 +1319,7 @@
 
   E['reverse-linked-list'] = {
     id: 'reverse-linked-list',
-    epNumber: 15,
+    epNumber: 23,
     title: 'The Trail That Learned to Walk Backward',
     patternId: 'linked-list-reversal',
     leetcode: { name: 'Reverse Linked List', number: 206, difficulty: 'Easy', url: 'https://leetcode.com/problems/reverse-linked-list/' },
@@ -1360,7 +1360,7 @@
 
   E['reverse-linked-list-ii'] = {
     id: 'reverse-linked-list-ii',
-    epNumber: 16,
+    epNumber: 25,
     title: 'The Detour That Only Touched the Middle',
     patternId: 'linked-list-reversal',
     leetcode: { name: 'Reverse Linked List II', number: 92, difficulty: 'Medium', url: 'https://leetcode.com/problems/reverse-linked-list-ii/' },
@@ -1407,7 +1407,7 @@
 
   E['swap-nodes-in-pairs'] = {
     id: 'swap-nodes-in-pairs',
-    epNumber: 17,
+    epNumber: 24,
     title: "The Relay Line's Partner Swap",
     patternId: 'linked-list-reversal',
     leetcode: { name: 'Swap Nodes in Pairs', number: 24, difficulty: 'Medium', url: 'https://leetcode.com/problems/swap-nodes-in-pairs/' },
@@ -1451,7 +1451,7 @@
 
   E['sliding-window-maximum'] = {
     id: 'sliding-window-maximum',
-    epNumber: 18,
+    epNumber: 32,
     title: 'The Tallest Wave in Every Three-Length Watch',
     patternId: 'queue-deque',
     leetcode: { name: 'Sliding Window Maximum', number: 239, difficulty: 'Hard', url: 'https://leetcode.com/problems/sliding-window-maximum/' },
@@ -1507,7 +1507,7 @@
 
   E['moving-average-from-data-stream'] = {
     id: 'moving-average-from-data-stream',
-    epNumber: 19,
+    epNumber: 30,
     title: 'Three Heartbeats at a Time',
     patternId: 'queue-deque',
     leetcode: { name: 'Moving Average from Data Stream', number: 346, difficulty: 'Easy', url: 'https://leetcode.com/problems/moving-average-from-data-stream/' },
@@ -1555,7 +1555,7 @@
 
   E['design-circular-deque'] = {
     id: 'design-circular-deque',
-    epNumber: 20,
+    epNumber: 31,
     title: 'The Rum Barrel With Only Three Pegs',
     patternId: 'queue-deque',
     leetcode: { name: 'Design Circular Deque', number: 641, difficulty: 'Medium', url: 'https://leetcode.com/problems/design-circular-deque/' },
@@ -1640,7 +1640,7 @@
 
   E['binary-tree-level-order-traversal'] = {
     id: 'binary-tree-level-order-traversal',
-    epNumber: 21,
+    epNumber: 35,
     title: 'Clearing the Watchtower, Floor by Floor',
     patternId: 'tree-dfs-bfs',
     leetcode: { name: 'Binary Tree Level Order Traversal', number: 102, difficulty: 'Medium', url: 'https://leetcode.com/problems/binary-tree-level-order-traversal/' },
@@ -1694,7 +1694,7 @@
 
   E['maximum-depth-of-binary-tree'] = {
     id: 'maximum-depth-of-binary-tree',
-    epNumber: 22,
+    epNumber: 33,
     title: 'How Deep Do the Tunnels Go?',
     patternId: 'tree-dfs-bfs',
     leetcode: { name: 'Maximum Depth of Binary Tree', number: 104, difficulty: 'Easy', url: 'https://leetcode.com/problems/maximum-depth-of-binary-tree/' },
@@ -1732,7 +1732,7 @@
 
   E['diameter-of-binary-tree'] = {
     id: 'diameter-of-binary-tree',
-    epNumber: 23,
+    epNumber: 34,
     title: 'The Longest Bridge Between Any Two Crewmates',
     patternId: 'tree-dfs-bfs',
     leetcode: { name: 'Diameter of Binary Tree', number: 543, difficulty: 'Easy', url: 'https://leetcode.com/problems/diameter-of-binary-tree/' },
@@ -1780,7 +1780,7 @@
   };
   E['validate-binary-search-tree'] = {
     id: 'validate-binary-search-tree',
-    epNumber: 24,
+    epNumber: 36,
     title: 'The Forged Bounty Ledger',
     patternId: 'binary-search-trees',
     leetcode: { name: 'Validate Binary Search Tree', number: 98, difficulty: 'Medium', url: 'https://leetcode.com/problems/validate-binary-search-tree/' },
@@ -1824,7 +1824,7 @@
 
   E['lowest-common-ancestor-of-a-bst'] = {
     id: 'lowest-common-ancestor-of-a-bst',
-    epNumber: 25,
+    epNumber: 38,
     title: 'The Fork in the Log Pose Trail',
     patternId: 'binary-search-trees',
     leetcode: { name: 'Lowest Common Ancestor of a Binary Search Tree', number: 235, difficulty: 'Medium', url: 'https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/' },
@@ -1873,7 +1873,7 @@
 
   E['kth-smallest-element-in-a-bst'] = {
     id: 'kth-smallest-element-in-a-bst',
-    epNumber: 26,
+    epNumber: 37,
     title: "Sengoku's Sorted Vault",
     patternId: 'binary-search-trees',
     leetcode: { name: 'Kth Smallest Element in a BST', number: 230, difficulty: 'Medium', url: 'https://leetcode.com/problems/kth-smallest-element-in-a-bst/' },
@@ -1924,7 +1924,7 @@
 
   E['kth-largest-element-in-an-array'] = {
     id: 'kth-largest-element-in-an-array',
-    epNumber: 27,
+    epNumber: 39,
     title: "Weatheria's Second-Strongest Storm",
     patternId: 'heaps-top-k',
     leetcode: { name: 'Kth Largest Element in an Array', number: 215, difficulty: 'Medium', url: 'https://leetcode.com/problems/kth-largest-element-in-an-array/' },
@@ -1971,7 +1971,7 @@
 
   E['top-k-frequent-elements'] = {
     id: 'top-k-frequent-elements',
-    epNumber: 28,
+    epNumber: 40,
     title: 'The Two Most-Printed Wanted Posters',
     patternId: 'heaps-top-k',
     leetcode: { name: 'Top K Frequent Elements', number: 347, difficulty: 'Medium', url: 'https://leetcode.com/problems/top-k-frequent-elements/' },
@@ -2015,7 +2015,7 @@
 
   E['merge-k-sorted-lists'] = {
     id: 'merge-k-sorted-lists',
-    epNumber: 29,
+    epNumber: 41,
     title: 'Three Maps, One True Route',
     patternId: 'heaps-top-k',
     leetcode: { name: 'Merge k Sorted Lists', number: 23, difficulty: 'Hard', url: 'https://leetcode.com/problems/merge-k-sorted-lists/' },
@@ -2074,7 +2074,7 @@
 
   E['subsets'] = {
     id: 'subsets',
-    epNumber: 30,
+    epNumber: 44,
     title: 'Every Way to Split the Loot',
     patternId: 'backtracking',
     leetcode: { name: 'Subsets', number: 78, difficulty: 'Medium', url: 'https://leetcode.com/problems/subsets/' },
@@ -2123,7 +2123,7 @@
 
   E['permutations'] = {
     id: 'permutations',
-    epNumber: 31,
+    epNumber: 43,
     title: "The Crow's Nest Watch Rotation",
     patternId: 'backtracking',
     leetcode: { name: 'Permutations', number: 46, difficulty: 'Medium', url: 'https://leetcode.com/problems/permutations/' },
@@ -2178,7 +2178,7 @@
 
   E['combination-sum'] = {
     id: 'combination-sum',
-    epNumber: 32,
+    epNumber: 42,
     title: "Exact Toll for Punk Hazard's Gate",
     patternId: 'backtracking',
     leetcode: { name: 'Combination Sum', number: 39, difficulty: 'Medium', url: 'https://leetcode.com/problems/combination-sum/' },
@@ -2230,7 +2230,7 @@
   };
   E['number-of-islands'] = {
     id: 'number-of-islands',
-    epNumber: 33,
+    epNumber: 45,
     title: 'The Reef Chart After the Storm',
     patternId: 'graphs-bfs-dfs-topo-union',
     leetcode: { name: 'Number of Islands', number: 200, difficulty: 'Medium', url: 'https://leetcode.com/problems/number-of-islands/' },
@@ -2296,7 +2296,7 @@
 
   E['course-schedule'] = {
     id: 'course-schedule',
-    epNumber: 34,
+    epNumber: 46,
     title: 'The Order of the Trials',
     patternId: 'graphs-bfs-dfs-topo-union',
     leetcode: { name: 'Course Schedule', number: 207, difficulty: 'Medium', url: 'https://leetcode.com/problems/course-schedule/' },
@@ -2350,7 +2350,7 @@
 
   E['number-of-provinces'] = {
     id: 'number-of-provinces',
-    epNumber: 35,
+    epNumber: 47,
     title: 'Big Mom’s Round Tea Table',
     patternId: 'graphs-bfs-dfs-topo-union',
     leetcode: { name: 'Number of Provinces', number: 547, difficulty: 'Medium', url: 'https://leetcode.com/problems/number-of-provinces/' },
@@ -2402,7 +2402,7 @@
 
   E['climbing-stairs'] = {
     id: 'climbing-stairs',
-    epNumber: 36,
+    epNumber: 48,
     title: 'The Crow’s Nest Staircase',
     patternId: 'dynamic-programming',
     leetcode: { name: 'Climbing Stairs', number: 70, difficulty: 'Easy', url: 'https://leetcode.com/problems/climbing-stairs/' },
@@ -2442,7 +2442,7 @@
 
   E['house-robber'] = {
     id: 'house-robber',
-    epNumber: 37,
+    epNumber: 49,
     title: 'The Alarm-Chained Vault Street',
     patternId: 'dynamic-programming',
     leetcode: { name: 'House Robber', number: 198, difficulty: 'Medium', url: 'https://leetcode.com/problems/house-robber/' },
@@ -2483,7 +2483,7 @@
 
   E['coin-change'] = {
     id: 'coin-change',
-    epNumber: 38,
+    epNumber: 50,
     title: 'The Fewest Coins to Buy the Log Pose',
     patternId: 'dynamic-programming',
     leetcode: { name: 'Coin Change', number: 322, difficulty: 'Medium', url: 'https://leetcode.com/problems/coin-change/' },
@@ -2529,7 +2529,7 @@
 
   E['jump-game'] = {
     id: 'jump-game',
-    epNumber: 39,
+    epNumber: 51,
     title: 'The Stepping Stones to Fishman Island',
     patternId: 'greedy',
     leetcode: { name: 'Jump Game', number: 55, difficulty: 'Medium', url: 'https://leetcode.com/problems/jump-game/' },
@@ -2573,7 +2573,7 @@
 
   E['gas-station'] = {
     id: 'gas-station',
-    epNumber: 40,
+    epNumber: 52,
     title: 'The Circular Supply Run',
     patternId: 'greedy',
     leetcode: { name: 'Gas Station', number: 134, difficulty: 'Medium', url: 'https://leetcode.com/problems/gas-station/' },
@@ -2621,7 +2621,7 @@
 
   E['min-arrows-burst-balloons'] = {
     id: 'min-arrows-burst-balloons',
-    epNumber: 41,
+    epNumber: 53,
     title: 'The Sniper’s Minimum Volley',
     patternId: 'greedy',
     leetcode: { name: 'Minimum Number of Arrows to Burst Balloons', number: 452, difficulty: 'Medium', url: 'https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/' },
@@ -2665,7 +2665,7 @@
   };
   E['single-number'] = {
     id: 'single-number',
-    epNumber: 42,
+    epNumber: 54,
     title: 'The Last Duelist Standing on Sabaody',
     patternId: 'bit-manipulation',
     leetcode: { name: 'Single Number', number: 136, difficulty: 'Easy', url: 'https://leetcode.com/problems/single-number/' },
@@ -2707,7 +2707,7 @@
 
   E['number-of-1-bits'] = {
     id: 'number-of-1-bits',
-    epNumber: 43,
+    epNumber: 55,
     title: "Chopper's Lantern Count",
     patternId: 'bit-manipulation',
     leetcode: { name: 'Number of 1 Bits', number: 191, difficulty: 'Easy', url: 'https://leetcode.com/problems/number-of-1-bits/' },
@@ -2749,7 +2749,7 @@
 
   E['counting-bits'] = {
     id: 'counting-bits',
-    epNumber: 44,
+    epNumber: 56,
     title: 'Half the Work, Twice the Numbers',
     patternId: 'bit-manipulation',
     leetcode: { name: 'Counting Bits', number: 338, difficulty: 'Easy', url: 'https://leetcode.com/problems/counting-bits/' },
@@ -2796,7 +2796,7 @@
 
   E['implement-trie-prefix-tree'] = {
     id: 'implement-trie-prefix-tree',
-    epNumber: 45,
+    epNumber: 57,
     title: 'The Scroll That Branches by Letter',
     patternId: 'trie',
     leetcode: { name: 'Implement Trie (Prefix Tree)', number: 208, difficulty: 'Medium', url: 'https://leetcode.com/problems/implement-trie-prefix-tree/' },
@@ -2863,7 +2863,7 @@
 
   E['design-add-and-search-words'] = {
     id: 'design-add-and-search-words',
-    epNumber: 46,
+    epNumber: 58,
     title: 'The Smudged Wanted Poster',
     patternId: 'trie',
     leetcode: { name: 'Design Add and Search Words Data Structure', number: 211, difficulty: 'Medium', url: 'https://leetcode.com/problems/design-add-and-search-words-data-structure/' },
@@ -2929,7 +2929,7 @@
 
   E['replace-words'] = {
     id: 'replace-words',
-    epNumber: 47,
+    epNumber: 59,
     title: 'The Root That Speaks for the Whole Branch',
     patternId: 'trie',
     leetcode: { name: 'Replace Words', number: 648, difficulty: 'Medium', url: 'https://leetcode.com/problems/replace-words/' },
@@ -2994,7 +2994,7 @@
   };
   E['group-anagrams'] = {
     id: 'group-anagrams',
-    epNumber: 48,
+    epNumber: 17,
     title: 'The Scrambled-Letter Bounty Scrolls',
     patternId: 'hashing-patterns',
     leetcode: { name: 'Group Anagrams', number: 49, difficulty: 'Medium', url: 'https://leetcode.com/problems/group-anagrams/' },
@@ -3042,7 +3042,7 @@
 
   E['longest-consecutive-sequence'] = {
     id: 'longest-consecutive-sequence',
-    epNumber: 49,
+    epNumber: 18,
     title: 'The Longest Chain in the Log Pose Ruins',
     patternId: 'hashing-patterns',
     leetcode: { name: 'Longest Consecutive Sequence', number: 128, difficulty: 'Medium', url: 'https://leetcode.com/problems/longest-consecutive-sequence/' },
@@ -3093,7 +3093,7 @@
 
   E['container-with-most-water'] = {
     id: 'container-with-most-water',
-    epNumber: 50,
+    epNumber: 1,
     title: 'The Deepest Cistern at Water 7',
     patternId: 'two-pointers',
     leetcode: { name: 'Container With Most Water', number: 11, difficulty: 'Medium', url: 'https://leetcode.com/problems/container-with-most-water/' },
@@ -3148,7 +3148,7 @@
 
   E['three-sum'] = {
     id: 'three-sum',
-    epNumber: 51,
+    epNumber: 2,
     title: "Nami's Zero-Balance Ledger",
     patternId: 'two-pointers',
     leetcode: { name: '3Sum', number: 15, difficulty: 'Medium', url: 'https://leetcode.com/problems/3sum/' },
@@ -3213,7 +3213,7 @@
 
   E['minimum-window-substring'] = {
     id: 'minimum-window-substring',
-    epNumber: 52,
+    epNumber: 6,
     title: 'The Shortest Excerpt Worth Copying',
     patternId: 'sliding-window',
     leetcode: { name: 'Minimum Window Substring', number: 76, difficulty: 'Hard', url: 'https://leetcode.com/problems/minimum-window-substring/' },
@@ -3288,7 +3288,7 @@
 
   E['longest-repeating-character-replacement'] = {
     id: 'longest-repeating-character-replacement',
-    epNumber: 53,
+    epNumber: 5,
     title: 'The Banner With One Patch to Spare',
     patternId: 'sliding-window',
     leetcode: { name: 'Longest Repeating Character Replacement', number: 424, difficulty: 'Medium', url: 'https://leetcode.com/problems/longest-repeating-character-replacement/' },
@@ -3345,7 +3345,7 @@
   };
   E['linked-list-cycle-ii'] = {
     id: 'linked-list-cycle-ii',
-    epNumber: 54,
+    epNumber: 9,
     title: "The Loop's Front Door",
     patternId: 'fast-slow-pointers',
     leetcode: { name: 'Linked List Cycle II', number: 142, difficulty: 'Medium', url: 'https://leetcode.com/problems/linked-list-cycle-ii/' },
@@ -3439,7 +3439,7 @@
 
   E['middle-of-the-linked-list'] = {
     id: 'middle-of-the-linked-list',
-    epNumber: 55,
+    epNumber: 8,
     title: 'The Midpoint Knot',
     patternId: 'fast-slow-pointers',
     leetcode: { name: 'Middle of the Linked List', number: 876, difficulty: 'Easy', url: 'https://leetcode.com/problems/middle-of-the-linked-list/' },
@@ -3515,7 +3515,7 @@
 
   E['insert-interval'] = {
     id: 'insert-interval',
-    epNumber: 56,
+    epNumber: 11,
     title: "The Late Ship's Berth",
     patternId: 'merge-intervals',
     leetcode: { name: 'Insert Interval', number: 57, difficulty: 'Medium', url: 'https://leetcode.com/problems/insert-interval/' },
@@ -3605,7 +3605,7 @@
 
   E['non-overlapping-intervals'] = {
     id: 'non-overlapping-intervals',
-    epNumber: 57,
+    epNumber: 12,
     title: 'Whoever Frees the Tower First',
     patternId: 'merge-intervals',
     leetcode: { name: 'Non-overlapping Intervals', number: 435, difficulty: 'Medium', url: 'https://leetcode.com/problems/non-overlapping-intervals/' },
@@ -3695,7 +3695,7 @@
 
   E['find-minimum-in-rotated-sorted-array'] = {
     id: 'find-minimum-in-rotated-sorted-array',
-    epNumber: 58,
+    epNumber: 14,
     title: "The Spun Sundial's True Zero",
     patternId: 'binary-search',
     leetcode: { name: 'Find Minimum in Rotated Sorted Array', number: 153, difficulty: 'Medium', url: 'https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/' },
@@ -3799,7 +3799,7 @@
 
   E['koko-eating-bananas'] = {
     id: 'koko-eating-bananas',
-    epNumber: 59,
+    epNumber: 15,
     title: 'Bananas Before the Tide',
     patternId: 'binary-search',
     leetcode: { name: 'Koko Eating Bananas', number: 875, difficulty: 'Medium', url: 'https://leetcode.com/problems/koko-eating-bananas/' },
