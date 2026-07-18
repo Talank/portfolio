@@ -40,18 +40,69 @@ OUT_DIR = HERE
 CONCURRENCY = 4
 MAX_RETRIES = 4
 
-# --- Voice casting: character -> (voice, rate, pitch) ------------------------
+# Only re-render these speakers (comma list in ONLY_SPEAKERS env), merging the
+# result into the existing manifest so the other characters' clips are kept as
+# they are. Empty = render everything from scratch.
+ONLY_SPEAKERS = {s.strip() for s in os.environ.get("ONLY_SPEAKERS", "").split(",") if s.strip()}
+
+# --- Voice casting: character -> (voice, rate, pitch, volume) ----------------
+# volume ("+0%" default) lets a line pull back (fear) or lean in (excitement)
+# without changing who is speaking.
 VOICES = {
-    "luffy":   ("en-US-GuyNeural",         "+13%", "+12Hz"),
-    "nami":    ("en-US-JennyNeural",       "+4%",  "+9Hz"),
-    "usopp":   ("en-US-BrianNeural",       "+7%",  "+22Hz"),
-    "zoro":    ("en-US-ChristopherNeural", "-5%",  "-12Hz"),
-    "robin":   ("en-GB-SoniaNeural",       "-8%",  "-5Hz"),
-    "chopper": ("en-US-AnaNeural",         "+6%",  "+0Hz"),
-    "brook":   ("en-GB-ThomasNeural",      "-3%",  "-14Hz"),
+    "luffy":   ("en-US-GuyNeural",         "+13%", "+12Hz", "+0%"),
+    "nami":    ("en-US-JennyNeural",       "+4%",  "+9Hz",  "+0%"),
+    "usopp":   ("en-US-BrianNeural",       "+7%",  "+22Hz", "+0%"),
+    "zoro":    ("en-US-ChristopherNeural", "-5%",  "-12Hz", "+0%"),
+    "robin":   ("en-GB-SoniaNeural",       "-8%",  "-5Hz",  "+0%"),
+    "chopper": ("en-US-AnaNeural",         "+6%",  "+0Hz",  "+0%"),
+    "brook":   ("en-GB-ThomasNeural",      "-3%",  "-14Hz", "+0%"),
     # Fallback narrator for any unmapped speaker.
-    "_default": ("en-US-AriaNeural",       "+0%",  "+0Hz"),
+    "_default": ("en-US-AriaNeural",       "+0%",  "+0Hz",  "+0%"),
 }
+
+# --- Per-line emotion -------------------------------------------------------
+# Nami is written to FEAR the problem (the brute-force danger) and get EXCITED
+# by the solution. One flat voice flattens that arc, so each of her lines is
+# classified from its own words and the voice is re-tuned line by line: fear =
+# higher, quicker, pulled-back (anxious); excitement = higher, quicker, leaning
+# in (thrilled). Neutral lines keep her base tuning. Deltas are ABSOLUTE tunings
+# (they replace the base rate/pitch/volume), not additive.
+EMOTION_TUNING = {
+    "nami": {
+        "fear":    ("+7%",  "+19Hz", "-7%"),
+        "excited": ("+17%", "+24Hz", "+12%"),
+    },
+}
+
+_FEAR_WORDS = [
+    "trap", "danger", "dangerous", "stuck", "lost", "scary", "scared", "afraid",
+    "worried", "worry", "panic", "run out", "running out", "forever", "too many",
+    "too slow", "brute", "every pair", "every single", "explode", "overflow",
+    "drown", "sink", "doom", "nightmare", "trouble", "uh oh", "oh no", "help",
+    "can't", "cannot", "impossible", "waste", "wasting", "endless", "never finish",
+    "all day", "all night", "give up", "hopeless", "grind", "crawl", "wrong",
+    "miss", "fail", "swamped", "buried", "pile up", "piling", "storm", "sinking",
+]
+_EXCITED_WORDS = [
+    "got it", "that's it", "that's the", "exactly", "solved", "it works", "works",
+    "clever", "brilliant", "genius", "perfect", "yes", "found it", "found", "trick",
+    "easy", "only once", "just one", "one pass", "beautiful", "nice", "amazing",
+    "wow", "love", "sorted", "done", "finally", "saved", "treasure", "berries",
+    "profit", "rich", "gold", "shortcut", "smart", "one glance", "instantly",
+    "in a flash", "so simple", "no sweat", "cracked it", "there it is",
+]
+
+
+def classify_emotion(text):
+    """Return 'fear', 'excited', or None from the words in a single line."""
+    low = " " + text.lower() + " "
+    fear = sum(1 for w in _FEAR_WORDS if w in low)
+    exc = sum(1 for w in _EXCITED_WORDS if w in low)
+    if exc > fear:
+        return "excited"
+    if fear > exc:
+        return "fear"
+    return None
 
 # --- Spoken-text normalization (English) ------------------------------------
 _BIGO = [
@@ -74,6 +125,21 @@ _BIGO = [
 _ACRO = {"BFS": "B F S", "DFS": "D F S", "BST": "B S T",
          "XOR": "ex or", "DAG": "dag", "LCA": "L C A"}
 
+# Luffy's laugh. "SHISHISHI" spelled out is read as a flat, robotic
+# "shish-ishi" — not a laugh at all. Rewrite any run of it into a real,
+# open-mouthed carefree laugh that keeps his signature "shi" onset, then breaks
+# into staccato giggle/belly-laugh syllables (each as its own token so the voice
+# renders separate bursts) with the exclamation energy of the captain.
+_LAUGH_RE = re.compile(r"(?<![A-Za-z])sh+i(?:sh+i)+(?![A-Za-z])", re.IGNORECASE)
+_LAUGH_TEXT = "Shi hi hi hi ha ha ha!"
+
+
+def _laughs(text):
+    text = _LAUGH_RE.sub(_LAUGH_TEXT, text)
+    # The laugh ends in "!"; fold any punctuation the original left right after
+    # it ("!!", "!,", "!.") back into a single clean exclamation.
+    return re.sub(r"!\s*[!,.]+", "! ", text)
+
 
 def _apply_lookaround(text, mapping):
     for key in sorted(mapping, key=len, reverse=True):
@@ -83,6 +149,7 @@ def _apply_lookaround(text, mapping):
 
 
 def to_speakable(text):
+    text = _laughs(text)
     for a, b in _BIGO:
         text = text.replace(a, b)
     text = _apply_lookaround(text, _ACRO)
@@ -91,18 +158,27 @@ def to_speakable(text):
 
 # ---------------------------------------------------------------------------
 
-def voice_for(speaker):
-    return VOICES.get(speaker, VOICES["_default"])
+def voice_for(speaker, text=""):
+    """Return (voice, rate, pitch, volume) for a line, applying per-line emotion
+    tuning where the character has it (currently Nami's fear/excitement arc)."""
+    base = VOICES.get(speaker, VOICES["_default"])
+    voice, rate, pitch, volume = base
+    emo_map = EMOTION_TUNING.get(speaker)
+    if emo_map:
+        emo = classify_emotion(text)
+        if emo in emo_map:
+            rate, pitch, volume = emo_map[emo]
+    return voice, rate, pitch, volume
 
 
 async def synth_line(sem, ep_id, idx, speaker, text, result):
     async with sem:
         out_mp3 = os.path.join(OUT_DIR, f"{ep_id}-{idx}.mp3")
-        voice, rate, pitch = voice_for(speaker)
+        voice, rate, pitch, volume = voice_for(speaker, text)
         spoken = to_speakable(text)
         for attempt in range(1, MAX_RETRIES + 1):
             try:
-                comm = edge_tts.Communicate(spoken, voice, rate=rate, pitch=pitch)
+                comm = edge_tts.Communicate(spoken, voice, rate=rate, pitch=pitch, volume=volume)
                 audio = bytearray()
                 last_end = 0.0
                 async for chunk in comm.stream():
@@ -134,22 +210,54 @@ async def synth_line(sem, ep_id, idx, speaker, text, result):
                 await asyncio.sleep(1.5 * attempt)
 
 
+def _load_existing_decks():
+    path = os.path.join(OUT_DIR, "manifest.json")
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path) as f:
+            return json.load(f).get("decks", {})
+    except Exception:
+        return {}
+
+
 async def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     with open(NARR) as f:
         narrations = json.load(f)
 
-    print(f"Casting {len(VOICES) - 1} character voices; building episode audio.")
+    # In merge mode, start from the existing decks and only re-render the
+    # requested speakers; otherwise render everything.
+    existing = _load_existing_decks() if ONLY_SPEAKERS else {}
+    if ONLY_SPEAKERS:
+        print(f"Merge mode: re-rendering only {sorted(ONLY_SPEAKERS)}; keeping the rest.")
+    else:
+        print(f"Casting {len(VOICES) - 1} character voices; building episode audio.")
+
     result = {ep: [None] * len(steps) for ep, steps in narrations.items()}
     sem = asyncio.Semaphore(CONCURRENCY)
     tasks = []
+    kept = 0
     for ep_id, steps in narrations.items():
         for idx, step in enumerate(steps):
-            tasks.append(synth_line(sem, ep_id, idx, step["speaker"], step["line"], result))
+            speaker = step["speaker"]
+            if ONLY_SPEAKERS and speaker not in ONLY_SPEAKERS:
+                prev = (existing.get(ep_id) or [None] * len(steps))
+                entry = prev[idx] if idx < len(prev) else None
+                mp3_ok = entry and entry.get("file") and \
+                    os.path.exists(os.path.join(OUT_DIR, entry["file"]))
+                if mp3_ok:
+                    result[ep_id][idx] = entry
+                    kept += 1
+                    continue
+                # No usable prior clip — fall through and render it.
+            tasks.append(synth_line(sem, ep_id, idx, speaker, step["line"], result))
+    if ONLY_SPEAKERS:
+        print(f"Keeping {kept} existing clips; re-rendering {len(tasks)}.")
     await asyncio.gather(*tasks)
 
     manifest = {
-        "voices": {k: {"voice": v[0], "rate": v[1], "pitch": v[2]}
+        "voices": {k: {"voice": v[0], "rate": v[1], "pitch": v[2], "volume": v[3]}
                    for k, v in VOICES.items() if k != "_default"},
         "decks": result,
     }
