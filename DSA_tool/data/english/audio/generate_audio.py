@@ -22,6 +22,8 @@ timings stay aligned.
 import json
 import os
 import re
+import shutil
+import subprocess
 import sys
 import urllib.request
 
@@ -144,7 +146,31 @@ def main():
         json.dump(manifest, f, ensure_ascii=False)
         f.write(";\n")
 
+    build_opus_siblings(OUT_DIR)
     print(f"\nDone: {total} slides, {failed} failed. Manifest -> {OUT_DIR}/manifest.json")
+
+
+def build_opus_siblings(out_dir):
+    """The site serves each clip as .opus (~55% smaller) to browsers that can
+    play it, falling back to the MP3 otherwise — so every clip must exist in
+    both formats. Requires ffmpeg with libopus; skips already-up-to-date files."""
+    ffmpeg = shutil.which("ffmpeg")
+    if not ffmpeg:
+        print("WARNING: ffmpeg not found — .opus siblings not built; "
+              "browsers will fall back to the larger MP3s.")
+        return
+    n = 0
+    for name in sorted(os.listdir(out_dir)):
+        if not name.endswith(".mp3"):
+            continue
+        src = os.path.join(out_dir, name)
+        dst = src[:-4] + ".opus"
+        if os.path.exists(dst) and os.path.getmtime(dst) >= os.path.getmtime(src):
+            continue
+        subprocess.run([ffmpeg, "-y", "-loglevel", "error", "-i", src,
+                        "-c:a", "libopus", "-b:a", "24k", "-ac", "1", dst], check=True)
+        n += 1
+    print(f"opus siblings: {n} (re)encoded")
 
 
 if __name__ == "__main__":

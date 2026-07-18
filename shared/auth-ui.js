@@ -13,6 +13,10 @@ const AuthUI = (() => {
   function onChange(fn) {
     if (!window.sb) {
       fn(null);
+      // The supabase bundle loads lazily (see supabase-client.js); if it's
+      // still on its way, re-subscribe once it's ready. If sync was never
+      // configured, 'sb:ready' simply never fires and this stays a no-op.
+      window.addEventListener('sb:ready', () => onChange(fn), { once: true });
       return;
     }
     getSession().then(fn); // fire immediately with current state, don't wait for the next auth event
@@ -95,7 +99,11 @@ const AuthUI = (() => {
 
   async function mount(containerId) {
     const container = document.getElementById(containerId);
-    if (!container || !window.sb) return;
+    if (!container) return;
+    if (!window.sb) {
+      window.addEventListener('sb:ready', () => mount(containerId), { once: true });
+      return;
+    }
     onChange((session) => {
       const el = document.getElementById(containerId);
       if (el) render(el, session);

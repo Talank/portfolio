@@ -171,6 +171,16 @@
     }
     function autoplayOn() { return localStorage.getItem(AUTO_KEY) !== '0'; }
 
+    // Every narration clip exists twice on disk: .mp3 (universal) and .opus
+    // (~55% smaller, all modern browsers). Prefer opus when playable; if an
+    // opus file 404s or fails mid-flight we retry the same clip as mp3.
+    const OPUS_OK = (function () {
+      try { return new Audio().canPlayType('audio/ogg; codecs=opus') !== ''; } catch (e) { return false; }
+    })();
+    function clipUrl(file) {
+      return cfg().audioBase + (OPUS_OK ? file.replace(/\.mp3$/i, '.opus') : file);
+    }
+
     function getAudioEl() {
       if (!st.audioEl) { st.audioEl = new Audio(); st.audioEl.preload = 'auto'; }
       return st.audioEl;
@@ -181,11 +191,36 @@
       if (ttsSupported()) window.speechSynthesis.cancel();
     }
     function prefetch(idx) {
-      const info = audioInfo(idx);
-      if (!info || !info.file) return;
-      if (!st.prefetchEl) st.prefetchEl = new Audio();
-      st.prefetchEl.preload = 'auto';
-      st.prefetchEl.src = cfg().audioBase + info.file;
+      // Warm the next two slides so slide changes never wait on the network.
+      if (!st.prefetchEl) st.prefetchEl = [new Audio(), new Audio()];
+      for (let k = 0; k < st.prefetchEl.length; k++) {
+        const info = audioInfo(idx + k);
+        if (!info || !info.file) continue;
+        st.prefetchEl[k].preload = 'auto';
+        st.prefetchEl[k].src = clipUrl(info.file);
+      }
+    }
+
+    // Quietly download the whole deck's narration, one clip at a time, once
+    // the first slide is up. Every later slide (and any transcript seek) then
+    // plays from cache with zero network wait; with the service worker active
+    // the clips also survive for offline replays. Aborts if the user switches
+    // language or deck mid-warm.
+    function warmDeckAudio() {
+      const root = audioRoot();
+      const clips = root && root.decks && st.deck && root.decks[st.deck.id];
+      if (!clips || typeof fetch !== 'function' || location.protocol.indexOf('http') !== 0) return;
+      const lang = st.lang, deckId = st.deck.id;
+      let i = 0;
+      (function next() {
+        if (st.lang !== lang || !st.deck || st.deck.id !== deckId || i >= clips.length) return;
+        const info = clips[i++];
+        if (!info || !info.file) { next(); return; }
+        fetch(clipUrl(info.file))
+          .then(r => (r && r.ok ? r.blob() : null))  // drain so the full body is cached
+          .catch(() => {})
+          .then(() => setTimeout(next, 250));
+      })();
     }
 
     function markChunk(i) {
@@ -217,7 +252,7 @@
       const a = getAudioEl();
       const starts = info.sentences || [];
       a.onended = null; a.ontimeupdate = null; a.onerror = null;
-      a.src = cfg().audioBase + info.file;
+      a.src = clipUrl(info.file);
       a.playbackRate = currentRate();
       a.ontimeupdate = () => {
         if (mySession !== st.session) return;
@@ -231,7 +266,17 @@
         updateScrub();
         if (onEnded) onEnded();
       };
-      a.onerror = () => { if (mySession === st.session) speakSlideTTS(onEnded); };
+      a.onerror = () => {
+        if (mySession !== st.session) return;
+        if (/\.opus$/i.test(a.src)) {
+          // Opus variant failed (missing file / decoder quirk) — same clip as mp3.
+          a.src = cfg().audioBase + info.file;
+          const rp = a.play();
+          if (rp && rp.catch) rp.catch(() => {});
+          return;
+        }
+        speakSlideTTS(onEnded);
+      };
       markChunk(0);
       prefetch(st.slideIdx + 1);
       const p = a.play();
@@ -526,6 +571,8 @@
         (next ? `<a href="${PAGE}?id=${next.id}">${esc(next.title)} →</a>` : `<a href="${PAGE}">${esc(S().allLink)} →</a>`);
 
       prefetch(0);
+      const whenIdle = window.requestIdleCallback || (cb => setTimeout(cb, 1200));
+      whenIdle(() => warmDeckAudio());
     }
 
     function boot() {

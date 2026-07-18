@@ -1,5 +1,14 @@
 /* Shared header, progress tracking (localStorage), and dashboard rendering. */
 
+// Offline support + instant repeat loads: sw.js caches every page, deck, and
+// narration clip (stale-while-revalidate). app.js is on every page, so this
+// registers the worker site-wide. Skipped over file:// (start.sh local use).
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+
 const PROGRESS_KEY = 'dsa-progress-v1';
 
 function getProgress() {

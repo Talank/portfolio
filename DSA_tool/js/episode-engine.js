@@ -242,9 +242,22 @@
     const audioEl = new Audio();
     audioEl.preload = 'auto';
     const audioBase = 'data/episodes/audio/';
+    // Clips exist as both .mp3 and .opus (~55% smaller); prefer opus when the
+    // browser can play it. narrateCurrent's onerror falls back to browser TTS,
+    // and every clip ships in both formats, so no per-clip mp3 retry is needed.
+    const OPUS_OK = (function () {
+      try { return audioEl.canPlayType('audio/ogg; codecs=opus') !== ''; } catch (e) { return false; }
+    })();
     function clipFor(i) {
       const c = AUDIO && AUDIO[i];
-      return c && c.file ? audioBase + c.file : null;
+      if (!c || !c.file) return null;
+      return audioBase + (OPUS_OK ? c.file.replace(/\.mp3$/i, '.opus') : c.file);
+    }
+    // Warm the next clip so dialogue beats don't pause on the network.
+    const prefetchEl = new Audio();
+    function prefetchClip(i) {
+      const src = clipFor(i);
+      if (src) { prefetchEl.preload = 'auto'; prefetchEl.src = src; }
     }
     const haveClips = !!AUDIO && AUDIO.some(c => c && c.file);
     const browserTTS = !!(window.VoiceEngine && window.VoiceEngine.isSupported());
@@ -334,6 +347,7 @@
         audioEl.currentTime = 0;
         const p = audioEl.play();
         if (p && p.catch) p.catch(() => once());
+        prefetchClip(idx + 1);
         return;
       }
 
@@ -402,6 +416,7 @@
 
     render(0);
     updateMusicLabel();
+    prefetchClip(0); // warm the opening line so "Play episode" starts instantly
   }
 
   window.renderEpisode = renderEpisode;
