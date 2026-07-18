@@ -87,11 +87,20 @@ _ACRO_NE = {
     "LRU": "एल आर यू", "AVL": "ए भी एल", "TSP": "टी एस पी", "DAG": "ड्याग",
     "IP": "आई पी", "VIP": "भी आई पी",
 }
-_LETTER_NE = {
-    "n": "एन", "N": "एन", "K": "के", "k": "के", "i": "आई", "j": "जे",
-    "x": "एक्स", "X": "एक्स", "m": "एम", "P": "पी", "T": "टी", "V": "भी",
-    "u": "यू", "v": "भी", "w": "डब्ल्यू", "b": "बी", "E": "ई",
+# Full A–Z (upper + lower). Only matches a Latin letter standing alone (variable
+# names like L, R, n, K, i) — never a letter inside a word — so it is safe to map
+# the whole alphabet. Runs AFTER _BIGO_NE/_ACRO_NE, so "O" inside O(n) and letters
+# inside acronyms are already consumed.
+_LETTER_SOUND = {
+    "a": "ए", "b": "बी", "c": "सी", "d": "डी", "e": "ई", "f": "एफ", "g": "जी",
+    "h": "एच", "i": "आई", "j": "जे", "k": "के", "l": "एल", "m": "एम", "n": "एन",
+    "o": "ओ", "p": "पी", "q": "क्यू", "r": "आर", "s": "एस", "t": "टी", "u": "यू",
+    "v": "भी", "w": "डब्ल्यू", "x": "एक्स", "y": "वाई", "z": "जेड",
 }
+_LETTER_NE = {}
+for _c, _snd in _LETTER_SOUND.items():
+    _LETTER_NE[_c] = " " + _snd + " "
+    _LETTER_NE[_c.upper()] = " " + _snd + " "
 
 _BIGO_EN = [
     ("O(n log K)", " big O of n log K "),
