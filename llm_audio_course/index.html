@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Voice Lab — Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Local Voice Lab</h1>
+  <p class="lede">How to make speech that <b>doesn't sound like a robot</b> — entirely on your own machine, for free, with <b>nothing about your text ever leaving the box</b>. This is the course behind the narration you already heard: the DSA presentations and the One Piece episodes, where Luffy laughs, Nami dreads the brute-force trap and lights up at the clever answer, and every crew member has their own voice. That was built with a cloud service (edge-tts) that sounds great and quietly ships every line you synthesize to Microsoft's servers. Here you rebuild the whole thing <b>locally</b> — Piper, Coqui XTTS, Kokoro, StyleTTS2, Bark — so the exact same result runs offline, privately, and reproducibly.</p>
+  <p class="lede">Taught like the other courses: real mechanics, a One Piece story that acts each idea out (plus a Big Bang Theory or Friends scene), a "Technicality corner" for the questions you'd be embarrassed to ask, a hands-on <b>Code Lab</b> that runs pure-Python pieces right in the browser, a quiz, and the interview questions companies actually ask. The running product is <b>StrawHat Narrator</b> — a fully-local, character-voiced, emotion-tuned narration renderer you assemble piece by piece.</p>
+  <p class="lede">Every lesson teaches the essentials by default — flip <b>Essentials → Full Depth</b> in the header any time you want a topic's deeper mechanism, edge cases, and "why it's actually built that way." Nothing is gated behind it; it's purely how far a lesson goes.</p>
+  <p class="lede">The models live in your own cache, downloaded only when you choose to; the course site itself stays tiny. All music and sound effects on the site are generated live in your browser with the Web Audio API — original, nothing to license.</p>
+
+  <div class="card">
+    <div id="overall-progress" class="progress-outer"><div class="progress-inner"></div></div>
+    <p id="progress-label" style="margin:0.6rem 0 0; color:var(--text-dim); font-size:0.9rem;"></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">How to use this</h2>
+    <ol>
+      <li><b>This is a builder's course.</b> The lessons teach every piece — the engines, the prosody and emotion tricks, the render pipeline, the privacy checks — and you assemble StrawHat Narrator yourself on your own machine as you go.</li>
+      <li>In each lesson: read the concept, open the <b>story + animation</b> the first time through, expand any <b>Technicality corner</b> question you can't already answer out loud, then do the <b>Code Lab</b> — small pure-Python pieces run right in the browser; model-dependent labs come with an exact "run it locally" recipe instead.</li>
+      <li>Before marking a lesson complete, try the <b>interview questions</b> at the bottom out loud.</li>
+      <li>Keep the <a href="cheat-sheet.html">Cheat Sheet</a> open in a second tab — every engine, install command, and pipeline recipe in one place.</li>
+      <li>Finish with the <a href="interview.html">timed Interview Drill</a> — randomized questions from everything you studied, on a countdown.</li>
+    </ol>
+  </div>
+
+  <div id="module-groups"></div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>
+  buildHeader('index.html');
+  renderDashboard();
+  window.addEventListener('localvoice:progress-synced', renderDashboard);
+</script>
+</body>
+</html>
