@@ -641,6 +641,16 @@ footer.pagenav {
 .np-langtoggle .np-lang:hover { color: var(--text); }
 .np-langtoggle .np-lang.active { background: var(--accent); color: #05242b; font-weight: 700; }
 
+/* Animated concept-sketch panel inside a slide */
+.np-visual {
+  margin: 0.5rem 0 0.9rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.35rem 0.5rem;
+}
+.np-visual svg { display: block; width: 100%; height: auto; max-height: 240px; }
+
 /* ---- Episodes (cinematic scenes: dialogue + music/sfx) ---- */
 .ep-stage {
   position: relative;

@@ -347,10 +347,12 @@
     function renderSlide() {
       const s = st.deck.slides[st.slideIdx];
       const stage = document.getElementById('np-stage');
+      const visual = (window.getSlideVisual && window.getSlideVisual(st.deck.id, st.slideIdx)) || '';
       stage.innerHTML = `
         <div class="np-slide sa-cap-in">
           <div class="np-count">${S().slideOf(st.slideIdx + 1, st.deck.slides.length)}</div>
           <h2 class="np-slide-heading">${s.heading}</h2>
+          ${visual ? `<div class="np-visual">${visual}</div>` : ''}
           ${slideBodyHtml(s)}
         </div>`;
       const chunks = splitSentences(s.narration);
