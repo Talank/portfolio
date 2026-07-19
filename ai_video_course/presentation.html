@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presentation — AI Video Course</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+<script>
+// Warm the narration manifest, the requested deck, and slide-0's audio clip in
+// parallel with the page's own scripts — the engine then finds them cached.
+(function () {
+  var lang = 'ne';
+  try { if (localStorage.getItem('aivideo-pres-lang') === 'en') lang = 'en'; } catch (e) {}
+  var dir = lang === 'en' ? 'data/english' : 'data/nepali';
+  function pre(href, as) {
+    var l = document.createElement('link');
+    l.rel = 'preload'; l.href = href; l.as = as;
+    document.head.appendChild(l);
+  }
+  pre(dir + '/audio/manifest.js', 'script');
+  var id = new URLSearchParams(location.search).get('id');
+  if (id && /^[\w-]+$/.test(id)) {
+    pre(dir + '/' + id + '.js', 'script');
+    var opus = document.createElement('audio').canPlayType('audio/ogg; codecs=opus') !== '';
+    pre(dir + '/audio/' + id + '-0.' + (opus ? 'opus' : 'mp3'), 'audio');
+  }
+})();
+</script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <div id="nepali-root">Loading…</div>
+  <footer class="pagenav" id="nepali-footer-nav"></footer>
+</main>
+<script src="data/schedule.js"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script src="data/pres-titles.js"></script>
+<script src="../shared/presentation-engine.js"></script>
+<script>
+  buildHeader('presentation.html');
+  initPresentation({
+    page: 'presentation.html',
+    keyPrefix: 'aivideo-pres',
+    courseName: 'AI Video Course',
+    writeupHref: function (id) { return 'lesson.html?id=' + id; },
+    titles: window.PRES_TITLES,
+  });
+</script>
+</body>
+</html>
