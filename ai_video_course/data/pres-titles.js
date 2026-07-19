@@ -4,11 +4,15 @@ window.PRES_TITLES = {
  "ne": {
   "what-we-are-building": "एउटा फोटो बोल्ने भिडियो बन्ने ठाउँ",
   "anatomy-of-an-llm-app": "दिमाग, हात, र बीचको तार",
-  "running-local-llms": "भण्डार एकपटक भर, एउटा चुलो बालिराख"
+  "running-local-llms": "भण्डार एकपटक भर, एउटा चुलो बालिराख",
+  "structured-outputs-tool-use": "model सुझाव दिन्छ; जाँचिएको code ले गर्छ",
+  "multimodal-models": "पढाइ पढ्नेले, नाप नाप्नेले"
  },
  "en": {
   "what-we-are-building": "One upload becomes a talking video",
   "anatomy-of-an-llm-app": "The brain, the hands, and the wiring between",
-  "running-local-llms": "Stock the pantry once, keep one stove lit"
+  "running-local-llms": "Stock the pantry once, keep one stove lit",
+  "structured-outputs-tool-use": "The model proposes; validated code disposes",
+  "multimodal-models": "Read with the reader, measure with the measurer"
  }
 };
