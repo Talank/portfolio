@@ -6,13 +6,37 @@ window.PRES_TITLES = {
   "anatomy-of-an-llm-app": "दिमाग, हात, र बीचको तार",
   "running-local-llms": "भण्डार एकपटक भर, एउटा चुलो बालिराख",
   "structured-outputs-tool-use": "model सुझाव दिन्छ; जाँचिएको code ले गर्छ",
-  "multimodal-models": "पढाइ पढ्नेले, नाप नाप्नेले"
+  "multimodal-models": "पढाइ पढ्नेले, नाप नाप्नेले",
+  "text-to-speech-open-models": "पहिले सुर बनाऊ, अनि बजाऊ",
+  "voice-cloning-from-a-sample": "पहिचान एउटा vector; सहमति एउटा चरण",
+  "speech-to-text-and-voice-swap": "transcript एउटा timeline; swap ले performance जोगाउँछ",
+  "talking-head-fundamentals": "के बन्छ, के जोगिन्छ",
+  "animating-from-a-description": "वर्णनबाट चाल: gesture library बनाम generative diffusion, र ship हुने hybrid",
+  "realtime-avatar-pipeline": "Mic भित्र, बोल्ने तस्बिर बाहिर, latency बजेटभित्र — र audio नै घडी हो",
+  "keyframes-timelines-motion-paths": "नामीको चार्ट: वेपोइन्ट, ओभरले पाना, गाँठो परेको डोरी",
+  "click-drag-correction": "फ्र्याङ्कीको गाइड-ह्यान्डल: पाखुरा समाऊ, rig ले सुधार लेख्छ",
+  "llm-assisted-editing": "नामी बोल्ने ट्यूबमा: शब्द भित्र, rod-चिन्ह बाहिर",
+  "media-pipeline-orchestration": "Galley-La को Dock One: छाप लागेका भाग, फोरम्यानको बोर्ड",
+  "llm-as-director": "Iceburg को डेस्क: एउटा वाक्य भित्र, work order बाहिर",
+  "hardware-quantization-caching": "Sunny सजाउँदै: manifest, थिचिएको खाना, गोदाम नियम"
  },
  "en": {
   "what-we-are-building": "One upload becomes a talking video",
   "anatomy-of-an-llm-app": "The brain, the hands, and the wiring between",
   "running-local-llms": "Stock the pantry once, keep one stove lit",
   "structured-outputs-tool-use": "The model proposes; validated code disposes",
-  "multimodal-models": "Read with the reader, measure with the measurer"
+  "multimodal-models": "Read with the reader, measure with the measurer",
+  "text-to-speech-open-models": "Plan the sound, then render it",
+  "voice-cloning-from-a-sample": "Identity is a vector; consent is a stage",
+  "speech-to-text-and-voice-swap": "A transcript is a timeline; a swap keeps the performance",
+  "talking-head-fundamentals": "What gets generated vs preserved",
+  "animating-from-a-description": "Text-guided motion: gesture library vs generative diffusion, and the hybrid that ships",
+  "realtime-avatar-pipeline": "Mic in, talking picture out, under a latency budget — and audio is the clock",
+  "keyframes-timelines-motion-paths": "Nami's chart: waypoints, overlay sheets, a knotted string",
+  "click-drag-correction": "Franky's guide-handles: grab the arm, the rig writes the fix",
+  "llm-assisted-editing": "Nami at the speaking tube: words in, rod-marks out",
+  "media-pipeline-orchestration": "Galley-La's Dock One: stamped parts, a foreman's board",
+  "llm-as-director": "Iceburg's desk: one sentence in, a work order out",
+  "hardware-quantization-caching": "Provisioning the Sunny: manifest, compressed rations, warehouse rule"
  }
 };
