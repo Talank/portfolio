@@ -18,7 +18,12 @@ window.PRES_TITLES = {
   "llm-assisted-editing": "नामी बोल्ने ट्यूबमा: शब्द भित्र, rod-चिन्ह बाहिर",
   "media-pipeline-orchestration": "Galley-La को Dock One: छाप लागेका भाग, फोरम्यानको बोर्ड",
   "llm-as-director": "Iceburg को डेस्क: एउटा वाक्य भित्र, work order बाहिर",
-  "hardware-quantization-caching": "Sunny सजाउँदै: manifest, थिचिएको खाना, गोदाम नियम"
+  "hardware-quantization-caching": "Sunny सजाउँदै: manifest, थिचिएको खाना, गोदाम नियम",
+  "backend-api-design": "Baratie को spike: एउटै ticket, दोहोरो छैन, सबैले पढ्ने बोर्ड",
+  "creator-frontend": "Usopp को workshop टेबल: एउटै sketch, हरेक उपकरण उही रेखामा",
+  "safety-consent-ethics": "नक्कली Straw Hat: हस्ताक्षर बिना प्रयोग भएको नाम",
+  "evaluating-generated-media": "Sunny को sea trial: उपकरणले के समात्छ, कानले मात्र के समात्छ",
+  "capstone-denden-studio": "Sunny को पहिलो यात्रा: हरेक प्रणाली, अलग-अलग बनेको, एउटै भएर सल्किँदै"
  },
  "en": {
   "what-we-are-building": "One upload becomes a talking video",
@@ -37,6 +42,11 @@ window.PRES_TITLES = {
   "llm-assisted-editing": "Nami at the speaking tube: words in, rod-marks out",
   "media-pipeline-orchestration": "Galley-La's Dock One: stamped parts, a foreman's board",
   "llm-as-director": "Iceburg's desk: one sentence in, a work order out",
-  "hardware-quantization-caching": "Provisioning the Sunny: manifest, compressed rations, warehouse rule"
+  "hardware-quantization-caching": "Provisioning the Sunny: manifest, compressed rations, warehouse rule",
+  "backend-api-design": "The Baratie's spike: one ticket, no doubles, a board all can read",
+  "creator-frontend": "Usopp's workshop table: one sketch, every tool on the same line",
+  "safety-consent-ethics": "The impostor Straw Hats: a name used without a signature",
+  "evaluating-generated-media": "The Sunny's sea trials: what the instruments catch, what only the ear catches",
+  "capstone-denden-studio": "The Sunny's maiden voyage: every system, built separately, sailing as one"
  }
 };

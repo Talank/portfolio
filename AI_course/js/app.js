@@ -146,6 +146,7 @@ function buildHeader(active) {
   if (!el) return;
   const links = [
     ['index.html', 'Dashboard'],
+    ['presentation.html', 'Presentation'],
     ['cheat-sheet.html', 'Cheat Sheet'],
     ['interview.html', 'Interview Drill'],
   ];
