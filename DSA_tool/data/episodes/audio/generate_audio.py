@@ -29,6 +29,7 @@ import asyncio
 import json
 import os
 import re
+import zlib
 import shutil
 import subprocess
 import sys
@@ -127,20 +128,57 @@ _BIGO = [
 _ACRO = {"BFS": "B F S", "DFS": "D F S", "BST": "B S T",
          "XOR": "ex or", "DAG": "dag", "LCA": "L C A"}
 
-# Luffy's laugh. "SHISHISHI" spelled out is read as a flat, robotic
-# "shish-ishi" — not a laugh at all. Rewrite any run of it into a real,
-# open-mouthed carefree laugh that keeps his signature "shi" onset, then breaks
-# into staccato giggle/belly-laugh syllables (each as its own token so the voice
-# renders separate bursts) with the exclamation energy of the captain.
-_LAUGH_RE = re.compile(r"(?<![A-Za-z])sh+i(?:sh+i)+(?![A-Za-z])", re.IGNORECASE)
-_LAUGH_TEXT = "Shi hi hi hi ha ha ha!"
+# Laughter is what most often gives a neural voice away. Handed a run of
+# identical syllables it renders them at one pitch and one length, so the line
+# lands as a machine reciting syllables rather than a person laughing. Real
+# laughter is uneven: a weighted first beat, a couple of light quick ones, then
+# a longer falling tail. Punctuation is the only prosody control edge-tts leaves
+# us (it escapes the text, so SSML <break> never reaches the engine), so each
+# laugh is rewritten with commas and ellipses for the short breaks and doubled
+# vowels on the syllables meant to carry weight.
+#
+# Several shapes per laugh, chosen by a stable hash of the line: 42 SHISHISHIs
+# rendered identically would be its own kind of robotic.
+_LAUGHS = (
+    # Luffy — light, quick, mischievous. Never a long tail.
+    (re.compile(r"(?<![A-Za-z])sh+i(?:sh+i)+(~*)(?![A-Za-z])", re.IGNORECASE),
+     ("Shi shi shi!", "Shi shi, shiii!", "Shishi shi!", "Shi, shi shiii!")),
+    # Brook — a deep, unhurried three-beat with the weight on the last fall.
+    (re.compile(r"(?<![A-Za-z])yo(?:h+o)+(~*)(?![A-Za-z])", re.IGNORECASE),
+     ("Yo ho ho, hoooo…", "Yo, ho ho, hooo…", "Yoho, ho hoooo…", "Yo ho, ho hoooo…")),
+)
+
+# A trailing "~" in the script means "hold this one" — lengthen the final vowel
+# rather than dropping the tilde, which the voice would otherwise read as a pause.
+_TILDE_STRETCH = {"o": "oooo", "i": "iii", "a": "aaa"}
+
+
+def _stretch_tail(shape):
+    """Lengthen the last vowel run in a laugh shape, for tilde-marked laughs."""
+    m = re.search(r"([aeiou])\1*(?=[^aeiou]*…?$)", shape, re.IGNORECASE)
+    if not m:
+        return shape
+    vowel = m.group(1).lower()
+    return shape[:m.start()] + _TILDE_STRETCH.get(vowel, vowel * 3) + shape[m.end():]
 
 
 def _laughs(text):
-    text = _LAUGH_RE.sub(_LAUGH_TEXT, text)
-    # The laugh ends in "!"; fold any punctuation the original left right after
-    # it ("!!", "!,", "!.") back into a single clean exclamation.
-    return re.sub(r"!\s*[!,.]+", "! ", text)
+    for pattern, shapes in _LAUGHS:
+        def pick(m, shapes=shapes):
+            # Stable per-occurrence variety: same line always renders the same
+            # way, but neighbouring laughs differ. crc32 rather than hash() —
+            # Python salts string hashing per process, so hash() would pick a
+            # different shape on every run and re-synthesize the whole cache.
+            key = f"{text[:60]}|{m.start()}|{m.group(0).lower()}".encode("utf-8")
+            idx = zlib.crc32(key) % len(shapes)
+            shape = shapes[idx]
+            return _stretch_tail(shape) if m.group(1) else shape
+        text = pattern.sub(pick, text)
+    # A laugh shape ends in its own "!" or "…"; fold any punctuation the original
+    # left right after it ("!!", "!,", "….") back into a single clean mark.
+    text = re.sub(r"!\s*[!,.]+", "! ", text)
+    text = re.sub(r"…\s*[!,.…]+", "… ", text)
+    return text
 
 
 def _apply_lookaround(text, mapping):
@@ -246,9 +284,17 @@ async def main():
             if ONLY_SPEAKERS and speaker not in ONLY_SPEAKERS:
                 prev = (existing.get(ep_id) or [None] * len(steps))
                 entry = prev[idx] if idx < len(prev) else None
-                mp3_ok = entry and entry.get("file") and \
-                    os.path.exists(os.path.join(OUT_DIR, entry["file"]))
-                if mp3_ok:
+                # The manifest names clips .mp3, but the build now ends by
+                # transcoding to .opus and dropping the mp3 — so a prior clip
+                # counts as usable if EITHER form is on disk. Checking only the
+                # mp3 would treat every already-built clip as missing and
+                # re-synthesize the whole cast.
+                prior = entry and entry.get("file")
+                have = prior and any(
+                    os.path.exists(os.path.join(OUT_DIR, name))
+                    for name in (entry["file"], re.sub(r"\.mp3$", ".opus", entry["file"]))
+                )
+                if have:
                     result[ep_id][idx] = entry
                     kept += 1
                     continue
@@ -280,26 +326,19 @@ async def main():
 
 
 def build_opus_siblings(out_dir):
-    """The site serves each clip as .opus (~55% smaller) to browsers that can
-    play it, falling back to the MP3 otherwise — so every clip must exist in
-    both formats. Requires ffmpeg with libopus; skips already-up-to-date files."""
-    ffmpeg = shutil.which("ffmpeg")
-    if not ffmpeg:
-        print("WARNING: ffmpeg not found — .opus siblings not built; "
-              "browsers will fall back to the larger MP3s.")
-        return
-    n = 0
-    for name in sorted(os.listdir(out_dir)):
-        if not name.endswith(".mp3"):
-            continue
-        src = os.path.join(out_dir, name)
-        dst = src[:-4] + ".opus"
-        if os.path.exists(dst) and os.path.getmtime(dst) >= os.path.getmtime(src):
-            continue
-        subprocess.run([ffmpeg, "-y", "-loglevel", "error", "-i", src,
-                        "-c:a", "libopus", "-b:a", "24k", "-ac", "1", dst], check=True)
-        n += 1
-    print(f"opus siblings: {n} (re)encoded")
+    """Give every clip its .opus twin and trim the .mp3 fallback down.
+
+    Browsers that can play Ogg Opus are served the .opus; the .mp3 exists only
+    for the few that can't, so it is deliberately kept small. Both steps live
+    in shared/shrink_audio.py so the bitrate policy has exactly one home, and
+    so ffmpeg is resolved the same way everywhere (a plain shutil.which lookup
+    silently skipped opus entirely on machines with no system ffmpeg).
+    """
+    repo_root = os.path.abspath(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), *[".."] * 4))
+    sys.path.insert(0, os.path.join(repo_root, "shared"))
+    import shrink_audio
+    shrink_audio.process_dir(out_dir, opus_bitrate=24)
 
 
 if __name__ == "__main__":

@@ -171,14 +171,12 @@
     }
     function autoplayOn() { return localStorage.getItem(AUTO_KEY) !== '0'; }
 
-    // Every narration clip exists twice on disk: .mp3 (universal) and .opus
-    // (~55% smaller, all modern browsers). Prefer opus when playable; if an
-    // opus file 404s or fails mid-flight we retry the same clip as mp3.
-    const OPUS_OK = (function () {
-      try { return new Audio().canPlayType('audio/ogg; codecs=opus') !== ''; } catch (e) { return false; }
-    })();
+    // Clips ship as .opus only. The manifests still name them .mp3 (that's what
+    // the TTS step wrote), so the extension is swapped here. The mp3 fallbacks
+    // were ~330MB of duplicate audio for browsers that predate Safari 17.5;
+    // those browsers now fall through to speakSlideTTS instead — see onerror.
     function clipUrl(file) {
-      return cfg().audioBase + (OPUS_OK ? file.replace(/\.mp3$/i, '.opus') : file);
+      return cfg().audioBase + file.replace(/\.mp3$/i, '.opus');
     }
 
     function getAudioEl() {
@@ -266,15 +264,10 @@
         updateScrub();
         if (onEnded) onEnded();
       };
+      // No mp3 retry any more: if the browser can't play Ogg Opus, narrate with
+      // the speech synthesizer rather than ship a second copy of every clip.
       a.onerror = () => {
         if (mySession !== st.session) return;
-        if (/\.opus$/i.test(a.src)) {
-          // Opus variant failed (missing file / decoder quirk) — same clip as mp3.
-          a.src = cfg().audioBase + info.file;
-          const rp = a.play();
-          if (rp && rp.catch) rp.catch(() => {});
-          return;
-        }
         speakSlideTTS(onEnded);
       };
       markChunk(0);

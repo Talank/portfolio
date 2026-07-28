@@ -184,9 +184,15 @@
     return;
   }
 
-  // Prefer opus (~26 MB) over mp3 (~63 MB) where the browser can play it.
-  var canOpus = audio.canPlayType('audio/ogg; codecs=opus') !== '';
-  audio.src = BASE + M.file.replace(/\.mp3$/, canOpus ? '.opus' : '.mp3');
+  // Ships as opus only (~26 MB; the mp3 master was ~63 MB and is dropped by the
+  // build once the transcode is verified). Newer manifests already name the
+  // .opus; the replace is kept so an older manifest.js still resolves.
+  audio.src = BASE + M.file.replace(/\.mp3$/, '.opus');
+  if (audio.canPlayType('audio/ogg; codecs=opus') === '') {
+    var warn = document.getElementById('bt-total');
+    if (warn) warn.textContent =
+      'यो ब्राउजरले Ogg Opus बजाउन सक्दैन — Safari 17.5+, Chrome वा Firefox चलाउनुहोस्।';
+  }
 
   var chapters = M.chapters || [];
   var curCh = -1;

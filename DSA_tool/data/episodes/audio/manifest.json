@@ -91,7 +91,7 @@
     "file": "two-sum-7.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 6.405
+    "dur": 6.184
    },
    {
     "file": "two-sum-8.mp3",
@@ -155,7 +155,7 @@
     "file": "longest-substring-0.mp3",
     "speaker": "brook",
     "voice": "en-GB-ThomasNeural",
-    "dur": 10.013
+    "dur": 10.541
    },
    {
     "file": "longest-substring-1.mp3",
@@ -241,7 +241,7 @@
     "file": "linked-list-cycle-6.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 9.226
+    "dur": 8.916
    }
   ],
   "merge-intervals-ep": [
@@ -409,7 +409,7 @@
     "file": "daily-temperatures-11.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 7.633
+    "dur": 7.323
    }
   ],
   "next-greater-element-ii": [
@@ -595,7 +595,7 @@
     "file": "online-stock-span-9.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 8.142
+    "dur": 7.832
    }
   ],
   "range-sum-query-immutable": [
@@ -645,7 +645,7 @@
     "file": "range-sum-query-immutable-7.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 5.796
+    "dur": 5.487
    }
   ],
   "subarray-sum-equals-k": [
@@ -875,7 +875,7 @@
     "file": "reverse-linked-list-7.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 8.164
+    "dur": 7.754
    },
    {
     "file": "reverse-linked-list-8.mp3",
@@ -943,7 +943,7 @@
     "file": "reverse-linked-list-ii-9.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 5.564
+    "dur": 5.332
    }
   ],
   "swap-nodes-in-pairs": [
@@ -1073,7 +1073,7 @@
     "file": "sliding-window-maximum-11.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 8.33
+    "dur": 8.02
    },
    {
     "file": "sliding-window-maximum-12.mp3",
@@ -1129,7 +1129,7 @@
     "file": "moving-average-from-data-stream-7.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 6.903
+    "dur": 6.493
    },
    {
     "file": "moving-average-from-data-stream-8.mp3",
@@ -1203,7 +1203,7 @@
     "file": "design-circular-deque-10.mp3",
     "speaker": "brook",
     "voice": "en-GB-ThomasNeural",
-    "dur": 10.0
+    "dur": 10.387
    },
    {
     "file": "design-circular-deque-11.mp3",
@@ -1265,7 +1265,7 @@
     "file": "binary-tree-level-order-traversal-8.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 8.949
+    "dur": 8.728
    }
   ],
   "maximum-depth-of-binary-tree": [
@@ -1315,7 +1315,7 @@
     "file": "maximum-depth-of-binary-tree-7.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 8.794
+    "dur": 8.485
    },
    {
     "file": "maximum-depth-of-binary-tree-8.mp3",
@@ -1335,7 +1335,7 @@
     "file": "diameter-of-binary-tree-1.mp3",
     "speaker": "brook",
     "voice": "en-GB-ThomasNeural",
-    "dur": 6.559
+    "dur": 6.894
    },
    {
     "file": "diameter-of-binary-tree-2.mp3",
@@ -1377,7 +1377,7 @@
     "file": "diameter-of-binary-tree-8.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 7.633
+    "dur": 7.4
    }
   ],
   "validate-binary-search-tree": [
@@ -1439,7 +1439,7 @@
     "file": "validate-binary-search-tree-9.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 6.394
+    "dur": 6.084
    },
    {
     "file": "validate-binary-search-tree-10.mp3",
@@ -1501,7 +1501,7 @@
     "file": "lowest-common-ancestor-of-a-bst-8.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 8.064
+    "dur": 7.843
    },
    {
     "file": "lowest-common-ancestor-of-a-bst-9.mp3",
@@ -1569,7 +1569,7 @@
     "file": "kth-smallest-element-in-a-bst-9.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 5.808
+    "dur": 5.586
    },
    {
     "file": "kth-smallest-element-in-a-bst-10.mp3",
@@ -1643,7 +1643,7 @@
     "file": "kth-largest-element-in-an-array-10.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 6.726
+    "dur": 6.316
    },
    {
     "file": "kth-largest-element-in-an-array-11.mp3",
@@ -1699,7 +1699,7 @@
     "file": "top-k-frequent-elements-7.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 5.498
+    "dur": 5.088
    },
    {
     "file": "top-k-frequent-elements-8.mp3",
@@ -1791,7 +1791,7 @@
     "file": "merge-k-sorted-lists-12.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 4.912
+    "dur": 4.602
    },
    {
     "file": "merge-k-sorted-lists-13.mp3",
@@ -1865,7 +1865,7 @@
     "file": "subsets-10.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 6.969
+    "dur": 6.748
    },
    {
     "file": "subsets-11.mp3",
@@ -1933,7 +1933,7 @@
     "file": "permutations-9.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 4.989
+    "dur": 4.768
    },
    {
     "file": "permutations-10.mp3",
@@ -2001,7 +2001,7 @@
     "file": "combination-sum-9.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 5.973
+    "dur": 5.564
    },
    {
     "file": "combination-sum-10.mp3",
@@ -2069,7 +2069,7 @@
     "file": "number-of-islands-9.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 9.657
+    "dur": 9.347
    },
    {
     "file": "number-of-islands-10.mp3",
@@ -2131,7 +2131,7 @@
     "file": "course-schedule-8.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 7.754
+    "dur": 7.445
    },
    {
     "file": "course-schedule-9.mp3",
@@ -2181,7 +2181,7 @@
     "file": "number-of-provinces-6.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 9.502
+    "dur": 9.192
    },
    {
     "file": "number-of-provinces-7.mp3",
@@ -2243,7 +2243,7 @@
     "file": "climbing-stairs-8.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 7.035
+    "dur": 6.814
    },
    {
     "file": "climbing-stairs-9.mp3",
@@ -2311,7 +2311,7 @@
     "file": "house-robber-9.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 4.602
+    "dur": 4.381
    },
    {
     "file": "house-robber-10.mp3",
@@ -2379,7 +2379,7 @@
     "file": "coin-change-9.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 5.232
+    "dur": 4.823
    },
    {
     "file": "coin-change-10.mp3",
@@ -2441,7 +2441,7 @@
     "file": "jump-game-8.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 9.126
+    "dur": 8.905
    },
    {
     "file": "jump-game-9.mp3",
@@ -2509,7 +2509,7 @@
     "file": "gas-station-9.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 6.051
+    "dur": 5.83
    },
    {
     "file": "gas-station-10.mp3",
@@ -2571,7 +2571,7 @@
     "file": "min-arrows-burst-balloons-8.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 5.022
+    "dur": 4.613
    },
    {
     "file": "min-arrows-burst-balloons-9.mp3",
@@ -2645,7 +2645,7 @@
     "file": "single-number-10.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 8.208
+    "dur": 7.898
    },
    {
     "file": "single-number-11.mp3",
@@ -2713,7 +2713,7 @@
     "file": "number-of-1-bits-9.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 7.931
+    "dur": 7.522
    },
    {
     "file": "number-of-1-bits-10.mp3",
@@ -2727,7 +2727,7 @@
     "file": "counting-bits-0.mp3",
     "speaker": "brook",
     "voice": "en-GB-ThomasNeural",
-    "dur": 11.714
+    "dur": 12.771
    },
    {
     "file": "counting-bits-1.mp3",
@@ -2869,7 +2869,7 @@
     "file": "design-add-and-search-words-0.mp3",
     "speaker": "brook",
     "voice": "en-GB-ThomasNeural",
-    "dur": 10.348
+    "dur": 11.856
    },
    {
     "file": "design-add-and-search-words-1.mp3",
@@ -3003,7 +3003,7 @@
     "file": "replace-words-11.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 5.332
+    "dur": 5.022
    }
   ],
   "group-anagrams": [
@@ -3071,7 +3071,7 @@
     "file": "group-anagrams-10.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 8.429
+    "dur": 8.208
    }
   ],
   "longest-consecutive-sequence": [
@@ -3133,7 +3133,7 @@
     "file": "longest-consecutive-sequence-9.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 4.801
+    "dur": 4.569
    }
   ],
   "container-with-most-water": [
@@ -3203,7 +3203,7 @@
     "file": "three-sum-0.mp3",
     "speaker": "brook",
     "voice": "en-GB-ThomasNeural",
-    "dur": 18.093
+    "dur": 18.763
    },
    {
     "file": "three-sum-1.mp3",
@@ -3263,7 +3263,7 @@
     "file": "three-sum-10.mp3",
     "speaker": "brook",
     "voice": "en-GB-ThomasNeural",
-    "dur": 7.899
+    "dur": 8.673
    }
   ],
   "minimum-window-substring": [
@@ -3343,7 +3343,7 @@
     "file": "minimum-window-substring-12.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 5.066
+    "dur": 4.657
    }
   ],
   "longest-repeating-character-replacement": [
@@ -3351,7 +3351,7 @@
     "file": "longest-repeating-character-replacement-0.mp3",
     "speaker": "brook",
     "voice": "en-GB-ThomasNeural",
-    "dur": 17.655
+    "dur": 18.247
    },
    {
     "file": "longest-repeating-character-replacement-1.mp3",
@@ -3417,7 +3417,7 @@
     "file": "longest-repeating-character-replacement-11.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 7.865
+    "dur": 7.644
    }
   ],
   "linked-list-cycle-ii": [
@@ -3505,7 +3505,7 @@
     "file": "middle-of-the-linked-list-3.mp3",
     "speaker": "brook",
     "voice": "en-GB-ThomasNeural",
-    "dur": 9.832
+    "dur": 10.129
    },
    {
     "file": "middle-of-the-linked-list-4.mp3",
@@ -3529,7 +3529,7 @@
     "file": "middle-of-the-linked-list-7.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 8.108
+    "dur": 7.699
    }
   ],
   "insert-interval": [
@@ -3573,7 +3573,7 @@
     "file": "insert-interval-6.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 7.08
+    "dur": 6.847
    },
    {
     "file": "insert-interval-7.mp3",
@@ -3635,7 +3635,7 @@
     "file": "non-overlapping-intervals-8.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 10.299
+    "dur": 9.989
    },
    {
     "file": "non-overlapping-intervals-9.mp3",
@@ -3709,7 +3709,7 @@
     "file": "find-minimum-in-rotated-sorted-array-10.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 6.991
+    "dur": 6.77
    },
    {
     "file": "find-minimum-in-rotated-sorted-array-11.mp3",
@@ -3795,7 +3795,7 @@
     "file": "koko-eating-bananas-12.mp3",
     "speaker": "luffy",
     "voice": "en-US-GuyNeural",
-    "dur": 9.635
+    "dur": 9.226
    },
    {
     "file": "koko-eating-bananas-13.mp3",

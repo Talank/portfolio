@@ -1,6 +1,6 @@
 TITLE "निद्राको ग्रैंड लाइन"
 PERFORMER "Talank Baral"
-FILE "dsa-nidra-full.mp3" MP3
+FILE "dsa-nidra-full.opus" WAVE
   TRACK 01 AUDIO
     TITLE "० — प्रस्तावना: निद्राको ग्रैंड लाइन"
     INDEX 01 00:03:00

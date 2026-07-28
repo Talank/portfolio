@@ -26,8 +26,11 @@ Build (from this directory):
     python3 build_bedtime.py --stitch-only   # re-mix from cached parts
 
 Outputs (in this directory):
-    dsa-nidra-full.mp3     the single ~2.5h file to play at bedtime
-    dsa-nidra-full.opus    same, ~55% smaller
+    dsa-nidra-full.opus    the single ~2.5h file to play at bedtime, ~28 MB.
+                           An mp3 master is written first and then dropped once
+                           the transcode is verified — the site plays only the
+                           opus, so shipping both doubled the download for
+                           nothing. Pass --keep-mp3 to hold on to the master.
     chapters.txt           human-readable chapter timestamps
     dsa-nidra-full.cue     CUE sheet, for players that show track markers
     manifest.json          chapter/paragraph offsets, for a future player page
@@ -43,6 +46,8 @@ import os
 import re
 import subprocess
 import sys
+
+import soundscape
 
 import edge_tts
 
@@ -302,28 +307,36 @@ def stitch(chapters):
     return narration, marks, speech_end
 
 
-def mix(narration, total, out_mp3):
-    """Lay the narration over a very quiet brown-noise surf bed.
+def mix(narration, total, out_mp3, marks):
+    """Lay the narration into a soundscape that follows where the story is.
 
-    Brown noise through a low-pass reads as distant waves; a slow tremolo gives
-    it the swell that keeps it from sounding like a hiss. The narration gets a
-    high-shelf cut (sibilance is what wakes people) and gentle compression so
-    no phrase ever jumps in level.
+    The first version of this was one brown-noise surf loop under a dry voice,
+    which read as a recording rather than a place. soundscape.py builds seven
+    synthesized layers instead — waves, foam, wind, leaves, water, gulls and a
+    quiet drone — and automates their levels per chapter, so the sea chapters
+    sound like sea and the tree chapters sound like forest.
+
+    The voice gets a high-shelf cut (sibilance is what wakes people), gentle
+    compression so no phrase jumps in level, and a short reverb so it sits in
+    the same space as the ambience instead of floating dry on top of it.
     """
-    surf = ("anoisesrc=c=brown:r=%d:a=0.20,"
-            "lowpass=f=430,highpass=f=45,"
-            "tremolo=f=0.1:d=0.5,"   # 0.1 Hz is the filter's floor: one swell / 10s
-            "volume=%.2f,"
-            "afade=t=in:st=0:d=8,afade=t=out:st=%.2f:d=%.2f"
-            % (SR, AMBIENT_GAIN, max(0.0, total - TAIL + 5), TAIL - 5))
+    inputs, chunks, labels = soundscape.build(marks, total, SR, LEAD_IN, TAIL)
+
+    # aecho at these delays is a small room, not an effect: enough for the voice
+    # to have somewhere to decay into, short enough that Nepali stays crisp.
     voice = ("highshelf=f=5200:g=-5,"
              "acompressor=threshold=-20dB:ratio=3:attack=25:release=350,"
-             "volume=1.25")
-    run(["-i", narration,
-         "-f", "lavfi", "-t", f"{total:.2f}", "-i", surf,
-         "-filter_complex",
-         f"[0:a]{voice},apad=whole_dur={total:.2f}[v];"
-         f"[v][1:a]amix=inputs=2:duration=first:normalize=0[out]",
+             "aecho=0.86:0.85:29|47|71:0.11|0.07|0.04,"
+             "volume=1.22")
+
+    graph = (f"[0:a]{voice},apad=whole_dur={total:.2f}[v];"
+             + ";".join(chunks) + ";"
+             + "[v]" + "".join(labels)
+             + f"amix=inputs={len(labels) + 1}:duration=first:normalize=0,"
+             + "alimiter=limit=0.92[out]")
+
+    run(["-i", narration] + inputs +
+        ["-filter_complex", graph,
          "-map", "[out]", "-ac", "1", "-ar", str(SR),
          "-c:a", "libmp3lame", "-b:a", "64k",
          "-metadata", "title=निद्राको ग्रैंड लाइन — DSA Bedtime Voyage",
@@ -339,8 +352,12 @@ def hms(sec):
     return f"{h:02d}:{m:02d}:{s:05.2f}"
 
 
-def write_sidecars(marks, total, out_mp3):
+def write_sidecars(marks, total, out_mp3, keep_mp3=False):
     base = os.path.splitext(os.path.basename(out_mp3))[0]
+    # The CUE sheet is for desktop players, so it has to name a file that will
+    # still be on disk after main() drops the master.
+    audio_file, cue_kind = ((base + ".mp3", "MP3") if keep_mp3
+                            else (base + ".opus", "WAVE"))
 
     with open(os.path.join(HERE, "chapters.txt"), "w", encoding="utf-8") as f:
         f.write("निद्राको ग्रैंड लाइन — अध्याय सूची\n")
@@ -351,7 +368,7 @@ def write_sidecars(marks, total, out_mp3):
     with open(os.path.join(HERE, base + ".cue"), "w", encoding="utf-8") as f:
         f.write('TITLE "निद्राको ग्रैंड लाइन"\n')
         f.write('PERFORMER "Talank Baral"\n')
-        f.write(f'FILE "{base}.mp3" MP3\n')
+        f.write(f'FILE "{audio_file}" {cue_kind}\n')
         for i, m in enumerate(marks, 1):
             mm, ss = divmod(m["start"], 60)
             frames = int((ss % 1) * 75)
@@ -361,7 +378,7 @@ def write_sidecars(marks, total, out_mp3):
 
     manifest = {"voice": VOICE, "rate": RATE, "pitch": PITCH,
                 "volume": VOLUME, "duration": round(total, 2),
-                "file": base + ".mp3", "chapters": marks}
+                "file": audio_file, "chapters": marks}
     with open(os.path.join(HERE, "manifest.json"), "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
 
@@ -384,6 +401,9 @@ def main():
     ap.add_argument("--synth-only", action="store_true",
                     help="fill the clip cache and stop, without stitching")
     ap.add_argument("--no-ambient", action="store_true", help="skip the surf bed")
+    ap.add_argument("--keep-mp3", action="store_true",
+                    help="keep the mp3 master instead of dropping it once the "
+                         "opus is verified (the site only ever plays the opus)")
     args = ap.parse_args()
 
     only = set(x.strip() for x in args.only.split(",") if x.strip())
@@ -408,12 +428,12 @@ def main():
         run(["-i", narration, "-af", f"apad=whole_dur={total:.2f}",
              "-c:a", "libmp3lame", "-b:a", "64k", out_mp3])
     else:
-        mix(narration, total, out_mp3)
+        mix(narration, total, out_mp3, marks)
 
     out_opus = out_mp3[:-4] + ".opus"
     run(["-i", out_mp3, "-c:a", "libopus", "-b:a", "28k", "-ac", "1", out_opus])
 
-    write_sidecars(marks, total, out_mp3)
+    write_sidecars(marks, total, out_mp3, keep_mp3=args.keep_mp3)
 
     # The intermediate PCM is ~400 MB; the clip cache in parts/ is what makes
     # re-runs cheap, so only this one gets dropped.
@@ -422,8 +442,22 @@ def main():
 
     mb = os.path.getsize(out_mp3) / 1e6
     ob = os.path.getsize(out_opus) / 1e6
-    print(f"\n✓ {out_mp3}  {hms(total)}  {mb:.1f} MB")
-    print(f"✓ {out_opus}  {ob:.1f} MB")
+    print(f"\n✓ {out_opus}  {ob:.1f} MB  {hms(total)}")
+
+    # bedtime.html plays the opus and nothing else, so the mp3 master is a ~63 MB
+    # build intermediate that would otherwise ship. Drop it — but only after
+    # decoding both and confirming the opus really is the whole voyage. A
+    # truncated transcode that silently replaced the master would be unrecoverable
+    # without a full rebuild.
+    if not args.keep_mp3:
+        d_mp3, d_opus = duration(out_mp3), duration(out_opus)
+        if abs(d_mp3 - d_opus) <= 0.40:
+            os.remove(out_mp3)
+            print(f"✓ dropped the {mb:.1f} MB mp3 master "
+                  f"(opus verified at {hms(d_opus)})")
+        else:
+            print(f"! opus is {hms(d_opus)} but the mp3 is {hms(d_mp3)} — "
+                  f"keeping both, the transcode looks truncated")
     print(f"✓ chapters.txt / manifest.json / {os.path.basename(out_mp3)[:-4]}.cue")
     for m in marks:
         print(f"   {hms(m['start'])}  {m['title']}")

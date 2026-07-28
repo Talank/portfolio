@@ -242,16 +242,14 @@
     const audioEl = new Audio();
     audioEl.preload = 'auto';
     const audioBase = 'data/episodes/audio/';
-    // Clips exist as both .mp3 and .opus (~55% smaller); prefer opus when the
-    // browser can play it. narrateCurrent's onerror falls back to browser TTS,
-    // and every clip ships in both formats, so no per-clip mp3 retry is needed.
-    const OPUS_OK = (function () {
-      try { return audioEl.canPlayType('audio/ogg; codecs=opus') !== ''; } catch (e) { return false; }
-    })();
+    // Clips ship as .opus only; the manifest still names them .mp3, so the
+    // extension is swapped here. Browsers that can't play Ogg Opus fall through
+    // to narrateCurrent's onerror, which hands the line to the browser's speech
+    // synthesizer — cheaper than shipping a second copy of every clip.
     function clipFor(i) {
       const c = AUDIO && AUDIO[i];
       if (!c || !c.file) return null;
-      return audioBase + (OPUS_OK ? c.file.replace(/\.mp3$/i, '.opus') : c.file);
+      return audioBase + c.file.replace(/\.mp3$/i, '.opus');
     }
     // Warm the next clip so dialogue beats don't pause on the network.
     const prefetchEl = new Audio();

@@ -151,26 +151,19 @@ def main():
 
 
 def build_opus_siblings(out_dir):
-    """The site serves each clip as .opus (~55% smaller) to browsers that can
-    play it, falling back to the MP3 otherwise — so every clip must exist in
-    both formats. Requires ffmpeg with libopus; skips already-up-to-date files."""
-    ffmpeg = shutil.which("ffmpeg")
-    if not ffmpeg:
-        print("WARNING: ffmpeg not found — .opus siblings not built; "
-              "browsers will fall back to the larger MP3s.")
-        return
-    n = 0
-    for name in sorted(os.listdir(out_dir)):
-        if not name.endswith(".mp3"):
-            continue
-        src = os.path.join(out_dir, name)
-        dst = src[:-4] + ".opus"
-        if os.path.exists(dst) and os.path.getmtime(dst) >= os.path.getmtime(src):
-            continue
-        subprocess.run([ffmpeg, "-y", "-loglevel", "error", "-i", src,
-                        "-c:a", "libopus", "-b:a", "24k", "-ac", "1", dst], check=True)
-        n += 1
-    print(f"opus siblings: {n} (re)encoded")
+    """Give every clip its .opus twin and trim the .mp3 fallback down.
+
+    Browsers that can play Ogg Opus are served the .opus; the .mp3 exists only
+    for the few that can't, so it is deliberately kept small. Both steps live
+    in shared/shrink_audio.py so the bitrate policy has exactly one home, and
+    so ffmpeg is resolved the same way everywhere (a plain shutil.which lookup
+    silently skipped opus entirely on machines with no system ffmpeg).
+    """
+    repo_root = os.path.abspath(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), *[".."] * 4))
+    sys.path.insert(0, os.path.join(repo_root, "shared"))
+    import shrink_audio
+    shrink_audio.process_dir(out_dir, opus_bitrate=24)
 
 
 if __name__ == "__main__":
