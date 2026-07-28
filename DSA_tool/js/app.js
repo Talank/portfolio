@@ -168,6 +168,7 @@ function buildHeader(active) {
     ['mock-interview.html', 'Mock Interview'],
     ['episodes.html', 'One Piece Episodes'],
     ['presentation.html', 'Presentation'],
+    ['bedtime.html', '🌙 Bedtime'],
   ];
   const nav = links.map(([href, label]) =>
     `<a href="${href}" class="${active === href ? 'active' : ''}">${label}</a>`

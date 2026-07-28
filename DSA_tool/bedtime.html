@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>निद्राको ग्रैंड लाइन — DSA Bedtime Voyage</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+<style>
+  /* This page is meant to be looked at in a dark room, moments before sleep,
+     so it deliberately ignores the site's normal contrast: near-black ground,
+     dim text, one warm accent, and no large light surfaces anywhere. */
+  :root {
+    --bt-bg: #05070a;
+    --bt-panel: #0b0f15;
+    --bt-border: #1a2029;
+    --bt-text: #8fa0b5;
+    --bt-dim: #55637a;
+    --bt-accent: #d9a066;
+  }
+  body { background: var(--bt-bg); }
+  .bt-wrap { max-width: 780px; margin: 0 auto; padding: 1.5rem 1.25rem 5rem; }
+
+  .bt-hero { text-align: center; padding: 1.5rem 0 0.5rem; }
+  .bt-moon { font-size: 2.6rem; line-height: 1; opacity: 0.75; }
+  .bt-hero h1 {
+    font-size: 1.5rem; margin: 0.6rem 0 0.3rem;
+    color: var(--bt-text); font-weight: 600; letter-spacing: 0.01em;
+  }
+  .bt-hero p { color: var(--bt-dim); font-size: 0.86rem; margin: 0.2rem 0; }
+
+  .bt-card {
+    background: var(--bt-panel); border: 1px solid var(--bt-border);
+    border-radius: 14px; padding: 1.25rem; margin-top: 1.5rem;
+  }
+
+  .bt-nowplaying { text-align: center; margin-bottom: 1rem; }
+  .bt-chnum { color: var(--bt-dim); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; }
+  .bt-chtitle { color: var(--bt-text); font-size: 1.05rem; margin-top: 0.3rem; min-height: 1.4em; }
+
+  /* Seek bar */
+  .bt-seekrow { display: flex; align-items: center; gap: 0.7rem; }
+  .bt-seek { flex: 1; accent-color: var(--bt-accent); height: 3px; }
+  .bt-t { color: var(--bt-dim); font-size: 0.75rem; font-variant-numeric: tabular-nums; min-width: 4.2em; }
+  .bt-t.right { text-align: right; }
+
+  /* Transport */
+  .bt-transport { display: flex; align-items: center; justify-content: center; gap: 1.1rem; margin: 1.1rem 0 0.4rem; }
+  .bt-btn {
+    background: transparent; border: 1px solid var(--bt-border); color: var(--bt-text);
+    border-radius: 999px; cursor: pointer; font-size: 0.95rem;
+    width: 3rem; height: 3rem; display: grid; place-items: center;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .bt-btn:hover { border-color: var(--bt-accent); color: var(--bt-accent); }
+  .bt-play { width: 4.2rem; height: 4.2rem; font-size: 1.5rem; border-color: var(--bt-accent); color: var(--bt-accent); }
+
+  /* Options */
+  .bt-opts { display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; margin-top: 1.1rem;
+             padding-top: 1rem; border-top: 1px solid var(--bt-border); }
+  .bt-opt { display: flex; align-items: center; gap: 0.45rem; color: var(--bt-dim); font-size: 0.78rem; }
+  .bt-opt input[type="range"] { width: 86px; accent-color: var(--bt-accent); height: 3px; }
+  .bt-opt select {
+    background: var(--bt-bg); color: var(--bt-text);
+    border: 1px solid var(--bt-border); border-radius: 7px; padding: 0.25rem 0.4rem; font-size: 0.78rem;
+  }
+  .bt-timerstate { color: var(--bt-accent); font-variant-numeric: tabular-nums; }
+
+  /* Chapters */
+  .bt-chapters { margin-top: 1.5rem; }
+  .bt-chapters h2 { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+                    color: var(--bt-dim); margin: 0 0 0.6rem; font-weight: 600; }
+  .bt-ch {
+    display: flex; align-items: baseline; gap: 0.8rem; width: 100%;
+    background: transparent; border: 0; border-radius: 8px;
+    padding: 0.5rem 0.6rem; cursor: pointer; text-align: left;
+    color: var(--bt-dim); font-size: 0.87rem; font-family: inherit;
+    transition: background 0.2s, color 0.2s;
+  }
+  .bt-ch:hover { background: #0f141c; color: var(--bt-text); }
+  .bt-ch.now { color: var(--bt-accent); background: #0f141c; }
+  .bt-ch .t { font-variant-numeric: tabular-nums; font-size: 0.74rem; opacity: 0.7; min-width: 4.2em; }
+  .bt-ch .n { flex: 1; }
+
+  .bt-note { color: var(--bt-dim); font-size: 0.78rem; line-height: 1.6; margin-top: 1.5rem; }
+  .bt-note b { color: var(--bt-text); font-weight: 600; }
+
+  /* Lights-out: after a stretch of no interaction while playing, the page
+     fades down so a bedside screen isn't glowing all night. Any input wakes it. */
+  .bt-wrap { transition: opacity 2.5s ease; }
+  body.lights-out .bt-wrap { opacity: 0.045; }
+  body.lights-out { cursor: none; }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+
+<main class="bt-wrap">
+  <div class="bt-hero">
+    <div class="bt-moon">🌙</div>
+    <h1>निद्राको ग्रैंड लाइन</h1>
+    <p>सम्पूर्ण DSA — एउटै रातको यात्रामा, नेपालीमा</p>
+    <p id="bt-total">…</p>
+  </div>
+
+  <div class="bt-card">
+    <div class="bt-nowplaying">
+      <div class="bt-chnum" id="bt-chnum">अध्याय</div>
+      <div class="bt-chtitle" id="bt-chtitle">…</div>
+    </div>
+
+    <div class="bt-seekrow">
+      <span class="bt-t" id="bt-cur">0:00:00</span>
+      <input type="range" class="bt-seek" id="bt-seek" min="0" max="0" step="1" value="0" aria-label="स्थिति">
+      <span class="bt-t right" id="bt-dur">0:00:00</span>
+    </div>
+
+    <div class="bt-transport">
+      <button class="bt-btn" id="bt-prev" title="अघिल्लो अध्याय (←)">⏮</button>
+      <button class="bt-btn" id="bt-back" title="३० सेकेन्ड पछाडि">−30</button>
+      <button class="bt-btn bt-play" id="bt-play" title="बजाउनुहोस् / रोक्नुहोस् (space)">▶</button>
+      <button class="bt-btn" id="bt-fwd" title="३० सेकेन्ड अगाडि">+30</button>
+      <button class="bt-btn" id="bt-next" title="अर्को अध्याय (→)">⏭</button>
+    </div>
+
+    <div class="bt-opts">
+      <label class="bt-opt">आवाज
+        <input type="range" id="bt-vol" min="0" max="1" step="0.02">
+      </label>
+      <label class="bt-opt">गति
+        <input type="range" id="bt-rate" min="0.7" max="1.2" step="0.05">
+        <span id="bt-ratev">1.00x</span>
+      </label>
+      <label class="bt-opt">निद्रा टाइमर
+        <select id="bt-timer">
+          <option value="0">बन्द</option>
+          <option value="15">१५ मिनेट</option>
+          <option value="30">३० मिनेट</option>
+          <option value="45">४५ मिनेट</option>
+          <option value="60">१ घण्टा</option>
+          <option value="90">१.५ घण्टा</option>
+        </select>
+        <span class="bt-timerstate" id="bt-timerstate"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="bt-chapters">
+    <h2>अध्यायहरू</h2>
+    <div id="bt-chlist"></div>
+  </div>
+
+  <p class="bt-note">
+    <b>सुत्दै सुन्नका लागि बनाइएको।</b> आवाज बिस्तारै, तल्लो स्वरमा छ; अध्यायबीच लामो मौनता छ, र
+    पूरै समय मधुरो समुद्री ध्वनि बजिरहन्छ — त्यसैले मौनता कहिल्यै खल्लो लाग्दैन।
+    तपाईं कहाँ पुग्नुभयो भन्ने आफैं सम्झिन्छ, त्यसैले भोलि राति त्यहीँबाट सुरु गर्न सकिन्छ।
+    केही बेर नछोए पर्दा आफैं मधुरो हुन्छ।
+  </p>
+</main>
+
+<audio id="bt-audio" preload="metadata"></audio>
+
+<script src="data/schedule.js"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script src="data/bedtime/manifest.js"></script>
+<script>
+(function () {
+  'use strict';
+  buildHeader('bedtime.html');
+
+  var M = window.BEDTIME_MANIFEST;
+  var BASE = 'data/bedtime/';
+  var POS_KEY = 'dsa-bedtime-pos';
+  var VOL_KEY = 'dsa-bedtime-vol';
+  var RATE_KEY = 'dsa-bedtime-rate';
+
+  var audio = document.getElementById('bt-audio');
+  var $ = function (id) { return document.getElementById(id); };
+
+  if (!M) {
+    $('bt-chtitle').textContent = 'manifest.js भेटिएन — data/bedtime/build_bedtime.py चलाउनुहोस्।';
+    return;
+  }
+
+  // Prefer opus (~26 MB) over mp3 (~63 MB) where the browser can play it.
+  var canOpus = audio.canPlayType('audio/ogg; codecs=opus') !== '';
+  audio.src = BASE + M.file.replace(/\.mp3$/, canOpus ? '.opus' : '.mp3');
+
+  var chapters = M.chapters || [];
+  var curCh = -1;
+
+  function hms(s) {
+    if (!isFinite(s) || s < 0) s = 0;
+    var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = Math.floor(s % 60);
+    return h + ':' + String(m).padStart(2, '0') + ':' + String(x).padStart(2, '0');
+  }
+
+  /* ---------- chapter list ---------- */
+  var listEl = $('bt-chlist');
+  chapters.forEach(function (c, i) {
+    var b = document.createElement('button');
+    b.className = 'bt-ch';
+    b.innerHTML = '<span class="t">' + hms(c.start) + '</span><span class="n"></span>';
+    b.querySelector('.n').textContent = c.title;
+    b.addEventListener('click', function () { seek(c.start); if (audio.paused) play(); });
+    listEl.appendChild(b);
+  });
+  var chEls = listEl.querySelectorAll('.bt-ch');
+
+  function chapterAt(t) {
+    var idx = 0;
+    for (var i = 0; i < chapters.length; i++) { if (t + 0.25 >= chapters[i].start) idx = i; else break; }
+    return idx;
+  }
+  function setChapter(i) {
+    if (i === curCh) return;
+    curCh = i;
+    var c = chapters[i];
+    if (!c) return;
+    $('bt-chnum').textContent = 'अध्याय ' + c.num + ' / ' + String(chapters.length - 1).padStart(2, '0');
+    $('bt-chtitle').textContent = c.title;
+    chEls.forEach(function (el, k) { el.classList.toggle('now', k === i); });
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: c.title, artist: 'निद्राको ग्रैंड लाइन', album: 'DSA Crash Course',
+      });
+    }
+  }
+
+  /* ---------- transport ---------- */
+  function play() {
+    var p = audio.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  function seek(t) {
+    audio.currentTime = Math.max(0, Math.min(audio.duration || M.duration, t));
+    render();
+  }
+  function jumpChapter(delta) {
+    var i = chapterAt(audio.currentTime);
+    // A "prev" more than 3s into a chapter restarts it, like every music player.
+    if (delta < 0 && audio.currentTime - chapters[i].start > 3) delta = 0;
+    var t = chapters[Math.max(0, Math.min(chapters.length - 1, i + delta))];
+    if (t) seek(t.start);
+  }
+
+  $('bt-play').addEventListener('click', function () { audio.paused ? play() : audio.pause(); });
+  $('bt-prev').addEventListener('click', function () { jumpChapter(-1); });
+  $('bt-next').addEventListener('click', function () { jumpChapter(1); });
+  $('bt-back').addEventListener('click', function () { seek(audio.currentTime - 30); });
+  $('bt-fwd').addEventListener('click', function () { seek(audio.currentTime + 30); });
+
+  audio.addEventListener('play', function () { $('bt-play').textContent = '⏸'; });
+  audio.addEventListener('pause', function () { $('bt-play').textContent = '▶'; lightsOn(); });
+
+  /* ---------- seek bar ---------- */
+  var seekEl = $('bt-seek'), dragging = false;
+  seekEl.addEventListener('input', function () { dragging = true; $('bt-cur').textContent = hms(+seekEl.value); });
+  seekEl.addEventListener('change', function () { dragging = false; seek(+seekEl.value); });
+
+  function render() {
+    var d = isFinite(audio.duration) && audio.duration ? audio.duration : M.duration;
+    seekEl.max = d;
+    if (!dragging) seekEl.value = audio.currentTime;
+    $('bt-cur').textContent = hms(audio.currentTime);
+    $('bt-dur').textContent = hms(d);
+    setChapter(chapterAt(audio.currentTime));
+  }
+  audio.addEventListener('timeupdate', render);
+  audio.addEventListener('loadedmetadata', function () {
+    $('bt-total').textContent = hms(audio.duration || M.duration) + ' • ' + chapters.length + ' अध्याय';
+    render();
+  });
+
+  /* ---------- resume where you fell asleep ---------- */
+  var saved = parseFloat(localStorage.getItem(POS_KEY));
+  if (!isNaN(saved) && saved > 5) {
+    var apply = function () { audio.currentTime = saved; render(); };
+    if (audio.readyState >= 1) apply();
+    else audio.addEventListener('loadedmetadata', apply, { once: true });
+  }
+  setInterval(function () {
+    if (!audio.paused) localStorage.setItem(POS_KEY, String(audio.currentTime));
+  }, 5000);
+  window.addEventListener('beforeunload', function () {
+    localStorage.setItem(POS_KEY, String(audio.currentTime));
+  });
+
+  /* ---------- volume & rate ---------- */
+  var vol = $('bt-vol'), rate = $('bt-rate');
+  var v0 = parseFloat(localStorage.getItem(VOL_KEY)); if (isNaN(v0)) v0 = 0.8;
+  var r0 = parseFloat(localStorage.getItem(RATE_KEY)); if (isNaN(r0)) r0 = 1.0;
+  audio.volume = vol.value = v0;
+  audio.playbackRate = rate.value = r0;
+  $('bt-ratev').textContent = r0.toFixed(2) + 'x';
+  vol.addEventListener('input', function () {
+    audio.volume = +vol.value; localStorage.setItem(VOL_KEY, vol.value);
+  });
+  rate.addEventListener('input', function () {
+    audio.playbackRate = +rate.value;
+    $('bt-ratev').textContent = (+rate.value).toFixed(2) + 'x';
+    localStorage.setItem(RATE_KEY, rate.value);
+  });
+
+  /* ---------- sleep timer ----------
+     Ends on a 20s volume ramp rather than a hard stop: a sudden cut is itself
+     enough to wake someone who has just drifted off. Volume is restored after
+     the pause so the next session doesn't start silent. */
+  var timerEnd = 0, timerTick = null;
+  $('bt-timer').addEventListener('change', function () {
+    var mins = +this.value;
+    clearInterval(timerTick); timerTick = null;
+    $('bt-timerstate').textContent = '';
+    if (!mins) { timerEnd = 0; return; }
+    timerEnd = Date.now() + mins * 60000;
+    timerTick = setInterval(function () {
+      var left = timerEnd - Date.now();
+      if (left <= 0) {
+        clearInterval(timerTick); timerTick = null;
+        $('bt-timerstate').textContent = '';
+        $('bt-timer').value = '0';
+        // Fixed step off the starting volume — decrementing by a fraction of
+        // the *current* volume would decay exponentially and never land.
+        var steps = 40, step = audio.volume / steps, v = audio.volume;
+        var fade = setInterval(function () {
+          v -= step;
+          if (v <= 0.001) {
+            clearInterval(fade);
+            audio.pause();
+            audio.volume = +vol.value;   // restore for next time
+          } else { audio.volume = Math.max(0, v); }
+        }, 500);
+        return;
+      }
+      var m = Math.floor(left / 60000), s = Math.floor((left % 60000) / 1000);
+      $('bt-timerstate').textContent = m + ':' + String(s).padStart(2, '0');
+    }, 1000);
+  });
+
+  /* ---------- lights out ---------- */
+  var idleT = null;
+  function lightsOn() {
+    document.body.classList.remove('lights-out');
+    clearTimeout(idleT);
+    idleT = setTimeout(function () {
+      if (!audio.paused) document.body.classList.add('lights-out');
+    }, 25000);
+  }
+  ['mousemove', 'mousedown', 'keydown', 'touchstart', 'wheel'].forEach(function (e) {
+    document.addEventListener(e, lightsOn, { passive: true });
+  });
+  lightsOn();
+
+  /* ---------- keyboard ---------- */
+  document.addEventListener('keydown', function (e) {
+    var tag = e.target.tagName;
+    if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+    if (e.key === ' ') { e.preventDefault(); audio.paused ? play() : audio.pause(); }
+    else if (e.key === 'ArrowRight') jumpChapter(1);
+    else if (e.key === 'ArrowLeft') jumpChapter(-1);
+    else if (e.key === 'ArrowUp') { e.preventDefault(); seek(audio.currentTime + 30); }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); seek(audio.currentTime - 30); }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
