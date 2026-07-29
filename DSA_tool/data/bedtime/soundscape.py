@@ -3,9 +3,16 @@
 
 The first version of this audio was a single brown-noise surf loop under a dry
 voice, which read as "someone reading in a quiet room" rather than a place. This
-builds an actual soundscape instead: seven synthesized layers whose levels move
-with the story, so the chapters set at sea sound like the sea, the tree chapters
-sound like a forest, and the labyrinth sounds like a cave.
+builds an actual soundscape instead: five layers whose levels move with the
+story, so the chapters set at sea sound like the sea, the tree chapters sound
+like a forest, and the labyrinth sounds like a cave.
+
+There are two ways in: build() lays the whole voyage out on one timeline, which
+is what the single-file --monolith render needs; build_segment() does one
+chapter's worth at a time, which is what the site plays. The segmented path is
+the one that has to be careful, because a listener on the short story and a
+listener on the long one hear different files either side of a chapter join —
+see _seg_envelope() for how the scene changes are made to line up regardless.
 
 Each layer is a real field recording when one is available. `fetch_ambience.py`
 downloads CC0/CC-BY recordings of surf, wind, leaves and streams, screens out
@@ -152,6 +159,74 @@ def _sources(sr):
 
     return {"waves": waves, "foam": foam, "wind": wind, "leaves": leaves,
             "water": water}
+
+
+def _scene(num):
+    return SCENES.get(int(num), "open_sea")
+
+
+def _seg_envelope(layer_idx, scene, prev_scene):
+    """Volume expression for one segment of one layer.
+
+    A segment is a single chapter's worth of one tier, so the scene never
+    changes inside it: the level is a constant, except at the start of a
+    chapter whose scene differs from the one before, where it slides from the
+    old gain to the new one over CROSSFADE seconds.
+
+    The whole slide lives at the head of the new chapter rather than straddling
+    the boundary, because the segment before it is tier-dependent — in the short
+    story it is a different file than in the long one — and an envelope that
+    reached backwards would need a different render per tier. The first segment
+    of a chapter is its core segment in every tier, so putting the transition
+    here makes the ambience identical whichever length is playing. It lands
+    during the chapter gap and the opening sentences, where there is nothing
+    for it to interrupt.
+    """
+    gain = SCENE_GAINS[scene][layer_idx]
+    if prev_scene is None or prev_scene == scene:
+        return f"{gain:.3f}"
+    was = SCENE_GAINS[prev_scene][layer_idx]
+    if abs(was - gain) < 1e-4:
+        return f"{gain:.3f}"
+    return f"{was:.3f}+({gain - was:.3f})*min(1,t/{CROSSFADE:.2f})"
+
+
+def build_segment(scene, prev_scene, total, sr, phase=0.0,
+                  fade_in=0.0, fade_out=0.0):
+    """Return (input_args, filter_chunks, mix_labels) for one segment's bed.
+
+    `phase` offsets where each loop is entered. Without it every chapter would
+    open on the same wave, which over twenty-seven chapters is exactly the kind
+    of pattern the ear learns and then waits for.
+    """
+    srcs = _sources(sr)
+    inputs, chunks, labels = [], [], []
+    for i, name in enumerate(LAYER_NAMES):
+        # Each layer takes a different multiple of the offset so the five of
+        # them do not shift together — that would just be the same bed later.
+        # The offset is trimmed off the front, so the source has to be decoded
+        # for that much longer or the segment runs out of bed before it ends.
+        off = (phase * (i + 1) * 1.37) % 47.0
+        need = total + off + 2
+        loop = _loop(name)
+        if loop:
+            inputs += ["-stream_loop", "-1", "-t", f"{need:.2f}", "-i", loop]
+        else:
+            inputs += ["-f", "lavfi", "-t", f"{need:.2f}", "-i", srcs[name]]
+        env = _seg_envelope(i, scene, prev_scene)
+        chunks.append(
+            f"[{i + 1}:a]aformat=sample_fmts=fltp:sample_rates={sr}:"
+            f"channel_layouts=mono,"
+            f"atrim=start={off:.2f},asetpts=PTS-STARTPTS,"
+            f"volume=volume='{_esc(env)}':eval=frame,"
+            f"volume={LAYER_CEILING[name]:.3f}"
+            + (f",afade=t=in:st=0:d={fade_in:.2f}" if fade_in > 0 else "")
+            + (f",afade=t=out:st={max(0.0, total - fade_out):.2f}:"
+               f"d={fade_out:.2f}" if fade_out > 0 else "")
+            + f"[a{i}]"
+        )
+        labels.append(f"[a{i}]")
+    return inputs, chunks, labels
 
 
 def _runs(marks, total):

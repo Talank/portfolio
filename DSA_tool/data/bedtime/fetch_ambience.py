@@ -7,9 +7,9 @@ actual things — surf, wind, leaves, streams — because no amount of filtered
 noise has the irregularity of a real beach.
 
 What it produces is deliberately tiny: one short, seamless, mono loop per layer
-in ambience/, a few hundred KB each. They are build-time inputs only. The site
-still serves exactly one file, dsa-nidra-full.opus, and its size is set by the
-opus encoder, not by where the bed came from.
+in ambience/, a few hundred KB each. They are build-time inputs only. What the
+site serves is audio/chNN-<tier>.opus, and their size is set by the opus
+encoder, not by where the bed came from.
 
 The pipeline, per layer:
     search    Freesound, several queries, CC0 and CC-BY only (see LICENSES)
@@ -106,6 +106,32 @@ LAYER_KEYWORDS = {
                "fountain", "burble", "trickle", "cave", "waterfall"),
 }
 
+# Words that disqualify a recording whatever layer it was found for. The
+# screening below measures texture, and an animal or a machine can be perfectly
+# steady and noise-like — the first pass accepted cicadas, crickets, birdsong
+# and a grasshopper meadow into the wind and water layers on exactly those
+# grounds. They are wrong for two reasons that no metric sees: a creature is a
+# thing the ear identifies and then listens *to*, which is the opposite of a
+# bed; and every scene borrowing that layer would carry crickets into a ship's
+# hold. Named things are rejected before download, on title and tags.
+EXCLUDE = (
+    # living things
+    "bird", "gull", "crow", "owl", "duck", "goose", "hen", "rooster",
+    "cicada", "cricket", "grasshopper", "insect", "bee", "wasp", "fly",
+    "frog", "toad", "dog", "cat", "cow", "sheep", "goat", "horse",
+    "monkey", "people", "crowd", "child", "kids", "voice", "talk", "speech",
+    "song", "sing", "footstep", "breath",
+    # made things
+    "traffic", "car", "truck", "engine", "motor", "plane", "aircraft",
+    "helicopter", "train", "boat motor", "siren", "alarm", "bell", "chime",
+    "gong", "drum", "guitar", "piano", "violin", "synth", "pad", "drone",
+    "music", "melody", "chord", "ambient music", "loop pack", "construction",
+    "machine", "pump", "fan ", "hum", "radio", "tv", "church", "clock",
+    "city", "urban", "street", "market", "playground", "park",
+    # weather that changes the scene rather than dressing it
+    "rain", "thunder", "storm", "hail", "fire", "campfire",
+)
+
 MIN_DUR = 40.0          # shorter than this and there is no calm window to find
 MAX_MOD = 0.36          # syllabic-band energy above this means speech
 MIN_FLAT = 0.020        # below this the spectrum is harmonic -> music
@@ -182,9 +208,17 @@ def search(layer):
 
 
 def on_topic(rec, layer):
-    """Does this recording claim to be the thing the layer needs?"""
+    """Is this the thing the layer needs, and only that thing?
+
+    Returns None if it is usable, else the word that disqualified it.
+    """
     words = (rec.get("name", "") + " " + " ".join(rec.get("tags", []))).lower()
-    return any(k in words for k in LAYER_KEYWORDS[layer])
+    for bad in EXCLUDE:
+        if bad in words:
+            return bad
+    if not any(k in words for k in LAYER_KEYWORDS[layer]):
+        return "off-layer"
+    return None
 
 
 def download(rec):
@@ -450,9 +484,10 @@ def build_layer(layer, force=False):
     for rec in cands:
         if len(kept) >= KEEP_PER_LAYER:
             break
-        if not on_topic(rec, layer):
+        why = on_topic(rec, layer)
+        if why:
             # checked before downloading: no point spending 8 MB to find out
-            print(f"    reject offtopic                             "
+            print(f"    reject {why[:12]:12s}{'':22s}"
                   f"{rec['id']:>8} {rec['name'][:38]}")
             continue
         p = download(rec)
@@ -477,8 +512,12 @@ def build_layer(layer, force=False):
         lm = measure(loop)
         lv = loop_verdict(lm)
         if lv != "ok":
-            print(f"    reject {lv:8s} tonal={lm['tonal']:4.1f} "
-                  f"ev={lm['event']:.3f} sd={lm['sd']:4.1f}  {tag}")
+            # lm is None when the cut window came out too short or silent, in
+            # which case there are no numbers to print alongside the verdict.
+            nums = ("" if lm is None else
+                    f"tonal={lm['tonal']:4.1f} ev={lm['event']:.3f} "
+                    f"sd={lm['sd']:4.1f}")
+            print(f"    reject {lv:8s} {nums:34s}{tag}")
             continue
         print(f"    keep     mod={m['mod']:.2f} flat={m['flat']:.3f} "
               f"tonal={lm['tonal']:4.1f} ev={lm['event']:.3f} sd={lm['sd']:4.1f}"

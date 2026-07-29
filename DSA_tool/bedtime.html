@@ -55,6 +55,22 @@
   .bt-btn:hover { border-color: var(--bt-accent); color: var(--bt-accent); }
   .bt-play { width: 4.2rem; height: 4.2rem; font-size: 1.5rem; border-color: var(--bt-accent); color: var(--bt-accent); }
 
+  /* Story length */
+  .bt-lengths {
+    display: flex; gap: 0.4rem; justify-content: center; margin-top: 1.1rem;
+    padding-top: 1rem; border-top: 1px solid var(--bt-border);
+  }
+  .bt-len {
+    background: transparent; border: 1px solid var(--bt-border);
+    border-radius: 999px; padding: 0.35rem 0.85rem; cursor: pointer;
+    color: var(--bt-dim); font-family: inherit; font-size: 0.78rem;
+    display: flex; align-items: baseline; gap: 0.4rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .bt-len:hover { color: var(--bt-text); border-color: var(--bt-dim); }
+  .bt-len.on { color: var(--bt-accent); border-color: var(--bt-accent); }
+  .bt-len .d { font-size: 0.7rem; opacity: 0.7; font-variant-numeric: tabular-nums; }
+
   /* Options */
   .bt-opts { display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; margin-top: 1.1rem;
              padding-top: 1rem; border-top: 1px solid var(--bt-border); }
@@ -123,6 +139,8 @@
       <button class="bt-btn" id="bt-next" title="अर्को अध्याय (→)">⏭</button>
     </div>
 
+    <div class="bt-lengths" id="bt-lengths" role="group" aria-label="कथाको लम्बाइ"></div>
+
     <div class="bt-opts">
       <label class="bt-opt">आवाज
         <input type="range" id="bt-vol" min="0" max="1" step="0.02">
@@ -153,12 +171,20 @@
   <p class="bt-note">
     <b>सुत्दै सुन्नका लागि बनाइएको।</b> आवाज बिस्तारै, तल्लो स्वरमा छ; अध्यायबीच लामो मौनता छ, र
     पूरै समय मधुरो समुद्री ध्वनि बजिरहन्छ — त्यसैले मौनता कहिल्यै खल्लो लाग्दैन।
+    <b>लम्बाइ तीन छन्:</b> छोटोमा हरेक टापुको मूल कथा मात्र, मध्यम र लामोमा थप समस्या,
+    थप उदाहरण र थप विवरण थपिँदै जान्छन् — कथा उही हो, गहिराइ मात्र फरक।
+    लम्बाइ फेर्दा तपाईं जुन अध्यायमा हुनुहुन्थ्यो, त्यहीँबाट फेरि सुरु हुन्छ।
     तपाईं कहाँ पुग्नुभयो भन्ने आफैं सम्झिन्छ, त्यसैले भोलि राति त्यहीँबाट सुरु गर्न सकिन्छ।
     केही बेर नछोए पर्दा आफैं मधुरो हुन्छ।
   </p>
 </main>
 
-<audio id="bt-audio" preload="metadata"></audio>
+<!-- Two elements, not one: the voyage ships as one file per chapter per length,
+     and the player crossfades from the outgoing element into the incoming one
+     so the joins are inaudible. A single element swapping src would drop the
+     ambience for as long as the next file took to open. -->
+<audio id="bt-a0" preload="metadata"></audio>
+<audio id="bt-a1" preload="metadata"></audio>
 
 <script src="data/schedule.js"></script>
 <script src="../shared/supabase-client.js"></script>
@@ -175,25 +201,22 @@
   var POS_KEY = 'dsa-bedtime-pos';
   var VOL_KEY = 'dsa-bedtime-vol';
   var RATE_KEY = 'dsa-bedtime-rate';
+  var TIER_KEY = 'dsa-bedtime-tier';
 
-  var audio = document.getElementById('bt-audio');
+  var els = [document.getElementById('bt-a0'), document.getElementById('bt-a1')];
   var $ = function (id) { return document.getElementById(id); };
 
-  if (!M) {
+  if (!M || !M.tiers) {
     $('bt-chtitle').textContent = 'manifest.js भेटिएन — data/bedtime/build_bedtime.py चलाउनुहोस्।';
     return;
   }
-
-  // Ships as opus only (~26 MB; the mp3 master was ~63 MB and is dropped by the
-  // build once the transcode is verified). Newer manifests already name the
-  // .opus; the replace is kept so an older manifest.js still resolves.
-  audio.src = BASE + M.file.replace(/\.mp3$/, '.opus');
-  if (audio.canPlayType('audio/ogg; codecs=opus') === '') {
-    var warn = document.getElementById('bt-total');
-    if (warn) warn.textContent =
+  if (els[0].canPlayType('audio/ogg; codecs=opus') === '') {
+    $('bt-total').textContent =
       'यो ब्राउजरले Ogg Opus बजाउन सक्दैन — Safari 17.5+, Chrome वा Firefox चलाउनुहोस्।';
   }
 
+  var DIR = BASE + (M.dir ? M.dir.replace(/^data\/bedtime\//, '') : 'audio/');
+  var OVERLAP = M.overlap || 1.5;
   var chapters = M.chapters || [];
   var curCh = -1;
 
@@ -202,32 +225,203 @@
     var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = Math.floor(s % 60);
     return h + ':' + String(m).padStart(2, '0') + ':' + String(x).padStart(2, '0');
   }
+  function clamp(x, lo, hi) { return x < lo ? lo : x > hi ? hi : x; }
+
+  /* ================== the virtual timeline ==================
+     One story length is a playlist of chapter files. Laid end to end they
+     would be longer than the story, because every file carries OVERLAP
+     seconds of ambience past its last word for the crossfade to happen in;
+     each join therefore costs OVERLAP, and a segment's start on the virtual
+     timeline is the running total of (duration - OVERLAP) before it. Every
+     position the UI talks about — the seek bar, the chapter list, the saved
+     resume point — lives on that timeline, not inside any one file. */
+  var tier, pl, total;
+
+  function loadTier(name) {
+    tier = M.tiers[name] ? name : 'core';
+    pl = M.tiers[tier].playlist.map(function (p) { return { f: p.f, d: p.d, c: p.c }; });
+    var t = 0;
+    pl.forEach(function (p, i) {
+      p.start = t;
+      t += p.d - (i === pl.length - 1 ? 0 : OVERLAP);
+    });
+    total = t;
+    localStorage.setItem(TIER_KEY, tier);
+  }
+
+  function segAt(t) {
+    for (var i = pl.length - 1; i > 0; i--) if (t >= pl[i].start) return i;
+    return 0;
+  }
+  function chapterStart(num) {
+    var s = M.tiers[tier].starts;
+    return Object.prototype.hasOwnProperty.call(s, num) ? s[num] : null;
+  }
+
+  /* ================== playback ==================
+     `ai` is which element is the one you are hearing. During a crossfade both
+     are running: the outgoing one is still the authority on where we are, so
+     virtualTime() keeps reading from it until the handover completes. */
+  var ai = 0, seg = 0, playing = false, fading = false, fadeTick = null;
+  var masterVol = 0.8, playRate = 1.0, unlocked = false;
+
+  function cur() { return els[ai]; }
+  function other() { return els[1 - ai]; }
+  function virtualTime() { return pl[seg].start + (cur().currentTime || 0); }
+
+  function armNext() {
+    var n = seg + 1;
+    if (n >= pl.length) return;
+    var o = other(), url = DIR + pl[n].f;
+    if (o.getAttribute('src') !== url) {
+      o.preload = 'auto';
+      o.src = url;
+      o.load();
+    }
+  }
+
+  function stopFade() {
+    if (fadeTick) { clearInterval(fadeTick); fadeTick = null; }
+    fading = false;
+  }
+
+  function goTo(i, offset, autoplay) {
+    stopFade();
+    seg = clamp(i, 0, pl.length - 1);
+    var a = cur(), b = other();
+    b.pause();
+    var url = DIR + pl[seg].f;
+    if (a.getAttribute('src') !== url) { a.src = url; }
+    a.volume = masterVol;
+    a.playbackRate = playRate;
+    var at = clamp(offset || 0, 0, Math.max(0, pl[seg].d - 0.1));
+    var apply = function () { try { a.currentTime = at; } catch (e) {} render(); };
+    if (a.readyState >= 1) apply();
+    else a.addEventListener('loadedmetadata', apply, { once: true });
+    if (autoplay) start(a);
+    armNext();
+  }
+
+  function start(a) {
+    var p = (a || cur()).play();
+    if (p && p.catch) p.catch(function () {});
+  }
+
+  function play() {
+    // Mobile browsers only let an element play if that element itself has been
+    // touched by a user gesture. Nudge the idle one once so it is allowed to
+    // join in later, halfway through a crossfade with no gesture in sight.
+    if (!unlocked) {
+      unlocked = true;
+      var o = other(); o.volume = 0;
+      var p = o.play();
+      if (p && p.then) p.then(function () { o.pause(); o.volume = masterVol; },
+                              function () {});
+    }
+    playing = true;
+    start();
+  }
+  function pause() {
+    playing = false;
+    stopFade();
+    els[0].pause(); els[1].pause();
+    els.forEach(function (el) { el.volume = masterVol; });
+    $('bt-play').textContent = '▶';
+    lightsOn();
+  }
+
+  /* Equal-power crossfade: two uncorrelated ambience beds summed with sqrt
+     gains hold a constant level, where a linear fade would dip in the middle
+     and read as a hole. The window always lands in the silence between
+     chapters or paragraphs, never over a word. */
+  function beginFade() {
+    if (fading || seg + 1 >= pl.length) return;
+    fading = true;
+    var from = cur(), to = other();
+    armNext();
+    to.playbackRate = playRate;
+    try { to.currentTime = 0; } catch (e) {}
+    to.volume = 0;
+    if (playing) start(to);
+    fadeTick = setInterval(function () {
+      var left = pl[seg].d - from.currentTime;
+      var p = clamp((OVERLAP - left) / OVERLAP, 0, 1);
+      from.volume = masterVol * Math.sqrt(1 - p);
+      to.volume = masterVol * Math.sqrt(p);
+      if (p >= 1 || from.ended) handover();
+    }, 50);
+  }
+
+  function handover() {
+    stopFade();
+    var done = cur();
+    done.pause();
+    ai = 1 - ai;
+    seg = Math.min(seg + 1, pl.length - 1);
+    cur().volume = masterVol;
+    armNext();
+    render();
+  }
+
+  function seek(t) {
+    t = clamp(t, 0, total);
+    var i = segAt(t);
+    if (i === seg && !fading) {
+      var a = cur();
+      try { a.currentTime = clamp(t - pl[seg].start, 0, Math.max(0, pl[seg].d - 0.1)); } catch (e) {}
+      render();
+    } else {
+      goTo(i, t - pl[i].start, playing);
+    }
+  }
+
+  els.forEach(function (el) {
+    el.addEventListener('timeupdate', function () {
+      if (el !== cur()) return;
+      if (!fading && playing && pl[seg].d - el.currentTime <= OVERLAP) beginFade();
+      render();
+    });
+    el.addEventListener('ended', function () {
+      if (el !== cur()) return;
+      if (fading) handover();
+      else if (seg + 1 < pl.length) goTo(seg + 1, 0, playing);
+      else { playing = false; $('bt-play').textContent = '▶'; }
+    });
+    el.addEventListener('play', function () { if (playing) $('bt-play').textContent = '⏸'; });
+  });
 
   /* ---------- chapter list ---------- */
-  var listEl = $('bt-chlist');
-  chapters.forEach(function (c, i) {
-    var b = document.createElement('button');
-    b.className = 'bt-ch';
-    b.innerHTML = '<span class="t">' + hms(c.start) + '</span><span class="n"></span>';
-    b.querySelector('.n').textContent = c.title;
-    b.addEventListener('click', function () { seek(c.start); if (audio.paused) play(); });
-    listEl.appendChild(b);
-  });
-  var chEls = listEl.querySelectorAll('.bt-ch');
+  var listEl = $('bt-chlist'), chEls = [];
+  function buildChapterList() {
+    listEl.innerHTML = '';
+    chEls = [];
+    chapters.forEach(function (c) {
+      var st = chapterStart(c.num);
+      if (st === null) return;
+      var b = document.createElement('button');
+      b.className = 'bt-ch';
+      b.innerHTML = '<span class="t">' + hms(st) + '</span><span class="n"></span>';
+      b.querySelector('.n').textContent = c.title;
+      b.addEventListener('click', function () { seek(st); if (!playing) play(); });
+      listEl.appendChild(b);
+      chEls.push({ el: b, num: c.num, start: st, title: c.title });
+    });
+  }
 
   function chapterAt(t) {
     var idx = 0;
-    for (var i = 0; i < chapters.length; i++) { if (t + 0.25 >= chapters[i].start) idx = i; else break; }
+    for (var i = 0; i < chEls.length; i++) { if (t + 0.25 >= chEls[i].start) idx = i; else break; }
     return idx;
   }
   function setChapter(i) {
     if (i === curCh) return;
     curCh = i;
-    var c = chapters[i];
+    var c = chEls[i];
     if (!c) return;
-    $('bt-chnum').textContent = 'अध्याय ' + c.num + ' / ' + String(chapters.length - 1).padStart(2, '0');
+    $('bt-chnum').textContent = 'अध्याय ' + c.num + ' / ' +
+      String(chEls.length - 1).padStart(2, '0');
     $('bt-chtitle').textContent = c.title;
-    chEls.forEach(function (el, k) { el.classList.toggle('now', k === i); });
+    chEls.forEach(function (x, k) { x.el.classList.toggle('now', k === i); });
     if ('mediaSession' in navigator) {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: c.title, artist: 'निद्राको ग्रैंड लाइन', album: 'DSA Crash Course',
@@ -236,30 +430,19 @@
   }
 
   /* ---------- transport ---------- */
-  function play() {
-    var p = audio.play();
-    if (p && p.catch) p.catch(function () {});
-  }
-  function seek(t) {
-    audio.currentTime = Math.max(0, Math.min(audio.duration || M.duration, t));
-    render();
-  }
   function jumpChapter(delta) {
-    var i = chapterAt(audio.currentTime);
+    var t = virtualTime(), i = chapterAt(t);
     // A "prev" more than 3s into a chapter restarts it, like every music player.
-    if (delta < 0 && audio.currentTime - chapters[i].start > 3) delta = 0;
-    var t = chapters[Math.max(0, Math.min(chapters.length - 1, i + delta))];
-    if (t) seek(t.start);
+    if (delta < 0 && t - chEls[i].start > 3) delta = 0;
+    var c = chEls[clamp(i + delta, 0, chEls.length - 1)];
+    if (c) seek(c.start);
   }
 
-  $('bt-play').addEventListener('click', function () { audio.paused ? play() : audio.pause(); });
+  $('bt-play').addEventListener('click', function () { playing ? pause() : play(); });
   $('bt-prev').addEventListener('click', function () { jumpChapter(-1); });
   $('bt-next').addEventListener('click', function () { jumpChapter(1); });
-  $('bt-back').addEventListener('click', function () { seek(audio.currentTime - 30); });
-  $('bt-fwd').addEventListener('click', function () { seek(audio.currentTime + 30); });
-
-  audio.addEventListener('play', function () { $('bt-play').textContent = '⏸'; });
-  audio.addEventListener('pause', function () { $('bt-play').textContent = '▶'; lightsOn(); });
+  $('bt-back').addEventListener('click', function () { seek(virtualTime() - 30); });
+  $('bt-fwd').addEventListener('click', function () { seek(virtualTime() + 30); });
 
   /* ---------- seek bar ---------- */
   var seekEl = $('bt-seek'), dragging = false;
@@ -267,48 +450,101 @@
   seekEl.addEventListener('change', function () { dragging = false; seek(+seekEl.value); });
 
   function render() {
-    var d = isFinite(audio.duration) && audio.duration ? audio.duration : M.duration;
-    seekEl.max = d;
-    if (!dragging) seekEl.value = audio.currentTime;
-    $('bt-cur').textContent = hms(audio.currentTime);
-    $('bt-dur').textContent = hms(d);
-    setChapter(chapterAt(audio.currentTime));
+    if (!playing) $('bt-play').textContent = '▶';
+    seekEl.max = total;
+    var t = virtualTime();
+    if (!dragging) seekEl.value = t;
+    $('bt-cur').textContent = hms(t);
+    $('bt-dur').textContent = hms(total);
+    setChapter(chapterAt(t));
   }
-  audio.addEventListener('timeupdate', render);
-  audio.addEventListener('loadedmetadata', function () {
-    $('bt-total').textContent = hms(audio.duration || M.duration) + ' • ' + chapters.length + ' अध्याय';
-    render();
-  });
 
-  /* ---------- resume where you fell asleep ---------- */
-  var saved = parseFloat(localStorage.getItem(POS_KEY));
-  if (!isNaN(saved) && saved > 5) {
-    var apply = function () { audio.currentTime = saved; render(); };
-    if (audio.readyState >= 1) apply();
-    else audio.addEventListener('loadedmetadata', apply, { once: true });
+  /* ---------- story length ---------- */
+  var lenEl = $('bt-lengths');
+  function buildLengths() {
+    lenEl.innerHTML = '';
+    ['core', 'medium', 'long'].forEach(function (name) {
+      var ti = M.tiers[name];
+      if (!ti) return;
+      var b = document.createElement('button');
+      b.className = 'bt-len' + (name === tier ? ' on' : '');
+      b.innerHTML = '<span></span><span class="d">' +
+        Math.round(ti.duration / 3600 * 10) / 10 + ' घण्टा</span>';
+      b.firstChild.textContent = ti.label || name;
+      b.title = (ti.label_en || name) + ' — ' + hms(ti.duration) +
+                ', ' + Math.round(ti.bytes / 1e6) + ' MB';
+      b.addEventListener('click', function () { switchTier(name); });
+      lenEl.appendChild(b);
+    });
   }
-  setInterval(function () {
-    if (!audio.paused) localStorage.setItem(POS_KEY, String(audio.currentTime));
-  }, 5000);
-  window.addEventListener('beforeunload', function () {
-    localStorage.setItem(POS_KEY, String(audio.currentTime));
-  });
+
+  /* Switching length keeps your place by chapter rather than by clock: the
+     same chapter starts at a different second in each length, and landing
+     mid-sentence somewhere else in the voyage is not what "make it longer"
+     means. Falls back to the nearest earlier chapter the new length has. */
+  function switchTier(name) {
+    if (name === tier) return;
+    var was = playing, ch = chEls[chapterAt(virtualTime())];
+    pause();
+    loadTier(name);
+    buildLengths();
+    buildChapterList();
+    curCh = -1;
+    var st = ch ? chapterStart(ch.num) : 0;
+    if (st === null) st = 0;
+    els[0].removeAttribute('src'); els[1].removeAttribute('src');
+    goTo(segAt(st), st - pl[segAt(st)].start, was);
+    playing = was;
+    updateTotal();
+    render();
+  }
+
+  function updateTotal() {
+    $('bt-total').textContent = hms(total) + ' • ' + chEls.length + ' अध्याय • ' +
+      (M.tiers[tier].label || tier);
+  }
 
   /* ---------- volume & rate ---------- */
   var vol = $('bt-vol'), rate = $('bt-rate');
   var v0 = parseFloat(localStorage.getItem(VOL_KEY)); if (isNaN(v0)) v0 = 0.8;
   var r0 = parseFloat(localStorage.getItem(RATE_KEY)); if (isNaN(r0)) r0 = 1.0;
-  audio.volume = vol.value = v0;
-  audio.playbackRate = rate.value = r0;
+  masterVol = v0; playRate = r0;
+  vol.value = v0; rate.value = r0;
+  els.forEach(function (el) { el.volume = v0; el.playbackRate = r0; });
   $('bt-ratev').textContent = r0.toFixed(2) + 'x';
   vol.addEventListener('input', function () {
-    audio.volume = +vol.value; localStorage.setItem(VOL_KEY, vol.value);
+    masterVol = +vol.value;
+    // Not during a fade: the fade owns both volumes until it hands over.
+    if (!fading) els.forEach(function (el) { el.volume = masterVol; });
+    localStorage.setItem(VOL_KEY, vol.value);
   });
   rate.addEventListener('input', function () {
-    audio.playbackRate = +rate.value;
-    $('bt-ratev').textContent = (+rate.value).toFixed(2) + 'x';
+    playRate = +rate.value;
+    els.forEach(function (el) { el.playbackRate = playRate; });
+    $('bt-ratev').textContent = playRate.toFixed(2) + 'x';
     localStorage.setItem(RATE_KEY, rate.value);
   });
+
+  /* ---------- start up ---------- */
+  loadTier(localStorage.getItem(TIER_KEY) || 'core');
+  buildLengths();
+  buildChapterList();
+  updateTotal();
+
+  /* ---------- resume where you fell asleep ---------- */
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(POS_KEY)); } catch (e) {}
+  if (saved && saved.tier && M.tiers[saved.tier] && saved.tier !== tier) {
+    loadTier(saved.tier); buildLengths(); buildChapterList(); updateTotal();
+  }
+  var at = saved && saved.t > 5 ? Math.min(saved.t, total - 1) : 0;
+  goTo(segAt(at), at - pl[segAt(at)].start, false);
+
+  function savePos() {
+    localStorage.setItem(POS_KEY, JSON.stringify({ tier: tier, t: virtualTime() }));
+  }
+  setInterval(function () { if (playing) savePos(); }, 5000);
+  window.addEventListener('beforeunload', savePos);
 
   /* ---------- sleep timer ----------
      Ends on a 20s volume ramp rather than a hard stop: a sudden cut is itself
@@ -329,14 +565,18 @@
         $('bt-timer').value = '0';
         // Fixed step off the starting volume — decrementing by a fraction of
         // the *current* volume would decay exponentially and never land.
-        var steps = 40, step = audio.volume / steps, v = audio.volume;
-        var fade = setInterval(function () {
+        var steps = 40, step = masterVol / steps, v = masterVol;
+        var fadeOut = setInterval(function () {
           v -= step;
           if (v <= 0.001) {
-            clearInterval(fade);
-            audio.pause();
-            audio.volume = +vol.value;   // restore for next time
-          } else { audio.volume = Math.max(0, v); }
+            clearInterval(fadeOut);
+            pause();
+            masterVol = +vol.value;      // restore for next time
+            els.forEach(function (el) { el.volume = masterVol; });
+          } else {
+            masterVol = Math.max(0, v);
+            if (!fading) els.forEach(function (el) { el.volume = masterVol; });
+          }
         }, 500);
         return;
       }
@@ -351,7 +591,7 @@
     document.body.classList.remove('lights-out');
     clearTimeout(idleT);
     idleT = setTimeout(function () {
-      if (!audio.paused) document.body.classList.add('lights-out');
+      if (playing) document.body.classList.add('lights-out');
     }, 25000);
   }
   ['mousemove', 'mousedown', 'keydown', 'touchstart', 'wheel'].forEach(function (e) {
@@ -363,11 +603,11 @@
   document.addEventListener('keydown', function (e) {
     var tag = e.target.tagName;
     if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
-    if (e.key === ' ') { e.preventDefault(); audio.paused ? play() : audio.pause(); }
+    if (e.key === ' ') { e.preventDefault(); playing ? pause() : play(); }
     else if (e.key === 'ArrowRight') jumpChapter(1);
     else if (e.key === 'ArrowLeft') jumpChapter(-1);
-    else if (e.key === 'ArrowUp') { e.preventDefault(); seek(audio.currentTime + 30); }
-    else if (e.key === 'ArrowDown') { e.preventDefault(); seek(audio.currentTime - 30); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); seek(virtualTime() + 30); }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); seek(virtualTime() - 30); }
   });
 
   render();

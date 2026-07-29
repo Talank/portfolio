@@ -18,6 +18,10 @@ Source of truth is script/*.txt, one file per chapter, sorted by filename:
     <paragraph>
 Each paragraph becomes one edge-tts clip; silence is inserted between them.
 
+Paragraphs may be marked `@tier medium` or `@tier long`; everything above such
+a line belongs to the shorter story. The three lengths are therefore selections
+over one render — see plan_segments().
+
 Build (from this directory):
     pip install --user edge-tts imageio-ffmpeg
     python3 build_bedtime.py                 # incremental; reuses cached parts
@@ -26,14 +30,17 @@ Build (from this directory):
     python3 build_bedtime.py --stitch-only   # re-mix from cached parts
 
 Outputs (in this directory):
-    dsa-nidra-full.opus    the single ~2.5h file to play at bedtime, ~28 MB.
-                           An mp3 master is written first and then dropped once
-                           the transcode is verified — the site plays only the
-                           opus, so shipping both doubled the download for
-                           nothing. Pass --keep-mp3 to hold on to the master.
-    chapters.txt           human-readable chapter timestamps
-    dsa-nidra-full.cue     CUE sheet, for players that show track markers
-    manifest.json          chapter/paragraph offsets, for a future player page
+    audio/chNN-<tier>.opus  one file per chapter per tier, plus outro.opus.
+                            This is what the site plays: bedtime.html fetches
+                            the segment it is about to need, so opening the
+                            page costs nothing and a short-story listener never
+                            downloads the long story's extras.
+    chapters.txt            human-readable chapter timestamps, per length
+    manifest.json / .js     playlists and chapter offsets for bedtime.html
+
+    --monolith additionally writes dsa-nidra-full.opus and its CUE sheet, one
+    continuous file at --tier, for offline players. An mp3 master is written
+    first and dropped once the transcode is verified; --keep-mp3 holds onto it.
 
 DISPLAY vs SPOKEN: as in data/<lang>/audio/generate_audio.py, each paragraph is
 passed through to_speakable() before synthesis so bare Latin letters, Big-O
@@ -74,6 +81,11 @@ TIER_RANK = {t: i for i, t in enumerate(TIERS)}
 
 GAP_PARA = 2.4          # seconds of silence between paragraphs
 GAP_CHAPTER = 7.0       # seconds of silence between chapters
+# Ambience-only tail on every segment. The player starts the next segment this
+# far before the current one ends and equal-power crossfades between them, so
+# the joins between chapter files are inaudible instead of being a gap in the
+# bed. It always lands inside a chapter or paragraph gap, never over speech.
+OVERLAP = 1.5
 # Silence between sentences within a paragraph. This has to be inserted as
 # audio: measured on ne-NP-HemkalaNeural, once a sentence already ends in "।"
 # no punctuation added after it lengthens the gap at all (danda, "।…", "। …",
@@ -94,6 +106,16 @@ BITRATE = "48k"
 # dead air, far too quiet to compete with the voice. Turn it down if it
 # intrudes; the bed is the one thing playing during the long silences.
 AMBIENT_GAIN = 0.16
+
+# What the voice goes through before it meets the bed. The high shelf takes the
+# sibilance off (an "s" is what wakes people); the compressor keeps any one
+# phrase from jumping; aecho at these delays is a small room rather than an
+# effect — enough for the voice to have somewhere to decay into, short enough
+# that Nepali stays crisp.
+VOICE_CHAIN = ("highshelf=f=5200:g=-5,"
+               "acompressor=threshold=-20dB:ratio=3:attack=25:release=350,"
+               "aecho=0.86:0.85:29|47|71:0.11|0.07|0.04,"
+               "volume=1.22")
 
 
 def ffmpeg_exe():
@@ -426,15 +448,7 @@ def mix(narration, total, out_mp3, marks):
     the same space as the ambience instead of floating dry on top of it.
     """
     inputs, chunks, labels = soundscape.build(marks, total, SR, LEAD_IN, TAIL)
-
-    # aecho at these delays is a small room, not an effect: enough for the voice
-    # to have somewhere to decay into, short enough that Nepali stays crisp.
-    voice = ("highshelf=f=5200:g=-5,"
-             "acompressor=threshold=-20dB:ratio=3:attack=25:release=350,"
-             "aecho=0.86:0.85:29|47|71:0.11|0.07|0.04,"
-             "volume=1.22")
-
-    graph = (f"[0:a]{voice},apad=whole_dur={total:.2f}[v];"
+    graph = (f"[0:a]{VOICE_CHAIN},apad=whole_dur={total:.2f}[v];"
              + ";".join(chunks) + ";"
              + "[v]" + "".join(labels)
              + f"amix=inputs={len(labels) + 1}:duration=first:normalize=0,"
@@ -448,6 +462,239 @@ def mix(narration, total, out_mp3, marks):
          "-metadata", "artist=Talank Baral",
          "-metadata", "album=DSA Crash Course",
          out_mp3])
+
+
+# ---------------------------------------------------------------------------
+# Segmented output: one opus file per (chapter, tier)
+# ---------------------------------------------------------------------------
+#
+# The site does not ship one two-and-a-half-hour file any more. Every chapter
+# is cut into up to three files — its core paragraphs, its medium extras, its
+# long extras — and each story length is a playlist over those files:
+#
+#     short   ch00-core, ch01-core, ... ch26-core, outro
+#     medium  ch00-core, ch00-medium, ch01-core, ch01-medium, ...
+#     long    every segment
+#
+# Two things fall out of this. The three lengths cost one render between them
+# instead of three, because the long story's files *are* the short story's plus
+# extras; and opening the page downloads nothing, because the player fetches
+# the chapter it is about to play rather than a hundred megabytes of voyage the
+# listener will be asleep for.
+
+AUDIO_DIR = os.path.join(HERE, "audio")
+
+TIER_LABELS = {"core": "छोटो", "medium": "मध्यम", "long": "लामो"}
+TIER_LABELS_EN = {"core": "Short", "medium": "Medium", "long": "Long"}
+
+
+def plan_segments(chapters):
+    """Every (chapter, tier) file to render, in playback order.
+
+    `chapters` must have been loaded at the long tier: the paragraph indices in
+    the clip cache are then the same whichever length is being played, because
+    split_tiers() sorts the extras to the end of the chapter, so one cache of
+    synthesized clips serves all three.
+    """
+    segs = []
+    prev_scene = None
+    for ci, ch in enumerate(chapters):
+        scene = soundscape._scene(ch["num"])
+        first_of_chapter = True
+        for tier in TIERS:
+            idx = [i for i, t in enumerate(ch["tiers"]) if t == tier]
+            if not idx:
+                continue
+            if first_of_chapter:
+                lead = LEAD_IN if ci == 0 else GAP_CHAPTER
+                # only a chapter's opening segment carries the scene change;
+                # see soundscape._seg_envelope for why it sits at the head
+                before = prev_scene
+            else:
+                lead, before = GAP_PARA, scene
+            segs.append({
+                "name": f"ch{ch['num']}-{tier}",
+                "num": ch["num"], "title": ch["title"], "tier": tier,
+                "scene": scene, "prev_scene": before, "lead": lead,
+                "paras": idx, "sents": [ch["sents"][i] for i in idx],
+                "first": first_of_chapter,
+            })
+            first_of_chapter = False
+        prev_scene = scene
+    return segs
+
+
+def segment_narration(seg, out_wav):
+    """Concatenate one segment's clips and silences into PCM. Returns length."""
+    seq, t = [], 0.0
+
+    def add(path):
+        nonlocal t
+        seq.append(path)
+        t += duration(path)
+
+    add(silence(seg["lead"]))
+    for k, (pi, sents) in enumerate(zip(seg["paras"], seg["sents"])):
+        if k:
+            add(silence(GAP_PARA))
+        for j in range(len(sents)):
+            if j:
+                add(silence(GAP_SENT))
+            add(os.path.join(PARTS_DIR, f"ch{seg['num']}-p{pi:02d}-s{j:02d}.mp3"))
+
+    listfile = os.path.join(PARTS_DIR, f"_concat-{seg['name']}.txt")
+    with open(listfile, "w", encoding="utf-8") as f:
+        for p in seq:
+            f.write("file '" + p.replace("'", "'\\''") + "'\n")
+    run(["-f", "concat", "-safe", "0", "-i", listfile,
+         "-c:a", "pcm_s16le", "-ar", str(SR), "-ac", "1", out_wav])
+    os.remove(listfile)
+    return t
+
+
+def render_segment(seg, index, ambient=True):
+    """Mix and encode one segment. Returns its exact duration in seconds."""
+    out = os.path.join(AUDIO_DIR, seg["name"] + ".opus")
+    wav = os.path.join(PARTS_DIR, f"_seg-{seg['name']}.wav")
+    speech = segment_narration(seg, wav)
+    total = speech + OVERLAP
+
+    if not ambient:
+        run(["-i", wav, "-af", f"apad=whole_dur={total:.2f}",
+             "-c:a", "libopus", "-b:a", "28k", "-ac", "1", out])
+    else:
+        # 17.3 is just a stride that does not divide any loop length, so
+        # consecutive segments enter the loops at unrelated points.
+        phase = (index * 17.3) % 60.0
+        inputs, chunks, labels = soundscape.build_segment(
+            seg["scene"], seg["prev_scene"], total, SR, phase=phase,
+            fade_in=LEAD_IN + 5 if seg["prev_scene"] is None else 0.0)
+        graph = (f"[0:a]{VOICE_CHAIN},apad=whole_dur={total:.2f}[v];"
+                 + ";".join(chunks) + ";"
+                 + "[v]" + "".join(labels)
+                 + f"amix=inputs={len(labels) + 1}:duration=first:normalize=0,"
+                 + "alimiter=limit=0.92[out]")
+        run(["-i", wav] + inputs +
+            ["-filter_complex", graph, "-map", "[out]",
+             "-ac", "1", "-ar", str(SR), "-c:a", "libopus", "-b:a", "28k",
+             "-metadata", f"title={seg['num']} {seg['title']}",
+             "-metadata", "artist=Talank Baral",
+             "-metadata", "album=निद्राको ग्रैंड लाइन", out])
+    os.remove(wav)
+    return duration(out)
+
+
+def render_outro(scene, ambient=True):
+    """The runout every length ends on: ambience alone, fading to nothing.
+
+    Kept as its own file because where the story stops depends on the length
+    being played, and a tail baked into the last chapter's core segment would
+    sit in the middle of the medium and long versions.
+    """
+    out = os.path.join(AUDIO_DIR, "outro.opus")
+    if not ambient:
+        run(["-f", "lavfi", "-i", f"anullsrc=r={SR}:cl=mono", "-t", str(TAIL),
+             "-c:a", "libopus", "-b:a", "28k", "-ac", "1", out])
+        return duration(out)
+    inputs, chunks, labels = soundscape.build_segment(
+        scene, scene, TAIL, SR, phase=31.0, fade_out=TAIL - 2.0)
+    graph = (";".join(chunks) + ";" + "".join(labels)
+             + f"amix=inputs={len(labels)}:duration=first:normalize=0[out]")
+    run(inputs + ["-filter_complex", graph, "-map", "[out]",
+                  "-ac", "1", "-ar", str(SR),
+                  "-c:a", "libopus", "-b:a", "28k", out])
+    return duration(out)
+
+
+def build_segments(chapters, only=None, ambient=True):
+    """Render the segments and return the manifest.
+
+    `chapters` is always the whole script even under --only, because a
+    chapter's ambience depends on the scene of the chapter before it and the
+    manifest has to describe the complete voyage either way. --only narrows
+    what gets re-rendered, not what gets planned.
+    """
+    os.makedirs(AUDIO_DIR, exist_ok=True)
+    segs = plan_segments(chapters)
+    todo = sum(1 for s in segs if not only or s["num"] in only)
+    print(f"\nRendering {todo}/{len(segs)} segments into audio/…")
+    for i, seg in enumerate(segs):
+        path = os.path.join(AUDIO_DIR, seg["name"] + ".opus")
+        if only and seg["num"] not in only and os.path.exists(path):
+            seg["dur"] = duration(path)
+            continue
+        seg["dur"] = render_segment(seg, i, ambient=ambient)
+        print(f"  {seg['name']:16s} {seg['tier']:6s} {hms(seg['dur'])}  "
+              f"{os.path.getsize(path) / 1024:6.0f} KB")
+    outro = os.path.join(AUDIO_DIR, "outro.opus")
+    if only and os.path.exists(outro):
+        outro_dur = duration(outro)
+    else:
+        outro_dur = render_outro(soundscape._scene(chapters[-1]["num"]),
+                                 ambient=ambient)
+        print(f"  {'outro':16s} {'all':6s} {hms(outro_dur)}")
+
+    # Only safe on a full build: under --only the segments for the chapters we
+    # skipped are still current, and this list is the whole script anyway.
+    seen = {s["name"] + ".opus" for s in segs} | {"outro.opus"}
+    for stale in sorted(os.listdir(AUDIO_DIR)):
+        if stale.endswith(".opus") and stale not in seen:
+            os.remove(os.path.join(AUDIO_DIR, stale))
+            print(f"  - dropped stale {stale}")
+
+    manifest = {
+        "voice": VOICE, "rate": RATE, "pitch": PITCH, "volume": VOLUME,
+        "overlap": OVERLAP, "dir": "data/bedtime/audio/",
+        "chapters": [{"num": c["num"], "title": c["title"]} for c in chapters],
+        "tiers": {},
+    }
+    for tier in TIERS:
+        keep = TIER_RANK[tier]
+        playlist, starts, t = [], {}, 0.0
+        for seg in segs:
+            if TIER_RANK[seg["tier"]] > keep:
+                continue
+            if seg["first"]:
+                starts[seg["num"]] = round(t, 2)
+            playlist.append({"f": seg["name"] + ".opus",
+                             "d": round(seg["dur"], 2), "c": seg["num"]})
+            # each join overlaps, so the timeline is shorter than the sum
+            t += seg["dur"] - OVERLAP
+        playlist.append({"f": "outro.opus", "d": round(outro_dur, 2), "c": None})
+        t += outro_dur
+        size = sum(os.path.getsize(os.path.join(AUDIO_DIR, p["f"]))
+                   for p in playlist)
+        manifest["tiers"][tier] = {
+            "label": TIER_LABELS[tier], "label_en": TIER_LABELS_EN[tier],
+            "duration": round(t, 2), "bytes": size,
+            "starts": starts, "playlist": playlist,
+        }
+        print(f"  {tier:6s} {hms(t)}  {size / 1e6:5.1f} MB  "
+              f"{len(playlist)} files")
+    return manifest
+
+
+def write_segment_sidecars(manifest):
+    with open(os.path.join(HERE, "chapters.txt"), "w", encoding="utf-8") as f:
+        f.write("निद्राको ग्रैंड लाइन — अध्याय सूची\n\n")
+        for tier in TIERS:
+            ti = manifest["tiers"][tier]
+            f.write(f"— {ti['label']} ({ti['label_en']}): {hms(ti['duration'])}, "
+                    f"{ti['bytes'] / 1e6:.1f} MB —\n")
+            for ch in manifest["chapters"]:
+                if ch["num"] in ti["starts"]:
+                    f.write(f"{hms(ti['starts'][ch['num']])}  {ch['num']}  "
+                            f"{ch['title']}\n")
+            f.write("\n")
+
+    with open(os.path.join(HERE, "manifest.json"), "w", encoding="utf-8") as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=1)
+    with open(os.path.join(HERE, "manifest.js"), "w", encoding="utf-8") as f:
+        f.write("/* Auto-generated by build_bedtime.py. Segment playlists and\n")
+        f.write("   chapter offsets for bedtime.html. Do not edit by hand. */\n")
+        f.write("window.BEDTIME_MANIFEST = ")
+        json.dump(manifest, f, ensure_ascii=False)
+        f.write(";\n")
 
 
 def hms(sec):
@@ -464,12 +711,6 @@ def write_sidecars(marks, total, out_mp3, keep_mp3=False):
     audio_file, cue_kind = ((base + ".mp3", "MP3") if keep_mp3
                             else (base + ".opus", "WAVE"))
 
-    with open(os.path.join(HERE, "chapters.txt"), "w", encoding="utf-8") as f:
-        f.write("निद्राको ग्रैंड लाइन — अध्याय सूची\n")
-        f.write(f"कुल लम्बाइ: {hms(total)}\n\n")
-        for m in marks:
-            f.write(f"{hms(m['start'])}  {m['num']}  {m['title']}\n")
-
     with open(os.path.join(HERE, base + ".cue"), "w", encoding="utf-8") as f:
         f.write('TITLE "निद्राको ग्रैंड लाइन"\n')
         f.write('PERFORMER "Talank Baral"\n')
@@ -481,21 +722,9 @@ def write_sidecars(marks, total, out_mp3, keep_mp3=False):
             f.write(f'    TITLE "{m["title"]}"\n')
             f.write(f"    INDEX 01 {int(mm):02d}:{int(ss):02d}:{frames:02d}\n")
 
-    manifest = {"voice": VOICE, "rate": RATE, "pitch": PITCH,
-                "volume": VOLUME, "duration": round(total, 2),
-                "file": audio_file, "chapters": marks}
-    with open(os.path.join(HERE, "manifest.json"), "w", encoding="utf-8") as f:
-        json.dump(manifest, f, ensure_ascii=False, indent=1)
-
-    # Script-loadable twin, so bedtime.html can read the chapter list over
-    # file:// too (fetch() of a local .json is blocked there). Same trick the
-    # deck/audio manifests use elsewhere in the site.
-    with open(os.path.join(HERE, "manifest.js"), "w", encoding="utf-8") as f:
-        f.write("/* Auto-generated by build_bedtime.py. Chapter offsets for\n")
-        f.write("   bedtime.html. Do not edit by hand. */\n")
-        f.write("window.BEDTIME_MANIFEST = ")
-        json.dump(manifest, f, ensure_ascii=False)
-        f.write(";\n")
+    # No manifest here: the site plays the segments, and manifest.json/.js are
+    # written by write_segment_sidecars(). This path only produces the offline
+    # single file and the CUE sheet that indexes it.
 
 
 def main():
@@ -506,21 +735,32 @@ def main():
     ap.add_argument("--synth-only", action="store_true",
                     help="fill the clip cache and stop, without stitching")
     ap.add_argument("--no-ambient", action="store_true", help="skip the surf bed")
+    ap.add_argument("--monolith", action="store_true",
+                    help="also write the old single-file voyage plus its CUE "
+                         "sheet, at --tier, for offline players")
     ap.add_argument("--tier", default="core", choices=TIERS,
-                    help="story length: core is the short version, medium and "
-                         "long add the extra paragraphs marked @tier in the "
-                         "script (cumulative)")
+                    help="which story length --monolith renders: core is the "
+                         "short version, medium and long add the extra "
+                         "paragraphs marked @tier in the script (cumulative). "
+                         "The segmented build always renders all three.")
     ap.add_argument("--keep-mp3", action="store_true",
                     help="keep the mp3 master instead of dropping it once the "
                          "opus is verified (the site only ever plays the opus)")
     args = ap.parse_args()
 
     only = set(x.strip() for x in args.only.split(",") if x.strip())
-    chapters = load_chapters(only or None, tier=args.tier)
-    n_para = sum(len(c["paras"]) for c in chapters)
-    n_chars = sum(len(p) for c in chapters for p in c["paras"])
-    print(f"{len(chapters)} chapters, {n_para} paragraphs, {n_chars} chars "
-          f"({args.tier} tier)")
+    # Always load every tier: the segments are what the site plays, and the
+    # clip cache is shared across lengths, so there is nothing to gain by
+    # synthesizing less than the whole script.
+    everything = load_chapters(None, tier="long")
+    chapters = [c for c in everything if not only or c["num"] in only]
+    if not chapters:
+        sys.exit(f"--only {args.only}: no such chapter")
+    n_para = sum(len(c["paras"]) for c in everything)
+    n_chars = sum(len(p) for c in everything for p in c["paras"])
+    per_tier = {t: sum(c["tiers"].count(t) for c in everything) for t in TIERS}
+    print(f"{len(everything)} chapters, {n_para} paragraphs, {n_chars} chars "
+          + " ".join(f"({t} {per_tier[t]})" for t in TIERS))
     print(f"Voice {VOICE}  rate {RATE}  pitch {PITCH}  volume {VOLUME}\n")
 
     if not args.stitch_only:
@@ -529,7 +769,15 @@ def main():
         print("\nClips cached; skipping stitch (--synth-only).")
         return
 
-    print("\nStitching…")
+    manifest = build_segments(everything, only=only,
+                              ambient=not args.no_ambient)
+    write_segment_sidecars(manifest)
+    print("\n✓ audio/ + chapters.txt + manifest.json/.js")
+    if not args.monolith:
+        return
+
+    chapters = load_chapters(only or None, tier=args.tier)
+    print(f"\nAlso building the single-file {args.tier} voyage…")
     narration, marks, speech_end = stitch(chapters)
     total = speech_end + TAIL
 
@@ -568,9 +816,7 @@ def main():
         else:
             print(f"! opus is {hms(d_opus)} but the mp3 is {hms(d_mp3)} — "
                   f"keeping both, the transcode looks truncated")
-    print(f"✓ chapters.txt / manifest.json / {os.path.basename(out_mp3)[:-4]}.cue")
-    for m in marks:
-        print(f"   {hms(m['start'])}  {m['title']}")
+    print(f"✓ {os.path.basename(out_mp3)[:-4]}.cue")
 
 
 if __name__ == "__main__":
