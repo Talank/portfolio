@@ -52,6 +52,9 @@ import soundscape
 import edge_tts
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, *[".."] * 3, "shared"))
+import ne_pronounce  # noqa: E402  — needs the path set above
+
 SCRIPT_DIR = os.path.join(HERE, "script")
 PARTS_DIR = os.path.join(HERE, "parts")
 
@@ -65,6 +68,12 @@ VOLUME = "-12%"
 
 GAP_PARA = 2.4          # seconds of silence between paragraphs
 GAP_CHAPTER = 7.0       # seconds of silence between chapters
+# Silence between sentences within a paragraph. This has to be inserted as
+# audio: measured on ne-NP-HemkalaNeural, once a sentence already ends in "।"
+# no punctuation added after it lengthens the gap at all (danda, "।…", "। …",
+# "।।" and a newline all produced byte-identical timing), so the only way to
+# slow the reading down is to synthesize each sentence and space the clips.
+GAP_SENT = 0.75
 LEAD_IN = 3.0           # silence before the first word
 TAIL = 25.0             # surf-only runout at the end, fading to nothing
 
@@ -152,13 +161,38 @@ def to_speakable(text):
     for a, b in _BIGO:
         text = text.replace(a, b)
     text = _apply_lookaround(text, _ACRO)
+    # Respell whole English words before the single-letter pass: that pass only
+    # matches isolated letters, so without this "array" and "heap" reach the
+    # Nepali voice as raw Latin and it has to guess at them.
+    text = ne_pronounce.to_devanagari(text)
     text = _apply_lookaround(text, _LETTERS)
+    # Give enumerations room to land. Six crew members introduced across five
+    # commas arrive in about four seconds otherwise.
+    text = ne_pronounce.space_out_lists(text)
     return re.sub(r"\s{2,}", " ", text).strip()
 
 
 # ---------------------------------------------------------------------------
 # Script loading
 # ---------------------------------------------------------------------------
+
+_SENT_END = re.compile(r"(?<=[।?!…])\s+")
+# Below this many characters a fragment reads as clipped when it stands alone,
+# so it keeps the sentence before it company instead of becoming its own clip.
+MIN_SENT_CHARS = 14
+
+
+def split_sentences(para):
+    """Split a paragraph into the units that get their own clip and pause."""
+    parts = [p.strip() for p in _SENT_END.split(para) if p.strip()]
+    merged = []
+    for p in parts:
+        if merged and len(p) < MIN_SENT_CHARS:
+            merged[-1] += " " + p
+        else:
+            merged.append(p)
+    return merged or [para.strip()]
+
 
 def load_chapters(only=None):
     if not os.path.isdir(SCRIPT_DIR):
@@ -177,8 +211,9 @@ def load_chapters(only=None):
         title = lines[0].lstrip("#").strip() if lines[0].startswith("#") else name
         body = "\n".join(lines[1:]) if lines[0].startswith("#") else raw
         paras = [p.strip() for p in re.split(r"\n\s*\n", body) if p.strip()]
-        chapters.append({"num": num, "file": name, "path": path,
-                         "title": title, "paras": paras})
+        chapters.append({"num": num, "file": name, "path": path, "title": title,
+                         "paras": paras,
+                         "sents": [split_sentences(p) for p in paras]})
     if not chapters:
         sys.exit("no chapter .txt files found in script/")
     return chapters
@@ -221,13 +256,14 @@ async def synth_all(chapters, force):
     tasks, meta = [], []
     for ch in chapters:
         src_mtime = os.path.getmtime(ch["path"])
-        for i, para in enumerate(ch["paras"]):
-            out = os.path.join(PARTS_DIR, f"ch{ch['num']}-p{i:02d}.mp3")
-            stale = (os.path.exists(out)
-                     and os.path.getmtime(out) < src_mtime)
-            tasks.append(synth(sem, out, para, f"ch{ch['num']}-p{i:02d}",
-                               force or stale))
-            meta.append((ch, i, out))
+        for i, sents in enumerate(ch["sents"]):
+            for j, sent in enumerate(sents):
+                label = f"ch{ch['num']}-p{i:02d}-s{j:02d}"
+                out = os.path.join(PARTS_DIR, label + ".mp3")
+                stale = (os.path.exists(out)
+                         and os.path.getmtime(out) < src_mtime)
+                tasks.append(synth(sem, out, sent, label, force or stale))
+                meta.append((ch, i, out))
     results = await asyncio.gather(*tasks)
     failed = [m[2] for m, ok in zip(meta, results) if not ok]
     if failed:
@@ -288,10 +324,14 @@ def stitch(chapters):
     add(silence(LEAD_IN))
     for ci, ch in enumerate(chapters):
         marks.append({"num": ch["num"], "title": ch["title"], "start": round(t, 2)})
-        for i, _ in enumerate(ch["paras"]):
+        for i, sents in enumerate(ch["sents"]):
             if i:
                 add(silence(GAP_PARA))
-            add(os.path.join(PARTS_DIR, f"ch{ch['num']}-p{i:02d}.mp3"))
+            for j, _ in enumerate(sents):
+                if j:
+                    add(silence(GAP_SENT))
+                add(os.path.join(PARTS_DIR,
+                                 f"ch{ch['num']}-p{i:02d}-s{j:02d}.mp3"))
         if ci != len(chapters) - 1:
             add(silence(GAP_CHAPTER))
     speech_end = t

@@ -11,6 +11,11 @@ _narration.wav
 # shrink_audio.py's atomic-replace scratch files, if it is interrupted.
 *.shrink.tmp.mp3
 
+# API keys. Never commit — .env.example documents the shape instead.
+.env
+.env.*
+!.env.example
+
 __pycache__/
 *.pyc
 

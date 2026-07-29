@@ -3,7 +3,7 @@
  "rate": "-22%",
  "pitch": "-6Hz",
  "volume": "-12%",
- "duration": 8229.34,
+ "duration": 9183.86,
  "file": "dsa-nidra-full.opus",
  "chapters": [
   {
@@ -14,132 +14,132 @@
   {
    "num": "01",
    "title": "१ — प्रोग्रामिङको जग: भेरिएबल, लुप र फङ्सन",
-   "start": 304.26
+   "start": 347.02
   },
   {
    "num": "02",
    "title": "२ — समयको नक्सा: Big-O",
-   "start": 620.46
+   "start": 717.16
   },
   {
    "num": "03",
    "title": "३ — भण्डार कोठा: Array र String",
-   "start": 912.84
+   "start": 1050.97
   },
   {
    "num": "04",
    "title": "४ — नामीको नोटबुक: Hash Map",
-   "start": 1202.63
+   "start": 1375.16
   },
   {
    "num": "05",
    "title": "५ — जोरोका दुई तरबार: Two Pointers",
-   "start": 1510.02
+   "start": 1722.07
   },
   {
    "num": "06",
    "title": "६ — सर्दै जाने झ्याल: Sliding Window",
-   "start": 1816.18
+   "start": 2062.49
   },
   {
    "num": "07",
    "title": "७ — बाटोको जोड: Prefix Sum",
-   "start": 2129.39
+   "start": 2413.02
   },
   {
    "num": "08",
    "title": "८ — आधा आधा: Binary Search",
-   "start": 2426.36
+   "start": 2738.01
   },
   {
    "num": "09",
    "title": "९ — साङ्लो उल्टाउने: Linked List",
-   "start": 2742.96
+   "start": 3098.69
   },
   {
    "num": "10",
    "title": "१० — कछुवा र खरायो: Fast र Slow Pointers",
-   "start": 3040.12
+   "start": 3428.39
   },
   {
    "num": "11",
    "title": "११ — थुप्रोको नियम: Stack",
-   "start": 3310.14
+   "start": 3726.27
   },
   {
    "num": "12",
    "title": "१२ — घट्दो थुप्रो: Monotonic Stack",
-   "start": 3605.38
+   "start": 4058.6
   },
   {
    "num": "13",
    "title": "१३ — लाइनको अनुशासन: Queue र Deque",
-   "start": 3883.55
+   "start": 4367.07
   },
   {
    "num": "14",
    "title": "१४ — रूखका हाँगा: Tree DFS र BFS",
-   "start": 4159.04
+   "start": 4669.05
   },
   {
    "num": "15",
    "title": "१५ — क्रमको रूख: Binary Search Tree",
-   "start": 4449.02
+   "start": 4989.16
   },
   {
    "num": "16",
    "title": "१६ — सबैभन्दा माथिको मोती: Heap र Top-K",
-   "start": 4729.91
+   "start": 5306.28
   },
   {
    "num": "17",
    "title": "१७ — टापुहरूको जाल: Graphs, BFS र DFS",
-   "start": 5010.63
+   "start": 5617.36
   },
   {
    "num": "18",
    "title": "१८ — क्रम मिलाउने: Topological Sort र Union-Find",
-   "start": 5310.38
+   "start": 5946.79
   },
   {
    "num": "19",
    "title": "१९ — भुलभुलैयामा फर्किने: Backtracking",
-   "start": 5618.3
+   "start": 6285.39
   },
   {
    "num": "20",
    "title": "२० — सम्झनाको शक्ति: Dynamic Programming, पहिलो भाग",
-   "start": 5934.37
+   "start": 6636.58
   },
   {
    "num": "21",
    "title": "२१ — सम्झनाको शक्ति: Dynamic Programming, दोस्रो भाग",
-   "start": 6271.85
+   "start": 7010.81
   },
   {
    "num": "22",
    "title": "२२ — तत्कालको छनोट: Greedy",
-   "start": 6617.3
+   "start": 7400.75
   },
   {
    "num": "23",
    "title": "२३ — समयका टुक्रा: Merge Intervals",
-   "start": 6961.66
+   "start": 7783.0
   },
   {
    "num": "24",
    "title": "२४ — अक्षरको रूख: Trie",
-   "start": 7256.93
+   "start": 8107.34
   },
   {
    "num": "25",
    "title": "२५ — शून्य र एक: Bit Manipulation",
-   "start": 7531.38
+   "start": 8413.9
   },
   {
    "num": "26",
    "title": "२६ — अन्तिम बिसौनी: सारांश र निद्रा",
-   "start": 7835.6
+   "start": 8757.39
   }
  ]
 }

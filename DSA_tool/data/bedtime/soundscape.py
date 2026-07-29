@@ -17,9 +17,13 @@ The layers:
     wind    low, wide noise with slow gusts
     leaves  brighter noise, quicker irregular rustle
     water   mid-band burble for streams, drips and hull-lapping
-    gulls   FM cries at two co-prime periods, so they never fall into a rhythm
-    drone   three quiet detuned sines a fifth and octave apart, each swelling on
-            its own slow cycle — this is what stops it feeling like bare noise
+
+There is deliberately no tonal layer. An earlier version added a chord of quiet
+detuned sines for body, and FM-synthesized gull cries; both were audibly
+manufactured — a sustained low sine bed is exactly the "alpha wave" texture this
+audio should not have. Every layer here is filtered noise, which is what surf,
+wind, rain and rustling leaves physically are, so nothing is imitating a pitch
+it does not have.
 
 Level automation is done with one `volume` expression per layer rather than by
 crossfading 27 rendered segments: adjacent chapter windows ramp linearly and
@@ -63,33 +67,31 @@ SCENES = {
 
 # Per-scene mix. Values are relative gains, 0..1, applied to each layer.
 SCENE_GAINS = {
-    #                 waves foam  wind  leaves water gulls drone
-    "harbour_night": (0.50, 0.12, 0.22, 0.00, 0.34, 0.04, 0.60),
-    "harbour_day":   (0.55, 0.22, 0.30, 0.10, 0.28, 0.22, 0.45),
-    "open_sea":      (1.00, 0.50, 0.48, 0.00, 0.00, 0.32, 0.42),
-    "deck":          (0.80, 0.34, 0.44, 0.00, 0.00, 0.20, 0.45),
-    "ship_hold":     (0.34, 0.05, 0.10, 0.00, 0.22, 0.00, 0.62),
-    "cabin":         (0.24, 0.00, 0.10, 0.00, 0.16, 0.00, 0.66),
-    "island_shore":  (0.70, 0.48, 0.34, 0.20, 0.20, 0.28, 0.44),
-    "forest":        (0.00, 0.00, 0.50, 0.60, 0.26, 0.00, 0.50),
-    "cliff":         (0.40, 0.15, 0.90, 0.10, 0.00, 0.24, 0.48),
-    "cave":          (0.15, 0.00, 0.18, 0.00, 0.52, 0.00, 0.70),
-    "night_sky":     (0.20, 0.00, 0.30, 0.14, 0.10, 0.00, 0.70),
-    "workshop":      (0.30, 0.00, 0.24, 0.14, 0.10, 0.04, 0.56),
+    #                 waves foam  wind  leaves water
+    "harbour_night": (0.50, 0.12, 0.26, 0.00, 0.34),
+    "harbour_day":   (0.55, 0.22, 0.32, 0.10, 0.28),
+    "open_sea":      (1.00, 0.50, 0.50, 0.00, 0.00),
+    "deck":          (0.80, 0.34, 0.46, 0.00, 0.00),
+    "ship_hold":     (0.34, 0.05, 0.16, 0.00, 0.30),
+    "cabin":         (0.26, 0.00, 0.18, 0.00, 0.24),
+    "island_shore":  (0.70, 0.48, 0.34, 0.20, 0.20),
+    "forest":        (0.00, 0.00, 0.52, 0.60, 0.26),
+    "cliff":         (0.40, 0.15, 0.90, 0.10, 0.00),
+    "cave":          (0.16, 0.00, 0.24, 0.00, 0.56),
+    "night_sky":     (0.22, 0.00, 0.34, 0.14, 0.12),
+    "workshop":      (0.30, 0.00, 0.26, 0.14, 0.14),
 }
 
-LAYER_NAMES = ("waves", "foam", "wind", "leaves", "water", "gulls", "drone")
+LAYER_NAMES = ("waves", "foam", "wind", "leaves", "water")
 
 # Absolute ceiling for each layer once its scene gain is applied. These are what
 # actually keep the bed under the voice; the scene gains only shape the balance.
 LAYER_CEILING = {
     "waves":  0.150,
     "foam":   0.035,
-    "wind":   0.085,
-    "leaves": 0.045,
-    "water":  0.055,
-    "gulls":  0.055,
-    "drone":  0.075,
+    "wind":   0.095,
+    "leaves": 0.050,
+    "water":  0.065,
 }
 
 
@@ -126,36 +128,8 @@ def _sources(sr):
              "highpass=f=280,lowpass=f=2400,"
              "tremolo=f=0.25:d=0.38,tremolo=f=0.41:d=0.22")
 
-    # A gull cry: pitch falls through the call, two partials, sharp attack and
-    # exponential decay. u is the time since this cry began, clamped so the
-    # pitch stops falling once the call is over. Two voices at 17s and 23s —
-    # co-prime, so the pattern only repeats every ~6.5 minutes.
-    def gull(period, base, drop, decay, amp):
-        u = f"min(mod(t,{period}),1.15)"
-        f0 = f"({base}-{drop}*ld(0))"
-        return (f"st(0,{u});"
-                f"{amp}*(0.60*sin(2*PI*{f0}*t)+0.24*sin(4*PI*{f0}*t)"
-                f"+0.10*sin(6*PI*{f0}*t))"
-                f"*exp(-{decay}*ld(0))*lt(mod(t,{period}),1.15)")
-
-    gulls = ("aevalsrc=exprs='" + _esc(gull(17, 1180, 360, 4.2, 0.85)) + f"':s={sr},"
-             "highpass=f=500,lowpass=f=5000,"
-             "aecho=0.7:0.7:220|430:0.18|0.09")
-
-    # Three sines a fifth and an octave apart, each breathing on its own slow
-    # cycle so the chord never sits still. Low-passed hard: it should be felt
-    # more than heard.
-    # Coefficients sum to 0.92, not 1.0: four sines that can all crest together
-    # would clip the source, and a clipped drone buzzes rather than hums.
-    drone = ("aevalsrc=exprs='" + _esc(
-        "0.40*sin(2*PI*110.0*t)*(0.55+0.45*sin(2*PI*t/47))"
-        "+0.26*sin(2*PI*164.8*t)*(0.55+0.45*sin(2*PI*t/61))"
-        "+0.16*sin(2*PI*220.0*t)*(0.55+0.45*sin(2*PI*t/73))"
-        "+0.10*sin(2*PI*82.4*t)*(0.55+0.45*sin(2*PI*t/89))"
-    ) + f"':s={sr},lowpass=f=900")
-
     return {"waves": waves, "foam": foam, "wind": wind, "leaves": leaves,
-            "water": water, "gulls": gulls, "drone": drone}
+            "water": water}
 
 
 def _runs(marks, total):
