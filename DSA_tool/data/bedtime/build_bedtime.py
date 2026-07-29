@@ -66,6 +66,12 @@ RATE = "-22%"
 PITCH = "-6Hz"
 VOLUME = "-12%"
 
+# Story lengths. Every paragraph belongs to one of these; a tier plays its own
+# paragraphs plus every shorter tier's, so the three lengths are selections over
+# one render rather than three renders. See split_tiers().
+TIERS = ("core", "medium", "long")
+TIER_RANK = {t: i for i, t in enumerate(TIERS)}
+
 GAP_PARA = 2.4          # seconds of silence between paragraphs
 GAP_CHAPTER = 7.0       # seconds of silence between chapters
 # Silence between sentences within a paragraph. This has to be inserted as
@@ -194,7 +200,61 @@ def split_sentences(para):
     return merged or [para.strip()]
 
 
-def load_chapters(only=None):
+def split_tiers(body, where):
+    """Split a chapter body into (paragraph, tier) pairs.
+
+    A line reading `@tier medium` sets the tier of everything after it until the
+    next such line; `@tier core` switches back. Paragraphs before any directive
+    are core, so an untagged script is a valid all-core script and nothing had
+    to change when tiers were introduced.
+
+    The returned pairs are stably sorted core -> medium -> long. Grouping the
+    extras at the end of the chapter is what lets each tier be a playlist over
+    the same segment files rather than its own render: short plays the core
+    segment, long plays all three, and every one of them concatenates without a
+    join in the middle of a scene.
+    """
+    paras, tier = [], "core"
+    for block in re.split(r"\n\s*\n", body):
+        block = block.strip()
+        if not block:
+            continue
+        m = re.fullmatch(r"@tier\s+(\w+)", block)
+        if m:
+            if m.group(1) not in TIER_RANK:
+                sys.exit(f"{where}: unknown tier {m.group(1)!r}; "
+                         f"expected one of {', '.join(TIERS)}")
+            tier = m.group(1)
+            continue
+        # A directive may also sit on the first line of a paragraph block.
+        first, _, rest = block.partition("\n")
+        m = re.fullmatch(r"@tier\s+(\w+)", first.strip())
+        if m and rest.strip():
+            if m.group(1) not in TIER_RANK:
+                sys.exit(f"{where}: unknown tier {m.group(1)!r}")
+            tier = m.group(1)
+            block = rest.strip()
+        paras.append((block, tier))
+
+    ordered = sorted(paras, key=lambda p: TIER_RANK[p[1]])
+    if [t for _, t in paras] != [t for _, t in ordered]:
+        print(f"  ! {where}: tiers were interleaved, so the extra paragraphs "
+              f"have been moved to the end of the chapter. Check that the "
+              f"prose still reads in order.")
+    return ordered
+
+
+def load_chapters(only=None, tier="long"):
+    """Chapters, keeping paragraphs up to and including `tier`.
+
+    A tier is cumulative: medium plays the core paragraphs and the medium ones,
+    long plays all three. Because the extras are grouped at the end of each
+    chapter, dropping a tier just truncates each chapter rather than punching
+    holes in it.
+    """
+    if tier not in TIER_RANK:
+        sys.exit(f"unknown tier {tier!r}; expected one of {', '.join(TIERS)}")
+    keep = TIER_RANK[tier]
     if not os.path.isdir(SCRIPT_DIR):
         sys.exit(f"no script directory at {SCRIPT_DIR}")
     chapters = []
@@ -210,9 +270,12 @@ def load_chapters(only=None):
         lines = raw.split("\n")
         title = lines[0].lstrip("#").strip() if lines[0].startswith("#") else name
         body = "\n".join(lines[1:]) if lines[0].startswith("#") else raw
-        paras = [p.strip() for p in re.split(r"\n\s*\n", body) if p.strip()]
+        pairs = [pt for pt in split_tiers(body, name)
+                 if TIER_RANK[pt[1]] <= keep]
+        paras = [p for p, _ in pairs]
         chapters.append({"num": num, "file": name, "path": path, "title": title,
                          "paras": paras,
+                         "tiers": [t for _, t in pairs],
                          "sents": [split_sentences(p) for p in paras]})
     if not chapters:
         sys.exit("no chapter .txt files found in script/")
@@ -351,10 +414,12 @@ def mix(narration, total, out_mp3, marks):
     """Lay the narration into a soundscape that follows where the story is.
 
     The first version of this was one brown-noise surf loop under a dry voice,
-    which read as a recording rather than a place. soundscape.py builds seven
-    synthesized layers instead — waves, foam, wind, leaves, water, gulls and a
-    quiet drone — and automates their levels per chapter, so the sea chapters
-    sound like sea and the tree chapters sound like forest.
+    which read as a recording rather than a place. soundscape.py builds five
+    layers instead — waves, foam, wind, leaves and water, each a real field
+    recording when fetch_ambience.py has been run — and automates their levels
+    per chapter, so the sea chapters sound like sea and the tree chapters sound
+    like forest. An earlier revision also had gulls and a low drone; both were
+    audibly synthetic and were removed.
 
     The voice gets a high-shelf cut (sibilance is what wakes people), gentle
     compression so no phrase jumps in level, and a short reverb so it sits in
@@ -441,16 +506,21 @@ def main():
     ap.add_argument("--synth-only", action="store_true",
                     help="fill the clip cache and stop, without stitching")
     ap.add_argument("--no-ambient", action="store_true", help="skip the surf bed")
+    ap.add_argument("--tier", default="core", choices=TIERS,
+                    help="story length: core is the short version, medium and "
+                         "long add the extra paragraphs marked @tier in the "
+                         "script (cumulative)")
     ap.add_argument("--keep-mp3", action="store_true",
                     help="keep the mp3 master instead of dropping it once the "
                          "opus is verified (the site only ever plays the opus)")
     args = ap.parse_args()
 
     only = set(x.strip() for x in args.only.split(",") if x.strip())
-    chapters = load_chapters(only or None)
+    chapters = load_chapters(only or None, tier=args.tier)
     n_para = sum(len(c["paras"]) for c in chapters)
     n_chars = sum(len(p) for c in chapters for p in c["paras"])
-    print(f"{len(chapters)} chapters, {n_para} paragraphs, {n_chars} chars")
+    print(f"{len(chapters)} chapters, {n_para} paragraphs, {n_chars} chars "
+          f"({args.tier} tier)")
     print(f"Voice {VOICE}  rate {RATE}  pitch {PITCH}  volume {VOLUME}\n")
 
     if not args.stitch_only:
