@@ -210,8 +210,54 @@
   var els = [document.getElementById('bt-a0'), document.getElementById('bt-a1')];
   var $ = function (id) { return document.getElementById(id); };
 
+  /* The voyage ships as one file per chapter per length per mode. The older
+     edition shipped as a single file with chapter offsets into it, and a
+     manifest can outlive its audio in either direction because the two are
+     deployed separately — a segmented manifest with no segments on the server
+     is just as silent as this player used to be with a single-file manifest.
+     A one-file story *is* a playlist of length one whose chapter offsets are
+     offsets into that one file, so adapting it here costs nothing and every
+     line below stays unaware there was ever more than one shape. */
+  function asPlaylist(m) {
+    if (!m || !m.file || !m.duration) return null;
+    var starts = {};
+    (m.chapters || []).forEach(function (c) { starts[c.num] = c.start || 0; });
+    return {
+      overlap: 0, dir: BASE, defaultMode: 'bedtime',
+      chapters: m.chapters || [], voice: m.voice, single: true,
+      modes: { bedtime: {
+        label: 'सुत्दै', label_en: 'Bedtime', dir: '',
+        rate: m.rate, pitch: m.pitch,
+        tiers: { core: {
+          label: 'पूरा', label_en: 'Full', duration: m.duration,
+          bytes: m.bytes || 0, starts: starts,
+          playlist: [{ f: m.file, d: m.duration, c: null }],
+        } },
+      } },
+    };
+  }
+
+  var DIR, OVERLAP, chapters, MODES;
+  function useManifest(m) {
+    M = m;
+    DIR = BASE + (M.dir ? M.dir.replace(/^data\/bedtime\//, '') : 'audio/');
+    OVERLAP = M.overlap || 1.5;
+    chapters = M.chapters || [];
+    MODES = [];
+    for (var mk in M.modes) if (M.modes.hasOwnProperty(mk)) MODES.push(mk);
+    // Stable order, whatever the manifest's key order happens to be.
+    MODES.sort(function (a, b) {
+      return (a === 'bedtime' ? 0 : 1) - (b === 'bedtime' ? 0 : 1);
+    });
+  }
+
+  // What to retreat to if the segments turn out not to be on the server.
+  var SPARE = M && M.modes ? asPlaylist(M.fallback) : null;
+  useManifest(M && M.modes ? M : (asPlaylist(M) || M));
+
   if (!M || !M.modes) {
-    $('bt-chtitle').textContent = 'manifest.js भेटिएन — data/bedtime/build_bedtime.py चलाउनुहोस्।';
+    $('bt-chtitle').textContent =
+      'अडियो म्यानिफेस्ट भेटिएन — data/bedtime/build_bedtime.py चलाउनुहोस्।';
     return;
   }
   if (els[0].canPlayType('audio/ogg; codecs=opus') === '') {
@@ -219,9 +265,6 @@
       'यो ब्राउजरले Ogg Opus बजाउन सक्दैन — Safari 17.5+, Chrome वा Firefox चलाउनुहोस्।';
   }
 
-  var DIR = BASE + (M.dir ? M.dir.replace(/^data\/bedtime\//, '') : 'audio/');
-  var OVERLAP = M.overlap || 1.5;
-  var chapters = M.chapters || [];
   var curCh = -1;
 
   function hms(s) {
@@ -239,12 +282,7 @@
      timeline is the running total of (duration - OVERLAP) before it. Every
      position the UI talks about — the seek bar, the chapter list, the saved
      resume point — lives on that timeline, not inside any one file. */
-  var mode, tier, pl, total, MODES = [];
-  for (var mk in M.modes) if (M.modes.hasOwnProperty(mk)) MODES.push(mk);
-  // Stable order, whatever the manifest's key order happens to be.
-  MODES.sort(function (a, b) {
-    return (a === 'bedtime' ? 0 : 1) - (b === 'bedtime' ? 0 : 1);
-  });
+  var mode, tier, pl, total;
 
   function modeInfo() { return M.modes[mode]; }
   function tierInfo() { return modeInfo().tiers[tier]; }
@@ -411,7 +449,35 @@
       else { playing = false; $('bt-play').textContent = '▶'; }
     });
     el.addEventListener('play', function () { if (playing) $('bt-play').textContent = '⏸'; });
+    // A segment that will not load is almost always a manifest that shipped
+    // ahead of its audio. Retreat to the single-file edition once, rather than
+    // sit silent behind a play button that does nothing.
+    el.addEventListener('error', function () {
+      if (el !== cur()) return;
+      if (!retreat()) {
+        $('bt-total').textContent =
+          'अडियो फाइल भेटिएन (' + pl[seg].f + ') — audio फोल्डर deploy भएको छ?';
+      }
+    });
   });
+
+  var retreated = false;
+  function retreat() {
+    if (retreated || !SPARE) return false;
+    retreated = true;
+    var was = playing;
+    pause();
+    useManifest(SPARE);
+    loadMode(M.defaultMode);
+    loadTier('core');
+    buildModes(); buildLengths(); buildChapterList(); curCh = -1;
+    els[0].removeAttribute('src'); els[1].removeAttribute('src');
+    goTo(0, 0, was);
+    playing = was;
+    updateTotal();
+    render();
+    return true;
+  }
 
   /* ---------- chapter list ---------- */
   var listEl = $('bt-chlist'), chEls = [];
@@ -494,8 +560,8 @@
       b.innerHTML = '<span></span><span class="d">' +
         Math.round(ti.duration / 3600 * 10) / 10 + ' घण्टा</span>';
       b.firstChild.textContent = ti.label || name;
-      b.title = (ti.label_en || name) + ' — ' + hms(ti.duration) +
-                ', ' + Math.round(ti.bytes / 1e6) + ' MB';
+      b.title = (ti.label_en || name) + ' — ' + hms(ti.duration)
+                + (ti.bytes ? ', ' + Math.round(ti.bytes / 1e6) + ' MB' : '');
       b.addEventListener('click', function () { switchTier(name); });
       lenEl.appendChild(b);
     });

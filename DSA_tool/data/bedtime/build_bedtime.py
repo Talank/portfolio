@@ -860,6 +860,40 @@ def render_outro(scene, mode="bedtime", ambient=True):
     return duration(out)
 
 
+def prior_single_file():
+    """The single-file edition the previous manifest described, if its audio is
+    still on disk.
+
+    Rewriting manifest.json is what used to lose this: the segmented manifest
+    replaced the monolith one wholesale, so the only record of the one file that
+    was actually deployed disappeared with it. Read it back out and carry it
+    forward instead.
+    """
+    path = os.path.join(HERE, "manifest.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            old = json.load(f)
+    except (OSError, ValueError):
+        return None
+    spare = old.get("fallback") if old.get("modes") else old
+    if not isinstance(spare, dict):
+        return None
+    name, dur = spare.get("file"), spare.get("duration")
+    if not name or not dur:
+        return None
+    full = os.path.join(HERE, name)
+    if not os.path.exists(full):
+        return None
+    return {
+        "file": name, "duration": dur, "bytes": os.path.getsize(full),
+        "voice": spare.get("voice", VOICE),
+        "rate": spare.get("rate"), "pitch": spare.get("pitch"),
+        "chapters": [{"num": c["num"], "title": c["title"],
+                      "start": c.get("start", 0)}
+                     for c in spare.get("chapters", [])],
+    }
+
+
 def build_segments(chapters, only=None, ambient=True, modes=MODES):
     """Render every segment of every mode and return one manifest for all of it.
 
@@ -874,6 +908,14 @@ def build_segments(chapters, only=None, ambient=True, modes=MODES):
         "defaultMode": "bedtime",
         "modes": {},
     }
+    spare = prior_single_file()
+    if spare:
+        # audio/ and manifest.js deploy separately, and audio/ is by far the
+        # heavier of the two. If the manifest lands on the server first the
+        # player has nothing to play, so hand it the single-file edition to
+        # retreat to — that one is small enough to already be up there.
+        manifest["fallback"] = spare
+        print(f"  fallback: {spare['file']} ({spare['duration'] / 3600:.2f} h)")
     for mode in modes:
         prof = MODE_PROFILE[mode]
         os.makedirs(mode_dir(mode), exist_ok=True)
