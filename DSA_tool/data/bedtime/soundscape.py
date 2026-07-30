@@ -81,23 +81,37 @@ SCENES = {
 }
 
 # Per-scene mix. Values are relative gains, 0..1, applied to each layer.
+#
+# `water` is a mountain stream, so it is used only where a stream belongs — the
+# cave, the forest, the workshop. An earlier revision also gave it to the
+# harbour, the hold and the cabin as stand-in hull noise, which put a
+# fast-flowing brook inside a ship. Those scenes take `creak` instead, which is
+# what a hull actually sounds like: timber working, rope on wood, the swell
+# arriving through the planking.
 SCENE_GAINS = {
-    #                 waves foam  wind  leaves water
-    "harbour_night": (0.50, 0.12, 0.26, 0.00, 0.34),
-    "harbour_day":   (0.55, 0.22, 0.32, 0.10, 0.28),
-    "open_sea":      (1.00, 0.50, 0.50, 0.00, 0.00),
-    "deck":          (0.80, 0.34, 0.46, 0.00, 0.00),
-    "ship_hold":     (0.34, 0.05, 0.16, 0.00, 0.30),
-    "cabin":         (0.26, 0.00, 0.18, 0.00, 0.24),
-    "island_shore":  (0.70, 0.48, 0.34, 0.20, 0.20),
-    "forest":        (0.00, 0.00, 0.52, 0.60, 0.26),
-    "cliff":         (0.40, 0.15, 0.90, 0.10, 0.00),
-    "cave":          (0.16, 0.00, 0.24, 0.00, 0.56),
-    "night_sky":     (0.22, 0.00, 0.34, 0.14, 0.12),
-    "workshop":      (0.30, 0.00, 0.26, 0.14, 0.14),
+    #                 waves foam  wind  leaves water creak gulls
+    "harbour_night": (0.50, 0.12, 0.26, 0.00, 0.00, 0.62, 0.00),
+    "harbour_day":   (0.55, 0.22, 0.32, 0.10, 0.00, 0.48, 0.40),
+    "open_sea":      (1.00, 0.50, 0.50, 0.00, 0.00, 0.34, 0.00),
+    "deck":          (0.80, 0.34, 0.46, 0.00, 0.00, 0.52, 0.00),
+    "ship_hold":     (0.34, 0.05, 0.16, 0.00, 0.00, 0.90, 0.00),
+    "cabin":         (0.26, 0.00, 0.18, 0.00, 0.00, 0.64, 0.00),
+    "island_shore":  (0.70, 0.48, 0.34, 0.20, 0.00, 0.08, 0.18),
+    "forest":        (0.00, 0.00, 0.52, 0.60, 0.26, 0.00, 0.00),
+    "cliff":         (0.40, 0.15, 0.90, 0.10, 0.00, 0.00, 0.22),
+    "cave":          (0.16, 0.00, 0.24, 0.00, 0.56, 0.00, 0.00),
+    "night_sky":     (0.22, 0.00, 0.34, 0.14, 0.00, 0.28, 0.00),
+    "workshop":      (0.30, 0.00, 0.26, 0.14, 0.14, 0.44, 0.00),
 }
 
-LAYER_NAMES = ("waves", "foam", "wind", "leaves", "water")
+LAYER_NAMES = ("waves", "foam", "wind", "leaves", "water", "creak", "gulls")
+
+# Layers that exist only if fetch_ambience.py found a recording. The five noise
+# layers have a filtered-noise fallback because surf, wind, rain and rustling
+# leaves physically *are* filtered noise. Wood and a bird are not: an earlier
+# revision FM-synthesized gull cries and they were unmistakably fake. So these
+# two are either the real thing or silence, never an imitation.
+RECORDING_ONLY = ("creak", "gulls")
 
 # Absolute ceiling for each layer once its scene gain is applied. These are what
 # actually keep the bed under the voice; the scene gains only shape the balance.
@@ -107,6 +121,12 @@ LAYER_CEILING = {
     "wind":   0.095,
     "leaves": 0.050,
     "water":  0.065,
+    # Low, because a creak is a transient and transients are what wake people.
+    # It should register as the room the voice is in, not as a noise to notice.
+    "creak":  0.060,
+    # Lower still, and only in the three daylight scenes. Gulls are the one
+    # thing here the ear will identify and then start listening *to*.
+    "gulls":  0.026,
 }
 
 
@@ -192,7 +212,7 @@ def _seg_envelope(layer_idx, scene, prev_scene):
 
 
 def build_segment(scene, prev_scene, total, sr, phase=0.0,
-                  fade_in=0.0, fade_out=0.0):
+                  fade_in=0.0, fade_out=0.0, bed=1.0):
     """Return (input_args, filter_chunks, mix_labels) for one segment's bed.
 
     `phase` offsets where each loop is entered. Without it every chapter would
@@ -201,25 +221,34 @@ def build_segment(scene, prev_scene, total, sr, phase=0.0,
     """
     srcs = _sources(sr)
     inputs, chunks, labels = [], [], []
+    n_in = 0
     for i, name in enumerate(LAYER_NAMES):
-        # Each layer takes a different multiple of the offset so the five of
-        # them do not shift together — that would just be the same bed later.
-        # The offset is trimmed off the front, so the source has to be decoded
-        # for that much longer or the segment runs out of bed before it ends.
+        env = _seg_envelope(i, scene, prev_scene)
+        if env == "0.000":
+            # This scene does not use this layer at all. Dropping the input
+            # rather than muxing silence keeps the graph small: the forest
+            # chapters would otherwise still decode and mix a ship.
+            continue
+        loop = _loop(name)
+        if not loop and name in RECORDING_ONLY:
+            continue
+        # Each layer takes a different multiple of the offset so they do not
+        # shift together — that would just be the same bed later. The offset is
+        # trimmed off the front, so the source has to be decoded for that much
+        # longer or the segment runs out of bed before it ends.
         off = (phase * (i + 1) * 1.37) % 47.0
         need = total + off + 2
-        loop = _loop(name)
         if loop:
             inputs += ["-stream_loop", "-1", "-t", f"{need:.2f}", "-i", loop]
         else:
             inputs += ["-f", "lavfi", "-t", f"{need:.2f}", "-i", srcs[name]]
-        env = _seg_envelope(i, scene, prev_scene)
+        n_in += 1
         chunks.append(
-            f"[{i + 1}:a]aformat=sample_fmts=fltp:sample_rates={sr}:"
+            f"[{n_in}:a]aformat=sample_fmts=fltp:sample_rates={sr}:"
             f"channel_layouts=mono,"
             f"atrim=start={off:.2f},asetpts=PTS-STARTPTS,"
             f"volume=volume='{_esc(env)}':eval=frame,"
-            f"volume={LAYER_CEILING[name]:.3f}"
+            f"volume={LAYER_CEILING[name] * bed:.4f}"
             + (f",afade=t=in:st=0:d={fade_in:.2f}" if fade_in > 0 else "")
             + (f",afade=t=out:st={max(0.0, total - fade_out):.2f}:"
                f"d={fade_out:.2f}" if fade_out > 0 else "")
@@ -277,8 +306,12 @@ def build(marks, total, sr, lead_in, tail):
     srcs = _sources(sr)
 
     inputs, chunks, labels = [], [], []
+    n_in = 0
     for i, name in enumerate(LAYER_NAMES):
+        env = _envelope(i, spans, total)
         loop = _loop(name)
+        if env == "0" or (not loop and name in RECORDING_ONLY):
+            continue
         if loop:
             # -stream_loop repeats the loop for as long as the mix needs. Each
             # layer's loop is a different prime length, so the five of them
@@ -291,14 +324,14 @@ def build(marks, total, sr, lead_in, tail):
             # every loop to the RMS of the noise it replaces, so the two kinds
             # sit at the same level and the scene gains stay valid either way.
             inputs += ["-f", "lavfi", "-t", f"{total:.2f}", "-i", srcs[name]]
-        env = _envelope(i, spans, total)
+        n_in += 1
         ceiling = LAYER_CEILING[name]
         # eval=frame so the expression is re-evaluated as time advances; the
         # default (eval=once) would freeze every layer at its t=0 level.
         # opus always decodes at 48 kHz whatever it was encoded at, so resample
         # explicitly rather than relying on amix's auto-negotiation.
         chunks.append(
-            f"[{i + 1}:a]aformat=sample_fmts=fltp:sample_rates={sr}:"
+            f"[{n_in}:a]aformat=sample_fmts=fltp:sample_rates={sr}:"
             f"channel_layouts=mono,"
             f"volume=volume='{_esc(env)}':eval=frame,"
             f"volume={ceiling:.3f},"

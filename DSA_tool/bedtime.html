@@ -70,6 +70,8 @@
   .bt-len:hover { color: var(--bt-text); border-color: var(--bt-dim); }
   .bt-len.on { color: var(--bt-accent); border-color: var(--bt-accent); }
   .bt-len .d { font-size: 0.7rem; opacity: 0.7; font-variant-numeric: tabular-nums; }
+  /* The two rows belong together, so the second drops the divider. */
+  .bt-lengths.bt-tight { border-top: 0; padding-top: 0.5rem; margin-top: 0; }
 
   /* Options */
   .bt-opts { display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; margin-top: 1.1rem;
@@ -139,7 +141,8 @@
       <button class="bt-btn" id="bt-next" title="अर्को अध्याय (→)">⏭</button>
     </div>
 
-    <div class="bt-lengths" id="bt-lengths" role="group" aria-label="कथाको लम्बाइ"></div>
+    <div class="bt-lengths" id="bt-modes" role="group" aria-label="सुन्ने तरिका"></div>
+    <div class="bt-lengths bt-tight" id="bt-lengths" role="group" aria-label="कथाको लम्बाइ"></div>
 
     <div class="bt-opts">
       <label class="bt-opt">आवाज
@@ -202,11 +205,12 @@
   var VOL_KEY = 'dsa-bedtime-vol';
   var RATE_KEY = 'dsa-bedtime-rate';
   var TIER_KEY = 'dsa-bedtime-tier';
+  var MODE_KEY = 'dsa-bedtime-mode';
 
   var els = [document.getElementById('bt-a0'), document.getElementById('bt-a1')];
   var $ = function (id) { return document.getElementById(id); };
 
-  if (!M || !M.tiers) {
+  if (!M || !M.modes) {
     $('bt-chtitle').textContent = 'manifest.js भेटिएन — data/bedtime/build_bedtime.py चलाउनुहोस्।';
     return;
   }
@@ -235,11 +239,26 @@
      timeline is the running total of (duration - OVERLAP) before it. Every
      position the UI talks about — the seek bar, the chapter list, the saved
      resume point — lives on that timeline, not inside any one file. */
-  var tier, pl, total;
+  var mode, tier, pl, total, MODES = [];
+  for (var mk in M.modes) if (M.modes.hasOwnProperty(mk)) MODES.push(mk);
+  // Stable order, whatever the manifest's key order happens to be.
+  MODES.sort(function (a, b) {
+    return (a === 'bedtime' ? 0 : 1) - (b === 'bedtime' ? 0 : 1);
+  });
+
+  function modeInfo() { return M.modes[mode]; }
+  function tierInfo() { return modeInfo().tiers[tier]; }
+
+  function loadMode(name) {
+    mode = M.modes[name] ? name : (M.defaultMode || MODES[0]);
+    localStorage.setItem(MODE_KEY, mode);
+  }
 
   function loadTier(name) {
-    tier = M.tiers[name] ? name : 'core';
-    pl = M.tiers[tier].playlist.map(function (p) { return { f: p.f, d: p.d, c: p.c }; });
+    tier = tierInfoExists(name) ? name : 'core';
+    pl = tierInfo().playlist.map(function (p) {
+      return { f: modeInfo().dir + p.f, d: p.d, c: p.c };
+    });
     var t = 0;
     pl.forEach(function (p, i) {
       p.start = t;
@@ -249,12 +268,16 @@
     localStorage.setItem(TIER_KEY, tier);
   }
 
+  function tierInfoExists(name) {
+    return !!(modeInfo() && modeInfo().tiers && modeInfo().tiers[name]);
+  }
+
   function segAt(t) {
     for (var i = pl.length - 1; i > 0; i--) if (t >= pl[i].start) return i;
     return 0;
   }
   function chapterStart(num) {
-    var s = M.tiers[tier].starts;
+    var s = tierInfo().starts;
     return Object.prototype.hasOwnProperty.call(s, num) ? s[num] : null;
   }
 
@@ -464,7 +487,7 @@
   function buildLengths() {
     lenEl.innerHTML = '';
     ['core', 'medium', 'long'].forEach(function (name) {
-      var ti = M.tiers[name];
+      var ti = modeInfo().tiers[name];
       if (!ti) return;
       var b = document.createElement('button');
       b.className = 'bt-len' + (name === tier ? ' on' : '');
@@ -484,9 +507,26 @@
      means. Falls back to the nearest earlier chapter the new length has. */
   function switchTier(name) {
     if (name === tier) return;
+    reseat(function () { loadTier(name); });
+  }
+
+  /* Changing the mode keeps the length; changing the length keeps the mode.
+     Both keep your chapter, which is the only anchor that means the same thing
+     on both sides of the switch — the same chapter starts at a different second
+     in every mode and every length. */
+  function switchMode(name) {
+    if (name === mode) return;
+    reseat(function () {
+      loadMode(name);
+      loadTier(tierInfoExists(tier) ? tier : 'core');
+    });
+  }
+
+  function reseat(apply) {
     var was = playing, ch = chEls[chapterAt(virtualTime())];
     pause();
-    loadTier(name);
+    apply();
+    buildModes();
     buildLengths();
     buildChapterList();
     curCh = -1;
@@ -499,9 +539,26 @@
     render();
   }
 
+  var modeEl = $('bt-modes');
+  function buildModes() {
+    modeEl.innerHTML = '';
+    if (MODES.length < 2) return;
+    MODES.forEach(function (name) {
+      var mi = M.modes[name];
+      var b = document.createElement('button');
+      b.className = 'bt-len' + (name === mode ? ' on' : '');
+      b.innerHTML = '<span></span>';
+      b.firstChild.textContent = (name === 'bedtime' ? '🌙 ' : '🚗 ')
+                                 + (mi.label || name);
+      b.title = mi.label_en || name;
+      b.addEventListener('click', function () { switchMode(name); });
+      modeEl.appendChild(b);
+    });
+  }
+
   function updateTotal() {
     $('bt-total').textContent = hms(total) + ' • ' + chEls.length + ' अध्याय • ' +
-      (M.tiers[tier].label || tier);
+      (modeInfo().label || mode) + ' / ' + (tierInfo().label || tier);
   }
 
   /* ---------- volume & rate ---------- */
@@ -526,22 +583,23 @@
   });
 
   /* ---------- start up ---------- */
-  loadTier(localStorage.getItem(TIER_KEY) || 'core');
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(POS_KEY)); } catch (e) {}
+  loadMode((saved && saved.mode) || localStorage.getItem(MODE_KEY)
+           || M.defaultMode || MODES[0]);
+  loadTier((saved && saved.tier) || localStorage.getItem(TIER_KEY) || 'core');
+  buildModes();
   buildLengths();
   buildChapterList();
   updateTotal();
 
   /* ---------- resume where you fell asleep ---------- */
-  var saved = null;
-  try { saved = JSON.parse(localStorage.getItem(POS_KEY)); } catch (e) {}
-  if (saved && saved.tier && M.tiers[saved.tier] && saved.tier !== tier) {
-    loadTier(saved.tier); buildLengths(); buildChapterList(); updateTotal();
-  }
   var at = saved && saved.t > 5 ? Math.min(saved.t, total - 1) : 0;
   goTo(segAt(at), at - pl[segAt(at)].start, false);
 
   function savePos() {
-    localStorage.setItem(POS_KEY, JSON.stringify({ tier: tier, t: virtualTime() }));
+    localStorage.setItem(POS_KEY, JSON.stringify(
+      { mode: mode, tier: tier, t: virtualTime() }));
   }
   setInterval(function () { if (playing) savePos(); }, 5000);
   window.addEventListener('beforeunload', savePos);

@@ -61,7 +61,7 @@ KEEP_PER_LAYER = 3      # blend this many recordings per layer
 # 21 million seconds. Total cost of all five loops is a couple of MB, and they
 # are git-ignored build inputs that never reach the site.
 LOOP_SECS = {"waves": 113.0, "foam": 83.0, "wind": 101.0,
-             "leaves": 71.0, "water": 89.0}
+             "leaves": 71.0, "water": 89.0, "creak": 127.0, "gulls": 79.0}
 
 # CC0 needs no attribution and CC-BY needs only a credit, which SOURCES.md
 # gives. Deliberately excluded: -SA (viral, would relicense the whole mix),
@@ -81,6 +81,11 @@ QUERIES = {
                "trees rustling ambience"],
     "water": ["small stream", "creek gentle", "brook water", "water dripping cave",
               "river calm"],
+    "creak": ["boat creaking wood", "ship hull creak", "wooden boat interior",
+              "rope creak boat", "sailboat rigging", "harbour mooring creak",
+              "wooden hull water"],
+    "gulls": ["seagulls distant", "gulls colony far", "seagull ambience beach",
+              "seabirds distant cliff"],
 }
 
 # Calibrated against measured failures, not guessed. Known speech (a 1939 Sejm
@@ -104,6 +109,20 @@ LAYER_KEYWORDS = {
                "branch", "bush", "canopy", "grass"),
     "water":  ("water", "stream", "creek", "brook", "river", "drip", "spring",
                "fountain", "burble", "trickle", "cave", "waterfall"),
+    # The ship itself: timbers working against each other, rope on wood, the
+    # hull taking the swell. This is what makes the shipboard chapters sound
+    # like they are happening on a ship rather than beside a sea.
+    "creak":  ("creak", "creaking", "hull", "timber", "rope", "rigging", "mast",
+               "boat", "ship", "sail", "wooden", "wood", "dock", "mooring",
+               "jetty", "pontoon", "harbour", "harbor"),
+    "gulls":  ("gull", "seagull", "seabird", "tern", "kittiwake", "colony"),
+}
+
+# Words that EXCLUDE gives up on for a particular layer. The gull layer is the
+# one place a bird is the point rather than an intrusion.
+ALLOW = {
+    "gulls": ("gull", "seagull", "bird", "birds", "seabird", "tern",
+              "kittiwake", "colony"),
 }
 
 # Words that disqualify a recording whatever layer it was found for. The
@@ -126,7 +145,7 @@ EXCLUDE = (
     "helicopter", "train", "boat motor", "siren", "alarm", "bell", "chime",
     "gong", "drum", "guitar", "piano", "violin", "synth", "pad", "drone",
     "music", "melody", "chord", "ambient music", "loop pack", "construction",
-    "machine", "pump", "fan ", "hum", "radio", "tv", "church", "clock",
+    "machine", "pump", "fan", "hum", "radio", "tv", "church", "clock",
     "city", "urban", "street", "market", "playground", "park",
     # weather that changes the scene rather than dressing it
     "rain", "thunder", "storm", "hail", "fire", "campfire",
@@ -138,6 +157,24 @@ MIN_FLAT = 0.020        # below this the spectrum is harmonic -> music
 MAX_EVENT = 0.120       # fraction of seconds far above median -> bangs, voices
 MAX_SD = 5.0            # dB spread of the per-second loudness contour
 MAX_TONAL = 9.0         # dB a narrow spectral peak stands above its neighbours
+
+# Two layers need their own numbers, because "steady" is the wrong target for
+# them. A hull creak *is* an event — screening it like surf would reject every
+# recording of a working ship, so it gets room to move and is then held down by
+# a low LAYER_CEILING instead. Gulls go the other way: a close cry is a sharp
+# transient and transients wake people, so the gull layer is only allowed
+# recordings calm enough to be a distant colony rather than a bird overhead.
+EVENT_BY_LAYER = {"creak": 0.200, "gulls": 0.060}
+SD_BY_LAYER = {"creak": 7.0, "gulls": 3.5}
+# Wood has resonances; a creaking timber has a pitch and that is not a fault.
+TONAL_BY_LAYER = {"creak": 16.0}
+# The flatness screen exists to catch music, and for these two layers it cannot:
+# a creaking timber and a gull are both strongly harmonic, so every real
+# candidate measured flat=0.000 and was thrown out as "musical" — including a
+# file literally called "Boat Creaking". Music is kept out of these layers by
+# the keyword filter and by the speech/rhythm screen instead, and a sustained
+# drone still fails on tonal prominence.
+FLAT_BY_LAYER = {"creak": 0.0, "gulls": 0.0}
 
 _last_call = [0.0]
 
@@ -207,15 +244,34 @@ def search(layer):
     return out
 
 
+def _exclude_re(layer):
+    """EXCLUDE as one whole-word pattern, minus whatever this layer allows.
+
+    Whole words, not substrings: "car" was rejecting "cargo", "cat" was
+    rejecting "catamaran" and "hum" would have taken any recording tagged
+    "humid". Layer keywords stay substrings on purpose, so "rustl" catches
+    "rustling" and "leaf" catches "leaves".
+    """
+    if layer not in _exc_cache:
+        allow = set(ALLOW.get(layer, ()))
+        words = [w for w in EXCLUDE if w not in allow]
+        _exc_cache[layer] = re.compile(
+            r"(?<![a-z])(" + "|".join(re.escape(w) for w in words) + r")(?![a-z])")
+    return _exc_cache[layer]
+
+
+_exc_cache = {}
+
+
 def on_topic(rec, layer):
     """Is this the thing the layer needs, and only that thing?
 
     Returns None if it is usable, else the word that disqualified it.
     """
     words = (rec.get("name", "") + " " + " ".join(rec.get("tags", []))).lower()
-    for bad in EXCLUDE:
-        if bad in words:
-            return bad
+    hit = _exclude_re(layer).search(words)
+    if hit:
+        return hit.group(1)
     if not any(k in words for k in LAYER_KEYWORDS[layer]):
         return "off-layer"
     return None
@@ -321,7 +377,7 @@ def measure(x, sr=SR):
                 peak_db=float(20 * np.log10(peak)))
 
 
-def verdict(m):
+def verdict(m, layer=None):
     """Whole-file screen: is there a voice or a tune anywhere in this recording?
 
     Judged over the entire file, because a single spoken sentence three minutes
@@ -332,12 +388,12 @@ def verdict(m):
         return "short"
     if m["mod"] > MAX_MOD:
         return "speech"
-    if m["flat"] < MIN_FLAT:
+    if m["flat"] < FLAT_BY_LAYER.get(layer, MIN_FLAT):
         return "musical"
     return "ok"
 
 
-def loop_verdict(m):
+def loop_verdict(m, layer=None):
     """Loop-window screen: is the part we are actually going to use calm?
 
     Applied to the cut loop rather than the whole file. A recording that opens
@@ -347,11 +403,11 @@ def loop_verdict(m):
     """
     if m is None:
         return "short"
-    if m["tonal"] > MAX_TONAL:
+    if m["tonal"] > TONAL_BY_LAYER.get(layer, MAX_TONAL):
         return "tonal"
-    if m["event"] > MAX_EVENT:
+    if m["event"] > EVENT_BY_LAYER.get(layer, MAX_EVENT):
         return "eventy"
-    if m["sd"] > MAX_SD:
+    if m["sd"] > SD_BY_LAYER.get(layer, MAX_SD):
         return "restless"
     return "ok"
 
@@ -427,7 +483,13 @@ def synth_rms_db(layer):
     if layer in _synth_db:
         return _synth_db[layer]
     import soundscape
-    src = soundscape._sources(SR)[layer]
+    src = soundscape._sources(SR).get(layer)
+    if src is None:
+        # creak and gulls have no noise twin to match — there is no honest way
+        # to synthesize wood or a bird. -23 dBFS sits in the middle of what the
+        # five noise layers measure, so their ceilings stay comparable.
+        _synth_db[layer] = -23.0
+        return _synth_db[layer]
     p = subprocess.run([FF, "-v", "error", "-f", "lavfi", "-t", "45",
                         "-i", src, "-f", "f32le", "-ac", "1", "-ar", str(SR),
                         "-"], capture_output=True)
@@ -437,6 +499,43 @@ def synth_rms_db(layer):
     else:
         _synth_db[layer] = float(20 * np.log10(np.sqrt((y ** 2).mean()) + 1e-12))
     return _synth_db[layer]
+
+
+# Band each layer is allowed to occupy, mirroring the filters in
+# soundscape._sources(). The synthesized layers were deliberately given
+# separate bands — waves low, foam high, water in the middle — so that five of
+# them could sum without turning into one grey wash, and so the whole bed stays
+# out of the way of the voice. A raw recording has no such manners: the wind
+# layer's best candidate is wind in cottonwood trees, and unshaped it puts a
+# leafy rustle in the middle of the open sea. Shaping the loop to its band
+# turns that same recording into what it is supposed to be there for — low
+# moving air — and leaves the rustle to the layer whose job it is.
+LOOP_EQ = {
+    "waves":  "highpass=f=32,lowpass=f=900",
+    "foam":   "highpass=f=1200,lowpass=f=7000",
+    "wind":   "highpass=f=40,lowpass=f=700",
+    "leaves": "highpass=f=800,lowpass=f=5000",
+    "water":  "highpass=f=250,lowpass=f=2600",
+    # Wood is body, not air: keep the low knock and drop anything hissy that
+    # would compete with the voice's sibilance.
+    "creak":  "highpass=f=55,lowpass=f=3000",
+    "gulls":  "highpass=f=450,lowpass=f=6000",
+}
+
+
+def shape(x, layer):
+    """Filter a finished loop into its layer's band. Returns float64 PCM."""
+    eq = LOOP_EQ.get(layer)
+    if not eq:
+        return x
+    p = subprocess.run(
+        [FF, "-v", "error", "-f", "f32le", "-ar", str(SR), "-ac", "1",
+         "-i", "-", "-af", eq, "-f", "f32le", "-ar", str(SR), "-ac", "1", "-"],
+        input=x.astype(np.float32).tobytes(), capture_output=True)
+    if p.returncode or not p.stdout:
+        print(f"    ! shaping {layer} failed, using the loop unfiltered")
+        return x
+    return np.frombuffer(p.stdout, dtype=np.float32).astype(np.float64)
 
 
 def write_opus(x, path):
@@ -499,7 +598,7 @@ def build_layer(layer, force=False):
         except Exception as e:
             print(f"    ! measure {rec['id']}: {e}")
             continue
-        v = verdict(m)
+        v = verdict(m, layer)
         tag = f"{rec['id']:>8} {rec['name'][:38]:38s}"
         if v != "ok":
             print(f"    reject {v:8s} mod={m['mod']:.2f} flat={m['flat']:.3f}"
@@ -510,7 +609,7 @@ def build_layer(layer, force=False):
             print(f"    reject short                                {tag}")
             continue
         lm = measure(loop)
-        lv = loop_verdict(lm)
+        lv = loop_verdict(lm, layer)
         if lv != "ok":
             # lm is None when the cut window came out too short or silent, in
             # which case there are no numbers to print alongside the verdict.
@@ -532,7 +631,10 @@ def build_layer(layer, force=False):
         return None
     os.makedirs(AMB, exist_ok=True)
     target = synth_rms_db(layer)
-    write_opus(normalize(blend(kept), target), out)
+    # Shape first, normalize after: the filter removes energy, so measuring the
+    # level before it would leave every layer quieter than the noise it is
+    # standing in for and silently undo the balance the mix was tuned at.
+    write_opus(normalize(shape(blend(kept), layer), target), out)
     print(f"    -> {os.path.basename(out)} "
           f"{os.path.getsize(out) / 1024:.0f} KB from {len(kept)} recordings "
           f"@ {target:.1f} dBFS (matched to the synth layer)")

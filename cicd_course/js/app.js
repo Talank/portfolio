@@ -166,6 +166,32 @@ function mountDepthToggle(container) {
   });
 }
 
+/* Back control, shown on every page of the course.
+ *
+ * "Wherever you came from" is history.back(), and that is the right answer when
+ * there is a history entry to go back to. Opened from a bookmark, a shared link
+ * or a new tab there is not one, and a button that does nothing is worse than no
+ * button — so those cases fall back to the course dashboard, and to the learn
+ * hub when the dashboard is already what we are looking at.
+ *
+ * The referrer check is what distinguishes the two: history.length alone counts
+ * entries from before this document existed. Under file:// there is no origin to
+ * compare against, so any referrer at all is taken as our own.
+ */
+function goBack() {
+  const ref = document.referrer;
+  const sameSite = ref && (location.protocol === 'file:'
+                           || ref.indexOf(location.origin) === 0);
+  if (sameSite && history.length > 1) {
+    history.back();
+    return;
+  }
+  const onIndex = /(^|\/)index\.html?$/.test(location.pathname)
+                  || location.pathname.endsWith('/');
+  location.href = onIndex ? '../learn/index.html' : 'index.html';
+}
+
+
 function buildHeader(active) {
   const el = document.getElementById('site-header');
   if (!el) return;
@@ -180,6 +206,8 @@ function buildHeader(active) {
   el.innerHTML = `
     <header class="site">
       <div class="bar">
+        <button class="site-back" id="site-back" type="button"
+                title="Back" aria-label="Go back">←</button>
         <a class="brand" href="index.html">CI/CD <span>Course</span></a>
         <nav>${nav}</nav>
         <div id="depth-toggle-mount"></div>
@@ -188,6 +216,9 @@ function buildHeader(active) {
     </header>`;
 
   mountDepthToggle(document.getElementById('depth-toggle-mount'));
+
+  const back = document.getElementById('site-back');
+  if (back) back.addEventListener('click', goBack);
 
   if (window.AuthUI) {
     AuthUI.mount('auth-widget');

@@ -48,11 +48,14 @@ notation and acronyms are pronounced correctly by the Nepali voice.
 """
 import argparse
 import asyncio
+import hashlib
 import json
+import math
 import os
 import re
 import subprocess
 import sys
+import zlib
 
 import soundscape
 
@@ -72,6 +75,59 @@ VOICE = "ne-NP-HemkalaNeural"
 RATE = "-22%"
 PITCH = "-6Hz"
 VOLUME = "-12%"
+
+# ---------------------------------------------------------------------------
+# Listening modes
+# ---------------------------------------------------------------------------
+#
+# The same script, read two different ways.
+#
+# "bedtime" is the original: every sentence is its own clip with a measured
+# silence between, because the point is that the ear is never dragged along.
+# That deliberate evenness is also why it does not work awake — a clip boundary
+# resets the voice to neutral, so the engine never carries a phrase across two
+# sentences and the pauses are all identical to the millisecond.
+#
+# "drive" fixes exactly that, for listening in a car instead of music. The clip
+# is the whole paragraph, so edge-tts produces its own prosody across the whole
+# thing: its own comma pauses, its own sentence cadence, its own inter-word
+# timing, none of it uniform. On top of that the rate and pitch drift slowly
+# from paragraph to paragraph the way a real narrator's does (see drift()), and
+# the gaps between paragraphs vary instead of being a constant.
+#
+# SSML is not an option for finer control: edge-tts escapes the text it is
+# given, so <prosody> and <emphasis> arrive at the engine as literal characters.
+# Everything here is done with the three per-clip parameters, the clip
+# boundaries, and punctuation.
+MODES = ("bedtime", "drive")
+
+MODE_PROFILE = {
+    "bedtime": {
+        "rate": "-22%", "pitch": "-6Hz", "volume": "-12%",
+        "unit": "sentence",
+        "gap_sent": 0.75, "gap_para": 2.4, "gap_chapter": 7.0,
+        "lead_in": 3.0, "tail": 25.0,
+        "space_lists": True,     # commas in enumerations become full breaths
+        "drift_rate": 0.0, "drift_pitch": 0.0, "gap_jitter": 0.0,
+        "bed": 1.00, "swell_db": 6.0,
+        "label": "सुत्दै", "label_en": "Bedtime",
+    },
+    "drive": {
+        # Just under conversational. An audiobook read at the engine's default
+        # rate is a shade brisk for technical material in a moving car.
+        "rate": "-6%", "pitch": "+0Hz", "volume": "+0%",
+        "unit": "paragraph",
+        "gap_sent": 0.0, "gap_para": 1.15, "gap_chapter": 3.2,
+        "lead_in": 1.2, "tail": 6.0,
+        "space_lists": False,    # a list read at driving pace wants commas
+        "drift_rate": 4.0,       # ±4% around the base rate, slowly
+        "drift_pitch": 2.0,      # ±2 Hz
+        "gap_jitter": 0.45,      # ±0.45s on every inter-paragraph gap
+        "bed": 0.55,             # road noise buries a bed set for a dark room
+        "swell_db": 3.0,         # smaller: in a car the swell just adds mush
+        "label": "गाडीमा", "label_en": "Driving",
+    },
+}
 
 # Story lengths. Every paragraph belongs to one of these; a tier plays its own
 # paragraphs plus every shorter tier's, so the three lengths are selections over
@@ -116,6 +172,44 @@ VOICE_CHAIN = ("highshelf=f=5200:g=-5,"
                "acompressor=threshold=-20dB:ratio=3:attack=25:release=350,"
                "aecho=0.86:0.85:29|47|71:0.11|0.07|0.04,"
                "volume=1.22")
+
+
+# The bed breathing. When the narration stops, the scene comes up; when it
+# starts again, the scene settles back. That is what makes it read like a novel
+# rather than a lecture over a loop — the ship gets louder in the pause after
+# the sentence about the ship.
+#
+# This is done with an envelope rather than a sidechain compressor, because we
+# are not guessing where the pauses are: this script *places* every one of them.
+# A compressor has to infer the gaps from the signal, and tuning its threshold
+# against a bed 40 dB down turned out to give about 2 dB of movement where 6 was
+# wanted. Knowing the gap boundaries exactly makes the whole thing arithmetic.
+SWELL_DB = 6.0          # how far the bed rises into a full-length pause
+SWELL_RAMP = 2.0        # seconds to rise and to fall again
+SWELL_MIN_GAP = 1.5     # shorter pauses than this are left alone entirely
+
+
+def swell_expr(gaps, swell_db=SWELL_DB, ramp=SWELL_RAMP):
+    """An ffmpeg volume expression that lifts the bed during `gaps`.
+
+    Each gap contributes a triangle that rises over `ramp` and falls over
+    `ramp`, clamped at 1. The clamp is what makes the response depend on how
+    long the pause is, which is the behaviour worth having: a 7-second chapter
+    gap reaches the full lift, a 2.4-second paragraph gap gets about 60% of it,
+    and the 0.75-second gap between two sentences never even qualifies. So the
+    bed breathes on the scale of scenes and paragraphs, and the reading itself
+    is not chopped into swells.
+    """
+    lift = 10 ** (swell_db / 20.0) - 1.0
+    terms = []
+    for a, b in gaps:
+        if b - a < SWELL_MIN_GAP:
+            continue
+        terms.append(f"min(1,max(0,min((t-{a:.2f})/{ramp:.2f},"
+                     f"({b:.2f}-t)/{ramp:.2f})))")
+    if not terms:
+        return None
+    return f"1+{lift:.4f}*min(1,{'+'.join(terms)})"
 
 
 def ffmpeg_exe():
@@ -185,7 +279,34 @@ def _apply_lookaround(text, mapping):
     return text
 
 
-def to_speakable(text):
+def drift(i, amp, seed=0.0):
+    """A slow, non-repeating wander in [-amp, +amp], indexed by paragraph.
+
+    Two sines at incommensurable rates, so the value moves smoothly from one
+    paragraph to the next and the sequence never actually repeats. That is the
+    difference between variation and randomness: a narrator's pace wanders, it
+    does not jump, and a per-paragraph random draw would sound like someone
+    being handed a new script every minute.
+    """
+    if amp <= 0:
+        return 0.0
+    return amp * 0.5 * (math.sin(i * 0.7913 + seed)
+                        + math.sin(i * 0.2371 + seed * 1.7))
+
+
+def jitter(key, amp):
+    """A fixed offset in [-amp, +amp] derived from `key`.
+
+    Used for pause lengths, where smoothness is not wanted — the point is that
+    no two gaps are the same. CRC of the text rather than hash(), which Python
+    salts per process and would reshuffle every pause on every run.
+    """
+    if amp <= 0:
+        return 0.0
+    return (zlib.crc32(key.encode("utf-8")) / 2 ** 32 * 2 - 1) * amp
+
+
+def to_speakable(text, space_lists=True):
     for a, b in _BIGO:
         text = text.replace(a, b)
     text = _apply_lookaround(text, _ACRO)
@@ -195,8 +316,12 @@ def to_speakable(text):
     text = ne_pronounce.to_devanagari(text)
     text = _apply_lookaround(text, _LETTERS)
     # Give enumerations room to land. Six crew members introduced across five
-    # commas arrive in about four seconds otherwise.
-    text = ne_pronounce.space_out_lists(text)
+    # commas arrive in about four seconds otherwise. Only for the bedtime read:
+    # at driving pace a list wants to sound like a list, not like six separate
+    # thoughts, and the engine's own comma is already long enough to separate
+    # two words there.
+    if space_lists:
+        text = ne_pronounce.space_out_lists(text)
     return re.sub(r"\s{2,}", " ", text).strip()
 
 
@@ -308,16 +433,79 @@ def load_chapters(only=None, tier="long"):
 # Synthesis
 # ---------------------------------------------------------------------------
 
-async def synth(sem, out_path, text, label, force):
-    """Synthesize one paragraph, unless a fresh cached clip already exists."""
+def clip_path(mode, num, pi, si=None):
+    """Where one clip lives. The two modes cut the script differently, so they
+    cannot share a cache — but they can share a directory, and keeping the
+    bedtime names exactly as they were means adding driving mode did not
+    invalidate a single one of the clips already synthesized for it."""
+    if mode == "bedtime":
+        return os.path.join(PARTS_DIR, f"ch{num}-p{pi:02d}-s{si:02d}.mp3")
+    return os.path.join(PARTS_DIR, f"{mode}-ch{num}-p{pi:02d}.mp3")
+
+
+def _pct(base, delta):
+    """edge-tts wants a signed percentage string, e.g. "-18%"."""
+    return f"{int(round(float(base.rstrip('%')) + delta)):+d}%"
+
+
+def _hz(base, delta):
+    return f"{int(round(float(base.rstrip('Hz')) + delta)):+d}Hz"
+
+
+# Clip cache index: clip filename -> hash of exactly what was sent to the
+# engine. Staleness used to be "is the clip older than the script file?", which
+# meant editing one paragraph re-synthesized every clip in the chapter. Keying on
+# the spoken text means an edit costs only the clips whose words actually
+# changed — and it also catches changes that do not touch the script at all,
+# like a new entry in the pronunciation table or a different voice profile.
+INDEX_PATH = os.path.join(PARTS_DIR, "_index.json")
+_index = {}
+
+
+def load_index():
+    global _index
+    try:
+        with open(INDEX_PATH, encoding="utf-8") as f:
+            _index = json.load(f)
+    except (OSError, ValueError):
+        _index = {}
+
+
+def save_index():
+    os.makedirs(PARTS_DIR, exist_ok=True)
+    with open(INDEX_PATH, "w", encoding="utf-8") as f:
+        json.dump(_index, f, indent=0, sort_keys=True)
+
+
+def clip_key(spoken, rate, pitch, volume):
+    return hashlib.sha1(
+        "\x1f".join([VOICE, rate, pitch, volume, spoken]).encode("utf-8")
+    ).hexdigest()[:16]
+
+
+async def synth(sem, out_path, text, label, force, mode="bedtime", index=0):
+    """Synthesize one clip, unless a fresh cached one already exists.
+
+    `index` is the clip's position in the whole voyage, and is what makes the
+    driving read stop sounding metronomic: rate and pitch are nudged by drift()
+    per clip, so the narration slowly speeds up and slows down across the hours
+    the way a person does. In bedtime mode both drift amplitudes are zero and
+    the parameters come out exactly as before.
+    """
+    prof = MODE_PROFILE[mode]
+    name = os.path.basename(out_path)
+    spoken = to_speakable(text, space_lists=prof["space_lists"])
+    rate = _pct(prof["rate"], drift(index, prof["drift_rate"]))
+    pitch = _hz(prof["pitch"], drift(index, prof["drift_pitch"], seed=1.4))
+    key = clip_key(spoken, rate, pitch, prof["volume"])
     async with sem:
-        if not force and os.path.exists(out_path) and os.path.getsize(out_path) > 0:
+        if (not force and _index.get(name) == key
+                and os.path.exists(out_path) and os.path.getsize(out_path) > 0):
             return True
-        spoken = to_speakable(text)
         for attempt in range(1, MAX_RETRIES + 1):
             try:
-                comm = edge_tts.Communicate(spoken, VOICE, rate=RATE,
-                                            pitch=PITCH, volume=VOLUME)
+                comm = edge_tts.Communicate(spoken, VOICE, rate=rate,
+                                            pitch=pitch, volume=prof["volume"])
                 audio = bytearray()
                 async for chunk in comm.stream():
                     if chunk["type"] == "audio":
@@ -326,6 +514,7 @@ async def synth(sem, out_path, text, label, force):
                     raise RuntimeError("no audio bytes")
                 with open(out_path, "wb") as f:
                     f.write(audio)
+                _index[name] = key
                 print(f"  ✓ {label}  ({len(text)} chars, {len(audio)//1024}KB)")
                 return True
             except Exception as e:  # noqa: BLE001 — retry anything transient
@@ -335,21 +524,36 @@ async def synth(sem, out_path, text, label, force):
                 await asyncio.sleep(1.5 * attempt)
 
 
-async def synth_all(chapters, force):
+async def synth_all(chapters, force, mode="bedtime"):
     os.makedirs(PARTS_DIR, exist_ok=True)
     sem = asyncio.Semaphore(CONCURRENCY)
+    by_para = MODE_PROFILE[mode]["unit"] == "paragraph"
+    load_index()
     tasks, meta = [], []
-    for ch in chapters:
-        src_mtime = os.path.getmtime(ch["path"])
+    for ci, ch in enumerate(chapters):
         for i, sents in enumerate(ch["sents"]):
-            for j, sent in enumerate(sents):
-                label = f"ch{ch['num']}-p{i:02d}-s{j:02d}"
-                out = os.path.join(PARTS_DIR, label + ".mp3")
-                stale = (os.path.exists(out)
-                         and os.path.getmtime(out) < src_mtime)
-                tasks.append(synth(sem, out, sent, label, force or stale))
+            # One clip for the whole paragraph, or one per sentence. This single
+            # choice is most of what separates the two reads: inside one clip
+            # the engine carries prosody across sentence boundaries and puts its
+            # own uneven pauses at the commas, which is exactly what the
+            # sentence-per-clip bedtime read gives up on purpose.
+            units = [" ".join(sents)] if by_para else sents
+            for j, unit in enumerate(units):
+                out = clip_path(mode, ch["num"], i, None if by_para else j)
+                label = os.path.basename(out)[:-4]
+                # Drift index is (chapter, paragraph), not a running count.
+                # A running count would shift for every clip after any inserted
+                # paragraph, changing its rate and pitch and so invalidating the
+                # whole rest of the voyage in the cache. Keyed this way, adding
+                # a paragraph to the end of a chapter costs exactly that
+                # paragraph. 97 is just a stride bigger than any chapter, so the
+                # drift still wanders across chapter boundaries instead of
+                # restarting at each one.
+                tasks.append(synth(sem, out, unit, label, force,
+                                   mode=mode, index=ci * 97 + i))
                 meta.append((ch, i, out))
     results = await asyncio.gather(*tasks)
+    save_index()
     failed = [m[2] for m, ok in zip(meta, results) if not ok]
     if failed:
         sys.exit(f"\n{len(failed)} clip(s) failed; fix the network and re-run.")
@@ -382,7 +586,13 @@ def duration(path):
 
 
 def silence(seconds):
-    """A cached silent MP3 of the given length, matching the clip format."""
+    """A cached silent MP3 of the given length, matching the clip format.
+
+    Quantized to 50 ms so that jittered pause lengths still land on a handful of
+    cached files instead of one per gap. 50 ms is well under what anyone can
+    hear as a difference in a pause this long.
+    """
+    seconds = max(0.05, round(seconds / 0.05) * 0.05)
     path = os.path.join(PARTS_DIR, f"_sil-{seconds:g}.mp3")
     if not os.path.exists(path):
         run(["-f", "lavfi", "-i", f"anullsrc=r={SR}:cl=mono",
@@ -488,7 +698,7 @@ TIER_LABELS = {"core": "छोटो", "medium": "मध्यम", "long": "ल
 TIER_LABELS_EN = {"core": "Short", "medium": "Medium", "long": "Long"}
 
 
-def plan_segments(chapters):
+def plan_segments(chapters, mode="bedtime"):
     """Every (chapter, tier) file to render, in playback order.
 
     `chapters` must have been loaded at the long tier: the paragraph indices in
@@ -496,6 +706,7 @@ def plan_segments(chapters):
     split_tiers() sorts the extras to the end of the chapter, so one cache of
     synthesized clips serves all three.
     """
+    prof = MODE_PROFILE[mode]
     segs = []
     prev_scene = None
     for ci, ch in enumerate(chapters):
@@ -506,18 +717,18 @@ def plan_segments(chapters):
             if not idx:
                 continue
             if first_of_chapter:
-                lead = LEAD_IN if ci == 0 else GAP_CHAPTER
+                lead = prof["lead_in"] if ci == 0 else prof["gap_chapter"]
                 # only a chapter's opening segment carries the scene change;
                 # see soundscape._seg_envelope for why it sits at the head
                 before = prev_scene
             else:
-                lead, before = GAP_PARA, scene
+                lead, before = prof["gap_para"], scene
             segs.append({
                 "name": f"ch{ch['num']}-{tier}",
                 "num": ch["num"], "title": ch["title"], "tier": tier,
                 "scene": scene, "prev_scene": before, "lead": lead,
                 "paras": idx, "sents": [ch["sents"][i] for i in idx],
-                "first": first_of_chapter,
+                "first": first_of_chapter, "mode": mode,
             })
             first_of_chapter = False
         prev_scene = scene
@@ -525,38 +736,67 @@ def plan_segments(chapters):
 
 
 def segment_narration(seg, out_wav):
-    """Concatenate one segment's clips and silences into PCM. Returns length."""
-    seq, t = [], 0.0
+    """Concatenate one segment's clips and silences into PCM.
 
-    def add(path):
+    Returns (length, gaps), where gaps are the (start, end) windows in which
+    nothing is being said. The mix uses them to swell the ambience — see
+    swell_expr() — which is only possible because they are known exactly here
+    rather than detected later from the audio.
+    """
+    mode = seg.get("mode", "bedtime")
+    prof = MODE_PROFILE[mode]
+    by_para = prof["unit"] == "paragraph"
+    seq, t, gaps = [], 0.0, []
+
+    def add(path, is_gap=False):
         nonlocal t
         seq.append(path)
-        t += duration(path)
+        d = duration(path)
+        if is_gap:
+            gaps.append((t, t + d))
+        t += d
 
-    add(silence(seg["lead"]))
+    add(silence(seg["lead"]), is_gap=True)
     for k, (pi, sents) in enumerate(zip(seg["paras"], seg["sents"])):
         if k:
-            add(silence(GAP_PARA))
+            # Every gap a slightly different length. A constant is what makes a
+            # long reading feel mechanical, and the ear notices the regularity
+            # long before it notices the duration.
+            add(silence(prof["gap_para"]
+                        + jitter(f"{mode}{seg['num']}p{pi}", prof["gap_jitter"])),
+                is_gap=True)
+        if by_para:
+            add(clip_path(mode, seg["num"], pi))
+            continue
         for j in range(len(sents)):
             if j:
-                add(silence(GAP_SENT))
-            add(os.path.join(PARTS_DIR, f"ch{seg['num']}-p{pi:02d}-s{j:02d}.mp3"))
+                add(silence(prof["gap_sent"]), is_gap=True)
+            add(clip_path(mode, seg["num"], pi, j))
 
-    listfile = os.path.join(PARTS_DIR, f"_concat-{seg['name']}.txt")
+    listfile = os.path.join(PARTS_DIR, f"_concat-{mode}-{seg['name']}.txt")
     with open(listfile, "w", encoding="utf-8") as f:
         for p in seq:
             f.write("file '" + p.replace("'", "'\\''") + "'\n")
     run(["-f", "concat", "-safe", "0", "-i", listfile,
          "-c:a", "pcm_s16le", "-ar", str(SR), "-ac", "1", out_wav])
     os.remove(listfile)
-    return t
+    # The runout past the last word is a pause too, and the longest one there
+    # is: the bed should be rising as the segment hands over to the next.
+    gaps.append((t, t + OVERLAP))
+    return t, gaps
+
+
+def mode_dir(mode):
+    return os.path.join(AUDIO_DIR, mode)
 
 
 def render_segment(seg, index, ambient=True):
     """Mix and encode one segment. Returns its exact duration in seconds."""
-    out = os.path.join(AUDIO_DIR, seg["name"] + ".opus")
-    wav = os.path.join(PARTS_DIR, f"_seg-{seg['name']}.wav")
-    speech = segment_narration(seg, wav)
+    mode = seg.get("mode", "bedtime")
+    prof = MODE_PROFILE[mode]
+    out = os.path.join(mode_dir(mode), seg["name"] + ".opus")
+    wav = os.path.join(PARTS_DIR, f"_seg-{mode}-{seg['name']}.wav")
+    speech, gaps = segment_narration(seg, wav)
     total = speech + OVERLAP
 
     if not ambient:
@@ -568,11 +808,19 @@ def render_segment(seg, index, ambient=True):
         phase = (index * 17.3) % 60.0
         inputs, chunks, labels = soundscape.build_segment(
             seg["scene"], seg["prev_scene"], total, SR, phase=phase,
-            fade_in=LEAD_IN + 5 if seg["prev_scene"] is None else 0.0)
+            fade_in=prof["lead_in"] + 5 if seg["prev_scene"] is None else 0.0,
+            bed=prof["bed"])
+        # Sum the layers first, then breathe the whole scene at once: one
+        # envelope for the bed rather than one per layer, and the per-scene
+        # balance inside it is left exactly as tuned.
+        swell = swell_expr(gaps, MODE_PROFILE[mode]["swell_db"])
+        bed = (f"amix=inputs={len(labels)}:duration=first:normalize=0"
+               + (f",volume=volume='{soundscape._esc(swell)}':eval=frame"
+                  if swell else ""))
         graph = (f"[0:a]{VOICE_CHAIN},apad=whole_dur={total:.2f}[v];"
                  + ";".join(chunks) + ";"
-                 + "[v]" + "".join(labels)
-                 + f"amix=inputs={len(labels) + 1}:duration=first:normalize=0,"
+                 + "".join(labels) + bed + "[bed];"
+                 + "[v][bed]amix=inputs=2:duration=first:normalize=0,"
                  + "alimiter=limit=0.92[out]")
         run(["-i", wav] + inputs +
             ["-filter_complex", graph, "-map", "[out]",
@@ -584,20 +832,26 @@ def render_segment(seg, index, ambient=True):
     return duration(out)
 
 
-def render_outro(scene, ambient=True):
+def render_outro(scene, mode="bedtime", ambient=True):
     """The runout every length ends on: ambience alone, fading to nothing.
 
     Kept as its own file because where the story stops depends on the length
     being played, and a tail baked into the last chapter's core segment would
     sit in the middle of the medium and long versions.
+
+    Nothing is speaking here, so this is the bed at its full undicked level —
+    the swell the pauses have been hinting at, held and then let go.
     """
-    out = os.path.join(AUDIO_DIR, "outro.opus")
+    prof = MODE_PROFILE[mode]
+    tail = prof["tail"]
+    out = os.path.join(mode_dir(mode), "outro.opus")
     if not ambient:
-        run(["-f", "lavfi", "-i", f"anullsrc=r={SR}:cl=mono", "-t", str(TAIL),
+        run(["-f", "lavfi", "-i", f"anullsrc=r={SR}:cl=mono", "-t", str(tail),
              "-c:a", "libopus", "-b:a", "28k", "-ac", "1", out])
         return duration(out)
     inputs, chunks, labels = soundscape.build_segment(
-        scene, scene, TAIL, SR, phase=31.0, fade_out=TAIL - 2.0)
+        scene, scene, tail, SR, phase=31.0, fade_out=tail - 2.0,
+        bed=prof["bed"] * 10 ** (prof["swell_db"] / 20.0))
     graph = (";".join(chunks) + ";" + "".join(labels)
              + f"amix=inputs={len(labels)}:duration=first:normalize=0[out]")
     run(inputs + ["-filter_complex", graph, "-map", "[out]",
@@ -606,86 +860,99 @@ def render_outro(scene, ambient=True):
     return duration(out)
 
 
-def build_segments(chapters, only=None, ambient=True):
-    """Render the segments and return the manifest.
+def build_segments(chapters, only=None, ambient=True, modes=MODES):
+    """Render every segment of every mode and return one manifest for all of it.
 
-    `chapters` is always the whole script even under --only, because a
-    chapter's ambience depends on the scene of the chapter before it and the
-    manifest has to describe the complete voyage either way. --only narrows
-    what gets re-rendered, not what gets planned.
+    `chapters` is always the whole script even under --only, because a chapter's
+    ambience depends on the scene of the chapter before it and the manifest has
+    to describe the complete voyage either way. --only narrows what gets
+    re-rendered, not what gets planned.
     """
-    os.makedirs(AUDIO_DIR, exist_ok=True)
-    segs = plan_segments(chapters)
-    todo = sum(1 for s in segs if not only or s["num"] in only)
-    print(f"\nRendering {todo}/{len(segs)} segments into audio/…")
-    for i, seg in enumerate(segs):
-        path = os.path.join(AUDIO_DIR, seg["name"] + ".opus")
-        if only and seg["num"] not in only and os.path.exists(path):
-            seg["dur"] = duration(path)
-            continue
-        seg["dur"] = render_segment(seg, i, ambient=ambient)
-        print(f"  {seg['name']:16s} {seg['tier']:6s} {hms(seg['dur'])}  "
-              f"{os.path.getsize(path) / 1024:6.0f} KB")
-    outro = os.path.join(AUDIO_DIR, "outro.opus")
-    if only and os.path.exists(outro):
-        outro_dur = duration(outro)
-    else:
-        outro_dur = render_outro(soundscape._scene(chapters[-1]["num"]),
-                                 ambient=ambient)
-        print(f"  {'outro':16s} {'all':6s} {hms(outro_dur)}")
-
-    # Only safe on a full build: under --only the segments for the chapters we
-    # skipped are still current, and this list is the whole script anyway.
-    seen = {s["name"] + ".opus" for s in segs} | {"outro.opus"}
-    for stale in sorted(os.listdir(AUDIO_DIR)):
-        if stale.endswith(".opus") and stale not in seen:
-            os.remove(os.path.join(AUDIO_DIR, stale))
-            print(f"  - dropped stale {stale}")
-
     manifest = {
-        "voice": VOICE, "rate": RATE, "pitch": PITCH, "volume": VOLUME,
-        "overlap": OVERLAP, "dir": "data/bedtime/audio/",
+        "overlap": OVERLAP, "dir": "data/bedtime/audio/", "voice": VOICE,
         "chapters": [{"num": c["num"], "title": c["title"]} for c in chapters],
-        "tiers": {},
+        "defaultMode": "bedtime",
+        "modes": {},
     }
-    for tier in TIERS:
-        keep = TIER_RANK[tier]
-        playlist, starts, t = [], {}, 0.0
-        for seg in segs:
-            if TIER_RANK[seg["tier"]] > keep:
+    for mode in modes:
+        prof = MODE_PROFILE[mode]
+        os.makedirs(mode_dir(mode), exist_ok=True)
+        segs = plan_segments(chapters, mode=mode)
+        todo = sum(1 for x in segs if not only or x["num"] in only)
+        print(f"\n[{mode}] rendering {todo}/{len(segs)} segments "
+              f"into audio/{mode}/…")
+        for i, seg in enumerate(segs):
+            path = os.path.join(mode_dir(mode), seg["name"] + ".opus")
+            if only and seg["num"] not in only and os.path.exists(path):
+                seg["dur"] = duration(path)
                 continue
-            if seg["first"]:
-                starts[seg["num"]] = round(t, 2)
-            playlist.append({"f": seg["name"] + ".opus",
-                             "d": round(seg["dur"], 2), "c": seg["num"]})
-            # each join overlaps, so the timeline is shorter than the sum
-            t += seg["dur"] - OVERLAP
-        playlist.append({"f": "outro.opus", "d": round(outro_dur, 2), "c": None})
-        t += outro_dur
-        size = sum(os.path.getsize(os.path.join(AUDIO_DIR, p["f"]))
-                   for p in playlist)
-        manifest["tiers"][tier] = {
-            "label": TIER_LABELS[tier], "label_en": TIER_LABELS_EN[tier],
-            "duration": round(t, 2), "bytes": size,
-            "starts": starts, "playlist": playlist,
+            seg["dur"] = render_segment(seg, i, ambient=ambient)
+            print(f"  {seg['name']:16s} {seg['tier']:6s} {hms(seg['dur'])}  "
+                  f"{os.path.getsize(path) / 1024:6.0f} KB")
+
+        outro = os.path.join(mode_dir(mode), "outro.opus")
+        if only and os.path.exists(outro):
+            outro_dur = duration(outro)
+        else:
+            outro_dur = render_outro(soundscape._scene(chapters[-1]["num"]),
+                                     mode=mode, ambient=ambient)
+            print(f"  {'outro':16s} {'all':6s} {hms(outro_dur)}")
+
+        # Only safe on a full build: under --only the segments for the chapters
+        # we skipped are still current, and this list is the whole script anyway.
+        seen = {x["name"] + ".opus" for x in segs} | {"outro.opus"}
+        for stale in sorted(os.listdir(mode_dir(mode))):
+            if stale.endswith(".opus") and stale not in seen:
+                os.remove(os.path.join(mode_dir(mode), stale))
+                print(f"  - dropped stale {stale}")
+
+        entry = {
+            "label": prof["label"], "label_en": prof["label_en"],
+            "dir": mode + "/", "rate": prof["rate"], "pitch": prof["pitch"],
+            "tiers": {},
         }
-        print(f"  {tier:6s} {hms(t)}  {size / 1e6:5.1f} MB  "
-              f"{len(playlist)} files")
+        for tier in TIERS:
+            keep = TIER_RANK[tier]
+            playlist, starts, t = [], {}, 0.0
+            for seg in segs:
+                if TIER_RANK[seg["tier"]] > keep:
+                    continue
+                if seg["first"]:
+                    starts[seg["num"]] = round(t, 2)
+                playlist.append({"f": seg["name"] + ".opus",
+                                 "d": round(seg["dur"], 2), "c": seg["num"]})
+                # each join overlaps, so the timeline is shorter than the sum
+                t += seg["dur"] - OVERLAP
+            playlist.append({"f": "outro.opus", "d": round(outro_dur, 2),
+                             "c": None})
+            t += outro_dur
+            size = sum(os.path.getsize(os.path.join(mode_dir(mode), x["f"]))
+                       for x in playlist)
+            entry["tiers"][tier] = {
+                "label": TIER_LABELS[tier], "label_en": TIER_LABELS_EN[tier],
+                "duration": round(t, 2), "bytes": size,
+                "starts": starts, "playlist": playlist,
+            }
+            print(f"  {tier:6s} {hms(t)}  {size / 1e6:5.1f} MB  "
+                  f"{len(playlist)} files")
+        manifest["modes"][mode] = entry
     return manifest
 
 
 def write_segment_sidecars(manifest):
     with open(os.path.join(HERE, "chapters.txt"), "w", encoding="utf-8") as f:
         f.write("निद्राको ग्रैंड लाइन — अध्याय सूची\n\n")
-        for tier in TIERS:
-            ti = manifest["tiers"][tier]
-            f.write(f"— {ti['label']} ({ti['label_en']}): {hms(ti['duration'])}, "
-                    f"{ti['bytes'] / 1e6:.1f} MB —\n")
-            for ch in manifest["chapters"]:
-                if ch["num"] in ti["starts"]:
-                    f.write(f"{hms(ti['starts'][ch['num']])}  {ch['num']}  "
-                            f"{ch['title']}\n")
-            f.write("\n")
+        for mode, mi in manifest["modes"].items():
+            f.write(f"=== {mi['label']} / {mi['label_en']} ===\n\n")
+            for tier in TIERS:
+                ti = mi["tiers"][tier]
+                f.write(f"— {ti['label']} ({ti['label_en']}): "
+                        f"{hms(ti['duration'])}, {ti['bytes'] / 1e6:.1f} MB —\n")
+                for ch in manifest["chapters"]:
+                    if ch["num"] in ti["starts"]:
+                        f.write(f"{hms(ti['starts'][ch['num']])}  {ch['num']}  "
+                                f"{ch['title']}\n")
+                f.write("\n")
 
     with open(os.path.join(HERE, "manifest.json"), "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
@@ -735,6 +1002,9 @@ def main():
     ap.add_argument("--synth-only", action="store_true",
                     help="fill the clip cache and stop, without stitching")
     ap.add_argument("--no-ambient", action="store_true", help="skip the surf bed")
+    ap.add_argument("--modes", default=",".join(MODES),
+                    help="comma-separated listening modes to build: "
+                         + ", ".join(MODES))
     ap.add_argument("--monolith", action="store_true",
                     help="also write the old single-file voyage plus its CUE "
                          "sheet, at --tier, for offline players")
@@ -763,14 +1033,23 @@ def main():
           + " ".join(f"({t} {per_tier[t]})" for t in TIERS))
     print(f"Voice {VOICE}  rate {RATE}  pitch {PITCH}  volume {VOLUME}\n")
 
+    modes = [m.strip() for m in args.modes.split(",") if m.strip()]
+    bad = [m for m in modes if m not in MODE_PROFILE]
+    if bad:
+        sys.exit(f"unknown mode(s) {', '.join(bad)}; expected {', '.join(MODES)}")
+
     if not args.stitch_only:
-        asyncio.run(synth_all(chapters, args.force))
+        for mode in modes:
+            prof = MODE_PROFILE[mode]
+            print(f"[{mode}] {prof['label_en']}: rate {prof['rate']} "
+                  f"pitch {prof['pitch']}, one clip per {prof['unit']}")
+            asyncio.run(synth_all(chapters, args.force, mode=mode))
     if args.synth_only:
         print("\nClips cached; skipping stitch (--synth-only).")
         return
 
     manifest = build_segments(everything, only=only,
-                              ambient=not args.no_ambient)
+                              ambient=not args.no_ambient, modes=modes)
     write_segment_sidecars(manifest)
     print("\n✓ audio/ + chapters.txt + manifest.json/.js")
     if not args.monolith:

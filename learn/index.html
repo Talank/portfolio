@@ -135,19 +135,19 @@
 </header>
 <main class="wrap">
   <h1>Learn</h1>
-  <p class="lede">Seven <b>local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices.</p>
+  <p class="lede">Eight <b>local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices.</p>
 
   <div class="stats-row" id="statsRow">
-    <div class="stat"><span class="n">7</span><span class="l">courses</span></div>
-    <div class="stat"><span class="n">200</span><span class="l">lessons</span></div>
-    <div class="stat"><span class="n">~140h</span><span class="l">total content</span></div>
+    <div class="stat"><span class="n" id="statCourses">—</span><span class="l">courses</span></div>
+    <div class="stat"><span class="n" id="statLessons">—</span><span class="l">lessons</span></div>
+    <div class="stat"><span class="n" id="statHours">—</span><span class="l">total content</span></div>
     <div class="stat"><span class="n" id="overallPct">0%</span><span class="l">your progress</span></div>
   </div>
 
   <div class="grid" id="courseGrid"></div>
 
   <footer class="site">
-    <p>All seven courses above are fully built and ready to use.</p>
+    <p>Every course above is built and usable today; a few are still gaining lessons. The DSA course additionally has a Nepali audio edition — a bedtime story and a driving audiobook of the whole syllabus.</p>
   </footer>
 </main>
 <script>
@@ -175,17 +175,17 @@
     {
       dir: '../full_stack_java/', title: 'Full-Stack Java Course',
       desc: 'The JVM, collections, modern Java, concurrency, Maven, testing, PostgreSQL, Spring, frontend, JavaFX, and cross-platform apps — converging on a capstone research-log manager, LogPose.',
-      lessons: 51, lessonsBuilt: 50, hours: 43, status: 'progress', progressKey: 'java-progress-v1',
+      lessons: 51, hours: 43, status: 'done', progressKey: 'java-progress-v1',
     },
     {
       dir: '../AI_course/', title: 'AI Engineer Course',
       desc: 'From "what even is a vector" through training, fine-tuning, and deploying LLMs, to building multi-framework agents — the real math, the real code, zero filler.',
-      lessons: 40, lessonsBuilt: 39, hours: 34, status: 'progress', progressKey: 'ai-progress-v1',
+      lessons: 40, hours: 34, status: 'done', progressKey: 'ai-progress-v1',
     },
     {
       dir: '../DSA_tool/', title: 'DSA Crash Course',
       desc: 'The ~19 patterns that generalize to almost all Google/Meta/Microsoft/Amazon-style coding interview questions, each with a walkthrough, real variants, and a timed mock interview drill.',
-      lessons: 20, lessonsBuilt: 19, hours: 4.5, status: 'progress', progressKey: 'dsa-progress-v1',
+      lessons: 20, hours: 4.5, status: 'done', progressKey: 'dsa-progress-v1',
     },
     {
       dir: '../cicd_course/', title: 'CI/CD & Containers Course',
@@ -193,6 +193,18 @@
       lessons: 22, hours: 13.5, status: 'done', progressKey: 'cicd-progress-v1',
     },
   ];
+
+  /* The three headline numbers come from COURSES rather than being typed into
+     the markup. They were typed in once and were wrong by one course, 23
+     lessons and 11 hours by the time anyone noticed. */
+  (function fillStats() {
+    var lessons = COURSES.reduce(function (n, c) { return n + c.lessons; }, 0);
+    var hours = COURSES.reduce(function (n, c) { return n + c.hours; }, 0);
+    document.getElementById('statCourses').textContent = COURSES.length;
+    document.getElementById('statLessons').textContent = lessons;
+    document.getElementById('statHours').textContent =
+      '~' + Math.round(hours) + 'h';
+  })();
 
   function readProgress(key) {
     try {
