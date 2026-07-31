@@ -212,16 +212,21 @@ def _seg_envelope(layer_idx, scene, prev_scene):
 
 
 def build_segment(scene, prev_scene, total, sr, phase=0.0,
-                  fade_in=0.0, fade_out=0.0, bed=1.0):
+                  fade_in=0.0, fade_out=0.0, bed=1.0, first_input=1):
     """Return (input_args, filter_chunks, mix_labels) for one segment's bed.
 
     `phase` offsets where each loop is entered. Without it every chapter would
     open on the same wave, which over twenty-seven chapters is exactly the kind
     of pattern the ear learns and then waits for.
+
+    `first_input` is the ffmpeg input index this bed's first layer will occupy.
+    It defaults to 1 because a chapter's narration takes input 0 and the bed is
+    muxed after it. The outro is bed with nothing to narrate over, so it passes
+    0 — otherwise every stream specifier here points one input past the end.
     """
     srcs = _sources(sr)
     inputs, chunks, labels = [], [], []
-    n_in = 0
+    n_in = first_input - 1
     for i, name in enumerate(LAYER_NAMES):
         env = _seg_envelope(i, scene, prev_scene)
         if env == "0.000":

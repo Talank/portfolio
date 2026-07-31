@@ -849,9 +849,11 @@ def render_outro(scene, mode="bedtime", ambient=True):
         run(["-f", "lavfi", "-i", f"anullsrc=r={SR}:cl=mono", "-t", str(tail),
              "-c:a", "libopus", "-b:a", "28k", "-ac", "1", out])
         return duration(out)
+    # first_input=0: the outro is pure bed, so the ambience files are inputs
+    # 0..n here rather than sitting behind a narration track at input 0.
     inputs, chunks, labels = soundscape.build_segment(
         scene, scene, tail, SR, phase=31.0, fade_out=tail - 2.0,
-        bed=prof["bed"] * 10 ** (prof["swell_db"] / 20.0))
+        bed=prof["bed"] * 10 ** (prof["swell_db"] / 20.0), first_input=0)
     graph = (";".join(chunks) + ";" + "".join(labels)
              + f"amix=inputs={len(labels)}:duration=first:normalize=0[out]")
     run(inputs + ["-filter_complex", graph, "-map", "[out]",
@@ -894,13 +896,19 @@ def prior_single_file():
     }
 
 
-def build_segments(chapters, only=None, ambient=True, modes=MODES):
+def build_segments(chapters, only=None, ambient=True, modes=MODES, reuse=False):
     """Render every segment of every mode and return one manifest for all of it.
 
     `chapters` is always the whole script even under --only, because a chapter's
     ambience depends on the scene of the chapter before it and the manifest has
     to describe the complete voyage either way. --only narrows what gets
     re-rendered, not what gets planned.
+
+    `reuse` keeps any .opus already on disk and only measures it. The manifest
+    has to describe every mode at once, so a run that died partway cannot be
+    resumed by narrowing the modes — that would write a manifest naming only the
+    modes it rendered. Reuse lets the second run pick up where the first stopped
+    and still emit the whole thing.
     """
     manifest = {
         "overlap": OVERLAP, "dir": "data/bedtime/audio/", "voice": VOICE,
@@ -925,7 +933,8 @@ def build_segments(chapters, only=None, ambient=True, modes=MODES):
               f"into audio/{mode}/…")
         for i, seg in enumerate(segs):
             path = os.path.join(mode_dir(mode), seg["name"] + ".opus")
-            if only and seg["num"] not in only and os.path.exists(path):
+            if os.path.exists(path) and (reuse or
+                                         (only and seg["num"] not in only)):
                 seg["dur"] = duration(path)
                 continue
             seg["dur"] = render_segment(seg, i, ambient=ambient)
@@ -933,7 +942,7 @@ def build_segments(chapters, only=None, ambient=True, modes=MODES):
                   f"{os.path.getsize(path) / 1024:6.0f} KB")
 
         outro = os.path.join(mode_dir(mode), "outro.opus")
-        if only and os.path.exists(outro):
+        if os.path.exists(outro) and (reuse or only):
             outro_dur = duration(outro)
         else:
             outro_dur = render_outro(soundscape._scene(chapters[-1]["num"]),
@@ -1044,6 +1053,9 @@ def main():
     ap.add_argument("--synth-only", action="store_true",
                     help="fill the clip cache and stop, without stitching")
     ap.add_argument("--no-ambient", action="store_true", help="skip the surf bed")
+    ap.add_argument("--reuse", action="store_true",
+                    help="keep segments already rendered; only make what is "
+                         "missing (resumes an interrupted build)")
     ap.add_argument("--modes", default=",".join(MODES),
                     help="comma-separated listening modes to build: "
                          + ", ".join(MODES))
@@ -1091,7 +1103,8 @@ def main():
         return
 
     manifest = build_segments(everything, only=only,
-                              ambient=not args.no_ambient, modes=modes)
+                              ambient=not args.no_ambient, modes=modes,
+                              reuse=args.reuse)
     write_segment_sidecars(manifest)
     print("\n✓ audio/ + chapters.txt + manifest.json/.js")
     if not args.monolith:
