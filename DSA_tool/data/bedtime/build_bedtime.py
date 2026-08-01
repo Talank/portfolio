@@ -64,6 +64,7 @@ import edge_tts
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, *[".."] * 3, "shared"))
 import ne_pronounce  # noqa: E402  — needs the path set above
+import bedcodec  # noqa: E402
 
 SCRIPT_DIR = os.path.join(HERE, "script")
 PARTS_DIR = os.path.join(HERE, "parts")
@@ -184,6 +185,14 @@ VOICE_CHAIN = ("highshelf=f=5200:g=-5,"
 # A compressor has to infer the gaps from the signal, and tuning its threshold
 # against a bed 40 dB down turned out to give about 2 dB of movement where 6 was
 # wanted. Knowing the gap boundaries exactly makes the whole thing arithmetic.
+# What one voice costs once the bed is not baked in behind it. 28k was sized
+# for speech *plus* continuous broadband ambience; a single speaker over silence
+# needs far less. Measured on ch05-core against the 28k mixed file: 16k is 49%
+# of it (bedtime) and 52% (drive), 12k is 35%/38%. 16k is the conservative pick
+# — it halves the payload with headroom left, rather than chasing the last
+# megabyte and finding out on a phone speaker that the voice went papery.
+NARRATION_BITRATE = "16k"
+
 SWELL_DB = 6.0          # how far the bed rises into a full-length pause
 SWELL_RAMP = 2.0        # seconds to rise and to fall again
 SWELL_MIN_GAP = 1.5     # shorter pauses than this are left alone entirely
@@ -735,13 +744,22 @@ def plan_segments(chapters, mode="bedtime"):
     return segs
 
 
-def segment_narration(seg, out_wav):
-    """Concatenate one segment's clips and silences into PCM.
+def segment_gaps(seg):
+    """The pause windows of a segment, without touching the encoder.
 
-    Returns (length, gaps), where gaps are the (start, end) windows in which
-    nothing is being said. The mix uses them to swell the ambience — see
-    swell_expr() — which is only possible because they are known exactly here
-    rather than detected later from the audio.
+    Same walk as segment_narration(), minus the concat: it only adds up clip
+    durations, all of which are already on disk in the cache. Split-bed builds
+    need the gaps for every segment including the ones they are reusing, and
+    re-encoding six hours of audio to find out where the silences are would be
+    an absurd way to answer a question this script already knows the answer to.
+    """
+    return _narration_plan(seg)[2]
+
+
+def _narration_plan(seg):
+    """(sequence of files, total length, gaps) for one segment.
+
+    Split out of segment_narration so the gaps can be had without the render.
     """
     mode = seg.get("mode", "bedtime")
     prof = MODE_PROFILE[mode]
@@ -773,6 +791,22 @@ def segment_narration(seg, out_wav):
                 add(silence(prof["gap_sent"]), is_gap=True)
             add(clip_path(mode, seg["num"], pi, j))
 
+    # The runout past the last word is a pause too, and the longest one there
+    # is: the bed should be rising as the segment hands over to the next.
+    gaps.append((t, t + OVERLAP))
+    return seq, t, gaps
+
+
+def segment_narration(seg, out_wav):
+    """Concatenate one segment's clips and silences into PCM.
+
+    Returns (length, gaps), where gaps are the (start, end) windows in which
+    nothing is being said. The mix uses them to swell the ambience — see
+    swell_expr() — which is only possible because they are known exactly here
+    rather than detected later from the audio.
+    """
+    mode = seg.get("mode", "bedtime")
+    seq, t, gaps = _narration_plan(seg)
     listfile = os.path.join(PARTS_DIR, f"_concat-{mode}-{seg['name']}.txt")
     with open(listfile, "w", encoding="utf-8") as f:
         for p in seq:
@@ -780,9 +814,6 @@ def segment_narration(seg, out_wav):
     run(["-f", "concat", "-safe", "0", "-i", listfile,
          "-c:a", "pcm_s16le", "-ar", str(SR), "-ac", "1", out_wav])
     os.remove(listfile)
-    # The runout past the last word is a pause too, and the longest one there
-    # is: the bed should be rising as the segment hands over to the next.
-    gaps.append((t, t + OVERLAP))
     return t, gaps
 
 
@@ -790,14 +821,40 @@ def mode_dir(mode):
     return os.path.join(AUDIO_DIR, mode)
 
 
-def render_segment(seg, index, ambient=True):
-    """Mix and encode one segment. Returns its exact duration in seconds."""
+def render_segment(seg, index, ambient=True, split=False):
+    """Mix and encode one segment. Returns (duration, gaps).
+
+    `split` renders the narration alone and leaves the bed to the browser (see
+    shared/bed-engine.js). That is not a quality compromise, it is where the
+    bits were going: opus at 28 kbps was spending most of its budget
+    re-describing surf that never changes, and the same voice at the same
+    quality fits in 16 kbps once the surf is gone. Measured on ch05-core,
+    narration-only at 16k is 49% of the mixed file in bedtime mode and 52% in
+    drive mode. The bed comes back as seven loops totalling 0.61 MB for the
+    entire site rather than a share of all 11.87 hours.
+
+    The gaps are returned either way, because in split mode they are the only
+    record of where the pauses are and the player needs them to breathe the bed.
+    """
     mode = seg.get("mode", "bedtime")
     prof = MODE_PROFILE[mode]
     out = os.path.join(mode_dir(mode), seg["name"] + ".opus")
     wav = os.path.join(PARTS_DIR, f"_seg-{mode}-{seg['name']}.wav")
     speech, gaps = segment_narration(seg, wav)
     total = speech + OVERLAP
+
+    if split:
+        # VOICE_CHAIN still applies: it is what the voice is supposed to sound
+        # like, and none of it is bed. `-application voip` tells opus this is a
+        # single speaker, which is worth several kbps at this bitrate.
+        run(["-i", wav, "-af", f"{VOICE_CHAIN},apad=whole_dur={total:.2f}",
+             "-c:a", "libopus", "-b:a", NARRATION_BITRATE, "-ac", "1",
+             "-application", "voip", "-vbr", "on",
+             "-metadata", f"title={seg['num']} {seg['title']}",
+             "-metadata", "artist=Talank Baral",
+             "-metadata", "album=निद्राको ग्रैंड लाइन", out])
+        os.remove(wav)
+        return duration(out), gaps
 
     if not ambient:
         run(["-i", wav, "-af", f"apad=whole_dur={total:.2f}",
@@ -829,6 +886,24 @@ def render_segment(seg, index, ambient=True):
              "-metadata", "artist=Talank Baral",
              "-metadata", "album=निद्राको ग्रैंड लाइन", out])
     os.remove(wav)
+    return duration(out), gaps
+
+
+def render_outro_silent(mode="bedtime"):
+    """The runout, in split-bed mode: silence of the right length.
+
+    There is nothing to say here — the outro was always pure bed — so in split
+    mode the file carries no signal at all and the browser simply holds the bed
+    up through it. It still has to exist and still has to be exactly `tail`
+    seconds long, because the player's virtual timeline is built from the
+    playlist's durations and every length ends on this file.
+
+    Opus spends almost nothing on digital silence: 25 seconds costs about 2 KB.
+    """
+    tail = MODE_PROFILE[mode]["tail"]
+    out = os.path.join(mode_dir(mode), "outro.opus")
+    run(["-f", "lavfi", "-i", f"anullsrc=r={SR}:cl=mono", "-t", str(tail),
+         "-c:a", "libopus", "-b:a", "6k", "-ac", "1", out])
     return duration(out)
 
 
@@ -896,7 +971,24 @@ def prior_single_file():
     }
 
 
-def build_segments(chapters, only=None, ambient=True, modes=MODES, reuse=False):
+def bed_manifest_block():
+    """The scene/layer model the browser needs, read back from the exported bed.
+
+    Read rather than recomputed: shared/export_bed.py writes bed.json from
+    soundscape.py, so taking it from there means the manifest can never claim a
+    layer the bed directory does not actually contain.
+    """
+    path = os.path.join(HERE, "bed", "bed.json")
+    if not os.path.exists(path):
+        return None
+    with open(path, encoding="utf-8") as f:
+        meta = json.load(f)
+    return {"dir": "data/bedtime/bed/",
+            "layers": [layer["name"] for layer in meta["layers"]]}
+
+
+def build_segments(chapters, only=None, ambient=True, modes=MODES, reuse=False,
+                   split=False):
     """Render every segment of every mode and return one manifest for all of it.
 
     `chapters` is always the whole script even under --only, because a chapter's
@@ -916,6 +1008,12 @@ def build_segments(chapters, only=None, ambient=True, modes=MODES, reuse=False):
         "defaultMode": "bedtime",
         "modes": {},
     }
+    if split:
+        bed = bed_manifest_block()
+        if not bed:
+            sys.exit("--split-bed needs bed/bed.json — run "
+                     "shared/export_bed.py --src ambience --out bed first")
+        manifest["bed"] = bed
     spare = prior_single_file()
     if spare:
         # audio/ and manifest.js deploy separately, and audio/ is by far the
@@ -936,14 +1034,24 @@ def build_segments(chapters, only=None, ambient=True, modes=MODES, reuse=False):
             if os.path.exists(path) and (reuse or
                                          (only and seg["num"] not in only)):
                 seg["dur"] = duration(path)
+                # The gaps live only in the manifest now, so a reused segment
+                # still has to have them recomputed. That is cheap — it reads
+                # clip durations out of the cache, it does not re-encode.
+                if split:
+                    seg["gaps"] = segment_gaps(seg)
                 continue
-            seg["dur"] = render_segment(seg, i, ambient=ambient)
+            seg["dur"], seg["gaps"] = render_segment(seg, i, ambient=ambient,
+                                                     split=split)
             print(f"  {seg['name']:16s} {seg['tier']:6s} {hms(seg['dur'])}  "
                   f"{os.path.getsize(path) / 1024:6.0f} KB")
 
         outro = os.path.join(mode_dir(mode), "outro.opus")
         if os.path.exists(outro) and (reuse or only):
             outro_dur = duration(outro)
+        elif split:
+            outro_dur = render_outro_silent(mode=mode)
+            print(f"  {'outro':16s} {'all':6s} {hms(outro_dur)}  (silent, "
+                  f"bed only)")
         else:
             outro_dur = render_outro(soundscape._scene(chapters[-1]["num"]),
                                      mode=mode, ambient=ambient)
@@ -962,6 +1070,24 @@ def build_segments(chapters, only=None, ambient=True, modes=MODES, reuse=False):
             "dir": mode + "/", "rate": prof["rate"], "pitch": prof["pitch"],
             "tiers": {},
         }
+        if split:
+            # Keyed by file, not listed per tier: core segments appear in all
+            # three playlists, and their pause windows are the same in each.
+            # Repeating them per tier would treble the one part of the manifest
+            # that is not tiny.
+            entry["bed"] = {"gain": prof["bed"], "swellDb": prof["swell_db"]}
+            entry["segments"] = {
+                seg["name"] + ".opus": {
+                    "s": seg["scene"],
+                    "g": bedcodec.encode(seg.get("gaps") or []),
+                }
+                for seg in segs
+            }
+            # The outro is silence; the bed simply holds through it, at the
+            # scene the voyage ended in.
+            entry["segments"]["outro.opus"] = {
+                "s": soundscape._scene(chapters[-1]["num"]), "g": "",
+            }
         for tier in TIERS:
             keep = TIER_RANK[tier]
             playlist, starts, t = [], {}, 0.0
@@ -1053,6 +1179,10 @@ def main():
     ap.add_argument("--synth-only", action="store_true",
                     help="fill the clip cache and stop, without stitching")
     ap.add_argument("--no-ambient", action="store_true", help="skip the surf bed")
+    ap.add_argument("--split-bed", action="store_true",
+                    help="render narration only and let the browser rebuild "
+                         "the ambience (about half the bytes; needs bed/ from "
+                         "shared/export_bed.py)")
     ap.add_argument("--reuse", action="store_true",
                     help="keep segments already rendered; only make what is "
                          "missing (resumes an interrupted build)")
@@ -1104,7 +1234,7 @@ def main():
 
     manifest = build_segments(everything, only=only,
                               ambient=not args.no_ambient, modes=modes,
-                              reuse=args.reuse)
+                              reuse=args.reuse, split=args.split_bed)
     write_segment_sidecars(manifest)
     print("\n✓ audio/ + chapters.txt + manifest.json/.js")
     if not args.monolith:

@@ -1,6 +1,6 @@
 # Full-Stack Java Course
 
-A local, static, zero-dependency course taking you from "what exactly is the JVM" to full-stack Java developer — language, JVM internals, collections, modern Java, concurrency, Maven, every kind of testing, PostgreSQL, Spring, frontend, JavaFX desktop apps and games, cross-platform apps (Mac/iPhone via Gluon + GraalVM), NLP-powered search in Java, and finally Gradle and other build systems. The whole ~43-hour path converges on a capstone **you** build yourself: **LogPose**, a cross-platform research-log manager (paper reviews, ideas, experiments, mentoring, projects, learning) with semantic search — ask it "what ideas did I have related to flaky tests?" and it finds them by meaning, not keywords.
+A local, static, zero-dependency course taking you from "what exactly is the JVM" to full-stack Java developer — language, JVM internals, collections, modern Java, concurrency, Maven, every kind of testing, PostgreSQL, Spring, frontend, JavaFX desktop apps and games, cross-platform apps (Mac/iPhone via Gluon + GraalVM), NLP-powered search in Java, and finally Gradle and other build systems. The whole ~44-hour path converges on a capstone **you** build yourself: **LogPose**, a cross-platform research-log manager (paper reviews, ideas, experiments, mentoring, projects, learning) with semantic search — ask it "what ideas did I have related to flaky tests?" and it finds them by meaning, not keywords.
 
 Same local-first, zero-licensing-risk design as `DSA_tool` and `AI_course`: no video, no tracked media, procedurally generated audio, hand-drawn SVG character art (not traced from any show, not AI-generated). One Piece stories, Big Bang Theory and Friends scenes, mnemonics, and interactive animated diagrams throughout. Where a topic overlaps the other two courses (hashing, TF-IDF, embeddings, RAG), lessons link there instead of re-teaching.
 
@@ -16,7 +16,7 @@ To stop: `Ctrl+C` in the terminal.
 
 For the code labs' "real run" step you'll also want a JDK (Temurin 21 LTS recommended — Lesson 0.2 walks through installing it), and from Part 6 on, Maven; from Part 8 on, PostgreSQL. Each lesson tells you exactly when a new local tool becomes necessary.
 
-## How to use the ~43-hour path
+## How to use the ~44-hour path
 
 1. **Go strictly in order.** The course is one dependency chain aimed at the capstone: the `equals/hashCode` contract (Part 1) is why `HashMap` works (Part 3), which is why JPA entity identity is subtle (Part 8), which is why LogPose's data model looks the way it does (Part 14).
 2. In each lesson: read the concept, open the **story + animation** the first time through, click through the **interactive walkthrough**, expand any **Technicality corner** question you can't already answer out loud, then do the **Code Lab** — type the code yourself, check it in the browser, then run it for real in `jshell` / `mvn`.
@@ -53,7 +53,7 @@ Named after the One Piece navigation instrument that records where you've been a
 
 ## Honest expectations
 
-~43 hours is enough to build genuine, interview-ready understanding of the Java stack and everything LogPose needs **if you actually do the labs and then build the capstone yourself** — budget a comparable number of hours again for the capstone build. This course assumes basic programming literacy (the DSA course is more than enough) but no prior Java. If a lab feels unfamiliar rather than just new, slow down and run it locally line by line in `jshell` before moving on.
+~44 hours is enough to build genuine, interview-ready understanding of the Java stack and everything LogPose needs **if you actually do the labs and then build the capstone yourself** — budget a comparable number of hours again for the capstone build. This course assumes basic programming literacy (the DSA course is more than enough) but no prior Java. If a lab feels unfamiliar rather than just new, slow down and run it locally line by line in `jshell` before moving on.
 
 ## Project structure
 

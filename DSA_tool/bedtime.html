@@ -193,6 +193,7 @@
 <script src="../shared/supabase-client.js"></script>
 <script src="../shared/auth-ui.js"></script>
 <script src="js/app.js"></script>
+<script src="../shared/bed-engine.js"></script>
 <script src="data/bedtime/manifest.js"></script>
 <script>
 (function () {
@@ -295,7 +296,9 @@
   function loadTier(name) {
     tier = tierInfoExists(name) ? name : 'core';
     pl = tierInfo().playlist.map(function (p) {
-      return { f: modeInfo().dir + p.f, d: p.d, c: p.c };
+      // `raw` is the bare filename: the bed's per-segment scene and pause
+      // windows are keyed by it, deduplicated across the three tiers.
+      return { f: modeInfo().dir + p.f, raw: p.f, d: p.d, c: p.c };
     });
     var t = 0;
     pl.forEach(function (p, i) {
@@ -317,6 +320,35 @@
   function chapterStart(num) {
     var s = tierInfo().starts;
     return Object.prototype.hasOwnProperty.call(s, num) ? s[num] : null;
+  }
+
+  /* ================== the ambient bed ==================
+     The ambience is no longer inside the audio files. It used to be, and that
+     is what made them cost 28 kbps: opus was spending most of its budget
+     re-encoding surf that never changes. The narration alone fits the same
+     quality into 16 kbps, and the bed comes back here — seven short loops,
+     0.61 MB for the whole site, layered live and shared by every chapter of
+     every length of both modes.
+
+     It runs alongside the <audio> elements rather than in their signal path.
+     A bed that fails should cost you some waves, not the story, so nothing
+     below is allowed to throw into the playback code. */
+  var bed = null;
+  if (M.bed && window.BedEngine) {
+    bed = new window.BedEngine({ base: BASE + M.bed.dir.replace(/^data\/bedtime\//, '') });
+    bed.load().catch(function () { bed = null; });
+  }
+
+  function bedSegment() {
+    if (!bed || !modeInfo() || !modeInfo().segments) return;
+    var s = modeInfo().segments[pl[seg].raw];
+    if (s) bed.setSegment(s.s, s.g, pl[seg].d);
+  }
+
+  function bedMode() {
+    if (!bed) return;
+    var b = modeInfo() && modeInfo().bed;
+    bed.setMode(b ? b.gain : 1, b ? b.swellDb : 6);
   }
 
   /* ================== playback ==================
@@ -359,6 +391,7 @@
     var apply = function () { try { a.currentTime = at; } catch (e) {} render(); };
     if (a.readyState >= 1) apply();
     else a.addEventListener('loadedmetadata', apply, { once: true });
+    bedSegment();
     if (autoplay) start(a);
     armNext();
   }
@@ -379,6 +412,10 @@
       if (p && p.then) p.then(function () { o.pause(); o.volume = masterVol; },
                               function () {});
     }
+    // An AudioContext may only be created inside a user gesture, and on iOS one
+    // created outside a gesture stays suspended for good with no error. This is
+    // that gesture.
+    if (bed) { bed.enable(); bed.resume(); bedMode(); bedSegment(); }
     playing = true;
     start();
   }
@@ -387,6 +424,7 @@
     stopFade();
     els[0].pause(); els[1].pause();
     els.forEach(function (el) { el.volume = masterVol; });
+    if (bed) bed.suspend();
     $('bt-play').textContent = '▶';
     lightsOn();
   }
@@ -420,6 +458,10 @@
     ai = 1 - ai;
     seg = Math.min(seg + 1, pl.length - 1);
     cur().volume = masterVol;
+    // After the handover, not during it: the bed's scene crossfade is 20s and
+    // belongs to the new chapter, not to the 1.5s window where two narration
+    // files overlap.
+    bedSegment();
     armNext();
     render();
   }
@@ -599,6 +641,10 @@
     var st = ch ? chapterStart(ch.num) : 0;
     if (st === null) st = 0;
     els[0].removeAttribute('src'); els[1].removeAttribute('src');
+    // Before goTo, which picks the segment's scene up: driving mode carries a
+    // quieter bed and a shallower swell than bedtime, and those are properties
+    // of the mode we are switching *into*.
+    bedMode();
     goTo(segAt(st), st - pl[segAt(st)].start, was);
     playing = was;
     updateTotal();
@@ -639,8 +685,22 @@
     masterVol = +vol.value;
     // Not during a fade: the fade owns both volumes until it hands over.
     if (!fading) els.forEach(function (el) { el.volume = masterVol; });
+    if (bed) bed.setVolume(masterVol);
     localStorage.setItem(VOL_KEY, vol.value);
   });
+  if (bed) bed.setVolume(v0);
+
+  /* The bed breathes off the playhead: 10 Hz, because the swell ramps over two
+     seconds and the engine smooths on top of this anyway.
+
+     Deliberately not gated on document.hidden. A sleep story spends nearly all
+     its time in a backgrounded tab with the screen off — that is the normal
+     case here, not the idle one. Browsers throttle this interval to about once
+     a second when hidden, which is coarser than the swell deserves but still
+     well inside its two-second ramp, and setTargetAtTime absorbs the rest. */
+  setInterval(function () {
+    if (bed && playing) bed.tick(cur().currentTime || 0);
+  }, 100);
   rate.addEventListener('input', function () {
     playRate = +rate.value;
     els.forEach(function (el) { el.playbackRate = playRate; });

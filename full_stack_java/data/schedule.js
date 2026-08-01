@@ -4,7 +4,7 @@ dashboard, nav order, prev/next links on lesson pages, and the interview drill
 question pool.
 type: 'lesson' — loads data/lessons/<id>.js into lesson.html?id=<id>
 type: 'drill'  — special page (href used directly)
-Times sum to ~43 hours. Order matters: later lessons assume earlier ones, and
+Times sum to ~44 hours. Order matters: later lessons assume earlier ones, and
 everything converges on the capstone: LogPose, a cross-platform research-log
 manager with NLP-powered semantic search.
 */
@@ -26,6 +26,7 @@ window.SCHEDULE = [
   { id: 'jvm-architecture', title: 'JVM Architecture: Classloaders, Bytecode, the Interpreter & JIT', category: 'Part 2 — The JVM, Deeply', timeMin: 55, type: 'lesson' },
   { id: 'memory-model-gc', title: 'Memory & Garbage Collection: Heap, Stack, Generations, G1 & ZGC', category: 'Part 2 — The JVM, Deeply', timeMin: 55, type: 'lesson' },
   { id: 'jvm-tools-reflection', title: 'JVM Toolbox: javap, jconsole, Profilers, Flags — plus Reflection & Annotations', category: 'Part 2 — The JVM, Deeply', timeMin: 45, type: 'lesson' },
+  { id: 'profiling-flame-graphs', title: 'Profiling for Real: JFR, Mission Control, async-profiler, Flame Graphs & MAT', category: 'Part 2 — The JVM, Deeply', timeMin: 55, type: 'lesson' },
 
   // ── Part 3: Collections & Generics (Java-specific DS) ────────────────
   { id: 'generics', title: 'Generics: Type Erasure, Bounded Types & PECS Wildcards', category: 'Part 3 — Collections & Generics', timeMin: 50, type: 'lesson' },
@@ -53,6 +54,7 @@ window.SCHEDULE = [
   { id: 'mockito-test-doubles', title: 'Test Doubles & Mockito: Mocks, Stubs, Spies, Fakes & When Each Lies to You', category: 'Part 7 — Testing', timeMin: 50, type: 'lesson' },
   { id: 'integration-testing', title: 'Integration, E2E & the Test Pyramid: Testcontainers, Spring Tests, Contracts', category: 'Part 7 — Testing', timeMin: 55, type: 'lesson' },
   { id: 'tdd-coverage-flaky-tests', title: 'TDD, Coverage, Mutation Testing & Flaky Tests (Yes, Your Research Topic)', category: 'Part 7 — Testing', timeMin: 45, type: 'lesson' },
+  { id: 'jmh-benchmarking', title: 'JMH: Microbenchmarking Without Lying to Yourself', category: 'Part 7 — Testing', timeMin: 45, type: 'lesson' },
 
   // ── Part 8: Databases ────────────────────────────────────────────────
   { id: 'sql-postgresql', title: 'Relational Databases & SQL with PostgreSQL: Schema Design, Joins, Indexes', category: 'Part 8 — Databases', timeMin: 60, type: 'lesson' },
