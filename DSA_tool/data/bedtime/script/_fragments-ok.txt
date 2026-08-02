@@ -1,0 +1,11 @@
+# Sentences that are fragments on purpose and must stay fragments. Anything not
+# on this list has to be a whole sentence — see check_bedtime.py.
+#
+# Counted breaths. "एक... दुई... तीन... गन्नुहोस्।" is a grammatical sentence and
+# a worse instruction: the point is the counting, at the speed of the counting.
+एक... दुई... तीन।
+भित्र... र बाहिर।
+नमस्कार।
+# The good-night itself. A greeting is not a clause and should not be made one.
+शुभ रात्री।
+शुभ रात्री। मीठो निद्रा।

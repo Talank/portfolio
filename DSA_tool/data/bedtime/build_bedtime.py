@@ -22,6 +22,13 @@ Paragraphs may be marked `@tier medium` or `@tier long`; everything above such
 a line belongs to the shorter story. The three lengths are therefore selections
 over one render — see plan_segments().
 
+A chapter's method is written once inside `@algo NAME … @end` and replayed by
+`@recall NAME`, verbatim, two more times — see expand_recalls(). Something heard
+once at 2 a.m. is something you heard; the same words three times, spaced across
+a chapter, is something you can recite. Run check_bedtime.py before building:
+it enforces both that (three recitals in the core tier) and that every sentence
+ends in a real predicate, which is what a bedtime read actually needs.
+
 Build (from this directory):
     pip install --user edge-tts imageio-ffmpeg
     python3 build_bedtime.py                 # incremental; reuses cached parts
@@ -356,6 +363,76 @@ def split_sentences(para):
     return merged or [para.strip()]
 
 
+_ALGO_OPEN = re.compile(r"@algo\s+([\w-]+)\s*$")
+_ALGO_END = re.compile(r"@end\s*$")
+_RECALL = re.compile(r"@recall\s+([\w-]+)\s*(?:\|\s*(.*\S))?\s*$")
+
+# How many times a chapter's core method has to be spoken before the linter is
+# satisfied. Said once, a method is something you heard; said three times across
+# a chapter, with the story in between, it is something you can recite.
+MIN_RECITALS = 3
+
+
+def expand_recalls(body, where):
+    """Expand `@algo NAME … @end` definitions and their `@recall NAME` repeats.
+
+    The point of the whole mechanism is that the *same words* come back. A
+    method paraphrased three different ways is three things to learn; the same
+    six sentences three times, spaced across a chapter, is one thing learned. So
+    the steps are written once and replayed verbatim, and only the sentence that
+    introduces them changes:
+
+        @algo reverse
+        साङ्लो उल्टाउने विधि यस्तो छ। …
+        @end
+        …story…
+        @recall reverse | अब फेरि एकपटक, बिस्तारै।
+
+    Verbatim also makes the repeats nearly free. Clips are cached by the hash of
+    what was spoken (see clip_key), so the second and third recital of a block
+    are cache hits — they cost playing time and no synthesis at all.
+
+    Returns (expanded_body, {name: recital_count}).
+    """
+    algos, counts = {}, {}
+    out, cur, name = [], None, None
+    for line in body.split("\n"):
+        m = _ALGO_OPEN.match(line.strip())
+        if m:
+            if cur is not None:
+                sys.exit(f"{where}: @algo {m.group(1)} inside @algo {name}")
+            name, cur = m.group(1), []
+            if name in algos:
+                sys.exit(f"{where}: @algo {name} defined twice")
+            continue
+        if cur is not None:
+            if _ALGO_END.match(line.strip()):
+                text = "\n".join(cur).strip()
+                if not text:
+                    sys.exit(f"{where}: @algo {name} is empty")
+                algos[name] = text
+                counts[name] = 1
+                out.append(text)
+                cur, name = None, None
+                continue
+            if line.strip().startswith("@"):
+                sys.exit(f"{where}: {line.strip()!r} is not allowed inside @algo")
+            cur.append(line)
+            continue
+        m = _RECALL.match(line.strip())
+        if m:
+            key, lead = m.group(1), m.group(2)
+            if key not in algos:
+                sys.exit(f"{where}: @recall {key} before any @algo {key}")
+            counts[key] += 1
+            out.append((lead + "\n\n" if lead else "") + algos[key])
+            continue
+        out.append(line)
+    if cur is not None:
+        sys.exit(f"{where}: @algo {name} was never closed with @end")
+    return "\n".join(out), counts
+
+
 def split_tiers(body, where):
     """Split a chapter body into (paragraph, tier) pairs.
 
@@ -415,7 +492,8 @@ def load_chapters(only=None, tier="long"):
         sys.exit(f"no script directory at {SCRIPT_DIR}")
     chapters = []
     for name in sorted(os.listdir(SCRIPT_DIR)):
-        if not name.endswith(".txt"):
+        # A leading underscore marks a sidecar the linter owns, not a chapter.
+        if not name.endswith(".txt") or name.startswith("_"):
             continue
         num = name.split("-")[0]
         if only and num not in only:
@@ -426,11 +504,12 @@ def load_chapters(only=None, tier="long"):
         lines = raw.split("\n")
         title = lines[0].lstrip("#").strip() if lines[0].startswith("#") else name
         body = "\n".join(lines[1:]) if lines[0].startswith("#") else raw
+        body, recitals = expand_recalls(body, name)
         pairs = [pt for pt in split_tiers(body, name)
                  if TIER_RANK[pt[1]] <= keep]
         paras = [p for p, _ in pairs]
         chapters.append({"num": num, "file": name, "path": path, "title": title,
-                         "paras": paras,
+                         "paras": paras, "recitals": recitals,
                          "tiers": [t for _, t in pairs],
                          "sents": [split_sentences(p) for p in paras]})
     if not chapters:
@@ -533,37 +612,83 @@ async def synth(sem, out_path, text, label, force, mode="bedtime", index=0):
                 await asyncio.sleep(1.5 * attempt)
 
 
-async def synth_all(chapters, force, mode="bedtime"):
-    os.makedirs(PARTS_DIR, exist_ok=True)
-    sem = asyncio.Semaphore(CONCURRENCY)
+def _plan_clips(chapters, mode):
+    """[(out_path, text, drift_index)] for every clip this mode needs."""
     by_para = MODE_PROFILE[mode]["unit"] == "paragraph"
-    load_index()
-    tasks, meta = [], []
+    plan = []
     for ci, ch in enumerate(chapters):
         for i, sents in enumerate(ch["sents"]):
-            # One clip for the whole paragraph, or one per sentence. This single
-            # choice is most of what separates the two reads: inside one clip
-            # the engine carries prosody across sentence boundaries and puts its
-            # own uneven pauses at the commas, which is exactly what the
-            # sentence-per-clip bedtime read gives up on purpose.
             units = [" ".join(sents)] if by_para else sents
             for j, unit in enumerate(units):
                 out = clip_path(mode, ch["num"], i, None if by_para else j)
-                label = os.path.basename(out)[:-4]
-                # Drift index is (chapter, paragraph), not a running count.
-                # A running count would shift for every clip after any inserted
-                # paragraph, changing its rate and pitch and so invalidating the
-                # whole rest of the voyage in the cache. Keyed this way, adding
-                # a paragraph to the end of a chapter costs exactly that
-                # paragraph. 97 is just a stride bigger than any chapter, so the
-                # drift still wanders across chapter boundaries instead of
-                # restarting at each one.
-                tasks.append(synth(sem, out, unit, label, force,
-                                   mode=mode, index=ci * 97 + i))
-                meta.append((ch, i, out))
+                plan.append((out, unit, ci * 97 + i))
+    return plan
+
+
+async def synth_all(chapters, force, mode="bedtime"):
+    """Synthesize every clip this mode needs, once per distinct sound.
+
+    @recall replays a method's exact words two or three times a chapter, so the
+    script now contains large blocks that are byte-identical. In bedtime mode the
+    voice parameters do not drift, which makes those repeats identical *clips* —
+    so they are synthesized once and the file is copied to the other positions.
+    That is not just a saving: it guarantees the listener hears literally the
+    same recording each time, which is the point of repeating it at all.
+    (Driving mode drifts rate and pitch per paragraph, so its repeats differ
+    slightly and each is synthesized on its own. That is also the point there.)
+    """
+    os.makedirs(PARTS_DIR, exist_ok=True)
+    sem = asyncio.Semaphore(CONCURRENCY)
+    load_index()
+    prof = MODE_PROFILE[mode]
+
+    plan = _plan_clips(chapters, mode)
+    first, copies = {}, []
+    for out, text, idx in plan:
+        spoken = to_speakable(text, space_lists=prof["space_lists"])
+        key = clip_key(spoken,
+                       _pct(prof["rate"], drift(idx, prof["drift_rate"])),
+                       _hz(prof["pitch"], drift(idx, prof["drift_pitch"], seed=1.4)),
+                       prof["volume"])
+        if key in first:
+            copies.append((first[key], out, key))
+        else:
+            first[key] = out
+    if copies:
+        print(f"  · {len(copies)} repeated clip(s) will be copied, not re-synthesized")
+
+    # One clip for the whole paragraph, or one per sentence. That single choice
+    # is most of what separates the two reads: inside one clip the engine
+    # carries prosody across sentence boundaries and puts its own uneven pauses
+    # at the commas, which is exactly what the sentence-per-clip bedtime read
+    # gives up on purpose.
+    #
+    # The drift index is (chapter, paragraph), not a running count. A running
+    # count would shift for every clip after any inserted paragraph, changing
+    # its rate and pitch and so invalidating the whole rest of the voyage in the
+    # cache. Keyed this way, adding a paragraph costs exactly that paragraph.
+    # 97 is just a stride bigger than any chapter, so the drift still wanders
+    # across chapter boundaries instead of restarting at each one.
+    originals = set(first.values())
+    tasks, meta = [], []
+    for out, unit, idx in plan:
+        if out not in originals:
+            continue
+        tasks.append(synth(sem, out, unit, os.path.basename(out)[:-4], force,
+                           mode=mode, index=idx))
+        meta.append(out)
     results = await asyncio.gather(*tasks)
+
+    for src, dst, key in copies:
+        if force or _index.get(os.path.basename(dst)) != key or not os.path.exists(dst):
+            with open(src, "rb") as f:
+                data = f.read()
+            with open(dst, "wb") as f:
+                f.write(data)
+            _index[os.path.basename(dst)] = key
+
     save_index()
-    failed = [m[2] for m, ok in zip(meta, results) if not ok]
+    failed = [m for m, ok in zip(meta, results) if not ok]
     if failed:
         sys.exit(f"\n{len(failed)} clip(s) failed; fix the network and re-run.")
 

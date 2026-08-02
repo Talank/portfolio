@@ -12,12 +12,6 @@
 <div id="site-header"></div>
 <main class="wrap">
   <h1>Grand Line Dojo</h1>
-  <p class="lede">Every problem in the LeetCode <b>Top Interview 150</b> is a fight. The difficulty picks your
-  opponent — a checkpoint grunt, a Marine officer, or a Warlord who ends it after two mistakes — and every
-  exchange is a real question about the pattern, on a clock. Land a streak and your damage climbs; freeze up and
-  they land one on you. Win or lose, the fight ends on <b>LESSON LEARNED</b>, which replays everything that got
-  past your guard. The fighters are drawn in pencil by the browser and every sound is synthesized on the spot,
-  so none of this costs you a download.</p>
 
   <div id="fight-mount" hidden></div>
 
@@ -150,8 +144,11 @@ buildHeader('dojo.html');
   function startFight(p) {
     mount.hidden = false;
     picker.hidden = true;
-    mount.innerHTML = '<p class="lede" style="padding:1rem;">Squaring up…</p>';
-    mount.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    /* Everything else on the page goes away for the duration. A fight should be
+       a screen you play, not a screen you read around. */
+    document.body.classList.add('fx-on');
+    mount.innerHTML = '<div class="fx-wait">…</div>';
+    window.scrollTo(0, 0);
     window.GrandLine.load(p.g, function () {
       window.FightEngine.start(mount, buildFight(p));
     });
@@ -159,11 +156,12 @@ buildHeader('dojo.html');
 
   function closeFight() {
     if (mount._fight) mount._fight.destroy();
+    document.body.classList.remove('fx-on');
     mount.hidden = true;
     mount.innerHTML = '';
     picker.hidden = false;
     render();
-    picker.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.scrollTo(0, 0);
   }
 
   var filter = 'all';
@@ -179,7 +177,7 @@ buildHeader('dojo.html');
       (beaten ? ' &middot; ' + ['S', 'A', 'B', 'C', 'D'].map(function (r) {
         var c = LC.filter(function (p) { return g[p.n] === r; }).length;
         return c ? c + '&times; ' + r : '';
-      }).filter(Boolean).join(' &middot; ') : ' — pick an island and start swinging.');
+      }).filter(Boolean).join(' &middot; ') : '');
 
     var host = document.getElementById('arcs');
     host.innerHTML = '';

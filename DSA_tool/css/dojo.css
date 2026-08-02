@@ -13,6 +13,25 @@
   background: var(--bg-panel);
 }
 
+/* While a fight is on, the page around it is not there. No site header, no
+   heading, no explanatory paragraph — the cabinet is the whole screen, and the
+   only things to read are the question and the four answers. */
+body.fx-on #site-header,
+body.fx-on main.wrap > h1,
+body.fx-on main.wrap > .lede { display: none; }
+
+body.fx-on main.wrap {
+  max-width: 900px;
+  padding-top: 0.6rem;
+}
+
+.fx-wait {
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-dim);
+  letter-spacing: 0.4em;
+}
+
 /* ---- HUD ---------------------------------------------------------------- */
 
 .fx-hud {

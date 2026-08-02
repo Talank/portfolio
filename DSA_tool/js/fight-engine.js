@@ -438,15 +438,13 @@
     var self = this;
     crowdStart();
     this.bars();
+    /* Deliberately almost wordless. The rules are already legible from the HUD
+       — two health bars and a clock — and a card explaining them is a card you
+       read once and skip forever after. */
     this.panel.innerHTML =
       '<div class="fx-card fx-intro">' +
         '<div class="fx-banner fx-' + this.cfg.tier + '">' + esc(this.tier.banner) + '</div>' +
         '<h2>' + esc(this.cfg.title) + '</h2>' +
-        (this.cfg.lc ? '<p class="fx-lc">LeetCode #' + esc(this.cfg.lc) + '</p>' : '') +
-        '<p class="fx-taunt">&ldquo;' + esc(this.cfg.foe.taunt || this.tier.taunt) + '&rdquo;<span> — ' + esc(this.cfg.foe.name || this.tier.label) + '</span></p>' +
-        '<p class="fx-rules">' + this.rounds.length + ' exchanges &middot; ' +
-          this.tier.seconds + 's each &middot; you survive ' + this.tier.mistakes +
-          ' mistakes &middot; if nobody drops, it goes to the judges</p>' +
         '<button class="fx-btn fx-go">FIGHT</button>' +
       '</div>';
     this.panel.querySelector('.fx-go').addEventListener('click', function () {
@@ -484,7 +482,7 @@
 
     if (q.hint) {
       var hintRow = el('div', 'fx-hintrow');
-      var hb = el('button', 'fx-hintbtn', 'Call the crew for a read &mdash; costs you half the hit');
+      var hb = el('button', 'fx-hintbtn', 'HINT &mdash; half damage');
       hb.addEventListener('click', function () {
         if (self.locked || self.hintThisRound) return;
         self.hintThisRound = true;
@@ -627,7 +625,7 @@
     this.panel.querySelector('.fx-card').appendChild(box);
 
     var over = this.foeHp <= 0 || this.heroHp <= 0 || this.idx + 1 >= this.rounds.length;
-    var b = el('button', 'fx-btn fx-nextbtn', over ? 'SEE THE RESULT' : 'NEXT EXCHANGE');
+    var b = el('button', 'fx-btn fx-nextbtn', over ? 'RESULT' : 'NEXT');
     b.addEventListener('click', function () {
       play('select');
       self.idx++;
@@ -683,11 +681,15 @@
     var r = this.rank(v);
     var card = el('div', 'fx-card fx-result');
 
+    /* r.t explains the grade in a sentence. It is kept on the object because it
+       is the honest description of what happened, but it is not printed: after
+       a fight the only things worth a glance are the letter, the word, and what
+       you got wrong. */
     card.appendChild(el('div', 'fx-verdict ' + (won ? 'w' : 'l'),
       '<div class="fx-grade fx-g-' + r.g + '">' + r.g + '</div>' +
       '<div><h2>' + (won ? 'VICTORY' : 'DEFEAT') + '</h2>' +
       '<p class="fx-how">' + (v.ko ? 'by knockout' : 'on the judges&rsquo; cards') + '</p>' +
-      '<p>' + esc(r.t) + '</p></div>'));
+      '</div>'));
 
     card.appendChild(el('div', 'fx-stats',
       '<span><b>' + this.bestCombo + '</b>best combo</span>' +
@@ -700,7 +702,7 @@
     if (this.cfg.lesson) lesson.appendChild(el('p', 'fx-core', esc(this.cfg.lesson)));
 
     if (this.missed.length) {
-      lesson.appendChild(el('h4', null, 'What got past your guard'));
+      lesson.appendChild(el('h4', null, 'Missed'));
       var ul = el('ul', 'fx-missed');
       this.missed.forEach(function (m) {
         ul.appendChild(el('li', null,
@@ -712,20 +714,19 @@
       });
       lesson.appendChild(ul);
     } else {
-      lesson.appendChild(el('p', 'fx-clean',
-        'Nothing landed on you. Take the same pattern one difficulty higher — that is where it stops being free.'));
+      lesson.appendChild(el('p', 'fx-clean', 'Nothing landed on you.'));
     }
     card.appendChild(lesson);
 
     var row = el('div', 'fx-endrow');
-    var again = el('button', 'fx-btn', 'RUN IT BACK');
+    var again = el('button', 'fx-btn', 'AGAIN');
     again.addEventListener('click', function () {
       play('select');
       root.FightEngine.start(self.mount, self.cfg);
     });
     row.appendChild(again);
     if (this.cfg.onEnd) {
-      var out = el('button', 'fx-btn fx-ghost', 'BACK TO THE DOJO');
+      var out = el('button', 'fx-btn fx-ghost', 'BACK');
       out.addEventListener('click', function () { play('select'); self.cfg.onEnd(won, r.g); });
       row.appendChild(out);
     }
