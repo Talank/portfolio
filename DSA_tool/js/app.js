@@ -193,6 +193,7 @@ function buildHeader(active) {
     ['pythonic-idioms.html', 'Pythonic Idioms'],
     ['mock-interview.html', 'Mock Interview'],
     ['episodes.html', 'One Piece Episodes'],
+    ['dojo.html', '⚔️ Dojo'],
     ['presentation.html', 'Presentation'],
     ['bedtime.html', '🌙 Bedtime'],
   ];

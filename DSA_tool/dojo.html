@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grand Line Dojo — DSA Crash Course</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dojo.css">
+<link rel="stylesheet" href="../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Grand Line Dojo</h1>
+  <p class="lede">Every problem in the LeetCode <b>Top Interview 150</b> is a fight. The difficulty picks your
+  opponent — a checkpoint grunt, a Marine officer, or a Warlord who ends it after two mistakes — and every
+  exchange is a real question about the pattern, on a clock. Land a streak and your damage climbs; freeze up and
+  they land one on you. Win or lose, the fight ends on <b>LESSON LEARNED</b>, which replays everything that got
+  past your guard. The fighters are drawn in pencil by the browser and every sound is synthesized on the spot,
+  so none of this costs you a download.</p>
+
+  <div id="fight-mount" hidden></div>
+
+  <div id="picker">
+    <div class="dojo-filters" id="filters">
+      <button data-d="all" class="on">All 150</button>
+      <button data-d="E">Easy</button>
+      <button data-d="M">Medium</button>
+      <button data-d="H">Hard</button>
+      <button data-d="todo">Not yet beaten</button>
+      <button data-d="random" class="rnd">⚔️ Random fight</button>
+    </div>
+    <p class="lede" id="tally"></p>
+    <div class="dojo-arcs" id="arcs"></div>
+  </div>
+</main>
+
+<script src="data/schedule.js"></script>
+<script src="data/lc150.js"></script>
+<script src="data/dojo.js"></script>
+<script src="data/legacy-quizzes.js"></script>
+<script src="data/grandline/index.js"></script>
+<script src="js/grandline-loader.js"></script>
+<script src="js/stickman.js"></script>
+<script src="js/voice-engine.js"></script>
+<script src="js/fight-engine.js"></script>
+<script src="../shared/supabase-client.js"></script>
+<script src="../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>
+buildHeader('dojo.html');
+
+(function () {
+  'use strict';
+
+  var LC = window.LC150, ARCS = window.LC150_ARCS, TIER = window.LC150_TIER, DIFF = window.LC150_DIFF;
+  var D = window.DOJO;
+  var KEY = 'dsa-dojo-grades';
+
+  /* Grades are kept locally and only ever added to, so a bad night cannot wipe
+     an S you already earned. */
+  function grades() {
+    try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; }
+  }
+  function record(n, g) {
+    var all = grades();
+    var rank = { S: 5, A: 4, B: 3, C: 2, D: 1 };
+    if (!all[n] || rank[g] > rank[all[n]]) all[n] = g;
+    try { localStorage.setItem(KEY, JSON.stringify(all)); } catch (e) { /* private mode — the fight still works */ }
+  }
+
+  /* An episode's own quiz is the best possible drill for its problem, because
+     it is written on a *tweaked* scenario. Grand Line episodes carry theirs in
+     the arc file loaded for the fight; the original episodes' quizzes come from
+     data/legacy-quizzes.js keyed by problem number — which is why this page
+     never loads the 270 KB of episode prose it has no use for. */
+  function episodeQuiz(n) {
+    var out = [];
+    var eps = window.EPISODES || {};
+    Object.keys(eps).forEach(function (k) {
+      var e = eps[k];
+      if (e.leetcode && e.leetcode.number === n && Array.isArray(e.quiz)) {
+        out = out.concat(e.quiz);
+      }
+    });
+    if (!out.length) out = (window.LEGACY_QUIZZES || {})[n] || [];
+    return out.map(function (q) {
+      return {
+        q: q.q, options: q.options, correct: q.correct,
+        explain: q.explain, hint: q.hint, tag: q.tag || 'TRANSFER'
+      };
+    });
+  }
+
+  function pick(arr, k, seed) {
+    /* Deterministic-ish rotation so a repeat fight is not the identical five
+       questions, but a fresh run still covers the bank evenly. */
+    var start = seed % Math.max(1, arr.length);
+    var out = [];
+    for (var i = 0; i < Math.min(k, arr.length); i++) out.push(arr[(start + i) % arr.length]);
+    return out;
+  }
+
+  var FOE_LOOK = {
+    grunt:   { eyes: 'dot',   mouth: 'flat',  hair: 'scruff', hat: 'cap',   hatColor: '#4a5568', color: '#718096', power: 'none' },
+    officer: { eyes: 'angry', mouth: 'smirk', hair: 'bob',    hat: 'cap',   hatColor: '#2b6cb0', color: '#4299e1', power: 'shot' },
+    warlord: { eyes: 'shade', mouth: 'fang',  hair: 'long',   hat: 'horns', hatColor: '#742a2a', color: '#e53e3e', power: 'void', scar: true }
+  };
+
+  function buildFight(p) {
+    var arc = ARCS[p.g];
+    var tier = TIER[p.d];
+
+    var hero = Object.assign({}, D.crew[arc.lead]);
+    hero.power = arc.power;          // the power IS the pattern's metaphor
+    hero.seed = p.n * 31 + 7;
+
+    var roster = D.foes[tier];
+    var foeBase = roster[p.n % roster.length];
+    var foe = Object.assign({}, FOE_LOOK[tier], { name: foeBase.name, taunt: foeBase.taunt, seed: p.n * 17 + 3 });
+
+    var count = { grunt: 4, officer: 5, warlord: 6 }[tier];
+    var own = episodeQuiz(p.n);
+    var bank = D.banks[p.g] || [];
+    var rounds = own.concat(pick(bank, Math.max(0, count - own.length), p.n));
+    if (!rounds.length) rounds = bank.slice(0, count);
+
+    return {
+      title: p.t,
+      lc: p.n,
+      tier: tier,
+      hero: hero,
+      foe: foe,
+      lesson: D.lessons[p.g],
+      rounds: rounds,
+      onEnd: function (won, grade) {
+        if (won) record(p.n, grade);
+        closeFight();
+      }
+    };
+  }
+
+  var mount = document.getElementById('fight-mount');
+  var picker = document.getElementById('picker');
+
+  /* If this problem's arc has been written, pull its episode in first — the
+     episode's own quiz is a tweaked-scenario transfer question, which is a
+     sharper drill than anything the generic pattern bank holds. An arc that
+     does not exist yet simply fails to load and the bank carries the fight. */
+  function startFight(p) {
+    mount.hidden = false;
+    picker.hidden = true;
+    mount.innerHTML = '<p class="lede" style="padding:1rem;">Squaring up…</p>';
+    mount.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.GrandLine.load(p.g, function () {
+      window.FightEngine.start(mount, buildFight(p));
+    });
+  }
+
+  function closeFight() {
+    if (mount._fight) mount._fight.destroy();
+    mount.hidden = true;
+    mount.innerHTML = '';
+    picker.hidden = false;
+    render();
+    picker.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  var filter = 'all';
+
+  function render() {
+    var g = grades();
+    var byGroup = {};
+    LC.forEach(function (p) { (byGroup[p.g] = byGroup[p.g] || []).push(p); });
+
+    var beaten = LC.filter(function (p) { return g[p.n]; }).length;
+    document.getElementById('tally').innerHTML =
+      '<b>' + beaten + ' of 150</b> beaten' +
+      (beaten ? ' &middot; ' + ['S', 'A', 'B', 'C', 'D'].map(function (r) {
+        var c = LC.filter(function (p) { return g[p.n] === r; }).length;
+        return c ? c + '&times; ' + r : '';
+      }).filter(Boolean).join(' &middot; ') : ' — pick an island and start swinging.');
+
+    var host = document.getElementById('arcs');
+    host.innerHTML = '';
+
+    Object.keys(ARCS).forEach(function (group) {
+      var list = (byGroup[group] || []).filter(function (p) {
+        if (filter === 'all') return true;
+        if (filter === 'todo') return !g[p.n];
+        return p.d === filter;
+      });
+      if (!list.length) return;
+
+      var arc = ARCS[group];
+      var done = (byGroup[group] || []).filter(function (p) { return g[p.n]; }).length;
+      var det = document.createElement('details');
+      det.className = 'dojo-arc';
+      det.open = filter !== 'all';
+      det.innerHTML =
+        '<summary><span class="arc-name">' + arc.arc + '</span>' +
+        '<span class="arc-pat">' + group.replace(/-/g, ' ') + ' &middot; led by ' + D.crew[arc.lead].name + '</span>' +
+        '<span class="arc-n">' + done + '/' + (byGroup[group] || []).length + '</span></summary>';
+
+      var ul = document.createElement('ul');
+      ul.className = 'dojo-list';
+      list.forEach(function (p) {
+        var li = document.createElement('li');
+        var b = document.createElement('button');
+        b.innerHTML =
+          '<span class="lcn">#' + p.n + '</span>' +
+          '<span class="ttl">' + p.t + '</span>' +
+          (g[p.n] ? '<span class="beat">' + g[p.n] + '</span>' : '') +
+          '<span class="d d-' + p.d + '">' + DIFF[p.d] + '</span>';
+        b.addEventListener('click', function () { startFight(p); });
+        li.appendChild(b);
+        ul.appendChild(li);
+      });
+      det.appendChild(ul);
+      host.appendChild(det);
+    });
+  }
+
+  document.getElementById('filters').addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (!b) return;
+    if (b.dataset.d === 'random') {
+      var g = grades();
+      var pool = LC.filter(function (p) { return !g[p.n]; });
+      if (!pool.length) pool = LC;
+      startFight(pool[Math.floor(Math.random() * pool.length)]);
+      return;
+    }
+    filter = b.dataset.d;
+    document.querySelectorAll('#filters button:not(.rnd)').forEach(function (x) {
+      x.classList.toggle('on', x.dataset.d === filter);
+    });
+    render();
+  });
+
+  render();
+}());
+</script>
+</body>
+</html>

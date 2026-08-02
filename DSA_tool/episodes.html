@@ -19,6 +19,7 @@
 </main>
 <script src="data/schedule.js"></script>
 <script src="data/episodes.js"></script>
+<script src="data/grandline/index.js"></script>
 <script src="../shared/supabase-client.js"></script>
 <script src="../shared/auth-ui.js"></script>
 <script src="js/app.js"></script>
@@ -62,6 +63,38 @@
       }).join('');
       return `<h2>${cat}</h2><div class="grid">${items}</div>`;
     }).join('');
+
+    /* The Grand Line run — one arc per pattern family, covering the LeetCode
+       Top Interview 150. Only the index is loaded here; opening an episode
+       fetches just that arc. */
+    const ix = window.GRANDLINE_INDEX || {};
+    const ids = Object.keys(ix);
+    if (!ids.length) return;
+
+    const arcs = {};
+    ids.forEach(id => { (arcs[ix[id].arc] = arcs[ix[id].arc] || []).push(id); });
+    Object.values(arcs).forEach(l => l.sort((a, b) => ix[a].ep - ix[b].ep));
+
+    const order = Object.keys(arcs).sort((a, b) => ix[arcs[a][0]].ep - ix[arcs[b][0]].ep);
+    const D = { E: 'Easy', M: 'Medium', H: 'Hard' };
+
+    root.insertAdjacentHTML('beforeend',
+      `<h2 style="margin-top:2.5rem;">The Grand Line — LeetCode Top Interview 150</h2>
+       <p class="lede">${ids.length} of 150 written so far. Every episode ends with a transfer quiz set on a
+       different island from the story, and every one of them is also a fight in the
+       <a href="dojo.html">⚔️ Dojo</a>.</p>` +
+      order.map(arc => {
+        const cards = arcs[arc].map(id => {
+          const e = ix[id];
+          return `
+            <a class="module-card" href="episode.html?id=${id}">
+              <div class="pill done">Ep. ${e.ep}</div>
+              <h3 style="margin:0.4rem 0 0.2rem;">${e.t}</h3>
+              <p style="margin:0; color:var(--text-dim); font-size:0.85rem;">${e.lt} (#${e.n}, ${D[e.d]})</p>
+            </a>`;
+        }).join('');
+        return `<h3 style="margin:1.4rem 0 0.6rem; color:var(--accent);">${arc}</h3><div class="grid">${cards}</div>`;
+      }).join(''));
   })();
 </script>
 </body>

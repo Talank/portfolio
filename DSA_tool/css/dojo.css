@@ -1,0 +1,440 @@
+/* Grand Line Dojo — arcade chrome around a sketchbook.
+   The fighters are pencil drawings (js/stickman.js draws them in ink on a
+   light ground), so the stage is paper and the HUD is the cabinet around it.
+   Everything here is layout and mood; the fight logic lives in
+   js/fight-engine.js. */
+
+.fx {
+  --fx-ink: #1a1a1a;
+  --fx-paper: #f4ecd8;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-panel);
+}
+
+/* ---- HUD ---------------------------------------------------------------- */
+
+.fx-hud {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.7rem 0.9rem;
+  background: linear-gradient(180deg, #10161f, #0a0e14);
+  border-bottom: 2px solid var(--border);
+}
+
+.fx-nm {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.25rem;
+}
+.fx-r .fx-nm { text-align: right; }
+
+.fx-hp {
+  height: 16px;
+  background: #2a1216;
+  border: 1px solid #3d1f26;
+  border-radius: 3px;
+  overflow: hidden;
+  /* the slant is what makes a health bar read as a fighting game */
+  transform: skewX(-18deg);
+}
+.fx-hp-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(180deg, #ffe066, #f6ad55 55%, #e07b39);
+  transition: width 0.45s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.fx-hp-fill.low {
+  background: linear-gradient(180deg, #ff8f8f, #f56565 60%, #a02020);
+  animation: fx-pulse 0.7s ease-in-out infinite;
+}
+@keyframes fx-pulse { 50% { filter: brightness(1.5); } }
+
+/* the right-hand bar drains toward the middle, as it should */
+.fx-r .fx-hp { transform: skewX(-18deg) scaleX(-1); }
+
+.fx-center { text-align: center; min-width: 84px; }
+.fx-clock {
+  height: 6px;
+  width: 84px;
+  background: #1c2430;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.fx-clock-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--accent);
+}
+.fx-clock-fill.urgent { background: var(--danger); }
+.fx-secs {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--accent-2);
+}
+
+/* ---- stage -------------------------------------------------------------- */
+
+.fx-stage {
+  position: relative;
+  height: 260px;
+  background:
+    radial-gradient(ellipse at 50% 118%, rgba(0, 0, 0, 0.16), transparent 60%),
+    var(--fx-paper);
+  overflow: hidden;
+}
+
+/* faint ruled lines, so it reads as a page from a notebook */
+.fx-bg {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    180deg, transparent 0 27px, rgba(70, 90, 130, 0.13) 27px 28px);
+  pointer-events: none;
+}
+
+.fx-fighter {
+  position: absolute;
+  bottom: 10px;
+  width: 180px;
+  height: 220px;
+}
+.fx-pos-l { left: 6%; }
+.fx-pos-r { right: 6%; }
+.fx-fighter svg { width: 100%; height: 100%; overflow: visible; }
+
+/* the enemy's later phases tint the page red */
+.fx-stage.phased { --fx-paper: #f3ded2; }
+.fx-stage.phased .fx-bg { background-color: rgba(200, 60, 40, 0.06); }
+
+.fx-stage.shake { animation: fx-shake 0.26s; }
+.fx-stage.shake-hard { animation: fx-shake 0.38s; animation-timing-function: ease-out; }
+@keyframes fx-shake {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-7px, 3px); }
+  40% { transform: translate(6px, -4px); }
+  60% { transform: translate(-4px, -2px); }
+  80% { transform: translate(3px, 3px); }
+}
+
+.fx-shout {
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  transform: translate(-50%, -50%) scale(0.6) rotate(-6deg);
+  font-weight: 900;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  color: var(--fx-ink);
+  text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s, transform 0.12s;
+  text-align: center;
+  max-width: 70%;
+}
+.fx-shout.show { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-6deg); }
+.fx-shout.big { font-size: 3rem; }
+.fx-shout.good { color: #1f7a4d; }
+.fx-shout.bad { color: #b02020; }
+.fx-shout.phase { color: #8a2be2; font-size: 1.2rem; }
+
+.fx-combo {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  font-weight: 900;
+  font-size: 1.05rem;
+  color: #b45309;
+  text-shadow: 1px 1px 0 #fff;
+  opacity: 0;
+  transform: translateX(14px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.fx-combo.show { opacity: 1; transform: translateX(0); }
+
+/* ---- panel -------------------------------------------------------------- */
+
+.fx-panel { padding: 1rem; }
+.fx-card { max-width: 640px; margin: 0 auto; }
+
+.fx-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.fx-tag {
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--accent);
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  font-weight: 700;
+}
+.fx-count {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.fx-q { font-size: 1.05rem; line-height: 1.55; margin-bottom: 0.85rem; }
+
+.fx-opts { display: grid; gap: 0.45rem; }
+.fx-opt {
+  text-align: left;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.94rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.08s;
+}
+.fx-opt:hover:not(:disabled) { border-color: var(--accent); transform: translateX(3px); }
+.fx-opt:disabled { cursor: default; opacity: 0.75; }
+.fx-opt.right { border-color: var(--good); background: rgba(104, 211, 145, 0.14); opacity: 1; }
+.fx-opt.wrong { border-color: var(--danger); background: rgba(245, 101, 101, 0.14); opacity: 1; }
+
+.fx-hintrow { margin-top: 0.6rem; }
+.fx-hintbtn {
+  background: none;
+  border: 1px dashed var(--border);
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.fx-hintbtn:hover:not(:disabled) { color: var(--accent-2); border-color: var(--accent-2); }
+.fx-hintbtn:disabled { opacity: 0.4; cursor: default; }
+.fx-hint {
+  margin-top: 0.45rem;
+  padding: 0.5rem 0.7rem;
+  border-left: 3px solid var(--accent-2);
+  background: rgba(246, 173, 85, 0.08);
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+.fx-explain {
+  margin-top: 0.8rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.fx-explain.ok { background: rgba(104, 211, 145, 0.1); border-left: 3px solid var(--good); }
+.fx-explain.no { background: rgba(245, 101, 101, 0.1); border-left: 3px solid var(--danger); }
+
+.fx-btn {
+  margin-top: 0.9rem;
+  padding: 0.6rem 1.3rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #06231f;
+  font: inherit;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.fx-btn:hover { filter: brightness(1.12); }
+.fx-ghost { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+.fx-ghost:hover { color: var(--text); border-color: var(--accent); filter: none; }
+
+/* ---- intro -------------------------------------------------------------- */
+
+.fx-intro { text-align: center; }
+.fx-intro h2 { margin: 0.5rem 0 0.2rem; }
+.fx-banner {
+  display: inline-block;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 3px;
+}
+.fx-grunt { background: var(--good); color: #06231f; }
+.fx-officer { background: var(--accent-2); color: #2a1a05; }
+.fx-warlord { background: var(--danger); color: #2a0505; }
+.fx-lc { color: var(--text-dim); font-size: 0.85rem; margin: 0 0 0.6rem; }
+.fx-taunt { font-style: italic; color: var(--text); margin: 0.6rem auto; max-width: 460px; }
+.fx-taunt span { font-style: normal; color: var(--text-dim); font-size: 0.85rem; }
+.fx-rules { font-size: 0.82rem; color: var(--text-dim); }
+
+/* ---- result ------------------------------------------------------------- */
+
+.fx-verdict { display: flex; align-items: center; gap: 1rem; }
+.fx-verdict h2 { margin: 0; letter-spacing: 0.1em; }
+.fx-verdict p { margin: 0.2rem 0 0; color: var(--text-dim); }
+.fx-how { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.fx-verdict.w h2 { color: var(--good); }
+.fx-verdict.l h2 { color: var(--danger); }
+
+.fx-grade {
+  font-size: 3.2rem;
+  font-weight: 900;
+  line-height: 1;
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 3px solid currentColor;
+  flex: 0 0 auto;
+}
+.fx-g-S { color: #ffd700; }
+.fx-g-A { color: var(--good); }
+.fx-g-B { color: var(--accent); }
+.fx-g-C { color: var(--accent-2); }
+.fx-g-D { color: var(--danger); }
+
+.fx-stats {
+  display: flex;
+  gap: 1.4rem;
+  margin: 1rem 0;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+.fx-stats span { display: flex; flex-direction: column; }
+.fx-stats b { font-size: 1.4rem; color: var(--text); letter-spacing: 0; }
+
+.fx-lesson h3 {
+  letter-spacing: 0.18em;
+  font-size: 0.9rem;
+  color: var(--accent-2);
+  margin: 0 0 0.5rem;
+}
+.fx-lesson h4 { font-size: 0.9rem; margin: 1.1rem 0 0.5rem; color: var(--text-dim); }
+.fx-core {
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 0.7rem 0.9rem;
+  background: var(--bg-panel-2);
+  border-left: 3px solid var(--accent-2);
+  border-radius: 0 8px 8px 0;
+}
+.fx-clean { color: var(--text-dim); font-size: 0.92rem; }
+
+.fx-missed { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.7rem; }
+.fx-missed li {
+  padding: 0.7rem 0.85rem;
+  background: var(--bg-panel-2);
+  border-radius: 8px;
+  border-left: 3px solid var(--danger);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.fx-mq { font-weight: 600; margin-bottom: 0.35rem; }
+.fx-ma { color: var(--good); }
+.fx-mc { color: var(--danger); }
+.fx-mw { margin-top: 0.35rem; color: var(--text-dim); }
+
+.fx-endrow { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+/* ---- picker (dojo.html) ------------------------------------------------- */
+
+.dojo-filters {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.dojo-filters button {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text-dim);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.dojo-filters button:hover { color: var(--text); border-color: var(--accent); }
+.dojo-filters button.on { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 700; }
+
+.dojo-arcs { display: grid; gap: 0.9rem; }
+.dojo-arc {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-panel);
+  overflow: hidden;
+}
+.dojo-arc > summary {
+  padding: 0.75rem 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+}
+.dojo-arc > summary::-webkit-details-marker { display: none; }
+.dojo-arc .arc-name { color: var(--accent); }
+.dojo-arc .arc-pat { color: var(--text-dim); font-size: 0.82rem; font-weight: 400; }
+.dojo-arc .arc-n { margin-left: auto; font-size: 0.78rem; color: var(--text-dim); }
+
+.dojo-list { list-style: none; margin: 0; padding: 0 0.6rem 0.6rem; display: grid; gap: 0.3rem; }
+.dojo-list li { display: flex; align-items: center; gap: 0.6rem; }
+.dojo-list button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: left;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid transparent;
+  background: var(--bg-panel-2);
+  color: var(--text);
+  border-radius: 7px;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.dojo-list button:hover { border-color: var(--accent); }
+.dojo-list .lcn {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  min-width: 3.2em;
+}
+.dojo-list .d {
+  margin-left: auto;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 0.12rem 0.45rem;
+  border-radius: 3px;
+}
+.dojo-list .d-E { background: rgba(104, 211, 145, 0.18); color: var(--good); }
+.dojo-list .d-M { background: rgba(246, 173, 85, 0.18); color: var(--accent-2); }
+.dojo-list .d-H { background: rgba(245, 101, 101, 0.18); color: var(--danger); }
+.dojo-list .beat { color: var(--good); font-size: 0.9rem; }
+
+@media (max-width: 640px) {
+  .fx-stage { height: 210px; }
+  .fx-fighter { width: 130px; height: 170px; }
+  .fx-shout.big { font-size: 2rem; }
+  .fx-grade { width: 60px; height: 60px; font-size: 2.4rem; }
+  .fx-stats { gap: 1rem; }
+}
