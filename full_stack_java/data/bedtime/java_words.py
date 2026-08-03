@@ -205,8 +205,10 @@ WORDS = {
     "resize": "रिसाइज",
     "iteration": "इटरेसन",
     "index": "इन्डेक्स",
-    "key": "कि",
-    "keys": "कि",
+    # "कि" was wrong twice over: the vowel is long, and a bare कि is one of the
+    # commonest Nepali conjunctions, so "किले भ्यालु खोज्छ" parsed as a question.
+    "key": "की",
+    "keys": "की",
     "value": "भ्यालु",
     "values": "भ्यालु",
     "entry": "एन्ट्री",
@@ -269,8 +271,9 @@ WORDS = {
     "table": "टेबल",
     "row": "रो",
     "rows": "रो",
-    "column": "कलम",
-    "columns": "कलम",
+    # "कलम" is a pen. The English word has two syllables and an o.
+    "column": "कोलम",
+    "columns": "कोलम",
     "join": "जोइन",
     "query": "क्वेरी",
     "transaction": "ट्रान्ज्याक्सन",

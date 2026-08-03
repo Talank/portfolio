@@ -152,6 +152,18 @@ MODE_PROFILE = {
 TIERS = ("core", "medium", "long")
 TIER_RANK = {t: i for i, t in enumerate(TIERS)}
 
+# Percentage points taken off the mode's rate for a paragraph marked `@slow`.
+#
+# The scripts name a structure in English at the moment they introduce it, and
+# that is the one moment the listener has to actually catch the word. Measured on
+# ne-NP-HemkalaNeural, an English term inside Nepali prose is not spoken fast —
+# "एरे" takes 0.34s against 0.30-0.53s for the Nepali words around it — so the
+# problem is not speed but that the word arrives with no air around it and is
+# gone. SSML is not available (see to_speakable), and punctuation buys only
+# ~0.13s per comma, so the lever that is left is the per-clip rate: read the
+# teaching paragraph slower and the term lands.
+SLOW_DELTA = -8.0
+
 GAP_PARA = 2.4          # seconds of silence between paragraphs
 GAP_CHAPTER = 7.0       # seconds of silence between chapters
 # Ambience-only tail on every segment. The player starts the next segment this
@@ -443,23 +455,31 @@ def expand_recalls(body, where):
 
 
 def split_tiers(body, where):
-    """Split a chapter body into (paragraph, tier) pairs.
+    """Split a chapter body into (paragraph, tier, slow) triples.
 
     A line reading `@tier medium` sets the tier of everything after it until the
     next such line; `@tier core` switches back. Paragraphs before any directive
     are core, so an untagged script is a valid all-core script and nothing had
     to change when tiers were introduced.
 
-    The returned pairs are stably sorted core -> medium -> long. Grouping the
+    A line reading `@slow` applies to the *next paragraph only* — it marks the
+    paragraph that first teaches a term, and one-shot rather than a run because
+    a slow section that someone forgot to close would quietly stretch the rest
+    of a chapter. See SLOW_DELTA.
+
+    The returned triples are stably sorted core -> medium -> long. Grouping the
     extras at the end of the chapter is what lets each tier be a playlist over
     the same segment files rather than its own render: short plays the core
     segment, long plays all three, and every one of them concatenates without a
     join in the middle of a scene.
     """
-    paras, tier = [], "core"
+    paras, tier, slow = [], "core", False
     for block in re.split(r"\n\s*\n", body):
         block = block.strip()
         if not block:
+            continue
+        if re.fullmatch(r"@slow", block):
+            slow = True
             continue
         m = re.fullmatch(r"@tier\s+(\w+)", block)
         if m:
@@ -470,16 +490,20 @@ def split_tiers(body, where):
             continue
         # A directive may also sit on the first line of a paragraph block.
         first, _, rest = block.partition("\n")
+        if re.fullmatch(r"@slow", first.strip()) and rest.strip():
+            slow, block = True, rest.strip()
+            first, _, rest = block.partition("\n")
         m = re.fullmatch(r"@tier\s+(\w+)", first.strip())
         if m and rest.strip():
             if m.group(1) not in TIER_RANK:
                 sys.exit(f"{where}: unknown tier {m.group(1)!r}")
             tier = m.group(1)
             block = rest.strip()
-        paras.append((block, tier))
+        paras.append((block, tier, slow))
+        slow = False
 
     ordered = sorted(paras, key=lambda p: TIER_RANK[p[1]])
-    if [t for _, t in paras] != [t for _, t in ordered]:
+    if [t for _, t, _ in paras] != [t for _, t, _ in ordered]:
         print(f"  ! {where}: tiers were interleaved, so the extra paragraphs "
               f"have been moved to the end of the chapter. Check that the "
               f"prose still reads in order.")
@@ -516,10 +540,11 @@ def load_chapters(only=None, tier="long"):
         body, recitals = expand_recalls(body, name)
         pairs = [pt for pt in split_tiers(body, name)
                  if TIER_RANK[pt[1]] <= keep]
-        paras = [p for p, _ in pairs]
+        paras = [p for p, _, _ in pairs]
         chapters.append({"num": num, "file": name, "path": path, "title": title,
                          "paras": paras, "recitals": recitals,
-                         "tiers": [t for _, t in pairs],
+                         "tiers": [t for _, t, _ in pairs],
+                         "slow": [s for _, _, s in pairs],
                          "sents": [split_sentences(p) for p in paras]})
     if not chapters:
         sys.exit("no chapter .txt files found in script/")
@@ -580,7 +605,8 @@ def clip_key(spoken, rate, pitch, volume):
     ).hexdigest()[:16]
 
 
-async def synth(sem, out_path, text, label, force, mode="bedtime", index=0):
+async def synth(sem, out_path, text, label, force, mode="bedtime", index=0,
+                slow=False):
     """Synthesize one clip, unless a fresh cached one already exists.
 
     `index` is the clip's position in the whole voyage, and is what makes the
@@ -588,11 +614,14 @@ async def synth(sem, out_path, text, label, force, mode="bedtime", index=0):
     per clip, so the narration slowly speeds up and slows down across the hours
     the way a person does. In bedtime mode both drift amplitudes are zero and
     the parameters come out exactly as before.
+
+    `slow` comes from a `@slow` paragraph and takes SLOW_DELTA off the rate.
     """
     prof = MODE_PROFILE[mode]
     name = os.path.basename(out_path)
     spoken = to_speakable(text, space_lists=prof["space_lists"])
-    rate = _pct(prof["rate"], drift(index, prof["drift_rate"]))
+    rate = _pct(prof["rate"],
+                drift(index, prof["drift_rate"]) + (SLOW_DELTA if slow else 0.0))
     pitch = _hz(prof["pitch"], drift(index, prof["drift_pitch"], seed=1.4))
     key = clip_key(spoken, rate, pitch, prof["volume"])
     async with sem:
@@ -622,15 +651,16 @@ async def synth(sem, out_path, text, label, force, mode="bedtime", index=0):
 
 
 def _plan_clips(chapters, mode):
-    """[(out_path, text, drift_index)] for every clip this mode needs."""
+    """[(out_path, text, drift_index, slow)] for every clip this mode needs."""
     by_para = MODE_PROFILE[mode]["unit"] == "paragraph"
     plan = []
     for ci, ch in enumerate(chapters):
+        slows = ch.get("slow") or [False] * len(ch["sents"])
         for i, sents in enumerate(ch["sents"]):
             units = [" ".join(sents)] if by_para else sents
             for j, unit in enumerate(units):
                 out = clip_path(mode, ch["num"], i, None if by_para else j)
-                plan.append((out, unit, ci * 97 + i))
+                plan.append((out, unit, ci * 97 + i, slows[i]))
     return plan
 
 
@@ -653,10 +683,11 @@ async def synth_all(chapters, force, mode="bedtime"):
 
     plan = _plan_clips(chapters, mode)
     first, copies = {}, []
-    for out, text, idx in plan:
+    for out, text, idx, slow in plan:
         spoken = to_speakable(text, space_lists=prof["space_lists"])
         key = clip_key(spoken,
-                       _pct(prof["rate"], drift(idx, prof["drift_rate"])),
+                       _pct(prof["rate"], drift(idx, prof["drift_rate"])
+                            + (SLOW_DELTA if slow else 0.0)),
                        _hz(prof["pitch"], drift(idx, prof["drift_pitch"], seed=1.4)),
                        prof["volume"])
         if key in first:
@@ -680,11 +711,11 @@ async def synth_all(chapters, force, mode="bedtime"):
     # across chapter boundaries instead of restarting at each one.
     originals = set(first.values())
     tasks, meta = [], []
-    for out, unit, idx in plan:
+    for out, unit, idx, slow in plan:
         if out not in originals:
             continue
         tasks.append(synth(sem, out, unit, os.path.basename(out)[:-4], force,
-                           mode=mode, index=idx))
+                           mode=mode, index=idx, slow=slow))
         meta.append(out)
     results = await asyncio.gather(*tasks)
 

@@ -162,12 +162,16 @@
      that is the whole point of putting them in a DSA course. */
   const POWERS = {
     // Reaches past everything in between: a hash jump, O(1) lookup.
+    // Anchored on the shoulder (0,28), not floating by the head, because this
+    // IS the fighter's right arm — figure() leaves that arm out when this power
+    // is drawn (see ARM_POWERS). Draw it detached and the figure grows a third.
     rubber: (c) => '<g opacity="0.95">' +
-      '<path d="M18 4 Q60 -6 104 8" fill="none" stroke="' + c + '" stroke-width="5" stroke-linecap="round">' +
+      '<path d="M2 28 Q54 14 104 18" fill="none" stroke="' + c + '" stroke-width="5" stroke-linecap="round">' +
       '<animate attributeName="d" dur="1.4s" repeatCount="indefinite" ' +
-      'values="M18 4 Q40 0 46 4;M18 4 Q60 -10 104 8;M18 4 Q40 0 46 4"/></path>' +
-      '<circle cx="104" cy="8" r="7" fill="none" stroke="' + c + '" stroke-width="4">' +
-      '<animate attributeName="cx" dur="1.4s" repeatCount="indefinite" values="46;104;46"/>' +
+      'values="M2 28 Q24 26 42 27;M2 28 Q54 14 104 18;M2 28 Q24 26 42 27"/></path>' +
+      '<circle cx="104" cy="18" r="7" fill="none" stroke="' + c + '" stroke-width="4">' +
+      '<animate attributeName="cx" dur="1.4s" repeatCount="indefinite" values="42;104;42"/>' +
+      '<animate attributeName="cy" dur="1.4s" repeatCount="indefinite" values="27;18;27"/>' +
       '</circle></g>',
 
     // Cuts three ways at once: divide and conquer.
@@ -237,7 +241,13 @@
 
   /* One pass of the whole fighter at a given seed. Called three times with
      three seeds to produce the boiling-line cycle. */
-  function figure(spec, seed, pose) {
+  /* Powers that ARE a limb rather than an effect drawn beside one, and which
+     arm they stand in for. A fighter with one of these gets that arm left off,
+     so the power reads as the arm reaching instead of as spare anatomy.
+     `sprout` is deliberately absent: extra hands are the whole point of it. */
+  const ARM_POWERS = { rubber: 'R' };
+
+  function figure(spec, seed, pose, hideArm) {
     const r = rng(seed);
     const a = spec.amp == null ? 1.6 : spec.amp;
     const ink = spec.ink || '#1a1a1a';
@@ -269,8 +279,10 @@
     // arms, from the shoulders
     const rad = (d) => (d * Math.PI) / 180;
     const ax = 0, ay = 28, alen = 30;
-    s += stroke(line(ax, ay, ax + Math.sin(rad(armR)) * alen, ay + Math.cos(rad(armR)) * alen, a, r), ink, w);
-    s += stroke(line(ax, ay, ax + Math.sin(rad(armL)) * alen, ay + Math.cos(rad(armL)) * alen, a, r), ink, w);
+    if (hideArm !== 'R')
+      s += stroke(line(ax, ay, ax + Math.sin(rad(armR)) * alen, ay + Math.cos(rad(armR)) * alen, a, r), ink, w);
+    if (hideArm !== 'L')
+      s += stroke(line(ax, ay, ax + Math.sin(rad(armL)) * alen, ay + Math.cos(rad(armL)) * alen, a, r), ink, w);
 
     // legs
     s += stroke(line(0, 62, -legSpread, 96, a, r), ink, w);
@@ -292,12 +304,15 @@
     // three seeds -> three drawings -> cycled at 8fps for the boiling line
     let frames = '';
     const base = spec.seed || hash(spec.name || 'fighter');
+    // Only leave the arm off when the power that stands in for it is actually
+    // being drawn: a roster thumbnail asks for power:false and needs both arms.
+    const hideArm = opts.power === false ? null : ARM_POWERS[spec.power] || null;
     for (let i = 0; i < 3; i++) {
       const vals = ['0', '0', '0'];
       vals[i] = '1';
       frames +=
         '<g opacity="' + (i === 0 ? 1 : 0) + '">' +
-        figure(spec, base + i * 7919, opts.pose) +
+        figure(spec, base + i * 7919, opts.pose, hideArm) +
         (opts.still ? '' :
           '<animate attributeName="opacity" values="' + vals.join(';') +
           '" keyTimes="0;0.3333;0.6667" calcMode="discrete" dur="0.36s" ' +

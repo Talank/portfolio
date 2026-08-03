@@ -106,6 +106,24 @@ WORDS = {
     "two": "टु",
     "listen": "लिसन",
     "silent": "साइलेन्ट",
+    # Added when the scripts stopped using a Nepali coinage as the working noun
+    # for a structure the listener will later type in English. The story keeps
+    # its metaphor as a simile — "साङ्लो जस्तो", "थुप्रो जस्तै" — and the noun
+    # itself is now the English term, said the Nepali way.
+    "node": "नोड",
+    "nodes": "नोड",
+    "key": "की",
+    "keys": "की",
+    "value": "भ्यालु",
+    "values": "भ्यालु",
+    "row": "रो",
+    "rows": "रो",
+    "column": "कोलम",
+    "columns": "कोलम",
+    "table": "टेबल",
+    "tables": "टेबल",
+    "sequence": "सिक्वेन्स",
+    "subsequence": "सब सिक्वेन्स",
 }
 
 
