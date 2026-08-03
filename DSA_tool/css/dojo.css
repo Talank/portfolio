@@ -17,8 +17,7 @@
    heading, no explanatory paragraph — the cabinet is the whole screen, and the
    only things to read are the question and the four answers. */
 body.fx-on #site-header,
-body.fx-on main.wrap > h1,
-body.fx-on main.wrap > .lede { display: none; }
+body.fx-on main.wrap > h1 { display: none; }
 
 body.fx-on main.wrap {
   max-width: 900px;
@@ -213,6 +212,9 @@ body.fx-on main.wrap {
 
 .fx-opts { display: grid; gap: 0.45rem; }
 .fx-opt {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
   text-align: left;
   padding: 0.65rem 0.8rem;
   border: 1px solid var(--border);
@@ -224,7 +226,24 @@ body.fx-on main.wrap {
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s, transform 0.08s;
 }
+/* The number is not decoration: 1-4 answers, and the key is right there. */
+.fx-opt kbd {
+  flex: 0 0 auto;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0 0.32rem;
+}
+.fx-opt code {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.86rem;
+  white-space: pre-wrap;
+}
+.fx-opts-code .fx-opt { align-items: center; }
 .fx-opt:hover:not(:disabled) { border-color: var(--accent); transform: translateX(3px); }
+.fx-opt:hover:not(:disabled) kbd { color: var(--accent); border-color: var(--accent); }
 .fx-opt:disabled { cursor: default; opacity: 0.75; }
 .fx-opt.right { border-color: var(--good); background: rgba(104, 211, 145, 0.14); opacity: 1; }
 .fx-opt.wrong { border-color: var(--danger); background: rgba(245, 101, 101, 0.14); opacity: 1; }
@@ -277,10 +296,15 @@ body.fx-on main.wrap {
 .fx-ghost { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
 .fx-ghost:hover { color: var(--text); border-color: var(--accent); filter: none; }
 
-/* ---- intro -------------------------------------------------------------- */
+/* ---- the brief ----------------------------------------------------------
+   The first screen of a fight has one job: say what you are being asked to do,
+   in words, before any clock starts. Everything here is sized so THE JOB is the
+   thing your eye lands on. */
 
-.fx-intro { text-align: center; }
-.fx-intro h2 { margin: 0.5rem 0 0.2rem; }
+.fx-briefhead { display: flex; align-items: center; gap: 0.6rem; }
+.fx-brief h2 { margin: 0.55rem 0 0.15rem; font-size: 1.35rem; line-height: 1.25; }
+.fx-arc { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim); }
+
 .fx-banner {
   display: inline-block;
   font-weight: 900;
@@ -292,10 +316,155 @@ body.fx-on main.wrap {
 .fx-grunt { background: var(--good); color: #06231f; }
 .fx-officer { background: var(--accent-2); color: #2a1a05; }
 .fx-warlord { background: var(--danger); color: #2a0505; }
-.fx-lc { color: var(--text-dim); font-size: 0.85rem; margin: 0 0 0.6rem; }
-.fx-taunt { font-style: italic; color: var(--text); margin: 0.6rem auto; max-width: 460px; }
-.fx-taunt span { font-style: normal; color: var(--text-dim); font-size: 0.85rem; }
-.fx-rules { font-size: 0.82rem; color: var(--text-dim); }
+.fx-lc { color: var(--text-dim); font-size: 0.85rem; margin: 0 0 0.9rem; }
+
+.fx-jobcard {
+  padding: 0.85rem 1rem;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+}
+.fx-jobcard h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+.fx-jobcard p { margin: 0; font-size: 1.02rem; line-height: 1.6; }
+
+.fx-eg {
+  margin: 0.7rem 0 0;
+  padding: 0.55rem 0.7rem;
+  background: var(--bg);
+  border-radius: 6px;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.84rem;
+  color: var(--accent-2);
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+/* Once the fight is running the job folds down to one line you can flick open
+   mid-exchange. It is never gone and it is never in the way. */
+.fx-job { margin-bottom: 0.8rem; }
+.fx-job > summary {
+  cursor: pointer;
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  list-style: none;
+}
+.fx-job > summary::-webkit-details-marker { display: none; }
+.fx-job > summary::before { content: "▸ "; }
+.fx-job[open] > summary::before { content: "▾ "; }
+.fx-job > summary:hover { color: var(--accent); }
+.fx-job p { margin: 0.5rem 0 0; font-size: 0.92rem; line-height: 1.6; color: var(--text-dim); }
+
+/* ---- the conversation ---------------------------------------------------
+   The crew work the problem out loud, one line per click. It is the same
+   pencil figures as the fighters, drawn small, on the same paper. */
+
+.fx-talk { display: grid; gap: 0.55rem; margin: 0.9rem 0 0; }
+
+.fx-line {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s, transform 0.25s;
+}
+.fx-line.in { opacity: 1; transform: none; }
+
+/* 56x66 is the 78x92 the portrait is drawn at, scaled down — any other ratio
+   squashes the figure. */
+.fx-face {
+  flex: 0 0 auto;
+  width: 56px;
+  height: 66px;
+  border-radius: 8px;
+  background: var(--fx-paper, #f4ecd8);
+  overflow: hidden;
+  display: grid;
+  place-items: end center;
+}
+.fx-face svg { width: 100%; height: 100%; overflow: visible; }
+
+.fx-bub {
+  flex: 1;
+  padding: 0.55rem 0.8rem;
+  background: var(--bg-panel-2);
+  border-radius: 3px 10px 10px 10px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.fx-bub b {
+  display: block;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 0.2rem;
+}
+
+/* ---- exchange kinds -----------------------------------------------------
+   A kind has to be legible in the first half second, before you have read a
+   word of the question — hence a coloured tag and a matching edge on the card. */
+
+.fx-lead {
+  margin: 0 0 0.7rem;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+.fx-round { border-left: 3px solid transparent; padding-left: 0.8rem; margin-left: -0.8rem; }
+.fx-k-ambush { border-left-color: var(--danger); }
+.fx-k-guard { border-left-color: #8a2be2; }
+.fx-k-code { border-left-color: var(--accent-2); }
+.fx-k-finish { border-left-color: #ffd700; }
+
+.fx-tag-ambush { background: var(--danger); }
+.fx-tag-guard { background: #8a2be2; color: #fff; }
+.fx-tag-code { background: var(--accent-2); color: #2a1a05; }
+.fx-tag-finish { background: #ffd700; color: #2a2200; }
+
+.fx-k-ambush .fx-lead { color: var(--danger); font-style: normal; font-weight: 600; }
+.fx-k-finish .fx-lead { color: #ffd700; font-style: normal; font-weight: 600; }
+
+/* ---- code ---------------------------------------------------------------- */
+
+.fx-code {
+  margin: 0 0 0.9rem;
+  padding: 0.8rem 0.9rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  white-space: pre;
+  overflow-x: auto;
+  tab-size: 4;
+}
+.fx-code .k { color: #c792ea; font-style: normal; }
+.fx-code .s { color: #c3e88d; font-style: normal; }
+.fx-code .c { color: #5f7285; font-style: italic; }
+.fx-code .n { color: #f78c6c; font-style: normal; }
+.fx-sol { margin-bottom: 0.7rem; }
+
+.fx-cx, .fx-pit {
+  margin: 0 0 0.6rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+.fx-cx code, .fx-pit code {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.86em;
+  color: var(--accent-2);
+}
+.fx-pit b { color: var(--text); }
 
 /* ---- result ------------------------------------------------------------- */
 
@@ -372,13 +541,85 @@ body.fx-on main.wrap {
 
 .fx-endrow { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 
-/* ---- picker (dojo.html) ------------------------------------------------- */
+/* ---- picker (dojo.html) -------------------------------------------------
+   Three buttons and a shrug. You say how hard, the page picks the problem —
+   scanning 150 titles for one to attempt is homework, not a game. The full
+   list is still there, folded away, for when you want a specific fight. */
+
+.dojo-pick {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+.dojo-pick button {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1.1rem 0.9rem;
+  border: 1px solid var(--border);
+  border-top-width: 3px;
+  border-radius: var(--radius);
+  background: var(--bg-panel);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.1s, border-color 0.15s, background 0.15s;
+}
+.dojo-pick button:hover { transform: translateY(-2px); background: var(--bg-panel-2); }
+.dojo-pick .p-tier { font-weight: 900; letter-spacing: 0.18em; font-size: 0.9rem; }
+.dojo-pick .p-foe { color: var(--text-dim); font-size: 0.86rem; }
+.dojo-pick .p-n { color: var(--text-dim); font-size: 0.72rem; letter-spacing: 0.06em; }
+
+.dojo-pick [data-d="E"] { border-top-color: var(--good); }
+.dojo-pick [data-d="M"] { border-top-color: var(--accent-2); }
+.dojo-pick [data-d="H"] { border-top-color: var(--danger); }
+.dojo-pick [data-d="E"] .p-tier { color: var(--good); }
+.dojo-pick [data-d="M"] .p-tier { color: var(--accent-2); }
+.dojo-pick [data-d="H"] .p-tier { color: var(--danger); }
+.dojo-pick [data-d="E"]:hover { border-color: var(--good); }
+.dojo-pick [data-d="M"]:hover { border-color: var(--accent-2); }
+.dojo-pick [data-d="H"]:hover { border-color: var(--danger); }
+
+.dojo-go {
+  width: 100%;
+  padding: 0.85rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-dim);
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+}
+.dojo-go:hover { color: var(--accent); border-color: var(--accent); border-style: solid; }
+
+.dojo-tally {
+  margin: 0.9rem 0 1.4rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+.dojo-tally b { color: var(--text); }
+
+.dojo-browse > summary {
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  padding: 0.5rem 0;
+  list-style: none;
+}
+.dojo-browse > summary::-webkit-details-marker { display: none; }
+.dojo-browse > summary::before { content: "▸ "; }
+.dojo-browse[open] > summary::before { content: "▾ "; }
+.dojo-browse > summary:hover { color: var(--accent); }
 
 .dojo-filters {
   display: flex;
   gap: 0.4rem;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
+  margin: 0.7rem 0 1rem;
 }
 .dojo-filters button {
   padding: 0.35rem 0.75rem;
@@ -456,4 +697,15 @@ body.fx-on main.wrap {
   .fx-shout.big { font-size: 2rem; }
   .fx-grade { width: 60px; height: 60px; font-size: 2.4rem; }
   .fx-stats { gap: 1rem; }
+  .fx-panel { padding: 0.8rem 0.7rem; }
+  .fx-brief h2 { font-size: 1.15rem; }
+  .fx-jobcard { padding: 0.7rem 0.8rem; }
+  .fx-jobcard p { font-size: 0.96rem; }
+  .fx-face { width: 44px; height: 52px; }
+  .fx-code { font-size: 0.74rem; padding: 0.6rem; }
+  .fx-opt code { font-size: 0.76rem; }
+  /* Three tiers side by side stop being tappable well before 640px. */
+  .dojo-pick { grid-template-columns: 1fr; gap: 0.5rem; }
+  .dojo-pick button { padding: 0.8rem; }
+  .fx-endrow .fx-btn { flex: 1; }
 }

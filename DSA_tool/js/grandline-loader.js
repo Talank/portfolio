@@ -32,27 +32,44 @@
     return !!(root.EPISODES && root.EPISODES[id]);
   }
 
-  function load(group, cb) {
-    if (loaded[group]) { cb(null); return; }
-    /* An arc that 404s is an arc nobody has written yet — remember that rather
+  /* One <script> per URL, ever, however many callers ask for it. Everything
+     on-demand in this course goes through here: arc files, and the two data
+     files the Dojo only needs once a fight actually starts. */
+  function script(url, key, cb) {
+    if (loaded[key]) { cb(null); return; }
+    /* A file that 404s is one nobody has written yet — remember that rather
        than re-requesting it on every click. */
-    if (failed[group]) { cb(failed[group]); return; }
-    if (loading[group]) { loading[group].push(cb); return; }
-    loading[group] = [cb];
+    if (failed[key]) { cb(failed[key]); return; }
+    if (loading[key]) { loading[key].push(cb); return; }
+    loading[key] = [cb];
 
     var s = document.createElement('script');
-    s.src = BASE + group + '.js';
+    s.src = url;
     s.onload = function () {
-      loaded[group] = true;
-      var waiting = loading[group]; delete loading[group];
+      loaded[key] = true;
+      var waiting = loading[key]; delete loading[key];
       waiting.forEach(function (fn) { fn(null); });
     };
     s.onerror = function () {
-      failed[group] = new Error('could not load arc: ' + group);
-      var waiting = loading[group]; delete loading[group];
-      waiting.forEach(function (fn) { fn(failed[group]); });
+      failed[key] = new Error('could not load: ' + url);
+      var waiting = loading[key]; delete loading[key];
+      waiting.forEach(function (fn) { fn(failed[key]); });
     };
     document.head.appendChild(s);
+  }
+
+  function load(group, cb) {
+    script(BASE + group + '.js', group, cb);
+  }
+
+  /* The 35 problems with no arc file keep their scene and their quiz in two
+     generated files. Together they are ~160 KB of prose that most visits never
+     touch, so nothing loads them until a fight needs one. */
+  function loadLegacy(cb) {
+    var left = 2, err = null;
+    function done(e) { err = err || e; if (--left === 0) cb(err); }
+    script('data/dojo-scenes.js', '@scenes', done);
+    script('data/legacy-quizzes.js', '@quizzes', done);
   }
 
   /* ensure(id, cb) — hand back the full episode, fetching its arc if needed. */
@@ -82,7 +99,7 @@
 
   root.GrandLine = {
     index: index, entry: entry, ids: ids,
-    ensure: ensure, load: load, loadAll: loadAll,
+    ensure: ensure, load: load, loadAll: loadAll, loadLegacy: loadLegacy,
     isLoaded: function (g) { return !!loaded[g]; }
   };
 }(typeof window !== 'undefined' ? window : this));

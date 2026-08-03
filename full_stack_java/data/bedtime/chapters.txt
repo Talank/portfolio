@@ -1,0 +1,186 @@
+निद्राको लग पोज — अध्याय सूची
+
+=== सुत्दै / Bedtime ===
+
+— छोटो (Short): 03:01:06.25, 18.0 MB —
+00:00:00.00  00  ० — प्रस्तावना: निद्राको लग पोज
+00:09:45.35  01  १ — जहाजको नक्सा: JDK, JRE र JVM
+00:17:19.96  02  २ — नाम र आकार: टाइप, भेरिएबल र अपरेटर
+00:24:26.54  03  ३ — बाटो र मोड: लुप, स्विच र मेथड
+00:30:47.12  04  ४ — वस्तु बनाउने: क्लास, कन्स्ट्रक्टर र encapsulation
+00:37:20.81  05  ५ — उत्तराधिकार र बहुरूप: extends, super र dynamic dispatch
+00:43:35.05  06  ६ — वाचा: इन्टरफेस र default मेथड
+00:49:36.79  07  ७ — आँधी सम्हाल्ने: exception र try-with-resources
+00:55:45.06  08  ८ — अटल अक्षर: String, equals र hashCode
+01:02:17.75  09  ९ — इन्जिन कोठा: क्लासलोडर, बाइटकोड र JIT
+01:08:48.22  10  १० — सम्झनाको भण्डार: heap, stack र गार्बेज कलेक्सन
+01:15:04.62  11  ११ — औजारको बाकस: javap, JFR, प्रोफाइलिङ र reflection
+01:21:27.14  12  १२ — साँचोको आकार: generics, type erasure र PECS
+01:28:15.79  13  १३ — भण्डार कोठा: List, ArrayList र LinkedList
+01:34:02.11  14  १४ — नामीको नक्सा: HashMap भित्रको कथा
+01:39:19.65  15  १५ — सेट, लाम र प्राथमिकता: Set, Queue र Deque
+01:45:08.13  16  १६ — छोटो आदेश: lambda र functional interface
+01:51:02.29  17  १७ — बग्ने धारा: Stream, Collector र Optional
+01:57:37.36  18  १८ — नयाँ आकार: record, sealed, pattern matching र java.time
+02:03:54.35  19  १९ — धेरै हात: thread, synchronized र memory model
+02:10:39.53  20  २० — काम बाँड्ने: executor, future र virtual thread
+02:16:34.37  21  २१ — जहाज जोड्ने: Maven, POM र बिल्ड
+02:23:17.56  22  २२ — जाँचको अनुशासन: JUnit, Mockito र flaky test
+02:28:25.62  23  २३ — भण्डारको किताब: SQL, JDBC र JPA
+02:34:11.73  24  २४ — सन्देशको बाटो: HTTP, REST र Spring
+02:40:44.30  25  २५ — पर्दा र किनार: frontend, JavaFX र प्याकेजिङ
+02:46:43.92  26  २६ — शब्दको खोजी: Lucene, embedding र semantic search
+02:53:09.39  27  २७ — लग पोज: capstone र अन्तिम बिसौनी
+
+— मध्यम (Medium): 03:55:06.29, 23.4 MB —
+00:00:00.00  00  ० — प्रस्तावना: निद्राको लग पोज
+00:12:40.03  01  १ — जहाजको नक्सा: JDK, JRE र JVM
+00:22:23.39  02  २ — नाम र आकार: टाइप, भेरिएबल र अपरेटर
+00:31:43.02  03  ३ — बाटो र मोड: लुप, स्विच र मेथड
+00:40:10.27  04  ४ — वस्तु बनाउने: क्लास, कन्स्ट्रक्टर र encapsulation
+00:48:35.93  05  ५ — उत्तराधिकार र बहुरूप: extends, super र dynamic dispatch
+00:56:53.18  06  ६ — वाचा: इन्टरफेस र default मेथड
+01:04:31.08  07  ७ — आँधी सम्हाल्ने: exception र try-with-resources
+01:12:29.84  08  ८ — अटल अक्षर: String, equals र hashCode
+01:20:52.38  09  ९ — इन्जिन कोठा: क्लासलोडर, बाइटकोड र JIT
+01:29:19.63  10  १० — सम्झनाको भण्डार: heap, stack र गार्बेज कलेक्सन
+01:37:26.05  11  ११ — औजारको बाकस: javap, JFR, प्रोफाइलिङ र reflection
+01:45:31.58  12  १२ — साँचोको आकार: generics, type erasure र PECS
+01:54:22.52  13  १३ — भण्डार कोठा: List, ArrayList र LinkedList
+02:02:11.22  14  १४ — नामीको नक्सा: HashMap भित्रको कथा
+02:09:08.39  15  १५ — सेट, लाम र प्राथमिकता: Set, Queue र Deque
+02:16:40.70  16  १६ — छोटो आदेश: lambda र functional interface
+02:24:27.18  17  १७ — बग्ने धारा: Stream, Collector र Optional
+02:32:40.69  18  १८ — नयाँ आकार: record, sealed, pattern matching र java.time
+02:40:48.04  19  १९ — धेरै हात: thread, synchronized र memory model
+02:49:17.41  20  २० — काम बाँड्ने: executor, future र virtual thread
+02:56:58.98  21  २१ — जहाज जोड्ने: Maven, POM र बिल्ड
+03:05:40.04  22  २२ — जाँचको अनुशासन: JUnit, Mockito र flaky test
+03:12:51.64  23  २३ — भण्डारको किताब: SQL, JDBC र JPA
+03:20:48.94  24  २४ — सन्देशको बाटो: HTTP, REST र Spring
+03:29:15.83  25  २५ — पर्दा र किनार: frontend, JavaFX र प्याकेजिङ
+03:37:00.83  26  २६ — शब्दको खोजी: Lucene, embedding र semantic search
+03:45:18.66  27  २७ — लग पोज: capstone र अन्तिम बिसौनी
+
+— लामो (Long): 05:09:55.74, 30.6 MB —
+00:00:00.00  00  ० — प्रस्तावना: निद्राको लग पोज
+00:16:02.07  01  १ — जहाजको नक्सा: JDK, JRE र JVM
+00:28:01.61  02  २ — नाम र आकार: टाइप, भेरिएबल र अपरेटर
+00:40:15.99  03  ३ — बाटो र मोड: लुप, स्विच र मेथड
+00:51:26.51  04  ४ — वस्तु बनाउने: क्लास, कन्स्ट्रक्टर र encapsulation
+01:02:34.07  05  ५ — उत्तराधिकार र बहुरूप: extends, super र dynamic dispatch
+01:13:12.76  06  ६ — वाचा: इन्टरफेस र default मेथड
+01:23:22.93  07  ७ — आँधी सम्हाल्ने: exception र try-with-resources
+01:34:00.92  08  ८ — अटल अक्षर: String, equals र hashCode
+01:44:53.57  09  ९ — इन्जिन कोठा: क्लासलोडर, बाइटकोड र JIT
+01:55:38.57  10  १० — सम्झनाको भण्डार: heap, stack र गार्बेज कलेक्सन
+02:06:08.41  11  ११ — औजारको बाकस: javap, JFR, प्रोफाइलिङ र reflection
+02:16:46.35  12  १२ — साँचोको आकार: generics, type erasure र PECS
+02:27:47.83  13  १३ — भण्डार कोठा: List, ArrayList र LinkedList
+02:38:31.35  14  १४ — नामीको नक्सा: HashMap भित्रको कथा
+02:47:54.77  15  १५ — सेट, लाम र प्राथमिकता: Set, Queue र Deque
+02:58:06.61  16  १६ — छोटो आदेश: lambda र functional interface
+03:08:30.09  17  १७ — बग्ने धारा: Stream, Collector र Optional
+03:19:19.97  18  १८ — नयाँ आकार: record, sealed, pattern matching र java.time
+03:29:43.96  19  १९ — धेरै हात: thread, synchronized र memory model
+03:41:22.01  20  २० — काम बाँड्ने: executor, future र virtual thread
+03:51:33.74  21  २१ — जहाज जोड्ने: Maven, POM र बिल्ड
+04:02:55.34  22  २२ — जाँचको अनुशासन: JUnit, Mockito र flaky test
+04:13:33.38  23  २३ — भण्डारको किताब: SQL, JDBC र JPA
+04:24:22.81  24  २४ — सन्देशको बाटो: HTTP, REST र Spring
+04:35:34.89  25  २५ — पर्दा र किनार: frontend, JavaFX र प्याकेजिङ
+04:46:16.34  26  २६ — शब्दको खोजी: Lucene, embedding र semantic search
+04:57:06.43  27  २७ — लग पोज: capstone र अन्तिम बिसौनी
+
+=== गाडीमा / Driving ===
+
+— छोटो (Short): 02:04:59.63, 13.8 MB —
+00:00:00.00  00  ० — प्रस्तावना: निद्राको लग पोज
+00:06:40.19  01  १ — जहाजको नक्सा: JDK, JRE र JVM
+00:11:49.14  02  २ — नाम र आकार: टाइप, भेरिएबल र अपरेटर
+00:16:43.18  03  ३ — बाटो र मोड: लुप, स्विच र मेथड
+00:20:57.81  04  ४ — वस्तु बनाउने: क्लास, कन्स्ट्रक्टर र encapsulation
+00:25:39.60  05  ५ — उत्तराधिकार र बहुरूप: extends, super र dynamic dispatch
+00:30:05.09  06  ६ — वाचा: इन्टरफेस र default मेथड
+00:34:24.33  07  ७ — आँधी सम्हाल्ने: exception र try-with-resources
+00:38:07.38  08  ८ — अटल अक्षर: String, equals र hashCode
+00:42:51.83  09  ९ — इन्जिन कोठा: क्लासलोडर, बाइटकोड र JIT
+00:47:22.95  10  १० — सम्झनाको भण्डार: heap, stack र गार्बेज कलेक्सन
+00:51:46.91  11  ११ — औजारको बाकस: javap, JFR, प्रोफाइलिङ र reflection
+00:56:18.43  12  १२ — साँचोको आकार: generics, type erasure र PECS
+01:01:02.78  13  १३ — भण्डार कोठा: List, ArrayList र LinkedList
+01:05:03.16  14  १४ — नामीको नक्सा: HashMap भित्रको कथा
+01:08:47.28  15  १५ — सेट, लाम र प्राथमिकता: Set, Queue र Deque
+01:13:02.39  16  १६ — छोटो आदेश: lambda र functional interface
+01:17:09.90  17  १७ — बग्ने धारा: Stream, Collector र Optional
+01:21:36.81  18  १८ — नयाँ आकार: record, sealed, pattern matching र java.time
+01:25:51.96  19  १९ — धेरै हात: thread, synchronized र memory model
+01:30:29.34  20  २० — काम बाँड्ने: executor, future र virtual thread
+01:34:34.21  21  २१ — जहाज जोड्ने: Maven, POM र बिल्ड
+01:38:58.43  22  २२ — जाँचको अनुशासन: JUnit, Mockito र flaky test
+01:42:43.32  23  २३ — भण्डारको किताब: SQL, JDBC र JPA
+01:46:40.03  24  २४ — सन्देशको बाटो: HTTP, REST र Spring
+01:51:06.15  25  २५ — पर्दा र किनार: frontend, JavaFX र प्याकेजिङ
+01:55:11.12  26  २६ — शब्दको खोजी: Lucene, embedding र semantic search
+01:59:42.06  27  २७ — लग पोज: capstone र अन्तिम बिसौनी
+
+— मध्यम (Medium): 02:43:29.83, 18.0 MB —
+00:00:00.00  00  ० — प्रस्तावना: निद्राको लग पोज
+00:08:39.32  01  १ — जहाजको नक्सा: JDK, JRE र JVM
+00:15:17.68  02  २ — नाम र आकार: टाइप, भेरिएबल र अपरेटर
+00:21:47.43  03  ३ — बाटो र मोड: लुप, स्विच र मेथड
+00:27:32.56  04  ४ — वस्तु बनाउने: क्लास, कन्स्ट्रक्टर र encapsulation
+00:33:36.62  05  ५ — उत्तराधिकार र बहुरूप: extends, super र dynamic dispatch
+00:39:27.92  06  ६ — वाचा: इन्टरफेस र default मेथड
+00:44:59.09  07  ७ — आँधी सम्हाल्ने: exception र try-with-resources
+00:50:00.91  08  ८ — अटल अक्षर: String, equals र hashCode
+00:56:03.76  09  ९ — इन्जिन कोठा: क्लासलोडर, बाइटकोड र JIT
+01:02:02.14  10  १० — सम्झनाको भण्डार: heap, stack र गार्बेज कलेक्सन
+01:07:44.15  11  ११ — औजारको बाकस: javap, JFR, प्रोफाइलिङ र reflection
+01:13:29.46  12  १२ — साँचोको आकार: generics, type erasure र PECS
+01:19:39.72  13  १३ — भण्डार कोठा: List, ArrayList र LinkedList
+01:25:07.05  14  १४ — नामीको नक्सा: HashMap भित्रको कथा
+01:30:03.70  15  १५ — सेट, लाम र प्राथमिकता: Set, Queue र Deque
+01:35:32.68  16  १६ — छोटो आदेश: lambda र functional interface
+01:40:59.34  17  १७ — बग्ने धारा: Stream, Collector र Optional
+01:46:37.01  18  १८ — नयाँ आकार: record, sealed, pattern matching र java.time
+01:52:14.13  19  १९ — धेरै हात: thread, synchronized र memory model
+01:58:00.17  20  २० — काम बाँड्ने: executor, future र virtual thread
+02:03:20.86  21  २१ — जहाज जोड्ने: Maven, POM र बिल्ड
+02:09:08.01  22  २२ — जाँचको अनुशासन: JUnit, Mockito र flaky test
+02:14:20.49  23  २३ — भण्डारको किताब: SQL, JDBC र JPA
+02:19:48.56  24  २४ — सन्देशको बाटो: HTTP, REST र Spring
+02:25:39.25  25  २५ — पर्दा र किनार: frontend, JavaFX र प्याकेजिङ
+02:31:03.19  26  २६ — शब्दको खोजी: Lucene, embedding र semantic search
+02:36:53.21  27  २७ — लग पोज: capstone र अन्तिम बिसौनी
+
+— लामो (Long): 03:36:21.63, 23.6 MB —
+00:00:00.00  00  ० — प्रस्तावना: निद्राको लग पोज
+00:10:57.30  01  १ — जहाजको नक्सा: JDK, JRE र JVM
+00:19:15.00  02  २ — नाम र आकार: टाइप, भेरिएबल र अपरेटर
+00:27:49.15  03  ३ — बाटो र मोड: लुप, स्विच र मेथड
+00:35:24.39  04  ४ — वस्तु बनाउने: क्लास, कन्स्ट्रक्टर र encapsulation
+00:43:23.40  05  ५ — उत्तराधिकार र बहुरूप: extends, super र dynamic dispatch
+00:50:53.63  06  ६ — वाचा: इन्टरफेस र default मेथड
+00:58:11.65  07  ७ — आँधी सम्हाल्ने: exception र try-with-resources
+01:05:09.22  08  ८ — अटल अक्षर: String, equals र hashCode
+01:12:57.62  09  ९ — इन्जिन कोठा: क्लासलोडर, बाइटकोड र JIT
+01:20:34.67  10  १० — सम्झनाको भण्डार: heap, stack र गार्बेज कलेक्सन
+01:28:01.38  11  ११ — औजारको बाकस: javap, JFR, प्रोफाइलिङ र reflection
+01:35:36.78  12  १२ — साँचोको आकार: generics, type erasure र PECS
+01:43:19.24  13  १३ — भण्डार कोठा: List, ArrayList र LinkedList
+01:50:49.98  14  १४ — नामीको नक्सा: HashMap भित्रको कथा
+01:57:25.35  15  १५ — सेट, लाम र प्राथमिकता: Set, Queue र Deque
+02:04:47.48  16  १६ — छोटो आदेश: lambda र functional interface
+02:12:04.28  17  १७ — बग्ने धारा: Stream, Collector र Optional
+02:19:30.71  18  १८ — नयाँ आकार: record, sealed, pattern matching र java.time
+02:26:46.56  19  १९ — धेरै हात: thread, synchronized र memory model
+02:34:43.17  20  २० — काम बाँड्ने: executor, future र virtual thread
+02:41:51.79  21  २१ — जहाज जोड्ने: Maven, POM र बिल्ड
+02:49:31.36  22  २२ — जाँचको अनुशासन: JUnit, Mockito र flaky test
+02:57:10.96  23  २३ — भण्डारको किताब: SQL, JDBC र JPA
+03:04:39.25  24  २४ — सन्देशको बाटो: HTTP, REST र Spring
+03:12:27.54  25  २५ — पर्दा र किनार: frontend, JavaFX र प्याकेजिङ
+03:20:00.12  26  २६ — शब्दको खोजी: Lucene, embedding र semantic search
+03:27:38.60  27  २७ — लग पोज: capstone र अन्तिम बिसौनी
+

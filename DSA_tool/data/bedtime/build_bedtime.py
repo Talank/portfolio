@@ -76,6 +76,15 @@ import bedcodec  # noqa: E402
 SCRIPT_DIR = os.path.join(HERE, "script")
 PARTS_DIR = os.path.join(HERE, "parts")
 
+# What this voyage is called, wherever a name is written into a file rather
+# than spoken: audio tags, the CUE sheet, the head of chapters.txt. They are
+# module-level rather than inline because another course's bedtime build
+# imports this file as its engine and rebinds them — see
+# full_stack_java/data/bedtime/build_bedtime.py.
+TITLE = "निद्राको ग्रैंड लाइन"
+SUBTITLE = "DSA Bedtime Voyage"
+MONOLITH_NAME = "dsa-nidra-full"
+
 # Soothing profile. The site's decks run ne-NP-HemkalaNeural at -8%/-2Hz; this
 # is deliberately slower, lower and quieter — it is competing with sleep, not
 # with a lecture hall.
@@ -802,7 +811,7 @@ def mix(narration, total, out_mp3, marks):
         ["-filter_complex", graph,
          "-map", "[out]", "-ac", "1", "-ar", str(SR),
          "-c:a", "libmp3lame", "-b:a", "64k",
-         "-metadata", "title=निद्राको ग्रैंड लाइन — DSA Bedtime Voyage",
+         "-metadata", f"title={TITLE} — {SUBTITLE}",
          "-metadata", "artist=Talank Baral",
          "-metadata", "album=DSA Crash Course",
          out_mp3])
@@ -977,7 +986,7 @@ def render_segment(seg, index, ambient=True, split=False):
              "-application", "voip", "-vbr", "on",
              "-metadata", f"title={seg['num']} {seg['title']}",
              "-metadata", "artist=Talank Baral",
-             "-metadata", "album=निद्राको ग्रैंड लाइन", out])
+             "-metadata", f"album={TITLE}", out])
         os.remove(wav)
         return duration(out), gaps
 
@@ -1009,7 +1018,7 @@ def render_segment(seg, index, ambient=True, split=False):
              "-ac", "1", "-ar", str(SR), "-c:a", "libopus", "-b:a", "28k",
              "-metadata", f"title={seg['num']} {seg['title']}",
              "-metadata", "artist=Talank Baral",
-             "-metadata", "album=निद्राको ग्रैंड लाइन", out])
+             "-metadata", f"album={TITLE}", out])
     os.remove(wav)
     return duration(out), gaps
 
@@ -1243,7 +1252,7 @@ def build_segments(chapters, only=None, ambient=True, modes=MODES, reuse=False,
 
 def write_segment_sidecars(manifest):
     with open(os.path.join(HERE, "chapters.txt"), "w", encoding="utf-8") as f:
-        f.write("निद्राको ग्रैंड लाइन — अध्याय सूची\n\n")
+        f.write(f"{TITLE} — अध्याय सूची\n\n")
         for mode, mi in manifest["modes"].items():
             f.write(f"=== {mi['label']} / {mi['label_en']} ===\n\n")
             for tier in TIERS:
@@ -1281,7 +1290,7 @@ def write_sidecars(marks, total, out_mp3, keep_mp3=False):
                             else (base + ".opus", "WAVE"))
 
     with open(os.path.join(HERE, base + ".cue"), "w", encoding="utf-8") as f:
-        f.write('TITLE "निद्राको ग्रैंड लाइन"\n')
+        f.write(f'TITLE "{TITLE}"\n')
         f.write('PERFORMER "Talank Baral"\n')
         f.write(f'FILE "{audio_file}" {cue_kind}\n')
         for i, m in enumerate(marks, 1):
@@ -1370,7 +1379,7 @@ def main():
     narration, marks, speech_end = stitch(chapters)
     total = speech_end + TAIL
 
-    out_mp3 = os.path.join(HERE, "dsa-nidra-full.mp3")
+    out_mp3 = os.path.join(HERE, MONOLITH_NAME + ".mp3")
     if args.no_ambient:
         run(["-i", narration, "-af", f"apad=whole_dur={total:.2f}",
              "-c:a", "libmp3lame", "-b:a", "64k", out_mp3])

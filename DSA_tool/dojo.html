@@ -16,23 +16,44 @@
   <div id="fight-mount" hidden></div>
 
   <div id="picker">
-    <div class="dojo-filters" id="filters">
-      <button data-d="all" class="on">All 150</button>
-      <button data-d="E">Easy</button>
-      <button data-d="M">Medium</button>
-      <button data-d="H">Hard</button>
-      <button data-d="todo">Not yet beaten</button>
-      <button data-d="random" class="rnd">⚔️ Random fight</button>
+    <div class="dojo-pick" id="pick">
+      <button data-d="E">
+        <span class="p-tier">EASY</span>
+        <span class="p-foe">Marine Grunt</span>
+        <span class="p-n" id="p-n-E"></span>
+      </button>
+      <button data-d="M">
+        <span class="p-tier">MEDIUM</span>
+        <span class="p-foe">Marine Officer</span>
+        <span class="p-n" id="p-n-M"></span>
+      </button>
+      <button data-d="H">
+        <span class="p-tier">HARD</span>
+        <span class="p-foe">Warlord</span>
+        <span class="p-n" id="p-n-H"></span>
+      </button>
     </div>
-    <p class="lede" id="tally"></p>
-    <div class="dojo-arcs" id="arcs"></div>
+
+    <button id="surprise" class="dojo-go">⚔️ &nbsp;PICK ONE FOR ME</button>
+    <p class="dojo-tally" id="tally"></p>
+
+    <details class="dojo-browse" id="browse">
+      <summary>Browse all 150</summary>
+      <div class="dojo-filters" id="filters">
+        <button data-d="all" class="on">All</button>
+        <button data-d="E">Easy</button>
+        <button data-d="M">Medium</button>
+        <button data-d="H">Hard</button>
+        <button data-d="todo">Not yet beaten</button>
+      </div>
+      <div class="dojo-arcs" id="arcs"></div>
+    </details>
   </div>
 </main>
 
 <script src="data/schedule.js"></script>
 <script src="data/lc150.js"></script>
 <script src="data/dojo.js"></script>
-<script src="data/legacy-quizzes.js"></script>
 <script src="data/grandline/index.js"></script>
 <script src="js/grandline-loader.js"></script>
 <script src="js/stickman.js"></script>
@@ -63,20 +84,93 @@ buildHeader('dojo.html');
     try { localStorage.setItem(KEY, JSON.stringify(all)); } catch (e) { /* private mode — the fight still works */ }
   }
 
+  /* ---- who you fight next ----------------------------------------------
+     Choosing a problem out of a list of 150 is the step that stops you playing
+     a second one, so the page chooses. You only ever say how hard you want it,
+     and everything unbeaten comes up before anything you have already won. */
+  var recent = [];
+
+  function poolFor(d) {
+    var g = grades();
+    var all = LC.filter(function (p) { return !d || p.d === d; });
+    var fresh = all.filter(function (p) { return !g[p.n] && recent.indexOf(p.n) < 0; });
+    if (fresh.length) return fresh;
+    var unseen = all.filter(function (p) { return recent.indexOf(p.n) < 0; });
+    return unseen.length ? unseen : all;
+  }
+
+  function choose(d) {
+    var pool = poolFor(d);
+    var p = pool[Math.floor(Math.random() * pool.length)];
+    recent.push(p.n);
+    if (recent.length > 12) recent.shift();
+    return p;
+  }
+
+  /* "Pick one for me" leans easy while there are easy ones left to beat, so a
+     cold start is a warm-up rather than a Warlord. */
+  function chooseAny() {
+    var g = grades();
+    var weights = { E: 3, M: 2, H: 1 };
+    var bag = [];
+    ['E', 'M', 'H'].forEach(function (d) {
+      var left = LC.filter(function (p) { return p.d === d && !g[p.n]; }).length;
+      if (!left) return;
+      for (var i = 0; i < weights[d]; i++) bag.push(d);
+    });
+    return choose(bag.length ? bag[Math.floor(Math.random() * bag.length)] : null);
+  }
+
+  /* ---- the scene behind a fight -----------------------------------------
+     A fight opens on the problem in plain words and the crew talking it
+     through, which lives on the episode. The 115 problems with a Grand Line arc
+     carry it in the arc file; the other 35 carry it in data/dojo-scenes.js.
+     Both arrive on demand, so this page still starts with neither. */
+  function episodeFor(n) {
+    var eps = window.EPISODES || {};
+    var found = null;
+    Object.keys(eps).forEach(function (k) {
+      var e = eps[k];
+      if (!found && e.leetcode && e.leetcode.number === n) found = e;
+    });
+    return found;
+  }
+
+  function sceneFor(p) {
+    var e = episodeFor(p.n);
+    if (e) {
+      return {
+        arc: e.arc || (ARCS[p.g] && ARCS[p.g].arc),
+        epTitle: e.title,
+        problem: e.problem,
+        example: e.example,
+        steps: (e.steps || []).map(function (s) { return { speaker: s.speaker, line: s.line }; }),
+        solution: e.solution,
+        complexity: e.complexity,
+        pitfall: e.pitfall
+      };
+    }
+    var s = (window.DOJO_SCENES || {})[p.n];
+    if (!s) return {};
+    return {
+      arc: ARCS[p.g] && ARCS[p.g].arc,
+      epTitle: s.epTitle,
+      problem: s.problem,
+      example: s.example,
+      steps: s.steps,
+      solution: s.solution,
+      complexity: s.complexity,
+      pitfall: s.pitfall
+    };
+  }
+
   /* An episode's own quiz is the best possible drill for its problem, because
      it is written on a *tweaked* scenario. Grand Line episodes carry theirs in
      the arc file loaded for the fight; the original episodes' quizzes come from
-     data/legacy-quizzes.js keyed by problem number — which is why this page
-     never loads the 270 KB of episode prose it has no use for. */
+     data/legacy-quizzes.js keyed by problem number. */
   function episodeQuiz(n) {
-    var out = [];
-    var eps = window.EPISODES || {};
-    Object.keys(eps).forEach(function (k) {
-      var e = eps[k];
-      if (e.leetcode && e.leetcode.number === n && Array.isArray(e.quiz)) {
-        out = out.concat(e.quiz);
-      }
-    });
+    var e = episodeFor(n);
+    var out = (e && Array.isArray(e.quiz)) ? e.quiz : [];
     if (!out.length) out = (window.LEGACY_QUIZZES || {})[n] || [];
     return out.map(function (q) {
       return {
@@ -126,21 +220,20 @@ buildHeader('dojo.html');
       hero: hero,
       foe: foe,
       lesson: D.lessons[p.g],
+      scene: sceneFor(p),
       rounds: rounds,
-      onEnd: function (won, grade) {
-        if (won) record(p.n, grade);
-        closeFight();
-      }
+      onResult: function (won, grade) { if (won) record(p.n, grade); },
+      onNext: function () { startFight(choose(p.d)); },
+      onEnd: closeFight
     };
   }
 
   var mount = document.getElementById('fight-mount');
   var picker = document.getElementById('picker');
 
-  /* If this problem's arc has been written, pull its episode in first — the
-     episode's own quiz is a tweaked-scenario transfer question, which is a
-     sharper drill than anything the generic pattern bank holds. An arc that
-     does not exist yet simply fails to load and the bank carries the fight. */
+  /* Pull in whatever this problem's scene and quiz live in — its arc file if it
+     has one, the legacy pair if it does not — then start. Nothing here is on
+     the page until the moment a fight begins. */
   function startFight(p) {
     mount.hidden = false;
     picker.hidden = true;
@@ -149,9 +242,15 @@ buildHeader('dojo.html');
     document.body.classList.add('fx-on');
     mount.innerHTML = '<div class="fx-wait">…</div>';
     window.scrollTo(0, 0);
-    window.GrandLine.load(p.g, function () {
-      window.FightEngine.start(mount, buildFight(p));
-    });
+
+    var inArc = !!(window.GRANDLINE_INDEX &&
+      Object.keys(window.GRANDLINE_INDEX).some(function (k) {
+        return window.GRANDLINE_INDEX[k].n === p.n;
+      }));
+
+    function go() { window.FightEngine.start(mount, buildFight(p)); }
+    if (inArc) window.GrandLine.load(p.g, go);
+    else window.GrandLine.loadLegacy(go);
   }
 
   function closeFight() {
@@ -164,12 +263,18 @@ buildHeader('dojo.html');
     window.scrollTo(0, 0);
   }
 
+  /* ---- the picker -------------------------------------------------------- */
+
   var filter = 'all';
 
   function render() {
     var g = grades();
-    var byGroup = {};
-    LC.forEach(function (p) { (byGroup[p.g] = byGroup[p.g] || []).push(p); });
+
+    ['E', 'M', 'H'].forEach(function (d) {
+      var all = LC.filter(function (p) { return p.d === d; });
+      var done = all.filter(function (p) { return g[p.n]; }).length;
+      document.getElementById('p-n-' + d).textContent = done + ' / ' + all.length + ' beaten';
+    });
 
     var beaten = LC.filter(function (p) { return g[p.n]; }).length;
     document.getElementById('tally').innerHTML =
@@ -178,6 +283,11 @@ buildHeader('dojo.html');
         var c = LC.filter(function (p) { return g[p.n] === r; }).length;
         return c ? c + '&times; ' + r : '';
       }).filter(Boolean).join(' &middot; ') : '');
+
+    if (!document.getElementById('browse').open) return;   // nothing to draw yet
+
+    var byGroup = {};
+    LC.forEach(function (p) { (byGroup[p.g] = byGroup[p.g] || []).push(p); });
 
     var host = document.getElementById('arcs');
     host.innerHTML = '';
@@ -219,18 +329,22 @@ buildHeader('dojo.html');
     });
   }
 
+  document.getElementById('pick').addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (b) startFight(choose(b.dataset.d));
+  });
+
+  document.getElementById('surprise').addEventListener('click', function () {
+    startFight(chooseAny());
+  });
+
+  document.getElementById('browse').addEventListener('toggle', render);
+
   document.getElementById('filters').addEventListener('click', function (e) {
     var b = e.target.closest('button');
     if (!b) return;
-    if (b.dataset.d === 'random') {
-      var g = grades();
-      var pool = LC.filter(function (p) { return !g[p.n]; });
-      if (!pool.length) pool = LC;
-      startFight(pool[Math.floor(Math.random() * pool.length)]);
-      return;
-    }
     filter = b.dataset.d;
-    document.querySelectorAll('#filters button:not(.rnd)').forEach(function (x) {
+    document.querySelectorAll('#filters button').forEach(function (x) {
       x.classList.toggle('on', x.dataset.d === filter);
     });
     render();

@@ -3,7 +3,9 @@
 
 # build_bedtime.py's per-clip TTS cache. Regenerated from script/*.txt; kept
 # at full quality on disk so rebuilds don't re-stitch from lossy input.
+# One line per course: full_stack_java drives the same script as its engine.
 DSA_tool/data/bedtime/parts/
+full_stack_java/data/bedtime/parts/
 
 # The ~400MB PCM intermediate build_bedtime.py mixes from and then deletes.
 _narration.wav
