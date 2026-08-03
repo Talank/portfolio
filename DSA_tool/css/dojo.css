@@ -418,7 +418,7 @@ body.fx-on main.wrap {
   color: var(--text-dim);
   font-style: italic;
 }
-.fx-round { border-left: 3px solid transparent; padding-left: 0.8rem; margin-left: -0.8rem; }
+.fx-round, .fx-call { border-left: 3px solid transparent; padding-left: 0.8rem; margin-left: -0.8rem; }
 .fx-k-ambush { border-left-color: var(--danger); }
 .fx-k-guard { border-left-color: #8a2be2; }
 .fx-k-code { border-left-color: var(--accent-2); }
@@ -431,6 +431,17 @@ body.fx-on main.wrap {
 
 .fx-k-ambush .fx-lead { color: var(--danger); font-style: normal; font-weight: 600; }
 .fx-k-finish .fx-lead { color: #ffd700; font-style: normal; font-weight: 600; }
+
+/* ---- the call -----------------------------------------------------------
+   The screen before every clock. It is the brief again, in miniature: the job
+   is the largest thing on it, because that is the whole point of the screen
+   existing. Nothing here is timed, so nothing here is urgent-looking. */
+
+.fx-call .fx-jobcard { margin-top: 0.2rem; }
+.fx-call .fx-talk { margin-top: 1rem; }
+/* The counter is the only reassurance that the fight is finite; the call is
+   where there is room to actually read it. */
+.fx-call .fx-count { font-variant-numeric: tabular-nums; }
 
 /* ---- code ---------------------------------------------------------------- */
 

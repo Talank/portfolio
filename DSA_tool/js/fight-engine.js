@@ -321,12 +321,19 @@
      the drama, the banner, the noise — follows from those.
 
        clash   the baseline exchange
-       ambush  no warm-up line, 55% of the clock, but hits half again as hard
+       ambush  no crew talk, 55% of the clock, and it hits half again as hard
        guard   the enemy swings first; a right answer blocks and counters light
        code    the real solution with one line struck out, on a long clock
        finish  offered once the enemy is nearly down: right ends it here
 
-     `dmg` multiplies the hit you land. `taken` multiplies the hit you eat. */
+     `dmg` multiplies the hit you land. `taken` multiplies the hit you eat.
+
+     None of them start a clock on a player who has not been told the job. Every
+     exchange opens on a call — the tag, this lead, the problem restated, and
+     whatever the crew has to say — and the clock starts on the button at the
+     bottom of it. What varies is the exchange, never whether you were told what
+     you are being asked. An ambush is therefore short and heavy rather than
+     unannounced; being blindsided by the *question* was never the fun part. */
   var KINDS = {
     clash: {
       label: 'CLASH', clock: 1, dmg: 1, taken: 1,
@@ -334,7 +341,7 @@
     },
     ambush: {
       label: 'AMBUSH', clock: 0.55, dmg: 1.5, taken: 1, sfx: 'ambush',
-      lead: 'No warning. Answer now.'
+      lead: 'No talk this time. Short clock, heavy hit — read the job and go.'
     },
     guard: {
       label: 'GUARD', clock: 0.85, dmg: 0.5, taken: 1.5, sfx: 'windup', foeFirst: true,
@@ -777,6 +784,8 @@
     return portraits[speaker];
   }
 
+  /* The job as a strip that folds away — what sits under a live question, so the
+     problem is still one click away while the clock runs. */
   Fight.prototype.jobHtml = function (open) {
     var s = this.scene;
     if (!s.problem) return '';
@@ -785,6 +794,23 @@
       '<p>' + esc(s.problem) + '</p>' +
       (s.example ? '<pre class="fx-eg">' + esc(s.example) + '</pre>' : '') +
       '</details>';
+  };
+
+  /* The job as a block you cannot miss — what the brief and every call screen
+     show, with no clock running. Restating it on every call is deliberate: by
+     exchange four you have read three questions and a page of crew talk since
+     you last saw the problem.
+
+     The worked example is the part that goes stale fastest, so it rides along
+     on the calls where the brief is already out of sight — which is all of them
+     except the first, plus the code exchange, where the concrete shape of the
+     input is the whole question. */
+  Fight.prototype.jobCardHtml = function (withExample) {
+    var s = this.scene;
+    if (!s.problem) return '';
+    return '<div class="fx-jobcard"><h3>THE JOB</h3><p>' + esc(s.problem) + '</p>' +
+      (withExample && s.example ? '<pre class="fx-eg">' + esc(s.example) + '</pre>' : '') +
+      '</div>';
   };
 
   /* The opening screen. Whatever else changes, this is the screen that has to
@@ -803,10 +829,7 @@
       '<h2>' + esc(s.epTitle || this.cfg.title) + '</h2>' +
       '<p class="fx-lc">' + (this.cfg.lc ? 'LeetCode #' + this.cfg.lc + ' &middot; ' : '') +
         esc(this.cfg.title) + '</p>' +
-      (s.problem
-        ? '<div class="fx-jobcard"><h3>THE JOB</h3><p>' + esc(s.problem) + '</p>' +
-          (s.example ? '<pre class="fx-eg">' + esc(s.example) + '</pre>' : '') + '</div>'
-        : '');
+      this.jobCardHtml(true);
 
     var talkBox = el('div', 'fx-talk');
     card.appendChild(talkBox);
@@ -872,28 +895,61 @@
   /* The exchange                                                          */
   /* ==================================================================== */
 
+  /* The call. Nothing here is timed: the exchange announces itself, restates the
+     job, lets the crew say their piece, and waits. The clock lives entirely on
+     the other side of the button at the bottom.
+
+     This used to be two different screens — a conversation screen for the
+     exchanges that had dialogue left, and nothing at all for the ones that did
+     not, which went straight to a running clock. That is what made an exchange
+     four rounds in feel like being asked about a problem you were told about
+     five minutes ago. One screen now, always, dialogue or no dialogue. */
   Fight.prototype.next = function () {
     if (this.idx >= this.rounds.length || this.foeHp <= 0 || this.heroHp <= 0) {
       return this.finish();
     }
     var self = this;
     var kind = this.kindFor(this.idx);
+    var k = KINDS[kind] || KINDS.clash;
+    this.clearClock();
 
-    /* An ambush is an ambush because nothing preceded it. Every other kind gets
-       its slice of the conversation first. */
-    var lines = kind === 'ambush' ? [] : this.talkQueue.splice(0, this.perRound);
-    if (!lines.length) return this.ask(kind);
+    /* The one round where the enemy swings first is the one place a taunt
+       belongs — it is the only exchange they open. There is at most one guard
+       per fight, so it never becomes a catchphrase. */
+    var lead = (kind === 'guard' && this.cfg.foe && this.cfg.foe.taunt)
+      ? this.cfg.foe.taunt : k.lead;
 
-    var card = el('div', 'fx-card fx-scene');
-    card.innerHTML = this.jobHtml(false);
+    var card = el('div', 'fx-card fx-call fx-k-' + kind);
+    card.innerHTML =
+      '<div class="fx-meta">' +
+        '<span class="fx-tag fx-tag-' + kind + '">' + esc(k.label) + '</span>' +
+        '<span class="fx-count">' + (this.idx + 1) + ' / ' + this.rounds.length + '</span>' +
+      '</div>' +
+      (lead ? '<p class="fx-lead">' + esc(lead) + '</p>' : '') +
+      this.jobCardHtml(this.idx > 0 || kind === 'code');
+
     var box = el('div', 'fx-talk');
     card.appendChild(box);
     this.panel.innerHTML = '';
     this.panel.appendChild(card);
-    this.talk(card, box, lines, function () { self.ask(kind); }, 'READY');
+
+    /* An ambush brings no crew talk — that is what is short about it now, along
+       with the clock. Every other kind gets its slice of the conversation. */
+    var lines = kind === 'ambush' ? [] : this.talkQueue.splice(0, this.perRound);
+    if (lines.length) {
+      this.talk(card, box, lines, function () { self.engage(kind); }, 'READY');
+    } else {
+      var b = el('button', 'fx-btn fx-advance', 'READY');
+      b.addEventListener('click', function () { play('select'); self.engage(kind); });
+      card.appendChild(b);
+      b.focus();
+    }
   };
 
-  Fight.prototype.ask = function (kind) {
+  /* The exchange proper. Everything loud happens here rather than on the call,
+     because this is the moment the clock starts — an "AMBUSH!" over a screen
+     with no clock on it is just a caption. */
+  Fight.prototype.engage = function (kind) {
     var self = this;
     var k = KINDS[kind] || KINDS.clash;
     var q = this.rounds[this.idx];
@@ -908,12 +964,6 @@
     if (kind === 'finish') this.say('FINISH IT', 'phase', 1600);
     if (k.foeFirst) this.flash('shake', 300);
 
-    /* The one round where the enemy swings first is the one place a taunt
-       belongs — it is the only exchange they open. There is at most one guard
-       per fight, so it never becomes a catchphrase. */
-    var lead = (kind === 'guard' && this.cfg.foe && this.cfg.foe.taunt)
-      ? this.cfg.foe.taunt : k.lead;
-
     var card = el('div', 'fx-card fx-round fx-k-' + kind);
     card.innerHTML =
       this.jobHtml(false) +
@@ -921,7 +971,6 @@
         '<span class="fx-tag fx-tag-' + kind + '">' + esc(k.label) + '</span>' +
         '<span class="fx-count">' + (this.idx + 1) + ' / ' + this.rounds.length + '</span>' +
       '</div>' +
-      (lead ? '<p class="fx-lead">' + esc(lead) + '</p>' : '') +
       (q.code ? '<pre class="fx-code">' + highlight(q.code) + '</pre>' : '') +
       '<div class="fx-q">' + esc(q.q) + '</div>';
 
@@ -984,6 +1033,19 @@
 
   Fight.prototype.stopClock = function () {
     cancelAnimationFrame(this.raf);
+  };
+
+  /* Put the HUD clock back to rest. Stopping the clock only stops it counting —
+     the last number and a half-drained bar stay on screen, which on a call
+     screen reads as a clock that is already running against you. The call is
+     supposed to be the one place with no time pressure, so it has to look like
+     one. */
+  Fight.prototype.clearClock = function () {
+    this.stopClock();
+    this.lastTickSec = null;
+    this.secsEl.textContent = '--';
+    this.clockEl.style.width = '100%';
+    this.clockEl.classList.remove('urgent');
   };
 
   Fight.prototype.timeUp = function () {
