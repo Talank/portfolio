@@ -236,7 +236,16 @@ STYLES = {
     "steady":  {"steady": True},
     # Delivery, not character. These are the ones that make a paragraph sound
     # read rather than recited.
-    "slow":    {"rate": SLOW_DELTA},          # the term-teaching register
+    #
+    # `teach` is the register of the paragraph that first names a structure. It
+    # used to be SLOW_DELTA — eight points off the rate — and it dragged: the
+    # listener's report was that the narrator "becomes slow", which is exactly
+    # what eleven per cent of extra length sounds like over a whole paragraph.
+    # The original measurement had already said why that was the wrong lever:
+    # the English term is not spoken fast, it just arrives with no air around
+    # it. Air is now available as a beat (see BEATS), so this holds still and
+    # sits a shade lower instead, and the term gets the pause it needed.
+    "teach":   {"rate": -2.0, "pitch": -1.0, "gain": +0.5, "steady": True},
     "hush":    {"rate": -6.0, "pitch": -4.0, "gain": -3.5},
     "whisper": {"rate": -10.0, "pitch": -8.0, "gain": -7.0},
     "aside":   {"rate": -2.0, "pitch": -5.0, "gain": -4.0},   # confiding
@@ -258,6 +267,91 @@ STYLES = {
     "brook":   {"rate": -5.0, "pitch": +14.0, "gain": -1.0},
 }
 
+# `slow` was the original spelling of the teaching register, and 68 paragraphs
+# across the two voyages are marked with it. Kept as an alias so those scripts
+# keep working rather than being rewritten for a rename.
+STYLES["slow"] = STYLES["teach"]
+
+
+# What the same person sounds like in a different mood, added on top of
+# whichever register they are being read in: `[luffy:excited]`, `[robin:sad]`.
+#
+# Composed rather than enumerated. A character is a voice and a mood is
+# something that happens to a voice, so nine crew members and eleven moods are
+# twenty rows here instead of ninety-nine rows of luffy_excited, luffy_sad,
+# luffy_angry. It also means a mood can be applied to the narrator, which is
+# what the questions in these scripts want — the reader asks them, not a
+# character.
+#
+# The numbers are small on purpose. This is still a bedtime story: `angry` is
+# somebody speaking firmly with the pitch pressed down, not shouting, and
+# `excited` is Luffy being Luffy at two in the morning rather than at noon.
+EMOTIONS = {
+    # inferred from the sentence itself — see shade()
+    "asking":  {"rate": +1.0, "pitch": +3.5},
+    "bright":  {"rate": +4.0, "pitch": +4.0, "gain": +1.5},
+    # written by hand, where the story has a beat
+    "excited": {"rate": +7.0, "pitch": +7.0, "gain": +2.5},
+    "angry":   {"rate": +5.0, "pitch": -3.0, "gain": +3.0},
+    "sad":     {"rate": -6.0, "pitch": -5.0, "gain": -2.5},
+    "afraid":  {"rate": +8.0, "pitch": +7.0, "gain": -1.0},
+    "gentle":  {"rate": -3.0, "pitch": -1.0, "gain": -2.0},
+    "firm":    {"rate": -2.0, "pitch": -4.0, "gain": +1.5},
+    "amused":  {"rate": +3.0, "pitch": +5.0, "gain": +0.5},
+    "tired":   {"rate": -7.0, "pitch": -4.0, "gain": -2.0},
+    "awed":    {"rate": -4.0, "pitch": +4.0, "gain": -0.5},
+}
+
+_FIELDS = ("rate", "pitch", "gain")
+_RESOLVED = {}
+
+
+def resolve(spec):
+    """The parameters for a style spec, which may be `name` or `name:emotion`.
+
+    Deltas add: Luffy is already +6 rate and +11 pitch, and excited puts him at
+    +13 and +18. That compounding is deliberate — an excited Luffy should be
+    further from the narrator than an excited Robin, because he starts further
+    away.
+    """
+    if spec in _RESOLVED:
+        return _RESOLVED[spec]
+    base, _, mood = spec.partition(":")
+    out = dict(STYLES[base])
+    if mood:
+        for k, v in EMOTIONS[mood].items():
+            out[k] = out.get(k, 0.0) + v
+    # A mood is a departure, so it overrides the register's stillness: a
+    # `steady` block read in some mood is no longer the same recording twice,
+    # and should not pretend to be.
+    if mood:
+        out.pop("steady", None)
+    _RESOLVED[spec] = out
+    return out
+
+
+def valid_style(spec):
+    base, _, mood = spec.partition(":")
+    return base in STYLES and (not mood or mood in EMOTIONS)
+
+
+# Moods the sentence itself asks for, when the script has not asked for one.
+#
+# Only what the punctuation actually states. The scripts attribute their
+# dialogue plainly — 71 भनी, 43 भन्यो, 22 सोध्यो, and almost no emotional
+# adverbs — so anything richer than this would be a mood invented for a line
+# that never claimed to have one. A question rises, an exclamation brightens,
+# everything else is read as written.
+def shade(text, spec):
+    if ":" in spec:
+        return spec                      # the script was explicit; leave it
+    end = text.rstrip().rstrip(_CLOSERS)[-1:]
+    if end == "?":
+        return spec + ":asking"
+    if end == "!":
+        return spec + ":bright"
+    return spec
+
 # A mid-sentence beat, spelled as the punctuation that actually produces it.
 # Measured at the bedtime profile: a comma inside a sentence is worth +0.14s, an
 # em-dash +0.26s, an ellipsis +1.08s — and doubling any of them buys nothing at
@@ -276,7 +370,7 @@ BEATS = {"[...]": "…", "[..]": " — ", "[.]": ", "}
 # clause boundaries are.
 BEATS_FLAT = {"[...]": " — ", "[..]": " — ", "[.]": ", "}
 
-_STYLE_MARK = re.compile(r"\[(/|[a-z][a-z0-9_]*)\]")
+_STYLE_MARK = re.compile(r"\[(/|[a-z][a-z0-9_]*(?::[a-z]+)?)\]")
 
 GAP_PARA = 2.4          # seconds of silence between paragraphs
 GAP_CHAPTER = 7.0       # seconds of silence between chapters
@@ -554,9 +648,11 @@ def parse_spans(para, where=""):
                 sys.exit(f"{where}: [/] with nothing open: {para[:80]!r}")
             style = stack.pop()
         else:
-            if mark not in STYLES:
+            if not valid_style(mark):
                 sys.exit(f"{where}: unknown performance mark [{mark}]; "
-                         f"expected one of {', '.join(sorted(STYLES))}")
+                         f"expected NAME or NAME:MOOD, where NAME is one of "
+                         f"{', '.join(sorted(STYLES))} and MOOD is one of "
+                         f"{', '.join(sorted(EMOTIONS))}")
             stack.append(style)
             style = mark
         push(text)
@@ -721,7 +817,7 @@ def expand_recalls(body, where):
     return "\n".join(out), counts
 
 
-_READ = re.compile(r"@(?:slow|read\s+([a-z][a-z0-9_]*))")
+_READ = re.compile(r"@(?:slow|read\s+([a-z][a-z0-9_]*(?::[a-z]+)?))")
 
 
 def _read_style(line):
@@ -756,9 +852,11 @@ def split_tiers(body, where):
     paras, tier, style = [], "core", "narrator"
 
     def want(name):
-        if name not in STYLES:
+        if not valid_style(name):
             sys.exit(f"{where}: unknown reading style @read {name}; "
-                     f"expected one of {', '.join(sorted(STYLES))}")
+                     f"expected NAME or NAME:MOOD, where NAME is one of "
+                     f"{', '.join(sorted(STYLES))} and MOOD is one of "
+                     f"{', '.join(sorted(EMOTIONS))}")
         return name
 
     for block in re.split(r"\n\s*\n", body):
@@ -871,10 +969,10 @@ def units(spans, mode):
         kind = "sentence" if not si or out and _ends_sentence(out[-1][0]) \
             else "hand"
         if by_para:
-            out.append((text, style, kind))
+            out.append((text, shade(text, style), kind))
             continue
         for j, sent in enumerate(split_sentences(text)):
-            out.append((sent, style, "sentence" if j else kind))
+            out.append((sent, shade(sent, style), "sentence" if j else kind))
     return out
 
 
@@ -959,7 +1057,7 @@ def clip_params(mode, index, style):
     A `steady` style suppresses that — see expand_recalls(), where the method
     blocks want to be the same recording every time they come back.
     """
-    prof, st = MODE_PROFILE[mode], STYLES[style]
+    prof, st = MODE_PROFILE[mode], resolve(style)
     wander = 0.0 if st.get("steady") else 1.0
     rate = _pct(prof["rate"],
                 drift(index, prof["drift_rate"]) * wander + st.get("rate", 0.0))
@@ -1154,7 +1252,7 @@ def stitch(chapters):
                 if j:
                     add(silence(gap_for(us[j - 1][0], text, prof, kind,
                                         f"mono{ch['num']}p{i}s{j}")))
-                add(path, gain=STYLES[style].get("gain", 0.0))
+                add(path, gain=resolve(style).get("gain", 0.0))
         if ci != len(chapters) - 1:
             add(silence(GAP_CHAPTER))
     speech_end = t
@@ -1354,7 +1452,7 @@ def _narration_plan(seg):
                 add(silence(gap_for(us[j - 1][0], text, prof, kind,
                                     f"{mode}{seg['num']}p{pi}s{j}")),
                     is_gap=True)
-            add(path, gain=STYLES[style].get("gain", 0.0))
+            add(path, gain=resolve(style).get("gain", 0.0))
 
     # The runout past the last word is a pause too, and the longest one there
     # is: the bed should be rising as the segment hands over to the next.

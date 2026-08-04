@@ -28,9 +28,3 @@ __pycache__/
 
 .DS_Store
 node_modules/
-
-# TEMPORARY — samples/ is a set of listening tests staged so they can be
-# deployed and heard on another machine (the bedtime reading, the Dojo
-# narrator audition, the Nepali final vowel). Delete the folder and this
-# block once all three have been picked; nothing else depends on it.
-# samples/

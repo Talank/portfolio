@@ -159,6 +159,38 @@ WORDS = {
 }
 
 
+# ---------------------------------------------------------------------------
+# The dropped final vowel
+# ---------------------------------------------------------------------------
+#
+# ne-NP-HemkalaNeural drops the inherent अ off the end of some bare
+# imperatives, so "सुन" ("listen") lands as "sun" — clipped, and on exactly the
+# lines a story leans on ("अन्तिम कुरा सुन।"). A visarga puts the vowel back.
+#
+# Deliberately a list of words rather than a rule about final consonants,
+# because it is not true of all of them. Auditioned side by side, the listener's
+# verdict was सुनः yes, गरः yes, हेर already correct as it stands — and the
+# difference tracks the vowel before the final consonant: ग carries the
+# inherent अ and loses it, हे carries े and keeps it. Add a word here only
+# after hearing it; the ones not yet auditioned are listed in task #29.
+#
+# Only the *bare* imperative. सुन्नुहोस्, सुनेर and सुन्दर are different words
+# and the boundaries below leave them alone — including a following danda,
+# which is in the Devanagari block but is punctuation, not a letter.
+FINAL_VOWEL = {
+    "सुन": "सुनः",
+    "गर": "गरः",
+}
+
+_DEVA_LETTER = r"[ऀ-ॣ०-ॿ]"
+_FINAL_VOWEL_RE = re.compile(
+    rf"(?<!{_DEVA_LETTER})(" + "|".join(FINAL_VOWEL) + rf")(?!{_DEVA_LETTER})")
+
+
+def restore_final_vowel(text):
+    return _FINAL_VOWEL_RE.sub(lambda m: FINAL_VOWEL[m.group(1)], text)
+
+
 def _compile(mapping, flags=0):
     """One alternation over the whole mapping, longest key first.
 
@@ -178,7 +210,8 @@ _WORD_RE = _compile(WORDS, re.IGNORECASE)
 def to_devanagari(text):
     """Respell known English technical terms in Devanagari."""
     text = _PHRASE_RE.sub(lambda m: PHRASES[m.group(1)], text)
-    return _WORD_RE.sub(lambda m: WORDS[m.group(1).lower()], text)
+    text = _WORD_RE.sub(lambda m: WORDS[m.group(1).lower()], text)
+    return restore_final_vowel(text)
 
 
 # A comma is a very short breath — fine mid-sentence, far too short when a
