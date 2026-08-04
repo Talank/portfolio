@@ -1,0 +1,64 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>अध्याय ९ — पढाइको नमुना</title>
+<style>
+  body{background:#0e1117;color:#dfe6f0;font:15px/1.6 system-ui,sans-serif;
+       max-width:820px;margin:0 auto;padding:28px 20px 70px}
+  h1{font-size:20px;margin:0 0 4px} h2{font-size:15px;margin:26px 0 8px;
+       color:#8fd0ff;font-weight:600}
+  p.note{color:#93a1b5;margin:0 0 18px}
+  audio{width:100%;margin:6px 0 2px}
+  .row{display:flex;gap:10px;align-items:baseline;padding:5px 8px;border-radius:6px;
+       cursor:pointer} .row:hover{background:#182030}
+  .t{color:#7f8ea3;font-variant-numeric:tabular-nums;min-width:52px}
+  .s{min-width:78px;font-weight:600}
+  .x{color:#c3ccd9}
+  .beat::after{content:" ⟡";color:#e8b84b}
+  .franky,.zoro{color:#7fb2ff}.luffy,.usopp,.chopper{color:#ffb37f}
+  .nami,.sanji{color:#ffd97f}.robin{color:#c9a8ff}
+  .hush,.aside{color:#8fa3b8}.lift,.wonder{color:#7fe0b0}.slow{color:#9fb8d0}
+  .legend{color:#7f8ea3;font-size:13px;margin:10px 0 0}
+  code{background:#182030;padding:1px 5px;border-radius:4px}
+</style>
+<h1>अध्याय ९ — साङ्लो उल्टाउने</h1>
+<p class="note">One chapter, read the new way. Click any line to jump the player
+above it to that moment. ⟡ marks a paragraph with a hand-placed beat in it.</p>
+
+<h2>1. Before — what is on the site right now</h2>
+<audio id="a0" controls src="before-bedtime.opus"></audio>
+<p class="note">Same words, one voice, one pace, the same pause after every
+sentence.</p>
+
+<h2>2. After — bedtime</h2>
+<audio id="a1" controls src="after-bedtime.opus"></audio>
+<div id="m1"></div>
+
+<h2>3. After — driving</h2>
+<audio id="a2" controls src="after-drive.opus"></audio>
+<div id="m2"></div>
+
+<p class="legend">Registers in this chapter: <code>franky</code>
+<code>luffy</code> <code>zoro</code> — the crew, each a shading of the
+narrator's own voice, not a second speaker. <code>aside</code> — the narrator
+quoting a thought. <code>hush</code> — the scene settling.
+<code>slow</code> — the paragraph that teaches a term.
+<code>lift</code> / <code>wonder</code> — hand-placed, once each.</p>
+
+<script>
+fetch("moments.json").then(r => r.json()).then(d => {
+  const fmt = t => Math.floor(t / 60) + ":" + String(Math.floor(t % 60)).padStart(2, "0");
+  for (const [mode, id, aid] of [["bedtime", "m1", "a1"], ["drive", "m2", "a2"]]) {
+    const box = document.getElementById(id), au = document.getElementById(aid);
+    for (const m of d[mode]) {
+      const el = document.createElement("div");
+      el.className = "row";
+      el.innerHTML = `<span class="t">${fmt(m.t)}</span>` +
+                     `<span class="s ${m.s}">${m.s}</span>` +
+                     `<span class="x${m.beat ? " beat" : ""}"></span>`;
+      el.querySelector(".x").textContent = m.x;
+      el.onclick = () => { au.currentTime = Math.max(0, m.t - 1.2); au.play(); };
+      box.appendChild(el);
+    }
+  }
+});
+</script>
