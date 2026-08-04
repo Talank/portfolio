@@ -124,6 +124,38 @@ WORDS = {
     "tables": "टेबल",
     "sequence": "सिक्वेन्स",
     "subsequence": "सब सिक्वेन्स",
+    # Second pass, on the vocabulary *around* the structures. These are the
+    # words where the Nepali was formal — विधि, कोष्ठक, ठेगाना, गहिराइ — and the
+    # English is both the simpler word and the one that appears in the code.
+    # Same rule as above: the story keeps the Nepali metaphor, the noun is
+    # English, and the postposition attaches to it (`indexबाट`, `countले`).
+    "rule": "रुल",
+    "rules": "रुल",
+    "bracket": "ब्र्याकेट",
+    "brackets": "ब्र्याकेट",
+    "open": "ओपन",
+    "close": "क्लोज",
+    "index": "इन्डेक्स",
+    "indexes": "इन्डेक्स",
+    "top": "टप",
+    "count": "काउन्ट",
+    "counts": "काउन्ट",
+    "limit": "लिमिट",
+    "limits": "लिमिट",
+    "depth": "डेप्थ",
+    "distance": "डिस्टेन्स",
+    "weight": "वेट",
+    "weights": "वेट",
+    "condition": "कन्डिसन",
+    "conditions": "कन्डिसन",
+    "check": "चेक",
+    "group": "ग्रुप",
+    "groups": "ग्रुप",
+    "collection": "कलेक्सन",
+    "collections": "कलेक्सन",
+    "state": "स्टेट",
+    "special": "स्पेसल",
+    "shared": "सेयर्ड",
 }
 
 

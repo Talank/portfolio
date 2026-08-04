@@ -177,7 +177,13 @@ def main():
     for ch in chapters:
         problems = []
 
-        for para in ch["paras"]:
+        for raw in ch["paras"]:
+            # Performance marks are stripped before anything is judged: a
+            # sentence is a sentence whichever register it is read in, and a
+            # beat is a comma as far as "does this clause have a verb" goes.
+            # B.parse_spans has already rejected an unknown or unclosed mark by
+            # the time load_chapters returns.
+            para = B.strip_marks(raw)
             for sent in B.split_sentences(para):
                 if sent in allowed:
                     used_ok.add(sent)
@@ -216,7 +222,20 @@ def main():
         for s in sorted(stale):
             print(f"  {s}")
 
-    n_sent = sum(len(B.split_sentences(p)) for ch in chapters for p in ch["paras"])
+    styles = {}
+    for ch in chapters:
+        for spans in ch["spans"]:
+            for _, style in spans:
+                styles[style] = styles.get(style, 0) + 1
+    voiced = {k: v for k, v in styles.items()
+              if k not in ("narrator", "steady")}
+    if voiced:
+        print("\nperformance marks: "
+              + "  ".join(f"{k} {v}" for k, v in sorted(voiced.items(),
+                                                        key=lambda kv: -kv[1])))
+
+    n_sent = sum(len(B.split_sentences(B.strip_marks(p)))
+                 for ch in chapters for p in ch["paras"])
     print(f"\n{len(chapters)} chapters, {n_sent} sentences, "
           f"{len(allowed)} allowed fragment(s).")
     if problems_total or stale:
