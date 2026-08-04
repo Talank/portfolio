@@ -58,6 +58,7 @@
 <script src="js/grandline-loader.js"></script>
 <script src="js/stickman.js"></script>
 <script src="js/voice-engine.js"></script>
+<script src="js/dojo-voice.js"></script>
 <script src="js/fight-engine.js"></script>
 <script src="../shared/supabase-client.js"></script>
 <script src="../shared/auth-ui.js"></script>
@@ -248,7 +249,16 @@ buildHeader('dojo.html');
         return window.GRANDLINE_INDEX[k].n === p.n;
       }));
 
-    function go() { window.FightEngine.start(mount, buildFight(p)); }
+    /* The scene and its voices arrive together, so the fight opens already able
+       to talk. The manifest is ~100 KB and every fight needs it, but someone
+       who opens the picker and leaves needs none of it — which is why it is
+       fetched here and not in a <script> tag at the bottom of the page. */
+    var waiting = 2;
+    function go() {
+      if (--waiting) return;
+      window.FightEngine.start(mount, buildFight(p));
+    }
+    window.DojoVoice.load(go);
     if (inArc) window.GrandLine.load(p.g, go);
     else window.GrandLine.loadLegacy(go);
   }

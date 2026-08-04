@@ -270,12 +270,21 @@
     crowdSrc = null;
   }
 
-  /* Announcer. Speech synthesis reading our own words — same approach as the
-     episode narration, and it is what sells "ROUND ONE... FIGHT". */
+  /* Announcer — the ring voice that sells "ROUND ONE… FIGHT".
+
+     Pre-rendered now rather than synthesized in the browser. The announcer says
+     twenty-three fixed things, so they are twenty-three files built once by
+     data/dojo/audio/build_dojo_audio.py, which is both better acted and one
+     fewer thing that sounds different in every browser. The synthesizer stays
+     as the fallback for anyone whose browser cannot play the clip. */
   var announceOn = true;
-  function announce(text) {
-    if (!announceOn || muted || !root.VoiceEngine || !root.VoiceEngine.isSupported()) return;
-    root.VoiceEngine.speak(text, { pitch: 0.4, rate: 0.95, volume: 1, genderHint: 'male' });
+  function announce(key, text) {
+    if (!announceOn || muted) return;
+    var V = root.DojoVoice;
+    if (V) { V.play(V.announcer(key), { text: text, speaker: '_announcer' }); return; }
+    if (root.VoiceEngine && root.VoiceEngine.isSupported()) {
+      root.VoiceEngine.speak(text, { pitch: 0.4, rate: 0.95, volume: 1, genderHint: 'male' });
+    }
   }
 
   /* ==================================================================== */
@@ -615,6 +624,18 @@
     /* The dialogue is rationed across the exchanges, so the scene keeps moving
        forward instead of being dumped in one wall at the start. */
     var steps = (this.scene.steps || []).filter(function (s) { return s && s.line; });
+
+    /* Attach each line's rendered clip to the line itself. The build applies
+       the same "has a line" filter this does, so the clips and the steps are
+       the same list in the same order — and pairing them here, once, means
+       nothing downstream has to know how the audio is indexed. */
+    this.voice = (root.DojoVoice && root.DojoVoice.clipsFor(cfg.lc)) || null;
+    if (this.voice) {
+      steps = steps.map(function (s, i) {
+        return { speaker: s.speaker, line: s.line, clip: this.voice.talk[i] || null };
+      }, this);
+    }
+
     this.opening = steps.slice(0, 2);
     this.talkQueue = steps.slice(2);
     this.perRound = Math.max(1, Math.ceil(this.talkQueue.length / this.rounds.length));
@@ -688,6 +709,7 @@
     stage.appendChild(this.foeBox);
     stage.appendChild(this.shout);
     stage.appendChild(this.comboBox);
+    stage.appendChild(this.voiceToggle());
     wrap.appendChild(stage);
 
     this.panel = el('div', 'fx-panel');
@@ -704,6 +726,35 @@
     this.pose('hero', 'ready');
     this.pose('foe', 'ready');
     this.keys();
+  };
+
+  /* One control, on the stage rather than in a settings panel, because the
+     moment you want it is the moment someone starts talking. The choice is
+     remembered across fights — a player on a train turns it off once. */
+  Fight.prototype.voiceToggle = function () {
+    var self = this;
+    var V = root.DojoVoice;
+    var b = el('button', 'fx-voice', '');
+
+    function paint() {
+      var on = V ? V.isEnabled() : false;
+      b.innerHTML = on ? '&#128264;' : '&#128263;';
+      b.classList.toggle('off', !on);
+      b.setAttribute('aria-label', on ? 'Turn voices off' : 'Turn voices on');
+      b.title = on ? 'Voices on' : 'Voices off';
+    }
+
+    if (!V) { b.hidden = true; return b; }
+    paint();
+    b.addEventListener('click', function (e) {
+      e.stopPropagation();
+      V.setEnabled(!V.isEnabled());
+      if (!V.isEnabled() && self._cancelVoice) {
+        self._cancelVoice(); self._cancelVoice = null;
+      }
+      paint();
+    });
+    return b;
   };
 
   /* 1-4 answer, Enter or space advance. A fighting game you have to aim a mouse
@@ -841,11 +892,34 @@
     this.panel.appendChild(card);
     go.focus();
 
+    /* The narrator states the job. This is the one thing on the screen that has
+       to get through, and it is the thing a reader-averse player is most likely
+       to skip past — so it is spoken the moment the brief opens rather than
+       waiting behind a play button. The text stays put underneath: the listener
+       is not a native English speaker, and the words are the lesson. */
+    var V = root.DojoVoice;
+    if (V && V.isEnabled() && this.voice && this.voice.brief) {
+      var job = card.querySelector('.fx-jobcard');
+      if (job) job.classList.add('speaking');
+      V.prefetch(this.opening[0] && this.opening[0].clip);
+      this._cancelVoice = V.play(this.voice.brief, {
+        text: s.problem,
+        speaker: '_narrator',
+        onend: function () {
+          self._cancelVoice = null;
+          if (job) job.classList.remove('speaking');
+        }
+      });
+    }
+
     go.addEventListener('click', function () {
+      if (self._cancelVoice) { self._cancelVoice(); self._cancelVoice = null; }
+      var job = card.querySelector('.fx-jobcard');
+      if (job) job.classList.remove('speaking');
       play('select');
       self.talk(card, talkBox, self.opening, function () {
         play('bell');
-        announce('Round one. Fight!');
+        announce('round-1', 'Round one. Fight!');
         self.say('FIGHT!', 'big', 1100);
         setTimeout(function () { self.next(); }, 700);
       }, 'FIGHT');
@@ -857,8 +931,10 @@
      inside it. The label on the last line belongs to the caller: the final click
      of a conversation is the one that starts something. */
   Fight.prototype.talk = function (card, box, lines, done, lastLabel) {
+    var self = this;
     var i = 0;
     var crew = (root.DOJO && root.DOJO.crew) || {};
+    var current = null;        // the row being spoken
 
     function button(label, ghost, onClick) {
       var old = card.querySelector('.fx-advance');
@@ -870,8 +946,18 @@
       return b;
     }
 
+    /* Whatever is speaking stops speaking. Called before every new line, and by
+       destroy(), because a fight closed mid-sentence must not keep talking over
+       the picker. */
+    function hush() {
+      if (self._cancelVoice) { self._cancelVoice(); self._cancelVoice = null; }
+      if (current) current.classList.remove('speaking');
+    }
+
     function step() {
+      hush();
       if (i >= lines.length) { done(); return; }
+
       var s = lines[i++];
       var p = portrait(s.speaker, crew);
       var row = el('div', 'fx-line');
@@ -879,15 +965,54 @@
         '<div class="fx-face">' + p.svg + '</div>' +
         '<div class="fx-bub"><b>' + esc(p.name) + '</b>' + esc(s.line) + '</div>';
       box.appendChild(row);
-      play('talk');
       requestAnimationFrame(function () { row.classList.add('in'); });
+      current = row;
 
       var last = i >= lines.length;
-      button(last ? (lastLabel || 'CONTINUE') : 'NEXT &rsaquo;', !last, function () {
-        play('select');
-        step();
+      var V = root.DojoVoice;
+      var voiced = !!(V && V.isEnabled() && (s.clip || root.VoiceEngine));
+
+      /* The blip that stood in for a voice is not wanted once there is one. */
+      if (!voiced) play('talk');
+
+      /* The last line of a conversation is where the fight starts, and starting
+         a timed exchange for someone who has not asked for it is hostile. So
+         the scene plays itself all the way to the end and then WAITS: every
+         line advances on its own, the final button does not. */
+      if (last) {
+        button(lastLabel || 'CONTINUE', false, function () {
+          hush();
+          play('select');
+          done();
+        });
+      } else {
+        button('SKIP &rsaquo;', true, function () { play('select'); step(); });
+      }
+
+      if (!voiced) return;
+
+      row.classList.add('speaking');
+      V.prefetch(lines[i] && lines[i].clip);
+      self._cancelVoice = V.play(s.clip, {
+        text: s.line,
+        speaker: s.speaker,
+        onend: function () {
+          self._cancelVoice = null;
+          row.classList.remove('speaking');
+          if (last || self.dead) return;
+          /* A beat between speakers. Two lines butted together sound like one
+             person interrupting themselves. */
+          self._talkTimer = setTimeout(step, 260);
+        }
       });
     }
+
+    /* Clicking the conversation itself moves it on — the whole box is the
+       button, because hunting for a small one is what a remote control is for. */
+    box.addEventListener('click', function () {
+      if (i < lines.length) { play('select'); clearTimeout(self._talkTimer); step(); }
+    });
+
     step();
   };
 
@@ -1198,7 +1323,9 @@
 
     if (v.ko) { play('ko'); this.say('K.O.', 'big', 2200); }
     setTimeout(function () { play(won ? 'win' : 'lose'); }, v.ko ? 900 : 0);
-    announce(won ? 'You win. Lesson learned.' : 'You lose. Study the debrief.');
+    announce(won ? 'win' : 'lose',
+      won ? 'Victory! Lesson learned.'
+          : 'Defeat. Study the debrief, then run it back.');
 
     var r = this.rank(v);
     var card = el('div', 'fx-card fx-result');
@@ -1229,6 +1356,27 @@
       lesson.appendChild(el('pre', 'fx-code fx-sol', highlight(s.solution)));
       if (s.complexity) lesson.appendChild(el('p', 'fx-cx', s.complexity));
       if (s.pitfall) lesson.appendChild(el('p', 'fx-pit', '<b>Where it goes wrong.</b> ' + s.pitfall));
+    }
+
+    /* The trap, read aloud over the debrief. Of everything on this screen it is
+       the part that decides whether the next attempt goes better, and it is
+       buried under a code block — exactly the position a reader-averse player
+       never scrolls to. It waits for the announcer to finish shouting first. */
+    var Vp = root.DojoVoice;
+    if (Vp && Vp.isEnabled() && this.voice && this.voice.pitfall && s.pitfall) {
+      var pit = lesson.querySelector('.fx-pit');
+      this._pitfallTimer = setTimeout(function () {
+        if (self.destroyed) return;
+        if (pit) pit.classList.add('speaking');
+        self._cancelVoice = Vp.play(self.voice.pitfall, {
+          text: (s.pitfall || '').replace(/<[^>]+>/g, ''),
+          speaker: '_narrator',
+          onend: function () {
+            self._cancelVoice = null;
+            if (pit) pit.classList.remove('speaking');
+          }
+        });
+      }, 2600);
     }
 
     if (this.cfg.lesson) {
@@ -1286,8 +1434,15 @@
 
   Fight.prototype.destroy = function () {
     this.dead = true;
+    this.destroyed = true;
     this.stopClock();
     crowdStop();
+    /* A fight closed mid-sentence must stop talking. Without this the crew keep
+       arguing over the picker, about a problem that is no longer on screen. */
+    clearTimeout(this._talkTimer);
+    clearTimeout(this._pitfallTimer);
+    if (this._cancelVoice) { this._cancelVoice(); this._cancelVoice = null; }
+    if (root.DojoVoice) root.DojoVoice.stop();
     if (this._key) document.removeEventListener('keydown', this._key);
   };
 

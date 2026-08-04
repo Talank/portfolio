@@ -661,28 +661,43 @@ def parse_spans(para, where=""):
     return _merge_bare(spans) or [(para.strip(), "narrator")]
 
 
-_SPEAKABLE = re.compile(r"[ऀ-ॿA-Za-z0-9]")
+def _has_word(text):
+    """Is there anything here for a voice to say?
+
+    Deliberately `isalnum` and not a Devanagari character range. The danda —
+    the Nepali full stop — is U+0964, which sits *inside* the Devanagari block
+    between the letters and the digits, so `[ऀ-ॿ]` counts the punctuation as a
+    word and lets a bare "।" through as though it were speech. Unicode's own
+    categories know the difference; a hand-written range does not.
+    """
+    return any(c.isalnum() for c in text)
 
 
-def _merge_bare(spans):
-    """Fold spans holding no word into their neighbour.
+def _merge_bare(chunks):
+    """Fold chunks holding no word into their neighbour.
 
-    Two quotations separated by nothing but a comma — ``[nami]"…"[/], [nami]"…"
-    [/]`` — leave a span whose entire text is ",". edge-tts refuses to
-    synthesize that ("No audio was received"), and it should not be its own
-    clip in any case: the comma belongs to the line it follows.
+    Two things produce one. Two quotations separated by nothing but a comma —
+    ``[nami]"…"[/], [nami]"…"[/]`` — leave a *span* whose entire text is ",".
+    And a quotation whose sentence-ending danda falls outside the closing quote
+    — ``…हुन्छ — [aside]"…छ"[/]। किनभने…`` — leaves a bare "।" once the
+    following span is cut into *sentences*.
+
+    edge-tts refuses both ("No audio was received"), and neither should be its
+    own clip in any case: the punctuation belongs to the line it follows, and
+    attaching it there is also what makes the quotation end on a full stop
+    instead of a dangling quote.
     """
     out = []
-    for text, style in spans:
-        if not _SPEAKABLE.search(text):
+    for text, style, *rest in chunks:
+        if not _has_word(text):
             if out:
-                out[-1] = (out[-1][0] + text, out[-1][1])
-            elif len(spans) > 1:
-                continue          # leading stray; the next span absorbs it
+                out[-1] = (out[-1][0] + text, *out[-1][1:])
+            elif len(chunks) > 1:
+                continue          # leading stray; the next chunk absorbs it
             else:
-                out.append((text, style))
+                out.append((text, style, *rest))
             continue
-        out.append((text, style))
+        out.append((text, style, *rest))
     return out
 
 
@@ -969,11 +984,15 @@ def units(spans, mode):
         kind = "sentence" if not si or out and _ends_sentence(out[-1][0]) \
             else "hand"
         if by_para:
-            out.append((text, shade(text, style), kind))
+            out.append((text, style, kind))
             continue
         for j, sent in enumerate(split_sentences(text)):
-            out.append((sent, shade(sent, style), "sentence" if j else kind))
-    return out
+            out.append((sent, style, "sentence" if j else kind))
+    # Again here and not only over the spans: splitting a span into sentences
+    # can strand a lone danda that the span itself did not have. Shading comes
+    # after, so a unit is read for its mood in the form it will be spoken in.
+    return [(text, shade(text, style), kind)
+            for text, style, kind in _merge_bare(out)]
 
 
 def _ends_sentence(text):
@@ -1163,6 +1182,15 @@ async def synth_all(chapters, force, mode="bedtime"):
                            mode=mode, index=idx, style=style))
         meta.append(out)
     results = await asyncio.gather(*tasks)
+
+    # Before the copies, not after: a clip that failed to synthesize may still
+    # be the *source* one, and reading it then reports a missing parts/ file
+    # dozens of lines away from the ✗ that explains why it is missing.
+    failed = [m for m, ok in zip(meta, results) if not ok]
+    if failed:
+        names = ", ".join(os.path.basename(m)[:-4] for m in failed[:8])
+        sys.exit(f"\n{len(failed)} clip(s) failed: {names}"
+                 + (" …" if len(failed) > 8 else ""))
 
     for src, dst, key in copies:
         if force or _index.get(os.path.basename(dst)) != key or not os.path.exists(dst):
@@ -1835,6 +1863,37 @@ def write_sidecars(marks, total, out_mp3, keep_mp3=False):
     # single file and the CUE sheet that indexes it.
 
 
+_LOCK_FH = None
+
+
+def _take_lock():
+    """One build per output directory, enforced rather than remembered.
+
+    Two builds pointed at the same audio/ do not merely race, they corrupt each
+    other silently: both encode the same segment to the same path, one reads
+    the half-written file and dies decoding it, the other dies removing an
+    intermediate the first already cleaned up. Neither traceback names the real
+    cause, and the log is unreadable because both processes write to it at
+    independent offsets. A build takes hours, which is exactly the window in
+    which someone starts a second one.
+
+    Held for the life of the process; the kernel drops it if the build is
+    killed, so a stale lock cannot outlive its owner and need never be cleared
+    by hand.
+    """
+    global _LOCK_FH
+    import fcntl
+    os.makedirs(PARTS_DIR, exist_ok=True)
+    _LOCK_FH = open(os.path.join(PARTS_DIR, ".build.lock"), "w")
+    try:
+        fcntl.flock(_LOCK_FH, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        sys.exit(f"another build is already running in {HERE}\n"
+                 f"(wait for it, or kill it — do not run two at once)")
+    _LOCK_FH.write(str(os.getpid()))
+    _LOCK_FH.flush()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--force", action="store_true", help="re-synthesize every clip")
@@ -1865,6 +1924,7 @@ def main():
                     help="keep the mp3 master instead of dropping it once the "
                          "opus is verified (the site only ever plays the opus)")
     args = ap.parse_args()
+    _take_lock()
 
     only = set(x.strip() for x in args.only.split(",") if x.strip())
     # Always load every tier: the segments are what the site plays, and the
