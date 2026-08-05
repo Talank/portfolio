@@ -42,8 +42,11 @@ _VERB_END = re.compile(
     r"न्छ|न्छन्|ँछ|ँछन्|्छ|्छन्|दैन|दैनन्|ँदैन|ँदैनन्|्दैन|"
     # past tense …यो …ए …ई …इन्, and its negative …एन / …ेन (परेन, भएन)
     r"यो|ए|ई|इन्|एन|एनन्|ेन|ेनन्|हे|"
-    # first person past and past habitual: सिकें, सक्थें, गरेँ
-    r"ें|एँ|थें|थेँ|"
+    # first person past and past habitual: सिकें, सक्थें, गरेँ.
+    # ेँ and ें are the same sound written two ways — candrabindu and anusvara.
+    # Only the anusvara spelling was listed here, so देखेँ / सुनेँ / चिनेँ, which
+    # the scripts actually use, were read as fragments.
+    r"ें|ेँ|एँ|थें|थेँ|"
     # negative of the -हुन्छ family: हुन्न, गन्दिन, सक्दिनँ, बिर्सनुहुन्न
     r"हुन्न|न्न|दिनँ|न्दिन|दिनन्|"
     # imperative and polite request

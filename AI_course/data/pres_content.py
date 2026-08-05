@@ -546,6 +546,15 @@ MODULES = [
   },
 ]
 
+
+# Parts 2 and up live in their own files — this one already held Parts 0 and 1
+# and was 286 KB, which is past the point where an editor is pleasant. They are
+# appended in SCHEDULE order, which is the order the deck is built in.
+sys.path.insert(0, HERE)
+import pres_part2  # noqa: E402
+
+MODULES += pres_part2.MODULES
+
 if __name__ == "__main__":
     course_dir = os.path.abspath(os.path.join(HERE, ".."))
     pres_build.build(course_dir, MODULES)

@@ -128,37 +128,37 @@
     "core": {
      "label": "छोटो",
      "label_en": "Short",
-     "duration": 11025.38,
-     "bytes": 18200946,
+     "duration": 11024.61,
+     "bytes": 18200331,
      "starts": {
       "00": 0.0,
       "01": 594.68,
       "02": 1053.98,
-      "03": 1486.92,
-      "04": 1872.25,
-      "05": 2270.68,
-      "06": 2653.49,
-      "07": 3019.02,
-      "08": 3389.67,
-      "09": 3787.84,
-      "10": 4182.05,
-      "11": 4566.4,
-      "12": 4955.19,
-      "13": 5372.51,
-      "14": 5722.44,
-      "15": 6042.02,
-      "16": 6391.71,
-      "17": 6753.01,
-      "18": 7152.5,
-      "19": 7534.65,
-      "20": 7945.43,
-      "21": 8304.41,
-      "22": 8713.79,
-      "23": 9027.85,
-      "24": 9380.16,
-      "25": 9776.21,
-      "26": 10149.81,
-      "27": 10543.31
+      "03": 1486.59,
+      "04": 1871.85,
+      "05": 2270.28,
+      "06": 2653.09,
+      "07": 3018.62,
+      "08": 3389.2,
+      "09": 3787.37,
+      "10": 4181.58,
+      "11": 4565.93,
+      "12": 4954.67,
+      "13": 5371.99,
+      "14": 5721.82,
+      "15": 6040.73,
+      "16": 6390.42,
+      "17": 6751.72,
+      "18": 7151.06,
+      "19": 7533.21,
+      "20": 7943.82,
+      "21": 8302.8,
+      "22": 8712.18,
+      "23": 9026.24,
+      "24": 9378.55,
+      "25": 9774.6,
+      "26": 10148.2,
+      "27": 10542.54
      },
      "playlist": [
       {
@@ -173,12 +173,12 @@
       },
       {
        "f": "ch02-core.opus",
-       "d": 434.44,
+       "d": 434.11,
        "c": "02"
       },
       {
        "f": "ch03-core.opus",
-       "d": 386.83,
+       "d": 386.76,
        "c": "03"
       },
       {
@@ -198,7 +198,7 @@
       },
       {
        "f": "ch07-core.opus",
-       "d": 372.15,
+       "d": 372.08,
        "c": "07"
       },
       {
@@ -218,7 +218,7 @@
       },
       {
        "f": "ch11-core.opus",
-       "d": 390.29,
+       "d": 390.24,
        "c": "11"
       },
       {
@@ -228,12 +228,12 @@
       },
       {
        "f": "ch13-core.opus",
-       "d": 351.43,
+       "d": 351.33,
        "c": "13"
       },
       {
        "f": "ch14-core.opus",
-       "d": 321.08,
+       "d": 320.41,
        "c": "14"
       },
       {
@@ -248,7 +248,7 @@
       },
       {
        "f": "ch17-core.opus",
-       "d": 400.99,
+       "d": 400.84,
        "c": "17"
       },
       {
@@ -258,7 +258,7 @@
       },
       {
        "f": "ch19-core.opus",
-       "d": 412.28,
+       "d": 412.11,
        "c": "19"
       },
       {
@@ -293,7 +293,7 @@
       },
       {
        "f": "ch26-core.opus",
-       "d": 395.0,
+       "d": 395.84,
        "c": "26"
       },
       {
@@ -311,37 +311,37 @@
     "medium": {
      "label": "मध्यम",
      "label_en": "Medium",
-     "duration": 14295.49,
-     "bytes": 23596101,
+     "duration": 14294.77,
+     "bytes": 23595977,
      "starts": {
       "00": 0.0,
       "01": 770.38,
-      "02": 1362.04,
-      "03": 1927.57,
-      "04": 2440.11,
-      "05": 2950.07,
-      "06": 3460.2,
-      "07": 3925.08,
-      "08": 4406.34,
-      "09": 4913.93,
-      "10": 5426.05,
-      "11": 5919.97,
-      "12": 6411.44,
-      "13": 6951.92,
-      "14": 7424.2,
-      "15": 7846.62,
-      "16": 8301.33,
-      "17": 8777.71,
-      "18": 9276.7,
-      "19": 9770.48,
-      "20": 10285.74,
-      "21": 10750.53,
-      "22": 11280.26,
-      "23": 11718.1,
-      "24": 12200.84,
-      "25": 12712.79,
-      "26": 13195.3,
-      "27": 13701.6
+      "02": 1361.99,
+      "03": 1927.09,
+      "04": 2439.56,
+      "05": 2949.52,
+      "06": 3459.65,
+      "07": 3924.53,
+      "08": 4405.72,
+      "09": 4913.27,
+      "10": 5425.39,
+      "11": 5919.31,
+      "12": 6410.73,
+      "13": 6951.21,
+      "14": 7423.39,
+      "15": 7845.14,
+      "16": 8299.85,
+      "17": 8776.23,
+      "18": 9275.07,
+      "19": 9768.85,
+      "20": 10283.94,
+      "21": 10748.73,
+      "22": 11278.46,
+      "23": 11716.3,
+      "24": 12199.04,
+      "25": 12710.99,
+      "26": 13193.5,
+      "27": 13700.88
      },
      "playlist": [
       {
@@ -361,22 +361,22 @@
       },
       {
        "f": "ch01-medium.opus",
-       "d": 133.86,
+       "d": 133.81,
        "c": "01"
       },
       {
        "f": "ch02-core.opus",
-       "d": 434.44,
+       "d": 434.11,
        "c": "02"
       },
       {
        "f": "ch02-medium.opus",
-       "d": 134.09,
+       "d": 133.99,
        "c": "02"
       },
       {
        "f": "ch03-core.opus",
-       "d": 386.83,
+       "d": 386.76,
        "c": "03"
       },
       {
@@ -416,7 +416,7 @@
       },
       {
        "f": "ch07-core.opus",
-       "d": 372.15,
+       "d": 372.08,
        "c": "07"
       },
       {
@@ -431,7 +431,7 @@
       },
       {
        "f": "ch08-medium.opus",
-       "d": 110.92,
+       "d": 110.88,
        "c": "08"
       },
       {
@@ -456,7 +456,7 @@
       },
       {
        "f": "ch11-core.opus",
-       "d": 390.29,
+       "d": 390.24,
        "c": "11"
       },
       {
@@ -476,7 +476,7 @@
       },
       {
        "f": "ch13-core.opus",
-       "d": 351.43,
+       "d": 351.33,
        "c": "13"
       },
       {
@@ -486,7 +486,7 @@
       },
       {
        "f": "ch14-core.opus",
-       "d": 321.08,
+       "d": 320.41,
        "c": "14"
       },
       {
@@ -516,7 +516,7 @@
       },
       {
        "f": "ch17-core.opus",
-       "d": 400.99,
+       "d": 400.84,
        "c": "17"
       },
       {
@@ -536,7 +536,7 @@
       },
       {
        "f": "ch19-core.opus",
-       "d": 412.28,
+       "d": 412.11,
        "c": "19"
       },
       {
@@ -606,12 +606,12 @@
       },
       {
        "f": "ch26-core.opus",
-       "d": 395.0,
+       "d": 395.84,
        "c": "26"
       },
       {
        "f": "ch26-medium.opus",
-       "d": 114.3,
+       "d": 114.54,
        "c": "26"
       },
       {
@@ -634,37 +634,37 @@
     "long": {
      "label": "लामो",
      "label_en": "Long",
-     "duration": 18865.89,
-     "bytes": 30917904,
+     "duration": 18864.9,
+     "bytes": 30916725,
      "starts": {
       "00": 0.0,
       "01": 969.79,
-      "02": 1703.04,
-      "03": 2448.64,
-      "04": 3124.67,
-      "05": 3800.07,
-      "06": 4453.63,
-      "07": 5075.11,
-      "08": 5722.45,
-      "09": 6383.59,
-      "10": 7033.59,
-      "11": 7673.77,
-      "12": 8320.34,
-      "13": 8995.14,
-      "14": 9643.81,
-      "15": 10213.23,
-      "16": 10828.79,
-      "17": 11464.16,
-      "18": 12122.29,
-      "19": 12754.36,
-      "20": 13458.18,
-      "21": 14075.51,
-      "22": 14767.47,
-      "23": 15423.58,
-      "24": 16078.48,
-      "25": 16757.55,
-      "26": 17422.07,
-      "27": 18085.61
+      "02": 1702.99,
+      "03": 2448.01,
+      "04": 3123.97,
+      "05": 3799.37,
+      "06": 4452.93,
+      "07": 5074.41,
+      "08": 5721.68,
+      "09": 6382.78,
+      "10": 7032.78,
+      "11": 7672.96,
+      "12": 8319.48,
+      "13": 8994.28,
+      "14": 9642.85,
+      "15": 10211.6,
+      "16": 10827.16,
+      "17": 11462.48,
+      "18": 12120.46,
+      "19": 12752.53,
+      "20": 13456.18,
+      "21": 14073.51,
+      "22": 14765.47,
+      "23": 15421.58,
+      "24": 16076.48,
+      "25": 16755.48,
+      "26": 17420.0,
+      "27": 18084.62
      },
      "playlist": [
       {
@@ -689,7 +689,7 @@
       },
       {
        "f": "ch01-medium.opus",
-       "d": 133.86,
+       "d": 133.81,
        "c": "01"
       },
       {
@@ -699,22 +699,22 @@
       },
       {
        "f": "ch02-core.opus",
-       "d": 434.44,
+       "d": 434.11,
        "c": "02"
       },
       {
        "f": "ch02-medium.opus",
-       "d": 134.09,
+       "d": 133.99,
        "c": "02"
       },
       {
        "f": "ch02-long.opus",
-       "d": 181.57,
+       "d": 181.42,
        "c": "02"
       },
       {
        "f": "ch03-core.opus",
-       "d": 386.83,
+       "d": 386.76,
        "c": "03"
       },
       {
@@ -774,7 +774,7 @@
       },
       {
        "f": "ch07-core.opus",
-       "d": 372.15,
+       "d": 372.08,
        "c": "07"
       },
       {
@@ -794,7 +794,7 @@
       },
       {
        "f": "ch08-medium.opus",
-       "d": 110.92,
+       "d": 110.88,
        "c": "08"
       },
       {
@@ -834,7 +834,7 @@
       },
       {
        "f": "ch11-core.opus",
-       "d": 390.29,
+       "d": 390.24,
        "c": "11"
       },
       {
@@ -864,7 +864,7 @@
       },
       {
        "f": "ch13-core.opus",
-       "d": 351.43,
+       "d": 351.33,
        "c": "13"
       },
       {
@@ -879,7 +879,7 @@
       },
       {
        "f": "ch14-core.opus",
-       "d": 321.08,
+       "d": 320.41,
        "c": "14"
       },
       {
@@ -919,12 +919,12 @@
       },
       {
        "f": "ch16-long.opus",
-       "d": 160.49,
+       "d": 160.44,
        "c": "16"
       },
       {
        "f": "ch17-core.opus",
-       "d": 400.99,
+       "d": 400.84,
        "c": "17"
       },
       {
@@ -954,7 +954,7 @@
       },
       {
        "f": "ch19-core.opus",
-       "d": 412.28,
+       "d": 412.11,
        "c": "19"
       },
       {
@@ -1039,7 +1039,7 @@
       },
       {
        "f": "ch24-long.opus",
-       "d": 168.62,
+       "d": 168.55,
        "c": "24"
       },
       {
@@ -1059,12 +1059,12 @@
       },
       {
        "f": "ch26-core.opus",
-       "d": 395.0,
+       "d": 395.84,
        "c": "26"
       },
       {
        "f": "ch26-medium.opus",
-       "d": 114.3,
+       "d": 114.54,
        "c": "26"
       },
       {
@@ -1118,7 +1118,7 @@
     },
     "ch01-medium.opus": {
      "s": "workshop",
-     "g": "AHj-ASOSAX3GASOaATWFAQpzCoYBCp4BLcEBZPYBI_cBLdsBeH8juwEt2wIljgIhsAKJAaQBI-oBLYkDJawBevwBI70BLbEDSw"
+     "g": "AHj-ASOSAX3GASOaATWDAQpzCoUBCp8BLMIBZPYBI_cBLdoBeH8kuwEt2wIljgIhrwKKAaQBI-oBLYgDJqwBevwBI7wBLbIDSw"
     },
     "ch01-long.opus": {
      "s": "workshop",
@@ -1126,19 +1126,19 @@
     },
     "ch02-core.opus": {
      "s": "workshop",
-     "g": "AN4CtAEmsAJs1AEm_AEqnwSCAdABCnyCAb8BJdgEK6oBJqECc74BJfEDLY8BJeoBadcCJuECf9YBL90BOYACJuUBhAGnAib4AXGeAWnWASP8BC2iBSaLBCChBIcBiwI0gwEKcijdAX-pASuQAiaJA2zNASuYAyWXAm60ASroAYcB1QEr_AQlowUgiwQmoQR_ogErhQJs7QJu1QEt_AQmogUhiwQloQRL"
+     "g": "AN4CtAEmsAJs1AEm_AEqnwSCAdABCnyCAb8BJdgEK6UBJpwCc74BJfEDLY8BJuoBadcCJeECgAHVATDcATr_ASblAYUBpwIl-QFwnwFp1QEj_AQtowUliwQhoQSHAYoCNYIBCnIo2gF_qQErkAImiQNszQEqlQMllwJutAEq6AGHAdYBKvwEJqIFIIwEJaEEf6IBK4YCa-0CbtUBLfwEJqIFIYsEJqAESw"
     },
     "ch02-medium.opus": {
      "s": "workshop",
-     "g": "AHieAS3jASOyAX2FAi31ASOJAowBtwEqmAIl5AIgkgN4vQEqxAElqgJmlAEq-gImgQIgjAJ19wErzAElzwIh_wFL"
+     "g": "AHieAS3jASOyAX2FAi31ASOJAowBtwEqmAIl5AIgkgN4vQEqxAElqgJmlAEq9QImgQIgjAJ1-AEqzAEmzgIh_wFL"
     },
     "ch02-long.opus": {
      "s": "workshop",
-     "g": "AHiDASrEAS2VATJveI0CDW0tgAEhqAJnkQIrygEm8QEh9AJ10wEr-wEl3wEhwQKMAaQBKt4BJpsCetEBK-sBL7YBHuwBiQGxAS3tASj0ASjgAX3eASPqAmTCASO0ASivAUs"
+     "g": "AHiDASrEAS2VATJveI0CDW0tgAEhpQJmkgIqywEl8gEg8AJ20wEr-gEm3wEhwQKMAaMBK94BJZwCetEBKuwBL7UBHu0BiQGxAS3tASj0ASjgAX3eASPqAmTCASO0ASivAUs"
     },
     "ch03-core.opus": {
      "s": "deck",
-     "g": "AN4CmgEjpgEryQJpsAE6eoIBngIKeDKZAYIBhQEjwAErjgJzsQIjwwRppwQjtgJ__wMjqgKFAY0BI-QBcdIBI4MDKMICaZsBI7wBc7YBIcYDKJQEK8EFI6wCZ6IBKLgBDG0ytwEjmgJ6rwEjxQIo1QEq_AGMAcwBc7cBI8UDKJUEK8EFI6wCZ4cBI8IBeowDjwG2ASPGAyiUBCvCBSOsAks"
+     "g": "AN4CmgEjpgEryQJpsAE6eoIBngIKeDKZAYIBhQEjwAErjgJzsQIjwwRppwQjtgJ__wMjqgKFAY0BI-QBcdIBI4MDKMICaZsBI7wBc7YBIcYDKJQEK8EFI6wCZ6IBKLgBDG0ytwEjmgJ6rwEjxQIo0QEr_AGMAcwBc7YBI8YDKJUEKsIFI6wCZogBI8EBe4wDjgG2ASPGAyiVBCrCBSOsAks"
     },
     "ch03-medium.opus": {
      "s": "deck",
@@ -1186,7 +1186,7 @@
     },
     "ch07-core.opus": {
      "s": "open_sea",
-     "g": "AN4CkQEo7wEgjQFplQEokwJ_ugEonAEjlgEjtQGFAc0BDHwo1wEjvQFxkwEofCN6I6EBK60BaYYCggHGAijGAS2kASPFAYIBowFwkgIo9AQgugYjgwVpfw2QAYkBfAy3AiOvAX27ASicAmHnASiQA3aRAijwAokBswF9kgIo8wQjugYjgwVk8gF2iQOKAZICKPMEIbkGI4MFSw"
+     "g": "AN4CkQEo7wEgjQFplQEokwJ_ugEonAEjlgEjtQGFAc0BDHwo1wEjvQFxkwEofCN6I54BKq0BaYcCggHFAijGAS2kASPFAYIBowFxkQIo9AQhuQYjgwVpgAEMkAGKAXsNtgIjsAF9uwEomwJi5gEokQN1kgIo7wKKAbIBfZICKPQEI7kGI4MFZPMBdYoDiQGSAij0BCC6BiODBUs"
     },
     "ch07-medium.opus": {
      "s": "open_sea",
@@ -1202,7 +1202,7 @@
     },
     "ch08-medium.opus": {
      "s": "ship_hold",
-     "g": "AHi0AooBiQIjxgJ2xwEjgwEruQJkrwIjjAJ9qgMjhAKKAboBI6gCK8sBdY0CI7YESw"
+     "g": "AHi0AooBiQIjxgJ2xwEjgQEquQJksAIjjAJ9qgMjhAKJAboBI6kCKssBdowCI7cESw"
     },
     "ch08-long.opus": {
      "s": "ship_hold",
@@ -1234,7 +1234,7 @@
     },
     "ch11-core.opus": {
      "s": "workshop",
-     "g": "AN4C9wEr5AF6zAENbS2fASG5AWSnASrFAnibASudAooBigE3ugImzgJ7wQIr6AFkxgEqogJ4mwEr2QGJAZ4BKtYBfYMCjAHXAiu6BSO-BSPoBXjQATKUAQpxKMcCZo8CdooCK9EBjAHgAiuEAiO1Ani-AWfXAiu6BSO-BSPoBXOwASt-jAGHA3vXAiq7BSO-BSDoBUs"
+     "g": "AN4C9wEr5AF6zAENbS2fASG5AWSnASrFAnibASudAooBigE3ugImzgJ7wQIr6AFkxgEqogJ4mwEr2QGJAZ4BKtYBfYMCjAHXAiu6BSO-BSPoBXjQATKUAQpxKMcCZo8CdogCKtEBjAHhAiqFAiO0Ani_AWfXAiq7BSO-BSPoBXOwASt-jAGHA3rXAiu6BSO-BSHoBUs"
     },
     "ch11-medium.opus": {
      "s": "workshop",
@@ -1258,7 +1258,7 @@
     },
     "ch13-core.opus": {
      "s": "ship_hold",
-     "g": "AN4C4wF9xQIowQFkkAEouwJ4kwENfCaYAYoB9wF7rgIowgFknQMohwF4hwEonQOMAZQCJbQBfqUBc4ECKPsFHukFJtEEaXsNmAGAAX4KsAIelAGFAaUBKNIBHswBc_4CKMIBaakBggGBAij7BR7qBSXRBIIBtwEopwFx9wJpgQIm-wUe6QUm0ARL"
+     "g": "AN4C4wF9xQIowQFkkAEouwJ4kwENfCaYAYoB9wF7rgIowgFknQMohwF4hwEonQOMAZQCJbQBfqUBc4ECKPsFHukFJtEEaXsNmAGAAX4KsAIelAGFAaUBKNIBHswBc_kCKMIBaaoBggGAAij8BR7pBSXRBIIBuAEopgFx-AJpgAIm-wUe6QUm0QRL"
     },
     "ch13-medium.opus": {
      "s": "ship_hold",
@@ -1270,7 +1270,7 @@
     },
     "ch14-core.opus": {
      "s": "cabin",
-     "g": "AN4CwgEhqQF7kQIh_wFk7gEKbC-8AXiLASDeAYoBlgEgpgEogwF64QJkwQEhmAIopgMqiQUjkwV4fwqtAYoBeQrxASj3AX2rASCwAoIBhwEmvQKCAaABMo4CIa0CbLcBccEBJZkCIaUDJokFKpMFhQHBASXZAYABmwNqwQElmQIgpgMliQUtkwVL"
+     "g": "AN4CwgEhqQF7kQIh_wFk7gEKbC-8AXiLASDeAYoBlgEgpgEogwF64QJkwQEhlAIooAMriQUjkwV4fwqtAYkBeQrxASj4AX2qASGqAoIBiAElvQKCAaEBMo4CIa0Ca7gBcMIBJZQCIaADJYoFKpMFhQHBASXZAYABmwNqwQEllAIhoAMmiQUtkwVL"
     },
     "ch14-medium.opus": {
      "s": "cabin",
@@ -1302,11 +1302,11 @@
     },
     "ch16-long.opus": {
      "s": "deck",
-     "g": "AHivAWzJAQ1tKuQBccwBI6IBa4MBI8ADggGLAiPjA4IBwAEjrgJz3gEj7QVpvwEj6gF_lwMjhQKEAbYBI9ACcY4BJdEBaaQBJocBSw"
+     "g": "AHivAWzJAQ1tKuQBccwBI6IBa4MBI8ADggGLAiPjA4IBwAEjrgJz3gEj7QVpvwEj6gF_lwMjggKFAbYBI9ACcY0BJtABaaUBJYgBSw"
     },
     "ch17-core.opus": {
      "s": "open_sea",
-     "g": "AN4CogEmjgJ6uQEqxAEMby2ZAWTzAXiWASWmASqBASWLASGJAYkBiwEm6AIqfH3lASa6AmTuAXjZAia0BC3lBSbABSG-A4oBfwp8fXwKsQEtnQGHAYMBKJsDfa8CHrABbJ0BHtwBbqYBHqUBKLQBhwHVAR71ASiJAn29AWvaAh60BCjlBSvABSa-A3GxAR6kAYYBlQN_2gIgtAQm5gUqwAUmvgNL"
+     "g": "AN4CogEmjgJ6uQEqxAEMby2ZAWTzAXiWASWmASqBASWLASGJAYkBiwEm6AIqfH3lASa6AmTuAXjZAiayBCzmBSbABSC_A4kBgAEKe319CrABLZ4BhwGCASicA32uAh6xAWueAR7bAW6nAR6kASi0AYcB1gEe9QEoiQJ9vAFs2QIesgQo5gUqwAUmvgNxsQEfowGHAZQDgAHZAiGxBCblBSvABSa-A0s"
     },
     "ch17-medium.opus": {
      "s": "open_sea",
@@ -1330,7 +1330,7 @@
     },
     "ch19-core.opus": {
      "s": "deck",
-     "g": "AN4CpAEr9gJ9sQEqygFkmQENeivpAXX3AYoBswEqwQJ91QErpARkwgF24AEr1AGKAbABK6sBe58BMr0BI6gCbJYCI7wCKH9uhAKHAfwBI_sBKLMBKsoBI-8CI-sDKM8Cf38KswFsfQqIASjKA23hASONAocBtQEj-QGAAboCbKUBIa0CbnIr_QEowwFntgF2_AEg-wEoswEoygEj7wIg6wMozwKMAZABIJsBeIQDafwBIPsBKLMBKMkBJO8CIOsDKM8CSw"
+     "g": "AN4CpAEr9gJ9sQEqygFkmQENeivpAXX3AYoBswEqwQJ91QErpARkwgF24AEr1AGKAbABK6sBe58BMr0BI6gCbJYCI7MCKH9uhQKHAfwBI_sBKLIBK8kBI_ACI-oDKM8CgAF_CrMBa30KiQEoyQNu4AEjjQKHAbUBI_oBgAG6AmumASGtAm5yKv0BKMQBZ7YBdfwBIfsBKLMBKMkBI-8CIesDKM4CjAGQASGbAXiDA2n8ASH7ASiyASnJASPvAiHrAyjOAks"
     },
     "ch19-medium.opus": {
      "s": "deck",
@@ -1374,7 +1374,7 @@
     },
     "ch22-long.opus": {
      "s": "workshop",
-     "g": "AHjjAWa4AgptNa0BePoDjAHEASW4Ag10DW576gEMdgpvIaMBigGBAnnxAQycAQq9AmSRASv5AnyvAiqCAooBqQErmgR2ngErrgFkuAIquQEjmQJ99wEo4wGJAaYCKLgChwGmASOXAYABtAEj0AFL"
+     "g": "AHjjAWa4AgptNa0BePoDjAHEASW4Ag10DW576gEMdgpvIaMBigGBAnnxAQycAQq9AmSRASv5AnyvAiqCAooBqQErnAR1ngErrgFkuAIquAEjmQJ99wEo4wGJAaYCKLgChwGmASOXAYABtAEj0AFL"
     },
     "ch23-core.opus": {
      "s": "ship_hold",
@@ -1398,7 +1398,7 @@
     },
     "ch24-long.opus": {
      "s": "island_shore",
-     "g": "AHiiASiPAYcBogEMeijcAYIB0QEh3gGEAacBIMsBcYwBK6sBMo8Bab4BIPMCf-0BIOYChAGgASDqAiXqAXOZASDUAmnNASDTAoIBsQEhzQKFAZYBIMgBjAG2ASaGAUs"
+     "g": "AHiiASiPAYcBogEMeijcAYIB0QEh3gGEAacBIMsBcYwBK6gBMo4Bab4BIPMCgAHsASHlAoUBnwEh6QIm6gFzmAEh0wJpzQEh0gKCAbIBIM4ChAGWASHHAYwBtwElhgFL"
     },
     "ch25-core.opus": {
      "s": "harbour_day",
@@ -1414,11 +1414,11 @@
     },
     "ch26-core.opus": {
      "s": "cave",
-     "g": "AN4CpwEqmgJ4mgEy8AEKbiijAWenASqnAXaLAivoAYwBogF4kgE35gEj3QFmqgIqpAJ2vgEr0QGMAZ0BMrMCe-oCaZMCLe8II8QHILADc38NsQGCAYABDPUBI-UDggHLASzmAWm7AS2RA3O7AYQBkwIt7wgjxAcgsAOAAeQBLYgBaZYDcZMCKu8IJsMHIbADSw"
+     "g": "AN4CpwEqmgJ4mgEy8AEKbiijAWenASqnAXaLAivoAYwBogF4kgE35gEj3QFmqgIqpAJ2vgEr0QGMAZ0BMrMCe-oCaZMCLe8II8sHILADc4ABDLsBggF_DfUBI-UDggHVAS3lAWm8ASyRA3O8AYQBkwIt7wgjywcgsAOAAeQBLYcBaZcDcZICK-8IJsoHIbADSw"
     },
     "ch26-medium.opus": {
      "s": "cave",
-     "g": "AHiYASvBA3WdASvSASW8AR6YAYoBzwErnAIm-QF9jAI0pwNh2gErnAJ2qwEr1QKJAbUCKrgCSw"
+     "g": "AHiYASvBA3WdASvSASW8AR6YAYoBzwErnAIm-QF9jAI0pwNh2gErqAJ2qwEr1QKJAbUCKrgCSw"
     },
     "ch26-long.opus": {
      "s": "cave",
@@ -1452,37 +1452,37 @@
     "core": {
      "label": "छोटो",
      "label_en": "Short",
-     "duration": 7667.68,
-     "bytes": 14031668,
+     "duration": 7666.91,
+     "bytes": 14031018,
      "starts": {
       "00": 0.0,
       "01": 407.36,
       "02": 722.14,
-      "03": 1020.18,
-      "04": 1280.52,
-      "05": 1569.29,
-      "06": 1842.22,
-      "07": 2106.05,
-      "08": 2363.14,
-      "09": 2652.51,
-      "10": 2929.25,
-      "11": 3202.15,
-      "12": 3476.5,
-      "13": 3768.3,
-      "14": 4015.27,
-      "15": 4240.79,
-      "16": 4497.5,
-      "17": 4751.1,
-      "18": 5020.33,
-      "19": 5282.33,
-      "20": 5565.2,
-      "21": 5812.95,
-      "22": 6084.24,
-      "23": 6312.04,
-      "24": 6552.65,
-      "25": 6823.18,
-      "26": 7073.66,
-      "27": 7348.28
+      "03": 1019.9,
+      "04": 1280.19,
+      "05": 1568.96,
+      "06": 1841.89,
+      "07": 2105.72,
+      "08": 2362.74,
+      "09": 2652.11,
+      "10": 2928.85,
+      "11": 3201.75,
+      "12": 3476.05,
+      "13": 3767.85,
+      "14": 4014.75,
+      "15": 4239.77,
+      "16": 4496.48,
+      "17": 4750.08,
+      "18": 5019.02,
+      "19": 5281.02,
+      "20": 5563.74,
+      "21": 5811.49,
+      "22": 6082.78,
+      "23": 6310.58,
+      "24": 6551.19,
+      "25": 6821.72,
+      "26": 7072.2,
+      "27": 7347.51
      },
      "playlist": [
       {
@@ -1497,12 +1497,12 @@
       },
       {
        "f": "ch02-core.opus",
-       "d": 299.54,
+       "d": 299.26,
        "c": "02"
       },
       {
        "f": "ch03-core.opus",
-       "d": 261.84,
+       "d": 261.79,
        "c": "03"
       },
       {
@@ -1522,7 +1522,7 @@
       },
       {
        "f": "ch07-core.opus",
-       "d": 258.59,
+       "d": 258.52,
        "c": "07"
       },
       {
@@ -1542,7 +1542,7 @@
       },
       {
        "f": "ch11-core.opus",
-       "d": 275.85,
+       "d": 275.8,
        "c": "11"
       },
       {
@@ -1552,12 +1552,12 @@
       },
       {
        "f": "ch13-core.opus",
-       "d": 248.47,
+       "d": 248.4,
        "c": "13"
       },
       {
        "f": "ch14-core.opus",
-       "d": 227.02,
+       "d": 226.52,
        "c": "14"
       },
       {
@@ -1572,7 +1572,7 @@
       },
       {
        "f": "ch17-core.opus",
-       "d": 270.73,
+       "d": 270.44,
        "c": "17"
       },
       {
@@ -1582,7 +1582,7 @@
       },
       {
        "f": "ch19-core.opus",
-       "d": 284.37,
+       "d": 284.22,
        "c": "19"
       },
       {
@@ -1617,7 +1617,7 @@
       },
       {
        "f": "ch26-core.opus",
-       "d": 276.12,
+       "d": 276.81,
        "c": "26"
       },
       {
@@ -1635,37 +1635,37 @@
     "medium": {
      "label": "मध्यम",
      "label_en": "Medium",
-     "duration": 9998.04,
-     "bytes": 18251382,
+     "duration": 9997.34,
+     "bytes": 18251055,
      "starts": {
       "00": 0.0,
       "01": 526.52,
-      "02": 935.44,
-      "03": 1329.09,
-      "04": 1680.15,
-      "05": 2052.42,
-      "06": 2415.92,
-      "07": 2754.51,
-      "08": 3090.22,
-      "09": 3458.04,
-      "10": 3822.43,
-      "11": 4173.35,
-      "12": 4521.59,
-      "13": 4899.16,
-      "14": 5232.69,
-      "15": 5533.8,
-      "16": 5864.31,
-      "17": 6198.98,
-      "18": 6541.14,
-      "19": 6885.21,
-      "20": 7236.74,
-      "21": 7560.36,
-      "22": 7914.63,
-      "23": 8229.97,
-      "24": 8561.75,
-      "25": 8916.81,
-      "26": 9246.13,
-      "27": 9599.71
+      "02": 935.39,
+      "03": 1328.69,
+      "04": 1679.7,
+      "05": 2051.97,
+      "06": 2415.47,
+      "07": 2754.06,
+      "08": 3089.7,
+      "09": 3457.5,
+      "10": 3821.89,
+      "11": 4172.81,
+      "12": 4521.0,
+      "13": 4898.57,
+      "14": 5232.03,
+      "15": 5532.64,
+      "16": 5863.15,
+      "17": 6197.82,
+      "18": 6539.69,
+      "19": 6883.76,
+      "20": 7235.14,
+      "21": 7558.76,
+      "22": 7913.03,
+      "23": 8228.37,
+      "24": 8560.15,
+      "25": 8915.21,
+      "26": 9244.53,
+      "27": 9599.01
      },
      "playlist": [
       {
@@ -1685,22 +1685,22 @@
       },
       {
        "f": "ch01-medium.opus",
-       "d": 95.64,
+       "d": 95.59,
        "c": "01"
       },
       {
        "f": "ch02-core.opus",
-       "d": 299.54,
+       "d": 299.26,
        "c": "02"
       },
       {
        "f": "ch02-medium.opus",
-       "d": 97.11,
+       "d": 97.04,
        "c": "02"
       },
       {
        "f": "ch03-core.opus",
-       "d": 261.84,
+       "d": 261.79,
        "c": "03"
       },
       {
@@ -1740,7 +1740,7 @@
       },
       {
        "f": "ch07-core.opus",
-       "d": 258.59,
+       "d": 258.52,
        "c": "07"
       },
       {
@@ -1755,7 +1755,7 @@
       },
       {
        "f": "ch08-medium.opus",
-       "d": 79.95,
+       "d": 79.93,
        "c": "08"
       },
       {
@@ -1780,7 +1780,7 @@
       },
       {
        "f": "ch11-core.opus",
-       "d": 275.85,
+       "d": 275.8,
        "c": "11"
       },
       {
@@ -1800,7 +1800,7 @@
       },
       {
        "f": "ch13-core.opus",
-       "d": 248.47,
+       "d": 248.4,
        "c": "13"
       },
       {
@@ -1810,7 +1810,7 @@
       },
       {
        "f": "ch14-core.opus",
-       "d": 227.02,
+       "d": 226.52,
        "c": "14"
       },
       {
@@ -1840,7 +1840,7 @@
       },
       {
        "f": "ch17-core.opus",
-       "d": 270.73,
+       "d": 270.44,
        "c": "17"
       },
       {
@@ -1860,7 +1860,7 @@
       },
       {
        "f": "ch19-core.opus",
-       "d": 284.37,
+       "d": 284.22,
        "c": "19"
       },
       {
@@ -1930,12 +1930,12 @@
       },
       {
        "f": "ch26-core.opus",
-       "d": 276.12,
+       "d": 276.81,
        "c": "26"
       },
       {
        "f": "ch26-medium.opus",
-       "d": 80.46,
+       "d": 80.67,
        "c": "26"
       },
       {
@@ -1958,37 +1958,37 @@
     "long": {
      "label": "लामो",
      "label_en": "Long",
-     "duration": 13253.57,
-     "bytes": 23977891,
+     "duration": 13252.63,
+     "bytes": 23977047,
      "starts": {
       "00": 0.0,
       "01": 664.65,
-      "02": 1176.54,
-      "03": 1700.08,
-      "04": 2162.62,
-      "05": 2651.12,
-      "06": 3115.46,
-      "07": 3566.21,
-      "08": 4022.09,
-      "09": 4497.55,
-      "10": 4962.96,
-      "11": 5420.72,
-      "12": 5880.22,
-      "13": 6350.78,
-      "14": 6809.59,
-      "15": 7211.26,
-      "16": 7657.57,
-      "17": 8104.54,
-      "18": 8558.74,
-      "19": 9003.8,
-      "20": 9487.84,
-      "21": 9922.75,
-      "22": 10391.57,
-      "23": 10863.81,
-      "24": 11317.9,
-      "25": 11792.52,
-      "26": 12255.2,
-      "27": 12723.52
+      "02": 1176.49,
+      "03": 1699.53,
+      "04": 2162.02,
+      "05": 2650.52,
+      "06": 3114.86,
+      "07": 3565.61,
+      "08": 4021.42,
+      "09": 4496.86,
+      "10": 4962.27,
+      "11": 5420.03,
+      "12": 5879.48,
+      "13": 6350.04,
+      "14": 6808.78,
+      "15": 7209.95,
+      "16": 7656.26,
+      "17": 8103.21,
+      "18": 8557.12,
+      "19": 9002.18,
+      "20": 9486.07,
+      "21": 9920.98,
+      "22": 10389.8,
+      "23": 10862.04,
+      "24": 11316.13,
+      "25": 11790.68,
+      "26": 12253.36,
+      "27": 12722.58
      },
      "playlist": [
       {
@@ -2013,7 +2013,7 @@
       },
       {
        "f": "ch01-medium.opus",
-       "d": 95.64,
+       "d": 95.59,
        "c": "01"
       },
       {
@@ -2023,22 +2023,22 @@
       },
       {
        "f": "ch02-core.opus",
-       "d": 299.54,
+       "d": 299.26,
        "c": "02"
       },
       {
        "f": "ch02-medium.opus",
-       "d": 97.11,
+       "d": 97.04,
        "c": "02"
       },
       {
        "f": "ch02-long.opus",
-       "d": 131.39,
+       "d": 131.24,
        "c": "02"
       },
       {
        "f": "ch03-core.opus",
-       "d": 261.84,
+       "d": 261.79,
        "c": "03"
       },
       {
@@ -2098,7 +2098,7 @@
       },
       {
        "f": "ch07-core.opus",
-       "d": 258.59,
+       "d": 258.52,
        "c": "07"
       },
       {
@@ -2118,7 +2118,7 @@
       },
       {
        "f": "ch08-medium.opus",
-       "d": 79.95,
+       "d": 79.93,
        "c": "08"
       },
       {
@@ -2158,7 +2158,7 @@
       },
       {
        "f": "ch11-core.opus",
-       "d": 275.85,
+       "d": 275.8,
        "c": "11"
       },
       {
@@ -2188,7 +2188,7 @@
       },
       {
        "f": "ch13-core.opus",
-       "d": 248.47,
+       "d": 248.4,
        "c": "13"
       },
       {
@@ -2203,7 +2203,7 @@
       },
       {
        "f": "ch14-core.opus",
-       "d": 227.02,
+       "d": 226.52,
        "c": "14"
       },
       {
@@ -2243,12 +2243,12 @@
       },
       {
        "f": "ch16-long.opus",
-       "d": 113.8,
+       "d": 113.78,
        "c": "16"
       },
       {
        "f": "ch17-core.opus",
-       "d": 270.73,
+       "d": 270.44,
        "c": "17"
       },
       {
@@ -2278,7 +2278,7 @@
       },
       {
        "f": "ch19-core.opus",
-       "d": 284.37,
+       "d": 284.22,
        "c": "19"
       },
       {
@@ -2363,7 +2363,7 @@
       },
       {
        "f": "ch24-long.opus",
-       "d": 121.06,
+       "d": 120.99,
        "c": "24"
       },
       {
@@ -2383,12 +2383,12 @@
       },
       {
        "f": "ch26-core.opus",
-       "d": 276.12,
+       "d": 276.81,
        "c": "26"
       },
       {
        "f": "ch26-medium.opus",
-       "d": 80.46,
+       "d": 80.67,
        "c": "26"
       },
       {
@@ -2442,7 +2442,7 @@
     },
     "ch01-medium.opus": {
      "s": "workshop",
-     "g": "ADnNAkunAhRxCmEIcgWnAjTVBCqdBzyhBkvdBUs"
+     "g": "ADnNAkunAhRvCmEHcgWnAjXUBCudBzygBkveBUs"
     },
     "ch01-long.opus": {
      "s": "workshop",
@@ -2450,19 +2450,19 @@
     },
     "ch02-core.opus": {
      "s": "workshop",
-     "g": "AKABlgMv8wU-twEKa0afBi_mBS_GBEGFBkbLAzKIATCGD0HoARlyB2IPwAFEugU18wUt2AJBhg9E3wI11QEthg9L"
+     "g": "AKABlgMv8wU-twEKa0aWBjDmBS_GBEGFBkbKAzKJATCGD0HnARlyCGIPvgFDuwU07wUt2QJBhg9D4AI01gEthg9L"
     },
     "ch02-medium.opus": {
      "s": "workshop",
-     "g": "ADnYA0SEBTyACEi1BDrgBijZBks"
+     "g": "ADnYA0SEBTyACEi1BDrcBijZBks"
     },
     "ch02-long.opus": {
      "s": "workshop",
-     "g": "ADmPAht9G19J5QEKXRTlAjeMByjIBjyxBEjLBTrcBUvnAzfEA0s"
+     "g": "ADmPAht9G19J5QEKXRThAjeJByjIBjywBEnLBTrcBUvnAzfEA0s"
     },
     "ch03-core.opus": {
      "s": "deck",
-     "g": "AKABpAQwmQEhaj7xAQhnFIIBRvADMpMFMO4EQcsERrMCMoUGMKACKN0LOogBEpsBB10ZgwNJqAY8rQEo3Qs6kwJI5wE83QtL"
+     "g": "AKABpAQwmQEhaj7xAQhnFIIBRvADMpMFMO4EQcsERrMCMoUGMKACKN0LOogBEpsBB10ZgwNJpgY8rQEo3Qs6kgJJ5gE83QtL"
     },
     "ch03-medium.opus": {
      "s": "deck",
@@ -2510,7 +2510,7 @@
     },
     "ch07-core.opus": {
      "s": "open_sea",
-     "g": "AKABtwMw5QJBuQRGsgEFaRfYAjLdBDDfAT7lBUaLATKoDS9uBH46awegA0qQAzeVBCqZBDmWAUuoDTfOASrmATyoDUs"
+     "g": "AKABtwMw5QJBuQRGsgEFaRfYAjLZBDDfAT_kBUaLATKoDTBtBX45awifA0uQAzeUBCuYBDqWAUuoDTfNASrnATyoDUs"
     },
     "ch07-medium.opus": {
      "s": "open_sea",
@@ -2526,7 +2526,7 @@
     },
     "ch08-medium.opus": {
      "s": "ship_hold",
-     "g": "ADmJAjnuAyuaBDbhA0vDBDq3BCvkBEs"
+     "g": "ADmJAjnuAyuYBDfgA0vEBDm4BCvjBEs"
     },
     "ch08-long.opus": {
      "s": "ship_hold",
@@ -2558,7 +2558,7 @@
     },
     "ch11-core.opus": {
      "s": "workshop",
-     "g": "AKABjQM6qwEIXBycAiueAzf2AkuWBTzOAyuXAzS2AkuzAjndAT-uDkm0ARmBAQhiEpsCN-kBKJMDPoYGSaMBN64OKPwBPOQBSa4OSw"
+     "g": "AKABjQM6qwEIXBycAiueAzf2AkuWBTzOAyuXAzS2AkuzAjndAT-uDkm0ARmBAQhiEpsCN-kBKJADP4YGSKQBN64OKPwBPOQBSa4OSw"
     },
     "ch11-medium.opus": {
      "s": "workshop",
@@ -2582,7 +2582,7 @@
     },
     "ch13-core.opus": {
      "s": "ship_hold",
-     "g": "AKABwgE8uQMqgQM1fQVrFoABTNMBPKEDK9ADNdEDS4IDOY8BL94NMGkIgwFGawf0AkHgAy3lAzKQAUbeDT6mAjDXATLeDUs"
+     "g": "AKABwgE8uQMqgQM1fQVrFoABTNMBPKEDK9ADNdEDS4IDOY8BL94NMGkIgwFGawf0AkHgAy3hAzKQAUbeDT-mAi_XATLeDUs"
     },
     "ch13-medium.opus": {
      "s": "ship_hold",
@@ -2594,7 +2594,7 @@
     },
     "ch14-core.opus": {
      "s": "cabin",
-     "g": "AKABrgI8tgMrxgEHXA-cATStAkvyAjysAiqaDTdsCJQBS2kHngM6iQM_9wJG7gQyngEwmg1A4AJG8wEymQ1L"
+     "g": "AKABrgI8tgMrxgEHXA-cATStAkvyAjysAiqTDTdsB5UBS2kHngM6hgM--AJG7QQynwEvkw1B3wJG8wEykg1L"
     },
     "ch14-medium.opus": {
      "s": "cabin",
@@ -2626,11 +2626,11 @@
     },
     "ch16-long.opus": {
      "s": "deck",
-     "g": "ADmXATKrAQhdFMEBMLICMosDRpkEQaADL_gFL-cCRrEEQrYDL6QCMvgBSw"
+     "g": "ADmXATKrAQhdFMEBMLICMosDRpkEQaADL_gFL-cCRrAEQbYDMKMCMvkBSw"
     },
     "ch17-core.opus": {
      "s": "open_sea",
-     "g": "AKAB6gI8ngEbqAEIXg-DASvOATXMBEuGBDzGAyrLATT3DkttCmw6bAqbAkHOA0aSAzS8Ai2pA0PdBEOiATL3Di2gAkHtAUT2Dks"
+     "g": "AKAB6gI8ngEbqAEIXg-DASvOATXMBEuGBDzGAyrLATTyDkttCmw6bAqbAkHOA0aSAzS8Ai2pA0PdBESiATLxDi2gAkHuAUPyDks"
     },
     "ch17-medium.opus": {
      "s": "open_sea",
@@ -2654,7 +2654,7 @@
     },
     "ch19-core.opus": {
      "s": "deck",
-     "g": "AKAB0gI6vgIqgwEIaBnGATfSAUuoAzm0BCuoATfxAkukAjmzAzTWBC3eAUHlDENtBZwBNWwFjgMtnwNB6AJEiAI0hgMu0QM3nAEo5Qw--gFJ5AE25QxL"
+     "g": "AKAB0gI6vgIqgwEIaBnGATfSAUuoAzm0BCuoATfxAkukAjmzAzTPBC3eAUHlDENtBZwBNWwFjgMtnwNB6AJEiAI0hgMt0gM3nAEo5Qw--gFI5AE35QxL"
     },
     "ch19-medium.opus": {
      "s": "deck",
@@ -2698,7 +2698,7 @@
     },
     "ch22-long.opus": {
      "s": "workshop",
-     "g": "ADnCATnbAQdeG5MBSNcCP6oDB2MKXUvKAQplB-gBPOABK9EBCocBCJICNbsDS9cDPMUDKpMCNIwFS40DOoMEQYQCQ8cCSw"
+     "g": "ADnCATnbAQdeG5MBSNcCP6oDB2MKXUvKAQplB-gBPOABK9EBCocBCJICNbsDS9cDPMYDKpMCNYoFS40DOoMEQYQCQ8cCSw"
     },
     "ch23-core.opus": {
      "s": "ship_hold",
@@ -2722,7 +2722,7 @@
     },
     "ch24-long.opus": {
      "s": "island_shore",
-     "g": "ADmAAkSMAQdpD78BRu0CPrcCLfcCMtYDRvADQfMEL54DMMoDRqsDP54CPIQCSw"
+     "g": "ADmAAkSMAQdpD78BRu0CPrcCLfQCMtUDRvEDQfIEMJ4DL8sDRqsDPp4CPIQCSw"
     },
     "ch25-core.opus": {
      "s": "harbour_day",
@@ -2738,11 +2738,11 @@
     },
     "ch26-core.opus": {
      "s": "cave",
-     "g": "AKAB-QI-gwESyAEKXxaJASiUAjeiA0iJATzrAyjtAzfPAkiFAzy4AjLtDy1sCpoBPm4K4ARG6gIw9AMwoQFB7Q9GtQIy7wEw7Q9L"
+     "g": "AKAB-QI-gwESyAEKXxaJASiUAjeiA0iJATzrAyjtAzfPAkiFAzy4AjLzDy1sCqIBP20K4ARG8wIw9AMwoAFB9A9GtQIy7wEv9A9L"
     },
     "ch26-medium.opus": {
      "s": "cave",
-     "g": "ADn2AyvEBDrvBEvWAzerAyuzAzqKBEs"
+     "g": "ADn2AyvEBDrvBEvWAze2AyuzAzqKBEs"
     },
     "ch26-long.opus": {
      "s": "cave",

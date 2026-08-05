@@ -1,0 +1,6 @@
+# Sentences that are fragments on purpose and must stay fragments. Anything not
+# on this list has to be a whole sentence — see check_bedtime.py.
+#
+# The linter also reports entries here that no script uses any more, so this
+# file only ever lists fragments that are actually spoken on this voyage. Add a
+# line when a chapter needs one, not in advance.

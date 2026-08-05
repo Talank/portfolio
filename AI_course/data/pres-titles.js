@@ -9,7 +9,14 @@ window.PRES_TITLES = {
   "calculus-gradients": "Chopper को Drum Rockies को हिउँआँधी ओरालो",
   "probability": "Usopp का हावादारी कथा: भरपर्दो नभएको साक्षीसँग Bayes' rule",
   "statistics-mle": "Robin र hull नम्बर: नदेखिने बेडाको अनुमान",
-  "information-theory": "Thousand Sunny का signal झन्डा: Nami को optimal codebook"
+  "information-theory": "Thousand Sunny का signal झन्डा: Nami को optimal codebook",
+  "ml-fundamentals": "Usopp को निशानेबाजी: एउटै टापुमा तालिम गरेको sniper",
+  "linear-regression": "Nami को मूल्य chart: गुप्त रूपमा जताततै भएको सीधा रेखा",
+  "logistic-regression": "Chopper को निदान: score लाई probability मा बदल्नु",
+  "text-as-numbers": "Robin को अभिलेखालय: महत्त्व राख्ने एउटै पाना भेट्टाउनु",
+  "knn-trees-forests": "Chopper को क्षेत्र-निर्देशिका: 'मैले यस्तै कुरा पहिले देखेको छु'",
+  "clustering-pca": "कसैले label नगरेका शङ्ख छुट्याउँदै Nami",
+  "model-evaluation": "Nami को खाता: नब्बे प्रतिशत सही र पूरै बेकार"
  },
  "en": {
   "how-ai-fits-together": "The Grand Line needs a Log Pose, not a normal compass",
@@ -19,6 +26,13 @@ window.PRES_TITLES = {
   "calculus-gradients": "Chopper's blizzard descent of the Drum Rockies",
   "probability": "Usopp's tall tales: Bayes' rule with an unreliable witness",
   "statistics-mle": "Robin and the hull numbers: estimating a fleet you can't see",
-  "information-theory": "The signal flags of the Thousand Sunny: Nami's optimal codebook"
+  "information-theory": "The signal flags of the Thousand Sunny: Nami's optimal codebook",
+  "ml-fundamentals": "Usopp's marksmanship: the sniper who trained on one island",
+  "linear-regression": "Nami's price chart: the straight line that is secretly everywhere",
+  "logistic-regression": "Chopper's diagnosis: turning a score into a probability",
+  "text-as-numbers": "Robin's archive: finding the one page that matters",
+  "knn-trees-forests": "Chopper's field guide: 'I have seen something like this before'",
+  "clustering-pca": "Nami sorting shells nobody labelled",
+  "model-evaluation": "Nami's ledger: 90% accurate and completely useless"
  }
 };

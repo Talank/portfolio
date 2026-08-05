@@ -156,6 +156,13 @@ WORDS = {
     "state": "स्टेट",
     "special": "स्पेसल",
     "shared": "सेयर्ड",
+    # सङ्ख्या was the last big holdout. It became `number` only where it means
+    # a numeric *value*; where it means "how many of a thing" it is still
+    # सङ्ख्या, because "बाकसको numberसँगै" reads as the box's identifier rather
+    # than the count of boxes. One word per sense, which the Nepali alone did
+    # not give us.
+    "number": "नम्बर",
+    "numbers": "नम्बर",
 }
 
 
