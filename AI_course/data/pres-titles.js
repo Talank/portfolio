@@ -16,7 +16,9 @@ window.PRES_TITLES = {
   "text-as-numbers": "Robin को अभिलेखालय: महत्त्व राख्ने एउटै पाना भेट्टाउनु",
   "knn-trees-forests": "Chopper को क्षेत्र-निर्देशिका: 'मैले यस्तै कुरा पहिले देखेको छु'",
   "clustering-pca": "कसैले label नगरेका शङ्ख छुट्याउँदै Nami",
-  "model-evaluation": "Nami को खाता: नब्बे प्रतिशत सही र पूरै बेकार"
+  "model-evaluation": "Nami को खाता: नब्बे प्रतिशत सही र पूरै बेकार",
+  "neural-networks": "Water 7 का shipwright: कुनै एउटै दिमागले नबनाएको जहाज",
+  "backpropagation": "फिर्ता आएको परिकार: Baratie को लाइनमा गुनासो उल्टो हिँडाउँदै"
  },
  "en": {
   "how-ai-fits-together": "The Grand Line needs a Log Pose, not a normal compass",
@@ -33,6 +35,8 @@ window.PRES_TITLES = {
   "text-as-numbers": "Robin's archive: finding the one page that matters",
   "knn-trees-forests": "Chopper's field guide: 'I have seen something like this before'",
   "clustering-pca": "Nami sorting shells nobody labelled",
-  "model-evaluation": "Nami's ledger: 90% accurate and completely useless"
+  "model-evaluation": "Nami's ledger: 90% accurate and completely useless",
+  "neural-networks": "The Water 7 shipwrights: a hull nobody designed in one head",
+  "backpropagation": "The dish sent back: walking the complaint up the Baratie line"
  }
 };

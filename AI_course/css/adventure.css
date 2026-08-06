@@ -1,0 +1,80 @@
+/* Moominvalley. The game draws itself; this only gives it a window to sit in.
+   Everything visible inside the canvas — including the questions — is drawn by
+   js/adventure-art.js and js/adventure-engine.js, so there is nothing here to
+   keep in step with the game's own look. */
+
+.game-wrap {
+  max-width: 1120px;
+}
+
+.game-shell {
+  position: relative;
+  width: 100%;
+  /* Tall enough to hold a four-option question, short enough that the keys
+     legend under it is still on screen on a laptop. */
+  aspect-ratio: 8 / 5;
+  max-height: 72vh;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #0b1016;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+}
+
+.game-shell canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* The canvas takes the keyboard, so it must not show a focus ring that
+     flashes on every click while you are playing. */
+  outline: none;
+  /* Stops a two-finger scroll from dragging the page while you are walking. */
+  touch-action: none;
+  cursor: pointer;
+}
+
+.game-keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  margin: 0.75rem 0 1.5rem;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+.game-keys b {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.game-note h2 { margin-top: 0; }
+.game-note p { margin: 0 0 0.8rem; }
+
+.game-reset {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0 !important;
+}
+
+.game-reset button {
+  background: var(--bg-panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.9rem;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.game-reset button:hover { border-color: var(--danger); color: var(--danger); }
+
+.game-reset span { color: var(--text-dim); font-size: 0.85rem; }
+
+@media (max-width: 640px) {
+  .game-shell { aspect-ratio: 3 / 4; max-height: 68vh; }
+  .game-keys { font-size: 0.75rem; }
+}

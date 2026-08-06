@@ -175,6 +175,7 @@ function buildHeader(active) {
     ['presentation.html', 'Presentation'],
     ['cheat-sheet.html', 'Cheat Sheet'],
     ['interview.html', 'Interview Drill'],
+    ['adventure.html', '🎮 Moominvalley'],
     ['bedtime.html', '🌙 Bedtime'],
   ];
   const nav = links.map(([href, label]) =>

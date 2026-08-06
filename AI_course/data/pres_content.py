@@ -552,8 +552,10 @@ MODULES = [
 # appended in SCHEDULE order, which is the order the deck is built in.
 sys.path.insert(0, HERE)
 import pres_part2  # noqa: E402
+import pres_part3  # noqa: E402
 
 MODULES += pres_part2.MODULES
+MODULES += pres_part3.MODULES
 
 if __name__ == "__main__":
     course_dir = os.path.abspath(os.path.join(HERE, ".."))
