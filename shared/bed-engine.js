@@ -14,6 +14,23 @@
  * need sample-accurate sync with the voice — it needs to know roughly where the
  * pauses are, which is what the manifest tells it.
  *
+ * WHEN THE PAGE GOES BEHIND SOMETHING there is a second bed. A phone browser
+ * suspends the AudioContext as soon as the page stops being visible — the
+ * screen locking is enough — so everything above goes silent while the
+ * narration, which is an <audio> element and therefore counts as media
+ * playback, carries on. Nothing in this file causes that and nothing in this
+ * file can prevent it; the only way to make a sound survive backgrounding is to
+ * play it the way the narration is played.
+ *
+ * So one pre-mixed loop, `night.opus`, sits in an <audio> element of its own.
+ * A watchdog compares the context's clock against the wall clock once a second;
+ * a context that has stopped advancing while the story is still playing has
+ * been suspended, and the loop is faded in to take over. Coming back to the
+ * page fades it out again. The live bed is better — it follows the scene and it
+ * breathes with the pauses — so the loop is strictly the understudy, and while
+ * it holds the stage the engine stops fetching and decoding layers it cannot
+ * hear.
+ *
  * The swell is the same arithmetic the renderer used to bake in: each pause
  * contributes a triangle rising over SWELL_RAMP and falling over it, clamped at
  * 1, so a 7-second chapter break reaches the full lift, a 2.4-second paragraph
@@ -81,6 +98,12 @@
     this.lift = Math.pow(10, 6 / 20) - 1;
     this.failed = false;
     this._cursor = 0;       // index into this.gaps, so tick() is not O(gaps)
+
+    this.fb = null;         // the <audio> that plays when the context is dead
+    this.fbOn = false;
+    this._paused = true;    // the player has not pressed play yet
+    this._lastTick = 0;     // when the player last told us where the playhead is
+    this._pendingScene = null;
   }
 
   /* Load the manifest of scenes, gains and loop names. Cheap and safe to call
@@ -118,7 +141,140 @@
     this.swell.gain.value = 1;
     this.swell.connect(this.master);
     this.master.connect(this.ctx.destination);
+    this._arm();
+    this._watch();
     return this.ctx;
+  };
+
+  /* Prepare the background loop, from the same gesture that made the context.
+     A phone will only play an element that has been played once under a
+     gesture, and the moment we need this one there will not be a gesture in
+     sight — the page will be behind a lock screen. So it is started here at
+     zero and stopped again as soon as the browser admits it was allowed to.
+     iOS ignores `volume`, hence the fixed-level mix in the file rather than a
+     loud one turned down. */
+  BedEngine.prototype._arm = function () {
+    if (this.fb || !this.meta || !this.meta.fallback) return;
+    var el;
+    try { el = new Audio(); } catch (e) { return; }
+    el.loop = true;
+    el.preload = 'auto';
+    el.volume = 0;
+    el.src = this.base + this.meta.fallback.file + '.opus';
+    var self = this;
+    el.addEventListener('error', function () { self.fb = null; });
+    var p = el.play();
+    if (p && p.then) p.then(function () { el.pause(); }, function () { /* blocked */ });
+    this.fb = el;
+  };
+
+  BedEngine.prototype._watch = function () {
+    if (this._timer) return;
+    var self = this;
+    this._mark();
+    this._timer = setInterval(function () { self._pulse(); }, 1000);
+    if (root.document && !this._visWired) {
+      this._visWired = true;
+      root.document.addEventListener('visibilitychange', function () {
+        /* Only worth reacting to on the way back: coming forward should hand
+           over at once, going away is what the watchdog is for. */
+        if (!root.document.hidden) self._pulse();
+      });
+    }
+  };
+
+  BedEngine.prototype._mark = function () {
+    this._ctxAt = this.ctx ? this.ctx.currentTime : 0;
+    this._wallAt = Date.now();
+  };
+
+  /* Once a second: is the context still making sound, and should it be? */
+  BedEngine.prototype._pulse = function () {
+    if (!this.ctx || this.failed) return;
+    if (!this.fb) this._arm();
+
+    /* The player calls tick() ten times a second while it is playing and never
+       when it is not, which makes it the one honest answer to "is the story
+       running". It matters because a phone can pause the narration from the
+       lock screen without the page's own pause button being involved, and an
+       ambient loop still going after the voice has stopped is worse than no
+       ambience at all. Hidden pages have their timers clamped to about a
+       second, so three is comfortably outside the noise. */
+    var stalled = Date.now() - this._lastTick > 3000;
+    if (this._paused || stalled) {
+      if (this.fbOn) this._toLive(true);
+      this._mark();
+      return;
+    }
+    if (this.fbOn) {
+      if (root.document && !root.document.hidden) this._toLive(false);
+      this._mark();
+      return;
+    }
+    var wall = (Date.now() - this._wallAt) / 1000;
+    var moved = this.ctx.currentTime - this._ctxAt;
+    // A running context keeps step with the wall clock. A suspended one has
+    // stopped dead, so anything under half speed is a context that is gone.
+    if (wall >= 0.9 && moved < wall * 0.5) this._toFallback();
+    this._mark();
+  };
+
+  BedEngine.prototype._toFallback = function () {
+    if (this.fbOn || !this.fb || !this.scene) return;
+    this.fbOn = true;
+    try {
+      this.fb.volume = 0;
+      var p = this.fb.play();
+      if (p && p.catch) p.catch(function () { /* nothing else to try */ });
+    } catch (e) {
+      this.fbOn = false;
+      return;
+    }
+    this._fade(this.volume * this.bedGain, 800);
+    // Explicit, so that coming back is our decision and not the browser's:
+    // a context the browser suspended may resume itself on the way forward,
+    // and two beds at once is a worse bug than one.
+    try { this.ctx.suspend(); } catch (e) { /* already down */ }
+  };
+
+  BedEngine.prototype._toLive = function (nowPlease) {
+    if (!this.fbOn) return;
+    this.fbOn = false;
+    var el = this.fb;
+    this._fade(0, nowPlease ? 0 : 800, function () {
+      try { el.pause(); } catch (e) { /* gone */ }
+    });
+    if (this._paused) return;      // the story stopped; leave the context down
+    try { this.ctx.resume(); } catch (e) { /* nothing to resume */ }
+    if (this.master) this._ramp(this.master.gain, this.volume * this.bedGain, 1);
+    var s = this._pendingScene;
+    if (s) { this._pendingScene = null; this.setScene(s); }
+  };
+
+  /* Fade the loop by wall clock rather than by tick count: a hidden page gets
+     one tick a second, and counting ticks would stretch a fade meant to take
+     under a second into fifteen. Measured this way it simply becomes a cut,
+     which is the right answer at the moment a screen goes dark. */
+  BedEngine.prototype._fade = function (to, ms, done) {
+    var el = this.fb;
+    if (this._fadeTimer) { clearInterval(this._fadeTimer); this._fadeTimer = null; }
+    if (!el) { if (done) done(); return; }
+    var from = el.volume, t0 = Date.now(), self = this;
+    if (ms <= 0) {
+      try { el.volume = to; } catch (e) { /* iOS */ }
+      if (done) done();
+      return;
+    }
+    this._fadeTimer = setInterval(function () {
+      var k = Math.min(1, (Date.now() - t0) / ms);
+      try { el.volume = Math.max(0, Math.min(1, from + (to - from) * k)); }
+      catch (e) { k = 1; }        // iOS refuses the write; treat it as arrived
+      if (k >= 1) {
+        clearInterval(self._fadeTimer);
+        self._fadeTimer = null;
+        if (done) done();
+      }
+    }, 50);
   };
 
   BedEngine.prototype._buffer = function (name) {
@@ -169,6 +325,11 @@
   BedEngine.prototype.setScene = function (scene) {
     if (!this.ctx || this.failed || !this.meta) return;
     if (scene === this.scene) return;
+    /* Backgrounded: the loop is playing and nothing this method starts can be
+       heard. Downloading and decoding two more layers for it would be a few
+       megabytes of a sleeping phone's memory spent on silence. Remember where
+       we got to and set it properly on the way back. */
+    if (this.fbOn) { this._pendingScene = scene; return; }
     this.scene = scene;
     var gains = this.meta.scenes[scene];
     if (!gains) return;
@@ -231,11 +392,20 @@
     this.bedGain = bedGain == null ? 1 : bedGain;
     this.lift = Math.pow(10, (swellDb == null ? 6 : swellDb) / 20) - 1;
     if (this.ctx && this.scene) this._ramp(this.master.gain, this.volume * this.bedGain, 2);
+    this._level();
   };
 
   BedEngine.prototype.setVolume = function (v) {
     this.volume = v;
     if (this.ctx && this.scene) this._ramp(this.master.gain, this.volume * this.bedGain, 0.3);
+    this._level();
+  };
+
+  /* Keep the background loop at whatever the live bed would be sitting at, so
+     that moving the slider or switching to drive mode while the screen is off
+     does what it looks like it should. */
+  BedEngine.prototype._level = function () {
+    if (this.fbOn && this.fb) this._fade(this.volume * this.bedGain, 300);
   };
 
   /* Hand over the pause windows for the segment now playing. `gaps` is the
@@ -255,7 +425,10 @@
 
   /* Called with the playhead's position *within the current segment*. */
   BedEngine.prototype.tick = function (t) {
-    if (!this.ctx || this.failed || !this.swell) return;
+    // Before every guard: this is also the heartbeat that tells the watchdog
+    // the story is still running. See _pulse().
+    this._lastTick = Date.now();
+    if (!this.ctx || this.failed || !this.swell || this.fbOn) return;
     var g = this.gaps, n = g.length, i;
 
     // The playhead usually advances, so resume the scan where it left off and
@@ -284,16 +457,30 @@
   };
 
   BedEngine.prototype.suspend = function () {
+    this._paused = true;
+    if (this.fbOn) this._toLive(true);
     if (this.ctx && this.ctx.state === 'running') this.ctx.suspend();
   };
 
   BedEngine.prototype.resume = function () {
+    this._paused = false;
+    this._lastTick = Date.now();   // the tick loop has not come round yet
     if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+    this._mark();
   };
 
   /* Fade out and let go of the decoded buffers — ~21 MB if every layer is
      resident, which is worth reclaiming when the listener leaves the page. */
   BedEngine.prototype.stop = function () {
+    this._paused = true;
+    if (this._timer) { clearInterval(this._timer); this._timer = null; }
+    if (this._fadeTimer) { clearInterval(this._fadeTimer); this._fadeTimer = null; }
+    if (this.fb) {
+      try { this.fb.pause(); this.fb.removeAttribute('src'); this.fb.load(); }
+      catch (e) { /* going away anyway */ }
+      this.fb = null;
+      this.fbOn = false;
+    }
     if (!this.ctx) return;
     var self = this, ctx = this.ctx;
     try { this._ramp(this.master.gain, 0, 1.5); } catch (e) { /* closing anyway */ }

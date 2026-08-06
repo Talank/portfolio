@@ -55,6 +55,23 @@ SR = 24000
 XFADE = 2.0     # seconds of loop-closing crossfade
 BITRATE = "24k"
 
+# --- the background bed -----------------------------------------------------
+# Everything above is mixed live by shared/bed-engine.js, which needs an
+# AudioContext, and a phone browser suspends the AudioContext the moment the
+# page stops being visible. The narration survives that because it plays through
+# an <audio> element and the browser treats it as media; the bed does not.
+#
+# So there is one more file: a single pre-mixed loop that an <audio> element can
+# play natively, which the engine fades in whenever it catches the context
+# frozen. It is not per scene on purpose. It plays only when the screen is off
+# or the browser is behind something else, when the whole point is that nothing
+# changes and nothing wakes you, and one file is a tenth of the bytes of twelve.
+#
+# Its mix is the average of the twelve scenes weighted by how many chapters use
+# each, so it sounds like the voyage rather than like any one place in it.
+NIGHT_SECONDS = 47
+NIGHT_BITRATE = "16k"   # a bed heard through a pocket, under a voice
+
 
 def read_pcm(path, sr):
     """Decode to mono float32 at `sr`."""
@@ -101,12 +118,82 @@ def close_loop(x, sr, seconds, xfade):
     return body
 
 
+def night_gains(soundscape):
+    """One gain per layer: the scene mix averaged over the whole voyage.
+
+    Weighted by chapter count rather than by scene, so six chapters at open sea
+    pull the blend six times as hard as the one in the cave. The result is a
+    quiet night at sea with a little timber and wind in it, which is what most
+    of the book sounds like anyway.
+    """
+    counts = {}
+    for scene in soundscape.SCENES.values():
+        counts[scene] = counts.get(scene, 0) + 1
+    total = float(sum(counts.values())) or 1.0
+    gains = []
+    for i, name in enumerate(soundscape.LAYER_NAMES):
+        mean = sum(soundscape.SCENE_GAINS[s][i] * n for s, n in counts.items()) / total
+        # Bake the ceiling in too: the engine applies scene x ceiling to each
+        # live layer, so a file carrying both plays back at the same level the
+        # live bed sits at, and the element's own volume can stay the master.
+        gains.append(mean * soundscape.LAYER_CEILING[name])
+    return gains
+
+
+def build_night(src, out, soundscape, bitrate):
+    """Mix the layers down to one self-closing loop for background playback."""
+    gains = night_gains(soundscape)
+    mix = np.zeros(int(NIGHT_SECONDS * SR), dtype="f4")
+    used = 0
+    for i, name in enumerate(soundscape.LAYER_NAMES):
+        path = os.path.join(src, name + ".opus")
+        if gains[i] <= 0 or not os.path.exists(path):
+            continue
+        x = read_pcm(path, SR)
+        # Enter each layer at a different point in its recording. The sources
+        # already loop at their own length, so rotating one is seamless, and it
+        # keeps this file from being the first 47 seconds of everything at once.
+        off = int((i * 11 * SR) % len(x))
+        if off:
+            x = np.concatenate([x[off:], x[:off]])
+        mix += close_loop(x, SR, NIGHT_SECONDS, XFADE) * gains[i]
+        used += 1
+        print(f"  {name:8s} x {gains[i]:.4f}")
+
+    peak = float(np.max(np.abs(mix))) if used else 0.0
+    if peak > 0.95:
+        mix *= 0.95 / peak
+        print(f"  peak {peak:.2f} -> trimmed to 0.95")
+    dst = os.path.join(out, "night.opus")
+    write_opus(mix, dst, SR, bitrate)
+    size = os.path.getsize(dst)
+    print(f"  night    {used} layers  {NIGHT_SECONDS}s  peak {peak:.3f}  "
+          f"{size / 1024:.0f} KB")
+    return {"file": "night", "seconds": NIGHT_SECONDS}
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--src", required=True, help="dir holding the full loops")
     ap.add_argument("--out", required=True, help="dir to write bed assets to")
     ap.add_argument("--bitrate", default=BITRATE)
+    ap.add_argument("--night-bitrate", default=NIGHT_BITRATE)
+    ap.add_argument("--night-only", action="store_true",
+                    help="rebuild only the background loop, and patch the "
+                         "existing bed.json instead of rewriting it")
     args = ap.parse_args()
+
+    if args.night_only:
+        sys.path.insert(0, os.path.abspath(args.src + "/.."))
+        import soundscape  # noqa: E402
+        meta_path = os.path.join(args.out, "bed.json")
+        with open(meta_path, encoding="utf-8") as f:
+            meta = json.load(f)
+        meta["fallback"] = build_night(args.src, args.out, soundscape,
+                                       args.night_bitrate)
+        with open(meta_path, "w", encoding="utf-8") as f:
+            json.dump(meta, f, ensure_ascii=False, separators=(",", ":"))
+        return
 
     os.makedirs(args.out, exist_ok=True)
     # soundscape.py owns the scene/layer model; import it so there is exactly
@@ -140,6 +227,9 @@ def main():
         meta["layers"].append({"name": name, "seconds": secs})
         print(f"  {name:8s} {len(x) / SR:6.1f}s -> {secs:3d}s   "
               f"{os.path.getsize(src) / 1024:6.0f} KB -> {size / 1024:5.0f} KB")
+
+    meta["fallback"] = build_night(args.src, args.out, soundscape,
+                                   args.night_bitrate)
 
     with open(os.path.join(args.out, "bed.json"), "w", encoding="utf-8") as f:
         json.dump(meta, f, ensure_ascii=False, separators=(",", ":"))
