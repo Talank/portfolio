@@ -1,0 +1,108 @@
+# 18 — The Rhythm That Lies
+
+The last of the four arrest chapters, and the only one where the strip looks fine.
+
+Sister Maya tells this one properly, because it happened in this ward, on a Tuesday, to a woman who had been sitting up eating her lunch an hour earlier.
+
+[sister]"The monitor was showing sinus rhythm at eighty-eight,"[/] she says. [sister]"A perfectly ordinary strip. And there was nothing at her wrist and nothing at her neck."[/]
+
+[ne]आजको रिदम हेर्दा ठीकै देखिन्छ। तर बिरामीको नाडी चल्दैन।[/]
+
+@read teach
+Pulseless electrical activity. Everybody calls it PEA, and the name is the definition.
+
+There is electrical activity — organised, recognisable, sometimes completely normal-looking. And there is no pulse.
+
+Run the five questions and you may well get five reassuring answers. Rate eighty-eight. Regular. One P before every QRS. PR constant. Narrow complexes. Normal sinus rhythm, on paper, in a patient who is dead unless somebody starts compressions in the next few seconds.
+
+@read teach
+So this is the chapter where the sixth question stops being good practice and becomes the whole thing.
+
+The strip cannot diagnose this. Not by being read carefully, not by being read by an expert, not by being read by the machine. The only thing that distinguishes PEA from a living rhythm is the patient, and the only way to check the patient is to put your fingers on an artery.
+
+That is why every rhythm check in a resuscitation is a rhythm check and a pulse check, and why the pulse check is central — the carotid or the femoral — and not at the wrist, where a low blood pressure hides everything.
+
+[ne]कागज हेरेर यो चिन्न सकिँदैन। बिरामी छुनु नै एउटा मात्र बाटो हो।[/]
+
+@read teach
+Now, why does it happen? Because the answer is the treatment.
+
+The electrical system is working. The signal is being generated and conducted and delivered. What is failing is everything after that — either the muscle cannot squeeze, or it squeezes and there is nothing to squeeze, or it squeezes and the blood cannot get out.
+
+So PEA is almost always a mechanical or a metabolic problem wearing an electrical disguise, and there is nothing electrical to fix. Shocking it does nothing. There is nothing to shock.
+
+@algo pea
+Pulseless electrical activity is an organised rhythm on the monitor with no pulse in the patient. The strip can look completely normal, and no amount of reading it will show you the problem, because the problem is not electrical — the signal is arriving and the pump is not working. It is not shockable. The treatment is high quality compressions, adrenaline as early as possible, and a hard search for a reversible cause, because the cause is the only thing that can be fixed. Organised on the screen, nothing at the neck. Compressions and adrenaline, and find the reason.
+@end
+
+The tea things get cleared away. Somewhere a door closes softly.
+
+@read hush
+Once more, and there is nothing to hold on to.
+
+@recall pea
+
+@read teach
+Now the causes, because this is the one arrest rhythm where finding the cause is genuinely the whole job, and because there is a shape to the list that makes it much easier than memorising it.
+
+Ask two questions. Is there nothing to pump? Or is there something stopping the pump?
+
+Nothing to pump covers the volume problems. There has been massive blood loss, or severe dehydration, or a vessel dilated wide open by sepsis or anaphylaxis. In every one of those the heart is squeezing on an empty chamber, and the answer is volume, fast, and stopping whatever is causing the loss.
+
+Something stopping the pump covers the obstructions. Blood or fluid has collected in the sac around the heart and is squeezing it from outside. Air is trapped in the chest under pressure, pushing everything to one side and kinking the great veins. Or a large clot sits in the lung, so nothing returns to the left side to be pumped.
+
+[sister]"Empty, or blocked,"[/] Sister Maya says. [sister]"Nine times in ten it is one of those two, and both of them are things you can actually do something about."[/]
+
+@read teach
+And then the third group, which is the poisons and the numbers. The potassium is far too high or far too low. The body is far too cold. Something has been taken that stops the heart from contracting. There is a profound lack of oxygen, or the blood has turned severely acidotic.
+
+Those are less often the answer in a ward arrest and more often the answer in an intensive care one, and they are found by a blood gas rather than by an examination.
+
+@read teach
+So the practical sequence, and it is the reason handheld ultrasound has become part of resuscitation.
+
+While compressions continue, somebody looks. At the neck veins, at the trachea, at both sides of the chest, at the abdomen, at the drug chart and at the last set of bloods. If there is an ultrasound probe and somebody who can use it, it goes on the chest during the ten-second rhythm check and answers three of these questions at once.
+
+The compressions never stop for any of that.
+
+[ne]खोज्दै गर्नुहोस्, तर छाती थिच्न कहिल्यै नछाड्नुहोस्।[/]
+
+@read hush
+The rhythm one last time.
+
+@recall pea | Slowly, and then sleep.
+
+@tier medium
+
+There is a distinction inside PEA that has become useful, and it comes from the width of the complexes.
+
+@read teach
+A narrow-complex PEA — a normal-looking rhythm with no pulse — tends to be a mechanical problem. Something is empty, or something is obstructed. Those are the causes with the best chance of being fixed, and this is the group where finding the answer quickly genuinely saves people.
+
+A wide-complex PEA tends to be a metabolic or a toxic problem. That group holds the high potassium, the sodium channel blocking overdose and the severe acidosis — a heart poisoned rather than obstructed. Those need the laboratory and the antidote rather than a needle in the chest.
+
+@read teach
+It is not a rule and it does not always hold. It is a first guess that costs nothing, and in a room where several people are thinking at once, a first guess that points half of them in the right direction is worth having.
+
+There is a matching observation about the rate. A PEA that is fast is more often something empty or obstructed, because the heart is still responding and trying to compensate. A PEA that is slow is more often a heart that is failing or poisoned, and it shades towards asystole.
+
+@tier long
+
+The last piece tonight is a phrase you will hear, and it is worth understanding rather than repeating.
+
+@read teach
+The phrase is true PEA against pseudo-PEA. In true PEA the muscle is not contracting at all, despite the electrical signal. In pseudo-PEA the muscle is contracting — you can see it moving on an ultrasound — but so weakly that no pulse reaches the fingers.
+
+The distinction is invisible without imaging, which is exactly why imaging has become part of the algorithm.
+
+@read teach
+And it matters because the two have very different outlooks. A heart that is still moving has something to work with, and compressions plus a correction of the cause can bring it back. A heart that is completely still on ultrasound, after good compressions and adrenaline and a search that has found nothing, has a very poor outlook indeed, and that finding is one of the things a team leader weighs when deciding how long to continue.
+
+@read teach
+One last thought, and then the four hard chapters are behind you.
+
+Of the four arrest rhythms, two are shockable and two are not, and the two that are not are the two where the answer is somewhere other than the heart. That symmetry is worth carrying.
+
+Ventricular fibrillation and pulseless ventricular tachycardia — the electricity is the problem, so electricity is the treatment. Asystole and PEA — the electricity is not the problem, so look elsewhere, and keep the blood moving while you look.
+
+[ne_hush]दुईमा बिजुली नै समस्या हो। दुईमा समस्या अन्तै छ। यत्ति फरक हो।[/]

@@ -1,0 +1,107 @@
+# 1 — The Paper and the Grid
+
+The machine in the corner of the ward has been printing for four seconds, and now it stops. Sister Maya tears the strip off along the serrated edge, the way you tear a page from a diary, and lays it flat on the counter under the lamp.
+
+[ne]आज राति एउटा कागज हेर्नुहुन्छ। त्यो कागजमा सानो सानो घर बनेका छन्।[/]
+
+It is pink. Or orange, depending on the paper the store sent that month, and nobody has ever cared. What matters is what is printed on it, underneath the black line, and it is there on every ECG in every hospital on earth.
+
+Squares. Small squares run in a fine grid, all the way across and all the way up. And then, every fifth line in both directions, a heavier darker line, so the small squares are gathered into big squares of five by five.
+
+[sister]"Everybody looks at the black line,"[/] Sister Maya says. [sister]"The black line is the easy part. The squares are the part that makes the black line mean something."[/]
+
+@read teach
+Last night you were given two directions. Across the page is time, and up the page is size. Tonight those two directions get their numbers, and after tonight you can measure anything on a strip with nothing but your eyes.
+
+Start with across.
+
+The paper comes out of the machine at a fixed speed, and the speed is twenty-five millimetres every second. It is not a setting somebody chose. It is the standard, everywhere, and a machine that is not doing it prints a warning on the page.
+
+A small square is one millimetre wide. So a small square is one twenty-fifth of a second, which comes out as 0.04 seconds. Four hundredths of a second is what one small square across is worth.
+
+@read teach
+That is an awkward number to work with, and this is why the heavy lines exist.
+
+A big square is five small squares. Five times four hundredths is twenty hundredths, so a big square across is 0.20 seconds. That is one fifth of a second, and it is a number you can actually think with.
+
+And five big squares, therefore, is one full second. Put your fingertip on the paper and cover five big squares, and you are covering exactly one second of that person's life.
+
+[ne]पाँचवटा ठूलो घर भनेको एक सेकेन्ड हो। यत्ति नै समात्नुहोस्।[/]
+
+That is across. Now we go up.
+
+@read teach
+The height of the pen follows the voltage, and the machine is set so that one millivolt of signal lifts the pen ten millimetres. Ten small squares tall, and that is one millivolt.
+
+So a small square up the page is one tenth of a millivolt, and a big square up the page is half a millivolt. Those two numbers matter much less often than the sideways ones, and there is exactly one place where they matter enormously, which is a chapter we will get to in a fortnight.
+
+@read teach
+And there is one more mark on the paper, at the very beginning of the strip, and almost nobody looks at it.
+
+It is a small rectangle. The pen jumps straight up, holds, and comes straight back down, before any of the heart's own signal arrives. That is the machine testing itself in front of you. It is feeding itself exactly one millivolt and showing you how tall it drew it.
+
+If that rectangle stands ten small squares tall, the strip you are holding is at standard gain and every height on it can be trusted. If it stands five squares tall, somebody has halved the gain — usually because the complexes were so big they were running off the paper — and every height on that strip is half of what it should look like. If you do not check, you will call a normal heart small and a huge one normal.
+
+[sister]"That little box at the front is the machine signing its own name,"[/] she says. [sister]"Read the signature before you read the letter."[/]
+
+@algo grid
+The grid is three numbers and one habit. Across the page, one small square is 0.04 seconds, and one big square of five is 0.20 seconds, so five big squares make one whole second. Up the page, one small square is one tenth of a millivolt, and one big square is half a millivolt. And the habit is this — before you measure anything at all, look at the calibration rectangle at the start of the strip and check that it stands ten small squares tall. A small square is four hundredths. A big square is two tenths. And the rectangle stands ten squares tall for one millivolt.
+@end
+
+The ward is quiet. Somebody in bed two coughs twice and goes back to sleep.
+
+@read hush
+Listen to the three numbers again, and do not try to hold them. They will still be here tomorrow.
+
+@recall grid
+
+Sister Maya slides the strip a little further under the lamp and puts one finger on it.
+
+[sister]"Count with me. One, two, three, four, five big squares. That is one second. Now how many beats did the heart fit into it?"[/]
+
+You look. There is one tall spike in that second, and the beginning of a second one.
+
+[sister]"So that is somewhere around sixty a minute. You just measured a heart rate with your finger, and you have not learned a single formula yet."[/]
+
+[ne]देख्नुभयो? कुनै हिसाब गर्नु परेन। घर गन्नु मात्र पर्‍यो।[/]
+
+@read hush
+The three numbers, one last time tonight.
+
+@recall grid | Very slowly now.
+
+@tier medium
+
+There are two ways the paper lies to you, and both of them are printed on the paper itself, which is a small kindness.
+
+@read teach
+The first is speed. Twenty-five millimetres a second is the standard, but a machine can be set to fifty, and in some cardiology departments it routinely is, because doubling the speed spreads everything out and makes a fine detail easier to see.
+
+On a strip run at double speed, every shape looks twice as wide. A perfectly normal QRS complex looks alarmingly broad. A normal PR interval looks like a heart block. The rate looks half of what it truly is.
+
+The machine prints the speed along the bottom edge of the paper, in small letters, next to the gain. It takes one second to look, and it is the one second that stops you calling a healthy person sick.
+
+@read teach
+The second is gain, and you have already met it as the calibration rectangle. Half gain halves every height. Double gain doubles every height. Both are printed at the bottom next to the speed, and both are drawn for you at the front of the strip.
+
+So the ritual, before anything else, is two glances. Bottom edge for the speed and the gain. Front of the strip for the rectangle. Then read.
+
+[sister]"Speed and size,"[/] Sister Maya says. [sister]"If either of those is not what you assumed, you are reading a different heart."[/]
+
+@tier long
+
+There is a nice reason behind that odd speed of twenty-five millimetres a second, and it is worth one minute.
+
+@read teach
+The number was not chosen for the heart. It was chosen for the arithmetic, in an age when the arithmetic was done by hand, on a ward round, out loud.
+
+At twenty-five millimetres a second, one minute of paper is fifteen hundred small squares long, and it is three hundred big squares long. Both of those divide beautifully. Three hundred divided by the number of big squares between two beats gives you the rate, and three hundred halves and thirds and quarters into whole numbers, which is where the sequence three hundred, one fifty, one hundred, seventy-five, sixty comes from.
+
+Choose almost any other speed and that sequence becomes decimals, and a decimal is a thing you cannot do in your head at the foot of a bed.
+
+@read teach
+The last practical note is about measuring when you have no calipers, which is most of the time.
+
+The edge of another strip of paper works perfectly. Lay it along the tracing, make a small pencil mark at the start and the end of whatever you are measuring, then slide that paper edge along the grid and count the squares underneath your two marks. It is more accurate than any eye, and every cardiologist you will ever meet does exactly this.
+
+[ne_hush]अब सुत्ने बेला भयो। घरहरू भोलि पनि त्यहीँ हुन्छन्।[/]

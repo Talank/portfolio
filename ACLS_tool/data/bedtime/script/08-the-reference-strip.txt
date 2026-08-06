@@ -1,0 +1,109 @@
+# 8 — The Reference Strip
+
+Everything from here is rhythms, one family a night, and tonight is the one that all the others are measured against.
+
+Sister Maya finally opens the folder with the brittle rubber band. The strip on top is old, and the pink has faded almost to white, and somebody has written a date on it in the corner from before you were born.
+
+[sister]"This is the one I show everybody first,"[/] she says. [sister]"There is nothing wrong with this heart at all. That is the point of it."[/]
+
+[ne]आज एउटा ठीक मुटु हेर्नुहुन्छ। बिग्रेको होइन, ठीक भएको।[/]
+
+@read teach
+The rhythm is called normal sinus rhythm, and the name is a sentence in disguise.
+
+Sinus means the beat is starting in the SA node, which is where it is supposed to start. Rhythm means the beats are coming evenly. Normal means the rate is between sixty and a hundred. Three words, three claims, and each one of them is something you can check on the paper.
+
+@read teach
+So run the five questions on it, the way you will run them on everything from now on.
+
+The rate. Count the big squares between two R waves. There are four of them and a bit, so the rate is a little under seventy-five. That is between sixty and a hundred, so the rate is normal.
+
+The rhythm. March it with a paper edge. Every R wave lands on the mark. Regular.
+
+The P waves. There is one before every single QRS complex, small and rounded and upright, and every one of them is the same shape as the one before it. So the atria are waking up in the same place every time, and that place is doing its job.
+
+The PR interval. Measure it, and it is four small squares, which is inside three to five. And measure it on the next beat, and the next, and it is four small squares every time. Constant.
+
+The QRS width. Two small squares. Under three, so it is narrow, so the beat came down through the wiring from above.
+
+@read teach
+And now say the answer out loud, in the order you found it, because that is the habit that turns five facts into a diagnosis.
+
+Rate seventy. Regular. One P before every QRS, all the same shape. PR constant at four small squares. Narrow complexes.
+
+That is normal sinus rhythm, and there is no other rhythm it could be, and you did not recognise it — you proved it.
+
+@algo sinus
+Normal sinus rhythm is five answers, and every one of them has to be true. The rate is between sixty and a hundred. The rhythm is regular. There is exactly one P wave before every QRS, and all the P waves are the same shape. The PR interval is between three and five small squares and it does not change from beat to beat. And the QRS complex is narrow, under three small squares. Sixty to a hundred. Regular. One P for every QRS. A steady PR. A narrow QRS.
+@end
+
+The old strip goes back in the folder, on the bottom this time.
+
+@read hush
+The five answers again, and there is nothing to do but listen.
+
+@recall sinus
+
+@read teach
+Now, why spend a whole night on the rhythm that is not a problem?
+
+Because you cannot see that something is wrong until you know exactly what right looks like. Every rhythm in the rest of this course is described as a departure from this one. Sinus bradycardia is this rhythm, slower. Atrial fibrillation is this rhythm with the P waves gone and the spacing broken. Complete heart block is this rhythm with the two halves no longer speaking.
+
+If the reference is vague in your head, every departure from it is vague too. If the reference is exact, the departures announce themselves.
+
+[sister]"Learn the healthy strip until it is boring,"[/] Sister Maya says. [sister]"Boring is the whole point. Boring is what makes the wrong one jump off the page at you."[/]
+
+[ne]ठीक कस्तो हुन्छ भन्ने थाहा भएपछि मात्र बिग्रेको चिनिन्छ।[/]
+
+@read teach
+There is one more thing to take from tonight, and it is about the word normal.
+
+Sixty to a hundred is the normal range, and it is a range for a population and not a rule for a person. A trained athlete resting at forty-eight is not sick, and a frightened person at a hundred and ten is not sick either.
+
+Which is why the rate question in the five is deliberately worded as fast, slow, or in between, rather than as normal or abnormal. Fast and slow are observations. Normal and abnormal are judgements, and judgements need the patient in the room.
+
+@read hush
+The five answers, one last time tonight.
+
+@recall sinus | Slowly, and then sleep.
+
+@tier medium
+
+There is one variation on tonight's rhythm that is common enough to meet now rather than be surprised by later.
+
+@read teach
+Sometimes the SA node hands over, quietly and briefly, to the tissue just above the AV node. That tissue is called the junction, and a beat that starts there is a junctional beat.
+
+The current still reaches the ventricles by the normal road, so the QRS complex is narrow and looks exactly the same as always. What changes is the P wave, and it changes in one of three ways, all of them for the same reason.
+
+@read teach
+The reason is direction. A beat born at the junction spreads upwards into the atria as well as downwards into the ventricles, and upwards is backwards.
+
+So if the atria happen to be reached slightly before the ventricles, there is a P wave, but it is inverted — pointing down where it should point up. If they are reached at the same moment, the P wave is buried inside the QRS complex and you cannot see it at all. And if they are reached slightly after, the P wave appears on the far side of the complex, after the spike instead of before it.
+
+Inverted, absent, or late. Three appearances, one cause, and all of them with a normal narrow QRS.
+
+@read teach
+A whole rhythm made of these beats is a junctional rhythm, and its natural rate is forty to sixty, because that is how fast the junction counts when it is left to itself.
+
+Which tells you something. A junctional rhythm at fifty is a backup pacemaker doing its job because the SA node has gone quiet. That is not a disaster; that is the system working as designed.
+
+@tier long
+
+The last thing tonight is a word you will hear seniors use and it is worth understanding rather than nodding at.
+
+@read teach
+The word is capture. A P wave captures the ventricles when it succeeds in producing a QRS complex.
+
+It is a useful word because it separates two questions that beginners run together. Did the atria fire? — look for a P wave. Did that firing get through? — look for a QRS after it, at a sensible distance.
+
+In normal sinus rhythm every P wave captures. In second-degree block, some do and some do not, and counting which is exactly how the two second-degree blocks are told apart. In complete block, none of them capture at all, and the QRS complexes you can see are coming from an escape pacemaker further down.
+
+@read teach
+The companion word is escape, and the two go together.
+
+An escape beat is a beat produced by a lower pacemaker because the one above it failed to arrive in time. It is late rather than early, and that is the whole difference between an escape beat and an ectopic beat.
+
+Early means somewhere is being too keen. Late means somewhere above has gone quiet and something below has stepped in. An ectopic is a nuisance. An escape is a rescue, and suppressing it is one of the classic ways to do harm.
+
+[ne_hush]अगाडि आउने बिट उपद्रो हो। ढिलो आउने बिटले जोगाइरहेको हुन्छ।[/]

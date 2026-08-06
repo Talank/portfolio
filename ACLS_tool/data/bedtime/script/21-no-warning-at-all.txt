@@ -1,0 +1,130 @@
+# 21 — No Warning At All
+
+The last two lines of the poem, and the dangerous half.
+
+The man from last night has gone up to the coronary care unit and his bed has been stripped. The strip Sister Maya left on the counter is still there, and she has put another one beside it, and the two look similar until you measure them.
+
+[ne]हिजोको र आजको स्ट्रिप उस्तै देखिन्छन्। तर एउटा हल्का हो, अर्को खतरनाक।[/]
+
+@read teach
+Second-degree AV block, Mobitz type two. Third line of the poem — if some Ps don't get through, then you have Mobitz two.
+
+Run the five questions.
+
+The rate is slow, usually. The rhythm is irregular, because beats go missing. The P waves are all present and all the same shape, and marched separately they are perfectly regular. The QRS complexes are often wide, and that is a clue rather than an accident.
+
+And the PR interval is constant. Constant, and normal, and completely unchanged, on every beat that conducts.
+
+@read teach
+And then, without any warning of any kind, a P wave arrives and produces nothing.
+
+No lengthening beforehand. No tiring. The interval before the dropped beat is exactly the same as the interval before every other beat. One moment the gate is conducting perfectly and the next moment it simply is not.
+
+That absence of warning is the entire diagnosis, and it is the only thing separating this from last night.
+
+[sister]"Wenckebach warns you,"[/] Sister Maya says. [sister]"This one does not. That is why it is the one I am frightened of."[/]
+
+@read teach
+Why the difference? Because of where the break is, which was the last thing in the chapter before last.
+
+Wenckebach is at the node, which is slow, forgiving tissue that gets tired gradually and tells you so. Mobitz two is below the node, in the bundle or in both branches, and that tissue is fast wiring. Fast wiring does not get tired gradually. It conducts, or it does not.
+
+Which explains the wide QRS as well. If both branches are diseased enough for beats to fail, the beats that do get through are often travelling down a damaged branch, and a damaged branch draws a wide complex.
+
+@algo mobitz-two
+Mobitz type two is second-degree block below the node, and it has one signature — the PR interval never changes. Every P wave is the same shape, the P waves march regularly, and every PR interval that conducts is identical and usually normal. Then a P wave arrives with no QRS after it, with no lengthening beforehand and no warning of any kind. The complexes are often wide, because the break is in the branches rather than the node. Constant PR, and then nothing. No warning is the diagnosis, and it means pacing rather than atropine.
+@end
+
+Both strips are still on the counter. Sister Maya taps the second one with a fingernail.
+
+@read hush
+Once more, quietly.
+
+@recall mobitz-two
+
+@read teach
+Now the fourth line, and the last of the blocks.
+
+Third-degree AV block, which is also called complete heart block. If Ps and Qs don't agree, then you have a third degree.
+
+Nothing gets through. Not some, not occasionally — nothing. The atria fire and their impulses reach the gate and stop there, every single time.
+
+@read teach
+So the ventricles are on their own, and they do what they do when they are on their own. Some pacemaker below the block starts firing, at its own natural rate, and keeps the patient alive.
+
+If the escape comes from the junction, just below the block, it fires at forty to sixty and the complexes are narrow, and that is the better version.
+
+If it comes from ventricular muscle, further down, it fires at twenty to forty and the complexes are wide, and that is the worse version — slower, and much less reliable, because a ventricular escape pacemaker can simply stop.
+
+@read teach
+And here is what it looks like on paper, and it is unmistakable once you have marched it properly.
+
+There are P waves, and they are regular. There are QRS complexes, and they are regular. And the two have absolutely nothing to do with each other.
+
+The PR interval is different on every beat, not in a pattern but at random, because it is not a real interval at all — it is the accidental distance between two things happening independently. P waves land in the middle of complexes, on top of T waves, anywhere.
+
+Two rhythms on one strip, each keeping perfect time, neither listening to the other. That is what the fourth line means by not agreeing.
+
+[ne]एउटै कागजमा दुई छुट्टाछुट्टै रिदम हुन्छन्। दुवै नियमित, तर एकअर्कासँग सम्बन्ध छैन।[/]
+
+@read teach
+And the treatment for both of tonight's rhythms is the same, and it is the second half of the poem's lesson.
+
+Atropine is unlikely to help, because the break is below the node and the vagus has no influence there. In complete block with a wide escape, atropine can occasionally make things worse by speeding the atria without improving conduction.
+
+So the answer is pacing. Transcutaneous pacing through the pads immediately if the patient is unstable, with something for the pain because it hurts a great deal, and then a temporary or permanent wire.
+
+And in the meantime, do nothing that suppresses the escape rhythm. That slow wide rhythm is the only thing keeping the patient alive.
+
+[sister]"Do not shock it, do not suppress it, and do not leave the room,"[/] she says. [sister]"Get the pads on and get somebody senior."[/]
+
+@read hush
+Mobitz two one last time.
+
+@recall mobitz-two | Slowly now.
+
+@tier medium
+
+There is a two-to-one block that sits awkwardly between the two second-degree types, and it is worth thirty seconds because it comes up constantly.
+
+@read teach
+When every second P wave is dropped, you cannot tell which type it is. There is only ever one conducted beat between drops, so there is nothing to compare the PR interval against — you cannot see it lengthening, because there is no second conducted beat to lengthen into.
+
+It is called two-to-one AV block, and the honest answer to which type it is, from that strip alone, is that you do not know.
+
+@read teach
+There are three clues that push the answer one way or the other.
+
+The width of the QRS. Narrow suggests the node and therefore type one; wide suggests the branches and therefore type two.
+
+The PR interval of the beats that do conduct. A markedly long one suggests a struggling node, and therefore type one.
+
+And what the rhythm does when the atrial rate changes. Exercise, or atropine, speeds the atria. A nodal block gets better with that, because sympathetic drive helps the node. A block below the node gets worse, because more impulses are arriving at wiring that cannot handle the ones it already has.
+
+@read teach
+That last one is genuinely counterintuitive and worth holding on to. In the benign block, making the heart go faster improves conduction. In the dangerous one, it makes it fail more often.
+
+Which is also why a patient with a suspected block below the node does not get sent for a treadmill test by anybody who has thought about it.
+
+@tier long
+
+The last piece tonight is about a phrase that gets used loosely and matters enormously.
+
+@read teach
+AV dissociation means the atria and the ventricles are running independently. Complete heart block is one cause of AV dissociation. It is not the only one, and the others are not the same thing at all.
+
+The ventricles can also be running independently because they are going faster than the atria — in ventricular tachycardia, or in an accelerated idioventricular rhythm. There the atria are perfectly capable of conducting; they simply never get the chance, because the ventricles are always busy when their impulses arrive.
+
+@read teach
+The distinction is the rate comparison, and it is easy once you know to look.
+
+In complete heart block, the atrial rate is faster than the ventricular rate. The atria are trying, and failing to get through.
+
+In the other kinds of dissociation, the ventricular rate is faster than the atrial rate. The atria are being outrun rather than blocked.
+
+Faster atria means blocked. Faster ventricles means outrun. One needs a pacemaker; the other needs the ventricular rhythm dealt with, and pacing it would achieve nothing.
+
+@read teach
+And that is the four blocks finished. Tomorrow the story leaves rhythm behind entirely and goes to the twelve-lead, which is a different kind of reading — not what the heart is doing, but where it is hurt.
+
+[ne_hush]रिदमको कुरा सकियो। भोलिदेखि बाह्र लिडको कुरा सुरु हुन्छ।[/]

@@ -1,0 +1,116 @@
+# 15 — The Twisting Ribbon
+
+The most beautiful thing in this entire course, and one of the most dangerous.
+
+It is windy tonight, and one of the window catches on the far side of the ward has come loose, and the frame taps against itself every few seconds. Somebody will fix it in the morning and nobody will fix it in the morning.
+
+[ne]आजको रिदमको नाम फ्रेन्च भाषाको हो। अर्थ हो — बिन्दुहरूको वरिपरि घुम्नु।[/]
+
+@read teach
+Torsades de pointes. The name is French and it means twisting of the points, and it is one of the very few names in medicine that is an accurate description of a picture.
+
+The complexes are wide and fast, as in ordinary ventricular tachycardia. But they are not all the same. They grow taller and taller for a few beats, then shrink down towards the baseline, then grow tall again in the opposite direction, and then shrink again.
+
+The overall shape is a ribbon, twisting around the baseline. Drawn on paper it looks like a length of tape that somebody has turned over and over between their fingers.
+
+@read teach
+So this is a polymorphic ventricular tachycardia — many forms — and last night's was monomorphic, one form. That single word is the difference on the strip, and it is the difference in the treatment as well.
+
+The rate is fast, usually two hundred or more. The rhythm is roughly regular but the amplitude is not. The complexes are wide. And there are no useful P waves.
+
+@read teach
+Now the part that matters most, and it is not on this strip at all. It is on the strip from before the rhythm started.
+
+Torsades happens in a heart with a long QT interval.
+
+You met the QT interval on the fourth night. It runs from the start of the QRS to the end of the T wave, and it is how long the ventricles stay busy. When it is long, there is an extended window in which the ventricles are partly recovered and partly not, and a beat landing inside that window can set the whole muscle spinning.
+
+So a long QT is the loaded gun, and an ordinary early beat landing in the wrong part of the T wave is the trigger.
+
+[sister]"Nobody develops this out of a clear sky,"[/] Sister Maya says. [sister]"There was a long QT on a strip somebody had already taken. There nearly always is."[/]
+
+@algo torsades
+Torsades de pointes is a polymorphic ventricular tachycardia, and it has one look and one cause. On the paper the complexes are wide and fast and their height keeps changing — growing tall, shrinking down through the baseline, growing tall the other way — so the tracing twists like a ribbon. And underneath it there is always a long QT interval, either from a drug, or from a low potassium or a low magnesium, or from a heart born that way. Wide, fast, and twisting in height. A long QT before it started. And the treatment is magnesium, not the usual drug.
+@end
+
+The window catch taps twice and is quiet for a while.
+
+@read hush
+Once more, slowly, and there is nothing to hold.
+
+@recall torsades
+
+@read teach
+The causes of a long QT are worth knowing as a shape rather than a list, because the shape is short.
+
+Drugs, first, and this is by far the commonest. A great many ordinary medicines lengthen the QT interval — some antibiotics, some antipsychotics, some antiemetics, some antidepressants, some antiarrhythmics. Each one on its own is usually harmless. Two or three of them together in the same patient is how this actually happens.
+
+Then the electrolytes. A low potassium, a low magnesium, a low calcium. All three lengthen the QT, all three are common in sick patients, and all three are correctable in twenty minutes.
+
+Then the inherited long QT syndromes, which are rare, and which announce themselves as a young person who faints during exercise or during a fright, or a family in which somebody died suddenly and young.
+
+[ne]औषधि, इलेक्ट्रोलाइट, अनि जन्मजात — कारण यत्ति तीन नै हुन्।[/]
+
+@read teach
+And the treatment, which is the reason this rhythm gets its own night.
+
+Magnesium. Two grams, intravenously, and it works even when the magnesium level is normal — it is not correcting a deficiency, it is stabilising the membrane.
+
+If the patient has no pulse, defibrillate, because a pulseless polymorphic ventricular tachycardia is a shockable arrest rhythm and nothing about the twisting changes that.
+
+And what you do not do is give amiodarone. It is the standard drug for the monomorphic rhythm from last night, and here it is the wrong one, because amiodarone lengthens the QT interval — which is the exact thing that caused this.
+
+@read teach
+So the two rhythms sit side by side, and they look similar enough that people confuse them, and the drug for one makes the other worse.
+
+Monomorphic, all beats the same shape — amiodarone. Polymorphic, twisting — magnesium.
+
+That is a rare kind of pairing in medicine, where telling two things apart genuinely changes the drug, and it is exactly the sort of thing an examiner will build a question around, and exactly the sort of thing that goes wrong at four in the morning.
+
+[sister]"If it twists, it is magnesium,"[/] she says. [sister]"Say it in your head every time you hang amiodarone. It takes half a second and one day it will stop you."[/]
+
+@read hush
+The rhythm one last time.
+
+@recall torsades | Very slowly.
+
+@tier medium
+
+There is a phrase you will meet on strips and in handovers, and it is the sound of this rhythm being set up.
+
+@read teach
+R on T. It means a ventricular ectopic beat that lands on top of the T wave of the beat before it, rather than after the T wave has finished.
+
+The T wave is the ventricles resetting, and during it some of the muscle has recovered and some has not. A strong stimulus arriving in the middle of that patchwork spreads unevenly, doubles back on itself, and can start the spiral that becomes torsades or ventricular fibrillation.
+
+The window is called the vulnerable period, and it is why the timing of an ectopic matters more than its size.
+
+@read teach
+This is also the whole reason cardioversion is synchronised.
+
+When a shock is delivered to a heart that has a pulse, the machine waits and fires on the R wave, deliberately, so the energy lands during the QRS and not during the T wave. That is what the sync button does and that is why the machine sometimes pauses for a beat or two before it fires.
+
+Deliver an unsynchronised shock to a heart with an organised rhythm and you may land in the vulnerable period yourself, and turn a stable tachycardia into ventricular fibrillation.
+
+@read teach
+Which explains the one rule people find confusing. Defibrillation, for a patient with no pulse, is deliberately unsynchronised — because in ventricular fibrillation there is no R wave to synchronise to, and a machine left in sync mode would wait for a wave that never comes and never fire at all.
+
+Pulse present, synchronise. No pulse, do not.
+
+@tier long
+
+The last piece tonight is about preventing this rhythm rather than treating it, because on a normal ward that is the version you will actually be involved in.
+
+@read teach
+Look at the QTc on every twelve-lead you see. The machine prints it at the top of the page, and it takes one second, and almost nobody does it.
+
+Above about 0.50 seconds is the number that should make you stop and look at the drug chart. Not because that patient is about to arrest — most of them never will — but because that is the moment when removing one unnecessary medicine or replacing a low potassium is easy and free.
+
+@read teach
+And there is a specific situation to be alert to on the wards, because it combines everything from tonight.
+
+An elderly patient, admitted with vomiting or diarrhoea, so the potassium and the magnesium are low. Given an antiemetic to stop the vomiting, which lengthens the QT. Given an antibiotic for a suspected infection, which lengthens it further. Perhaps already on something for their heart or their mood that does the same.
+
+Every step of that is reasonable. The sum of it is a loaded heart, and nobody has looked at a strip since admission.
+
+[ne_hush]हरेक कुरा ठीकै हुन सक्छ, तर जोडेपछि खतरा बन्छ। त्यसैले हेर्नुहोस्।[/]

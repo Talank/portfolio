@@ -1,0 +1,126 @@
+# 20 — Longer, Longer, Drop
+
+The second line of the poem, and the most satisfying rhythm to read in the whole course, because it is the one you can prove with a ruler.
+
+There is a strip on the counter that Sister Maya put there before her break and did not explain. It is from a man of sixty who was admitted with an inferior heart attack four hours ago, and his pulse has been dropping all evening.
+
+[ne]आजको रिदममा एउटा ढाँचा छ। ढाँचा भेट्टाएपछि नाम आफैं आउँछ।[/]
+
+@read teach
+Second-degree AV block, Mobitz type one. Everybody calls it Wenckebach, after the Dutch physician who described it, and it is much easier to say.
+
+Run the five questions and something interesting happens at the fourth one.
+
+The rate is slowish. The rhythm is irregular — but march it and the irregularity has a pattern in it, so it is regularly irregular. The P waves are all present and all the same shape, and if you march the P waves separately they are perfectly regular. The QRS complexes are narrow.
+
+And the PR interval is different on every beat.
+
+@read teach
+Look along it properly. The first PR interval is four small squares. The next is five. The next is six and a half. The next is seven and a half.
+
+And then there is a P wave with no QRS after it at all. Nothing. Just a P wave standing on its own, and then a gap.
+
+And after the gap, the next PR interval is back to four small squares, and the whole thing starts again.
+
+Longer, longer, longer, drop. Then it repeats.
+
+[sister]"That is the poem doing exactly what it says,"[/] she says. [sister]"It is not a memory aid. It is a description."[/]
+
+@read teach
+Now why does it do that? Because the AV node is getting tired, and tired tissue behaves in a very particular way.
+
+Each impulse that passes through leaves the node a little less recovered for the next one. So the next one takes slightly longer to get through, which leaves even less recovery time, so the one after that takes longer still.
+
+Eventually an impulse arrives at a node that has not recovered enough to conduct at all, and that one is refused. And that refusal is a rest — the node gets a whole extra cycle with nothing to do, recovers completely, and the next impulse sails through quickly.
+
+Then the tiring starts again, and the pattern repeats.
+
+@algo wenckebach
+Wenckebach is second-degree block type one, and it has one shape. Every P wave is the same and the P waves march perfectly regularly, but the PR interval gets longer with each beat — four squares, then five, then six — until one P wave arrives and produces no QRS at all. After that dropped beat the PR interval resets to short, and the whole pattern begins again. The QRS complexes are narrow, because the trouble is at the node and everything below is fine. Longer, longer, longer, drop, and reset. That is Wenckebach.
+@end
+
+The strip stays where it is. Somebody's bell rings, twice, from the far end.
+
+@read hush
+Once more, and slowly.
+
+@recall wenckebach
+
+@read teach
+There is a second way to spot this from the doorway, without measuring anything, and it is the one experienced people actually use.
+
+Look at the beats as groups.
+
+Because the pattern repeats, the QRS complexes arrive in little clusters with a pause after each cluster. Three beats, pause. Three beats, pause. Or four and a pause, or two and a pause.
+
+That appearance is called group beating, and group beating is Wenckebach until you have proved otherwise. You can see it across a room.
+
+[ne]धड्कनहरू समूहमा आउँछन्, अनि एउटा खाली ठाउँ आउँछ। यही चिन्ह हो।[/]
+
+@read teach
+And there is a detail that seems like a curiosity and is genuinely the most useful measurement in this rhythm.
+
+The PR interval lengthens by less and less each time. The first jump is large — four squares to five and a half, say — and the next jump is smaller, and the next smaller still.
+
+Which means the R to R gaps actually get shorter as the group goes on, not longer, even though the PR intervals are growing. And it means the pause containing the dropped beat is less than twice a normal R to R gap.
+
+That last fact is the technical way of separating this from the next chapter's rhythm, where the pause is exactly twice a normal gap because nothing changed on the way in.
+
+@read teach
+Now the important part, which is what this rhythm means and what is done about it.
+
+Where is the block? At the node. Which puts it in the benign half of the poem.
+
+So the complexes are narrow, and atropine usually works, and this rhythm rarely deteriorates into anything worse, and in a fit young person with high vagal tone it can be completely normal — Wenckebach during sleep in an athlete is a recognised finding that needs nothing at all.
+
+And in the man in bed six, four hours after an inferior infarct? The artery that feeds the AV node has been blocked, the node is starved and misbehaving, and when the artery is opened the block will very probably go away.
+
+[sister]"Watch it, treat him if he becomes symptomatic, and do not panic,"[/] Sister Maya says. [sister]"This one usually mends itself."[/]
+
+@read hush
+The pattern, one last time.
+
+@recall wenckebach | Very slowly, and then sleep.
+
+@tier medium
+
+There is a notation you will see written next to this rhythm, and it looks more complicated than it is.
+
+@read teach
+Somebody will write three to two, or four to three. It means the number of P waves in each group, followed by the number of QRS complexes.
+
+A three-to-two Wenckebach has three P waves per cycle, of which two get through and one is dropped. A four-to-three has four P waves, three of which conduct.
+
+It is a useful shorthand because it tells you at a glance how much of the atrial rate is reaching the ventricles, and therefore how slow the patient's actual pulse is.
+
+@read teach
+There is also a variety of Wenckebach that breaks the tidy description, and knowing it exists stops it being confusing.
+
+In an atypical Wenckebach, the PR intervals do not lengthen neatly. They may lengthen, then hold, then lengthen again, or the last one before the drop may shorten slightly. It is common in longer sequences.
+
+What does not change is the shape of the whole thing — group beating, with the PR interval clearly longer before the dropped beat than it was after the previous one. That comparison, first PR after the pause against last PR before the next pause, is the test that survives every atypical variation.
+
+@tier long
+
+The last piece tonight is about a strip that looks like Wenckebach and is not, and it catches everybody once.
+
+@read teach
+A blocked atrial ectopic. An early atrial beat arrives so soon after the previous one that the AV node is still recovering, and it is refused.
+
+So you get a P wave with no QRS after it, and a pause, and then the rhythm continues — which is a dropped beat, and dropped beats make people think of blocks.
+
+@read teach
+The distinction is the P wave itself, and it is completely reliable if you look.
+
+In Wenckebach, every P wave is the same shape and the P waves march at a perfectly regular rate, because they are all coming from the sinus node. The dropped one is not special in any way except that it failed.
+
+In a blocked atrial ectopic, the offending P wave is early and it is a different shape, because it came from somewhere else in the atria. And very often it is not sitting in the open at all — it is hidden inside the T wave of the beat before, making that T wave look subtly peaked or notched compared with all the others.
+
+@read teach
+So the habit that settles it is a small one, and it is the habit from the chapter on rhythm. March the P waves.
+
+If they march, and the shapes match, the atria are behaving and the problem is the gate below. If one of them is early and differently shaped, the atria misbehaved and the gate did exactly the right thing by refusing it.
+
+One is a conduction problem. The other is the conduction system working correctly, protecting the ventricles from a premature beat, which is what it is for.
+
+[ne_hush]पी वेभहरू मार्च गर्नुहोस्। मिले भने ब्लक हो, नमिले भने ectopic हो।[/]

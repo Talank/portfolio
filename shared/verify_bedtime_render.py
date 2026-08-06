@@ -27,6 +27,7 @@ Two checks, both against the manifest the site is actually served:
     python3 shared/verify_bedtime_render.py                    # every build
     python3 shared/verify_bedtime_render.py DSA_tool/data/bedtime
 """
+import glob
 import json
 import multiprocessing.pool
 import os
@@ -45,7 +46,13 @@ SR = 24000
 TOLERANCE_S = 0.25
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DEFAULT_DIRS = ["DSA_tool/data/bedtime", "full_stack_java/data/bedtime"]
+# Every course with a rendered voyage. A bare run has to cover all of them —
+# this list went stale twice while new voyages shipped unverified, so it is
+# discovered rather than typed: any data/bedtime with a manifest counts.
+DEFAULT_DIRS = sorted(
+    os.path.relpath(os.path.dirname(p), REPO)
+    for p in glob.glob(os.path.join(REPO, "*", "data", "bedtime", "manifest.json"))
+)
 
 # ch07-medium.opus -> ("07", "medium")
 _SEG = re.compile(r"^ch(\d+)-([a-z]+)\.opus$")

@@ -1,0 +1,116 @@
+# 14 — The Wide Regular One
+
+Tonight the story stops being calm for a while. Four chapters, and they are the four that the whole certification exists for, and they are all rhythms that come from below.
+
+Sister Maya does not get out a strip for this one. She draws it, badly, on the back of a pathology form, and the drawing is a row of identical wide humps like a line of hills.
+
+[sister]"Every one the same,"[/] she says. [sister]"That is the thing to see. Every single one of them the same."[/]
+
+[ne]आजको रिदम तलबाट आउँछ। यो चौडा, छिटो र नियमित हुन्छ।[/]
+
+@read teach
+Ventricular tachycardia. Run the five questions.
+
+The rate is between about a hundred and twenty and two hundred and fifty, and it is most often somewhere between a hundred and fifty and two hundred.
+
+The rhythm is regular. Not quite as metronomic as an SVT — there can be a small wobble — but regular enough that marching it works.
+
+The P waves are usually not visible. Sometimes they are there, hidden in the complexes, marching along at their own slower rate and having nothing to do with anything.
+
+The PR interval does not exist, because there is no relationship to measure.
+
+The QRS is wide. Very wide, usually — often four small squares or more, which is well past the threshold. And it is a strange, uncomfortable shape, without the clean spike-and-return of a normal complex.
+
+@read teach
+And there is a sixth observation which is not one of the five, and it is the one that gives this rhythm its name.
+
+Every complex looks the same as every other complex. Same width, same height, same direction, same odd shape. That sameness is what monomorphic means — one form.
+
+Which tells you what is happening. A single spot in the ventricular muscle has taken over and is firing repeatedly, and because it is the same spot every time, the wave spreads the same way every time, and the pen draws the same shape every time.
+
+[ne]हरेक धड्कन उस्तै देखिन्छ। किनभने एउटै ठाउँबाट आइरहेको छ।[/]
+
+@algo vt
+Monomorphic ventricular tachycardia is fast, wide, regular, and identical beat to beat. The rate is usually between a hundred and fifty and two hundred and fifty. The QRS is wide, often four small squares or more, and it is a strange shape rather than a clean spike. Every complex looks exactly like every other one, because one spot in the ventricle is firing over and over and the wave spreads the same way each time. There are no useful P waves. Fast, wide, regular, and all the same shape. Until you have proved otherwise, that is ventricular tachycardia.
+@end
+
+The pathology form gets folded over and used as a coaster.
+
+@read hush
+Once more, and slowly.
+
+@recall vt
+
+@read teach
+Now the two things that decide what happens in the room, and neither of them is on the strip.
+
+The first is whether there is a pulse.
+
+Ventricular tachycardia with a pulse and ventricular tachycardia without a pulse look identical on the monitor. Identical. The paper cannot tell you which one you are in, and this is the single clearest reason the sixth question exists — look at the patient.
+
+If there is no pulse, this is a cardiac arrest in a shockable rhythm, and it is treated exactly like ventricular fibrillation. Compressions, defibrillate, compressions.
+
+If there is a pulse, it is a tachycardia with a pulse, and a completely different algorithm opens.
+
+@read teach
+The second question, in a patient who has a pulse, is whether they are stable.
+
+Unstable means one of a short list — a low blood pressure, altered consciousness, chest pain that started with the rhythm, or signs of the heart failing acutely. Any one of those, and the answer is a synchronised shock, with sedation if there is time.
+
+Stable means none of those, and the patient is awake and talking and their pressure is holding. Then there is time, and the answer is a drug — amiodarone, or one of its alternatives — and time to get a twelve-lead and time to call somebody more senior.
+
+[sister]"Pulse or no pulse. Stable or unstable,"[/] Sister Maya says. [sister]"Two questions. They pick the algorithm between them, and neither of them is answered by looking at the screen."[/]
+
+@read teach
+And one more time, the rule that this whole part of the course keeps returning to.
+
+A wide, fast, regular rhythm in an adult is ventricular tachycardia until proven otherwise. Especially in an older patient, and overwhelmingly so in a patient with any history of a heart attack — because the commonest cause of this rhythm is scar tissue from an old infarct, giving the electricity somewhere to circle around.
+
+If somebody in the room suggests it might be an SVT with aberrancy, they may well be right. It does not change what you do, because the safe treatment covers both and the unsafe one does not.
+
+@read hush
+The rhythm one last time.
+
+@recall vt | Very slowly, and then sleep.
+
+@tier medium
+
+There are two findings that turn a strong suspicion into certainty, and both of them are gifts when they appear.
+
+@read teach
+The first is AV dissociation.
+
+The ventricles are firing on their own at a hundred and eighty. Upstairs, the sinus node has no idea anything is wrong and is carrying on at eighty. So there are P waves on that strip, marching at their own regular rate, drifting in and out of the wide complexes, unrelated to any of them.
+
+They are hard to see, because most of them are buried. But if you march the P waves separately — the second march, from the chapter on rhythm — and they keep their own perfect time while the complexes keep a different one, then the ventricles are driving themselves, and this is ventricular tachycardia. Proved.
+
+@read teach
+The second is even better, and it comes in two forms.
+
+Occasionally one atrial impulse arrives at exactly the right moment, finds the AV node ready and the ventricles briefly available, and gets all the way through. That beat is conducted normally, so it is narrow, and it sits in the middle of the run of wide beats looking completely out of place. That is a capture beat.
+
+And sometimes an atrial impulse gets partway through and meets the ventricular wave head on, so half the ventricle is lit from above and half from below. The resulting complex is a blend — narrower than the wide ones, wider than a normal one, an in-between shape. That is a fusion beat.
+
+Either one is proof. Both mean that something from above reached the ventricles, which could only happen if the ventricles were not being commanded from above in the first place.
+
+[sister]"A normal-looking beat in the middle of a wide run is not reassuring,"[/] she says. [sister]"It is the opposite. It is the diagnosis."[/]
+
+@tier long
+
+The last piece tonight is about a wide rhythm that is not fast, and it is one people misread constantly.
+
+@read teach
+When the ventricle takes over as an escape pacemaker rather than as an irritable focus, it goes at its own natural rate, which is twenty to forty a minute. That is called an idioventricular rhythm, and it is wide and slow and it is often the last organised thing a dying heart does.
+
+But there is a middle version, at between about fifty and a hundred and twenty, and it is called accelerated idioventricular rhythm. Wide complexes, regular, and a rate that sits in the normal range or just above it.
+
+@read teach
+It looks alarming — wide complexes always do — and it is usually benign. Its most famous appearance is in the first hours after a blocked coronary artery has been reopened, where it is taken as a sign that blood has returned to the muscle.
+
+The distinction from ventricular tachycardia is the rate, and only the rate. Under about a hundred and twenty, in that setting, in a patient who feels fine, it is usually left alone and watched.
+
+And there is a specific harm to avoid. When this rhythm is the heart's escape from something slower, suppressing it removes the only pacemaker the patient has.
+
+So the sentence to carry is this one. Wide and fast is dangerous. Wide and slow is usually a rescue, and rescues are not to be interrupted.
+
+[ne_hush]चौडा र छिटो भयो भने खतरा हुन्छ। चौडा र ढिलो भयो भने प्रायः बचाइरहेको हुन्छ, त्यसैले नरोक्नुहोस्।[/]

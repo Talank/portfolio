@@ -1,0 +1,125 @@
+# 11 — The Metronome
+
+The first of the fast narrow rhythms, and the one that arrives in the emergency department on a Saturday night in a perfectly well young person who is very frightened.
+
+There is nobody like that in the ward tonight. Sister Maya describes one instead, from memory, and she describes the same one every time, because it happened to her in her second year and she has never forgotten it.
+
+[sister]"A girl of twenty-two. Walked in. Said her heart had gone funny while she was washing her hair. Pulse of a hundred and ninety and she was apologising for wasting our time."[/]
+
+[ne]आज एउटा छिटो तर नियमित रिदमको कुरा हो। यसमा पी वेभ देखिँदैन।[/]
+
+@read teach
+The rhythm is supraventricular tachycardia, and everybody calls it SVT.
+
+The name means only what it says. Supraventricular — above the ventricles. Tachycardia — fast. It is a family name rather than a diagnosis, and it covers several mechanisms that all look the same on a monitor and are all treated the same way in the first few minutes.
+
+@read teach
+Run the five questions on it.
+
+The rate is between about a hundred and fifty and two hundred and fifty, and most often it sits around a hundred and eighty. That is faster than a normal sinus node will drive an adult heart.
+
+The rhythm is regular, and it is regular to a degree that is almost unnatural. This is the feature that names the chapter. A sinus tachycardia wanders by a few beats as you watch. An SVT does not wander at all. It is a metronome.
+
+The P waves are not visible. They are usually there somewhere, buried inside the QRS complex or hidden in the T wave, but you cannot find them and you should not spend time trying.
+
+The PR interval cannot be measured, because there is no visible P wave to measure from.
+
+The QRS is narrow. Which tells you, by last night's rule, that whatever is driving this came from above the ventricles — hence the name.
+
+@read teach
+Now the mechanism, briefly, because it explains the treatment and treatments that are explained are treatments you remember.
+
+In most cases the current has found a circle. There are two pathways through or around the AV node, one fast and one slow, and an ordinary early beat arrives at exactly the wrong moment, goes down one and comes back up the other, and then finds the first one ready again.
+
+Round and round. Each lap sends a signal down into the ventricles, so the ventricles beat once per lap, and the laps are all exactly the same length — which is why the rhythm is a metronome.
+
+[sister]"It is not the heart racing,"[/] Sister Maya says. [sister]"It is one electrical impulse that got lost and cannot find the way out."[/]
+
+@read teach
+And that picture tells you the treatment without any memorising at all.
+
+The circle passes through the AV node. So if you can make the AV node refuse to conduct, just for a moment, the circle is broken and the whole thing stops — in one beat, back to normal.
+
+That is what a vagal manoeuvre does, and what adenosine does. Neither of them is treating the ventricles. Both of them are briefly closing the gate that the circuit has to pass through.
+
+@algo svt
+Supraventricular tachycardia is fast, narrow, regular and featureless. The rate is a hundred and fifty to two hundred and fifty, most often around a hundred and eighty. The rhythm is regular with no wander in it at all, like a metronome. The P waves cannot be seen because they are buried in the complex or in the T wave. The QRS is narrow, so the rhythm was born above the ventricles. And because the circuit runs through the AV node, blocking that node briefly stops it. Fast and narrow and perfectly regular, with no P waves. Block the node and the circle breaks.
+@end
+
+Sister Maya puts her shoes back on. It is nearly four.
+
+@read hush
+Once more, and then the ending of the story.
+
+@recall svt
+
+@read teach
+There are two things about the treatment that are worth knowing tonight, and both of them are about what the patient experiences, because you will be the person standing next to them.
+
+The vagal manoeuvre comes first if the patient is stable. Bearing down hard, as though straining, for about fifteen seconds. There is a modified version where the patient bears down sitting up and is then laid flat with their legs lifted, and it works roughly twice as often as the plain one, and it is free.
+
+If that fails, adenosine. Six milligrams, pushed fast into a big vein, followed immediately by a flush, because the drug is destroyed by the blood within seconds and a slow push never reaches the heart.
+
+@read teach
+And then the thing nobody warns the patient about, which they should.
+
+Adenosine stops the heart. Briefly, deliberately, completely. The monitor goes flat for two or three seconds, sometimes longer, and then the sinus node wakes up and takes over and everything is normal again.
+
+The patient feels that. They describe it as a wave of doom, a crushing chest pressure, a certainty that they are about to die. It lasts a few seconds and it passes completely.
+
+Telling them beforehand costs ten seconds and changes the experience entirely. Not telling them is a small cruelty that happens every day.
+
+[ne]एडेनोसिन दिनुअघि बिरामीलाई भन्नुहोस्। केही सेकेन्ड धेरै नराम्रो लाग्छ, अनि ठीक हुन्छ।[/]
+
+@read teach
+And the girl of twenty-two? She bore down, nothing happened, she had six milligrams of adenosine, she said afterwards that it was the worst three seconds of her life, and she went home the same night with a normal heart.
+
+[sister]"She sent a card,"[/] Sister Maya says. [sister]"Nobody sends cards. I still have it."[/]
+
+@read hush
+The rhythm one last time, and then sleep.
+
+@recall svt | Very slowly.
+
+@tier medium
+
+There is a use for adenosine that is not treatment at all, and it is one of the neatest tricks in acute medicine.
+
+@read teach
+When a narrow regular tachycardia is running at a hundred and fifty, there are two common answers and they are treated differently. It might be an SVT. It might be atrial flutter, where the atria are firing at three hundred and the AV node is letting every second one through.
+
+You cannot always tell, because at that speed the flutter waves are hidden inside the complexes and the T waves.
+
+So you give adenosine, and you watch, and you keep the strip running.
+
+@read teach
+If it is an SVT, the circuit breaks and the rhythm stops, and normal sinus rhythm appears. Treated.
+
+If it is atrial flutter, the AV node closes for a few seconds, and the ventricles fall silent — and with the big complexes out of the way, the atrial activity underneath is suddenly laid bare. A row of flutter waves, marching at three hundred, perfectly visible for the first time. Then the node opens again and the rhythm resumes exactly as it was.
+
+Not treated. But diagnosed, completely, in about eight seconds.
+
+[sister]"It either cures them or it shows you what you are dealing with,"[/] she says. [sister]"There is no version where you learn nothing."[/]
+
+@tier long
+
+The last piece tonight is a warning, and it is one of the small number of places in this whole course where the wrong action is genuinely catastrophic.
+
+@read teach
+There is a condition where an extra strand of muscle connects the atria directly to the ventricles, bypassing the AV node completely. It is called an accessory pathway, and the best known version is Wolff-Parkinson-White, which everybody calls WPW.
+
+Between attacks, the resting twelve-lead shows a short PR interval and a slurred upstroke on the QRS called a delta wave, because some of the ventricle is being woken early through the shortcut.
+
+@read teach
+Now imagine that patient develops atrial fibrillation, with the atria firing chaotically at four hundred a minute.
+
+Normally the AV node protects them. It is slow, it gets tired, and it refuses most of those impulses, which is why atrial fibrillation usually produces a ventricular rate of a hundred and something rather than four hundred.
+
+The accessory pathway has no such manners. It can conduct very fast indeed, and it passes a large share of that chaos straight down to the ventricles. The result is a very fast, irregular, wide rhythm, and it can degenerate into ventricular fibrillation.
+
+@read teach
+And here is why it matters tonight. The drugs that block the AV node — adenosine, verapamil, diltiazem, digoxin — close the safe road and leave only the dangerous one open. Giving them in this situation makes it worse, sometimes fatally.
+
+You do not need to be able to diagnose this at speed. You need one recognition, and it is a shape rather than a name. A tachycardia that is fast and irregular and wide, especially in a young patient, is not a rhythm to reach for the usual drugs on. It is a rhythm to call for help on and, if the patient is unstable, to shock.
+
+[ne_hush]छिटो, अनियमित र चौडा — यो तीनवटा सँगै भयो भने, आफैं औषधि नछान्नुहोस्।[/]

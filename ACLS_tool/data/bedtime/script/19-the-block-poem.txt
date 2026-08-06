@@ -1,0 +1,121 @@
+# 19 — The Block Poem
+
+Three nights on the heart blocks, and tonight is the map of all four of them plus the gentlest one in detail.
+
+The bad chapters are over. The ward is quiet and ordinary again, and there is a smell of toast from somewhere, because the kitchen starts early.
+
+[ne]अब चारवटा ब्लकको कुरा सुरु हुन्छ। तीन रातमा सकिन्छ।[/]
+
+@read teach
+A heart block is a failure of the marriage between the atria and the ventricles. The atria fire; the question is whether, and how, that firing gets through the AV node to the ventricles.
+
+There are four ways it can go wrong, and they form a sequence from mildest to worst, and each one is a different answer to the same question — what happens to the P waves?
+
+In the first, every P wave gets through, but each one takes too long.
+
+In the second, the delay grows from beat to beat until one P wave finally fails, and then it starts again.
+
+In the third, P waves fail without any warning at all, with no lengthening beforehand.
+
+In the fourth, nothing gets through, and the atria and the ventricles each keep their own separate time.
+
+@read teach
+There is a poem for this. Every hospital in the world teaches it, it is four lines long, and it is the only heart block mnemonic anybody needs.
+
+If the R is far from P, then you have a first degree.
+
+Longer, longer, longer, drop — then you have a Wenckebach.
+
+If some Ps don't get through, then you have Mobitz two.
+
+If Ps and Qs don't agree, then you have a third degree.
+
+[sister]"I learned that in nineteen ninety-nine,"[/] Sister Maya says. [sister]"I have forgotten the name of the man who taught it to me and I have never once forgotten the poem."[/]
+
+@algo block-poem
+The four heart blocks, in four lines. If the R is far from P, then you have a first degree. Longer, longer, longer, drop — then you have a Wenckebach. If some Ps don't get through, then you have Mobitz two. And if Ps and Qs don't agree, then you have a third degree. Far from P is first degree. Longer, longer, drop is Wenckebach. Some don't get through is Mobitz two. Ps and Qs disagreeing is third degree.
+@end
+
+The toast smell gets stronger and then fades.
+
+@read hush
+The four lines again, and there is nothing to do but hear them.
+
+@recall block-poem
+
+@read teach
+There is an exam shortcut hiding inside that poem, and it is worth pointing at directly.
+
+The first two lines — first degree and Wenckebach — are the benign half. The block is at the AV node itself, which is the part of the road that is under the control of the vagus nerve. So atropine, which releases the vagus, usually works. These rarely progress to anything dangerous.
+
+The last two lines — Mobitz two and third degree — are the dangerous half. The block is below the node, in the bundle or the branches, where the vagus has no influence at all. So atropine usually does nothing, and the answer is pacing.
+
+Two halves. The first half responds to a drug, and the second half needs a wire.
+
+[ne]पहिलो दुई हल्का हुन्। पछिल्ला दुईमा पेसिङ चाहिन्छ।[/]
+
+@read teach
+Now the first line in detail, because it is tonight's rhythm and it is the easiest one in the whole course.
+
+First-degree AV block. Every P wave is followed by a QRS complex — none are lost, nothing is dropped, the marriage holds. The only abnormality is that the PR interval is longer than five small squares, which is to say longer than 0.20 seconds.
+
+And it is constant. The same long interval, beat after beat, unchanging.
+
+@read teach
+Run the five questions and it is almost a normal strip.
+
+The rate is whatever it is, usually normal. The rhythm is regular. There is one P wave before every QRS and all of them are the same shape. The QRS is narrow. Only the fourth answer is abnormal, and it is abnormal in the mildest possible way — the PR interval is long, and it is the same long every time.
+
+That is why the poem's first line is what it is. The R is far from the P, and that is all that has happened.
+
+@read teach
+And it is a finding rather than a disease. First-degree block causes no symptoms, produces no consequences on its own, needs no treatment and blocks nobody's discharge. It is present in a small percentage of entirely healthy people, and in a larger percentage of athletes, and in many people taking ordinary heart medication.
+
+The only reason it appears on the strip at all is that it can be a clue — to a drug, to a high vagal tone, to an inferior infarct, or occasionally to the early stage of something that will progress.
+
+[sister]"You never treat a first-degree block,"[/] she says. [sister]"You notice it, you write it down, and you look at what else is on the page."[/]
+
+@read hush
+The poem one last time.
+
+@recall block-poem | Very slowly, and then sleep.
+
+@tier medium
+
+There is one situation where a first-degree block stops being nothing, and it is worth carrying.
+
+@read teach
+A very long PR interval — beyond about 0.30 seconds, which is more than seven small squares — starts to have a mechanical consequence, even though every beat is still getting through.
+
+The atrial contraction is supposed to arrive just before the ventricles squeeze, as a final top-up. With a very long delay, the atria contract much too early, against ventricles that are still closed from the beat before, and the top-up is lost or even pushed backwards.
+
+Patients with this can feel breathless and tired and can have a pulsing sensation in the neck, and the picture is called pseudo-pacemaker syndrome because it resembles what happens when a pacemaker is badly timed.
+
+@read teach
+The second thing worth adding is about how a first-degree block changes over time, because that is where the information is.
+
+A first-degree block that has been on every strip for ten years is a piece of that person's normal anatomy. A first-degree block that is new tonight, in a patient with chest pain, is telling you that the AV node is being starved, and it is one of the earliest signs of an inferior infarct.
+
+Same finding, different meaning, and the difference is entirely in the old notes. Which is a small argument for looking at the previous strip before deciding anything about the current one.
+
+@tier long
+
+The last piece tonight is about a distinction that determines everything in the two chapters coming up, and it will make them much easier.
+
+@read teach
+Where is the block? Two possible places, and they behave completely differently.
+
+At the node itself, which is the upper gate. Node tissue is slow by design, it is richly supplied by the vagus, and when it fails it fails gradually and gracefully — the delay stretches, warning you, before anything is actually lost. And if everything below it fails, the junction just underneath can produce an escape rhythm at forty to sixty, which is narrow and reasonably reliable.
+
+Below the node, in the bundle of His or in both branches. That tissue is fast wiring, it has no vagal supply, and when it fails it fails suddenly — conducting perfectly one moment and not at all the next, with no warning in the intervals beforehand. And the escape rhythm available below that point comes from ventricular muscle, at twenty to forty, which is wide, slow and unreliable.
+
+@read teach
+So the whole of the next two chapters is contained in that contrast.
+
+Gradual failure with warning, narrow escape, responds to atropine, at the node. That is Wenckebach.
+
+Sudden failure with no warning, wide slow escape, does not respond to atropine, below the node. That is Mobitz two and complete block.
+
+If you carry that one idea into the next two nights, you will not have to memorise anything at all. Everything else follows from where the break is.
+
+[ne_hush]ब्लक कहाँ छ — माथि कि तल। यत्ति थाहा भए बाँकी सबै आफैं आउँछ।[/]

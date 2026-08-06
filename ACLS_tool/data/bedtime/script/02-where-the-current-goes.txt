@@ -1,0 +1,127 @@
+# 2 — Where the Current Goes
+
+Bed four has been moved to a side room, and the ward is emptier tonight. The monitor came with him. In its place there is a whiteboard on a stand, left behind by the morning teaching round, with half a drawing still on it.
+
+Sister Maya picks up a marker that has almost dried out and finishes the drawing.
+
+[ne]आज एउटा बाटोको कुरा हो। बिजुली कता कता हिँड्छ, त्यही हेरौं।[/]
+
+@read teach
+Everything on a strip is one wave of electricity travelling through the heart, and it travels the same road every single time. Learn the road, and every shape on the paper stops being a shape and becomes a place.
+
+The road has six stops. Tonight we walk it once, slowly, and nothing else.
+
+@read teach
+The first stop is in the roof of the right atrium, in a small patch of tissue called the sinoatrial node. Everybody calls it the SA node.
+
+It is not muscle in the ordinary sense. It leaks. Its cells slowly let charge build up until they can hold it no longer, and then they fire, all on their own, without being asked by anything. Left completely alone, cut off from every nerve in the body, that patch of tissue fires about sixty to a hundred times a minute for as long as it is alive.
+
+That is the heartbeat. Not the brain, not the nerves. A patch of leaky tissue the size of a grain of rice, counting to itself.
+
+@read teach
+The second stop is the two atria themselves. The wave leaves the SA node and spreads across them, both of them, like water across a flat tray.
+
+The atria are thin. There is not much muscle there, so there is not much voltage, so the pen only lifts a little. It draws a small, low, rounded bump.
+
+That bump is the P wave. Whenever you see a P wave, you are watching the atria wake up.
+
+[ne]पी वेभ भनेको माथिल्ला दुई कोठा उठेको हो। यो सानो, गोलो र नरम हुन्छ।[/]
+
+@read teach
+The third stop is where the road nearly ends, and this is the cleverest thing in the whole heart.
+
+Between the atria and the ventricles there is a sheet of fibrous tissue, and electricity cannot cross it. Not anywhere. The upper half of the heart and the lower half are electrically separate, and the only way through is a single small gate called the atrioventricular node — the AV node.
+
+And the AV node is slow on purpose. The wave arrives, and the node holds it for about a tenth of a second before letting it pass.
+
+Why hold it? Because the atria have just squeezed, and the blood they squeezed needs somewhere to arrive. That tenth of a second is the pause that lets the ventricles finish filling before they are told to contract. Without it, the two halves of the heart would squeeze together and the pumping would be worth almost nothing.
+
+@read teach
+And here is the beautiful part, for somebody learning to read paper.
+
+While the wave is waiting inside the AV node, nothing is moving. No muscle is depolarising. So the pen has nothing to draw, and it sits flat.
+
+That flat stretch, after the P wave and before the big spike, is not empty paper. It is the wait. You are looking at a delay, drawn as a straight line.
+
+[sister]"That little flat bit is my favourite thing on the whole strip,"[/] Sister Maya says. [sister]"It is the only place on the page where you can see the heart being patient."[/]
+
+@read teach
+The fourth stop is the bundle of His, which is a short thick cable leaving the AV node and diving down into the wall between the two ventricles.
+
+The fifth stop is where that cable splits. It divides into a right bundle branch and a left bundle branch, one for each ventricle, and those branch again and again into a fine net of fast fibres spread all over the inside of both ventricular walls. That net is called the Purkinje system.
+
+The point of the net is speed. The ventricles are thick and heavy, and if the wave had to crawl through them muscle cell by muscle cell it would take far too long and the squeeze would be a slow ripple instead of a single grip. So the heart wires them instead. The net delivers the signal everywhere almost at once.
+
+@read teach
+The sixth stop is the ventricular muscle, all of it, lighting up together. Thick muscle, large voltage, a big movement of the pen — and because the net delivered the signal so fast, that big movement is over quickly.
+
+Tall, and narrow. That is the QRS complex, and it is the ventricles contracting.
+
+Then the ventricles have to reset before they can do it again, and that resetting is itself an electrical event, slower and gentler than the contraction. The pen draws a broad soft hill.
+
+That is the T wave.
+
+@algo bato
+The current takes one road and always the same one. It starts in the SA node in the right atrium, and the wave spreading across both atria is the P wave. It reaches the AV node and waits there about a tenth of a second, and that wait is the flat line after the P. It drops into the bundle of His, splits into the right and left bundle branches, runs out through the Purkinje net, and lights both ventricles almost at once, and that is the QRS complex. Then the ventricles reset, and that is the T wave. SA node, P wave. AV node, the wait. Bundles and Purkinje, QRS. Reset, T wave.
+@end
+
+The marker has finally given up. Sister Maya caps it and drops it in the bin.
+
+@read hush
+The road again, slowly. Six stops, four marks on the paper.
+
+@recall bato
+
+[ne]एकपटक सुनेर पुग्दैन। तेस्रोपटकमा आफैं आउँछ।[/]
+
+@read teach
+One last idea tonight, and it is the one that will save you later.
+
+The SA node is not the only tissue in the heart that can fire on its own. It is only the fastest. Several other places can do it, and they sit lower down the road, and each one is slower than the one above it.
+
+If the SA node stops, the AV junction takes over, and it fires at about forty to sixty a minute. If that stops too, the ventricle itself can fire, at about twenty to forty a minute. Slower, and slower.
+
+And there is a rule hidden in that, which comes back in almost every chapter after this one. The lower down the road a beat is born, the slower it comes, and the wider it is drawn. Slower, because the backup pacemakers are lazier. Wider, because a beat born below the bundle branches cannot use the fast net, and has to crawl through muscle instead.
+
+[sister]"High and fast and narrow, or low and slow and wide,"[/] she says. [sister]"Half of rhythm reading is just that sentence."[/]
+
+@read hush
+The road one more time, and then sleep.
+
+@recall bato | Once more, and let it go.
+
+@tier medium
+
+There is a question that always arrives about now, and it is a good one. If the heart does all this by itself, what are the nerves for?
+
+@read teach
+They are for the volume knob, not for the music.
+
+Two sets of nerves reach the heart. One of them, the vagus, slows the SA node down and slows the AV node down, and it is the one that is quietly active all day. The other set speeds both of them up and makes the muscle squeeze harder, and it is the one that arrives when you are frightened or running or bleeding.
+
+Cut both, and the heart does not stop. It settles at whatever the SA node's own rate happens to be, which is faster than a resting heart rate — because at rest, the vagus is holding it back.
+
+@read teach
+This matters at the bedside in one very practical way.
+
+When a heart is beating too slowly, the first drug in the algorithm is atropine, and atropine does not stimulate the heart. It blocks the vagus. It takes the brake off. That is why it works beautifully on a slow SA node or a sluggish AV node, and does almost nothing when the problem is further down the road, below the AV node — because there is no brake down there to release.
+
+[ne]अटरोपिनले ब्रेक खोल्छ, इन्जिन बढाउँदैन। यही फरक हो।[/]
+
+@tier long
+
+The last piece tonight is a small anatomical detail with a large consequence, and it is about blood supply.
+
+@read teach
+The conducting system is tissue, and tissue needs an artery. In most people the SA node and the AV node are both fed by the right coronary artery, which is the artery that supplies the underside of the heart.
+
+So when the underside of the heart is starved — an inferior infarct — the nodes are starved along with it. And that is why a patient with an inferior heart attack so often arrives with a slow pulse or a heart block, and why the block, in that setting, frequently recovers when the artery is opened.
+
+@read teach
+The bundle branches, further down, are fed mostly by the left coronary system, which supplies the front wall.
+
+So a new bundle branch block appearing during a front-wall infarct is a different and much more serious sentence than a block appearing during an underside one. It means the damage has reached the wiring in the thick part of the heart, and that wiring does not usually come back.
+
+None of this is something to memorise tonight. It is here so that later, when you are told that an inferior infarct causes bradycardia, you already know why, and a reason is easier to keep than a fact.
+
+[ne_hush]अब आँखा चिम्लनुहोस्। बाटो त्यहीँ छ, भोलि पनि उही हुन्छ।[/]

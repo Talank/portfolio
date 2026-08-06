@@ -1,0 +1,119 @@
+# 16 — The Quivering Bag
+
+The rhythm that the defibrillator was invented for.
+
+Sister Maya has been asked twice tonight already for the arrest trolley key, and both times it was for something else. She checks the trolley anyway, at the start of every shift, in the same order, and she has never once found it complete without looking.
+
+[ne]आजको रिदममा मुटु पम्प गर्दैन। काँपिरहेको मात्र हुन्छ।[/]
+
+@read teach
+Ventricular fibrillation. Everything you learned about the previous rhythms comes apart here, because this is not a rhythm at all in any useful sense.
+
+The ventricles are not contracting. Nothing is spreading across them in an organised way. Instead there are many small wavefronts, all over the muscle, all going in different directions, all at once — the same picture as atrial fibrillation, except that this time it is the pumping chambers.
+
+A fibrillating ventricle does not eject blood. It quivers. Held in a hand, it has been described as a bag of worms, and every account of it says the same thing.
+
+@read teach
+So run the five questions and watch them fail, one by one, which is itself the finding.
+
+The rate cannot be counted, because there are no complexes to count.
+
+The rhythm cannot be assessed, because there is nothing to march.
+
+There are no P waves, no QRS complexes and no T waves. There are no recognisable waveforms of any kind.
+
+What there is instead is a completely chaotic, irregular, wandering line, with no two parts of it alike, going up and down at random with no baseline anywhere.
+
+@read teach
+And that is the recognition, and it is entirely negative. No complexes, no baseline, no pattern, and no repeating anything.
+
+Which is why it is described by how big the squiggle is rather than by its shape. Coarse ventricular fibrillation has large deflections and is usually recent. Fine ventricular fibrillation has small ones and generally means the same rhythm has been going on for some minutes, with the muscle running out of energy.
+
+The distinction matters for one reason only. Fine ventricular fibrillation looks, at a glance and on a small screen, very much like a flat line.
+
+[sister]"That is the mistake I am most afraid of,"[/] Sister Maya says. [sister]"Not shocking something because it looked flat. Turn the gain up before you decide anything is flat."[/]
+
+@algo vf
+Ventricular fibrillation is recognised by what is missing. There are no QRS complexes, no P waves, no T waves and no baseline — only a chaotic wandering line with no pattern in it anywhere. The ventricles are quivering rather than pumping, so there is no output and there is never a pulse. It is a shockable rhythm, and the single thing that decides survival is how quickly a shock arrives, with good compressions in between. No complexes, no baseline, no pattern. No pulse, ever. Compressions, and shock it.
+@end
+
+The trolley is complete. It is signed for. It goes back against the wall.
+
+@read hush
+Once more, quietly.
+
+@recall vf
+
+@read teach
+Now what happens, in order, because the order is the treatment.
+
+The patient is unresponsive and not breathing normally. Compressions start. Somebody brings the defibrillator and puts the pads on while compressions continue.
+
+The rhythm is checked, briefly, and it is ventricular fibrillation. Everybody stands clear, the shock is delivered, and compressions restart immediately — immediately, in the same second, without waiting to see what happened and without checking a pulse.
+
+Two minutes of compressions. Rhythm check. If it is still ventricular fibrillation, shock again, and compressions again.
+
+Adrenaline after the second shock, and every three to five minutes after that. Amiodarone after the third.
+
+@read teach
+And the single most important number in that whole sequence is not a drug dose. It is how long the chest is not being compressed.
+
+Every pause costs perfusion pressure that took many compressions to build, and it takes several compressions after a pause to get it back. So the rhythm check is ten seconds, and the pad placement happens during compressions, and the charge happens during compressions, and the only true pause is the moment of the shock itself.
+
+[ne]छाती थिच्न रोकिने समय जति कम हुन्छ, बाँच्ने सम्भावना त्यति बढी हुन्छ।[/]
+
+@read teach
+One more thing, and it is about time rather than technique.
+
+Ventricular fibrillation has three phases, and they explain why the answer changes with the clock.
+
+For the first four minutes or so the muscle still has energy, and a shock alone will very often restore a rhythm. This is the phase an automated defibrillator in a shopping centre is designed for.
+
+From about four minutes to ten, the muscle has run down and a shock delivered into it usually fails. Compressions first, to push some blood through the coronary arteries and give the muscle something to work with, and then shock.
+
+After ten minutes without effective compressions, the tissue itself has begun to change, and the odds fall steeply.
+
+@read hush
+The rhythm one last time.
+
+@recall vf | Slowly, and then sleep.
+
+@tier medium
+
+There is a habit worth building now, before you ever need it, and it costs nothing.
+
+@read teach
+Turn the gain up before you call a rhythm fine or flat.
+
+The monitor has a size control, exactly like the calibration on the paper, and on many machines it is set low so that ordinary complexes fit neatly on the screen. At that setting, fine ventricular fibrillation can be a nearly straight line.
+
+Turn it up, and the same tracing becomes an obvious quivering mess. Same heart, same electricity, different display.
+
+@read teach
+And check more than one lead, which on a defibrillator means turning the lead selector rather than moving anything.
+
+Fibrillation can genuinely look almost flat from one direction and unmistakable from another, because a chaotic wavefront can happen to be travelling across the axis that one lead is watching.
+
+Two leads, and the gain up. Ten seconds, and it converts the one mistake in this chapter that nobody recovers from into a mistake that does not happen.
+
+[sister]"Flat in one lead is not flat,"[/] she says. [sister]"Flat in two leads with the gain up is flat. Say which one you did."[/]
+
+@tier long
+
+The last piece tonight is about the shape of the fibrillation itself, and it is a small piece of hope.
+
+@read teach
+Coarse and fine are not just descriptions. They are, roughly, a clock.
+
+A heart that has just gone into ventricular fibrillation makes large chaotic deflections, because there is plenty of energy in the muscle. As the minutes pass without effective circulation, the deflections get smaller, and eventually the tracing flattens into asystole.
+
+So the coarseness is telling you something about how long this has been going on, which is often the one piece of history nobody has.
+
+@read teach
+Which gives you the practical version, and it is the opposite of what the appearance suggests.
+
+Fine ventricular fibrillation is not a rhythm to shock less enthusiastically. It is a rhythm to compress harder before shocking, because the muscle needs perfusion before it can respond, and good compressions can visibly turn fine fibrillation back into coarse fibrillation on the screen.
+
+Watching that happen — the tracing growing while somebody works — is one of the few things in a resuscitation that gives immediate feedback that the compressions are working.
+
+[ne_hush]राम्रो थिचाइले साना लहरलाई ठूलो बनाउँछ। त्यो देख्दा थाहा हुन्छ, काम भइरहेको छ।[/]

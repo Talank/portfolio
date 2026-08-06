@@ -12,6 +12,12 @@ Two-step build (run from this directory):
     node extract_narrations.js       # decks -> narrations.json
     pip install --user kokoro-onnx soundfile misaki
     python3 generate_audio.py        # narrations.json -> *.mp3 + manifest.*
+    python3 generate_audio.py --force   # ignore the cache and re-render all
+
+Runs are incremental: each manifest entry carries a hash of the spoken text and
+the voice settings, so adding one module re-renders that module and reuses the
+rest. At roughly a minute of CPU per slide that is the difference between a
+coffee and an afternoon.
 
 Model files (~350 MB) are cached in ~/.local/share/kokoro and auto-downloaded
 on first run. DISPLAY vs SPOKEN: the transcript shows the original text, but
@@ -19,6 +25,7 @@ before synthesis each sentence is passed through to_speakable() so Big-O and
 acronyms are pronounced correctly. This never changes the sentence count, so
 timings stay aligned.
 """
+import hashlib
 import json
 import os
 import re
@@ -90,6 +97,53 @@ def ensure_model():
             urllib.request.urlretrieve(url, path)
 
 
+def clip_hash(narration):
+    """Identify a rendered clip by everything that can change its audio.
+
+    The spoken text, not the displayed text, because to_speakable() is what the
+    model is handed; plus the voice and timing settings, so changing VOICE or
+    SPEED at the top of this file invalidates the whole directory rather than
+    leaving a mix of two voices behind.
+    """
+    sents = [to_speakable(s) for s in split_sentences(narration)]
+    key = "\x00".join([VOICE, str(SPEED), str(GAP), str(SR)] + sents)
+    return hashlib.sha1(key.encode("utf-8")).hexdigest()[:16]
+
+
+def load_cache():
+    """Previous manifest entries, keyed by deck id, if their audio is still there.
+
+    Kokoro runs at roughly a minute of CPU per slide, so a full rebuild of this
+    course is several hours — long enough that authoring one new module used to
+    mean re-rendering ninety unchanged ones. An entry is only reusable if its
+    hash still matches and its file survived: the .mp3 is written first and may
+    later be dropped in favour of the .opus twin, so either one counts.
+    """
+    path = os.path.join(OUT_DIR, "manifest.json")
+    if "--force" in sys.argv or not os.path.exists(path):
+        return {}
+    try:
+        with open(path) as f:
+            old = json.load(f)
+    except (OSError, ValueError):
+        return {}
+    if old.get("voice") != f"kokoro:{VOICE}" or old.get("speed") != SPEED:
+        return {}
+    cache = {}
+    for deck_id, entries in old.get("decks", {}).items():
+        kept = []
+        for e in entries:
+            name = e.get("file")
+            if not name or not e.get("hash"):
+                kept.append(None)
+                continue
+            mp3 = os.path.join(OUT_DIR, name)
+            opus = os.path.splitext(mp3)[0] + ".opus"
+            kept.append(e if (os.path.exists(mp3) or os.path.exists(opus)) else None)
+        cache[deck_id] = kept
+    return cache
+
+
 def main():
     ensure_model()
     from kokoro_onnx import Kokoro
@@ -98,15 +152,23 @@ def main():
     with open(NARR) as f:
         narrations = json.load(f)
 
+    cache = load_cache()
     silence = np.zeros(int(GAP * SR), dtype=np.float32)
     result = {}
-    total = failed = 0
+    total = failed = reused = 0
 
     print(f"Building english audio with Kokoro {VOICE} (speed {SPEED})")
     for deck_id, slides in narrations.items():
         result[deck_id] = []
         for idx, narration in enumerate(slides):
             total += 1
+            want = clip_hash(narration)
+            old = cache.get(deck_id, [])
+            hit = old[idx] if idx < len(old) else None
+            if hit and hit.get("hash") == want:
+                reused += 1
+                result[deck_id].append(hit)
+                continue
             sents = split_sentences(narration)
             try:
                 parts, starts, t = [], [], 0.0
@@ -126,6 +188,7 @@ def main():
                     "file": f"{deck_id}-{idx}.mp3",
                     "dur": round(len(full) / SR, 3),
                     "sentences": starts,
+                    "hash": want,
                 })
                 sys.stdout.write(f"  ✓ {deck_id}-{idx}  ({len(sents)} sentences, {round(len(full)/SR,1)}s)\n")
                 sys.stdout.flush()
@@ -147,7 +210,8 @@ def main():
         f.write(";\n")
 
     build_opus_siblings(OUT_DIR)
-    print(f"\nDone: {total} slides, {failed} failed. Manifest -> {OUT_DIR}/manifest.json")
+    print(f"\nDone: {total} slides, {reused} reused, {failed} failed. "
+          f"Manifest -> {OUT_DIR}/manifest.json")
 
 
 def build_opus_siblings(out_dir):

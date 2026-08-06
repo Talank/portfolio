@@ -1,0 +1,113 @@
+# 22 — Twelve Windows
+
+Everything so far has been one view of the heart. Tonight there are twelve, and they are twelve windows into the same room.
+
+Sister Maya brings a full twelve-lead out of the folder and unfolds it, and it is much bigger than the rhythm strips — a wide sheet with twelve little tracings arranged in a grid of four columns and three rows, and one long strip along the bottom.
+
+[ne]आज एउटै मुटुलाई बाह्र दिशाबाट हेर्नुहुन्छ।[/]
+
+@read teach
+Start with the one idea that makes all twelve of them make sense, because without it the grid is just a lot of squiggles.
+
+A lead is a direction of view. Each one watches the heart from a particular angle, and the rule for what it draws is simple. A wave of electricity travelling towards a lead draws an upward deflection. A wave travelling away from it draws a downward one. A wave travelling sideways across it draws almost nothing.
+
+So the same heartbeat, at the same instant, is drawn upward in one lead and downward in another, and neither of them is wrong. They are looking from opposite sides.
+
+@read teach
+Twelve views come from ten stickers, which surprises people, and the arithmetic is worth one sentence.
+
+Four go on the limbs, and from those four the machine derives six views, all of them in the flat plane of the front of the body — up and down, left and right. They are lead one, lead two, lead three, and then three more called aVR, aVL and aVF.
+
+Six go across the chest, in a line curving from the middle of the breastbone round under the left armpit. Each of those is a view in its own right, and they look in the horizontal plane — front to back. They are called V1 to V6.
+
+Six plus six is twelve, from ten stickers.
+
+@read teach
+Now the part that turns twelve tracings into a diagnosis, and it is the whole reason a twelve-lead is taken.
+
+The leads are grouped, and each group looks at one wall of the left ventricle. Damage to a wall shows up in the leads that are looking at that wall, and only in those.
+
+Lead two, lead three and aVF look at the heart from below. They are the inferior leads, and they watch the underside of the heart, which is usually fed by the right coronary artery.
+
+Lead one, aVL, V5 and V6 look from the left side. They are the lateral leads, and they watch the side wall, usually fed by the circumflex artery.
+
+V1 and V2 sit over the middle, and V3 and V4 over the front. Together those four are the septal and anterior leads, and they watch the front wall and the wall between the ventricles, fed by the left anterior descending artery.
+
+[ne]तल्लो भाग दुई, तीन र aVF ले हेर्छन्। छेउको भाग एक, aVL, V5 र V6 ले हेर्छन्। अगाडिको भाग V1 देखि V4 सम्मले हेर्छन्।[/]
+
+@algo territory
+The twelve leads come in groups and each group watches one wall. Lead two, lead three and aVF look at the heart from underneath, so they are the inferior leads. Lead one, aVL, V5 and V6 look from the left side, so they are the lateral leads. V1, V2, V3 and V4 look at the front, so they are the septal and anterior leads. And aVR looks from the right shoulder, from outside everything, which is why it is normally upside down. Two, three and aVF is inferior. One, aVL, V5 and V6 is lateral. V1 to V4 is anterior. Changes in a group mean a wall, and a wall means an artery.
+@end
+
+The sheet stays unfolded on the counter, taking up most of it.
+
+@read hush
+The groups again, slowly, and there is nothing to hold.
+
+@recall territory
+
+@read teach
+That last lead deserves a paragraph of its own, because it is the odd one and it is quietly useful.
+
+aVR looks at the heart from the right shoulder — from outside the whole system, over everybody else's shoulder. So almost everything in a normal heart is travelling away from it, and almost everything it draws points downwards.
+
+Which gives you a free check on every twelve-lead you ever look at. If aVR is upright, something is wrong. Either the limb leads have been swapped, which is common and easy to fix, or the patient's heart is in an unusual position, or there is something genuinely serious going on.
+
+[sister]"Look at aVR first,"[/] Sister Maya says. [sister]"Not because it tells you much. Because if it is the wrong way up, nothing else on that page can be trusted."[/]
+
+@read teach
+One more idea before you sleep, and it is about what the chest leads see as you walk along them.
+
+V1 sits over the right side of the heart and the septum. As you move to V2, V3, V4, V5 and V6 you walk around towards the left side.
+
+In a normal heart, the QRS complex in V1 is mostly downward, because the main mass of the ventricles is on the left and the wave is travelling away from V1. By V6, it is mostly upward, because now the wave is coming towards it.
+
+Somewhere in the middle, usually around V3 or V4, the complex is half up and half down. That is called the transition, and where it sits tells you something about how the heart is rotated in the chest.
+
+Walking from V1 to V6 and watching the complex turn over from downward to upward is one of the quickest ways to see whether a chest lead has been placed in the wrong spot, because a lead in the wrong place breaks the smooth progression.
+
+@read hush
+The groups, one last time.
+
+@recall territory | Very slowly, and then sleep.
+
+@tier medium
+
+There is a wall of the heart that has no leads of its own, and knowing how it is read is a genuine piece of expertise.
+
+@read teach
+The back wall of the left ventricle — the posterior wall — has nothing looking directly at it, because there are no electrodes on the patient's back in a standard recording.
+
+So an infarct there produces no ST elevation anywhere on the twelve-lead. It produces the opposite, in the leads on the other side.
+
+V1, V2 and V3 are looking at the front. The back wall is directly behind them, so whatever is happening there appears in those leads as a mirror image. Elevation becomes depression. A deep Q wave becomes a tall R wave. An inverted T wave becomes an upright one.
+
+@read teach
+Which means the finding to recognise is this. Marked ST depression in V1 to V3, with tall R waves and upright T waves, in a patient with chest pain, is not simply ischaemia in the front wall. It may well be an infarct in the back wall being seen backwards.
+
+And that matters enormously, because a posterior infarct is an artery that needs opening, on the same clock as any other, and calling it depression means calling it something less urgent than it is.
+
+@read teach
+There is a way to confirm it that takes two minutes. Move three of the chest electrodes round to the patient's back, in a line continuing under the left armpit, and record again. Those are called V7, V8 and V9, and if the back wall is infarcting, the elevation will be there in the open.
+
+Nobody does it often. Everybody should do it when the front leads are depressed and the story is right.
+
+@tier long
+
+The last piece tonight is about electrode placement, and it is the least glamorous and most frequently wrong thing in this entire course.
+
+@read teach
+The chest leads have exact positions, defined by ribs, and getting them wrong changes the tracing in ways that look like disease.
+
+V1 and V2 go in the fourth intercostal space, either side of the breastbone. The commonest single error in the world is placing them too high, in the second or third space, which makes the complexes look different, can produce a false pattern that mimics an old infarct, and can create an appearance that resembles a rare inherited condition.
+
+V4 goes in the fifth space in the line of the middle of the collarbone. V5 and V6 go along the same horizontal level as V4, not following the ribs downward, which is the second commonest error.
+
+@read teach
+And the limb electrodes have a rule that is more forgiving than people think. They can go anywhere on the limb — wrist or shoulder, ankle or hip — because a limb is electrically a wire and the machine only cares which limb it is.
+
+What is not forgiving is swapping them. Left arm and right arm reversed is the classic, and it produces a twelve-lead where lead one is upside down, aVR looks normal and upright, and the whole thing appears to show a heart in a strange position.
+
+Which is why the check from earlier tonight is worth doing before anything else. Look at aVR. If it points up, put the page down and go and look at the wires before you read another millimetre of it.
+
+[ne_hush]पहिले aVR हेर्नुहोस्। त्यो उल्टो छ भने, तार जाँच्नुहोस्।[/]

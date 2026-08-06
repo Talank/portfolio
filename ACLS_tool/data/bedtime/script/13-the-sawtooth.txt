@@ -1,0 +1,120 @@
+# 13 — The Sawtooth
+
+Last night's rhythm was chaos. Tonight's is the opposite — it is the most orderly abnormal rhythm there is, and it hides in plain sight because of how orderly it is.
+
+Sister Maya has a strip from a man who came in three winters ago complaining of palpitations, and it is the one she keeps because it is textbook, and because nobody ever gets it right the first time.
+
+[sister]"Everybody who looks at this says SVT,"[/] she says. [sister]"Everybody. Including me, the first time."[/]
+
+[ne]आज लुकेको एउटा रिदम छ। हेर्दा अर्कै जस्तो देखिन्छ।[/]
+
+@read teach
+Atrial flutter. Instead of hundreds of chaotic wavelets, the atria have one single wave, running round and round a fixed circuit, usually a large loop inside the right atrium.
+
+One wave, one circuit, one lap time. And the lap time is remarkably consistent from person to person, because the circuit is an anatomical loop of roughly the same size in everybody. The atria flutter at about three hundred a minute, and if a strip shows you two hundred and ninety or three hundred and ten, that is the same rhythm.
+
+@read teach
+Because the wave is organised, it draws something organised on the paper.
+
+Instead of a shivering baseline, the line between the complexes rises and falls in a continuous regular pattern with no flat bits in it at all. Up, down, up, down, one after another, never resting.
+
+That shape is called a sawtooth, or flutter waves, and it is best seen in the leads that look at the heart from below — the inferior leads, which are lead two, lead three and aVF.
+
+@read teach
+Now the AV node again, and this time it is behaving well rather than randomly.
+
+Three hundred impulses a minute arrive at the node. It cannot pass three hundred; nothing could, and if it did the patient would be in serious trouble. So it refuses most of them, and — because the impulses are arriving with perfect regularity — it tends to refuse them in a fixed pattern.
+
+Every second one gets through, and the ventricular rate is a hundred and fifty. Every third one, and it is a hundred. Every fourth, and it is seventy-five.
+
+Those are called two-to-one, three-to-one and four-to-one conduction, and they are all common.
+
+[ne]माथिको गति तीन सय हुन्छ। तल कति आउँछ, त्यो ढोकाले तय गर्छ।[/]
+
+@read teach
+And that gives you the single most useful clue in this whole chapter, and it is worth remembering above everything else tonight.
+
+A regular narrow tachycardia at exactly a hundred and fifty is atrial flutter until proven otherwise.
+
+Because two-to-one is the commonest ratio, and three hundred divided by two is a hundred and fifty, and that number turns up again and again. Any time your rate count lands on a hundred and fifty, or very close to it, go looking for flutter waves before you call it anything else.
+
+@read teach
+Why is it so easy to miss?
+
+Because at two-to-one conduction, of every two flutter waves, one is out in the open where you can see it and the other is hidden underneath the QRS complex or inside the T wave. So the eye sees one bump between complexes and reads it as a P wave, and the rhythm is regular, and the complexes are narrow — and everything says SVT.
+
+The trick is to stop looking for a P wave and start looking at the whole baseline. In a real SVT, the line between complexes is flat. In flutter, it is never flat anywhere.
+
+[sister]"Do not look for the wave. Look for the flat bit,"[/] Sister Maya says. [sister]"If there is nowhere on that strip where the line rests, it is fluttering."[/]
+
+@algo flutter
+Atrial flutter is one organised wave running round a loop in the atria at about three hundred a minute. On the paper the baseline never rests — it rises and falls continuously in a sawtooth, best seen in the inferior leads. The AV node passes only a fraction of those impulses, usually in a fixed ratio, so the ventricular rate is three hundred divided by a small whole number — a hundred and fifty, or a hundred, or seventy-five. The QRS is narrow and the rhythm is usually regular. Atrial rate about three hundred. Sawtooth with no flat baseline. And a regular narrow rate of a hundred and fifty is flutter until you have proved it is not.
+@end
+
+The strip goes back in the folder. It is one of the few she keeps loose, near the front.
+
+@read hush
+Once more, and there is nothing to hold on to.
+
+@recall flutter
+
+@read teach
+Two ways to make the hidden waves visible, and you have already met one of them.
+
+The first is adenosine. Close the AV node for a few seconds, the ventricular complexes stop arriving, and the sawtooth underneath is uncovered completely. The rhythm comes straight back afterwards, unchanged, because adenosine does nothing to a circuit that does not pass through the node.
+
+The second costs nothing at all. Look at a different lead. Flutter waves are largest in lead two, lead three and aVF, and if the monitor is watching lead one — which many are, by default — the waves can be almost invisible. Switching the monitor lead takes three seconds.
+
+@read teach
+And one important variation before the end.
+
+Sometimes the AV node does not hold a fixed ratio. It passes two, then four, then three, and the ventricular rhythm becomes irregular. That is flutter with variable block, and it can be mistaken for atrial fibrillation.
+
+The distinction is the baseline again. Fibrillation has no organised atrial activity, so the baseline shivers randomly. Flutter has one perfect wave at three hundred, so the sawtooth is there and marches evenly even when the ventricles do not.
+
+March the atrial activity separately from the ventricular activity. That habit, from the chapter on rhythm, is what settles this.
+
+[ne]माथिको लहर छुट्टै मार्च गर्नुहोस्। त्यहीँ उत्तर हुन्छ।[/]
+
+@read hush
+The rhythm one last time, and then sleep.
+
+@recall flutter | Very slowly now.
+
+@tier medium
+
+There is a practical difference between flutter and fibrillation that matters at the bedside, and it is a hopeful one.
+
+@read teach
+Flutter is a single circuit. Break the circuit anywhere and the rhythm stops, permanently.
+
+That is why flutter responds so well to a synchronised shock, and often at a very low energy — fifty joules is frequently enough, where fibrillation may need two hundred. And it is why flutter is one of the most successfully cured rhythms in cardiology, because a catheter can burn a short line across the circuit and the loop can never complete again.
+
+Fibrillation is hundreds of wavelets with no single circuit to break, which is why it is so much harder to cure and why so much of its treatment is about living with it safely rather than ending it.
+
+@read teach
+One shared feature, though, and it is not optional.
+
+Flutter carries the same stroke risk as fibrillation. The atria are not contracting properly in either rhythm, blood pools in the same appendage, and clots form the same way.
+
+So the anticoagulation rules are the same, and the rule about cardioverting a rhythm that has been present for more than about forty-eight hours — do not, until the patient has been anticoagulated or the atrium has been imaged — applies equally to both. Restoring a coordinated squeeze to an atrium containing a clot is a way of firing that clot into the brain.
+
+@tier long
+
+The last piece tonight is the one that turns up in exams and occasionally on a real night.
+
+@read teach
+Two-to-one flutter at a hundred and fifty is common. One-to-one flutter, where every single atrial impulse gets through, is rare and it is an emergency, because the ventricular rate is then about three hundred.
+
+At three hundred there is no filling time, the blood pressure collapses, and the rhythm frequently degenerates.
+
+What makes it happen is worth knowing, because it is usually something a doctor did. Certain antiarrhythmic drugs slow the flutter circuit down — from three hundred to, say, two hundred — while also making the AV node more willing to conduct. And a node that would refuse every second impulse at three hundred may happily pass every impulse at two hundred.
+
+@read teach
+So the atrial rate falls, the ventricular rate doubles, and the patient gets much worse after a drug that was meant to help.
+
+The protection against it is standard practice, and now you know why it exists. When those drugs are used for flutter, an AV nodal blocking drug is given alongside them, specifically to keep the door shut.
+
+None of this is yours to prescribe. It is here because one day somebody will tell you that a patient deteriorated after their antiarrhythmic, and you will understand what happened, and understanding is what turns a night shift into a training.
+
+[ne_hush]अब सुत्नुहोस्। सम्झनुहोस् — डेढ सयको दर देख्नुभयो भने, फ्लटर खोज्नुहोस्।[/]

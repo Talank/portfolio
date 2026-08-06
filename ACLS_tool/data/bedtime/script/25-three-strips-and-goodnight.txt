@@ -1,0 +1,170 @@
+# 25 — Three Strips, and Goodnight
+
+The last night. Nothing new, and three strips read out loud from beginning to end, the way you will read them for the rest of your working life.
+
+Sister Maya has the folder and the rubber band has finally snapped, so she is holding it together with her hand. She puts three strips on the counter, side by side, and says nothing at all.
+
+[ne]आज केही नयाँ छैन। आज तीनवटा कागज पढ्नुहुन्छ, सुरुदेखि अन्तसम्म।[/]
+
+@read teach
+Before the three, the whole method in one place, because you have earned it and because it fits in a paragraph now.
+
+Look at the bottom edge for the speed and the gain. Look at the front for the calibration rectangle. Then ask five questions — the rate, the rhythm, the P waves, the PR interval, the QRS width. Then comes the sixth thing, which is not a question about the strip. Look at the patient.
+
+@algo sabai
+Here is the whole method, from the beginning. Check the speed and the gain, and check the calibration rectangle stands ten small squares tall. Then ask five questions in the same order every time. One, the rate — fast, slow or in between. Two, the rhythm — regular, irregular with a pattern, or irregular with none. Three, the P waves — present, one per QRS, and the same shape each time. Four, the PR interval — constant, lengthening, or unrelated. Five, the QRS width — narrow under three small squares, or wide. And then the sixth thing, which is not on the paper at all. Look at the patient. Speed and gain first. Then rate, rhythm, P waves, PR and QRS. Then look at the person.
+@end
+
+@read hush
+Once, quietly, before the strips.
+
+@recall sabai
+
+@read teach
+Take the first strip.
+
+Speed is twenty-five, gain is standard, and the rectangle is ten squares tall. Good.
+
+Start with the rate. There are four big squares between R waves, a little less. That is somewhere around eighty, which is in between.
+
+The rhythm. March it. Every R wave lands on the mark. Regular.
+
+Look at the P waves. There is one before every QRS, small and rounded and upright, and all of them are the same shape. Good.
+
+Measure the PR interval. It is seven small squares, which is longer than five. On the next beat it is seven again. And the next one is seven. Long, and constant.
+
+Measure the QRS. It is two small squares, so it is narrow.
+
+@read teach
+So say it. The rate is eighty. Regular. There is one P for every QRS and they are all the same shape. PR long at seven squares, but constant, and nothing is dropped. Narrow complexes.
+
+Every P wave gets through and each one takes too long. If the R is far from P, then you have a first degree.
+
+And the sixth thing — what does the patient look like? He is a fifty-year-old man having a routine check for insurance, and he feels perfectly well, and this needs nothing at all except a note in his file.
+
+[sister]"First-degree block,"[/] Sister Maya says. [sister]"You did not recognise it. You proved it. That is the difference."[/]
+
+@read teach
+Take the second strip.
+
+Speed and gain are fine.
+
+Start with the rate. The gaps are all different, so the sequence method is useless. Count six seconds — there are thirteen complexes between the tick marks. That is a hundred and thirty, on average.
+
+The rhythm. March it. The marks land nowhere, and sliding them does not help, and there is no pattern in the mess at all. It is irregularly irregular.
+
+Look at the P waves, along the whole baseline. There are none. Anywhere. And the baseline itself is not flat — it shivers.
+
+The PR interval cannot be measured, because there is nothing to measure from.
+
+Measure the QRS. It is two small squares, so it is narrow.
+
+@read teach
+Say it. The rate is about a hundred and thirty. Irregularly irregular. There are no P waves anywhere and the baseline shivers. Narrow complexes.
+
+Irregularly irregular with no P waves is atrial fibrillation, and nothing else is.
+
+And the patient is a woman of seventy-eight who was admitted this evening feeling faint, and her pulse at the wrist is a hundred and ten, which is slower than the complexes on the strip — because some of those beats are too weak to reach the wrist at all.
+
+[ne]मोनिटरमा एक सय तीस देखिन्छ, तर नाडीमा एक सय दस मात्र आउँछ। केही धड्कन कमजोर छन्।[/]
+
+@read teach
+The third strip, and it is the one that matters.
+
+Speed and gain are fine.
+
+Start with the rate. There are two big squares between R waves, so that is a hundred and fifty.
+
+The rhythm. March it. Regular, and very regular.
+
+Look at the P waves. There is one bump between complexes. It looks like a P wave. But look at the whole baseline instead of at the bump, and it never rests anywhere — it rises and falls continuously, all the way along, with no flat stretch at all.
+
+That is not a P wave. That is a sawtooth, and there is a second flutter wave hidden underneath each QRS complex.
+
+The PR interval is not a real interval here.
+
+The QRS is narrow.
+
+@read teach
+Say it. The rate is a hundred and fifty. Regular. Narrow. And a baseline that never rests.
+
+This is atrial flutter, conducting two to one, with an atrial rate of three hundred.
+
+And this is the one where the five questions earned their keep, because at a glance this strip is an SVT and it will be called an SVT by most people who look at it quickly. Regular, narrow, a hundred and fifty. The only thing that separated them was the fourth look at the baseline, and you only took it because the order made you.
+
+[sister]"A hundred and fifty and regular,"[/] she says. [sister]"Every time you see that number, look for the sawtooth. Every time."[/]
+
+@read hush
+Hear the whole method once more.
+
+@recall sabai
+
+@read teach
+And that is the course.
+
+Twenty-six nights, and everything in them was built on two sentences from the very first one. The paper moves at a speed you know, so distance across the page is time. The pen moves with the voltage, so height is size.
+
+Everything after that was a way of using those two directions carefully, in the same order, every time.
+
+[ne]सुरुका दुई वाक्यबाट सुरु भयो, र तिनैमा सकियो। समय दायाँबायाँ नापिन्छ, र आकार माथितल नापिन्छ।[/]
+
+@read teach
+There is one last thing to say, and Sister Maya says it, and it is not about strips.
+
+[sister]"You will be wrong sometimes,"[/] she says. [sister]"Everybody is. I have called flutter an SVT in front of a consultant and I have called artifact a rhythm and stopped compressions for it, and I have been in the room when it went badly and could not tell you afterwards what the monitor had been showing."[/]
+
+[sister]"What matters is that you have a method, and that you use it when you are frightened, because that is the only time it is actually worth anything. Anybody can read a strip in the daylight with a cup of tea."[/]
+
+The window at the far end is going grey. The night is over.
+
+@read hush
+The five questions, one last time, and then you can sleep properly.
+
+@recall sabai | Listen very slowly, and then goodnight.
+
+[ne_hush]अब सुत्नुहोस्। यी पाँच प्रश्न अब तपाईंका आफ्नै भएका छन्।[/]
+
+@tier medium
+
+There is one more thing worth leaving you with, and it is about what to do with all of this tomorrow.
+
+@read teach
+Listening is not practice. These nights have given you a structure and a vocabulary, and they have done it in the way that a story does — slowly, repeatedly, without effort, at an hour when nothing else is competing for the room.
+
+What they cannot give you is pattern recognition, because that only comes from strips. You need hundreds of them.
+
+@read teach
+So the practical suggestion is small and it is the only homework in the whole course.
+
+Every time you walk past a monitor, run the five questions on it. Silently, in your head, in about ten seconds. Rate, rhythm, P waves, PR, QRS. You do not have to be right and nobody has to know you did it.
+
+Twenty a day is six hundred a month. By the end of a year, the answer will start arriving before you have finished asking, which is what Sister Maya described on the very first night as a habit rather than a talent.
+
+@read teach
+And keep the drill tab on your phone open on the bus. The strips in it are the ones that are deliberately similar to each other, which is the only kind of practice that improves anything.
+
+@tier long
+
+The last thing is a short list, and it is the one to keep, because everything else in this course is downstream of it.
+
+@read teach
+Five sentences, and they are all things you already know.
+
+A narrow complex came from above the ventricles, and a wide one did not.
+
+An irregularly irregular rhythm with no P waves is atrial fibrillation.
+
+A regular narrow rhythm at a hundred and fifty is atrial flutter until you have proved otherwise.
+
+A wide fast regular rhythm is ventricular tachycardia until you have proved otherwise, and you are allowed to be wrong in that direction.
+
+And a rhythm on a screen is not a patient, so before you believe any of the four sentences above, put your fingers on an artery and look at somebody's face.
+
+@read teach
+The corridor light comes on at the far end and the day staff start arriving. Somewhere down the ward a kettle is filling.
+
+Sister Maya puts the folder back in the cupboard, on top of the strip that has been taped inside the door for years, and closes it properly this time.
+
+[sister]"Same time tonight?"[/] she says, and she is already halfway to the changing room, and she does not wait for the answer.
+
+[ne_hush]बत्ती निभाउनुहोस्। राम्रो निद्रा परोस्।[/]

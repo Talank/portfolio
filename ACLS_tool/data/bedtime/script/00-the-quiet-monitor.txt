@@ -1,0 +1,108 @@
+# 0 — The Quiet Monitor
+
+It is a little after two in the morning. The corridor lights are switched down to the night setting, which is not quite darkness and not quite light, and the floor gives back a long grey shine all the way to the far door.
+
+There are six beds in this room. Five of them are asleep. Above the fourth bed a monitor is awake, and it is drawing a line.
+
+[ne]तपाईं ढोकानेर एउटा कुर्सीमा बस्नुहोस्। अहिले केही गर्नु पर्दैन।[/]
+
+The line comes out of the left side of the screen and travels to the right, and every second or so it lifts, stands up in a sharp spike, drops, and settles again. Then it does the same thing. Then it does the same thing again.
+
+You have seen this a hundred times in a hundred rooms and never once looked at it. That is the honest place to start.
+
+Sister Maya is at the station with a cup of tea she has not touched. She has worked nights in this ward for eleven years. When she looks at that screen she does not see a wiggly line. She sees a sentence.
+
+[sister]"People think reading an ECG is a talent,"[/] she says, without looking up. [sister]"It is not a talent. It is a habit. You look at the same five things in the same order, ten thousand times, and one day the answer arrives before you have finished looking."[/]
+
+[ne_hush]आजको रात केही याद गर्नु पर्दैन। बिस्तारै सुन्नुहोस्, र सुत्नुहोस्।[/]
+
+Here is the thing nobody says out loud on the first day, and it is the thing that makes all the rest of it possible.
+
+@read teach
+A strip of ECG paper is not a picture of a heart. It is not an image, and it is not a scan. It is a graph, and it is the simplest graph there is[..]a pen, and a strip of paper being pulled underneath it.
+
+Imagine that pen for a moment. It is held against the paper, and the paper slides along beneath it at a steady speed. If the pen never moved, you would get a straight flat line, all the way across, forever. That flat line is the whole ECG when nothing is happening.
+
+Now the heart does something electrical. A wave of charge sweeps across it. The pen feels that and lifts, and then comes back down. And because the paper never stopped sliding, the mark it leaves is not a dot. It is a shape, spread out across the page.
+
+That is all an ECG is. A pen that moves when the heart makes electricity, over paper that never stops moving.
+
+@read teach
+And once you have accepted that, you have already earned the two facts that everything else is built on.
+
+The paper moves at a speed you know. Not a guess, not a setting somebody chose that night[..]a speed printed on the machine and agreed on by every hospital in the world. So the distance from one mark to another, measured across the page, is a length of time. Space across is time.
+
+The pen moves up and down by an amount that follows the size of the voltage. So the height of a shape, measured up the page, is how big that electrical event was. Space up is size.
+
+[ne]अब यही दुई कुरा मात्र समात्नुहोस्। दायाँबायाँ भनेको समय हो, र माथितल भनेको आकार हो।[/]
+
+@algo kagaj
+Here is the whole foundation, and it is two sentences long. The paper moves sideways at a speed you know, so distance across the page is time. The pen moves up and down with the voltage the heart makes, so height on the page is size. Time across. Size up. Every rule you will ever learn about an ECG is measured in one of those two directions, and nothing else.
+@end
+
+Sister Maya sets the tea down. It has gone cold anyway.
+
+[sister]"Most people who cannot read a strip are not missing knowledge,"[/] she says. [sister]"They are missing that. They look at the line as though it were a drawing of the heart, and they try to see a heart in it. There is no heart in it. There is a clock going across and a ruler going up."[/]
+
+The patient in bed four turns over and settles. The line on the monitor does not change.
+
+@read hush
+Listen to those two directions once more, slowly, and do not try to hold on to the words.
+
+@recall kagaj
+
+Somewhere down the corridor a trolley wheel squeaks and then stops.
+
+@read teach
+Now, why does any of this matter tonight, at two in the morning, when nothing is wrong with anybody?
+
+Because in six months, or in a year, something will be wrong with somebody, and it will be wrong quickly. And the difference between the people who help in that room and the people who stand at the back is almost never courage. It is that some of them can look at the monitor and say a word out loud, and the rest cannot.
+
+The word is worth a lot. Say the right word and the room knows which algorithm it is in, which drug is drawn up, whether a defibrillator is charged or left alone. Say nothing, and the room waits.
+
+[ne]त्यही एउटा शब्द भन्न सक्नु नै आजको सबै मिहिनेतको उद्देश्य हो।[/]
+
+So this is what these nights are for. Not the drugs, not the doses, not the flowcharts[..]the tool on your phone already drills those, and drills them better than a story can. These nights are for the one skill the flowcharts all quietly assume you already have. Reading the line.
+
+@read hush
+One more time. Two directions, and that is the foundation.
+
+@recall kagaj | Say it with me, and then let it go.
+
+The monitor draws another beat. Then another.
+
+[ne_hush]आजलाई यत्ति नै हो। बाँकी कुरा भोलि राति गरौंला।[/]
+
+@tier medium
+
+There is one more thing worth knowing before the lights go down, and it is a warning rather than a fact.
+
+@read teach
+The screen above bed four and the paper strip in your hand are not the same object, and people confuse them constantly.
+
+The screen is a monitor. It is watching one or two views of the heart, continuously, and it is doing it through sticky electrodes that were put on in a hurry and have been there since yesterday. It is very good at one question: what is the rhythm right now. It is unreliable at almost every other question, because it filters heavily to keep the picture steady and because the electrodes move every time the patient breathes.
+
+The paper is a recording. It is usually a twelve-lead recording, taken deliberately, with the patient lying still, from twelve different angles at once. It is very good at the questions the monitor cannot answer: which part of the muscle is injured, how wide a complex truly is, whether that hump is real.
+
+@read teach
+So the sentence to carry is this one. Rhythm you may read from the monitor. Injury you must read from the twelve-lead.
+
+Sister Maya has a shorter version of it, which she says to every new person in the ward, usually once and never again.
+
+[sister]"The monitor tells you what the heart is doing. The paper tells you what has happened to it."[/]
+
+@tier long
+
+The last thing tonight is the smallest, and it is about a letter.
+
+@read teach
+You will see this test called an ECG and you will also see it called an EKG, and both are correct, and nobody is being clever.
+
+The machine was invented by a Dutch physiologist, and the German spelling of the middle word begins with a K rather than a C. American hospitals largely kept the German spelling, and the rest of the world largely did not. That is the entire story. There is no difference in the test, the paper, the leads or the reading.
+
+There is one small practical reason the German spelling survived in busy places, and it is a good one. Spoken in a loud room, the letters E C G and the letters E E G sound almost identical, and an E E G is a recording of the brain rather than the heart. E K G does not collide with anything.
+
+[ne]दुवै नाम एउटै हो। कुनै फरक छैन।[/]
+
+@read hush
+Sleep now. The line is still going, and it will still be going in the morning.

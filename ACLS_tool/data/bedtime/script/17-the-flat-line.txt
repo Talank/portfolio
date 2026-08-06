@@ -1,0 +1,110 @@
+# 17 — The Flat Line
+
+The rhythm everybody has seen on television, and almost nobody has been taught to check.
+
+The ward is at its lowest point, the hour when the body most wants to be asleep. Sister Maya makes tea for both of you and does not offer to talk about anything cheerful.
+
+[ne]आजको कुरा अलि गह्रौं छ। तर यो जान्नै पर्ने कुरा हो।[/]
+
+@read teach
+Asystole. No electrical activity at all.
+
+On the paper it is a line. Not a perfectly straight one — there is always a little drift, a little wander, a little movement from the patient and the wires — but there are no complexes of any kind, and no organised deflections, and nothing repeating.
+
+The five questions all return nothing, which is the finding. No rate. No rhythm. No P waves. No PR interval. No QRS.
+
+@read teach
+And here is the whole of tonight's teaching, because the recognition is trivial and the discipline is not.
+
+Before you call a rhythm asystole, you check four things. And you check them out loud, so that everybody in the room hears you do it.
+
+Are the leads attached to the patient? A lead that has come off draws a flat line, and it draws a very convincing one.
+
+Is the gain turned up? At a low display setting, fine ventricular fibrillation is a nearly flat line, and fine ventricular fibrillation is shockable and asystole is not.
+
+Have you looked in a second lead? A chaotic wavefront can be invisible from one direction and obvious from another.
+
+And is there truly no pulse, checked properly, at a central artery, for ten seconds and no longer?
+
+[sister]"Leads, gain, second lead, pulse,"[/] Sister Maya says. [sister]"Four things. Everybody skips at least two of them, and I have skipped all four."[/]
+
+@algo asystole
+Asystole is no electrical activity at all — a wandering line with no complexes, no P waves and nothing repeating anywhere. It is not a shockable rhythm and defibrillating it does nothing. But before you call it, four checks, out loud. Are the leads still on the patient? Is the gain turned up? Have you looked in a second lead? And is there really no pulse? Leads, gain, second lead, pulse. Because the one rhythm that looks like this and is not this is fine ventricular fibrillation, and that one is shockable.
+@end
+
+The tea has gone cold, as it always does.
+
+@read hush
+The four checks again, slowly.
+
+@recall asystole
+
+@read teach
+Now what is done, and it is short, and the shortness is the point.
+
+Asystole is not shockable. A defibrillator delivers a shock in order to stop everything at once and let the sinus node restart; there is nothing to stop.
+
+So the treatment is high quality compressions, adrenaline as early as possible and then every three to five minutes, an airway, and a hunt for a reversible cause. That hunt is the whole of the treatment that has any chance of working, and it is why the list of reversible causes is drilled so hard.
+
+The list is the four Hs and the four Ts, and the tool on your phone drills them properly. Tonight, one sentence about them. A patient in asystole who has a reversible cause has a chance, and a patient in asystole who does not has almost none, so the entire effort of the room goes into the question of which one this is.
+
+[ne]यो अवस्थामा कारण खोज्नु नै सबैभन्दा ठूलो उपचार हो।[/]
+
+@read teach
+And one more thing, which is not on any algorithm and is the hardest part of the chapter.
+
+Asystole after a prolonged arrest, with no reversible cause found, in a patient who was not witnessed to collapse, is where resuscitation stops. Somebody in the room has to say so, and say it clearly, and note the time.
+
+That is a decision made by the person leading, with the team's agreement, and it is a medical decision rather than a technical one. But it is worth knowing tonight, quietly, that it exists — because the first time you are in that room, the silence when it happens is very loud, and it helps to have known in advance that it is a normal part of the work rather than a failure of it.
+
+[sister]"We are not failing when we stop,"[/] Sister Maya says. [sister]"We failed if we never started, or if we stopped early, or if we did not look for the cause. Stopping at the right time is part of doing it properly."[/]
+
+@read hush
+The four checks, one last time.
+
+@recall asystole | Very slowly.
+
+@tier medium
+
+There is a specific appearance worth knowing, because it looks like a reason for hope and is usually not.
+
+@read teach
+Sometimes a flat line is interrupted, every few seconds, by a single wide slow complex. Then nothing. Then, ten seconds later, another one.
+
+These are agonal complexes, or an agonal rhythm. They are a dying pacemaker somewhere low in the ventricle producing an occasional beat that generates no meaningful contraction and no pulse.
+
+They are counted as asystole for the purposes of the algorithm — not shockable, compressions and adrenaline and the hunt for a cause.
+
+@read teach
+They matter for two reasons.
+
+The first is that people see the complex, call it a rhythm, and stop compressions to check a pulse, which wastes the one thing that is helping.
+
+The second is happier. In a patient who has just collapsed, agonal complexes appearing during compressions can mean the heart is being perfused and is beginning to respond, and in that setting they are worth a brief look at the end of the cycle rather than an interruption in the middle of it.
+
+@read teach
+There is also an agonal appearance that is not electrical at all, and it is more important than the strip.
+
+Agonal breathing — slow, gasping, irregular breaths in somebody who has just collapsed — is not breathing. It is a brainstem reflex, it is present in a large fraction of witnessed cardiac arrests, and it is the single commonest reason a bystander does not start compressions.
+
+Anybody who is unresponsive and taking those gasps is in cardiac arrest. That sentence has saved more lives than any rhythm in this course.
+
+@tier long
+
+The last piece tonight is about a machine setting that has caused real harm, and knowing about it is the only defence.
+
+@read teach
+Some monitors and some defibrillators have a filter that removes low-frequency drift so the baseline stays neat. It is there for a good reason, because a wandering baseline makes everything hard to read.
+
+In a very fine fibrillation, the deflections can fall close enough to what the filter regards as drift that a machine set aggressively will smooth away part of what is really there.
+
+This is not common and it is not a reason to distrust machines. It is a reason to hold, in the back of your mind, the fact that a flat line on a screen is a machine's opinion rather than an observation.
+
+@read teach
+Which brings tonight back to where it started, and to the habit that all of it is really about.
+
+The four checks are not a ritual for its own sake. They exist because the cost of the two errors is wildly unequal. Shocking asystole achieves nothing and delays compressions by a few seconds. Failing to shock fibrillation because it looked flat is the difference between a survivor and a death.
+
+So you check, every time, and you say it out loud, every time, even when you are certain — especially when you are certain, because certainty at four in the morning is not evidence.
+
+[ne_hush]पक्का छु भन्ने लागेको बेला नै जाँच्नुहोस्। त्यही बेला गल्ती हुन्छ।[/]

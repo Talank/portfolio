@@ -1,0 +1,109 @@
+# 10 — Narrow Against Wide
+
+If you learn one thing from these twenty-six nights, learn tonight's.
+
+The ward is fully asleep. Even the corridor is empty. Sister Maya has finished the drug round and is sitting with her shoes off, and she is not going to pretend she is doing anything else for the next ten minutes.
+
+[ne]आज एउटै कुरा छ। तर यही एउटा कुराले आधा काम गर्छ।[/]
+
+@read teach
+Every rhythm in the world divides into two families, and the border between them is three small squares of paper.
+
+Under three small squares, the QRS complex is narrow. Three or more, it is wide. That is the whole test, and you can do it from across a room once your eye has learned the distance.
+
+@read teach
+Here is why one measurement carries so much.
+
+The heart has fast wiring — the bundle, the branches, the Purkinje net — and that wiring can only be entered from above, through the AV node. Nothing in the ventricles can reach up into it and use it.
+
+So if the ventricles were lit up quickly, they must have been lit through the wiring, and the signal must therefore have come down from above. A narrow complex is a beat born above the ventricles. Every time.
+
+And if the ventricles were lit up slowly, the wiring was not used. Either the beat started inside the ventricles themselves, below the wiring, or it came from above and found the wiring broken. Either way it had to crawl from muscle cell to muscle cell, and crawling takes long enough to show as width.
+
+@read teach
+So the word narrow does not describe a shape. It describes an origin.
+
+Say it the long way once, and then you will always hear it that way. Narrow means this beat came from above the ventricles, through the normal road, and arrived at the muscle by the fast route. Wide means it did not.
+
+[sister]"Narrow is a beat that came down the stairs,"[/] Sister Maya says. [sister]"Wide is a beat that came through the wall."[/]
+
+@algo saguro-chaudo
+The QRS width is the single most useful measurement on a strip, and it has one threshold. Under three small squares is narrow, and three or more is wide. Narrow means the ventricles were lit through the heart's fast wiring, and the only way into that wiring is downwards through the AV node, so a narrow beat was born above the ventricles. Wide means the wiring was not used, so the beat either started inside the ventricles or came from above and found the wiring broken. Narrow is from above. Wide is from below, or the road is broken.
+@end
+
+Somebody's phone buzzes twice in a locker and stops.
+
+@read hush
+Again, and slowly, because this is the one.
+
+@recall saguro-chaudo
+
+@read teach
+Now put it together with the two questions you already have, and watch how much falls out.
+
+Take a fast rhythm. Ask two questions about it — narrow or wide, regular or irregular — and there are only four possible answers, and each one is a small shelf with two or three names on it.
+
+Fast, narrow, regular. The atria or the junction are driving, quickly and evenly. That is sinus tachycardia if there are proper P waves, an SVT if there are not, or atrial flutter conducting in a fixed ratio. Three names, and the next few chapters take them one at a time.
+
+Fast, narrow, irregular. Something above is chaotic. That is atrial fibrillation, nearly always, and the two rarer names on that shelf can wait.
+
+Fast, wide, regular. This is the dangerous shelf. Ventricular tachycardia is on it, and so is an SVT conducting down a broken bundle branch, and the two can look identical.
+
+Fast, wide, irregular. A small and frightening shelf, and everything on it needs a senior in the room.
+
+[ne]चार खण्ड मात्र छन्। चौडा कि साँगुरो, नियमित कि अनियमित — यत्ति दुई कुरा सोध्नुहोस्।[/]
+
+@read teach
+And now the rule that hangs off all of it, which you met once already and which is repeated here because it is the rule that keeps people alive.
+
+When a rhythm is fast, wide and regular, and you cannot tell whether it is ventricular tachycardia or something harmless in disguise, treat it as ventricular tachycardia.
+
+Not because it is more likely, although in an older patient with a heart history it very much is. Because the two mistakes are not the same size. Treating a harmless rhythm as ventricular tachycardia costs a shock and an apology. Treating ventricular tachycardia as harmless — reaching for the drug you would use on a narrow rhythm — can stop the heart.
+
+[sister]"Wide and fast and you are not sure? Then it is ventricular tachycardia,"[/] she says. [sister]"You are allowed to be wrong in that direction."[/]
+
+@read hush
+The one measurement, one last time.
+
+@recall saguro-chaudo | And then sleep.
+
+@tier medium
+
+There is a fair question hiding in tonight's chapter, and it deserves an answer rather than being brushed past.
+
+@read teach
+If a wide complex can be a supraventricular beat conducted down a broken bundle, how can anybody ever be sure?
+
+The honest answer is that on a single rhythm strip, frequently, nobody can. There are lists of features that favour one over the other — how wide is very wide, which way the complex points, whether the shape matches a known bundle branch block pattern, whether there are occasional normal-looking beats mixed in.
+
+Two of those features are worth carrying, because they are the ones that settle the argument when they are present.
+
+@read teach
+The first is AV dissociation. If you can find P waves marching along at their own steady rate, completely unrelated to the wide complexes, then the atria and the ventricles are doing separate things, and the ventricles must be driving themselves. That is ventricular tachycardia, proved.
+
+The second is a capture or fusion beat. Occasionally, in the middle of a run of wide beats, one beat arrives that looks normal, or half normal. That happened because one atrial impulse got through and captured the ventricles for a single beat. And an atrial impulse can only get through if the ventricles were not being driven from above — so again, ventricular tachycardia, proved.
+
+@read teach
+Both of those findings prove ventricular tachycardia when they are there. Neither of them excludes it when they are not.
+
+That asymmetry is the useful part. You can use them to become certain; you can never use their absence to become relaxed.
+
+@tier long
+
+The last piece tonight is about the third thing that makes a complex wide, which is not a rhythm problem at all.
+
+@read teach
+A heart poisoned with potassium widens.
+
+As the potassium rises, the T waves go first — tall, narrow and pointed, like a tent. Then the P waves flatten and disappear. Then the QRS complex begins to widen, and it widens smoothly, not into a bundle branch pattern but into something that looks softened, as though the edges have been rubbed out.
+
+At the end, the widened QRS runs into the T wave and the whole thing becomes a slow rolling wave with no landmarks left in it. That shape has a name, and the name is a sine wave, and it is a pre-arrest rhythm.
+
+@read teach
+Which gives you a wide complex with no rhythm disturbance in sight, and it is the reason that a wide rhythm in a patient with kidney failure gets a potassium checked before anybody argues about ventricular tachycardia.
+
+The other common causes of an unexpectedly wide complex are drugs that block the heart's sodium channels — certain antidepressants in overdose, some antiarrhythmics — and a ventricular paced beat, which is wide by design because the pacing wire is planted in the muscle and bypasses the wiring completely.
+
+So wide has four explanations and only one of them is a fast dangerous rhythm. Born below. Wiring broken. Poisoned. Or paced.
+
+[ne_hush]चौडा हुनुका चार कारण छन्। सधैं चारै सम्झनुहोस्।[/]

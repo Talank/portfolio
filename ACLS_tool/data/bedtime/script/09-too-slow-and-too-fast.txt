@@ -1,0 +1,117 @@
+# 9 — Too Slow and Too Fast
+
+Two rhythms tonight, and they are the same rhythm. Only the rate has moved.
+
+There is a boy in bed five, about nineteen, who came off a motorbike and is being watched overnight for a head injury. He is asleep and his pulse is forty-six, and the monitor has been alarming about it, and Sister Maya has turned the alarm limit down rather than the patient up.
+
+[ne]बिरामी ठीकै छ। मोनिटर मात्र आत्तिएको छ।[/]
+
+@read teach
+Sinus bradycardia is normal sinus rhythm, slower than sixty.
+
+Everything else about it is unchanged. One P wave before every QRS. All the P waves the same shape. The PR interval constant and inside three to five small squares. The QRS narrow. Regular.
+
+The only difference is that there is more flat paper between the beats. The parts are all present and all married; there is simply more waiting in between.
+
+[sister]"Sinus, but sleepy,"[/] Sister Maya says. [sister]"Everything is there. It just takes its time."[/]
+
+@read teach
+Sinus tachycardia is the same thing in the other direction. Normal sinus rhythm, faster than a hundred.
+
+One P before every QRS, same shape every time, PR constant, QRS narrow, regular. Only the gaps have closed up.
+
+And there is one appearance worth expecting, because it catches people. As the rate climbs, the T wave of one beat and the P wave of the next start to move towards each other, and by about a hundred and forty they are touching. The P wave rides up on the shoulder of the T wave in front of it and can be very hard to see.
+
+So a fast sinus rhythm can look, at a glance, as though it has no P waves. Look at the T waves instead — if they have grown a little hump on the way down that they did not have on the slower beats, that hump is the P wave.
+
+@read teach
+Now the part that matters more than either definition, and it is a habit of mind rather than a fact.
+
+Both of these rhythms are almost always a response to something else. They are the heart obeying, not the heart malfunctioning.
+
+Sinus tachycardia has a reason. There is always one, and it is nearly always outside the heart. Fever. Pain. Fear. Blood loss. Dehydration. Low oxygen. An overactive thyroid. Alcohol withdrawal. The heart is speeding up because something has asked it to, and it is right to.
+
+Which means the treatment for sinus tachycardia is almost never aimed at the heart. Give fluid for the bleeding, oxygen for the hypoxia, pain relief for the pain, and the rate comes down on its own because the reason has gone.
+
+[ne]साइनस ट्याकीको कारण सधैं अन्तै हुन्छ। कारण हटाउनुहोस्, गति आफैं घट्छ।[/]
+
+@read teach
+Sinus bradycardia has reasons too, and the commonest ones are wonderfully boring.
+
+Sleep. Athletic fitness. Being young. A vagal moment — vomiting, straining, a needle, the sight of blood. Beta blockers, which are designed to do exactly this. Hypothyroidism. A cold patient. And, importantly, the early hours of an inferior heart attack, because the artery that feeds the underside of the heart usually feeds the nodes as well.
+
+@algo dhilo-chhito
+Sinus bradycardia and sinus tachycardia are one rhythm at two speeds, and both are read the same way. Check that there is one P wave before every QRS, that all the P waves are the same shape, that the PR interval is constant, and that the QRS is narrow. If all four are true and the rate is under sixty, that is sinus bradycardia. If all four are true and the rate is over a hundred, that is sinus tachycardia. And neither of them is treated by looking at the heart, because both of them are the heart answering something else. All four true and slow is sinus bradycardia. All four true and fast is sinus tachycardia. Treat the reason, not the number.
+@end
+
+The boy in bed five turns his face away from the light and does not wake.
+
+@read hush
+Once more, quietly.
+
+@recall dhilo-chhito
+
+@read teach
+There is one question that decides everything at the bedside, and it is not on the strip.
+
+Is the patient symptomatic?
+
+A slow rate on its own is not an emergency and is not treated. A slow rate that is causing something is. And the somethings are a short list worth knowing — a low blood pressure, an altered level of consciousness, chest pain that has started with the slowing, signs of the heart failing to keep up, or the patient simply looking terrible.
+
+If a slow rate is producing any of those, the bradycardia algorithm opens and atropine is drawn up. If it is producing none of them, you watch, and you look for the cause, and you leave the heart alone.
+
+[sister]"Forty-six in a sleeping teenager is a fit heart,"[/] she says. [sister]"Forty-six in a grey seventy-year-old with a blood pressure of seventy is a different night entirely. Same number. The number is not the finding."[/]
+
+@read teach
+And there is a matching sentence on the fast side, which is even more important, because getting it wrong causes real harm.
+
+Sinus tachycardia is not cardioverted. Ever.
+
+The heart is going fast because the body needs it to go fast. Shocking it, or slowing it with a drug, takes away the compensation and leaves the problem. A bleeding patient at a hundred and thirty who is slowed to eighty has not been treated; they have been robbed of the only thing keeping their blood pressure up.
+
+So before anybody reaches for the tachycardia algorithm, the first question is whether this is sinus tachycardia. If there is a P wave before every QRS and the rate is under about a hundred and fifty, it very probably is, and the algorithm is the wrong door.
+
+[ne]साइनस ट्याकीलाई शक कहिल्यै नदिनुहोस्। त्यो मुटुको गल्ती होइन।[/]
+
+@read hush
+The rule one last time, and then sleep.
+
+@recall dhilo-chhito | Very slowly.
+
+@tier medium
+
+There is a number that separates sinus tachycardia from the rhythms that come later, and it is worth carrying.
+
+@read teach
+Roughly, the fastest a sinus node will drive an adult heart is two hundred and twenty minus the person's age in years. A twenty-year-old can reach two hundred. A seventy-year-old struggles to reach a hundred and fifty.
+
+So a rate of a hundred and eighty in an elderly patient is almost certainly not sinus tachycardia, because that node cannot go that fast. Something else is driving it.
+
+And a rate of a hundred and sixty in a frightened nineteen-year-old with a fever may very well be sinus, and treating it as an SVT would be a mistake.
+
+@read teach
+The other distinguishing feature is how the rhythm behaves over time, and it is the most reliable one.
+
+Sinus tachycardia is gradual. It speeds up over minutes and slows down over minutes, and if you watch the monitor for a while the number wanders — a hundred and twenty-eight, a hundred and thirty-one, a hundred and twenty-four.
+
+An SVT is not gradual. It starts in one beat and it stops in one beat, and while it is running it is metronomic — a hundred and eighty, a hundred and eighty, a hundred and eighty, with no wander at all.
+
+So if you have the luxury of watching for thirty seconds, watch. Onset and offset tell you more than the shape does.
+
+@tier long
+
+The last thing tonight is a pair of things that look like sinus bradycardia and are not, and both are common on a night shift.
+
+@read teach
+The first is a sinus pause. The SA node simply does not fire when it should, and there is a gap on the strip, and then the rhythm carries on as if nothing had happened.
+
+March through it. If the P wave after the gap arrives exactly where the marching says it should, the node kept counting and only skipped a beat, which is called a sinus block. If the P wave after the gap arrives out of step, the node stopped and restarted, which is called a sinus arrest. The distinction is more elegant than it is useful, but examiners like it.
+
+@read teach
+The second is more important. It is when the pause goes on long enough that a lower pacemaker steps in, and you get one late, different-looking beat, and then the normal rhythm resumes.
+
+That late beat is an escape beat, and it is the system rescuing itself. If it came from the junction it is narrow. If it came from the ventricle it is wide.
+
+The reason this matters is that escape beats look abnormal and feel alarming, and the instinct is to suppress them. Suppressing an escape beat removes the only thing standing between the patient and no beat at all. It is one of the classic errors, and it is why the word escape is worth knowing.
+
+[ne_hush]ढिलो आउने त्यो बिटले बचाइरहेको हुन्छ। त्यसलाई नरोक्नुहोस्।[/]

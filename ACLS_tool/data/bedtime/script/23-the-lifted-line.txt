@@ -1,0 +1,131 @@
+# 23 — The Lifted Line
+
+The one finding on a twelve-lead that starts a clock.
+
+It is nearly the end of the run of nights. Sister Maya has a strip that she does not keep in the folder with the others; it is in an envelope in her locker, and she does not say why, and you do not ask.
+
+[sister]"Anterior. Fifty-one years old. Came in at ten past three complaining of indigestion."[/]
+
+[ne]आजको कुरा घडी सुरु गर्ने एउटा चिन्हको हो।[/]
+
+@read teach
+Everything tonight is measured from one place, and it is the corner you met on the third night. The J point — where the QRS complex finishes and the flat stretch begins.
+
+And it is measured against the baseline, which is the flat run between the end of one T wave and the start of the next P wave.
+
+Find the corner, find the baseline, and ask a single question. Is the line at the corner sitting above the baseline, on it, or below it?
+
+@read teach
+Above is ST elevation, and it means a full-thickness injury to the muscle — an artery that has closed completely, and muscle that is dying now.
+
+Below is ST depression, and it means either a partial-thickness injury, or the mirror image of an elevation somewhere you cannot see, or a heart that is short of blood without being blocked.
+
+Level is normal.
+
+@read teach
+Now the numbers, because elevation only counts if it is big enough and in the right places.
+
+In the limb leads, one small square of elevation is enough — a millimetre, measured at the J point.
+
+In the chest leads V2 and V3, the threshold is higher, because those leads normally sit a little high anyway. Two small squares in a man over forty, two and a half in a younger man, one and a half in a woman.
+
+In every other chest lead, one small square.
+
+@read teach
+And the condition that matters more than any threshold. It has to be in two leads that look at the same wall.
+
+Two contiguous leads. Elevation in lead two and lead three, or in lead three and aVF, or in V3 and V4. One lead on its own means nothing at all — it is noise, or a lead that has come loose, or a normal variant.
+
+Two neighbouring leads means a wall, and a wall means an artery.
+
+[ne]एउटा लिडमा मात्र देखियो भने केही होइन। छेउछाउका दुईमा देखियो भने त्यो साँचो हो।[/]
+
+@algo elevation
+ST elevation is measured at the J point, against the flat baseline between the T wave and the next P wave. It counts when it is at least one small square in the limb leads, and at least one small square in the chest leads other than V2 and V3, which need about two. And it only counts when it appears in two leads that look at the same wall, because one lead alone is noise and two neighbours is an artery. Then read which wall — inferior in two, three and aVF, lateral in one, aVL, V5 and V6, anterior in V1 to V4. Measure at the corner, against the baseline, in two contiguous leads. Then name the wall.
+@end
+
+The envelope goes back in the locker. The locker door does not quite close and she pushes it twice.
+
+@read hush
+Once more, and slowly.
+
+@recall elevation
+
+@read teach
+There is a second finding that turns a suspicion into a certainty, and it is the most satisfying thing on a twelve-lead.
+
+Reciprocal change. When one wall is elevated, the wall on the opposite side of the heart often shows depression, because it is looking at the same injury from the other direction and seeing it as a mirror.
+
+Elevation in the inferior leads with depression in aVL. Elevation in the anterior leads with depression in the inferior ones. That pairing is very hard to produce by accident.
+
+So when you find elevation, immediately go and look at the leads opposite. Finding the mirror makes the diagnosis much more certain, and its absence should make you look harder at the alternatives.
+
+[sister]"Elevation somewhere and depression opposite,"[/] she says. [sister]"When you see both, stop reading and pick up the phone."[/]
+
+@read teach
+Now the shape, because two things cause elevation and they look different.
+
+Injury elevation is convex upward — it bulges towards the sky, and in a large infarct it merges with the T wave into a single broad hump that people call a tombstone. It is confined to one territory, and it has reciprocal change somewhere.
+
+The commonest innocent cause of elevation looks the opposite. It is concave, like the bottom of a saucer, it is widespread across many territories rather than confined to one, and there is no reciprocal depression anywhere.
+
+That widespread saucer-shaped pattern, especially in a young patient with pain that is worse lying flat and better sitting forward, is pericarditis. And there is a second clue that goes with it — the PR segment sits slightly below the baseline in the same leads, which is a finding that almost nothing else produces.
+
+@read teach
+And one specific pattern that is not elevation at all and matters just as much.
+
+A left bundle branch block that is new, in a patient with the story of a heart attack, is treated as though it were an elevation, because a blocked left bundle can hide an infarct completely.
+
+The word that matters there is new. A left bundle branch block that was on the strip from two years ago is not an emergency; it is that person's anatomy. Which is one more argument for the old notes.
+
+[ne]पुरानो स्ट्रिप हेर्नुहोस्। नयाँ हो कि होइन — त्यही प्रश्नले सबै फरक पार्छ।[/]
+
+@read hush
+The rule one last time.
+
+@recall elevation | Very slowly, and then sleep.
+
+@tier medium
+
+There is an order in which the changes appear, and knowing it lets you say roughly how long ago this started, which nobody else in the room will be able to do.
+
+@read teach
+First, within minutes, the T waves grow. Tall, broad and symmetrical — quite different from the lopsided normal T wave. They are called hyperacute T waves, and they are the earliest sign there is, and they are missed constantly because they look like something rather than nothing.
+
+Then, over the next hour or two, the ST segment lifts. That is the classic appearance and the one everybody knows.
+
+Then, over hours to a day, Q waves begin to appear — deep downward strokes at the start of the complex, which are the electrical silence of muscle that has died. As they deepen, the ST segment starts to settle back down.
+
+Then, over days, the T waves invert, and the ST segment returns to the baseline, and what is left is the Q wave, permanently.
+
+@read teach
+So a twelve-lead with tall T waves and no elevation yet is very early, and that patient has the most to gain from anybody in the department.
+
+Elevation with no Q waves is hours old. Elevation with Q waves already formed is later, and some of that muscle is not coming back. Q waves with inverted T waves and no elevation is days old, and the emergency has passed.
+
+And Q waves alone, with normal T waves and no symptoms, is an old infarct — a scar from something that happened before, sometimes something the patient never knew about.
+
+@tier long
+
+The last piece tonight is one specific trap, and it is the reason people are taught to record extra leads in one particular situation.
+
+@read teach
+An inferior infarct — elevation in lead two, lead three and aVF — comes from the right coronary artery in most people. And that same artery, before it reaches the underside of the left ventricle, supplies the right ventricle.
+
+So in about a third of inferior infarcts, the right ventricle is infarcting as well. And the standard twelve-lead barely looks at the right ventricle at all.
+
+@read teach
+This matters because it changes the treatment in a way that is close to being a reversal.
+
+A right ventricle that is infarcted cannot fill the left side properly, and it depends entirely on having plenty of volume coming into it. Give that patient a nitrate — which is one of the standard drugs for chest pain, and which drops the venous return — and the blood pressure can collapse within a minute.
+
+So the answer is fluid, and the thing to avoid is exactly the drug you would otherwise reach for.
+
+@read teach
+The way to find it costs one minute. Record a lead on the right side of the chest, in the mirror position of V4, and call it V4R. Elevation there means the right ventricle is involved.
+
+And there is a clue on the standard twelve-lead that should prompt you to go and do that. In an inferior infarct, if the elevation in lead three is greater than the elevation in lead two, the right coronary is the culprit and the right ventricle is at risk.
+
+That is a very small observation with a very large consequence, and it is the kind of thing that separates reading a strip from understanding one.
+
+[ne_hush]तल्लो इन्फार्क्ट देख्नुभयो भने, दायाँतिरको लिड पनि लिनुहोस्।[/]

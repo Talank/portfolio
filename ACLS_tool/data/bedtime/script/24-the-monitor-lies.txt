@@ -1,0 +1,119 @@
+# 24 — The Monitor Lies
+
+The second to last night, and it is about everything on a strip that is not the heart.
+
+The alarm at the far end has been going, on and off, for twenty minutes. Sister Maya has been to look twice. The patient is asleep, warm, pink and breathing, and the monitor is convinced he is in ventricular tachycardia.
+
+[sister]"The wire under his shoulder has come half off,"[/] she says. [sister]"That is all it is. It has been all it is, four times tonight."[/]
+
+[ne]आज मोनिटरले झुट कसरी बोल्छ, त्यो हेर्नुहुन्छ।[/]
+
+@read teach
+An ECG measures a very small voltage from the surface of the skin. Anything else that produces a small voltage near those wires gets recorded too, and the machine has no way to know which is which.
+
+That is artifact. It is not a failure of the machine and it is not rare — it is on a large fraction of every strip you will ever see — and the whole skill is telling it from the real thing.
+
+There is one test that beats all the others, and everything else tonight is a variation on it.
+
+@read teach
+March through the noise, and look for the real complexes underneath.
+
+The heart does not stop because a wire moved. So if a patient is truly in a rhythm, that rhythm is still there, buried in whatever the artifact is doing. March along at the rate the patient had a moment ago, and look at each mark.
+
+If you can find real QRS complexes marching through the mess at their proper interval, the mess is artifact and the patient is fine. If you cannot find them anywhere, the mess may be real.
+
+[sister]"Look through it, not at it,"[/] Sister Maya says. [sister]"There is almost always a heartbeat hiding in there, keeping perfect time."[/]
+
+@algo artifact
+Artifact is anything on the strip that did not come from the heart, and there is one test that settles nearly all of it. March along at the rate the patient had a moment ago and look for real QRS complexes hiding inside the mess, because the heart does not stop just because a wire moved. If you can find them marching through at their proper interval, it is artifact. And then look at the patient, because a person who is awake and talking is not in ventricular fibrillation, whatever the screen says. March through it and look for the beats. Then look at the person, not the screen.
+@end
+
+The alarm stops. Somebody has reattached the wire.
+
+@read hush
+The test again, quietly.
+
+@recall artifact
+
+@read teach
+Now the four common impostors, because each one has a giveaway.
+
+The first is a loose or disconnected lead. It produces a wild, large, chaotic tracing that looks very much like ventricular fibrillation, or a dead flat line that looks like asystole.
+
+The giveaways are that it usually affects one lead and not the others, that it often starts and stops abruptly rather than degenerating, and that the patient looks entirely well. And on a defibrillator, most machines will tell you outright that a lead has failed.
+
+@read teach
+The second is movement — shivering, tremor, a patient brushing their teeth, a trolley being pushed.
+
+Parkinsonian tremor is the classic, because it is rhythmic at about four to six times a second, and rhythmic artifact at that frequency looks remarkably like atrial flutter. Shivering produces a fuzzy thickened baseline that can look like fibrillation.
+
+The giveaway is again the march. Behind the fuzz, the real complexes are there, regular, unbothered. And a tremor artifact is usually worst in the leads attached to the limb that is shaking, and absent in the others.
+
+@read teach
+The third is electrical interference from the mains supply, which produces a very fine, absolutely regular, high-frequency fuzz along the whole tracing.
+
+The giveaway is that regularity. Nothing biological is that even. It is fifty times a second in most of the world, and it comes from a nearby pump, a bed motor, a phone charger or a badly earthed socket.
+
+@read teach
+The fourth is a wandering baseline, where the whole tracing drifts slowly up and down like a boat on a swell. That is breathing, or a patient moving, or an electrode that is coming unstuck as the gel dries.
+
+It is the most benign of the four, and it is also the one that matters most for ST segments, because if the baseline is moving you cannot honestly measure anything against it.
+
+[ne]चारै किसिमको आवाजमा साँचो धड्कन भित्रै लुकेको हुन्छ। खोज्नुहोस्।[/]
+
+@read teach
+And then the trap that is not artifact at all, and is the most dangerous item in this chapter.
+
+Compressions produce a beautiful regular wide tracing at exactly a hundred a minute, because a hundred a minute is what the person doing them is aiming for.
+
+During a rhythm check, if compressions do not fully stop, that tracing is still there, and it looks organised. People have called it a rhythm, stopped and checked for a pulse, and lost fifteen seconds.
+
+Which is one more reason the rhythm check is a clean ten-second pause called clearly by one person, and then compressions again.
+
+@read hush
+The test one last time.
+
+@recall artifact | Slowly, and then sleep.
+
+@tier medium
+
+There is a whole family of traps that is nothing to do with noise, and it is the one the exam is built around. Lookalikes.
+
+@read teach
+Four pairs are worth knowing by name, and you have met every one of them already.
+
+Atrial flutter at two-to-one against SVT. Both are narrow, regular and about a hundred and fifty. The distinction is whether the baseline ever rests, and adenosine settles it.
+
+Fine ventricular fibrillation against asystole. One is shockable and one is not. The distinction is the gain and a second lead.
+
+Wenckebach against Mobitz two. One is benign and one needs a pacemaker. The distinction is whether the PR interval lengthens before the drop.
+
+And ventricular tachycardia against an SVT conducted down a broken bundle. Both are wide, fast and regular. The distinction is often impossible, and the answer is to treat it as the dangerous one.
+
+@read teach
+There is a pattern across all four, and it is worth saying out loud.
+
+In every pair, the two rhythms look alike and the treatments differ, and in three of the four the distinction is made by one specific measurement rather than by the overall impression.
+
+Which is the argument for the five questions, restated for the last time. Your eye compares silhouettes, and these four pairs have the same silhouette. Only the measurements separate them, and you only take the measurements if you have a habit that makes you.
+
+@tier long
+
+The last piece tonight is the artifact story that everybody in cardiology knows, and it is here because it is the best possible ending to a chapter about believing screens.
+
+@read teach
+Some years ago a paper was published about a man who kept being brought to hospital in ventricular tachycardia. His monitor showed it, repeatedly, over months. He was investigated thoroughly and eventually a defibrillator was implanted under his skin.
+
+It turned out that the tracing appeared whenever he moved a particular way, and that the rhythm underneath the artifact was his own normal sinus rhythm, marching through it, perfectly visible to anybody who looked for it.
+
+@read teach
+The paper is remembered because of what it said afterwards, which was that this had happened over and over to different patients in different countries, and that in each case the correct diagnosis had been on the strip all along.
+
+The complexes were there. Nobody marched through.
+
+@read teach
+So the last habit of this chapter is small and it is the one to keep.
+
+Before you believe a frightening tracing, look at the patient, and then look through the tracing for the beats. Ten seconds, both of them. And if the patient is sitting up asking what all the fuss is about, that is not a rhythm on that screen.
+
+[ne_hush]पर्दा हेर्नुभन्दा पहिले बिरामी हेर्नुहोस्। यो नियम सधैं लागू हुन्छ।[/]

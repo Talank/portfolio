@@ -12,6 +12,11 @@ Two-step build (run from the audio dir you want to build):
     node extract_narrations.js      # decks -> narrations.json
     pip install --user edge-tts
     python3 generate_audio.py       # narrations.json -> *.mp3 + manifest.*
+    python3 generate_audio.py --force   # ignore the cache and re-render all
+
+Runs are incremental: each manifest entry carries a hash of the spoken text and
+the voice settings, so adding one module re-synthesizes that module and reuses
+the rest instead of making a few hundred needless round trips.
 
 DISPLAY vs SPOKEN: the transcript shows the original narration text, but before
 synthesis each sentence is passed through to_speakable(), which rewrites tokens
@@ -25,6 +30,7 @@ edge-tts SentenceBoundary events (1:1 with our split); a proportional-by-length
 fallback covers the rare merge mismatch.
 """
 import asyncio
+import hashlib
 import json
 import os
 import re
@@ -154,6 +160,51 @@ def norm_len(s):
     return len(STRIP_RE.sub("", s))
 
 
+def clip_hash(text):
+    """Identify a rendered clip by everything that can change its audio.
+
+    The spoken text rather than the displayed text, because to_speakable() is
+    what edge-tts is handed; plus the voice settings, so editing VOICE or RATE
+    at the top of this file invalidates the directory instead of leaving a mix
+    of two voices behind.
+    """
+    key = "\x00".join([VOICE, RATE, PITCH, to_speakable(text)])
+    return hashlib.sha1(key.encode("utf-8")).hexdigest()[:16]
+
+
+def load_cache():
+    """Previous manifest entries whose text and audio are both still current.
+
+    A deck of a hundred slides is a few hundred network round trips, and while
+    authoring you change one module at a time. An entry is only reusable if its
+    hash matches and its file survived: the .mp3 is written first and may later
+    be dropped in favour of the .opus twin, so either one counts.
+    """
+    path = os.path.join(OUT_DIR, "manifest.json")
+    if "--force" in sys.argv or not os.path.exists(path):
+        return {}
+    try:
+        with open(path) as f:
+            old = json.load(f)
+    except (OSError, ValueError):
+        return {}
+    if (old.get("voice"), old.get("rate"), old.get("pitch")) != (VOICE, RATE, PITCH):
+        return {}
+    cache = {}
+    for deck_id, entries in old.get("decks", {}).items():
+        kept = []
+        for e in entries or []:
+            name = (e or {}).get("file")
+            if not name or not e.get("hash"):
+                kept.append(None)
+                continue
+            mp3 = os.path.join(OUT_DIR, name)
+            opus = os.path.splitext(mp3)[0] + ".opus"
+            kept.append(e if (os.path.exists(mp3) or os.path.exists(opus)) else None)
+        cache[deck_id] = kept
+    return cache
+
+
 async def synth_slide(sem, deck_id, idx, text, result):
     async with sem:
         out_mp3 = os.path.join(OUT_DIR, f"{deck_id}-{idx}.mp3")
@@ -193,6 +244,7 @@ async def synth_slide(sem, deck_id, idx, text, result):
                     "file": f"{deck_id}-{idx}.mp3",
                     "dur": round(total_dur, 3),
                     "sentences": starts,
+                    "hash": clip_hash(text),
                 }
                 tag = "1:1" if len(bounds) == len(sents) else f"FALLBACK {len(bounds)}vs{len(sents)}"
                 sys.stdout.write(f"  ✓ {deck_id}-{idx}  ({len(sents)} sentences, {tag}, {len(audio)//1024}KB)\n")
@@ -214,11 +266,21 @@ async def main():
 
     print(f"Building {LANG_DIR} audio with {VOICE} (rate {RATE}, pitch {PITCH})")
     result = {deck: [None] * len(slides) for deck, slides in narrations.items()}
+    cache = load_cache()
+    reused = 0
     sem = asyncio.Semaphore(CONCURRENCY)
     tasks = []
     for deck_id, slides in narrations.items():
+        old = cache.get(deck_id, [])
         for idx, text in enumerate(slides):
+            hit = old[idx] if idx < len(old) else None
+            if hit and hit.get("hash") == clip_hash(text):
+                result[deck_id][idx] = hit
+                reused += 1
+                continue
             tasks.append(synth_slide(sem, deck_id, idx, text, result))
+    if reused:
+        print(f"  reusing {reused} unchanged slide(s)")
     await asyncio.gather(*tasks)
 
     manifest = {"voice": VOICE, "rate": RATE, "pitch": PITCH, "decks": result}
@@ -238,7 +300,8 @@ async def main():
     total = sum(len(s) for s in result.values())
     failed = sum(1 for s in result.values() for x in s if not x or not x["file"])
     build_opus_siblings(OUT_DIR)
-    print(f"\nDone: {total} slides, {failed} failed. Manifest -> {OUT_DIR}/manifest.json")
+    print(f"\nDone: {total} slides, {reused} reused, {failed} failed. "
+          f"Manifest -> {OUT_DIR}/manifest.json")
 
 
 def build_opus_siblings(out_dir):

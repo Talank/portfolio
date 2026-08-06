@@ -1,0 +1,107 @@
+# 5 — Five Questions
+
+Four nights of groundwork, and tonight it becomes a method. This is the chapter that the other twenty are arranged around, so it is short, and it does not teach a single new fact.
+
+The lamp at the station is the only one on. Sister Maya has a folder of old strips that she keeps for teaching, held together with a rubber band that has gone brittle, and she puts it on the counter without opening it.
+
+[ne]आज नयाँ कुरा केही छैन। आज तरिका सिक्नुहुन्छ।[/]
+
+@read teach
+Here is the problem the method solves.
+
+A strip arrives. Your eye recognises something, immediately, before you have decided to look — a shape you have seen before, a silhouette. And whatever your eye recognised, your mouth says.
+
+That is a wonderful system when you are right, and it is exactly how experienced people work. It is also how experienced people are caught out, because the shapes that matter most are the shapes that have lookalikes. Atrial flutter conducting two to one looks like an SVT. Fine ventricular fibrillation looks like asystole. Mobitz II looks like Wenckebach if you do not measure.
+
+[sister]"The strip you recognise instantly is the strip that catches you,"[/] Sister Maya says. [sister]"The exam knows that. The patient does not care either way."[/]
+
+@read teach
+So there is a method, and it is five questions asked in the same order every time, on every strip, including the ones you recognised before you started.
+
+Not because the questions are clever. They are not. Because asking them in a fixed order is what stops your eye from voting first.
+
+The first question is the rate. Is it fast, is it slow, or is it somewhere in the middle? You are not looking for a precise number yet. You are looking for which of three worlds you are in, because fast and slow open different algorithms.
+
+The second question is the rhythm. Are the beats evenly spaced, or are they not? And if they are not, is there a pattern to the unevenness, or is it unevenness with no pattern in it at all? Those are three different answers, not two.
+
+The third question is the P waves. Is there a P wave? Is there exactly one before every QRS? And does it look the same shape each time?
+
+The fourth question is the PR interval. Is it constant from beat to beat? Is it getting longer as the strip goes on? Or has it stopped having any relationship with the QRS at all?
+
+The fifth question is the QRS width. Narrow, under three small squares, which means the beat came down through the wiring from above. Or wide, three small squares or more, which means it did not.
+
+@algo panch-prashna
+Five questions, in the same order, on every strip. One, the rate — fast, slow, or in between. Two, the rhythm — regular, irregular with a pattern, or irregular with no pattern at all. Three, the P waves — is there one, is there exactly one before every QRS, and is it the same shape every time. Four, the PR interval — constant, lengthening, or unrelated to the QRS. Five, the QRS width — narrow under three small squares, or wide at three or more. Rate, rhythm, P waves, PR interval, QRS width. Always those five, and always in that order.
+@end
+
+Rain on the window. The folder of old strips has not been opened.
+
+@read hush
+The five questions again. Do not try to hold them tonight; you will hear them at the end of every chapter from now on.
+
+@recall panch-prashna
+
+@read teach
+Now, the part that makes the method worth having.
+
+Every answer in this whole course falls out of those five answers combined. Not one of them alone. Combined.
+
+Fast and narrow and regular is one small family of rhythms. Fast and narrow and irregular is a different family, and it takes a different drug. Fast and wide and regular is a third family, and it is the one where guessing wrong is dangerous. The five questions do not tell you the name of the rhythm. They tell you which shelf the name is on, and there are only ever two or three names on a shelf.
+
+[ne]पाँच प्रश्नले नाम दिँदैन। तर कुन ठाउँमा खोज्ने, त्यो भन्दिन्छ।[/]
+
+@read teach
+And there is a sixth question, which is not a question about the strip.
+
+Look at the patient.
+
+The five questions describe a rhythm. They say nothing at all about whether that rhythm is doing its job, and a rhythm's job is to move blood. A person can be sitting up and talking in a rhythm that looks alarming on paper, and a person can be unrousable in a rhythm that looks almost tidy.
+
+So: five questions for the strip, and then one look at the person. In that order, always, and never only the first five.
+
+[sister]"Treat the patient, not the monitor,"[/] Sister Maya says. [sister]"Everybody has heard it. Almost nobody does it at three in the morning, when the monitor is the thing that is awake and shouting."[/]
+
+@read hush
+The five questions, one last time.
+
+@recall panch-prashna | Slowly, and then sleep.
+
+[ne_hush]यी पाँच प्रश्न हरेक रात फर्केर आउँछन्। आज याद गर्नु पर्दैन।[/]
+
+@tier medium
+
+There is one refinement to the order that is worth adding tonight, because it will make several later chapters obvious rather than difficult.
+
+@read teach
+Questions three and four — the P waves and the PR interval — are really one question asked twice, and the question is this. Are the atria and the ventricles still married?
+
+In a normal heart they are. Every atrial beat produces a ventricular beat, at a fixed delay, so there is one P before every QRS and the gap between them never changes.
+
+Everything that goes wrong at the AV node is a failure of that marriage, and each failure looks different on the strip. The delay grows but every beat still gets through. The delay grows and grows until one beat does not get through. Beats fail without any warning at all. Or the two stop speaking entirely and each keeps its own time.
+
+Those four sentences are the four heart blocks, in order, and you have just met all of them without a single new word.
+
+@read teach
+Which is why questions three and four are placed where they are — after the rate and the rhythm, before the width. By the time you reach them you already know how fast and how even the beats are, and the marriage question is the one that turns those facts into a diagnosis.
+
+@tier long
+
+The last thing tonight is about what to do when the method gives you an answer you do not like.
+
+@read teach
+It happens constantly. You run the five questions and land on a shelf, and the two names on that shelf are one benign thing and one dangerous thing, and the strip in front of you could honestly be either.
+
+There is a rule for that moment, and it is the most important rule in the course, and it does not sound like a rule about reading strips at all.
+
+When a wide, fast rhythm could be ventricular tachycardia or could be something harmless wearing a disguise, treat it as ventricular tachycardia.
+
+@read teach
+The reasoning is not about probability. It is about what each mistake costs.
+
+Treating a harmless rhythm as though it were ventricular tachycardia is usually recoverable — an unnecessary shock in a sedated patient, an unnecessary drug, a red face at the morning meeting.
+
+Treating ventricular tachycardia as though it were harmless is frequently not recoverable at all, because the drug you would reach for on the harmless assumption can stop a heart that was in the dangerous rhythm.
+
+So the two errors are not the same size, and when two answers are equally likely, you choose the one whose mistake you can survive.
+
+[ne]दुवै उत्तर सम्भव छन् भने, जुन गल्तीबाट बिरामी फर्किन सक्छ, त्यही रोज्नुहोस्।[/]

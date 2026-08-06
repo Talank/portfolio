@@ -1,0 +1,120 @@
+# 7 — Marching the Rhythm
+
+The second question, and it needs no arithmetic at all. It needs the edge of a piece of paper.
+
+The rain has stopped. Somebody down the corridor is mopping, and the mop makes a soft rhythmic sound against the floor that you notice only when it stops.
+
+[ne]आजको प्रश्न सजिलो छ। धड्कनहरू बराबर दूरीमा छन् कि छैनन्?[/]
+
+@read teach
+Regularity means one thing. Are the gaps between the beats all the same length?
+
+And there is a trap in it immediately, which is that your eye is bad at this. A strip that is slightly irregular looks regular, and a strip that is regular but has one odd beat in the middle looks irregular all over. So the answer is never given by looking. It is given by marching.
+
+@read teach
+Here is how to march, and it takes about eight seconds once you have done it twice.
+
+Take any straight edge — the edge of another strip, a folded corner of the drug chart, the card in your pocket. Lay it along the tracing, just under the tips of the R waves. Make a small mark where one R wave is, and another mark where the next R wave is.
+
+Now slide the edge along, and put your first mark where your second mark was. Does your second mark land on the next R wave?
+
+Do that four or five times, all the way along the strip. If every R wave lands under your mark, the rhythm is regular. If they start drifting away from your marks, it is not.
+
+[sister]"Calipers if you have them, paper if you do not,"[/] Sister Maya says. [sister]"I have used the corner of a tea packet. It works exactly as well."[/]
+
+@read teach
+Now, the answers. There are three of them and not two, and the third one is the one worth having.
+
+The first answer is regular. Every gap is the same, all the way along. Regular rhythms are the tidy ones, and the family is small — normal sinus rhythm and its fast and slow versions, most SVT, atrial flutter when the block is fixed, monomorphic ventricular tachycardia, and complete heart block.
+
+The second answer is irregularly irregular. The gaps are all different, and there is no pattern in the differences at all. You march, and the marks land nowhere near, and nothing you do makes them line up.
+
+The third answer sits between them, and it is called regularly irregular. The gaps are not all the same, but the pattern of them repeats. Long, long, short. Long, long, short. Or the beats arrive in little groups with a gap after each group.
+
+@read teach
+That third answer matters because it is a fingerprint.
+
+An irregularly irregular rhythm is chaos, and chaos has one common cause and a couple of rare ones. A regularly irregular rhythm is not chaos — it is a system doing something orderly that produces an uneven result, and the shape of the unevenness tells you which system.
+
+Beats arriving in groups, with a pause after each group, is called group beating, and group beating is Wenckebach until you have proved otherwise. Every other beat coming early, over and over, is bigeminy. A rhythm that is regular except for one early beat is a rhythm with an ectopic in it, and the rhythm itself is fine.
+
+[ne]अनियमित पनि दुई किसिमको हुन्छ। एउटामा ढाँचा हुन्छ, अर्कोमा हुँदैन।[/]
+
+@algo taal
+March the rhythm before you name it, and there are three answers, not two. Lay a paper edge under two R waves, mark them, and slide it along the strip. If every R wave lands on your mark, the rhythm is regular. If the marks land nowhere and there is no pattern in the mess, it is irregularly irregular, and that means atrial fibrillation until something else is proved. And if the gaps are uneven but the unevenness repeats — beats in groups, or every other beat early — it is regularly irregular, and that is a system misbehaving in an orderly way. Regular. Regularly irregular. Irregularly irregular.
+@end
+
+The mopping down the corridor starts again, further away.
+
+@read hush
+The three answers again, and there is nothing to do but hear them.
+
+@recall taal
+
+@read teach
+There is a second marching you should know about, and hardly anybody does it, and it is what makes the heart blocks easy instead of hard.
+
+March the P waves too.
+
+Everything so far has marched the R waves, which tells you about the ventricles. Do exactly the same thing along the P waves, and you learn about the atria, separately.
+
+@read teach
+And now you have two rhythms rather than one, and comparing them answers questions that no single measurement can.
+
+If the P waves march perfectly and the R waves march perfectly and the two do not line up with each other, the atria and the ventricles are each keeping good time and ignoring one another. That is complete heart block, seen in ten seconds, without measuring a single interval.
+
+If the P waves march perfectly and some of them have no QRS after them, the atria are fine and the gate below is dropping beats. Which beats get dropped, and whether there was any warning, is what separates the two second-degree blocks.
+
+If the P waves do not march at all — if there are no P waves to march — then the atria are not producing an organised beat, and that is a different family entirely.
+
+[sister]"Two marches, not one,"[/] she says. [sister]"Upstairs and downstairs. Most people only ever walk the downstairs."[/]
+
+@read teach
+One warning before you sleep, because there is a normal thing that looks abnormal here.
+
+In young, healthy, thin people — and in children especially — the heart rate speeds up slightly with breathing in and slows down slightly with breathing out. Marched carefully, that rhythm is not regular. The gaps get gradually shorter and then gradually longer, over and over, in time with the chest.
+
+It is called sinus arrhythmia, it is a sign of a healthy autonomic system, and it needs nothing at all. The clue is that the change is gradual, and that it follows the breathing. If you have the patient in front of you, watch the chest and watch the strip, and the two rise and fall together.
+
+[ne]सास फेर्दा मुटुको गति अलिकति बढ्छ, अनि घट्छ। यो रोग होइन।[/]
+
+@read hush
+The three answers, one last time, and then sleep.
+
+@recall taal | Very slowly.
+
+@tier medium
+
+There is a fourth kind of answer that people forget to allow for, and it is the one where the rhythm changes partway through the strip.
+
+@read teach
+A strip is usually six or ten seconds long, and a heart can do more than one thing in ten seconds.
+
+So march the whole strip, not the first three beats. If the first half is regular and the second half is not, the honest answer is that the rhythm changed, and the interesting question is what happened at the join.
+
+The commonest version of this is a normal rhythm that runs into a short burst of something fast and then comes back. Three or four wide beats in a row and then normal sinus rhythm again is a run of ventricular tachycardia, and if it stops on its own within thirty seconds it is called non-sustained, and it is a finding that needs explaining rather than an emergency.
+
+@read teach
+The other version is the one that matters at four in the morning. A rhythm that is fine at the start of the strip and is not fine at the end of it is a rhythm that is deteriorating, and the direction of travel is more useful information than either snapshot.
+
+That is a good argument for the habit of keeping the strips rather than glancing and dropping them. Two strips an hour apart tell you something neither one can say alone.
+
+@tier long
+
+The last piece tonight is about a word that gets used loosely, and it is worth getting right because examiners like it.
+
+@read teach
+An ectopic beat is a beat that came from somewhere other than the SA node, and arrived early.
+
+If it came from the atria, it comes down through the AV node and the fast wiring like any other supraventricular beat, so it is narrow. It usually has an odd-looking P wave in front of it, or a P wave hiding in the T wave of the beat before, because the atria were woken from an unusual place. That is an atrial ectopic, a PAC.
+
+If it came from the ventricles, it did not use the wiring, so it is wide and strange-looking, and it has no P wave in front of it at all. That is a ventricular ectopic, a PVC.
+
+@read teach
+And there is a lovely detail about what happens next, which is the sort of thing that makes a strip readable.
+
+After a ventricular ectopic there is usually a longer than normal pause, and then the rhythm carries on exactly where it would have been if the ectopic had never happened. The SA node upstairs never stopped counting; it simply fired into ventricles that were still recovering, and its beat was lost.
+
+March through it and you can prove it. The R waves either side of the ectopic sit exactly two normal gaps apart. That is called a full compensatory pause, and it is the fingerprint of a beat that came from below.
+
+[ne_hush]आजको लागि यत्ति नै हो। कागजको किनारा र दुई निशान — यही मात्र चाहिन्छ।[/]

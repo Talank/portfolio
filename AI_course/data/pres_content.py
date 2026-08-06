@@ -553,9 +553,19 @@ MODULES = [
 sys.path.insert(0, HERE)
 import pres_part2  # noqa: E402
 import pres_part3  # noqa: E402
+import pres_part4  # noqa: E402
+import pres_part5  # noqa: E402
+import pres_part6  # noqa: E402
+import pres_part7  # noqa: E402
+import pres_part8  # noqa: E402
 
 MODULES += pres_part2.MODULES
 MODULES += pres_part3.MODULES
+MODULES += pres_part4.MODULES
+MODULES += pres_part5.MODULES
+MODULES += pres_part6.MODULES
+MODULES += pres_part7.MODULES
+MODULES += pres_part8.MODULES
 
 if __name__ == "__main__":
     course_dir = os.path.abspath(os.path.join(HERE, ".."))

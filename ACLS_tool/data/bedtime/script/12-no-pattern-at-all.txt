@@ -1,0 +1,119 @@
+# 12 — No Pattern At All
+
+The commonest sustained abnormal rhythm on earth, and the one you will see more often than everything else in this course put together.
+
+The lady in bed three has had it for fifteen years. She knows more about it than most of the junior doctors who look after her, and she takes her warfarin at six every evening and she has never missed a dose.
+
+[sister]"Ask her what her rhythm is,"[/] Sister Maya says. [sister]"She will tell you the rate, the target range for her blood test and the name of her cardiologist's secretary."[/]
+
+[ne]आजको रिदममा कुनै ढाँचा हुँदैन। कुनै पनि छैन।[/]
+
+@read teach
+Atrial fibrillation. Run the five questions.
+
+The rate is whatever it happens to be. Slow, normal or fast, depending on how well the AV node is filtering and on what drugs the patient is taking. This rhythm is defined by everything except its rate.
+
+The rhythm is irregular. And not irregular with a pattern — irregular with no pattern at all. March it with a paper edge and the marks land nowhere, and no amount of sliding makes them line up. That is the finding, and it has its own name. Irregularly irregular.
+
+The P waves are absent. There are none, anywhere, in any lead. Instead the baseline between the complexes is not flat — it shivers. A fine, restless, wandering wobble, sometimes barely visible, sometimes coarse enough to fool you into thinking you can see something in it.
+
+The PR interval cannot be measured, because there is no P wave to measure from.
+
+The QRS is narrow, because whatever is arriving at the AV node is arriving from above and coming down the normal road.
+
+@read teach
+Now the mechanism, because it is the most vivid one in the whole course.
+
+The atria are not beating. They are quivering. Instead of one organised wave sweeping across them, there are hundreds of small chaotic wavelets, all going in different directions at once, at something like four to six hundred a minute.
+
+There is no coordinated atrial contraction at all, which is why there is no P wave. The shivering baseline is the sum of all those wavelets, and it is called fibrillatory activity.
+
+@read teach
+And underneath that chaos sits the AV node, being bombarded.
+
+Impulses arrive at it constantly, from every direction, hundreds a minute. The node cannot pass them all — it is slow, and after each impulse it needs a moment to recover — so it passes some and refuses others, and which ones it passes depends on exactly where it is in its recovery when each one arrives.
+
+That is a random filter. And the output of a random filter is a completely irregular ventricular rhythm, which is exactly what you see.
+
+[sister]"The AV node is standing at a door in a crowd, letting people through whenever it can,"[/] Sister Maya says. [sister]"That is why the beats come when they come."[/]
+
+@algo af
+Atrial fibrillation is recognised by two findings together, and it needs both. First, the rhythm is irregularly irregular — march it with a paper edge and there is no pattern in the mess at all. Second, there are no P waves anywhere, and the baseline between the complexes shivers instead of sitting flat. The QRS is narrow, because everything still comes down the normal road. And the rate can be anything, because the rate depends only on how much the AV node lets through. Irregularly irregular, and no P waves. That combination is atrial fibrillation, and nothing else is.
+@end
+
+The lady in bed three is snoring gently. Her monitor traces its untidy line.
+
+@read hush
+The two findings again, quietly.
+
+@recall af
+
+@read teach
+Two things follow from the mechanism, and both of them are the reason this rhythm matters far beyond the strip.
+
+The first is about pumping. In a normal heart, the atrial contraction at the end of filling adds a final push into the ventricles, and that push is worth something like a fifth of what the heart delivers per beat. In atrial fibrillation there is no push. It is simply gone.
+
+Most people manage without it. The people who do not are the ones whose ventricles were already stiff, and for them the loss of that final fifth can be the difference between comfortable and breathless.
+
+@read teach
+The second is about clots, and it is the reason this rhythm has its own worldwide industry of tablets and blood tests.
+
+Blood that is not moved sits still, and blood that sits still clots. In a fibrillating atrium there is a small pouch called the atrial appendage where the blood barely moves at all, and clots form there quietly over days and weeks.
+
+If one breaks loose it goes up the aorta and into the brain, and the patient has a stroke. Not a small one, usually — clots from the heart are large.
+
+So the whole architecture of anticoagulation — the warfarin, the newer drugs, the risk scores, the yearly reviews — exists to prevent one event, and it is that one.
+
+[ne]यो रिदमको सबैभन्दा ठूलो खतरा मुटु होइन। दिमाग हो।[/]
+
+@read teach
+One last thing before the ending, about the rate.
+
+You will hear the phrase rate-controlled atrial fibrillation, and it means what it says — the rhythm is still irregular and there are still no P waves, but the AV node is being persuaded to let fewer impulses through, so the ventricular rate sits somewhere reasonable.
+
+That is the usual goal in a stable patient. Not to abolish the fibrillation, which is often impossible, but to slow the door.
+
+And remember what that does to your rate counting. Never use the big-square method on this rhythm. Count six seconds and multiply by ten, because it is an average and the average is the only honest number there is.
+
+@read hush
+The two findings, one last time.
+
+@recall af | Slowly, and then sleep.
+
+@tier medium
+
+There is a version of this rhythm that is genuinely dangerous, and it is worth being able to spot from the doorway.
+
+@read teach
+When atrial fibrillation runs fast — a hundred and fifty, a hundred and eighty — two things go wrong at once.
+
+The heart is working much harder, so it needs more oxygen. And the ventricles have almost no time to fill between beats, so each beat delivers less. Demand up, supply down, and a heart that was coping becomes a heart that is not.
+
+This is called atrial fibrillation with rapid ventricular response, and in somebody with a diseased heart it can produce chest pain, breathlessness, a falling blood pressure, or all three within an hour.
+
+@read teach
+The recognition is easy and it depends on a habit rather than a skill. Do not let a fast rate stop you from marching the rhythm.
+
+At a hundred and eighty, an irregular rhythm looks regular, because the gaps are all short and your eye cannot resolve the differences. People call it an SVT and reach for adenosine, and adenosine does not treat this.
+
+Slow down and march properly. Two paper marks, slide along, four or five beats. Eight seconds of care, and you have separated the two commonest fast narrow rhythms in medicine.
+
+[sister]"Fast makes everything look regular,"[/] she says. [sister]"That is exactly when the marching matters."[/]
+
+@tier long
+
+The last thing tonight is a rhythm that looks like atrial fibrillation and is not, and the difference is worth one paragraph because the treatment differs.
+
+@read teach
+Multifocal atrial tachycardia. The atria are not fibrillating — they are being driven from several different places in turn, each of which produces a real, organised P wave, but a differently shaped one.
+
+So the strip does have P waves, and that is the whole distinction. Look carefully and you will find at least three different P wave shapes, each with its own PR interval, and the rhythm is irregular because the pacemakers are taking turns unpredictably.
+
+@read teach
+It occurs almost exclusively in people who are severely short of breath from lung disease, and it is a marker of how sick the lungs are rather than a heart problem in its own right.
+
+Which changes the treatment completely. The answer is oxygen, treating the chest, correcting the magnesium and the potassium — not rate control and not anticoagulation.
+
+So the discipline is the one that this whole course keeps repeating. When you find an irregular narrow rhythm, do not stop at irregular. Ask the third question as well, and look for P waves. No P waves at all is atrial fibrillation. Three different P waves is something else entirely, and the something else lives in the lungs.
+
+[ne_hush]अनियमित देखेर नरोकिनुहोस्। पी वेभ छ कि छैन, त्यो पनि हेर्नुहोस्।[/]

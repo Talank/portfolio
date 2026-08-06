@@ -1,0 +1,119 @@
+# 6 — Counting the Rate
+
+The first of the five questions, and the easiest to answer badly.
+
+There is a new admission in bed one, an elderly man who came in with a chest infection, and he is asleep with his mouth open and his hands folded. His monitor is running at the far end of the room, and the numbers on it change every few seconds.
+
+[ne]मोनिटरमा एउटा नम्बर लेखिएको छ। त्यो नम्बर कहिलेकाहीँ झुट बोल्छ।[/]
+
+@read teach
+The monitor is telling you the rate. It is right most of the time and it is wrong exactly when it matters, so tonight you learn to do it yourself, three different ways, for three different situations.
+
+Before any of that, learn the two words. A rate under sixty is called bradycardia, and a rate over a hundred is called tachycardia. Between sixty and a hundred is normal. Those two words are used constantly and they mean nothing more than that.
+
+@read teach
+The first method is the one everybody learns, and it is for a regular rhythm.
+
+Find an R wave that lands neatly on a heavy line. Then count the big squares to the next R wave, and say this sequence as you go — three hundred, one fifty, one hundred, seventy-five, sixty, fifty.
+
+One big square between beats is three hundred a minute. Two big squares is one fifty. Three is a hundred. Four is seventy-five. Five is sixty. Six is fifty.
+
+That is the whole method. Six numbers, learned once, and after a week you do not count them, you simply see them.
+
+@read teach
+Where does that sequence come from? It is not arbitrary and it is worth ten seconds.
+
+One minute of paper is three hundred big squares long, because a big square is one fifth of a second and there are three hundred fifths in a minute. So if the heart puts one beat in every big square, it has fitted three hundred beats into a minute. If it puts one in every two big squares, half of that, a hundred and fifty. And so on down.
+
+Three hundred divided by the number of big squares. That is all the sequence is.
+
+[ne]तीन सयलाई ठूलो घरको सङ्ख्याले भाग गर्नुहोस्। बस्, यत्ति हो।[/]
+
+@read teach
+The second method is for when you want a precise number rather than a shelf.
+
+Count the small squares between two R waves instead of the big ones, and divide fifteen hundred by that. Fifteen hundred, because one minute of paper is fifteen hundred small squares long.
+
+Eighteen small squares between beats gives you eighty-three a minute. Twenty-one gives you seventy-one. It is more arithmetic than anybody wants at the bedside, and it is the right method when you are writing a number in the notes or working out a QT correction.
+
+@read teach
+The third method is the one that saves you, and it is the only one that works when the rhythm is irregular.
+
+Both of the methods so far assume every gap is the same size. On an irregular rhythm they are nonsense — you would measure one gap, and the answer would depend entirely on which gap you happened to pick.
+
+So instead you count beats over a fixed stretch of time. Take six seconds of strip, count how many QRS complexes are in it, and multiply by ten.
+
+@read teach
+And the paper helps you with that. Along the top or the bottom edge of every rhythm strip there are small vertical tick marks, and they are three seconds apart. Two of those gaps is six seconds. Fifteen big squares, if your strip has no ticks.
+
+Count the complexes between the marks, multiply by ten, and you have an honest average rate for a rhythm that does not have a single true rate at all.
+
+[sister]"On atrial fibrillation there is no such thing as the rate,"[/] Sister Maya says. [sister]"There is only an average, and anybody who gives you a number to the nearest one is guessing."[/]
+
+@algo rate
+Three ways to count, and which one depends on the rhythm. If the rhythm is regular, count the big squares between two R waves and walk the sequence — three hundred, one fifty, one hundred, seventy-five, sixty, fifty. If you need a precise number, count the small squares between two R waves and divide fifteen hundred by that. And if the rhythm is irregular, neither of those works, so count the complexes in a six-second strip and multiply by ten. Regular and quick, use the sequence. Regular and exact, use fifteen hundred. Irregular, count six seconds and multiply by ten.
+@end
+
+The man in bed one shifts and settles. The number on his monitor drops by four and comes back.
+
+@read hush
+The three ways again, quietly.
+
+@recall rate
+
+@read teach
+There is one more idea tonight, and it is the one that separates people who can read a strip from people who can recite the methods.
+
+A heart does not have a rate. It has two.
+
+The atria have a rate, which you count from the P waves. The ventricles have a rate, which you count from the QRS complexes. In a normal heart those two numbers are identical, because every atrial beat produces exactly one ventricular beat, so nobody ever bothers to say which one they mean.
+
+But when the marriage between the two halves fails, the numbers come apart. And then a single number is not just imprecise, it is wrong.
+
+@read teach
+Take atrial flutter. The atria are firing at about three hundred a minute. The AV node, sensibly, refuses to pass most of them, and lets every second one through. So the atrial rate is three hundred and the ventricular rate is a hundred and fifty, and both numbers are true, and the patient's pulse is a hundred and fifty.
+
+Or take complete heart block. The atria might be going along at eighty and the ventricles at thirty-five, entirely independently, and the pulse you feel at the wrist is thirty-five.
+
+So the discipline is this. When the P waves and the QRS complexes do not match one to one, count both, and say both out loud. The atrial rate is this. The ventricular rate is that.
+
+[ne]मुटुका दुई तला हुन्छन्, र दुवैको आफ्नो गति हुन्छ। मिलेनन् भने दुवै गन्नुहोस्।[/]
+
+@read hush
+The three ways to count, one last time.
+
+@recall rate | Slowly, and then let it go.
+
+@tier medium
+
+There is a small trap in the sequence method that is worth twenty seconds, because everybody falls into it once.
+
+@read teach
+The sequence assumes you started counting from an R wave that sits exactly on a heavy line. If your starting R wave is halfway between two heavy lines, every square you count afterwards is offset, and your answer is out.
+
+The fix is not to be careful. The fix is to choose. Look along the strip until you find an R wave that happens to land on a heavy line — on a normal strip there will be one within a few beats — and start there.
+
+@read teach
+And there is a refinement for when the answer falls between two of the six numbers.
+
+If the next R wave lands between the four-square mark and the five-square mark, the rate is between seventy-five and sixty. You can interpolate roughly, and roughly is almost always enough, because the reason you are counting is to decide which of three worlds you are in.
+
+The exception is the border. When the answer is close to sixty, or close to a hundred, or close to a hundred and fifty, it is worth doing the fifteen-hundred method properly — because those three numbers are the ones that decide which algorithm gets opened, and a rate of a hundred and two is a different conversation from a rate of ninety-eight.
+
+@tier long
+
+The last piece tonight is about the number on the monitor, and why it is sometimes so badly wrong.
+
+@read teach
+The monitor is not reading the rhythm. It is counting events that cross a threshold, and it is counting them in whichever lead it has been told to watch.
+
+So if the T waves in that lead happen to be tall, the monitor counts each T wave as a beat, and reports double the true rate. This is called double counting, and it is one of the commonest false alarms in any ward, and it happens most often in exactly the patients whose T waves are large — which includes some of the sick ones.
+
+The reverse also happens. If the complexes in the watched lead are small, the monitor misses some of them and reports half the true rate, and the alarm that goes off says bradycardia in a patient who is fine.
+
+@read teach
+Both are fixed the same way, and it takes ten seconds. Change the lead the monitor is watching, to one where the QRS complexes are tall and the T waves are not.
+
+And both are recognised the same way. If the monitor's number and the pulse you can feel do not agree, the pulse is right.
+
+[ne_hush]नाडी र मोनिटर बाझिए भने, नाडी नै साँचो हो। यो सधैं लागू हुन्छ।[/]
