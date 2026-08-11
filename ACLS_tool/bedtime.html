@@ -200,15 +200,22 @@
 <script>
 (function () {
   'use strict';
-  buildHeader('bedtime.html');
+  /* No buildHeader() here, unlike the other voyages this page was copied from:
+     that function lives in each course's js/app.js, which this page does not
+     load — ACLS_tool uses the plain back-link above instead of the shared site
+     header. Calling it threw a ReferenceError on the first line of this IIFE,
+     which killed the entire player silently: no controls, no audio, and every
+     file on disk perfectly fine. */
 
   var M = window.BEDTIME_MANIFEST;
   var BASE = 'data/bedtime/';
-  var POS_KEY = 'java-bedtime-pos';
-  var VOL_KEY = 'java-bedtime-vol';
-  var RATE_KEY = 'java-bedtime-rate';
-  var TIER_KEY = 'java-bedtime-tier';
-  var MODE_KEY = 'java-bedtime-mode';
+  /* Own storage keys. The Java voyage's keys were copied along with its player
+     and would have made the two courses fight over one another's position. */
+  var POS_KEY = 'acls-bedtime-pos';
+  var VOL_KEY = 'acls-bedtime-vol';
+  var RATE_KEY = 'acls-bedtime-rate';
+  var TIER_KEY = 'acls-bedtime-tier';
+  var MODE_KEY = 'acls-bedtime-mode';
 
   var els = [document.getElementById('bt-a0'), document.getElementById('bt-a1')];
   var $ = function (id) { return document.getElementById(id); };
