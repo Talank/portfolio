@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Learn — Talank Baral</title>
-<meta name="description" content="Eight local, static, zero-dependency courses: Linux, Emacs, CI/CD &amp; Containers, AI Video, Local Voice Lab, Full-Stack Java, AI Engineering, and DSA interview prep.">
+<meta name="description" content="Eight local, static, zero-dependency courses — Linux, Emacs, CI/CD &amp; Containers, AI Video, Local Voice Lab, Full-Stack Java, AI Engineering, and DSA interview prep — plus an ACLS reference and drill tool for reading the ECG.">
 <style>
   :root {
     --bg: #0d1117;
@@ -88,6 +88,9 @@
   .badge.done { background: rgba(104,211,145,0.15); color: var(--good); border: 1px solid rgba(104,211,145,0.35); }
   .badge.progress { background: rgba(246,173,85,0.15); color: var(--warn); border: 1px solid rgba(246,173,85,0.35); }
   .badge.soon { background: rgba(139,152,172,0.12); color: var(--text-dim); border: 1px solid var(--border); }
+  /* Not "complete" and not "in progress": a reference tool has nothing to
+     finish, so it gets its own badge rather than borrowing a lesson course's. */
+  .badge.ref { background: rgba(79,209,197,0.12); color: var(--accent); border: 1px solid rgba(79,209,197,0.35); }
 
   .card p.desc {
     color: var(--text-dim); font-size: 0.88rem;
@@ -135,7 +138,7 @@
 </header>
 <main class="wrap">
   <h1>Learn</h1>
-  <p class="lede">Eight <b>local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices.</p>
+  <p class="lede">Eight <b>local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices. At the end sits <b>one thing that isn't a course</b> — an ACLS reference and drill tool, built to be looked things up in rather than worked through.</p>
 
   <div class="stats-row" id="statsRow">
     <div class="stat"><span class="n" id="statCourses">—</span><span class="l">courses</span></div>
@@ -147,7 +150,7 @@
   <div class="grid" id="courseGrid"></div>
 
   <footer class="site">
-    <p>Every course above is built and usable today; a few are still gaining lessons. The DSA and Full-Stack Java courses additionally have a Nepali audio edition — a bedtime story and a driving audiobook of the whole syllabus.</p>
+    <p>Every course above is built and usable today; a few are still gaining lessons. Four also have an audio edition of the whole syllabus, as both a bedtime story and a driving audiobook: DSA, Full-Stack Java and AI Engineering in Nepali, and ACLS in English, since an ECG has no Nepali vocabulary worth teaching.</p>
   </footer>
 </main>
 <script>
@@ -192,15 +195,31 @@
       desc: 'The direct sequel to Linux: Docker images and the Dockerfile, multi-container apps with Compose, real orchestration with Kubernetes, and a CI/CD pipeline that builds, tests, and deploys automatically on every push.',
       lessons: 22, hours: 13.5, status: 'done', progressKey: 'cicd-progress-v1',
     },
+    /* Last, and deliberately not shaped like the others. ACLS_tool is a
+       reference and a drill bench, not a lesson sequence: there is nothing to
+       complete, so it has no progress key, and inventing a lesson count or an
+       hour figure for it would have quietly falsified all three headline
+       numbers above. `kind` is what keeps it out of them. */
+    {
+      dir: '../ACLS_tool/', title: 'ACLS — Reading the ECG',
+      desc: 'Advanced Cardiovascular Life Support past the point BLS stops: the systematic approach, every arrest and peri-arrest algorithm, ACS and stroke, the drugs, and a rhythm lab that teaches the fifteen strips by what distinguishes them from the one they get confused with. Includes a 13-hour bedtime audiobook narrated in English.',
+      kind: 'reference',
+      facts: ['15 sections', '245 questions', '15 rhythms', '12 drugs'],
+      bestKey: 'acls_quiz_best',
+    },
   ];
+
+  // Everything with lessons to count. Reference cards are shown but never
+  // summed: "courses", "lessons" and "total content" all mean taught material.
+  var TAUGHT = COURSES.filter(function (c) { return c.kind !== 'reference'; });
 
   /* The three headline numbers come from COURSES rather than being typed into
      the markup. They were typed in once and were wrong by one course, 23
      lessons and 11 hours by the time anyone noticed. */
   (function fillStats() {
-    var lessons = COURSES.reduce(function (n, c) { return n + c.lessons; }, 0);
-    var hours = COURSES.reduce(function (n, c) { return n + c.hours; }, 0);
-    document.getElementById('statCourses').textContent = COURSES.length;
+    var lessons = TAUGHT.reduce(function (n, c) { return n + c.lessons; }, 0);
+    var hours = TAUGHT.reduce(function (n, c) { return n + c.hours; }, 0);
+    document.getElementById('statCourses').textContent = TAUGHT.length;
     document.getElementById('statLessons').textContent = lessons;
     document.getElementById('statHours').textContent =
       '~' + Math.round(hours) + 'h';
@@ -215,11 +234,36 @@
     }
   }
 
+  /* A card with no completion bar, because there is no denominator to divide
+     by: `acls_quiz_best` is how many questions you got right in your best run,
+     and you choose the length of the run, so a percentage would be invented.
+     What it shows instead is the number itself, which is the only honest thing
+     the tool records. */
+  function referenceCard(c) {
+    const best = parseInt(localStorage.getItem(c.bestKey) || '0', 10);
+    const line = best > 0
+      ? `Best quiz run: ${best} correct`
+      : 'Reference &amp; drills — nothing to complete';
+    return `
+      <div class="card">
+        <div class="card-top">
+          <h2>${c.title}</h2>
+          <span class="badge ref">Reference</span>
+        </div>
+        <p class="desc">${c.desc}</p>
+        <div class="meta">${c.facts.map(f => `<span>${f}</span>`).join('')}</div>
+        <p class="progress-label" style="margin-top:0">${line}</p>
+        <a class="go" href="${c.dir}index.html">Open</a>
+      </div>`;
+  }
+
   function render() {
     const grid = document.getElementById('courseGrid');
     let totalLessons = 0, totalDone = 0;
 
     grid.innerHTML = COURSES.map(c => {
+      if (c.kind === 'reference') return referenceCard(c);
+
       const built = c.lessonsBuilt || c.lessons;
       const done = readProgress(c.progressKey);
       const pct = built > 0 ? Math.round((Math.min(done, built) / built) * 100) : 0;
