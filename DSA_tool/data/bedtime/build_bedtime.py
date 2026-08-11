@@ -84,6 +84,10 @@ PARTS_DIR = os.path.join(HERE, "parts")
 TITLE = "निद्राको ग्रैंड लाइन"
 SUBTITLE = "DSA Bedtime Voyage"
 MONOLITH_NAME = "dsa-nidra-full"
+# Heading of chapters.txt. Separate from TITLE because an all-English voyage
+# rebinds this one and keeps its own title: ACLS_tool had a story with no Nepali
+# word left in it and a chapter list headed "अध्याय सूची".
+CHAPTERS_HEADING = "अध्याय सूची"
 
 # Soothing profile. The site's decks run ne-NP-HemkalaNeural at -8%/-2Hz; this
 # is deliberately slower, lower and quieter — it is competing with sleep, not
@@ -1810,12 +1814,18 @@ def build_segments(chapters, only=None, ambient=True, modes=MODES, reuse=False,
 
 def write_segment_sidecars(manifest):
     with open(os.path.join(HERE, "chapters.txt"), "w", encoding="utf-8") as f:
-        f.write(f"{TITLE} — अध्याय सूची\n\n")
+        f.write(f"{TITLE} — {CHAPTERS_HEADING}\n\n")
         for mode, mi in manifest["modes"].items():
-            f.write(f"=== {mi['label']} / {mi['label_en']} ===\n\n")
+            # A course that collapsed its labels to English has label == label_en,
+            # and "Bedtime / Bedtime" reads like a bug rather than a translation.
+            both = (f"{mi['label']} / {mi['label_en']}"
+                    if mi["label"] != mi["label_en"] else mi["label"])
+            f.write(f"=== {both} ===\n\n")
             for tier in TIERS:
                 ti = mi["tiers"][tier]
-                f.write(f"— {ti['label']} ({ti['label_en']}): "
+                name = (f"{ti['label']} ({ti['label_en']})"
+                        if ti["label"] != ti["label_en"] else ti["label"])
+                f.write(f"— {name}: "
                         f"{hms(ti['duration'])}, {ti['bytes'] / 1e6:.1f} MB —\n")
                 for ch in manifest["chapters"]:
                     if ch["num"] in ti["starts"]:

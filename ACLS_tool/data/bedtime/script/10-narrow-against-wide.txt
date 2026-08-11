@@ -2,9 +2,10 @@
 
 If you learn one thing from these twenty-six nights, learn tonight's.
 
-The ward is fully asleep. Even the corridor is empty. Sister Maya has finished the drug round and is sitting with her shoes off, and she is not going to pretend she is doing anything else for the next ten minutes.
+The ward is fully asleep. Even the corridor is empty. Nurse Maya has finished the drug round and is sitting with her shoes off, and she is not going to pretend she is doing anything else for the next ten minutes.
 
-[ne]आज एउटै कुरा छ। तर यही एउटा कुराले आधा काम गर्छ।[/]
+@read hush
+There is only one idea tonight. That one idea does about half of all the work there is.
 
 @read teach
 Every rhythm in the world divides into two families, and the border between them is three small squares of paper.
@@ -25,7 +26,7 @@ So the word narrow does not describe a shape. It describes an origin.
 
 Say it the long way once, and then you will always hear it that way. Narrow means this beat came from above the ventricles, through the normal road, and arrived at the muscle by the fast route. Wide means it did not.
 
-[sister]"Narrow is a beat that came down the stairs,"[/] Sister Maya says. [sister]"Wide is a beat that came through the wall."[/]
+[maya]"Narrow is a beat that came down the stairs,"[/] Nurse Maya says. [maya]"Wide is a beat that came through the wall."[/]
 
 @algo saguro-chaudo
 The QRS width is the single most useful measurement on a strip, and it has one threshold. Under three small squares is narrow, and three or more is wide. Narrow means the ventricles were lit through the heart's fast wiring, and the only way into that wiring is downwards through the AV node, so a narrow beat was born above the ventricles. Wide means the wiring was not used, so the beat either started inside the ventricles or came from above and found the wiring broken. Narrow is from above. Wide is from below, or the road is broken.
@@ -51,7 +52,8 @@ Fast, wide, regular. This is the dangerous shelf. Ventricular tachycardia is on 
 
 Fast, wide, irregular. A small and frightening shelf, and everything on it needs a senior in the room.
 
-[ne]चार खण्ड मात्र छन्। चौडा कि साँगुरो, नियमित कि अनियमित — यत्ति दुई कुरा सोध्नुहोस्।[/]
+@read warm
+There are only four boxes. Wide or narrow, regular or irregular. Two questions, and you are inside one of them.
 
 @read teach
 And now the rule that hangs off all of it, which you met once already and which is repeated here because it is the rule that keeps people alive.
@@ -60,7 +62,7 @@ When a rhythm is fast, wide and regular, and you cannot tell whether it is ventr
 
 Not because it is more likely, although in an older patient with a heart history it very much is. Because the two mistakes are not the same size. Treating a harmless rhythm as ventricular tachycardia costs a shock and an apology. Treating ventricular tachycardia as harmless — reaching for the drug you would use on a narrow rhythm — can stop the heart.
 
-[sister]"Wide and fast and you are not sure? Then it is ventricular tachycardia,"[/] she says. [sister]"You are allowed to be wrong in that direction."[/]
+[maya]"Wide and fast and you are not sure? Then it is ventricular tachycardia,"[/] she says. [maya]"You are allowed to be wrong in that direction."[/]
 
 @read hush
 The one measurement, one last time.
@@ -106,4 +108,5 @@ The other common causes of an unexpectedly wide complex are drugs that block the
 
 So wide has four explanations and only one of them is a fast dangerous rhythm. Born below. Wiring broken. Poisoned. Or paced.
 
-[ne_hush]चौडा हुनुका चार कारण छन्। सधैं चारै सम्झनुहोस्।[/]
+@read hush
+There are four reasons a beat can be wide. Keep all four of them somewhere you can reach.

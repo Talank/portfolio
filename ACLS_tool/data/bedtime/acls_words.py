@@ -3,14 +3,14 @@
 
 The other voyages on this site are Nepali prose with English terms dropped into
 it, and shared/ne_pronounce.py exists to respell those terms in Devanagari so a
-Nepali voice can say them. This course runs the other way round: the prose is
-English, read by an English voice, and the Nepali is the guest.
+Nepali voice can say them. This course has no Nepali in it at all.
 
-That inversion is the whole point of the course. An ECG is read in a vocabulary
-that has no Nepali — there is no other word for a QRS complex, and a listener
-who learns "तल्लो लहर" instead of "S wave" has learned something they cannot use
-in a resuscitation room, on a certification exam, or in a handover. So the terms
-stay in English, and the voice that says them is a voice that knows how.
+That is the whole point of the course. An ECG is read in a vocabulary that has
+no Nepali — there is no other word for a QRS complex, and a listener who learns
+"तल्लो लहर" instead of "S wave" has learned something they cannot use in a
+resuscitation room, on a certification exam, or in a handover. So the terms stay
+in English, and every voice on the ward is an American one that knows how to say
+them.
 
 What is left for this file is small and specific:
 
@@ -129,35 +129,6 @@ RESPELL = {
     "calipers": "callipers",
 }
 
-# Nepali spellings for the few English words that appear *inside* a Nepali span.
-# A [ne] span is read by a Nepali voice, which cannot see Latin script — anything
-# left in it comes out as a stumble or as nothing at all. Only the terms the
-# Nepali lines actually lean on are here; the rest of the technical vocabulary
-# stays in the English narration where it belongs.
-NE_TERMS = {
-    "ECG": "ई सी जी",
-    "QRS": "क्यू आर एस",
-    "P wave": "पी वेभ",
-    "T wave": "टी वेभ",
-    "rhythm": "रिदम",
-    "rate": "रेट",
-    "monitor": "मोनिटर",
-    "strip": "स्ट्रिप",
-    "lead": "लिड",
-    "J point": "जे पोइन्ट",
-    "block": "ब्लक",
-    "shock": "शक",
-    "pulse": "पल्स",
-    "ectopic": "एक्टोपिक",
-    "aVR": "ए भी आर",
-    "aVL": "ए भी एल",
-    "aVF": "ए भी एफ",
-    "V1": "भी वन",
-    "V4": "भी फोर",
-    "V5": "भी फाइभ",
-    "V6": "भी सिक्स",
-}
-
 _used = set()
 
 
@@ -183,15 +154,10 @@ def to_spoken(text):
     return re.sub(r"\s{2,}", " ", text).strip()
 
 
-def to_nepali_terms(text):
-    """The English terms inside a Nepali line, respelled in Devanagari."""
-    return _sub(text, NE_TERMS)
-
-
 def used():
     """Which table entries this process actually applied. For the linter."""
     return set(_used)
 
 
 def all_keys():
-    return set(ACRONYMS) | set(RESPELL) | set(NE_TERMS)
+    return set(ACRONYMS) | set(RESPELL)

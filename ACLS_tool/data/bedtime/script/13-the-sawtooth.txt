@@ -2,11 +2,12 @@
 
 Last night's rhythm was chaos. Tonight's is the opposite — it is the most orderly abnormal rhythm there is, and it hides in plain sight because of how orderly it is.
 
-Sister Maya has a strip from a man who came in three winters ago complaining of palpitations, and it is the one she keeps because it is textbook, and because nobody ever gets it right the first time.
+Nurse Maya has a strip from a man who came in three winters ago complaining of palpitations, and it is the one she keeps because it is textbook, and because nobody ever gets it right the first time.
 
-[sister]"Everybody who looks at this says SVT,"[/] she says. [sister]"Everybody. Including me, the first time."[/]
+[maya]"Everybody who looks at this says SVT,"[/] she says. [maya]"Everybody. Including me, the first time."[/]
 
-[ne]आज लुकेको एउटा रिदम छ। हेर्दा अर्कै जस्तो देखिन्छ।[/]
+@read hush
+Tonight there is a rhythm that hides. It sits on the screen looking like something else entirely.
 
 @read teach
 Atrial flutter. Instead of hundreds of chaotic wavelets, the atria have one single wave, running round and round a fixed circuit, usually a large loop inside the right atrium.
@@ -29,7 +30,8 @@ Every second one gets through, and the ventricular rate is a hundred and fifty. 
 
 Those are called two-to-one, three-to-one and four-to-one conduction, and they are all common.
 
-[ne]माथिको गति तीन सय हुन्छ। तल कति आउँछ, त्यो ढोकाले तय गर्छ।[/]
+@read warm
+Upstairs the rate is three hundred. How much of that reaches downstairs is decided by the gate.
 
 @read teach
 And that gives you the single most useful clue in this whole chapter, and it is worth remembering above everything else tonight.
@@ -45,7 +47,7 @@ Because at two-to-one conduction, of every two flutter waves, one is out in the 
 
 The trick is to stop looking for a P wave and start looking at the whole baseline. In a real SVT, the line between complexes is flat. In flutter, it is never flat anywhere.
 
-[sister]"Do not look for the wave. Look for the flat bit,"[/] Sister Maya says. [sister]"If there is nowhere on that strip where the line rests, it is fluttering."[/]
+[maya]"Do not look for the wave. Look for the flat bit,"[/] Nurse Maya says. [maya]"If there is nowhere on that strip where the line rests, it is fluttering."[/]
 
 @algo flutter
 Atrial flutter is one organised wave running round a loop in the atria at about three hundred a minute. On the paper the baseline never rests — it rises and falls continuously in a sawtooth, best seen in the inferior leads. The AV node passes only a fraction of those impulses, usually in a fixed ratio, so the ventricular rate is three hundred divided by a small whole number — a hundred and fifty, or a hundred, or seventy-five. The QRS is narrow and the rhythm is usually regular. Atrial rate about three hundred. Sawtooth with no flat baseline. And a regular narrow rate of a hundred and fifty is flutter until you have proved it is not.
@@ -74,7 +76,8 @@ The distinction is the baseline again. Fibrillation has no organised atrial acti
 
 March the atrial activity separately from the ventricular activity. That habit, from the chapter on rhythm, is what settles this.
 
-[ne]माथिको लहर छुट्टै मार्च गर्नुहोस्। त्यहीँ उत्तर हुन्छ।[/]
+@read warm
+March the upstairs waves out on their own, separately. The answer is in there.
 
 @read hush
 The rhythm one last time, and then sleep.
@@ -117,4 +120,4 @@ The protection against it is standard practice, and now you know why it exists. 
 
 None of this is yours to prescribe. It is here because one day somebody will tell you that a patient deteriorated after their antiarrhythmic, and you will understand what happened, and understanding is what turns a night shift into a training.
 
-[ne_hush]अब सुत्नुहोस्। सम्झनुहोस् — डेढ सयको दर देख्नुभयो भने, फ्लटर खोज्नुहोस्।[/]
+[laura]"Go to sleep,"[/] Laura says. [laura]"And when you see a rate of one hundred and fifty, go looking for flutter. That is all you have to carry out of here."[/]

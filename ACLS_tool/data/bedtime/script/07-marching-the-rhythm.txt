@@ -4,7 +4,8 @@ The second question, and it needs no arithmetic at all. It needs the edge of a p
 
 The rain has stopped. Somebody down the corridor is mopping, and the mop makes a soft rhythmic sound against the floor that you notice only when it stops.
 
-[ne]आजको प्रश्न सजिलो छ। धड्कनहरू बराबर दूरीमा छन् कि छैनन्?[/]
+@read hush
+Tonight's question is an easy one to say. Are the beats evenly spaced, or are they not?
 
 @read teach
 Regularity means one thing. Are the gaps between the beats all the same length?
@@ -20,7 +21,7 @@ Now slide the edge along, and put your first mark where your second mark was. Do
 
 Do that four or five times, all the way along the strip. If every R wave lands under your mark, the rhythm is regular. If they start drifting away from your marks, it is not.
 
-[sister]"Calipers if you have them, paper if you do not,"[/] Sister Maya says. [sister]"I have used the corner of a tea packet. It works exactly as well."[/]
+[maya]"Calipers if you have them, paper if you do not,"[/] Nurse Maya says. [maya]"I have used the corner of a tea packet. It works exactly as well."[/]
 
 @read teach
 Now, the answers. There are three of them and not two, and the third one is the one worth having.
@@ -38,7 +39,8 @@ An irregularly irregular rhythm is chaos, and chaos has one common cause and a c
 
 Beats arriving in groups, with a pause after each group, is called group beating, and group beating is Wenckebach until you have proved otherwise. Every other beat coming early, over and over, is bigeminy. A rhythm that is regular except for one early beat is a rhythm with an ectopic in it, and the rhythm itself is fine.
 
-[ne]अनियमित पनि दुई किसिमको हुन्छ। एउटामा ढाँचा हुन्छ, अर्कोमा हुँदैन।[/]
+@read warm
+There are two kinds of irregular. One of them has a pattern inside it. The other has none at all.
 
 @algo taal
 March the rhythm before you name it, and there are three answers, not two. Lay a paper edge under two R waves, mark them, and slide it along the strip. If every R wave lands on your mark, the rhythm is regular. If the marks land nowhere and there is no pattern in the mess, it is irregularly irregular, and that means atrial fibrillation until something else is proved. And if the gaps are uneven but the unevenness repeats — beats in groups, or every other beat early — it is regularly irregular, and that is a system misbehaving in an orderly way. Regular. Regularly irregular. Irregularly irregular.
@@ -67,7 +69,7 @@ If the P waves march perfectly and some of them have no QRS after them, the atri
 
 If the P waves do not march at all — if there are no P waves to march — then the atria are not producing an organised beat, and that is a different family entirely.
 
-[sister]"Two marches, not one,"[/] she says. [sister]"Upstairs and downstairs. Most people only ever walk the downstairs."[/]
+[maya]"Two marches, not one,"[/] she says. [maya]"Upstairs and downstairs. Most people only ever walk the downstairs."[/]
 
 @read teach
 One warning before you sleep, because there is a normal thing that looks abnormal here.
@@ -76,7 +78,8 @@ In young, healthy, thin people — and in children especially — the heart rate
 
 It is called sinus arrhythmia, it is a sign of a healthy autonomic system, and it needs nothing at all. The clue is that the change is gradual, and that it follows the breathing. If you have the patient in front of you, watch the chest and watch the strip, and the two rise and fall together.
 
-[ne]सास फेर्दा मुटुको गति अलिकति बढ्छ, अनि घट्छ। यो रोग होइन।[/]
+@read warm
+Breathing in speeds the heart a little. Breathing out slows it again. That is not a disease, that is a person breathing.
 
 @read hush
 The three answers, one last time, and then sleep.
@@ -117,4 +120,4 @@ After a ventricular ectopic there is usually a longer than normal pause, and the
 
 March through it and you can prove it. The R waves either side of the ectopic sit exactly two normal gaps apart. That is called a full compensatory pause, and it is the fingerprint of a beat that came from below.
 
-[ne_hush]आजको लागि यत्ति नै हो। कागजको किनारा र दुई निशान — यही मात्र चाहिन्छ।[/]
+[laura]"That will do for tonight,"[/] Laura says. [laura]"The edge of a piece of paper and two little marks on it. That is the whole toolkit."[/]

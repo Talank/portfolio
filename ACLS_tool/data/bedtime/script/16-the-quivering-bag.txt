@@ -2,9 +2,10 @@
 
 The rhythm that the defibrillator was invented for.
 
-Sister Maya has been asked twice tonight already for the arrest trolley key, and both times it was for something else. She checks the trolley anyway, at the start of every shift, in the same order, and she has never once found it complete without looking.
+Nurse Maya has been asked twice tonight already for the arrest trolley key, and both times it was for something else. She checks the trolley anyway, at the start of every shift, in the same order, and she has never once found it complete without looking.
 
-[ne]आजको रिदममा मुटु पम्प गर्दैन। काँपिरहेको मात्र हुन्छ।[/]
+@read hush
+In tonight's rhythm the heart is not pumping anything at all. It is only shaking.
 
 @read teach
 Ventricular fibrillation. Everything you learned about the previous rhythms comes apart here, because this is not a rhythm at all in any useful sense.
@@ -31,7 +32,11 @@ Which is why it is described by how big the squiggle is rather than by its shape
 
 The distinction matters for one reason only. Fine ventricular fibrillation looks, at a glance and on a small screen, very much like a flat line.
 
-[sister]"That is the mistake I am most afraid of,"[/] Sister Maya says. [sister]"Not shocking something because it looked flat. Turn the gain up before you decide anything is flat."[/]
+[maya]"That is the mistake I am most afraid of,"[/] Nurse Maya says. [maya]"Not shocking something because it looked flat. Turn the gain up before you decide anything is flat."[/]
+
+Doctor Ellis is the resident on tonight. He has been sitting at the far end of the station writing up a discharge letter for the last half hour, and he has clearly been listening to all of it.
+
+[ellis]"I have been at two arrests where somebody said asystole and the gain was down at the bottom,"[/] he says, without looking up from the letter. [ellis]"Both times it was fine ventricular fibrillation. Both times we found out late."[/]
 
 @algo vf
 Ventricular fibrillation is recognised by what is missing. There are no QRS complexes, no P waves, no T waves and no baseline — only a chaotic wandering line with no pattern in it anywhere. The ventricles are quivering rather than pumping, so there is no output and there is never a pulse. It is a shockable rhythm, and the single thing that decides survival is how quickly a shock arrives, with good compressions in between. No complexes, no baseline, no pattern. No pulse, ever. Compressions, and shock it.
@@ -60,7 +65,8 @@ And the single most important number in that whole sequence is not a drug dose. 
 
 Every pause costs perfusion pressure that took many compressions to build, and it takes several compressions after a pause to get it back. So the rhythm check is ten seconds, and the pad placement happens during compressions, and the charge happens during compressions, and the only true pause is the moment of the shock itself.
 
-[ne]छाती थिच्न रोकिने समय जति कम हुन्छ, बाँच्ने सम्भावना त्यति बढी हुन्छ।[/]
+@read warm
+The less time anybody spends not pressing on that chest, the better the chance that the person on the bed goes home.
 
 @read teach
 One more thing, and it is about time rather than technique.
@@ -96,7 +102,7 @@ Fibrillation can genuinely look almost flat from one direction and unmistakable 
 
 Two leads, and the gain up. Ten seconds, and it converts the one mistake in this chapter that nobody recovers from into a mistake that does not happen.
 
-[sister]"Flat in one lead is not flat,"[/] she says. [sister]"Flat in two leads with the gain up is flat. Say which one you did."[/]
+[maya]"Flat in one lead is not flat,"[/] she says. [maya]"Flat in two leads with the gain up is flat. Say which one you did."[/]
 
 @tier long
 
@@ -116,4 +122,5 @@ Fine ventricular fibrillation is not a rhythm to shock less enthusiastically. It
 
 Watching that happen — the tracing growing while somebody works — is one of the few things in a resuscitation that gives immediate feedback that the compressions are working.
 
-[ne_hush]राम्रो थिचाइले साना लहरलाई ठूलो बनाउँछ। त्यो देख्दा थाहा हुन्छ, काम भइरहेको छ।[/]
+@read hush
+Good compressions turn small waves into bigger ones. When you see that happen, you are watching your own work arrive.

@@ -2,11 +2,12 @@
 
 Tonight the story stops being calm for a while. Four chapters, and they are the four that the whole certification exists for, and they are all rhythms that come from below.
 
-Sister Maya does not get out a strip for this one. She draws it, badly, on the back of a pathology form, and the drawing is a row of identical wide humps like a line of hills.
+Nurse Maya does not get out a strip for this one. She draws it, badly, on the back of a pathology form, and the drawing is a row of identical wide humps like a line of hills.
 
-[sister]"Every one the same,"[/] she says. [sister]"That is the thing to see. Every single one of them the same."[/]
+[maya]"Every one the same,"[/] she says. [maya]"That is the thing to see. Every single one of them the same."[/]
 
-[ne]आजको रिदम तलबाट आउँछ। यो चौडा, छिटो र नियमित हुन्छ।[/]
+@read hush
+Tonight's rhythm comes from downstairs. It is wide, it is fast, and it is regular.
 
 @read teach
 Ventricular tachycardia. Run the five questions.
@@ -28,7 +29,8 @@ Every complex looks the same as every other complex. Same width, same height, sa
 
 Which tells you what is happening. A single spot in the ventricular muscle has taken over and is firing repeatedly, and because it is the same spot every time, the wave spreads the same way every time, and the pen draws the same shape every time.
 
-[ne]हरेक धड्कन उस्तै देखिन्छ। किनभने एउटै ठाउँबाट आइरहेको छ।[/]
+@read warm
+Every beat looks exactly like the one before it, because every beat is leaving from the same place.
 
 @algo vt
 Monomorphic ventricular tachycardia is fast, wide, regular, and identical beat to beat. The rate is usually between a hundred and fifty and two hundred and fifty. The QRS is wide, often four small squares or more, and it is a strange shape rather than a clean spike. Every complex looks exactly like every other one, because one spot in the ventricle is firing over and over and the wave spreads the same way each time. There are no useful P waves. Fast, wide, regular, and all the same shape. Until you have proved otherwise, that is ventricular tachycardia.
@@ -59,7 +61,11 @@ Unstable means one of a short list — a low blood pressure, altered consciousne
 
 Stable means none of those, and the patient is awake and talking and their pressure is holding. Then there is time, and the answer is a drug — amiodarone, or one of its alternatives — and time to get a twelve-lead and time to call somebody more senior.
 
-[sister]"Pulse or no pulse. Stable or unstable,"[/] Sister Maya says. [sister]"Two questions. They pick the algorithm between them, and neither of them is answered by looking at the screen."[/]
+[maya]"Pulse or no pulse. Stable or unstable,"[/] Nurse Maya says. [maya]"Two questions. They pick the algorithm between them, and neither of them is answered by looking at the screen."[/]
+
+Doctor Ellis, the resident, is leaning on the doorframe with a cup of something he has forgotten about.
+
+[ellis]"Nobody has ever regretted treating a wide regular tachycardia as ventricular tachycardia,"[/] he says. [ellis]"People have very much regretted the other way round. Treat it as the dangerous one and you will be right most of the time and safe all of it."[/]
 
 @read teach
 And one more time, the rule that this whole part of the course keeps returning to.
@@ -93,7 +99,7 @@ And sometimes an atrial impulse gets partway through and meets the ventricular w
 
 Either one is proof. Both mean that something from above reached the ventricles, which could only happen if the ventricles were not being commanded from above in the first place.
 
-[sister]"A normal-looking beat in the middle of a wide run is not reassuring,"[/] she says. [sister]"It is the opposite. It is the diagnosis."[/]
+[maya]"A normal-looking beat in the middle of a wide run is not reassuring,"[/] she says. [maya]"It is the opposite. It is the diagnosis."[/]
 
 @tier long
 
@@ -113,4 +119,5 @@ And there is a specific harm to avoid. When this rhythm is the heart's escape fr
 
 So the sentence to carry is this one. Wide and fast is dangerous. Wide and slow is usually a rescue, and rescues are not to be interrupted.
 
-[ne_hush]चौडा र छिटो भयो भने खतरा हुन्छ। चौडा र ढिलो भयो भने प्रायः बचाइरहेको हुन्छ, त्यसैले नरोक्नुहोस्।[/]
+@read hush
+Wide and fast is dangerous. Wide and slow is usually the last thing keeping somebody alive, so leave it where it is.

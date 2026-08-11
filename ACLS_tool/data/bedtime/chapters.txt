@@ -2,173 +2,173 @@ The Quiet Monitor — Chapter list
 
 === Bedtime ===
 
-— Short: 05:26:49.50, 33.8 MB —
+— Short: 05:44:45.60, 35.4 MB —
 00:00:00.00  00  0 — The Quiet Monitor
-00:11:32.88  01  1 — The Paper and the Grid
-00:23:42.36  02  2 — Where the Current Goes
-00:38:34.53  03  3 — The Five Marks
-00:52:32.17  04  4 — The Three Measurements
-01:06:14.27  05  5 — Five Questions
-01:18:17.55  06  6 — Counting the Rate
-01:31:43.62  07  7 — Marching the Rhythm
-01:45:33.32  08  8 — The Reference Strip
-01:56:22.87  09  9 — Too Slow and Too Fast
-02:09:53.52  10  10 — Narrow Against Wide
-02:20:37.39  11  11 — The Metronome
-02:33:27.84  12  12 — No Pattern At All
-02:46:13.02  13  13 — The Sawtooth
-02:59:25.72  14  14 — The Wide Regular One
-03:10:36.27  15  15 — The Twisting Ribbon
-03:22:17.18  16  16 — The Quivering Bag
-03:33:48.13  17  17 — The Flat Line
-03:43:59.34  18  18 — The Rhythm That Lies
-03:55:38.65  19  19 — The Block Poem
-04:06:42.93  20  20 — Longer, Longer, Drop
-04:18:39.54  21  21 — No Warning At All
-04:31:02.04  22  22 — Twelve Windows
-04:43:38.11  23  23 — The Lifted Line
-04:56:02.76  24  24 — The Monitor Lies
-05:07:19.91  25  25 — Three Strips, and Goodnight
+00:12:33.16  01  1 — The Paper and the Grid
+00:25:07.66  02  2 — Where the Current Goes
+00:40:41.04  03  3 — The Five Marks
+00:55:13.05  04  4 — The Three Measurements
+01:09:24.84  05  5 — Five Questions
+01:22:20.91  06  6 — Counting the Rate
+01:36:20.15  07  7 — Marching the Rhythm
+01:50:39.43  08  8 — The Reference Strip
+02:02:02.35  09  9 — Too Slow and Too Fast
+02:16:06.65  10  10 — Narrow Against Wide
+02:27:13.04  11  11 — The Metronome
+02:40:27.10  12  12 — No Pattern At All
+02:53:33.15  13  13 — The Sawtooth
+03:07:14.39  14  14 — The Wide Regular One
+03:19:33.55  15  15 — The Twisting Ribbon
+03:31:42.64  16  16 — The Quivering Bag
+03:44:29.19  17  17 — The Flat Line
+03:55:42.01  18  18 — The Rhythm That Lies
+04:08:33.63  19  19 — The Block Poem
+04:20:22.53  20  20 — Longer, Longer, Drop
+04:32:45.74  21  21 — No Warning At All
+04:45:34.50  22  22 — Twelve Windows
+04:58:39.59  23  23 — The Lifted Line
+05:12:11.10  24  24 — The Monitor Lies
+05:23:34.81  25  25 — Three Strips, and Goodnight
 
-— Medium: 06:31:37.53, 40.8 MB —
+— Medium: 06:50:14.76, 42.4 MB —
 00:00:00.00  00  0 — The Quiet Monitor
-00:13:52.19  01  1 — The Paper and the Grid
-00:28:33.95  02  2 — Where the Current Goes
-00:45:43.21  03  3 — The Five Marks
-01:02:11.22  04  4 — The Three Measurements
-01:18:02.42  05  5 — Five Questions
-01:32:19.78  06  6 — Counting the Rate
-01:47:56.76  07  7 — Marching the Rhythm
-02:03:55.46  08  8 — The Reference Strip
-02:17:38.08  09  9 — Too Slow and Too Fast
-02:33:32.70  10  10 — Narrow Against Wide
-02:47:07.98  11  11 — The Metronome
-03:02:23.75  12  12 — No Pattern At All
-03:17:36.94  13  13 — The Sawtooth
-03:33:10.15  14  14 — The Wide Regular One
-03:47:36.30  15  15 — The Twisting Ribbon
-04:02:02.31  16  16 — The Quivering Bag
-04:15:39.44  17  17 — The Flat Line
-04:28:43.53  18  18 — The Rhythm That Lies
-04:42:28.62  19  19 — The Block Poem
-04:55:55.11  20  20 — Longer, Longer, Drop
-05:10:04.32  21  21 — No Warning At All
-05:25:15.34  22  22 — Twelve Windows
-05:40:48.86  23  23 — The Lifted Line
-05:55:56.79  24  24 — The Monitor Lies
-06:09:56.62  25  25 — Three Strips, and Goodnight
+00:14:53.97  01  1 — The Paper and the Grid
+00:30:05.96  02  2 — Where the Current Goes
+00:48:05.80  03  3 — The Five Marks
+01:05:14.14  04  4 — The Three Measurements
+01:21:30.73  05  5 — Five Questions
+01:36:41.37  06  6 — Counting the Rate
+01:52:49.36  07  7 — Marching the Rhythm
+02:09:12.58  08  8 — The Reference Strip
+02:23:30.61  09  9 — Too Slow and Too Fast
+02:39:59.10  10  10 — Narrow Against Wide
+02:53:58.79  11  11 — The Metronome
+03:09:40.00  12  12 — No Pattern At All
+03:25:16.75  13  13 — The Sawtooth
+03:41:17.61  14  14 — The Wide Regular One
+03:56:51.23  15  15 — The Twisting Ribbon
+04:11:45.64  16  16 — The Quivering Bag
+04:26:38.14  17  17 — The Flat Line
+04:40:46.56  18  18 — The Rhythm That Lies
+04:55:47.82  19  19 — The Block Poem
+05:09:56.86  20  20 — Longer, Longer, Drop
+05:24:35.67  21  21 — No Warning At All
+05:40:16.77  22  22 — Twelve Windows
+05:56:23.92  23  23 — The Lifted Line
+06:12:43.28  24  24 — The Monitor Lies
+06:26:51.18  25  25 — Three Strips, and Goodnight
 
-— Long: 07:37:05.79, 47.8 MB —
+— Long: 07:59:02.46, 49.6 MB —
 00:00:00.00  00  0 — The Quiet Monitor
-00:15:44.14  01  1 — The Paper and the Grid
-00:32:50.43  02  2 — Where the Current Goes
-00:52:17.91  03  3 — The Five Marks
-01:10:27.37  04  4 — The Three Measurements
-01:28:40.27  05  5 — Five Questions
-01:45:14.58  06  6 — Counting the Rate
-02:03:01.93  07  7 — Marching the Rhythm
-02:21:39.87  08  8 — The Reference Strip
-02:38:02.32  09  9 — Too Slow and Too Fast
-02:56:32.82  10  10 — Narrow Against Wide
-03:12:39.69  11  11 — The Metronome
-03:31:16.80  12  12 — No Pattern At All
-03:49:02.26  13  13 — The Sawtooth
-04:07:08.70  14  14 — The Wide Regular One
-04:24:18.04  15  15 — The Twisting Ribbon
-04:41:01.51  16  16 — The Quivering Bag
-04:56:47.39  17  17 — The Flat Line
-05:12:19.91  18  18 — The Rhythm That Lies
-05:28:49.15  19  19 — The Block Poem
-05:45:05.85  20  20 — Longer, Longer, Drop
-06:02:14.32  21  21 — No Warning At All
-06:20:10.07  22  22 — Twelve Windows
-06:38:33.28  23  23 — The Lifted Line
-06:56:43.62  24  24 — The Monitor Lies
-07:13:07.90  25  25 — Three Strips, and Goodnight
+00:16:54.41  01  1 — The Paper and the Grid
+00:34:40.40  02  2 — Where the Current Goes
+00:55:08.91  03  3 — The Five Marks
+01:14:07.18  04  4 — The Three Measurements
+01:32:52.16  05  5 — Five Questions
+01:50:20.17  06  6 — Counting the Rate
+02:08:48.83  07  7 — Marching the Rhythm
+02:27:58.02  08  8 — The Reference Strip
+02:45:00.65  09  9 — Too Slow and Too Fast
+03:04:11.53  10  10 — Narrow Against Wide
+03:20:49.82  11  11 — The Metronome
+03:40:09.13  12  12 — No Pattern At All
+03:58:21.48  13  13 — The Sawtooth
+04:17:03.64  14  14 — The Wide Regular One
+04:35:24.45  15  15 — The Twisting Ribbon
+04:52:42.76  16  16 — The Quivering Bag
+05:09:50.68  17  17 — The Flat Line
+05:26:28.83  18  18 — The Rhythm That Lies
+05:44:27.65  19  19 — The Block Poem
+06:01:41.66  20  20 — Longer, Longer, Drop
+06:19:28.32  21  21 — No Warning At All
+06:38:04.61  22  22 — Twelve Windows
+06:57:01.69  23  23 — The Lifted Line
+07:16:30.61  24  24 — The Monitor Lies
+07:33:08.52  25  25 — Three Strips, and Goodnight
 
 === Driving ===
 
-— Short: 04:07:59.57, 27.5 MB —
+— Short: 04:24:14.28, 29.0 MB —
 00:00:00.00  00  0 — The Quiet Monitor
-00:08:41.77  01  1 — The Paper and the Grid
-00:17:54.66  02  2 — Where the Current Goes
-00:29:07.23  03  3 — The Five Marks
-00:39:42.69  04  4 — The Three Measurements
-00:50:14.56  05  5 — Five Questions
-00:59:16.26  06  6 — Counting the Rate
-01:09:27.76  07  7 — Marching the Rhythm
-01:20:03.07  08  8 — The Reference Strip
-01:28:11.03  09  9 — Too Slow and Too Fast
-01:38:28.31  10  10 — Narrow Against Wide
-01:46:37.85  11  11 — The Metronome
-01:56:20.44  12  12 — No Pattern At All
-02:06:05.80  13  13 — The Sawtooth
-02:16:13.19  14  14 — The Wide Regular One
-02:24:44.51  15  15 — The Twisting Ribbon
-02:33:42.45  16  16 — The Quivering Bag
-02:42:27.35  17  17 — The Flat Line
-02:50:07.83  18  18 — The Rhythm That Lies
-02:58:58.73  19  19 — The Block Poem
-03:07:18.30  20  20 — Longer, Longer, Drop
-03:16:23.93  21  21 — No Warning At All
-03:25:49.70  22  22 — Twelve Windows
-03:35:31.46  23  23 — The Lifted Line
-03:45:04.39  24  24 — The Monitor Lies
-03:53:45.67  25  25 — Three Strips, and Goodnight
+00:09:33.95  01  1 — The Paper and the Grid
+00:19:11.73  02  2 — Where the Current Goes
+00:31:03.87  03  3 — The Five Marks
+00:42:10.94  04  4 — The Three Measurements
+00:53:09.48  05  5 — Five Questions
+01:02:57.96  06  6 — Counting the Rate
+01:13:41.47  07  7 — Marching the Rhythm
+01:24:44.12  08  8 — The Reference Strip
+01:33:22.85  09  9 — Too Slow and Too Fast
+01:44:11.57  10  10 — Narrow Against Wide
+01:52:42.61  11  11 — The Metronome
+02:02:48.84  12  12 — No Pattern At All
+02:12:54.03  13  13 — The Sawtooth
+02:23:29.82  14  14 — The Wide Regular One
+02:33:00.55  15  15 — The Twisting Ribbon
+02:42:25.37  16  16 — The Quivering Bag
+02:52:15.24  17  17 — The Flat Line
+03:00:47.47  18  18 — The Rhythm That Lies
+03:10:38.69  19  19 — The Block Poem
+03:19:38.91  20  20 — Longer, Longer, Drop
+03:29:09.62  21  21 — No Warning At All
+03:39:01.38  22  22 — Twelve Windows
+03:49:11.79  23  23 — The Lifted Line
+03:59:41.58  24  24 — The Monitor Lies
+04:08:30.95  25  25 — Three Strips, and Goodnight
 
-— Medium: 04:58:13.98, 33.3 MB —
+— Medium: 05:15:22.92, 34.7 MB —
 00:00:00.00  00  0 — The Quiet Monitor
-00:10:28.93  01  1 — The Paper and the Grid
-00:21:37.48  02  2 — Where the Current Goes
-00:34:35.73  03  3 — The Five Marks
-00:47:06.16  04  4 — The Three Measurements
-00:59:18.97  05  5 — Five Questions
-01:10:04.40  06  6 — Counting the Rate
-01:21:58.51  07  7 — Marching the Rhythm
-01:34:15.32  08  8 — The Reference Strip
-01:44:37.53  09  9 — Too Slow and Too Fast
-01:56:46.44  10  10 — Narrow Against Wide
-02:07:09.92  11  11 — The Metronome
-02:18:45.18  12  12 — No Pattern At All
-02:30:24.72  13  13 — The Sawtooth
-02:42:22.43  14  14 — The Wide Regular One
-02:53:26.52  15  15 — The Twisting Ribbon
-03:04:33.13  16  16 — The Quivering Bag
-03:14:55.18  17  17 — The Flat Line
-03:24:49.90  18  18 — The Rhythm That Lies
-03:35:17.97  19  19 — The Block Poem
-03:45:30.65  20  20 — Longer, Longer, Drop
-03:56:20.27  21  21 — No Warning At All
-04:07:55.39  22  22 — Twelve Windows
-04:19:54.11  23  23 — The Lifted Line
-04:31:35.21  24  24 — The Monitor Lies
-04:42:19.57  25  25 — Three Strips, and Goodnight
+00:11:22.57  01  1 — The Paper and the Grid
+00:23:01.31  02  2 — Where the Current Goes
+00:36:46.21  03  3 — The Five Marks
+00:49:54.13  04  4 — The Three Measurements
+01:02:30.47  05  5 — Five Questions
+01:14:03.24  06  6 — Counting the Rate
+01:26:28.16  07  7 — Marching the Rhythm
+01:39:08.57  08  8 — The Reference Strip
+01:50:04.26  09  9 — Too Slow and Too Fast
+02:02:45.45  10  10 — Narrow Against Wide
+02:13:33.00  11  11 — The Metronome
+02:25:34.39  12  12 — No Pattern At All
+02:37:36.84  13  13 — The Sawtooth
+02:50:02.80  14  14 — The Wide Regular One
+03:02:06.51  15  15 — The Twisting Ribbon
+03:13:40.86  16  16 — The Quivering Bag
+03:25:08.38  17  17 — The Flat Line
+03:35:59.27  18  18 — The Rhythm That Lies
+03:47:32.00  19  19 — The Block Poem
+03:58:24.32  20  20 — Longer, Longer, Drop
+04:09:42.33  21  21 — No Warning At All
+04:21:47.35  22  22 — Twelve Windows
+04:34:19.64  23  23 — The Lifted Line
+04:47:03.01  24  24 — The Monitor Lies
+04:57:57.31  25  25 — Three Strips, and Goodnight
 
-— Long: 05:48:53.15, 39.0 MB —
+— Long: 06:09:07.41, 40.7 MB —
 00:00:00.00  00  0 — The Quiet Monitor
-00:11:54.10  01  1 — The Paper and the Grid
-00:24:54.97  02  2 — Where the Current Goes
-00:39:40.45  03  3 — The Five Marks
-00:53:31.77  04  4 — The Three Measurements
-01:07:33.97  05  5 — Five Questions
-01:20:07.11  06  6 — Counting the Rate
-01:33:42.21  07  7 — Marching the Rhythm
-01:48:02.53  08  8 — The Reference Strip
-02:00:24.91  09  9 — Too Slow and Too Fast
-02:14:33.50  10  10 — Narrow Against Wide
-02:26:55.84  11  11 — The Metronome
-02:41:06.92  12  12 — No Pattern At All
-02:54:45.00  13  13 — The Sawtooth
-03:08:41.21  14  14 — The Wide Regular One
-03:21:51.44  15  15 — The Twisting Ribbon
-03:34:44.37  16  16 — The Quivering Bag
-03:46:45.65  17  17 — The Flat Line
-03:58:35.53  18  18 — The Rhythm That Lies
-04:11:10.52  19  19 — The Block Poem
-04:23:33.67  20  20 — Longer, Longer, Drop
-04:36:42.06  21  21 — No Warning At All
-04:50:22.93  22  22 — Twelve Windows
-05:04:34.73  23  23 — The Lifted Line
-05:18:37.72  24  24 — The Monitor Lies
-05:31:13.76  25  25 — Three Strips, and Goodnight
+00:12:55.28  01  1 — The Paper and the Grid
+00:26:34.57  02  2 — Where the Current Goes
+00:42:15.87  03  3 — The Five Marks
+00:56:52.52  04  4 — The Three Measurements
+01:11:23.97  05  5 — Five Questions
+01:24:45.60  06  6 — Counting the Rate
+01:39:01.37  07  7 — Marching the Rhythm
+01:53:51.29  08  8 — The Reference Strip
+02:06:53.77  09  9 — Too Slow and Too Fast
+02:21:41.67  10  10 — Narrow Against Wide
+02:34:34.73  11  11 — The Metronome
+02:49:26.10  12  12 — No Pattern At All
+03:03:30.93  13  13 — The Sawtooth
+03:18:02.30  14  14 — The Wide Regular One
+03:32:15.93  15  15 — The Twisting Ribbon
+03:45:41.83  16  16 — The Quivering Bag
+03:58:54.46  17  17 — The Flat Line
+04:11:42.57  18  18 — The Rhythm That Lies
+04:25:35.06  19  19 — The Block Poem
+04:38:50.78  20  20 — Longer, Longer, Drop
+04:52:34.90  21  21 — No Warning At All
+05:06:55.71  22  22 — Twelve Windows
+05:21:42.02  23  23 — The Lifted Line
+05:36:53.90  24  24 — The Monitor Lies
+05:49:45.01  25  25 — Three Strips, and Goodnight
 

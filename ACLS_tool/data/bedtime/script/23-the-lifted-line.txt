@@ -2,11 +2,12 @@
 
 The one finding on a twelve-lead that starts a clock.
 
-It is nearly the end of the run of nights. Sister Maya has a strip that she does not keep in the folder with the others; it is in an envelope in her locker, and she does not say why, and you do not ask.
+It is nearly the end of the run of nights. Nurse Maya has a strip that she does not keep in the folder with the others; it is in an envelope in her locker, and she does not say why, and you do not ask.
 
-[sister]"Anterior. Fifty-one years old. Came in at ten past three complaining of indigestion."[/]
+[maya]"Anterior. Fifty-one years old. Came in at ten past three complaining of indigestion."[/]
 
-[ne]आजको कुरा घडी सुरु गर्ने एउटा चिन्हको हो।[/]
+@read hush
+Tonight is about one sign, and the thing that makes it different from every other sign is that it starts a clock.
 
 @read teach
 Everything tonight is measured from one place, and it is the corner you met on the third night. The J point — where the QRS complex finishes and the flat stretch begins.
@@ -38,7 +39,8 @@ Two contiguous leads. Elevation in lead two and lead three, or in lead three and
 
 Two neighbouring leads means a wall, and a wall means an artery.
 
-[ne]एउटा लिडमा मात्र देखियो भने केही होइन। छेउछाउका दुईमा देखियो भने त्यो साँचो हो।[/]
+@read warm
+In one lead on its own it means nothing. In two leads that sit next to each other, it is real.
 
 @algo elevation
 ST elevation is measured at the J point, against the flat baseline between the T wave and the next P wave. It counts when it is at least one small square in the limb leads, and at least one small square in the chest leads other than V2 and V3, which need about two. And it only counts when it appears in two leads that look at the same wall, because one lead alone is noise and two neighbours is an artery. Then read which wall — inferior in two, three and aVF, lateral in one, aVL, V5 and V6, anterior in V1 to V4. Measure at the corner, against the baseline, in two contiguous leads. Then name the wall.
@@ -60,7 +62,11 @@ Elevation in the inferior leads with depression in aVL. Elevation in the anterio
 
 So when you find elevation, immediately go and look at the leads opposite. Finding the mirror makes the diagnosis much more certain, and its absence should make you look harder at the alternatives.
 
-[sister]"Elevation somewhere and depression opposite,"[/] she says. [sister]"When you see both, stop reading and pick up the phone."[/]
+[maya]"Elevation somewhere and depression opposite,"[/] she says. [maya]"When you see both, stop reading and pick up the phone."[/]
+
+Doctor Ellis puts his head round the door on his way to somewhere else, sees the envelope on the desk, and stops.
+
+[ellis]"The only number anybody will ask you about afterwards is the time,"[/] he says. [ellis]"Not who read it. Not how certain you were. When the pain started and when somebody first said the word out loud."[/]
 
 @read teach
 Now the shape, because two things cause elevation and they look different.
@@ -78,7 +84,8 @@ A left bundle branch block that is new, in a patient with the story of a heart a
 
 The word that matters there is new. A left bundle branch block that was on the strip from two years ago is not an emergency; it is that person's anatomy. Which is one more argument for the old notes.
 
-[ne]पुरानो स्ट्रिप हेर्नुहोस्। नयाँ हो कि होइन — त्यही प्रश्नले सबै फरक पार्छ।[/]
+@read warm
+Find the old strip. Is this new, or has it always been there? That one question changes the answer completely.
 
 @read hush
 The rule one last time.
@@ -128,4 +135,5 @@ And there is a clue on the standard twelve-lead that should prompt you to go and
 
 That is a very small observation with a very large consequence, and it is the kind of thing that separates reading a strip from understanding one.
 
-[ne_hush]तल्लो इन्फार्क्ट देख्नुभयो भने, दायाँतिरको लिड पनि लिनुहोस्।[/]
+@read hush
+When you see an inferior infarct, go back and take the right-sided leads as well. It takes a minute and it changes what you are allowed to give.

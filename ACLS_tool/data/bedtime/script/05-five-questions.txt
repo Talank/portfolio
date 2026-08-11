@@ -2,9 +2,10 @@
 
 Four nights of groundwork, and tonight it becomes a method. This is the chapter that the other twenty are arranged around, so it is short, and it does not teach a single new fact.
 
-The lamp at the station is the only one on. Sister Maya has a folder of old strips that she keeps for teaching, held together with a rubber band that has gone brittle, and she puts it on the counter without opening it.
+The lamp at the station is the only one on. Nurse Maya has a folder of old strips that she keeps for teaching, held together with a rubber band that has gone brittle, and she puts it on the counter without opening it.
 
-[ne]आज नयाँ कुरा केही छैन। आज तरिका सिक्नुहुन्छ।[/]
+@read hush
+There is nothing new tonight. Tonight you learn the order to do it in.
 
 @read teach
 Here is the problem the method solves.
@@ -13,7 +14,7 @@ A strip arrives. Your eye recognises something, immediately, before you have dec
 
 That is a wonderful system when you are right, and it is exactly how experienced people work. It is also how experienced people are caught out, because the shapes that matter most are the shapes that have lookalikes. Atrial flutter conducting two to one looks like an SVT. Fine ventricular fibrillation looks like asystole. Mobitz II looks like Wenckebach if you do not measure.
 
-[sister]"The strip you recognise instantly is the strip that catches you,"[/] Sister Maya says. [sister]"The exam knows that. The patient does not care either way."[/]
+[maya]"The strip you recognise instantly is the strip that catches you,"[/] Nurse Maya says. [maya]"The exam knows that. The patient does not care either way."[/]
 
 @read teach
 So there is a method, and it is five questions asked in the same order every time, on every strip, including the ones you recognised before you started.
@@ -48,7 +49,8 @@ Every answer in this whole course falls out of those five answers combined. Not 
 
 Fast and narrow and regular is one small family of rhythms. Fast and narrow and irregular is a different family, and it takes a different drug. Fast and wide and regular is a third family, and it is the one where guessing wrong is dangerous. The five questions do not tell you the name of the rhythm. They tell you which shelf the name is on, and there are only ever two or three names on a shelf.
 
-[ne]पाँच प्रश्नले नाम दिँदैन। तर कुन ठाउँमा खोज्ने, त्यो भन्दिन्छ।[/]
+@read warm
+The five questions do not hand you a name. They tell you where the name is kept.
 
 @read teach
 And there is a sixth question, which is not a question about the strip.
@@ -59,14 +61,16 @@ The five questions describe a rhythm. They say nothing at all about whether that
 
 So: five questions for the strip, and then one look at the person. In that order, always, and never only the first five.
 
-[sister]"Treat the patient, not the monitor,"[/] Sister Maya says. [sister]"Everybody has heard it. Almost nobody does it at three in the morning, when the monitor is the thing that is awake and shouting."[/]
+[maya]"Treat the patient, not the monitor,"[/] Nurse Maya says. [maya]"Everybody has heard it. Almost nobody does it at three in the morning, when the monitor is the thing that is awake and shouting."[/]
 
 @read hush
 The five questions, one last time.
 
 @recall panch-prashna | Slowly, and then sleep.
 
-[ne_hush]यी पाँच प्रश्न हरेक रात फर्केर आउँछन्। आज याद गर्नु पर्दैन।[/]
+Laura has heard Maya do this part before. She stops anyway.
+
+[laura]"These five come back every single night,"[/] she says. [laura]"You do not have to learn them tonight. You could not stop learning them if you tried."[/]
 
 @tier medium
 
@@ -104,4 +108,5 @@ Treating ventricular tachycardia as though it were harmless is frequently not re
 
 So the two errors are not the same size, and when two answers are equally likely, you choose the one whose mistake you can survive.
 
-[ne]दुवै उत्तर सम्भव छन् भने, जुन गल्तीबाट बिरामी फर्किन सक्छ, त्यही रोज्नुहोस्।[/]
+@read warm
+When two answers are both possible, choose the mistake the patient can come back from.

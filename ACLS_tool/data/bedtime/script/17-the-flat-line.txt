@@ -2,9 +2,10 @@
 
 The rhythm everybody has seen on television, and almost nobody has been taught to check.
 
-The ward is at its lowest point, the hour when the body most wants to be asleep. Sister Maya makes tea for both of you and does not offer to talk about anything cheerful.
+The ward is at its lowest point, the hour when the body most wants to be asleep. Nurse Maya makes tea for both of you and does not offer to talk about anything cheerful.
 
-[ne]आजको कुरा अलि गह्रौं छ। तर यो जान्नै पर्ने कुरा हो।[/]
+@read hush
+Tonight's subject is a heavy one. It is also one of the ones you do not get to skip.
 
 @read teach
 Asystole. No electrical activity at all.
@@ -26,7 +27,7 @@ Have you looked in a second lead? A chaotic wavefront can be invisible from one 
 
 And is there truly no pulse, checked properly, at a central artery, for ten seconds and no longer?
 
-[sister]"Leads, gain, second lead, pulse,"[/] Sister Maya says. [sister]"Four things. Everybody skips at least two of them, and I have skipped all four."[/]
+[maya]"Leads, gain, second lead, pulse,"[/] Nurse Maya says. [maya]"Four things. Everybody skips at least two of them, and I have skipped all four."[/]
 
 @algo asystole
 Asystole is no electrical activity at all — a wandering line with no complexes, no P waves and nothing repeating anywhere. It is not a shockable rhythm and defibrillating it does nothing. But before you call it, four checks, out loud. Are the leads still on the patient? Is the gain turned up? Have you looked in a second lead? And is there really no pulse? Leads, gain, second lead, pulse. Because the one rhythm that looks like this and is not this is fine ventricular fibrillation, and that one is shockable.
@@ -48,7 +49,8 @@ So the treatment is high quality compressions, adrenaline as early as possible a
 
 The list is the four Hs and the four Ts, and the tool on your phone drills them properly. Tonight, one sentence about them. A patient in asystole who has a reversible cause has a chance, and a patient in asystole who does not has almost none, so the entire effort of the room goes into the question of which one this is.
 
-[ne]यो अवस्थामा कारण खोज्नु नै सबैभन्दा ठूलो उपचार हो।[/]
+@read warm
+Here, looking for the cause is not preparation for the treatment. It is the treatment.
 
 @read teach
 And one more thing, which is not on any algorithm and is the hardest part of the chapter.
@@ -57,7 +59,11 @@ Asystole after a prolonged arrest, with no reversible cause found, in a patient 
 
 That is a decision made by the person leading, with the team's agreement, and it is a medical decision rather than a technical one. But it is worth knowing tonight, quietly, that it exists — because the first time you are in that room, the silence when it happens is very loud, and it helps to have known in advance that it is a normal part of the work rather than a failure of it.
 
-[sister]"We are not failing when we stop,"[/] Sister Maya says. [sister]"We failed if we never started, or if we stopped early, or if we did not look for the cause. Stopping at the right time is part of doing it properly."[/]
+[maya]"We are not failing when we stop,"[/] Nurse Maya says. [maya]"We failed if we never started, or if we stopped early, or if we did not look for the cause. Stopping at the right time is part of doing it properly."[/]
+
+Doctor Ellis has been the person who said it, twice, and he does not sound as though it got easier the second time.
+
+[ellis]"You say the time out loud and everybody writes it down,"[/] he says. [ellis]"And then somebody has to be the one who thanks the room. Do that part. It matters more than you would think."[/]
 
 @read hush
 The four checks, one last time.
@@ -107,4 +113,5 @@ The four checks are not a ritual for its own sake. They exist because the cost o
 
 So you check, every time, and you say it out loud, every time, even when you are certain — especially when you are certain, because certainty at four in the morning is not evidence.
 
-[ne_hush]पक्का छु भन्ने लागेको बेला नै जाँच्नुहोस्। त्यही बेला गल्ती हुन्छ।[/]
+@read hush
+Check at the exact moment you feel certain. That is the moment the mistakes are made.

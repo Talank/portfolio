@@ -2,9 +2,10 @@
 
 There is a strip taped to the inside of the drug cupboard door. It has been there for years. Somebody, long ago, wrote on it in blue ballpoint, and the writing has gone soft where hands have brushed past it.
 
-Sister Maya opens the cupboard for something else entirely, sees you looking, and leaves the door open.
+Nurse Maya opens the cupboard for something else entirely, sees you looking, and leaves the door open.
 
-[ne]त्यो कागजमा अक्षरहरू लेखिएका छन्। आज ती अक्षर चिन्नुहुन्छ।[/]
+@read hush
+There are letters written on that paper. Tonight you learn to recognize them, and nothing more than that.
 
 @read teach
 One heartbeat, drawn on paper, is five marks. That is all. Five, and you have already met three of them, and tonight they get their names properly and their jobs.
@@ -34,7 +35,7 @@ R is any stroke that goes up. Any of them. If a complex goes up twice, the secon
 
 S is a downward stroke that comes after an R. So the same downward shape is a Q if it came before the upward stroke and an S if it came after it.
 
-[sister]"Q before, S after,"[/] Sister Maya says. [sister]"That is the whole naming system, and half the ward gets it wrong for a decade."[/]
+[maya]"Q before, S after,"[/] Nurse Maya says. [maya]"That is the whole naming system, and half the ward gets it wrong for a decade."[/]
 
 @read teach
 Which means something that surprises everybody. A QRS complex does not have to contain a Q, an R and an S. Most normal ones do not.
@@ -43,7 +44,8 @@ A complex that goes straight up and then down is an RS complex. One that dips fi
 
 The name QRS complex is simply the family name for the whole ventricular spike, whatever letters happen to be in it. When somebody says "the QRS", they mean the spike.
 
-[ne]नाम जे भए पनि, त्यो ठूलो चुच्चो नै QRS हो। यत्ति सम्झिए पुग्छ।[/]
+@read warm
+Whatever the pieces are called on any given strip, the big spike is the QRS. Remembering that much is enough.
 
 @read teach
 The third mark is the T wave.
@@ -56,7 +58,7 @@ A normal T wave is upright, and it is not symmetrical. It rises slowly and falls
 Five marks, in the order the current makes them. First the P wave, small and rounded, and that is the atria waking up. Then a short flat stretch, which is the AV node waiting. Then the QRS complex, tall and narrow, and that is the ventricles firing. Then another short flat stretch. Then the T wave, broad and soft, and that is the ventricles resetting. Inside the complex the letters are strict — Q is a downward stroke with nothing above the line before it, R is any upward stroke, and S is a downward stroke that follows an R. P for the atria. QRS for the ventricles. T for the reset.
 @end
 
-The cupboard door swings a little and Sister Maya pushes it back with her elbow.
+The cupboard door swings a little and Nurse Maya pushes it back with her elbow.
 
 @read hush
 Once more, slowly, and there is nothing to hold on to.
@@ -77,9 +79,10 @@ Where the QRS complex finishes and the flat stretch after it begins, there is a 
 
 It matters because everything that gets said about the ST segment — elevated, depressed, normal — is a statement about where the line sits just after that corner, compared with where the baseline sits. Find the corner and you have found the place the whole diagnosis of a heart attack is measured from.
 
-[sister]"When people miss a heart attack on a strip, they usually did not miss the elevation,"[/] she says. [sister]"They just never found the corner to measure it from."[/]
+[maya]"When people miss a heart attack on a strip, they usually did not miss the elevation,"[/] she says. [maya]"They just never found the corner to measure it from."[/]
 
-[ne]जे भन्नुहोस्, त्यो कुनाको नाम J point हो। पछि यसैको धेरै काम पर्छ।[/]
+@read warm
+That corner has a name. It is called the J point, and a long way from here it is going to matter a great deal.
 
 @read hush
 The five marks one last time, and then let the cupboard door close.
@@ -117,4 +120,4 @@ The convention is to use the TP segment — the flat run from the end of one T w
 
 When the heart is fast, the TP segment gets shorter and shorter, and eventually the T wave and the next P wave collide and there is no quiet moment left. That is one of several reasons why a very fast strip is a harder strip, and why the first thing anybody wants to do with a tachycardia is slow it down enough to look at it.
 
-[ne_hush]अब बत्ती निभाउनुहोस्। पाँच अक्षर आफैं याद हुन्छन्।[/]
+[laura]"Turn your light off,"[/] Laura says. [laura]"Five letters. They settle in by themselves overnight, I promise."[/]

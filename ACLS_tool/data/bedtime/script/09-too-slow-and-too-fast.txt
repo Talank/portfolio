@@ -2,9 +2,10 @@
 
 Two rhythms tonight, and they are the same rhythm. Only the rate has moved.
 
-There is a boy in bed five, about nineteen, who came off a motorbike and is being watched overnight for a head injury. He is asleep and his pulse is forty-six, and the monitor has been alarming about it, and Sister Maya has turned the alarm limit down rather than the patient up.
+There is a boy in bed five, about nineteen, who came off a motorbike and is being watched overnight for a head injury. He is asleep and his pulse is forty-six, and the monitor has been alarming about it, and Nurse Maya has turned the alarm limit down rather than the patient up.
 
-[ne]बिरामी ठीकै छ। मोनिटर मात्र आत्तिएको छ।[/]
+@read hush
+The patient is fine tonight. It is only the monitor that is frightened.
 
 @read teach
 Sinus bradycardia is normal sinus rhythm, slower than sixty.
@@ -13,7 +14,7 @@ Everything else about it is unchanged. One P wave before every QRS. All the P wa
 
 The only difference is that there is more flat paper between the beats. The parts are all present and all married; there is simply more waiting in between.
 
-[sister]"Sinus, but sleepy,"[/] Sister Maya says. [sister]"Everything is there. It just takes its time."[/]
+[maya]"Sinus, but sleepy,"[/] Nurse Maya says. [maya]"Everything is there. It just takes its time."[/]
 
 @read teach
 Sinus tachycardia is the same thing in the other direction. Normal sinus rhythm, faster than a hundred.
@@ -33,7 +34,8 @@ Sinus tachycardia has a reason. There is always one, and it is nearly always out
 
 Which means the treatment for sinus tachycardia is almost never aimed at the heart. Give fluid for the bleeding, oxygen for the hypoxia, pain relief for the pain, and the rate comes down on its own because the reason has gone.
 
-[ne]साइनस ट्याकीको कारण सधैं अन्तै हुन्छ। कारण हटाउनुहोस्, गति आफैं घट्छ।[/]
+@read warm
+The reason for a sinus tachycardia is always somewhere else. Take the reason away and the rate comes down by itself.
 
 @read teach
 Sinus bradycardia has reasons too, and the commonest ones are wonderfully boring.
@@ -60,7 +62,7 @@ A slow rate on its own is not an emergency and is not treated. A slow rate that 
 
 If a slow rate is producing any of those, the bradycardia algorithm opens and atropine is drawn up. If it is producing none of them, you watch, and you look for the cause, and you leave the heart alone.
 
-[sister]"Forty-six in a sleeping teenager is a fit heart,"[/] she says. [sister]"Forty-six in a grey seventy-year-old with a blood pressure of seventy is a different night entirely. Same number. The number is not the finding."[/]
+[maya]"Forty-six in a sleeping teenager is a fit heart,"[/] she says. [maya]"Forty-six in a grey seventy-year-old with a blood pressure of seventy is a different night entirely. Same number. The number is not the finding."[/]
 
 @read teach
 And there is a matching sentence on the fast side, which is even more important, because getting it wrong causes real harm.
@@ -71,7 +73,8 @@ The heart is going fast because the body needs it to go fast. Shocking it, or sl
 
 So before anybody reaches for the tachycardia algorithm, the first question is whether this is sinus tachycardia. If there is a P wave before every QRS and the rate is under about a hundred and fifty, it very probably is, and the algorithm is the wrong door.
 
-[ne]साइनस ट्याकीलाई शक कहिल्यै नदिनुहोस्। त्यो मुटुको गल्ती होइन।[/]
+@read warm
+Never shock a sinus tachycardia. It is not the heart making a mistake. It is the heart doing its job.
 
 @read hush
 The rule one last time, and then sleep.
@@ -114,4 +117,4 @@ That late beat is an escape beat, and it is the system rescuing itself. If it ca
 
 The reason this matters is that escape beats look abnormal and feel alarming, and the instinct is to suppress them. Suppressing an escape beat removes the only thing standing between the patient and no beat at all. It is one of the classic errors, and it is why the word escape is worth knowing.
 
-[ne_hush]ढिलो आउने त्यो बिटले बचाइरहेको हुन्छ। त्यसलाई नरोक्नुहोस्।[/]
+[laura]"That slow beat is carrying somebody,"[/] Laura says quietly, on her way past bed two. [laura]"Do not take it away from them."[/]

@@ -2,11 +2,12 @@
 
 Everything from here is rhythms, one family a night, and tonight is the one that all the others are measured against.
 
-Sister Maya finally opens the folder with the brittle rubber band. The strip on top is old, and the pink has faded almost to white, and somebody has written a date on it in the corner from before you were born.
+Nurse Maya finally opens the folder with the brittle rubber band. The strip on top is old, and the pink has faded almost to white, and somebody has written a date on it in the corner from before you were born.
 
-[sister]"This is the one I show everybody first,"[/] she says. [sister]"There is nothing wrong with this heart at all. That is the point of it."[/]
+[maya]"This is the one I show everybody first,"[/] she says. [maya]"There is nothing wrong with this heart at all. That is the point of it."[/]
 
-[ne]आज एउटा ठीक मुटु हेर्नुहुन्छ। बिग्रेको होइन, ठीक भएको।[/]
+@read hush
+Tonight you look at a heart that is well. Not a broken one. A well one, on purpose.
 
 @read teach
 The rhythm is called normal sinus rhythm, and the name is a sentence in disguise.
@@ -51,9 +52,10 @@ Because you cannot see that something is wrong until you know exactly what right
 
 If the reference is vague in your head, every departure from it is vague too. If the reference is exact, the departures announce themselves.
 
-[sister]"Learn the healthy strip until it is boring,"[/] Sister Maya says. [sister]"Boring is the whole point. Boring is what makes the wrong one jump off the page at you."[/]
+[maya]"Learn the healthy strip until it is boring,"[/] Nurse Maya says. [maya]"Boring is the whole point. Boring is what makes the wrong one jump off the page at you."[/]
 
-[ne]ठीक कस्तो हुन्छ भन्ने थाहा भएपछि मात्र बिग्रेको चिनिन्छ।[/]
+@read warm
+Only once you know what well looks like can you see what broken looks like.
 
 @read teach
 There is one more thing to take from tonight, and it is about the word normal.
@@ -106,4 +108,5 @@ An escape beat is a beat produced by a lower pacemaker because the one above it 
 
 Early means somewhere is being too keen. Late means somewhere above has gone quiet and something below has stepped in. An ectopic is a nuisance. An escape is a rescue, and suppressing it is one of the classic ways to do harm.
 
-[ne_hush]अगाडि आउने बिट उपद्रो हो। ढिलो आउने बिटले जोगाइरहेको हुन्छ।[/]
+@read hush
+A beat that arrives early is usually trouble. A beat that arrives late is usually holding somebody up.

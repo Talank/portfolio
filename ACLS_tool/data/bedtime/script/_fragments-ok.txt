@@ -1,8 +1,11 @@
 # Verbless sentences that are meant to have none.
 #
-# Almost empty on purpose. The shared linter's fragment rule is a Nepali rule —
-# a verbless Nepali clause read with silence on both sides lands as a sentence
-# that got cut off — and this voyage is mostly English, where a clipped phrase
-# is an ordinary beat and reads as deliberate. So the English half is held to a
+# Empty, and it should stay that way. The shared linter's fragment rule is a
+# Nepali rule — a verbless Nepali clause read with silence on both sides lands
+# as a sentence that got cut off — and this voyage is entirely English, where a
+# clipped phrase is an ordinary beat and reads as deliberate. So it is held to a
 # density budget instead of a per-sentence one (see fragment_density in
-# check_bedtime.py), and only the Nepali lines still need naming here.
+# check_bedtime.py) and nothing needs naming here one line at a time.
+#
+# The file itself stays because the engine opens it, and because an empty
+# exceptions list is a claim worth being able to see.

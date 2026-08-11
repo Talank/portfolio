@@ -6,15 +6,15 @@ chapter's method is recited at least three times inside the core tier — are th
 right checks here too. Its test for a predicate is not: it looks for Nepali verb
 endings, and would call every English sentence in this voyage a fragment.
 
-So `is_finite` is replaced with one that asks the question in whichever language
-the sentence is written in, and three checks that only this course needs are
-added on top:
+So `is_finite` is replaced with one that asks the question of an English
+sentence, and three checks that only this course needs are added on top:
 
-  * **Script purity.** A span read by the Nepali voice must be Devanagari and a
-    span read by the English voice must not be. Getting this wrong is not a
-    typo you can hear as a typo: an en-IN voice hands back *no audio at all* for
-    Devanagari, and a ne-NP voice reads a Latin sentence by guessing at the
-    spelling. Both fail quietly, hours into a render.
+  * **Script purity.** There must be no Devanagari anywhere, and no character
+    may speak in a voice the profile has not cast. This check used to be the
+    opposite of itself — it enforced that a `[ne]` span *was* Devanagari — and
+    inverting it is the load-bearing half of removing the Nepali. An en-US voice
+    hands back *no audio at all* for a Devanagari sentence: not an error, not a
+    stumble, silence, discovered hours into a render or, worse, by a listener.
 
   * **Unspelled acronyms.** Any capitalised run of letters the English voice
     will meet that acls_words.py does not know about. "SVT" said as a word is
@@ -212,8 +212,6 @@ def _english_is_finite(sent):
     return bool(words & VERBS)
 
 
-_orig_is_finite = C.is_finite
-
 # Words that can only open a subordinate clause. A verbless English sentence
 # beginning with one of these is the accident the check is looking for: a
 # clause that was meant to be attached to the sentence before it and lost its
@@ -236,17 +234,12 @@ def is_finite(sent):
     reading wants it: the short beat is what stops a chapter of explanation from
     sounding like a document.
 
-    So the English half of this voyage is judged two ways instead of one. A
-    verbless sentence that opens with a subordinator is reported here, always,
-    because that is what a dropped main clause looks like. Everything else is
-    allowed to pass one at a time and is counted instead — see fragment_density
-    below, which is the check that actually holds the prose to account.
-
-    The Nepali spans keep the strict rule unchanged. The reason it was written
-    still applies to them.
+    So this voyage is judged two ways instead of one. A verbless sentence that
+    opens with a subordinator is reported here, always, because that is what a
+    dropped main clause looks like. Everything else is allowed to pass one at a
+    time and is counted instead — see fragment_density below, which is the check
+    that actually holds the prose to account.
     """
-    if DEVANAGARI.search(sent):
-        return _orig_is_finite(sent)
     if _english_is_finite(sent):
         return True
     first = (_WORD.search(sent) or [""])[0].lower()
@@ -255,7 +248,7 @@ def is_finite(sent):
 
 C.is_finite = is_finite
 
-# Share of a chapter's English sentences that may be verbless before the
+# Share of a chapter's sentences that may be verbless before the
 # chapter stops reading like a story and starts reading like notes. Measured
 # against the chapters that were written before this check existed: the prologue
 # runs at 4%, the two teaching-heavy chapters at 9% and 11%, and a chapter that
@@ -274,7 +267,7 @@ def fragment_density(chapters):
         seen, frags, total = set(), [], 0
         for raw in ch["paras"]:
             for sent in B.split_sentences(B.strip_marks(raw)):
-                if DEVANAGARI.search(sent) or sent in seen:
+                if sent in seen:
                     continue
                 seen.add(sent)
                 total += 1
@@ -288,7 +281,13 @@ def fragment_density(chapters):
 # The checks that are only this course's
 # ---------------------------------------------------------------------------
 
-NE_STYLES = {"ne", "ne_hush", "ne_steady"}
+# Who is allowed to speak, and in what register. A span naming anything else is
+# either a character nobody cast or, more likely, a style renamed in the profile
+# and missed in one script out of twenty-six — which the engine would raise on,
+# but only once the build had got that far.
+CAST = {"maya", "laura", "ellis"}
+REGISTERS = {"narrator", "steady", "teach", "hush", "whisper", "aside", "warm",
+             "slow"}
 
 # Abbreviations the prose is not allowed to use, because a voice reading them
 # aloud is a coin toss. The replacement is always the same: write the words.
@@ -315,23 +314,11 @@ def script_checks(chapters):
         for spans in ch["spans"]:
             for text, style in spans:
                 base = style.partition(":")[0]
-                has_dev = bool(DEVANAGARI.search(text))
-                if base in NE_STYLES and not has_dev:
-                    problems.append((ch["file"], "no-nepali-in-ne-span", text))
-                if base in NE_STYLES:
-                    # Latin is allowed inside a Nepali line only where
-                    # acls_words.NE_TERMS knows how to respell it — anything
-                    # else reaches a Nepali voice as letters it cannot read.
-                    rest = acls_words.to_nepali_terms(text)
-                    stray = re.findall(r"[A-Za-z]{2,}", rest)
-                    if stray:
-                        problems.append((ch["file"], "untranslated-term",
-                                         ", ".join(sorted(set(stray)))
-                                         + "  in: " + text[:90]))
-                if base not in NE_STYLES and has_dev:
-                    problems.append((ch["file"], "devanagari-in-english", text))
-                if base in NE_STYLES:
-                    continue
+                if DEVANAGARI.search(text):
+                    problems.append((ch["file"], "devanagari", text))
+                if base not in CAST and base not in REGISTERS:
+                    problems.append((ch["file"], "uncast-voice",
+                                     base + "  in: " + text[:90]))
                 for m in BANNED_UNITS.finditer(text):
                     problems.append((ch["file"], "abbreviated-unit",
                                      m.group(0) + "  in: " + text[:90]))
@@ -388,12 +375,26 @@ def main():
               f"delete them or start using them:")
         print("  " + ", ".join(stale))
 
-    ne = sum(1 for ch in chapters for spans in ch["spans"]
-             for _, s in spans if s.partition(":")[0] in NE_STYLES)
+    # Who actually speaks, and how much. This used to report the share of spans
+    # that were Nepali; now that the whole voyage is English the interesting
+    # number is the cast, because a character nobody hears is a character who is
+    # not in the story however carefully they were voiced.
+    said = {}
+    for ch in chapters:
+        for spans in ch["spans"]:
+            for text, style in spans:
+                base = style.partition(":")[0]
+                if base in CAST:
+                    said[base] = said.get(base, 0) + 1
     total = sum(len(spans) for ch in chapters for spans in ch["spans"])
     if total:
-        print(f"\nlanguage mix: {ne} of {total} spans are Nepali "
-              f"({100.0 * ne / total:.0f}%).")
+        spoken = sum(said.values())
+        cast = ", ".join(f"{k} {v}" for k, v in sorted(
+            said.items(), key=lambda kv: -kv[1])) or "nobody"
+        print(f"\ncast: {cast} — {spoken} of {total} spans "
+              f"({100.0 * spoken / total:.0f}%) are somebody speaking.")
+        for name in sorted(CAST - set(said)):
+            print(f"  note: {name} is cast in the profile but never speaks")
     return rc
 
 

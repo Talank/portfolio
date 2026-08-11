@@ -2,9 +2,10 @@
 
 It has been raining since the evening, and the ward smells of wet concrete, which is the smell of every hospital corridor in the country in the monsoon. Somebody has put a bucket under the leak by the linen store, and it is filling one drip at a time.
 
-Sister Maya is doing the four o'clock observations. She works down the row, and she does not hurry, and she is done in eleven minutes.
+Nurse Maya is doing the four o'clock observations. She works down the row, and she does not hurry, and she is done in eleven minutes.
 
-[ne]आज तीनवटा नाप सिक्नुहुन्छ। तीन मात्र। धेरै होइन।[/]
+@read hush
+Tonight you learn three measurements. Three, and no more than three. That is not many.
 
 @read teach
 So far the strip has been shapes. Tonight it becomes numbers, and there are only three of them, and every one of them is measured across the page, which means every one of them is a length of time.
@@ -20,7 +21,8 @@ It should be between 0.12 and 0.20 seconds. In squares, which is how you will ac
 
 Three to five. If you remember nothing else about the PR interval tonight, remember three to five.
 
-[ne]पी आर तीनदेखि पाँच सानो घरसम्म हुनुपर्छ। यत्ति नै हो।[/]
+@read warm
+The PR should be three to five small squares. That is the whole of it.
 
 @read teach
 And what does it mean when it is wrong?
@@ -43,7 +45,7 @@ A narrow complex means the ventricles were lit up through the fast wiring. And t
 
 A wide complex means the signal did not use the wiring. Either it was born below the wiring, in the ventricular muscle itself, or it came from above and found the wiring broken. Either way, it had to crawl through muscle, and crawling is slow, and slow draws wide.
 
-[sister]"Narrow is from upstairs. Wide is from downstairs, or the stairs are broken,"[/] Sister Maya says. [sister]"You will use that sentence more than any other."[/]
+[maya]"Narrow is from upstairs. Wide is from downstairs, or the stairs are broken,"[/] Nurse Maya says. [maya]"You will use that sentence more than any other."[/]
 
 @read teach
 The third measurement is the QT interval.
@@ -79,7 +81,8 @@ Measure in the lead where the wave is widest, not where it is easiest. A QRS com
 
 On a twelve-lead, look across all of them and measure the widest one. On a monitor, be honest that you might be looking at a flattering view, and be slower to call something narrow than to call it wide.
 
-[ne]जुन लिडमा सबैभन्दा चौडा देखिन्छ, त्यहीँ नाप्नुहोस्। सजिलो लिडले झुक्याउँछ।[/]
+@read warm
+Measure in the lead where it looks widest. The easy lead will mislead you, and it will do it gently.
 
 @read hush
 Three numbers. One last time, and then sleep.
@@ -118,4 +121,5 @@ So the sensible habit is a split one. Read the numbers, and use them. Read the i
 
 And there is one specific trap. When the rhythm is irregular, the machine's rate is an average, and an average rate on an irregular rhythm can be a number the patient never actually had.
 
-[ne_hush]मेसिनको नाप राम्रो हुन्छ। तर उसको निष्कर्ष एउटा अनुमान मात्र हो।[/]
+@read hush
+The machine measures well. Trust the measuring. Its conclusion at the top of the page is only a guess.

@@ -2,9 +2,10 @@
 
 The second line of the poem, and the most satisfying rhythm to read in the whole course, because it is the one you can prove with a ruler.
 
-There is a strip on the counter that Sister Maya put there before her break and did not explain. It is from a man of sixty who was admitted with an inferior heart attack four hours ago, and his pulse has been dropping all evening.
+There is a strip on the counter that Nurse Maya put there before her break and did not explain. It is from a man of sixty who was admitted with an inferior heart attack four hours ago, and his pulse has been dropping all evening.
 
-[ne]आजको रिदममा एउटा ढाँचा छ। ढाँचा भेट्टाएपछि नाम आफैं आउँछ।[/]
+@read hush
+Tonight's rhythm has a pattern in it. Once you have found the pattern, the name arrives on its own.
 
 @read teach
 Second-degree AV block, Mobitz type one. Everybody calls it Wenckebach, after the Dutch physician who described it, and it is much easier to say.
@@ -24,7 +25,7 @@ And after the gap, the next PR interval is back to four small squares, and the w
 
 Longer, longer, longer, drop. Then it repeats.
 
-[sister]"That is the poem doing exactly what it says,"[/] she says. [sister]"It is not a memory aid. It is a description."[/]
+[maya]"That is the poem doing exactly what it says,"[/] she says. [maya]"It is not a memory aid. It is a description."[/]
 
 @read teach
 Now why does it do that? Because the AV node is getting tired, and tired tissue behaves in a very particular way.
@@ -55,7 +56,8 @@ Because the pattern repeats, the QRS complexes arrive in little clusters with a 
 
 That appearance is called group beating, and group beating is Wenckebach until you have proved otherwise. You can see it across a room.
 
-[ne]धड्कनहरू समूहमा आउँछन्, अनि एउटा खाली ठाउँ आउँछ। यही चिन्ह हो।[/]
+@read warm
+The beats come in little groups, and then there is a gap. The groups are the sign.
 
 @read teach
 And there is a detail that seems like a curiosity and is genuinely the most useful measurement in this rhythm.
@@ -75,7 +77,7 @@ So the complexes are narrow, and atropine usually works, and this rhythm rarely 
 
 And in the man in bed six, four hours after an inferior infarct? The artery that feeds the AV node has been blocked, the node is starved and misbehaving, and when the artery is opened the block will very probably go away.
 
-[sister]"Watch it, treat him if he becomes symptomatic, and do not panic,"[/] Sister Maya says. [sister]"This one usually mends itself."[/]
+[maya]"Watch it, treat him if he becomes symptomatic, and do not panic,"[/] Nurse Maya says. [maya]"This one usually mends itself."[/]
 
 @read hush
 The pattern, one last time.
@@ -123,4 +125,5 @@ If they march, and the shapes match, the atria are behaving and the problem is t
 
 One is a conduction problem. The other is the conduction system working correctly, protecting the ventricles from a premature beat, which is what it is for.
 
-[ne_hush]पी वेभहरू मार्च गर्नुहोस्। मिले भने ब्लक हो, नमिले भने ectopic हो।[/]
+@read hush
+March out the P waves. If they keep time, it is a block. If they do not, it is something firing off on its own.

@@ -4,9 +4,10 @@ The commonest sustained abnormal rhythm on earth, and the one you will see more 
 
 The lady in bed three has had it for fifteen years. She knows more about it than most of the junior doctors who look after her, and she takes her warfarin at six every evening and she has never missed a dose.
 
-[sister]"Ask her what her rhythm is,"[/] Sister Maya says. [sister]"She will tell you the rate, the target range for her blood test and the name of her cardiologist's secretary."[/]
+[maya]"Ask her what her rhythm is,"[/] Nurse Maya says. [maya]"She will tell you the rate, the target range for her blood test and the name of her cardiologist's secretary."[/]
 
-[ne]आजको रिदममा कुनै ढाँचा हुँदैन। कुनै पनि छैन।[/]
+@read hush
+Tonight's rhythm has no pattern in it anywhere. None at all. That is the finding.
 
 @read teach
 Atrial fibrillation. Run the five questions.
@@ -35,7 +36,7 @@ Impulses arrive at it constantly, from every direction, hundreds a minute. The n
 
 That is a random filter. And the output of a random filter is a completely irregular ventricular rhythm, which is exactly what you see.
 
-[sister]"The AV node is standing at a door in a crowd, letting people through whenever it can,"[/] Sister Maya says. [sister]"That is why the beats come when they come."[/]
+[maya]"The AV node is standing at a door in a crowd, letting people through whenever it can,"[/] Nurse Maya says. [maya]"That is why the beats come when they come."[/]
 
 @algo af
 Atrial fibrillation is recognised by two findings together, and it needs both. First, the rhythm is irregularly irregular — march it with a paper edge and there is no pattern in the mess at all. Second, there are no P waves anywhere, and the baseline between the complexes shivers instead of sitting flat. The QRS is narrow, because everything still comes down the normal road. And the rate can be anything, because the rate depends only on how much the AV node lets through. Irregularly irregular, and no P waves. That combination is atrial fibrillation, and nothing else is.
@@ -64,7 +65,8 @@ If one breaks loose it goes up the aorta and into the brain, and the patient has
 
 So the whole architecture of anticoagulation — the warfarin, the newer drugs, the risk scores, the yearly reviews — exists to prevent one event, and it is that one.
 
-[ne]यो रिदमको सबैभन्दा ठूलो खतरा मुटु होइन। दिमाग हो।[/]
+@read warm
+The worst thing this rhythm does is not to the heart. It is to the brain.
 
 @read teach
 One last thing before the ending, about the rate.
@@ -98,7 +100,7 @@ At a hundred and eighty, an irregular rhythm looks regular, because the gaps are
 
 Slow down and march properly. Two paper marks, slide along, four or five beats. Eight seconds of care, and you have separated the two commonest fast narrow rhythms in medicine.
 
-[sister]"Fast makes everything look regular,"[/] she says. [sister]"That is exactly when the marching matters."[/]
+[maya]"Fast makes everything look regular,"[/] she says. [maya]"That is exactly when the marching matters."[/]
 
 @tier long
 
@@ -116,4 +118,5 @@ Which changes the treatment completely. The answer is oxygen, treating the chest
 
 So the discipline is the one that this whole course keeps repeating. When you find an irregular narrow rhythm, do not stop at irregular. Ask the third question as well, and look for P waves. No P waves at all is atrial fibrillation. Three different P waves is something else entirely, and the something else lives in the lungs.
 
-[ne_hush]अनियमित देखेर नरोकिनुहोस्। पी वेभ छ कि छैन, त्यो पनि हेर्नुहोस्।[/]
+@read hush
+Do not stop at irregular. Ask whether there are any P waves as well, and then you have it.

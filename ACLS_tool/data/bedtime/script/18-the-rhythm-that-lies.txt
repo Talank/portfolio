@@ -2,11 +2,12 @@
 
 The last of the four arrest chapters, and the only one where the strip looks fine.
 
-Sister Maya tells this one properly, because it happened in this ward, on a Tuesday, to a woman who had been sitting up eating her lunch an hour earlier.
+Nurse Maya tells this one properly, because it happened in this ward, on a Tuesday, to a woman who had been sitting up eating her lunch an hour earlier.
 
-[sister]"The monitor was showing sinus rhythm at eighty-eight,"[/] she says. [sister]"A perfectly ordinary strip. And there was nothing at her wrist and nothing at her neck."[/]
+[maya]"The monitor was showing sinus rhythm at eighty-eight,"[/] she says. [maya]"A perfectly ordinary strip. And there was nothing at her wrist and nothing at her neck."[/]
 
-[ne]आजको रिदम हेर्दा ठीकै देखिन्छ। तर बिरामीको नाडी चल्दैन।[/]
+@read hush
+Tonight's rhythm looks well on the screen. The person it belongs to has no pulse.
 
 @read teach
 Pulseless electrical activity. Everybody calls it PEA, and the name is the definition.
@@ -22,7 +23,8 @@ The strip cannot diagnose this. Not by being read carefully, not by being read b
 
 That is why every rhythm check in a resuscitation is a rhythm check and a pulse check, and why the pulse check is central — the carotid or the femoral — and not at the wrist, where a low blood pressure hides everything.
 
-[ne]कागज हेरेर यो चिन्न सकिँदैन। बिरामी छुनु नै एउटा मात्र बाटो हो।[/]
+@read warm
+You cannot find this one on the paper. There is no substitute for putting your hand on the patient.
 
 @read teach
 Now, why does it happen? Because the answer is the treatment.
@@ -51,7 +53,13 @@ Nothing to pump covers the volume problems. There has been massive blood loss, o
 
 Something stopping the pump covers the obstructions. Blood or fluid has collected in the sac around the heart and is squeezing it from outside. Air is trapped in the chest under pressure, pushing everything to one side and kinking the great veins. Or a large clot sits in the lung, so nothing returns to the left side to be pumped.
 
-[sister]"Empty, or blocked,"[/] Sister Maya says. [sister]"Nine times in ten it is one of those two, and both of them are things you can actually do something about."[/]
+[maya]"Empty, or blocked,"[/] Nurse Maya says. [maya]"Nine times in ten it is one of those two, and both of them are things you can actually do something about."[/]
+
+Doctor Ellis has come to find a chart and has stopped instead.
+
+[ellis]"The first one of these I ran, I stood there reading the monitor,"[/] he says. [ellis]"For quite a long time. The rhythm was lovely. Somebody more senior than me put two fingers on the patient's neck and said the only useful sentence in the room."[/]
+
+[ellis]"You cannot diagnose this from the doorway,"[/] he says. [ellis]"Walk over and touch them."[/]
 
 @read teach
 And then the third group, which is the poisons and the numbers. The potassium is far too high or far too low. The body is far too cold. Something has been taken that stops the heart from contracting. There is a profound lack of oxygen, or the blood has turned severely acidotic.
@@ -65,7 +73,8 @@ While compressions continue, somebody looks. At the neck veins, at the trachea, 
 
 The compressions never stop for any of that.
 
-[ne]खोज्दै गर्नुहोस्, तर छाती थिच्न कहिल्यै नछाड्नुहोस्।[/]
+@read warm
+Go on searching for the cause. Do not stop pressing on the chest while you do it.
 
 @read hush
 The rhythm one last time.
@@ -105,4 +114,5 @@ Of the four arrest rhythms, two are shockable and two are not, and the two that 
 
 Ventricular fibrillation and pulseless ventricular tachycardia — the electricity is the problem, so electricity is the treatment. Asystole and PEA — the electricity is not the problem, so look elsewhere, and keep the blood moving while you look.
 
-[ne_hush]दुईमा बिजुली नै समस्या हो। दुईमा समस्या अन्तै छ। यत्ति फरक हो।[/]
+@read hush
+In two of the four, the electricity is the problem. In two of them the problem is somewhere else entirely. That is the whole difference, and it decides everything.

@@ -7,19 +7,22 @@ assume you can already do, taught slowly, in the dark, in the order a strip
 actually gives it up: paper, then waves, then intervals, then a method, then
 every rhythm the method has to survive, then a twelve-lead.
 
-**This voyage is in English, and that is the point.** The other two on this site
-are Nepali prose with the technical words respelled in Devanagari, which works
-for `HashMap` and for `garbage collection` because those are names of ideas the
-listener will meet again in writing. An ECG vocabulary is not like that. There
-is no Nepali for a QRS complex, the exam is in English, the handover is in
-English, and a listener who learns the sound "क्यू आर एस" without ever hearing an
-English voice say "QRS complex" has learned a syllable rather than a word. So
-the terms stay in English and an English voice says them.
+**This voyage is entirely in English, and that is the point.** The other two on
+this site are Nepali prose with the technical words respelled in Devanagari,
+which works for `HashMap` and for `garbage collection` because those are names
+of ideas the listener will meet again in writing. An ECG vocabulary is not like
+that. There is no Nepali for a QRS complex, the exam is in English, the handover
+is in English, and a listener who learns the sound "क्यू आर एस" without ever
+hearing an English voice say "QRS complex" has learned a syllable rather than a
+word.
 
-The Nepali does not disappear; it changes job. It is what the listener is told
-between the teaching — settle down, do not try to hold on to this, here is the
-one sentence that matters — and it is marked `[ne]…[/]` and read by a Nepali
-voice. Roughly one line in six. See STYLES below.
+The first edition kept one line in six in Nepali, read by a Nepali voice, for
+the lines that only settle the listener down. That is gone, on the user's
+instruction and for a good reason: a Nepali sentence in the middle of an English
+chapter is a switch of language *and* of accent, and both of them wake somebody
+who was nearly asleep. Everything is now English, written plainly enough for a
+listener whose first language is not English, and every voice on the ward is
+American — see the cast below.
 
 Like full_stack_java, this is a *course profile* and not an engine. The two
 listening modes, the three cumulative lengths, the sentence-per-clip bedtime
@@ -35,7 +38,7 @@ voyages:
     a full stop, and a bedtime read that never breaks a sentence is one enormous
     clip per paragraph with no pauses in it at all.
   * `to_speakable` — the engine respells English *into* Devanagari. Here it must
-    do almost the opposite, and only for the Nepali spans.
+    not touch the text at all except to space out the acronyms.
   * `_ends_sentence` — the engine asks this before deciding whether a pause is a
     stop or a hand-off, and it has never seen a full stop either.
 
@@ -91,43 +94,70 @@ E.INDEX_PATH = os.path.join(E.PARTS_DIR, "_index.json")
 
 E.TITLE = "The Quiet Monitor"
 E.SUBTITLE = "ACLS — Reading the ECG at night"
-E.MONOLITH_NAME = "acls-nidra-full"
+E.MONOLITH_NAME = "acls-quiet-monitor-full"   # nidra is Nepali; nothing here is
+E.CHAPTERS_HEADING = "Chapter list"      # the engine's default is Nepali
 
 # ---------------------------------------------------------------------------
 # The voices
 # ---------------------------------------------------------------------------
 #
-# Two languages means two engines; there is no voice on this service that reads
-# both scripts well. Measured, on one paragraph of English and one of Nepali:
-# the en-IN and en-US voices return *no audio at all* for Devanagari, and the
-# ne-NP voices read a Latin sentence twenty per cent faster than an English
-# voice reads the same words, which is what a voice sounds like when it is
-# guessing at spelling rather than saying words.
+# Everyone on this ward is American, and every one of them was chosen by
+# measurement rather than by reading the marketing adjectives. The two numbers
+# that matter for a story somebody listens to while falling asleep are the
+# median fundamental — how low the voice sits — and the ratio of its 95th
+# percentile to that median, which is how far it leaps when it gets interested.
+# A voice with a calm median and a wide spread is a voice that will suddenly
+# raise itself at three in the morning, and the listener will be awake and will
+# not know why. Measured on one paragraph of this script, at this rate:
 #
-# So: Prabhat narrates, and Sagar says the Nepali. Both male, close in register,
-# on purpose — this should sound like one person who slips into Nepali when he
-# wants you to actually rest, not like two presenters taking turns.
+#     en-IN-Prabhat (the old narrator)  118 Hz   1.64x     en-US-Guy    148 Hz
+#     en-US-Christopher                 105 Hz   1.55x     en-US-Roger  135 Hz
+#     en-US-Eric                        102 Hz   1.60x     en-US-Andrew 107 Hz  1.84x
+#     en-US-Brian                       117 Hz   1.32x     en-IN-Neerja 239 Hz
+#     en-US-Jenny                       175 Hz   1.55x     en-US-Aria   198 Hz
+#     en-US-Michelle                    176 Hz   1.56x
 #
-# Slower and lower than this course's other pages, for the usual reason: it is
-# competing with sleep. -18% rather than the Nepali voyages' -22%, because
-# English at -22% on this voice starts to sound laboured rather than calm.
-E.VOICE = "en-IN-PrabhatNeural"
-E.RATE = "-18%"
+# Christopher narrates: thirteen hertz below the voice he replaces, a slightly
+# narrower spread, and a voice the service classifies for novels rather than for
+# conversation, which is what thirteen hours of prose asks for. Andrew is warmer
+# and was the obvious pick until the spread came back at 1.84 — the widest of
+# the whole set, and disqualifying here for exactly the reason above.
+#
+# Rate needed recalibrating and this is the part that is easy to get wrong. The
+# pace of this voyage was tuned by ear and approved; the American voices are
+# simply quicker at the same setting, so keeping -18% would have sped the whole
+# story up without anybody choosing to. Measured in words per minute on the same
+# sentence: Prabhat at -18% reads 123, Christopher at -18% reads 149. -32% puts
+# Christopher back on 123. The drive mode is the same arithmetic from -4% to
+# -21%, which preserves its 144.
+E.VOICE = "en-US-ChristopherNeural"
+E.RATE = "-32%"
 E.PITCH = "-4Hz"
 E.VOLUME = "-12%"
 
-NE_VOICE = "ne-NP-SagarNeural"
-# The teaching voice in the story: the senior nurse who has read ten thousand
-# strips. A second actor rather than a shading of the narrator, which the engine
-# normally refuses — but half asleep, a female voice is instantly separable from
-# the narrator's, and this course has more dialogue than the other two because
-# nearly every chapter is somebody being shown something.
-SISTER_VOICE = "en-IN-NeerjaNeural"
-NE_SISTER_VOICE = "ne-NP-HemkalaNeural"
+# The cast, in the order the listener meets them.
+#
+# Nurse Maya — the senior nurse, eleven years of night shifts, and the person
+# who does nearly all of the teaching. A separate actor rather than a shading of
+# the narrator, which the engine normally refuses: half asleep, a woman's voice
+# is instantly separable from the narrator's, and almost every chapter of this
+# course is somebody being shown something. Jenny is 64 Hz below the voice she
+# replaces, which is most of what "do not startle anybody" means here.
+MAYA_VOICE = "en-US-JennyNeural"
+# Nurse Laura — the other nurse on the shift, and the one who ends the night.
+# Her lines were the Nepali sign-offs in the first edition: stop working, this
+# will still be here tomorrow, go to sleep. Those were always a person talking
+# rather than narration, so now they are one.
+LAURA_VOICE = "en-US-MichelleNeural"
+# Dr. Ellis — the resident, who appears when a monitor changes and somebody has
+# to decide something. Brian has the narrowest pitch spread of every voice
+# measured, 1.32x, so the one character who turns up in the frightening chapters
+# is the one least able to startle anybody.
+ELLIS_VOICE = "en-US-BrianNeural"
 
 E.MODE_PROFILE["bedtime"].update(rate=E.RATE, pitch=E.PITCH, volume=E.VOLUME,
                                  space_lists=False)
-E.MODE_PROFILE["drive"].update(rate="-4%", pitch="+0Hz", volume="+0%")
+E.MODE_PROFILE["drive"].update(rate="-21%", pitch="+0Hz", volume="+0%")
 
 # The engine's mode and tier labels are Nepali, with an English label_en beside
 # them; every other voyage shows the Nepali one. This page is English, so the
@@ -136,39 +166,44 @@ E.MODE_PROFILE["bedtime"]["label"] = E.MODE_PROFILE["bedtime"]["label_en"]
 E.MODE_PROFILE["drive"]["label"] = E.MODE_PROFILE["drive"]["label_en"]
 E.TIER_LABELS = dict(E.TIER_LABELS_EN)
 
-# The cast, added to the engine's registers. `steady` and `teach` and the rest
-# of the delivery marks are the engine's and are used unchanged; the One Piece
-# crew is left in place and simply never referenced by these scripts.
+# The cast, added to the engine's registers. `steady`, `teach`, `hush` and the
+# rest of the delivery marks are the engine's and are used unchanged; the One
+# Piece crew is left in place and simply never referenced by these scripts.
+#
+# Every rate here is an offset in percentage points from the mode's own rate, so
+# `+2.0` on Maya means she reads at -30% while the narrator reads at -32%. The
+# offsets are small on purpose. The characters are separated by *who they are* —
+# three different people, measured 60 Hz apart — and not by being pitched and
+# stretched away from each other, which is what makes a cast sound like one
+# person doing voices.
 E.STYLES.update({
-    # A Nepali line. The voice change is the whole style — no rate or pitch
-    # offset, because Sagar is already a different person and shading him as
-    # well would make the switch theatrical.
-    "ne":      {"voice": NE_VOICE},
-    # The same, said quietly, for the lines that are only there to settle
-    # somebody down.
-    "ne_hush": {"voice": NE_VOICE, "rate": -6.0, "pitch": -3.0, "gain": -3.5},
-    # A Nepali line inside a method block: still the one recording every time.
-    "ne_steady": {"voice": NE_VOICE, "steady": True},
-    # The senior nurse, in each of her two languages. She teaches in English
-    # because the terms are English; she reassures in Nepali because that is
-    # what anybody does at four in the morning.
-    "sister":  {"voice": SISTER_VOICE, "rate": -2.0, "gain": +0.5},
-    "ne_sister": {"voice": NE_SISTER_VOICE, "rate": -2.0, "gain": +0.5},
-    # The registrar, and the patient's own voice on the rare occasion there is
-    # one. Shadings of the narrator, as the engine intends.
-    "doc":     {"rate": -3.0, "pitch": -6.0, "gain": +0.5},
-    "patient": {"rate": -8.0, "pitch": -2.0, "gain": -4.0},
+    # Nurse Maya. Two percentage points quicker than the narrator because she is
+    # answering a question rather than telling a story, and half a decibel up
+    # because she is the one saying the thing worth hearing.
+    "maya":  {"voice": MAYA_VOICE, "rate": +2.0, "gain": +0.5},
+    # Nurse Laura, who only ever appears to say that it is time to stop. Slower
+    # than the narrator, a little lower, and quieter: she is the last voice in a
+    # chapter and should be the softest thing in it.
+    "laura": {"voice": LAURA_VOICE, "rate": -2.0, "pitch": -1.0, "gain": -1.5},
+    # Dr. Ellis. Flat, unhurried, faintly bored — the register of somebody who
+    # has done this before and is not going to raise their voice about it.
+    "ellis": {"voice": ELLIS_VOICE, "rate": -1.0, "pitch": -2.0, "gain": +0.5},
 })
+# There is deliberately no `patient` register. The first edition defined one and
+# no chapter ever used it, which the linter now reports as a cast member who
+# never speaks. The patient in bed four sleeps through all twenty-six nights;
+# that is the point of the ward being quiet, and a voice nobody hears is not a
+# character, it is an unused variable with a name.
 
 # ---------------------------------------------------------------------------
 # Sentences
 # ---------------------------------------------------------------------------
 #
-# The engine splits on `।`, which appears in this script only inside the Nepali
-# spans. Everything else ends in a full stop, and the bedtime read *is* the
-# split: one clip per sentence, with a measured silence after it. Without this
-# the whole paragraph is one clip, read at conversational pace, with no pauses
-# anywhere in it — which is exactly the reading this voyage exists to avoid.
+# The engine splits on `।`, which no longer appears in this script at all. Every
+# sentence here ends in a full stop, and the bedtime read *is* the split: one
+# clip per sentence, with a measured silence after it. Without this the whole
+# paragraph is one clip, read at conversational pace, with no pauses anywhere in
+# it — which is exactly the reading this voyage exists to avoid.
 #
 # Written as four alternatives rather than one because Python's lookbehind has
 # to be fixed width, and "ends in a full stop" and "ends in a full stop inside a
@@ -179,10 +214,9 @@ E.STYLES.update({
 # scripts have none, and the obvious guard (`(?<![A-Z]\.)`) would refuse to split
 # after any sentence ending in an acronym, which is a sentence this course writes
 # constantly.
-_NEXT = r'(?=[A-Z"“(\[ऀ-ॿ])'
+_NEXT = r'(?=[A-Z"“(\[])'
 _SENT_SPLIT = re.compile(
-    r'(?<=[।?!…])\s+'
-    r'|(?<=[.?!…])\s+' + _NEXT +
+    r'(?<=[.?!…])\s+' + _NEXT +
     r'|(?<=[.?!…]")\s+' + _NEXT +
     r'|(?<=[.?!…]”)\s+' + _NEXT
 )
@@ -200,7 +234,7 @@ def split_sentences(para):
 
 
 def _ends_sentence(text):
-    return text.rstrip().rstrip(E._CLOSERS)[-1:] in "।?!….“"
+    return text.rstrip().rstrip(E._CLOSERS)[-1:] in "?!….“"
 
 
 E.split_sentences = split_sentences
@@ -210,24 +244,19 @@ E._ends_sentence = _ends_sentence
 # Pronunciation
 # ---------------------------------------------------------------------------
 #
-# Two paths, chosen by script, because the two voices need opposite treatment.
-# A Latin line is going to an English engine and must not be touched by
-# ne_pronounce at all; a Devanagari line is going to a Nepali engine and needs
-# exactly what the other two voyages do to it.
+# The engine's own to_speakable respells English terms *into* Devanagari for a
+# Nepali voice. There is no Nepali voice here any more, so that whole path is
+# unreachable and this replaces rather than wraps it: an English line goes to an
+# English engine, and the only thing done to it is spacing out the acronyms so
+# that "SVT" is three letters rather than a word.
 #
-# The engine's own to_speakable is what handles the Nepali side — including the
-# single-letter pass that turns a stray "P" into "पी", which is why NE_TERMS in
-# acls_words.py only has to carry the multi-word terms.
-_DEVANAGARI = re.compile(r"[ऀ-ॿ]")
-_engine_to_speakable = E.to_speakable
-
-
+# The Devanagari guard that used to stand here is gone with the Nepali. What
+# replaces it is a check in check_bedtime.py that there is no Devanagari left
+# anywhere — an assertion about the whole script rather than a branch taken one
+# line at a time.
 def to_speakable(text, space_lists=True):
-    if _DEVANAGARI.search(text):
-        return _engine_to_speakable(acls_words.to_nepali_terms(text),
-                                    space_lists=space_lists)
     text = acls_words.to_spoken(text)
-    # Beats are the engine's, and are punctuation in either language.
+    # Beats are the engine's, and are punctuation.
     for mark, punct in E.BEATS.items():
         text = text.replace(mark, punct)
     return re.sub(r"\s{2,}", " ", text).strip()

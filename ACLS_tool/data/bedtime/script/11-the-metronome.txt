@@ -2,11 +2,12 @@
 
 The first of the fast narrow rhythms, and the one that arrives in the emergency department on a Saturday night in a perfectly well young person who is very frightened.
 
-There is nobody like that in the ward tonight. Sister Maya describes one instead, from memory, and she describes the same one every time, because it happened to her in her second year and she has never forgotten it.
+There is nobody like that in the ward tonight. Nurse Maya describes one instead, from memory, and she describes the same one every time, because it happened to her in her second year and she has never forgotten it.
 
-[sister]"A girl of twenty-two. Walked in. Said her heart had gone funny while she was washing her hair. Pulse of a hundred and ninety and she was apologising for wasting our time."[/]
+[maya]"A girl of twenty-two. Walked in. Said her heart had gone funny while she was washing her hair. Pulse of a hundred and ninety and she was apologising for wasting our time."[/]
 
-[ne]आज एउटा छिटो तर नियमित रिदमको कुरा हो। यसमा पी वेभ देखिँदैन।[/]
+@read hush
+Tonight is about a rhythm that is fast and perfectly regular. In this one you will not find the P waves.
 
 @read teach
 The rhythm is supraventricular tachycardia, and everybody calls it SVT.
@@ -33,7 +34,7 @@ In most cases the current has found a circle. There are two pathways through or 
 
 Round and round. Each lap sends a signal down into the ventricles, so the ventricles beat once per lap, and the laps are all exactly the same length — which is why the rhythm is a metronome.
 
-[sister]"It is not the heart racing,"[/] Sister Maya says. [sister]"It is one electrical impulse that got lost and cannot find the way out."[/]
+[maya]"It is not the heart racing,"[/] Nurse Maya says. [maya]"It is one electrical impulse that got lost and cannot find the way out."[/]
 
 @read teach
 And that picture tells you the treatment without any memorising at all.
@@ -46,7 +47,7 @@ That is what a vagal manoeuvre does, and what adenosine does. Neither of them is
 Supraventricular tachycardia is fast, narrow, regular and featureless. The rate is a hundred and fifty to two hundred and fifty, most often around a hundred and eighty. The rhythm is regular with no wander in it at all, like a metronome. The P waves cannot be seen because they are buried in the complex or in the T wave. The QRS is narrow, so the rhythm was born above the ventricles. And because the circuit runs through the AV node, blocking that node briefly stops it. Fast and narrow and perfectly regular, with no P waves. Block the node and the circle breaks.
 @end
 
-Sister Maya puts her shoes back on. It is nearly four.
+Nurse Maya puts her shoes back on. It is nearly four.
 
 @read hush
 Once more, and then the ending of the story.
@@ -69,12 +70,13 @@ The patient feels that. They describe it as a wave of doom, a crushing chest pre
 
 Telling them beforehand costs ten seconds and changes the experience entirely. Not telling them is a small cruelty that happens every day.
 
-[ne]एडेनोसिन दिनुअघि बिरामीलाई भन्नुहोस्। केही सेकेन्ड धेरै नराम्रो लाग्छ, अनि ठीक हुन्छ।[/]
+@read warm
+Tell the patient before you give adenosine. It feels terrible for a few seconds, and then it stops.
 
 @read teach
 And the girl of twenty-two? She bore down, nothing happened, she had six milligrams of adenosine, she said afterwards that it was the worst three seconds of her life, and she went home the same night with a normal heart.
 
-[sister]"She sent a card,"[/] Sister Maya says. [sister]"Nobody sends cards. I still have it."[/]
+[maya]"She sent a card,"[/] Nurse Maya says. [maya]"Nobody sends cards. I still have it."[/]
 
 @read hush
 The rhythm one last time, and then sleep.
@@ -99,7 +101,7 @@ If it is atrial flutter, the AV node closes for a few seconds, and the ventricle
 
 Not treated. But diagnosed, completely, in about eight seconds.
 
-[sister]"It either cures them or it shows you what you are dealing with,"[/] she says. [sister]"There is no version where you learn nothing."[/]
+[maya]"It either cures them or it shows you what you are dealing with,"[/] she says. [maya]"There is no version where you learn nothing."[/]
 
 @tier long
 
@@ -122,4 +124,4 @@ And here is why it matters tonight. The drugs that block the AV node — adenosi
 
 You do not need to be able to diagnose this at speed. You need one recognition, and it is a shape rather than a name. A tachycardia that is fast and irregular and wide, especially in a young patient, is not a rhythm to reach for the usual drugs on. It is a rhythm to call for help on and, if the patient is unstable, to shock.
 
-[ne_hush]छिटो, अनियमित र चौडा — यो तीनवटा सँगै भयो भने, आफैं औषधि नछान्नुहोस्।[/]
+[laura]"Fast, irregular and wide, all three together,"[/] Laura says. [laura]"That is the one where you call somebody. Not the one where you pick a drug."[/]

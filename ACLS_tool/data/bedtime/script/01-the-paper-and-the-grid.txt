@@ -1,14 +1,15 @@
 # 1 — The Paper and the Grid
 
-The machine in the corner of the ward has been printing for four seconds, and now it stops. Sister Maya tears the strip off along the serrated edge, the way you tear a page from a diary, and lays it flat on the counter under the lamp.
+The machine in the corner of the ward has been printing for four seconds, and now it stops. Nurse Maya tears the strip off along the serrated edge, the way you tear a page from a diary, and lays it flat on the counter under the lamp.
 
-[ne]आज राति एउटा कागज हेर्नुहुन्छ। त्यो कागजमा सानो सानो घर बनेका छन्।[/]
+@read hush
+Tonight you are going to look at a piece of paper. It has small squares printed all over it, and that is nearly the whole lesson.
 
 It is pink. Or orange, depending on the paper the store sent that month, and nobody has ever cared. What matters is what is printed on it, underneath the black line, and it is there on every ECG in every hospital on earth.
 
 Squares. Small squares run in a fine grid, all the way across and all the way up. And then, every fifth line in both directions, a heavier darker line, so the small squares are gathered into big squares of five by five.
 
-[sister]"Everybody looks at the black line,"[/] Sister Maya says. [sister]"The black line is the easy part. The squares are the part that makes the black line mean something."[/]
+[maya]"Everybody looks at the black line,"[/] Nurse Maya says. [maya]"The black line is the easy part. The squares are the part that makes the black line mean something."[/]
 
 @read teach
 Last night you were given two directions. Across the page is time, and up the page is size. Tonight those two directions get their numbers, and after tonight you can measure anything on a strip with nothing but your eyes.
@@ -26,7 +27,8 @@ A big square is five small squares. Five times four hundredths is twenty hundred
 
 And five big squares, therefore, is one full second. Put your fingertip on the paper and cover five big squares, and you are covering exactly one second of that person's life.
 
-[ne]पाँचवटा ठूलो घर भनेको एक सेकेन्ड हो। यत्ति नै समात्नुहोस्।[/]
+@read warm
+Five large squares are one second. That is the only number to hold on to tonight.
 
 That is across. Now we go up.
 
@@ -42,7 +44,7 @@ It is a small rectangle. The pen jumps straight up, holds, and comes straight ba
 
 If that rectangle stands ten small squares tall, the strip you are holding is at standard gain and every height on it can be trusted. If it stands five squares tall, somebody has halved the gain — usually because the complexes were so big they were running off the paper — and every height on that strip is half of what it should look like. If you do not check, you will call a normal heart small and a huge one normal.
 
-[sister]"That little box at the front is the machine signing its own name,"[/] she says. [sister]"Read the signature before you read the letter."[/]
+[maya]"That little box at the front is the machine signing its own name,"[/] she says. [maya]"Read the signature before you read the letter."[/]
 
 @algo grid
 The grid is three numbers and one habit. Across the page, one small square is 0.04 seconds, and one big square of five is 0.20 seconds, so five big squares make one whole second. Up the page, one small square is one tenth of a millivolt, and one big square is half a millivolt. And the habit is this — before you measure anything at all, look at the calibration rectangle at the start of the strip and check that it stands ten small squares tall. A small square is four hundredths. A big square is two tenths. And the rectangle stands ten squares tall for one millivolt.
@@ -55,15 +57,16 @@ Listen to the three numbers again, and do not try to hold them. They will still 
 
 @recall grid
 
-Sister Maya slides the strip a little further under the lamp and puts one finger on it.
+Nurse Maya slides the strip a little further under the lamp and puts one finger on it.
 
-[sister]"Count with me. One, two, three, four, five big squares. That is one second. Now how many beats did the heart fit into it?"[/]
+[maya]"Count with me. One, two, three, four, five big squares. That is one second. Now how many beats did the heart fit into it?"[/]
 
 You look. There is one tall spike in that second, and the beginning of a second one.
 
-[sister]"So that is somewhere around sixty a minute. You just measured a heart rate with your finger, and you have not learned a single formula yet."[/]
+[maya]"So that is somewhere around sixty a minute. You just measured a heart rate with your finger, and you have not learned a single formula yet."[/]
 
-[ne]देख्नुभयो? कुनै हिसाब गर्नु परेन। घर गन्नु मात्र पर्‍यो।[/]
+@read warm
+Notice what you did not do there. You did no arithmetic. You counted squares.
 
 @read hush
 The three numbers, one last time tonight.
@@ -86,7 +89,7 @@ The second is gain, and you have already met it as the calibration rectangle. Ha
 
 So the ritual, before anything else, is two glances. Bottom edge for the speed and the gain. Front of the strip for the rectangle. Then read.
 
-[sister]"Speed and size,"[/] Sister Maya says. [sister]"If either of those is not what you assumed, you are reading a different heart."[/]
+[maya]"Speed and size,"[/] Nurse Maya says. [maya]"If either of those is not what you assumed, you are reading a different heart."[/]
 
 @tier long
 
@@ -104,4 +107,6 @@ The last practical note is about measuring when you have no calipers, which is m
 
 The edge of another strip of paper works perfectly. Lay it along the tracing, make a small pencil mark at the start and the end of whatever you are measuring, then slide that paper edge along the grid and count the squares underneath your two marks. It is more accurate than any eye, and every cardiologist you will ever meet does exactly this.
 
-[ne_hush]अब सुत्ने बेला भयो। घरहरू भोलि पनि त्यहीँ हुन्छन्।[/]
+Laura goes past with two charts under her arm and does not slow down much.
+
+[laura]"Time to sleep,"[/] she says. [laura]"The squares will still be there in the morning."[/]

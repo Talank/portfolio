@@ -2,9 +2,10 @@
 
 The last night. Nothing new, and three strips read out loud from beginning to end, the way you will read them for the rest of your working life.
 
-Sister Maya has the folder and the rubber band has finally snapped, so she is holding it together with her hand. She puts three strips on the counter, side by side, and says nothing at all.
+Nurse Maya has the folder and the rubber band has finally snapped, so she is holding it together with her hand. She puts three strips on the counter, side by side, and says nothing at all.
 
-[ne]आज केही नयाँ छैन। आज तीनवटा कागज पढ्नुहुन्छ, सुरुदेखि अन्तसम्म।[/]
+@read hush
+There is nothing new tonight. Tonight you read three strips, from the beginning of each one to the end of it.
 
 @read teach
 Before the three, the whole method in one place, because you have earned it and because it fits in a paragraph now.
@@ -42,7 +43,7 @@ Every P wave gets through and each one takes too long. If the R is far from P, t
 
 And the sixth thing — what does the patient look like? He is a fifty-year-old man having a routine check for insurance, and he feels perfectly well, and this needs nothing at all except a note in his file.
 
-[sister]"First-degree block,"[/] Sister Maya says. [sister]"You did not recognise it. You proved it. That is the difference."[/]
+[maya]"First-degree block,"[/] Nurse Maya says. [maya]"You did not recognise it. You proved it. That is the difference."[/]
 
 @read teach
 Take the second strip.
@@ -66,7 +67,8 @@ Irregularly irregular with no P waves is atrial fibrillation, and nothing else i
 
 And the patient is a woman of seventy-eight who was admitted this evening feeling faint, and her pulse at the wrist is a hundred and ten, which is slower than the complexes on the strip — because some of those beats are too weak to reach the wrist at all.
 
-[ne]मोनिटरमा एक सय तीस देखिन्छ, तर नाडीमा एक सय दस मात्र आउँछ। केही धड्कन कमजोर छन्।[/]
+@read warm
+The monitor says one hundred and thirty. The wrist gives back one hundred and ten. Some of those beats are too weak to reach that far.
 
 @read teach
 The third strip, and it is the one that matters.
@@ -92,7 +94,7 @@ This is atrial flutter, conducting two to one, with an atrial rate of three hund
 
 And this is the one where the five questions earned their keep, because at a glance this strip is an SVT and it will be called an SVT by most people who look at it quickly. Regular, narrow, a hundred and fifty. The only thing that separated them was the fourth look at the baseline, and you only took it because the order made you.
 
-[sister]"A hundred and fifty and regular,"[/] she says. [sister]"Every time you see that number, look for the sawtooth. Every time."[/]
+[maya]"A hundred and fifty and regular,"[/] she says. [maya]"Every time you see that number, look for the sawtooth. Every time."[/]
 
 @read hush
 Hear the whole method once more.
@@ -106,14 +108,15 @@ Twenty-six nights, and everything in them was built on two sentences from the ve
 
 Everything after that was a way of using those two directions carefully, in the same order, every time.
 
-[ne]सुरुका दुई वाक्यबाट सुरु भयो, र तिनैमा सकियो। समय दायाँबायाँ नापिन्छ, र आकार माथितल नापिन्छ।[/]
+@read warm
+It began with two sentences and it ends with the same two. Time is measured across. Size is measured up.
 
 @read teach
-There is one last thing to say, and Sister Maya says it, and it is not about strips.
+There is one last thing to say, and Nurse Maya says it, and it is not about strips.
 
-[sister]"You will be wrong sometimes,"[/] she says. [sister]"Everybody is. I have called flutter an SVT in front of a consultant and I have called artifact a rhythm and stopped compressions for it, and I have been in the room when it went badly and could not tell you afterwards what the monitor had been showing."[/]
+[maya]"You will be wrong sometimes,"[/] she says. [maya]"Everybody is. I have called flutter an SVT in front of a consultant and I have called artifact a rhythm and stopped compressions for it, and I have been in the room when it went badly and could not tell you afterwards what the monitor had been showing."[/]
 
-[sister]"What matters is that you have a method, and that you use it when you are frightened, because that is the only time it is actually worth anything. Anybody can read a strip in the daylight with a cup of tea."[/]
+[maya]"What matters is that you have a method, and that you use it when you are frightened, because that is the only time it is actually worth anything. Anybody can read a strip in the daylight with a cup of tea."[/]
 
 The window at the far end is going grey. The night is over.
 
@@ -122,7 +125,9 @@ The five questions, one last time, and then you can sleep properly.
 
 @recall sabai | Listen very slowly, and then goodnight.
 
-[ne_hush]अब सुत्नुहोस्। यी पाँच प्रश्न अब तपाईंका आफ्नै भएका छन्।[/]
+Maya rinses the cup she never drank from and sets it upside down on the draining board.
+
+[maya]"Those five questions are yours now,"[/] she says. [maya]"I did not give them to you. You built them, one night at a time."[/]
 
 @tier medium
 
@@ -138,7 +143,7 @@ So the practical suggestion is small and it is the only homework in the whole co
 
 Every time you walk past a monitor, run the five questions on it. Silently, in your head, in about ten seconds. Rate, rhythm, P waves, PR, QRS. You do not have to be right and nobody has to know you did it.
 
-Twenty a day is six hundred a month. By the end of a year, the answer will start arriving before you have finished asking, which is what Sister Maya described on the very first night as a habit rather than a talent.
+Twenty a day is six hundred a month. By the end of a year, the answer will start arriving before you have finished asking, which is what Nurse Maya described on the very first night as a habit rather than a talent.
 
 @read teach
 And keep the drill tab on your phone open on the bus. The strips in it are the ones that are deliberately similar to each other, which is the only kind of practice that improves anything.
@@ -163,8 +168,10 @@ And a rhythm on a screen is not a patient, so before you believe any of the four
 @read teach
 The corridor light comes on at the far end and the day staff start arriving. Somewhere down the ward a kettle is filling.
 
-Sister Maya puts the folder back in the cupboard, on top of the strip that has been taped inside the door for years, and closes it properly this time.
+Nurse Maya puts the folder back in the cupboard, on top of the strip that has been taped inside the door for years, and closes it properly this time.
 
-[sister]"Same time tonight?"[/] she says, and she is already halfway to the changing room, and she does not wait for the answer.
+[maya]"Same time tonight?"[/] she says, and she is already halfway to the changing room, and she does not wait for the answer.
 
-[ne_hush]बत्ती निभाउनुहोस्। राम्रो निद्रा परोस्।[/]
+Laura is already at the far door with her coat over her arm, holding it open with one foot.
+
+[laura]"Lights off,"[/] she says. [laura]"Sleep well."[/]

@@ -4,7 +4,8 @@ Three nights on the heart blocks, and tonight is the map of all four of them plu
 
 The bad chapters are over. The ward is quiet and ordinary again, and there is a smell of toast from somewhere, because the kitchen starts early.
 
-[ne]अब चारवटा ब्लकको कुरा सुरु हुन्छ। तीन रातमा सकिन्छ।[/]
+@read hush
+Now the four blocks begin. They take three nights, and then they are finished.
 
 @read teach
 A heart block is a failure of the marriage between the atria and the ventricles. The atria fire; the question is whether, and how, that firing gets through the AV node to the ventricles.
@@ -30,7 +31,7 @@ If some Ps don't get through, then you have Mobitz two.
 
 If Ps and Qs don't agree, then you have a third degree.
 
-[sister]"I learned that in nineteen ninety-nine,"[/] Sister Maya says. [sister]"I have forgotten the name of the man who taught it to me and I have never once forgotten the poem."[/]
+[maya]"I learned that in nineteen ninety-nine,"[/] Nurse Maya says. [maya]"I have forgotten the name of the man who taught it to me and I have never once forgotten the poem."[/]
 
 @algo block-poem
 The four heart blocks, in four lines. If the R is far from P, then you have a first degree. Longer, longer, longer, drop — then you have a Wenckebach. If some Ps don't get through, then you have Mobitz two. And if Ps and Qs don't agree, then you have a third degree. Far from P is first degree. Longer, longer, drop is Wenckebach. Some don't get through is Mobitz two. Ps and Qs disagreeing is third degree.
@@ -52,7 +53,8 @@ The last two lines — Mobitz two and third degree — are the dangerous half. T
 
 Two halves. The first half responds to a drug, and the second half needs a wire.
 
-[ne]पहिलो दुई हल्का हुन्। पछिल्ला दुईमा पेसिङ चाहिन्छ।[/]
+@read warm
+The first two are mild. The last two need pacing. That is the shape of the whole family.
 
 @read teach
 Now the first line in detail, because it is tonight's rhythm and it is the easiest one in the whole course.
@@ -73,7 +75,7 @@ And it is a finding rather than a disease. First-degree block causes no symptoms
 
 The only reason it appears on the strip at all is that it can be a clue — to a drug, to a high vagal tone, to an inferior infarct, or occasionally to the early stage of something that will progress.
 
-[sister]"You never treat a first-degree block,"[/] she says. [sister]"You notice it, you write it down, and you look at what else is on the page."[/]
+[maya]"You never treat a first-degree block,"[/] she says. [maya]"You notice it, you write it down, and you look at what else is on the page."[/]
 
 @read hush
 The poem one last time.
@@ -118,4 +120,4 @@ Sudden failure with no warning, wide slow escape, does not respond to atropine, 
 
 If you carry that one idea into the next two nights, you will not have to memorise anything at all. Everything else follows from where the break is.
 
-[ne_hush]ब्लक कहाँ छ — माथि कि तल। यत्ति थाहा भए बाँकी सबै आफैं आउँछ।[/]
+[laura]"High or low. That is the only thing you are ever really asking,"[/] Laura says. [laura]"Once you have that, the rest of it comes to you."[/]

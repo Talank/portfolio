@@ -4,17 +4,20 @@ It is a little after two in the morning. The corridor lights are switched down t
 
 There are six beds in this room. Five of them are asleep. Above the fourth bed a monitor is awake, and it is drawing a line.
 
-[ne]तपाईं ढोकानेर एउटा कुर्सीमा बस्नुहोस्। अहिले केही गर्नु पर्दैन।[/]
+@read hush
+There is a chair by the door. You can sit down in it. There is nothing you have to do right now.
 
 The line comes out of the left side of the screen and travels to the right, and every second or so it lifts, stands up in a sharp spike, drops, and settles again. Then it does the same thing. Then it does the same thing again.
 
 You have seen this a hundred times in a hundred rooms and never once looked at it. That is the honest place to start.
 
-Sister Maya is at the station with a cup of tea she has not touched. She has worked nights in this ward for eleven years. When she looks at that screen she does not see a wiggly line. She sees a sentence.
+Nurse Maya is at the station with a cup of tea she has not touched. She has worked nights in this ward for eleven years. When she looks at that screen she does not see a wiggly line. She sees a sentence.
 
-[sister]"People think reading an ECG is a talent,"[/] she says, without looking up. [sister]"It is not a talent. It is a habit. You look at the same five things in the same order, ten thousand times, and one day the answer arrives before you have finished looking."[/]
+[maya]"People think reading an ECG is a talent,"[/] she says, without looking up. [maya]"It is not a talent. It is a habit. You look at the same five things in the same order, ten thousand times, and one day the answer arrives before you have finished looking."[/]
 
-[ne_hush]आजको रात केही याद गर्नु पर्दैन। बिस्तारै सुन्नुहोस्, र सुत्नुहोस्।[/]
+The other nurse on tonight is Laura. She is younger than Maya and she has already worked out the most useful thing about night shifts, which is that nobody learns anything after two in the morning by trying harder.
+
+[laura]"You do not have to remember any of this tonight,"[/] she says, going past with an armful of folded blankets. [laura]"Just listen slowly. And sleep."[/]
 
 Here is the thing nobody says out loud on the first day, and it is the thing that makes all the rest of it possible.
 
@@ -34,15 +37,16 @@ The paper moves at a speed you know. Not a guess, not a setting somebody chose t
 
 The pen moves up and down by an amount that follows the size of the voltage. So the height of a shape, measured up the page, is how big that electrical event was. Space up is size.
 
-[ne]अब यही दुई कुरा मात्र समात्नुहोस्। दायाँबायाँ भनेको समय हो, र माथितल भनेको आकार हो।[/]
+@read warm
+Hold on to just those two things. Across the page is time. Up the page is size.
 
 @algo kagaj
 Here is the whole foundation, and it is two sentences long. The paper moves sideways at a speed you know, so distance across the page is time. The pen moves up and down with the voltage the heart makes, so height on the page is size. Time across. Size up. Every rule you will ever learn about an ECG is measured in one of those two directions, and nothing else.
 @end
 
-Sister Maya sets the tea down. It has gone cold anyway.
+Nurse Maya sets the tea down. It has gone cold anyway.
 
-[sister]"Most people who cannot read a strip are not missing knowledge,"[/] she says. [sister]"They are missing that. They look at the line as though it were a drawing of the heart, and they try to see a heart in it. There is no heart in it. There is a clock going across and a ruler going up."[/]
+[maya]"Most people who cannot read a strip are not missing knowledge,"[/] she says. [maya]"They are missing that. They look at the line as though it were a drawing of the heart, and they try to see a heart in it. There is no heart in it. There is a clock going across and a ruler going up."[/]
 
 The patient in bed four turns over and settles. The line on the monitor does not change.
 
@@ -60,7 +64,8 @@ Because in six months, or in a year, something will be wrong with somebody, and 
 
 The word is worth a lot. Say the right word and the room knows which algorithm it is in, which drug is drawn up, whether a defibrillator is charged or left alone. Say nothing, and the room waits.
 
-[ne]त्यही एउटा शब्द भन्न सक्नु नै आजको सबै मिहिनेतको उद्देश्य हो।[/]
+@read warm
+Being able to say that one word out loud is what all of this is for.
 
 So this is what these nights are for. Not the drugs, not the doses, not the flowcharts[..]the tool on your phone already drills those, and drills them better than a story can. These nights are for the one skill the flowcharts all quietly assume you already have. Reading the line.
 
@@ -71,7 +76,7 @@ One more time. Two directions, and that is the foundation.
 
 The monitor draws another beat. Then another.
 
-[ne_hush]आजलाई यत्ति नै हो। बाँकी कुरा भोलि राति गरौंला।[/]
+[laura]"That is enough for tonight,"[/] Laura says from the doorway. [laura]"The rest of it will still be here tomorrow."[/]
 
 @tier medium
 
@@ -87,9 +92,9 @@ The paper is a recording. It is usually a twelve-lead recording, taken deliberat
 @read teach
 So the sentence to carry is this one. Rhythm you may read from the monitor. Injury you must read from the twelve-lead.
 
-Sister Maya has a shorter version of it, which she says to every new person in the ward, usually once and never again.
+Nurse Maya has a shorter version of it, which she says to every new person in the ward, usually once and never again.
 
-[sister]"The monitor tells you what the heart is doing. The paper tells you what has happened to it."[/]
+[maya]"The monitor tells you what the heart is doing. The paper tells you what has happened to it."[/]
 
 @tier long
 
@@ -102,7 +107,8 @@ The machine was invented by a Dutch physiologist, and the German spelling of the
 
 There is one small practical reason the German spelling survived in busy places, and it is a good one. Spoken in a loud room, the letters E C G and the letters E E G sound almost identical, and an E E G is a recording of the brain rather than the heart. E K G does not collide with anything.
 
-[ne]दुवै नाम एउटै हो। कुनै फरक छैन।[/]
+@read warm
+Both names mean the same thing. There is no difference at all between them.
 
 @read hush
 Sleep now. The line is still going, and it will still be going in the morning.

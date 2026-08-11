@@ -2,11 +2,12 @@
 
 The second to last night, and it is about everything on a strip that is not the heart.
 
-The alarm at the far end has been going, on and off, for twenty minutes. Sister Maya has been to look twice. The patient is asleep, warm, pink and breathing, and the monitor is convinced he is in ventricular tachycardia.
+The alarm at the far end has been going, on and off, for twenty minutes. Nurse Maya has been to look twice. The patient is asleep, warm, pink and breathing, and the monitor is convinced he is in ventricular tachycardia.
 
-[sister]"The wire under his shoulder has come half off,"[/] she says. [sister]"That is all it is. It has been all it is, four times tonight."[/]
+[maya]"The wire under his shoulder has come half off,"[/] she says. [maya]"That is all it is. It has been all it is, four times tonight."[/]
 
-[ne]आज मोनिटरले झुट कसरी बोल्छ, त्यो हेर्नुहुन्छ।[/]
+@read hush
+Tonight you watch all the different ways a monitor can lie to a room full of people.
 
 @read teach
 An ECG measures a very small voltage from the surface of the skin. Anything else that produces a small voltage near those wires gets recorded too, and the machine has no way to know which is which.
@@ -22,7 +23,7 @@ The heart does not stop because a wire moved. So if a patient is truly in a rhyt
 
 If you can find real QRS complexes marching through the mess at their proper interval, the mess is artifact and the patient is fine. If you cannot find them anywhere, the mess may be real.
 
-[sister]"Look through it, not at it,"[/] Sister Maya says. [sister]"There is almost always a heartbeat hiding in there, keeping perfect time."[/]
+[maya]"Look through it, not at it,"[/] Nurse Maya says. [maya]"There is almost always a heartbeat hiding in there, keeping perfect time."[/]
 
 @algo artifact
 Artifact is anything on the strip that did not come from the heart, and there is one test that settles nearly all of it. March along at the rate the patient had a moment ago and look for real QRS complexes hiding inside the mess, because the heart does not stop just because a wire moved. If you can find them marching through at their proper interval, it is artifact. And then look at the patient, because a person who is awake and talking is not in ventricular fibrillation, whatever the screen says. March through it and look for the beats. Then look at the person, not the screen.
@@ -59,7 +60,8 @@ The fourth is a wandering baseline, where the whole tracing drifts slowly up and
 
 It is the most benign of the four, and it is also the one that matters most for ST segments, because if the baseline is moving you cannot honestly measure anything against it.
 
-[ne]चारै किसिमको आवाजमा साँचो धड्कन भित्रै लुकेको हुन्छ। खोज्नुहोस्।[/]
+@read warm
+In all four kinds of noise, the real beats are still in there underneath. Go and find them.
 
 @read teach
 And then the trap that is not artifact at all, and is the most dangerous item in this chapter.
@@ -116,4 +118,4 @@ So the last habit of this chapter is small and it is the one to keep.
 
 Before you believe a frightening tracing, look at the patient, and then look through the tracing for the beats. Ten seconds, both of them. And if the patient is sitting up asking what all the fuss is about, that is not a rhythm on that screen.
 
-[ne_hush]पर्दा हेर्नुभन्दा पहिले बिरामी हेर्नुहोस्। यो नियम सधैं लागू हुन्छ।[/]
+[laura]"Patient first, screen second,"[/] Laura says. [laura]"Every single time. That one never expires."[/]

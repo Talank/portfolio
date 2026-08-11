@@ -4,7 +4,8 @@ The first of the five questions, and the easiest to answer badly.
 
 There is a new admission in bed one, an elderly man who came in with a chest infection, and he is asleep with his mouth open and his hands folded. His monitor is running at the far end of the room, and the numbers on it change every few seconds.
 
-[ne]मोनिटरमा एउटा नम्बर लेखिएको छ। त्यो नम्बर कहिलेकाहीँ झुट बोल्छ।[/]
+@read hush
+There is a number on the monitor. Tonight is about the nights when that number is lying.
 
 @read teach
 The monitor is telling you the rate. It is right most of the time and it is wrong exactly when it matters, so tonight you learn to do it yourself, three different ways, for three different situations.
@@ -27,7 +28,8 @@ One minute of paper is three hundred big squares long, because a big square is o
 
 Three hundred divided by the number of big squares. That is all the sequence is.
 
-[ne]तीन सयलाई ठूलो घरको सङ्ख्याले भाग गर्नुहोस्। बस्, यत्ति हो।[/]
+@read warm
+Divide three hundred by the number of large squares. That is the entire calculation.
 
 @read teach
 The second method is for when you want a precise number rather than a shelf.
@@ -48,7 +50,7 @@ And the paper helps you with that. Along the top or the bottom edge of every rhy
 
 Count the complexes between the marks, multiply by ten, and you have an honest average rate for a rhythm that does not have a single true rate at all.
 
-[sister]"On atrial fibrillation there is no such thing as the rate,"[/] Sister Maya says. [sister]"There is only an average, and anybody who gives you a number to the nearest one is guessing."[/]
+[maya]"On atrial fibrillation there is no such thing as the rate,"[/] Nurse Maya says. [maya]"There is only an average, and anybody who gives you a number to the nearest one is guessing."[/]
 
 @algo rate
 Three ways to count, and which one depends on the rhythm. If the rhythm is regular, count the big squares between two R waves and walk the sequence — three hundred, one fifty, one hundred, seventy-five, sixty, fifty. If you need a precise number, count the small squares between two R waves and divide fifteen hundred by that. And if the rhythm is irregular, neither of those works, so count the complexes in a six-second strip and multiply by ten. Regular and quick, use the sequence. Regular and exact, use fifteen hundred. Irregular, count six seconds and multiply by ten.
@@ -77,7 +79,8 @@ Or take complete heart block. The atria might be going along at eighty and the v
 
 So the discipline is this. When the P waves and the QRS complexes do not match one to one, count both, and say both out loud. The atrial rate is this. The ventricular rate is that.
 
-[ne]मुटुका दुई तला हुन्छन्, र दुवैको आफ्नो गति हुन्छ। मिलेनन् भने दुवै गन्नुहोस्।[/]
+@read warm
+The heart has two floors, and each floor keeps its own rate. When the two disagree, count both of them.
 
 @read hush
 The three ways to count, one last time.
@@ -116,4 +119,4 @@ Both are fixed the same way, and it takes ten seconds. Change the lead the monit
 
 And both are recognised the same way. If the monitor's number and the pulse you can feel do not agree, the pulse is right.
 
-[ne_hush]नाडी र मोनिटर बाझिए भने, नाडी नै साँचो हो। यो सधैं लागू हुन्छ।[/]
+[laura]"If the pulse and the monitor argue, the pulse wins,"[/] Laura says, turning the corridor light down another step. [laura]"That one is always true. Sleep."[/]

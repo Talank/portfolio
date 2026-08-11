@@ -2,9 +2,10 @@
 
 Everything so far has been one view of the heart. Tonight there are twelve, and they are twelve windows into the same room.
 
-Sister Maya brings a full twelve-lead out of the folder and unfolds it, and it is much bigger than the rhythm strips — a wide sheet with twelve little tracings arranged in a grid of four columns and three rows, and one long strip along the bottom.
+Nurse Maya brings a full twelve-lead out of the folder and unfolds it, and it is much bigger than the rhythm strips — a wide sheet with twelve little tracings arranged in a grid of four columns and three rows, and one long strip along the bottom.
 
-[ne]आज एउटै मुटुलाई बाह्र दिशाबाट हेर्नुहुन्छ।[/]
+@read hush
+Tonight you look at one single heart from twelve different directions at once.
 
 @read teach
 Start with the one idea that makes all twelve of them make sense, because without it the grid is just a lot of squiggles.
@@ -33,7 +34,8 @@ Lead one, aVL, V5 and V6 look from the left side. They are the lateral leads, an
 
 V1 and V2 sit over the middle, and V3 and V4 over the front. Together those four are the septal and anterior leads, and they watch the front wall and the wall between the ventricles, fed by the left anterior descending artery.
 
-[ne]तल्लो भाग दुई, तीन र aVF ले हेर्छन्। छेउको भाग एक, aVL, V5 र V6 ले हेर्छन्। अगाडिको भाग V1 देखि V4 सम्मले हेर्छन्।[/]
+@read warm
+The floor of the heart is watched by two, three and aVF. The side wall is watched by one, aVL, V5 and V6. The front is watched by V1 through to V4.
 
 @algo territory
 The twelve leads come in groups and each group watches one wall. Lead two, lead three and aVF look at the heart from underneath, so they are the inferior leads. Lead one, aVL, V5 and V6 look from the left side, so they are the lateral leads. V1, V2, V3 and V4 look at the front, so they are the septal and anterior leads. And aVR looks from the right shoulder, from outside everything, which is why it is normally upside down. Two, three and aVF is inferior. One, aVL, V5 and V6 is lateral. V1 to V4 is anterior. Changes in a group mean a wall, and a wall means an artery.
@@ -53,7 +55,7 @@ aVR looks at the heart from the right shoulder — from outside the whole system
 
 Which gives you a free check on every twelve-lead you ever look at. If aVR is upright, something is wrong. Either the limb leads have been swapped, which is common and easy to fix, or the patient's heart is in an unusual position, or there is something genuinely serious going on.
 
-[sister]"Look at aVR first,"[/] Sister Maya says. [sister]"Not because it tells you much. Because if it is the wrong way up, nothing else on that page can be trusted."[/]
+[maya]"Look at aVR first,"[/] Nurse Maya says. [maya]"Not because it tells you much. Because if it is the wrong way up, nothing else on that page can be trusted."[/]
 
 @read teach
 One more idea before you sleep, and it is about what the chest leads see as you walk along them.
@@ -110,4 +112,5 @@ What is not forgiving is swapping them. Left arm and right arm reversed is the c
 
 Which is why the check from earlier tonight is worth doing before anything else. Look at aVR. If it points up, put the page down and go and look at the wires before you read another millimetre of it.
 
-[ne_hush]पहिले aVR हेर्नुहोस्। त्यो उल्टो छ भने, तार जाँच्नुहोस्।[/]
+@read hush
+Look at aVR first, before anything else. If it is the wrong way up, go and check the wires.

@@ -2,9 +2,10 @@
 
 The last two lines of the poem, and the dangerous half.
 
-The man from last night has gone up to the coronary care unit and his bed has been stripped. The strip Sister Maya left on the counter is still there, and she has put another one beside it, and the two look similar until you measure them.
+The man from last night has gone up to the coronary care unit and his bed has been stripped. The strip Nurse Maya left on the counter is still there, and she has put another one beside it, and the two look similar until you measure them.
 
-[ne]हिजोको र आजको स्ट्रिप उस्तै देखिन्छन्। तर एउटा हल्का हो, अर्को खतरनाक।[/]
+@read hush
+Last night's strip and tonight's look like each other. One of them is mild and the other one will kill somebody.
 
 @read teach
 Second-degree AV block, Mobitz type two. Third line of the poem — if some Ps don't get through, then you have Mobitz two.
@@ -22,7 +23,7 @@ No lengthening beforehand. No tiring. The interval before the dropped beat is ex
 
 That absence of warning is the entire diagnosis, and it is the only thing separating this from last night.
 
-[sister]"Wenckebach warns you,"[/] Sister Maya says. [sister]"This one does not. That is why it is the one I am frightened of."[/]
+[maya]"Wenckebach warns you,"[/] Nurse Maya says. [maya]"This one does not. That is why it is the one I am frightened of."[/]
 
 @read teach
 Why the difference? Because of where the break is, which was the last thing in the chapter before last.
@@ -35,7 +36,7 @@ Which explains the wide QRS as well. If both branches are diseased enough for be
 Mobitz type two is second-degree block below the node, and it has one signature — the PR interval never changes. Every P wave is the same shape, the P waves march regularly, and every PR interval that conducts is identical and usually normal. Then a P wave arrives with no QRS after it, with no lengthening beforehand and no warning of any kind. The complexes are often wide, because the break is in the branches rather than the node. Constant PR, and then nothing. No warning is the diagnosis, and it means pacing rather than atropine.
 @end
 
-Both strips are still on the counter. Sister Maya taps the second one with a fingernail.
+Both strips are still on the counter. Nurse Maya taps the second one with a fingernail.
 
 @read hush
 Once more, quietly.
@@ -65,7 +66,8 @@ The PR interval is different on every beat, not in a pattern but at random, beca
 
 Two rhythms on one strip, each keeping perfect time, neither listening to the other. That is what the fourth line means by not agreeing.
 
-[ne]एउटै कागजमा दुई छुट्टाछुट्टै रिदम हुन्छन्। दुवै नियमित, तर एकअर्कासँग सम्बन्ध छैन।[/]
+@read warm
+There are two separate rhythms on one piece of paper. Both of them regular, and neither one listening to the other.
 
 @read teach
 And the treatment for both of tonight's rhythms is the same, and it is the second half of the poem's lesson.
@@ -76,7 +78,7 @@ So the answer is pacing. Transcutaneous pacing through the pads immediately if t
 
 And in the meantime, do nothing that suppresses the escape rhythm. That slow wide rhythm is the only thing keeping the patient alive.
 
-[sister]"Do not shock it, do not suppress it, and do not leave the room,"[/] she says. [sister]"Get the pads on and get somebody senior."[/]
+[maya]"Do not shock it, do not suppress it, and do not leave the room,"[/] she says. [maya]"Get the pads on and get somebody senior."[/]
 
 @read hush
 Mobitz two one last time.
@@ -127,4 +129,4 @@ Faster atria means blocked. Faster ventricles means outrun. One needs a pacemake
 @read teach
 And that is the four blocks finished. Tomorrow the story leaves rhythm behind entirely and goes to the twelve-lead, which is a different kind of reading — not what the heart is doing, but where it is hurt.
 
-[ne_hush]रिदमको कुरा सकियो। भोलिदेखि बाह्र लिडको कुरा सुरु हुन्छ।[/]
+[laura]"That is the rhythms done,"[/] Laura says, and she sounds pleased about it. [laura]"Twelve leads from tomorrow. Sleep first."[/]
