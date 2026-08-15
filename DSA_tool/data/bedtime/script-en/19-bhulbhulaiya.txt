@@ -1,0 +1,112 @@
+# 19 — Turning Back in the Maze: Backtracking
+
+Inside the nineteenth island there is a maze. There are stone walls here, and countless turnings.
+
+Luffy was about to go in. Robin stopped him and said — [robin]"There is one right way to go in, and that way is knowing how to come back."[/]
+
+@algo backtrack
+The rule of the art of turning back has three steps, and this is the order. In the first step, choose one option, and add it to your path. In the second step, carry that choice and go down one level, and repeat the same work from there. In the third step, when you come back, take back the choice you added, and leave the place exactly as it was. Of these three, the third step is the most important, and it is the one most often forgotten. Before choosing, always ask whether this option is valid, and if it is not valid you never have to enter that branch at all.
+@end
+
+If you do not take it back in the third step, the dirt from the previous road runs into the next road, and the answer goes wrong.
+
+The first problem is producing all the subsets of a group.
+
+Think about it this way. Every member has two options, and they are take and do not take. So this is a tree, and there are two branches at every level. Take the first member and go down, then come back, and go down without taking it.
+
+How many subsets are there? There are two to the power n, so this is O(2ⁿ). It is expensive, but there is no other way here, because there really are that many answers.
+
+The second problem is permutations, that is, producing all the ways of arranging things. Here the choice at every level is [aside]"who to place now"[/]. Leave out whoever has already been used, so you need a notebook of [aside]"used"[/]. Place one, go down, and take it out when you come back.
+
+The third problem is the queens. You have to place n queens on a board so that none of them can take another.
+
+@read teach
+A new idea arrives here, and this is the true power of [..]backtracking[..]. It is called cutting back, and in English it is called pruning.
+
+Before placing every queen, ask — [aside]"Is this place safe or not?"[/] If it is not safe, you must not enter that branch. That whole branch, and the thousands of possibilities beneath it, disappear in a single stroke.
+
+Think for a moment about how large a saving that is. If you cut a bad road off at the start, you never have to look at the entire forest underneath it. Even though this is O(2ⁿ) in theory, in practice it is much faster.
+
+Robin said — [robin]"Weak backtracking looks at everything. Strong backtracking knows how to give up early."[/]
+
+@read hush
+Now keep your eyes closed and listen once again to the rule of the art of turning back.
+
+@recall backtrack
+
+The fourth problem is finding a word in a grid of letters. Start from some square and look in all four directions. If the letter does not match, turn back. If it matches, mark that square and move on, or the same letter gets counted twice. And do not forget to erase the mark when you come back, because that is the taking-back step.
+
+Now listen to the signals. If the question says [aside]"all the possibilities"[/], "all the ways", or "all the roads", this is the island. But if the question only asks "how many" or [aside]"the best one"[/], look towards the next island, which is where we are going now.
+
+Inside the maze Luffy is asleep in the middle of the path. He does not remember about coming back, but tonight that is all right.
+
+@read hush
+One last time before you sleep, very slowly, listen to that same rule.
+
+@recall backtrack
+
+@tier medium
+
+It was quiet inside the maze. Robin sat down on a stone, and spoke slowly — [robin]"The art of turning back has a few more shapes."[/]
+
+The first shape is making a total. You have to make some target total out of the given numbers, and one number may be used many times. Here, when you go down, let it start again from the same index.
+
+To stop repeated answers from coming out, always move forward only, and never go back to the earlier numbers. That small rule teaches you to treat [aside]"two plus three"[/] and [aside]"three plus two"[/] as the same thing.
+
+The second shape is producing all the properly matched forms of brackets. Here keep two counts, and they are how many opened and how many closed. If there are still openings left, you may place an opening. If the closings are fewer than the openings, you may place a closing.
+
+That rule cuts off the invalid roads at the start, so every answer made is automatically matched, and you never have to check.
+
+The third shape is making all the letter combinations from the digits on a phone. At every level, run a loop over the letters of one digit, and go down. It is easy, but it shows the shape of the levels very clearly.
+
+Robin added — [robin]"All of these have the same shape. A level is one decision, and a branch is one option of that decision."[/]
+
+@tier long
+
+The stones of the wall were cold. Somewhere the sound of water dripping was coming in slowly.
+
+Robin said — [robin]"Now let us talk about repeated numbers, because this is the place where the most people get tangled."[/]
+
+Suppose there are two twos among the given numbers. When making subsets, [aside]"take the first two"[/] and [aside]"take the second two"[/] are different roads, but their fruit is the same. So the answer repeats.
+
+The move is this. Sort them first, so that the same numbers come next to each other. Now, at any level, leave out any option equal to the one before it, except for the first option.
+
+To put it in one sentence — [aside]"I do not choose the same value a second time at this level."[/] That one rule removes every repeated answer.
+
+Now let us go a little deeper into cutting back, because this is the true treasure of this island.
+
+In the queens problem you do not have to look at the whole board to check whether each place is safe. Keep three notebooks, and they are which column was taken, which one diagonal was taken, and which other diagonal was taken. Doing that makes the check O(1).
+
+The move for recognising a diagonal is beautiful. On one diagonal the row plus the column is always the same. On the other diagonal the row minus the column is always the same. That way two numbers recognise a whole diagonal.
+
+And listen to sudoku. The same move works here too, because in every empty square you have to try one to nine and turn back when it does not fit. But without cutting back this never finishes.
+
+One good cut is to fill first the square with the fewest options. Where there is little choice, a mistake is found quickly, and the whole branch is cut off quickly.
+
+That principle is general and worth remembering, and it is — [aside]"start from where there is the most constraint."[/] It works in life too, but let us leave that for tonight.
+
+Now let us look from a different angle. Why does backtracking take so much time? Because there are so many answers themselves. The subsets of n things are two to the power n, and the permutations are n factorial.
+
+So [aside]"making it fast"[/] is a relative matter here. We cannot be faster than the answers. We can only avoid spending time on bad roads.
+
+And that is why the next island comes. If the question has not asked for all the answers, and has only asked "how many" or [aside]"the best one"[/], it is not necessary to walk every road.
+
+There we remember not the road but the fruit of the road. And that memory drops O(2ⁿ) to O(n²). That is the magic of the next island, and it is the greatest idea of this whole voyage.
+
+At the end, listen to one piece of practical advice. When writing backtracking, always write three things separately, and they are where it stops, what may be chosen, and what has to be taken back after choosing.
+
+If you think about those three separately, the code falls into place by itself. If you think about them together, you get tangled.
+
+The water was still dripping. Luffy was asleep in the middle of the path, and he really did not remember about coming back. But the maze was patient.
+
+Robin looked at him and smiled. She said — [robin:sad]"This boy never turns back. So he never gets lost either, because somebody comes looking for him. But not all of us have that luxury."[/]
+
+That is tonight's lesson, and it sounds backwards. The name of the art of going into a maze is not going forward, it is turning back. And the most important part of turning back is leaving the place exactly as it was.
+
+Take off whatever you put on. Put down whatever you picked up. If you do not, the dirt from the previous road runs into the next road, and the answer quietly goes wrong.
+
+Now listen to the second lesson, which is the real skill. A weak search walks every road, and a strong search knows how to give up early. If a bad road is cut off at the start, you never have to look at the entire forest underneath it.
+
+The same rule works in life. On a road you already know does not go anywhere, there is no need to be polite. Turning back early is not defeat, it is respect for time.
+
+A drop of water fell. The maze was patient, and the road was going to be there tomorrow as well.

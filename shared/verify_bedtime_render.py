@@ -49,10 +49,22 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Every course with a rendered voyage. A bare run has to cover all of them —
 # this list went stale twice while new voyages shipped unverified, so it is
 # discovered rather than typed: any data/bedtime with a manifest counts.
-DEFAULT_DIRS = sorted(
+DEFAULT_DIRS = sorted(set(
     os.path.relpath(os.path.dirname(p), REPO)
-    for p in glob.glob(os.path.join(REPO, "*", "data", "bedtime", "manifest.json"))
-)
+    for p in glob.glob(os.path.join(REPO, "*", "data", "bedtime", "manifest*.json"))
+))
+
+
+def editions(build_dir):
+    """Every manifest in one build directory, oldest naming first.
+
+    One directory can hold more than one edition of the same voyage — the DSA
+    voyage ships as manifest.json (Nepali) and manifest-en.json (English), same
+    story, different language, different audio. Globbing for exactly
+    "manifest.json" verified the Nepali edition and walked silently past 93 MB
+    of English, which is the failure this whole script exists to prevent.
+    """
+    return sorted(glob.glob(os.path.join(build_dir, "manifest*.json")))
 
 # ch07-medium.opus -> ("07", "medium")
 _SEG = re.compile(r"^ch(\d+)-([a-z]+)\.opus$")
@@ -77,17 +89,22 @@ def measure(job):
         return key, None, f"CORRUPT  {key} — will not decode"
 
 
-def verify(build_dir):
-    path = os.path.join(build_dir, "manifest.json")
-    label = os.path.relpath(build_dir, REPO)
+def verify(path):
+    build_dir = os.path.dirname(path)
+    label = os.path.relpath(path, REPO)
     if not os.path.exists(path):
-        print(f"{label}: no manifest.json — nothing built here")
+        print(f"{label}: no manifest — nothing built here")
         return True
     with open(path, encoding="utf-8") as f:
         man = json.load(f)
 
     overlap = man.get("overlap", 0.0)
-    audio = os.path.join(build_dir, "audio")
+    # Where this edition's audio actually lives. The manifest says so itself —
+    # "data/bedtime/audio-en/" for the English edition — and assuming "audio"
+    # would have measured the Nepali files against the English manifest and
+    # reported drift on every chapter.
+    audio = os.path.join(build_dir,
+                         os.path.basename(os.path.normpath(man.get("dir") or "audio")))
 
     jobs = []
     for mode, block in (man.get("modes") or {}).items():
@@ -140,7 +157,13 @@ def verify(build_dir):
 def main():
     ok = True
     for d in (sys.argv[1:] or DEFAULT_DIRS):
-        ok &= verify(d if os.path.isabs(d) else os.path.join(REPO, d))
+        d = d if os.path.isabs(d) else os.path.join(REPO, d)
+        found = editions(d)
+        if not found:
+            print(f"{os.path.relpath(d, REPO)}: no manifest — nothing built here")
+            continue
+        for path in found:
+            ok &= verify(path)
     sys.exit(0 if ok else 1)
 
 

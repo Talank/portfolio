@@ -1,0 +1,105 @@
+# 18 — Putting Things in Order: Topological Sort and Union-Find
+
+On the eighteenth island the ship is being repaired. Franky has made a list, but the work cannot be done in any old order.
+
+He said — "Before you paint, the wood has to be fitted. Before the wood is fitted, the old wood has to come out. Which job comes first and which comes later — working out that order is tonight's problem."
+
+@read teach
+This is called [..]topological sort[..]. It is only possible in a graph where the arrows point one way and there is no cycle. Such a graph is called a DAG.
+
+What happens if there is a cycle? Suppose B is needed before A, C is needed before B, and A is needed before C. Now which job do you have to do first? None of them can be done. So where there is a cycle, an order does not exist at all.
+
+That is why this question is usually asked like this — [aside]"Can these subjects be studied or not?"[/] Its answer is really the answer to [aside]"is there a cycle"[/].
+
+@algo kram
+The rule for putting things in order is this. First, for every job, count how many jobs have to be finished before it, and let us call that number the incoming count. Now put everybody whose incoming count is zero into a queue, because those can be done right away. Take one job out of the queue, and note it into a list. Then subtract one from the incoming count of every job that this job unlocks. If anybody's count reaches zero, add them to the queue. Repeat this until the queue is empty. If every job has arrived in the list at the end, the order has been found, and if any are missing, those are stuck in a cycle.
+@end
+
+The second way is done with DFS. Go into the depth, and note things down as you come back. Turn the list around at the end. Why does it have to be turned around? Because whichever job is finished last is the one that has to be done first.
+
+@read teach
+Now listen to the second tool of this island, and it is called Union-Find. Let us call it the joining-and-finding structure.
+
+The problem is this. There are many islands. From time to time somebody says that these two islands are now joined by a bridge. And then somebody asks whether these two islands are in the same group or not.
+
+You could run BFS every time, but that is expensive.
+
+The idea of Union-Find is simple. Every group has a leader. Every member knows only the person above them. To find the leader, keep going upwards, and keep going until you find somebody who points at themselves.
+
+If you have to join two groups, find the leader of both, and put one leader underneath the other. If you have to ask whether two things are in the same group, look at whether both have the same leader.
+
+Two small moves make the speed remarkable. The first move is that while you are looking for the leader, join everybody you meet on the way straight to the leader, and the road is shorter next time. The second move is that when joining, put the small group under the large one and not the other way round. With those two moves every operation happens in almost O(1).
+
+@read hush
+Now keep your eyes closed and listen once again to the rule for putting things in order.
+
+@recall kram
+
+Franky stuck the list on the wall. The work is in order, and there is no confusion. The tools were put down slowly on the floor.
+
+@read hush
+One last time before you sleep, very slowly, listen to that same rule.
+
+@recall kram
+
+@tier medium
+
+The tools were on the floor. Franky looked at the list again and said — [franky]"The business of order is not finished yet."[/]
+
+The first thing asks whether there is one order or many. In the queue method, if at any moment there is more than one job in the queue, there is a choice at that point, which means there can be many orders. If there is always exactly one, the order is unique.
+
+The second thing is that if the count of jobs collected while ordering comes out less than the total number of jobs, there is a cycle. This is the easiest way there is of detecting a cycle, and it is what answers the question [aside]"can it be studied or not"[/].
+
+The third thing is that the joining-and-finding structure can also say how many groups there are. At the start, set the count equal to the number of nodes. When two different groups are joined, subtract one from the count. If the joining was already within one group, do nothing.
+
+The fourth thing is that this same structure also answers the question [aside]"does this new road make a cycle or not"[/]. If both ends are already in the same group, it makes a cycle.
+
+Putting down his hammer, Franky said — [franky]"The beauty of this structure is that it only knows how to join, and does not know how to separate. But in many problems you do not have to separate."[/]
+
+@tier long
+
+The night was getting deeper. Only one lamp was still burning in the ship's inner room.
+
+Franky said — [franky]"Now let me tell you a clever move that many people do not know. Sometimes a question about separating arrives, and this structure does not know how to separate. But what happens if you run time backwards?"[/]
+
+Suppose the bridges are being broken one at a time, and after each breaking you are asked how many groups there are. That is hard to do directly.
+
+But start from the end. Walk backwards from the case where everything is broken, and doing that turns every breaking into a joining. Turn the answers around at the end.
+
+This move of running time backwards is useful in many places. Where removing is hard and adding is easy, walk from the back.
+
+Now listen to a deeper use of topological sort, and it is finding the longest road in a DAG. In an ordinary graph that is a very hard question, but in a graph with no cycle it is easy.
+
+First put things in order, then walk in that order noting at every node [aside]"the longest road that reaches me"[/]. The order guarantees that by the time you reach any node, the arithmetic for all of its predecessors is already finished.
+
+This idea joins directly to the twentieth island. There we will call it [aside]"the power of memory"[/], and that power is another name for this same order.
+
+And there is a use that turns up in daily life, and it is the strange alphabet of letters. Some words of an unfamiliar language are given in order, and you have to work out what that language's alphabet is.
+
+Compare two words standing next to each other. Find the first letter where they differ, and that tells you which letter comes before which. Collect the rules this way, then put them in order.
+
+There is a small trap here. If the first word is longer than the second and the second is only the beginning of the first, that order is impossible. Many solutions are wrong for not checking this case.
+
+Now let us understand the price of the two moves in the joining-and-finding structure. The move that shortens the road flattens the tree out almost completely after every search. The move that joins by size never lets the tree get very tall.
+
+Using both together, the average price of every operation is almost constant. Put mathematically, it is a function that grows extremely slowly, and in practice it never goes above four.
+
+So in practice you can treat it as O(1). This is a rare case where the theory and the practice are both on your side.
+
+At the end, listen to one piece of advice. These two tools, ordering and joining groups, usually arrive together. [aside]"This job has to be done first"[/] is a matter of order. [aside]"All of these are in one group"[/] is a matter of joining.
+
+When you read a question, look for two words, and they are "before" and "together". The first asks for an order, and the second asks for groups.
+
+Franky put out the lamp. The list was still stuck on the wall in order, and all of tomorrow morning's work was going to fall into place by itself.
+
+Franky was sitting on the floor wiping his tools. He said — [franky:firm]"Building ships taught me that doing first what has to be done first is not effort, it is the whole of the skill."[/]
+
+That is tonight's lesson. Knowing that some job has to come first, and working out that order, is usually harder than doing the job itself.
+
+Now listen to the second lesson, which is hard but true. Where there is a cycle, an order does not exist at all. In a place where [aside]"A is needed first, but A needs B, and B needs A"[/], effort does not work. What is needed there is a decision to break the cycle.
+
+Some problems in life are like that too. Recognising that they are tangled is half the solution, because after that you stop pulling harder and start undoing the knot.
+
+And listen to the last lesson. The joining structure only knows how to join, and does not know how to separate. But in many problems you do not have to separate. And if you really do have to separate, run time backwards, because walking from the back turns a breaking into a joining.
+
+Franky put the last tool in the box. The ship had been repaired, and the night was still long.

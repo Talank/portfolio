@@ -1,0 +1,110 @@
+# 8 — Half and Half: Binary Search
+
+The eighth island is large, but there is only one library on it, and it is grand, and silent, and endlessly long. The books are in order from the first letter to the last.
+
+Robin went inside. The keeper of the library said — [robin]"There are a million books here. Find the one you need."[/]
+
+Usopp would have looked one at a time, a million times. Robin found it in twenty.
+
+What did she do? She went straight to the middle. She looked at the middle book. If the book she needed came after this one, she threw away the front half, which is five hundred thousand books, in a single stroke. If the book she needed came before, she threw away the back half.
+
+Now five hundred thousand were left. She looked in the middle again, and threw away half again. Now two hundred and fifty thousand were left. Then a hundred and twenty-five thousand. Then sixty-two thousand. At every step the world halves.
+
+@read teach
+How many times do you have to halve a million to get to one? Twenty times. That is what O(log n) is. And that is why this move is so beautiful, because when the number grows ten times, the effort grows only about three steps.
+
+But there is a condition, and if you forget this condition everything falls apart. The books have to be in order. The order is the ground that lets you say "not that way". Without order, you do not have the right to throw away half.
+
+Now listen to the rule, and it will come back three times tonight.
+
+@algo aadha
+The rule for throwing away half is this, and it only works where there is order. Put the left finger at the start, and the right finger at the end. As long as the left has not gone past the right, repeat this work. First work out the middle position, and look at the value in the middle. If the middle value matches the value you need, that is the answer, and the work is done. If the middle value is smaller than the one you need, make the left finger the middle plus one. If the middle value is larger than the one you need, make the right finger the middle minus one. Once you have looked at the middle book, you must not put it back inside the range again, or the range never narrows.
+@end
+
+There are two traps here, and both have drowned a lot of people.
+
+The first trap arrives when you work out the middle. Many people add the left and the right and divide by two. On large numbers that sum can overflow. The safe way is to add half of the right minus the left onto the left.
+
+The second trap is in forgetting the plus one and the minus one. You have already looked at the middle book, so it must not go back into the range. If you put it back, the loop goes round forever.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule for throwing away half.
+
+@recall aadha
+
+@read teach
+Now a beautiful turn arrives. Suppose the books are in order, but somebody has cut them in the middle and swapped the two pieces. An array like four, five, six, seven, zero, one, two is like that. It is called a rotated [..]array[..].
+
+Can you still throw away half now, or not? You can. The reason is that wherever the cut was made in the middle, at least one of the two halves is still in order. So first ask — [aside]"Is the left half in order?"[/] If it is, look at whether the value you need falls inside that range. If it does, go that way, and if it does not, go the other way. If the left half is not in order, the right half is, and you ask the same way about that.
+
+There is one deeper thing, and it usually gets missed. Binary search is not always the job of finding a number. It is the job of finding the limit of a [aside]"yes or no"[/] question. Suppose something is impossible at a small value and possible at a large one. Where is that limit? Go to the middle and ask [aside]"is it possible here?"[/], and throw away half.
+
+@read hush
+The keeper turned the lights down. The library is silent. Robin closed her eyes with the book held against her chest.
+
+One last time before you sleep, very slowly, listen to the rule for throwing away half.
+
+@recall aadha
+
+@tier medium
+
+The library light had not gone out completely. Robin opened her eyes and said — [robin]"This move has a few more faces, and those are the truly useful ones."[/]
+
+The first face asks where a value should have been, if it was not found. This is called finding the boundary. Here, instead of returning "not found", return the place where the left finger stopped, because that is exactly where the value should be inserted.
+
+The second face asks, when there are repeated values, where the first one is and where the last one is. Here you must not stop the moment you find the value. Even when you find the value, throw away the right half and keep searching, and doing that finds the first one. Do the reverse and you find the last one.
+
+That small difference changes the whole answer, and this is the place where many people slip. Give up the habit of stopping as soon as you find it, and ask [aside]"is there still one further left?"[/]
+
+In the third face you have to find a whole-number square root. There is no array here at all. But the answer lies somewhere between one and the number, and that range is in order. Go to the middle and work out the square, and if the square is too big, throw away the right.
+
+That is what shows, and remember this, that binary search does not need an array. It needs order. If order is hiding anywhere, this move works.
+
+The fourth face asks where the smallest number is in a rotated array. Compare the middle value against the last value. If the middle is larger, the break is to the right. If the middle is smaller, the break is to the left, and the middle itself is a candidate.
+
+@tier long
+
+The keeper had gone into the back room. The library became quieter still. Robin turned a page of her book slowly.
+
+She said — "Now I will tell you the most powerful form. It is called searching in the answer. Many people feel their own thinking change after they learn it."
+
+Imagine it this way. You do not know the answer, but you know the range the answer could be in. And if you are given any number, you can check whether that number works or not.
+
+And then one thing is true. It does not work at small numbers, and it works at large ones. Or exactly the reverse. In a case like that the answer sits at precisely the limit where "does not work" touches "works". And that limit is found by halving.
+
+Listen to an example slowly. There are some crates on the ship, and each one has a different weight. You have to carry all of them across in D days without breaking their order, and only one trip a day is allowed. So, what is the smallest maximum weight you could carry in one trip?
+
+If you think about it directly, no road appears. But ask it backwards — [aside]"If the capacity were this much, could it be finished in D days or not?"[/] That is easy to check, because you keep loading the crates in order, and count a new day when the load is full.
+
+Now pay attention. If the capacity is large, fewer days are needed. If the capacity is small, more days are needed. So the answer "it can be finished" is always yes after a certain limit. That limit is found by halving.
+
+What is the range of the capacity, from where to where? It is from the weight of the heaviest single crate up to the total weight of all the crates. Within that range, twenty or thirty halvings give the answer.
+
+Listen to other questions of the same shape, so that you can recognise the form. In how much time will all the flowers bloom? How slowly can you walk and still arrive on time? If you cut something into so many pieces, how short can the longest piece be?
+
+All of these have the same shape. The answer has a range, the check is easy, and the answer to the check changes in one direction only. If you find those three things, start throwing away half.
+
+Now listen to one small technical thing, which is fine to hear while falling asleep. In this kind of search there is usually no case of [aside]"found it exactly"[/]. So the shape of the loop is a little different. Go around until the left and the right meet, and if the middle "works" keep the right at the middle itself, and if it "does not work" make the left the middle plus one.
+
+At the end the left and the right come to the same place, and that is the answer. Once you know this shape by heart, dozens of questions pour into the same mould.
+
+Now listen to finding the midpoint of two sorted arrays. This is considered the hardest one, and tonight we will only touch its shape.
+
+Imagine a cutting line in the smaller array. However much of the left you take in the smaller array, the rest is decided for you in the larger one. Now ask — [aside]"Is every number on the left of both smaller than every number on the right of both?"[/] If it is, the line is in the right place.
+
+If it is not, move the line, and do the moving by halving. The search happens only across the length of the smaller array, so the total time is O(log n).
+
+Robin closed the book and said — [robin]"Remember only this much tonight. Where there is order, there is the right to throw away half. And the order does not always have to be in the array, because sometimes the order is in the answer."[/]
+
+@read hush
+The last light in the library went dim as well. Robin put the book on the table, and sat quietly.
+
+The keeper came in through the door and said — [aside]"You found it in twenty. Everybody else searches a million times. Do you know what the difference is?"[/]
+
+Robin did not answer. The keeper said it himself — [robin]"The difference is courage. Throwing away half is not an easy thing. The mind does not want to let go of five hundred thousand books in one stroke. People say 'who knows, it might be in there', and then they sit there searching all of it."[/]
+
+That is tonight's lesson. Order gives you the right to throw away half, but the courage to throw away half you have to give yourself. Where you are certain it is not that way, looking back over your shoulder is an insult to time.
+
+Now listen to the second lesson, which is wider. Order is not always in the array. Sometimes the order is in the answer. The moment you see [aside]"this much works, and less than this does not"[/], start throwing away half.
+
+The keeper put out the light. Outside, from very far away, you could hear the sea, and the library went completely silent.

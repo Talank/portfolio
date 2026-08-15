@@ -1,0 +1,153 @@
+# 26 — The Last Anchorage: Summary and Sleep
+
+The ship is out on the open sea now. No island is in sight. The swell is calm. The night has grown deep.
+
+The crew are sitting quietly on the deck. Luffy fell asleep long ago. Zoro is asleep leaning against the wall.
+
+Robin said quietly — [robin:gentle]"There is nothing new to learn now. Let us just remember all the islands once, and remember them lightly, without trying hard."[/]
+
+We began with the tools. The box gives a thing a name. The wheel repeats the same work. The string ties many steps into one name. The question splits the road in two. Every program in the world is made out of those four.
+
+After that we learned the map of time. If you only have to look at one, that is O(1). If you have to look at all of them once, that is O(n). If you have to check every one against every other, that is O(n²). If you get to throw away half every time, that is O(log n).
+
+After that came Nami's notebook. It asks one question, and that question is [nami]"have I seen this before or not"[/]. That one question removed the searching, and O(n²) fell to O(n).
+
+Zoro's two swords walk in from the two ends towards the middle, on a sorted array.
+
+The sliding window looks for a consecutive stretch, and both of its edges only ever move forward.
+
+The running total notes the total from the start once, and after that the total of any stretch comes in a single subtraction.
+
+The library's half-and-half only works if there is order, but when it works, a million books are narrowed down in twenty steps.
+
+When you turn a linked list around you have to note tomorrow first, and only then change the direction.
+
+The tortoise and the hare meet on a circular road, and never meet on a straight one.
+
+In the stack of plates, whatever was put down last comes up first. And the falling stack takes out immediately whoever has no future.
+
+In the bread queue, whoever came first goes first. And the deque tells you the largest number in the window.
+
+In the branches of the tree, every branch is itself a small tree. If you need depth run DFS, and if you need what is near, run BFS.
+
+In the tree of order, the small ones sit on the left and the large ones on the right. But if the balance goes, it becomes a chain.
+
+The heap of pearls does not keep the full order, and only its top is certain.
+
+In the web of islands you always have to note where you have been, or you go round forever.
+
+The island of ordering says that where there is a cycle, an order does not exist at all.
+
+In the maze you have to choose, go forward, and then take it back. And there you have to know how to give up early.
+
+The wall of memory does not let the answer to the same question be counted twice.
+
+The choice of the moment is fast, but you have to be able to say why it is right.
+
+With pieces of time you have to sort first, and then it is enough to look only at the neighbour.
+
+In the tree of letters, those with a shared beginning have a shared road.
+
+And on the island of zero and one, pairs cancel themselves, and one is left over.
+
+That is enough now. You do not have to remember it all. It is enough if one or two stay in your mind, and the rest come round again another night.
+
+Now listen to one last thing, and this is the truest thing of all. Learning these twenty islands does not mean memorising twenty moves. It means forming one habit.
+
+@algo saat-prashna
+Whenever you see any new problem, ask these seven questions. The first question is this — have I already done this piece of work before? The second question is this — is there some order hiding here? The third question is this — is something consecutive being looked for here? The fourth question is this — is there a choice at every step here? The fifth question is this — is some piece of work repeating here? The sixth question is this — can I throw away half of the remaining work? The seventh question is this — do I know how to turn back? Whoever knows how to ask these seven questions finds the move by themselves, and whoever memorises the moves without knowing the questions has to be afraid all over again at every new problem.
+@end
+
+The questions are the real tools, and the moves are only their answers.
+
+@read hush
+Now keep your eyes closed and listen to those seven questions once again.
+
+@recall saat-prashna
+
+@read hush
+Now sleep. Really sleep. The code gets written in the morning, and tonight's work is finished.
+
+The ship is finding its own way forward. Above there are more stars than anyone could count. The waves knock gently against the side of the ship.
+
+@read hush
+One last time before you sleep, very slowly, listen to those seven questions. Tomorrow morning they will come back to you on their own.
+
+@recall saat-prashna
+
+Good night.
+
+@tier medium
+
+The swell was still calm. Robin added — [robin]"One thing is left, and it is not about moves, it is about habits."[/]
+
+When you meet a new problem, look at five things in this order. The first thing is what the input is like. Is it in order or not? Is it consecutive or not? Is it a tree or a web?
+
+The second thing is what answer is being asked for. Is one of them being asked for? The best one? How many there are? Or all of them?
+
+@read teach
+The third thing is what the brute-force solution is and what it costs. Always write that down, because it is your base, and improving it is usually where the answer comes from.
+
+The fourth thing is which piece of work is repeating in that brute-force solution. Finding the repeated work is finding the road to the improvement. Now ask whether it should be removed by remembering, by sorting, or by throwing away half.
+
+The fifth thing is what happens at the boundaries. What happens if the input is empty? What happens if there is only one? What happens if they are all the same? What happens if the largest one arrives?
+
+Once the habit of looking at those five things is formed, the moves come by themselves. And even if you forget the moves, the questions keep showing you the road.
+
+@tier long
+
+The ship was still moving forward. Nami stood at the edge of the deck without opening her map.
+
+She said — [aside]"This is the last night, so let us talk about something different. Tonight let us talk not about moves but about practice."[/]
+
+The first thing is that solving one problem three times is better than solving twenty different problems once. The first time you understand. The second time you remember. The third time your hand moves by itself.
+
+The second thing is that looking at the solution is not losing. But after you look, close the page and write it again yourself. Looking and then writing it yourself is much faster learning than being stuck for two hours without looking.
+
+The third thing is to keep a small diary of mistakes. Where did the off-by-one happen? Where was the empty input missed? Which place was sorted the wrong way?
+
+After a few weeks you will see that the mistakes repeat, and that they are only of a few kinds. The list is short, and once the list is short, improving is easy.
+
+The fourth thing is to speak before you write code. Whatever cannot be said in words cannot be written in code either. And whatever has been said in words is usually written in ten minutes.
+
+The fifth thing is not to go silent during an interview. Your thinking is the valuable thing, not the answer. Saying [aside]"I will think about the brute force first, then look for an improvement"[/] is itself a good start.
+
+Now listen to something that hardly anybody says. Nobody invented all these moves in one night. They are the fruit of decades of work, and you are learning them in a few months.
+
+So do not scold yourself when it feels hard. Finding it hard is natural. Beginning to find it easy is the progress, and that comes slowly.
+
+@read hush
+And listen to something about sleep, because half of tonight's learning is that. Sleeping after learning something new is how the thing gets stuck down.
+
+Practising for two hours and then sleeping properly is much better than staying awake for a third hour of practice. Effort plants the seed, and sleep puts the roots down.
+
+@read teach
+So this story ends here, and it tells you to sleep. That was its real purpose all along.
+
+Robin closed her book for the last time and said — [robin:gentle]"Nobody has anything left to say now. The ship knows the way."[/]
+
+@read hush
+Nami sat down as well. Nobody put out the lamp, and the lamp grew dim by itself.
+
+The waves are knocking gently against the side of the ship. The air is warm.
+
+@read hush
+Above there are more stars than anyone could count. They are turning slowly, without any hurry.
+
+All the islands are behind us. Ahead is the open sea, and it is not waiting for anybody either.
+
+Robin put the book in her lap. She said very slowly — [robin:gentle]"One thing is left, and it stands above all the islands. These twenty islands have given you twenty moves. But moves get forgotten, and what does not get forgotten is the habit of asking questions."[/]
+
+Nami sat beside her. She said nothing, and only nodded.
+
+That is tonight's last lesson, and it is not a lesson only about code. New problems arrive in the world every day. It is not possible for you to know the answer to all of them. But the questions you ask are your own, and they are always with you.
+
+@read hush
+Now really sleep. Learning needs sleep to put its roots down, and tonight you planted a great deal.
+
+The ship is moving forward, finding its own way. The waves knock gently against the side. The air is warm.
+
+@read hush
+Above, the stars are turning without any hurry.
+
+Good night. Sleep well.

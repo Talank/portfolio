@@ -1,0 +1,102 @@
+# 6 — The Window That Slides Along: The Sliding Window
+
+An old bus runs on the sixth island. It is like a minibus in Kathmandu, because it is small, it is full, but it is always moving.
+
+Luffy sat by the window. Looking out, he said — [luffy]"Whatever I can see out of this window at one time, that much is my world. When the bus moves forward, the world slides along too."[/]
+
+The signal for this island is easy. If the word "consecutive" appears in the question, a bell should ring. And if [aside]"the longest"[/] or [aside]"the shortest"[/] appears, a bell should ring as well. That is the window's work.
+
+Now listen to the first problem. In a word you have to find the longest stretch in which no letter repeats.
+
+@algo jhyal
+The rule of the sliding window is this, and it has two edges. Move the right edge forward one step, and add the newly arriving thing into the window's count. Now ask whether the window is still valid. If the window has become invalid, move the left edge along one at a time, subtracting each departing thing from the count as it goes. Once the window is valid again, measure its length, and keep remembering the best length so far. Both edges always move forward only, and neither ever turns back.
+@end
+
+Nami explained — [nami]"The same rule applies to the repeated-letter problem like this. Keep pulling the right edge along, and note every new letter in the notebook. The moment a letter repeats, the window has become dirty. Now pull the left edge along one at a time, and keep pulling until the repeated letter has left. Once it is out, the window is clean again."[/]
+
+Pay attention to one thing here, because this is what makes the move fast. Both edges only move forward, and neither ever turns back. So each letter is touched at most twice, once when it enters and once when it leaves. Twice is still O(n).
+
+@read teach
+In the second problem you need the largest total of exactly K consecutive numbers. Here the size of the window does not change, and it stays K throughout. This is called a fixed window, and it is even easier.
+
+Work out the total of the first K. Now move the window one step to the right, add the number arriving and subtract the number leaving. You do not have to add the whole total again. One addition and one subtraction is enough. This small move alone turns O(n·m) into O(n).
+
+@read hush
+Now keep your eyes closed and listen once again to the rule of the window.
+
+@recall jhyal
+
+The third problem is a little harder and beautiful. Inside a long word you have to find the shortest stretch that contains all the letters of another, smaller word.
+
+Here the window works in two stages. First keep pulling the right edge along, and pull until all the letters you need are inside. Once they are all in, the window is valid. Now pull the left edge, and shrink it as far as it will shrink without breaking the validity. Once it cannot shrink any further, note the length. Then pull the right edge again. This way the widening and the shrinking take turns, on and on.
+
+Sanji said from the kitchen — [sanji]"This is like getting the salt right in a soup. If there is too little, add some. If there is too much, add water. Slowly it comes right."[/]
+
+At the end, remember one distinction. The two fingers on the fifth island came in from opposite directions. The two edges here go in the same direction. And here the array does not have to be in order, because we are not looking for order, we are looking for consecutiveness.
+
+@read hush
+The lights on the bus are dim. Luffy has fallen asleep with his head against the window. Outside, the lights are sliding backwards one by one.
+
+One last time before you sleep, very slowly, listen to the rule of the window.
+
+@recall jhyal
+
+@tier medium
+
+The bus was still moving. The conductor turned the lights down further. From behind the seat Nami said — [nami]"The window has three more shapes."[/]
+
+In the first shape you need the longest stretch that has at most K different letters in it. Here you keep in the notebook how many of each letter are in the window.
+
+Keep pulling the right edge along, and keep raising the count of each new letter. If the number of different letters in the notebook goes past K, pull the left edge, and lower the count of each departing letter. If any letter's count reaches zero, remove it from the notebook entirely, or the count of different letters will be wrong.
+
+In the second shape there is an array of zeros and ones, and if you are allowed to turn at most K zeros into ones, you have to find how long the longest run of ones can be. You do not even need a notebook here. A single count of how many zeros are inside the window is enough. Once that count goes past K, pull the left edge.
+
+The question sounds different but the shape is the same. The window has to stay valid, and if it does not, the left edge has to be pulled. A great many questions fit inside that one sentence.
+
+In the third shape you have to find the shortest stretch whose total is at least equal to the target. Here we are looking for the shortest, not the longest, so the moment of measuring is different. Measure the length at every moment the window is valid, and then try to pull the left edge.
+
+Half-asleep, Luffy said — [luffy]"When you want the longest, make it valid and then measure. When you want the shortest, shrink it while it is still valid and measure."[/] Then he went back to sleep.
+
+@tier long
+
+The bus stopped at a small market. Nobody got off. The lights stayed on as they were, and the journey started again.
+
+Now comes a question that sounds hard. Inside a long word, is there anywhere a stretch made of the letters of another smaller word, in any order?
+
+The window size here is fixed, and it is equal to the length of the small word. At every position, look at whether the letter counts inside the window match the counts of the small word. If they match, that stretch has been found.
+
+Do not count from scratch every time. When the window moves one step, one letter comes in and one goes out, so there are only two changes. That is the core move of the window, and that same move is what turns O(n·m) into O(n).
+
+In the next question you may change at most K letters in a word, and you have to find how long a run of a single repeated letter you can make.
+
+The move is this. Remember the count of the most common letter inside the window. Subtract that count from the window's length, and that is how many letters you would have to change. If that number goes past K, pull the left edge.
+
+Then comes the question of finding the average of every stretch of length K in an array. This is the most direct use of the fixed window. The total slides along, and dividing by K each time gives the average.
+
+Now listen to an honest limit, because not knowing it makes many people write a wrong solution. The window only works when widening it makes the measure grow steadily and shrinking it makes the measure fall steadily.
+
+If all the numbers are positive this is true, because adding to a total makes it grow and removing makes it shrink. But if negative numbers are mixed in, that truth breaks. Adding a new number can make the total fall, so the very rule of when to pull the window disappears.
+
+At a time like that you have to leave the window behind and use the running total and the notebook, which is the move on the seventh island. Being able to recognise the choice between these two is the real skill.
+
+Robin added — [robin]"If the question says 'consecutive', think of the window. If it does not say 'consecutive', forget the window. If it is about choosing things or skipping over things, that belongs to another island."[/]
+
+Now let us put it all together into a small list, and close your eyes while you listen to it. If the size is given to you, use a fixed window. If the size is what you are looking for, use a growing window.
+
+If you are looking for the longest, pull the right edge, pull the left edge when it becomes invalid, and measure when it is valid. If you are looking for the shortest, pull the right edge, measure as soon as it becomes valid, and then pull the left edge to try to make it shorter still.
+
+The question of what to remember inside is answered by the problem itself. Sometimes you have to remember a total, sometimes a count, sometimes the number of different letters, and sometimes the most common letter.
+
+But the outer shape always stays the same, and that shape is the thing to remember. There are two edges, both go in the same direction, and neither ever turns back.
+
+The bus reached the next bend. Outside the window the lights were still sliding slowly backwards, one by one.
+
+Luffy was asleep with his head against the window. Nami put a blanket over him, and looked outside. A window shows only one small piece of the world, and that piece changes every moment. But the person sitting inside the bus does not have to remember the whole world.
+
+That is tonight's lesson. When only the edges change, you do not have to count everything in the middle again. Keeping account of one thing coming in and one thing going out is enough.
+
+This way of thinking is useful far beyond code. When you wake up every morning you do not have to do the accounts of your whole life. Add today onto yesterday's account, and drop the oldest day. That much is enough.
+
+Now remember an honest limit as well. This move only works when the total grows and shrinks in one steady direction. Stubbornly using the same move in a place where that condition is broken is the root of a great many wrong solutions.
+
+The bus reached the next bend. The lights were still sliding backwards, and nobody had turned around.

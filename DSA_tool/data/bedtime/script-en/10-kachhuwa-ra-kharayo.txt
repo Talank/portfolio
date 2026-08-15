@@ -1,0 +1,95 @@
+# 10 — The Tortoise and the Hare: Fast and Slow Pointers
+
+On the tenth island there is a road that goes in a circle. But the crew does not know that the road is a circle. As they walked, the view began to feel like the same view again and again.
+
+Chopper said — [chopper:afraid]"I feel like we are going round and round. But how would we know for certain?"[/]
+
+Robin smiled and said — [robin]"Let us send two people. Let one walk slowly, and let the other run twice as fast."[/]
+
+@algo kachhuwa
+The rule of the tortoise and the hare is this. Put both of them at the start of the road. At every step move the tortoise one step, and move the hare two steps. If the hare reaches the end, the road is straight, and there is no cycle in it. If the hare and the tortoise meet at the same place, the road is a circle, and there is a cycle in it. If you need to find the mouth of the cycle, then after the meeting leave one finger where it is and send the other one back to the start. Now walk both of them one step at a time together, and wherever they meet is the mouth of the cycle. No notebook is needed for this, so the space is O(1).
+@end
+
+There is magic in it. If the road is straight the fast one reaches the end first, and they never meet. But if the road is a circle both of them start going round inside that circle. And the fast one closes on the slow one by one step on every lap, so sooner or later they meet exactly.
+
+Think for a moment about how beautiful that is. If they meet, the road is a circle. If they do not meet, the road is straight. No notebook was needed, and nothing had to be written down.
+
+Now listen to another use of these same two fingers, which is even simpler. You have to find which node is exactly in the middle of a linked list. Run the same move again, and move one of them one step and the other two steps. When the fast one reaches the end, the slow one is exactly in the middle. You never had to count the length, and it finished in a single pass.
+
+Now a deeper question arrives, which confuses a lot of people. We know there is a cycle, but where does the cycle begin?
+
+The answer to it is strange, and it sounds like magic. It is right there in the last part of the rule. There is mathematics behind why it works, and tonight you do not have to do that arithmetic. Just remember this much — after the meeting, send one of them home, and then walk together.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule of the tortoise and the hare.
+
+@recall kachhuwa
+
+The same move is also useful in a completely different place. Suppose there are numbers from one to n, but one number is repeated. Think of the array as a linked list, and think of every index as pointing towards the value inside it. Once a number is repeated, two indexes point at the same place, and a cycle forms there. And the mouth of the cycle is the repeated number.
+
+@read teach
+That sounds strange when you hear it, but that is all it is. Being able to see an array as a linked list is the real lesson here.
+
+Chopper is tired. He lay down slowly in the grass. The secret of the circular road is out, and now it is possible to sleep.
+
+@read hush
+One last time before you sleep, very slowly, listen to the rule of the tortoise and the hare.
+
+@recall kachhuwa
+
+@tier medium
+
+The grass was warm. Chopper had not fallen fully asleep yet. Robin said quietly — [robin]"This two-speed move is useful in two or three more places."[/]
+
+In the first place you have to remove the back half of a linked list from exactly the middle, or add something in the middle. You do not have to count the length to find the middle, because two speeds are enough. It is a small saving, but it finishes the work in a single pass.
+
+In the second place there is the game of happy numbers. Take some number, add the squares of its digits, and keep repeating the same work. Sometimes you arrive at one. Sometimes you end up stuck going round in a circle.
+
+@read teach
+There is no linked list here at all. But every number points at another number, and that is what a [..]linked list[..] is. Move the slow one one step and the fast one two steps. If you arrive at one, the number is happy, and if they meet, the number is unhappy.
+
+In the third place comes the question of how long the cycle is. After the meeting, keep one finger where it is, and take the other one around one lap, counting the steps. When it comes back to that same place, the count is the length of the cycle.
+
+Robin added — [robin]"The heart of this move is not the linked list. The heart of it is that wherever there is a 'points at the next one', a cycle is possible, and a cycle is found by two speeds."[/]
+
+@tier long
+
+The road was still a circle, but now it was not frightening. Once you know about it, even a circular road feels like home.
+
+Robin said — [robin]"Let me ask a question. Why are the two speeds exactly one and two? Why not three and five?"[/]
+
+Chopper shook his head. Robin answered it herself — [robin]"Because if the difference is one, then inside the cycle the fast one closes on the slow one by exactly one step every lap. If it closes by one step at a time, it can never jump over. If the difference is two, both of them can jump and step over each other at the same moment."[/]
+
+She added — [aside]"So one and two is safe. It is a small thing, but it is what gives the move its proof."[/]
+
+Now let us also listen slowly to that magical reasoning for finding the mouth of the cycle. Listen while falling asleep, because you do not have to do the arithmetic and hearing the shape is enough.
+
+Suppose there are A steps from the start to the mouth of the cycle. There are B steps from the mouth to the meeting place. And there are C steps from the meeting place back round to the mouth. So the length of the cycle is B plus C.
+
+The slow one has walked A plus B steps. The fast one has walked exactly double, and it has gone round the cycle some number of times to arrive at that same place. Putting the two accounts together gives one beautiful result, and it is that A equals C, with whole laps of the cycle added on.
+
+Now, what does that mean? The distance from the meeting place to the mouth is equal to the distance from the start to the mouth. So sending one of them home and walking both one step at a time makes them meet exactly at the mouth.
+
+Now let us take up the business of finding the repeated number in an array in a little more detail. The numbers run from one to n, and the length of the array is n plus one. So at least one number must be repeated.
+
+Turn the array into a linked list. Start from index zero, and each time make the value inside into the new index. Since the numbers run from one to n, nobody ever comes back to index zero, so there is a cycle there and also a tail sitting outside the cycle.
+
+Because two numbers are the same, two indexes point at the same place, and that meeting point is the mouth of the cycle. Finding the mouth means finding the repeated number. This works without damaging the array and without keeping a notebook, so the space is O(1).
+
+Think for a moment about how beautiful that is. We turned a problem about numbers into a problem about a road. Being able to change the form of a problem is the greatest skill there is, and it repeats through the whole voyage.
+
+Then there is one last use, and it is an easy one, and that is counting from the end of a linked list. We already met the move of sending one finger K steps ahead on the last island. That one is in this same family, because there too there are two fingers, the start is different, and the walking is together.
+
+The only difference is that there the speed was the same and the distance was different, and here the distance is the same and the speed is different. Both moves are two faces of one idea.
+
+Chopper really has fallen asleep now. Dew had started coming down on the grass. The circular road was still there, and it was turning quietly.
+
+Robin drew a circle in the dust of the road with her finger. She said — [robin]"People do not know they are going round in circles, because the view keeps changing. But the view changing and moving forward are not the same thing."[/]
+
+That is tonight's lesson, and it is a little hard. Whether you are going round in a circle or not is something you cannot learn by walking at one speed. To find out, somebody has to walk at a different speed.
+
+So when some piece of work feels like it is moving forward but is not, change the speed. Go faster, or go slower. A different speed shows a different thing, and if they meet, the truth comes out.
+
+Now listen to the second lesson, which is the most beautiful thing tonight. We turned a problem about numbers into a problem about a road. Being able to change the form of a problem is the highest floor of the skill. When the answer does not come, try changing the shape of the question.
+
+Chopper's breathing was slowing down. The dew was settling on the grass, and the circular road was not frightening any more.

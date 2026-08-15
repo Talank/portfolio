@@ -1,0 +1,116 @@
+# 21 — The Power of Memory: Dynamic Programming, Part Two
+
+On the twenty-first island it is the same house, but today the wall is larger. The papers are stuck up in two directions, making rows and columns.
+
+Robin said — [robin]"In yesterday's problems only one thing changed. In today's problems two things change. So today the wall becomes a table."[/]
+
+The first problem is the coins. There are unlimited numbers of coins of different values. What is the smallest number of coins needed to make some amount?
+
+Luffy said — [luffy:excited]"That is easy. Start from the largest coin and it is done."[/] Shaking her head, Robin said — [robin:firm]"That is the greedy way, and it goes wrong here."[/]
+
+Think about it this way. The coins are one, three and four, and you have to make six. The greedy way takes four, then one, then one again, and that is three coins. But if you take three and three you get there in two coins. That is how greed failed.
+
+@algo talika
+The rule for memory in two dimensions is this. First write down your case, that is, work out which numbers together name one sub-question completely. Those numbers become the rows and columns of the table. Write the answer to the smallest case first, and that is the base. Now fill the squares of the table in order, and in every square try each of the choices you have, one at a time. Every choice takes you to a smaller square that has already been filled, so read the answer there directly and add your own cost. Write the best answer among all the choices into that square. Whatever is written in the last square is the answer to the whole question.
+@end
+
+In the coin problem that same rule applies like this. Making zero takes zero coins, and that is the base. Now climb from one up to the target, and at every amount try every coin. If I take this coin, the answer for the remaining amount is already on the wall, and you add one to it. Whichever comes out smallest across all the coins is the answer for this amount.
+
+@read teach
+The second problem is the longest rising run, and it is called [..]LIS[..]. You have to pick some numbers out of the array, without breaking their order, and make the longest rising sequence.
+
+The simple way is this. For every place, ask — [aside]"How long is the longest sequence that ends here?"[/] To work that out, look backwards. Anybody smaller than me lets me add one to their answer. Take the largest of them all, and this is O(n²).
+
+There is a faster way as well, which uses binary search and reaches O(n log n). Tonight you do not need those details. It is enough to know that sometimes, when the tools of two islands are joined, a new speed comes out.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule of the table.
+
+@recall talika
+
+@read teach
+The third problem is the bag, and it is called the [..]Knapsack[..]. The bag carries a limited weight. Every item has a weight and a value. So what is the most value you can carry?
+
+Here two things change, and they are how many items I have looked at and how much room is left in the bag. So the table is two-dimensional.
+
+The same question is asked in every square. If you take this item, add its value, and look at the earlier answer with the remaining room reduced. If you do not take it, the answer from the previous row stays as it was. Take the larger of the two.
+
+The fourth problem is the distance between two words. What is the smallest number of changes needed to turn one word into the other, where you may add, remove, or replace?
+
+Again a two-dimensional table is built, holding how many letters of the first word and how many of the second have been looked at. If the letters match, take the answer from the corner diagonally back, unchanged. If they do not match, take the smallest of the three neighbours and add one.
+
+Now remember lightly how to recognise DP. If the question asks [aside]"the most"[/], [aside]"the fewest"[/], or [aside]"in how many ways"[/], and there is a choice at every step, and the choices are joined to one another, then it is DP.
+
+The papers on the wall are quiet. Outside, the wind is moving. The table is filling itself in, one square at a time.
+
+@read hush
+One last time before you sleep, very slowly, listen to that same rule.
+
+@recall talika
+
+@tier medium
+
+The table was half full. Robin shook the chalk dust off her hands and said — [robin]"There are a few squares left on this wall."[/]
+
+The first square is the longest run shared by two words. You have to pick some letters out of both, without breaking their order, and make the same sequence.
+
+The table is two-dimensional. If the letters match, add one to the answer at the corner diagonally back. If they do not match, take the larger of the one above and the one to the left. That is all of it.
+
+This problem is worth remembering, because its shape comes back in many places. From the tool that shows the difference between two files to the matching of sequences in biology, this same shape turns up.
+
+In the second square is the question of whether an amount can be made, where every number may be used only once. This is called the subset total.
+
+Every square of the table says whether, having looked at this many items, this amount can be made or not. Here the answer is only yes or no. It can be done by taking this item, or by not taking it, and it is enough for either one of the two to be true.
+
+In the third square is the question of whether an array can be divided into two parts with equal totals. This is the same subset total, but it has arrived in new clothes. If the grand total is odd, say no immediately. If it is even, ask whether half of it can be made.
+
+Robin said — [robin]"That is the true way to learn DP. When a new question arrives, ask which question you already know this is the clothing of."[/]
+
+@tier long
+
+Outside, the wind was still moving. The table on the wall was now almost completely full.
+
+Robin said — [robin]"Now let us say that fast way of doing the longest rising run, because it really is sweet to hear."[/]
+
+Keep an empty array. For every number, look for its place inside that array, that is, look for the first place that is not smaller than it, and that is found by binary search.
+
+Put yourself in that place. If you reach the end of the array, the length goes up by one.
+
+There is an honest thing here. That array is not the real sequence. It is only the memory of [aside]"to make a sequence of this length, what is the smallest number that can be at the end"[/]. But the length comes out right, and that was what was wanted.
+
+Now listen to the other shapes of the bag problem. If the items are unlimited, the table is one-dimensional, and the walk goes in the forward direction.
+
+If every item may be taken only once, the walk goes in the reverse direction, or the same item gets counted again. That one difference makes two different worlds.
+
+And what do you do if the items are limited in number? That can be broken up in powers of two and turned into the take-only-once problem. It is a clever move, and tonight you do not need its details.
+
+Now listen to a different family, and that is DP that divides into pieces. For example, the question of which order to join the pearls in to make a necklace most cheaply is in this family.
+
+Here the case is two indexes, that is, from where to where. And inside there is a loop that tries every place to cut in the middle.
+
+So its time reaches O(n³). It sounds expensive, but in this family that is the natural cost, and here n is usually small.
+
+The best way of bracketing falls in this same family. So does the cheapest order of multiplying. So does the question of how few cuts are needed to make palindromes.
+
+Now listen to something practical. What do you do if you need not only the answer but also the road? For example, you need not only how long the longest shared run is, but what it actually is.
+
+Once the table is filled, walk it backwards. Ask at every square — [aside]"Where did this answer come from?"[/] Follow that road, noting things down as you go. Turn what you noted around at the end.
+
+Then listen to one last idea, which is the deepest one. For DP to work, two qualities are needed.
+
+The first quality is that the best answer to the large problem has to be built out of the best answers to the small problems. The second quality is that the same small problem has to come back many times, or there is no benefit in remembering it.
+
+Where those two are missing, trying to apply DP is wasted effort. And where those two are present, DP looks almost like magic.
+
+Robin put down the chalk. The table was full. Numbers sat quietly all across the wall, and each one carried the answer to its own small question.
+
+She stepped back and looked at the whole table. There were hundreds of squares there, and a small answer in each. There was no magic in any one square, because the magic was in the order.
+
+That is tonight's lesson. Large answers are built out of small answers, and small answers are built out of smaller answers still. Nobody has to work a miracle at any level, and all you have to do is get the order right.
+
+Now listen to the second lesson, which sets a lot of people free. The reason DP feels hard is not that the thinking is hard. The reason is that people forget to write down the case. Once you have written the one sentence saying which things together name your sub-question completely, the rest of the code arrives by itself.
+
+Then listen to the third lesson, which is the most practical. When a new question arrives, ask — [aside]"Which question that I already know is this the clothing of?"[/] There are few new questions in the world, and a great many new sets of clothes.
+
+@read hush
+The lamp went out. The table on the wall was still there in the dark, and tomorrow somebody was going to read it again.

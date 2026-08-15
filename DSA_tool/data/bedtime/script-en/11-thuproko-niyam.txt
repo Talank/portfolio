@@ -1,0 +1,107 @@
+# 11 — The Rule of the Stack: Stack
+
+In the kitchen on the eleventh island Sanji is washing dishes. He piles the washed plates one on top of another.
+
+Luffy came in and tried to pull a plate out from the bottom. Sanji smacked his hand and said — [sanji]"You do not pull the bottom plate out of a stack. Whatever was put down last comes up first."[/]
+
+@read teach
+That is the one rule of a [..]stack[..]. The last thing in is the first thing out, and this is called LIFO.
+
+It sounds ordinary when you hear it. But this rule does one remarkable thing, because it remembers work that is waiting and gives it back in exactly the reverse order. Wherever something is opened and has to be closed later, a stack is needed.
+
+The first problem gets asked a great deal, and it is whether a set of brackets is properly matched.
+
+Suppose it is written like this — open round, open square, close square, close round. That is matched. But if it is open round, open square, close round, close square, that is not matched. The reason is that the inner one has to close first.
+
+Usopp asked — [usopp]"Is a count not enough?"[/] Robin said — [robin]"A count would have been enough if there were only one kind of bracket. Once there are three kinds it is not enough, because you have to remember the order in which they were opened."[/]
+
+@algo thupro
+The rule of the stack is this. Walk along the characters one at a time. If you find an opening bracket, put it on the stack. If you find a closing bracket, first check whether the stack is empty, and if it is empty, say it is not matched. If it is not empty, look at the top of the stack, and if that is the partner of this one, remove the top. If it is not the partner, say immediately that it is not matched. Once all the characters are finished, do the final check, and only if the stack is empty is it matched.
+@end
+
+Many people forget that final check. If the stack is not empty, some bracket was opened and never closed, so it is not matched.
+
+There is another trap as well. If the stack is already empty when a closing bracket arrives, that is also not matched. If you try to take the top off an empty stack, the code itself breaks.
+
+Its time is O(n) and its space is O(n) as well, and it finishes in a single pass.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule of the stack.
+
+@recall thupro
+
+Now the second problem is a little cleverer. You have to build a stack that can say what the smallest value in it is in a single instant, without having to go searching every time.
+
+The move is to keep two stacks. Put the real values in one, and in the other put the smallest value so far. When you add a new value, put whichever is smaller, the current smallest or the new value, onto the second stack. When you remove, remove from both.
+
+Now, when the smallest is asked for, looking at the top of the second stack is enough, and it comes in O(1) time. Here we spent space and bought time, and that is the same trade from the second island.
+
+@read teach
+Listen to one more thing. When you write recursion, the computer is running this same stack quietly underneath. Every call adds a plate, and every return lifts one off. So very deep recursion fills the stack up, and that is called a [..]stack overflow[..].
+
+The kitchen is clean. The plates are sitting one on top of another. Sanji put out the light.
+
+@read hush
+One last time before you sleep, very slowly, listen to the rule of the stack.
+
+@recall thupro
+
+@tier medium
+
+The kitchen light had already gone out, but Sanji was still there. He did not light a cigarette, he just leaned against the wall. He said — [sanji:tired]"There are still two or three plates left."[/]
+
+The first thing is building a queue out of two stacks. In a queue whatever came first goes first, but in a stack it is exactly the reverse. So how does a stack build a queue?
+
+The move is this. Keep two stacks, and their names are the in one and the out one. Always put new things into the first. When you have to take something out, if the second is empty, move all the plates from the first into the second one at a time. In the moving, the order reverses by itself, and the reverse of a reverse is straight.
+
+The amortised arithmetic turns up again here. Sometimes the moving is expensive, but each plate is moved at most twice in its whole life. So on average this is O(1).
+
+In the second thing, an expression is written in reverse order, and you have to work out its value. When you find a number, put it on the stack. When you find a sign, take the top two numbers off, do the arithmetic, and put the result back on the stack.
+
+Pay attention to the order for subtraction and division, because the number on top is the second one, not the first. That small thing turns the answer upside down.
+
+In the third thing you have to clean up a path. When you find the sign meaning [aside]"one level up"[/], remove a name from the stack. When you find the sign meaning "right here", do nothing. Keep putting the remaining names on the stack. Whatever is left on the stack at the end is the clean path.
+
+@tier long
+
+The plates were quiet. Outside, the waves were patting against the hull.
+
+Sanji said — [sanji:amused]"Now let me say my favourite thing. What does a stack really do? It remembers what you have to come back to."[/]
+
+Listen to an example. Suppose you are running three jobs at once in the kitchen. The rice is on the fire. In the middle of that you started cutting vegetables. In the middle of that the door knocked.
+
+You go to open the door. When you come back, what do you do? You go back to the vegetables. Once the vegetables are done, you go back to the rice. Whichever job was abandoned last is the one you return to first. Your mind is running a stack.
+
+That is why recursion and the stack are two forms of one thing. Anything that can be written with recursion can also be written with a stack, and the reverse is true as well.
+
+Now let us touch on trees a little, because they are coming up. In a tree, walking down into the depth is done by recursion. But you can also do it by keeping a stack yourself, putting branches on the stack and taking them off the top.
+
+The only difference is that in recursion the computer keeps the stack hidden. If you keep it yourself, the limit on the depth comes into your hands, and on a very deep tree that is safer.
+
+Then a beautiful question arrives, and it is how long the longest properly matched stretch of brackets is. Here you put indexes on the stack, not characters.
+
+Put minus one on it at the start, and that is the place where it last broke. When an opening bracket arrives, put its index on the stack. When a closing bracket arrives, remove the top.
+
+If the stack is empty after removing, it broke right here, so put the current index on the stack. If it is not empty, subtract the top's index from the current index, and that is the matched length. Keep remembering the longest length.
+
+That sounds crooked, and it really is crooked. But remember the shape, because putting indexes rather than values on the stack makes many problems easy. This idea comes back on the next island, and there it really flowers.
+
+Now listen to the boundary questions, because all the mistakes with stacks live there. Did anyone try to take something off an empty stack? Was the stack checked for emptiness before looking at the top? Was the stack empty at the end?
+
+Those three questions catch ninety per cent of stack mistakes. Once you have written the code, get into the habit of asking those three questions once.
+
+At the end, listen to one small practical thing. You do not have to learn anything new to build a stack, because an ordinary array is enough. Add at the back, and remove from the back. Do that and you have a stack.
+
+Sanji said — [sanji]"The name is big, but the work is small. Almost every data structure is like that."[/]
+
+He closed the kitchen door slowly. The plates stood quietly in the dark, one on top of another.
+
+Sanji came outside and leaned against the wall of the deck. He said — [sanji:firm]"People say my kitchen is a mess. It is not a mess. It is full of unfinished work, and every unfinished job is waiting for its turn."[/]
+
+That is tonight's lesson. A stack remembers what you have to come back to, and without that memory no complicated job ever finishes. Whatever was opened has to be closed, and the inner one has to close first.
+
+That discipline looks small. But large software in the world has fallen over because that discipline broke. Somebody does not close the file they opened, somebody does not release the lock they took, and somebody leaves work they started half done.
+
+Now listen to the second lesson. You must not try to pull a plate off an empty stack. What that means is that you must not rely on something that is not there. In writing code and in running a life, ask first — [aside]"Is there really anybody there?"[/]
+
+Sanji breathed out slowly. Inside, the plates stood in order, and in the morning they were going to be lifted off one at a time from the top.

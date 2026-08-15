@@ -1,0 +1,119 @@
+# 20 — The Power of Memory: Dynamic Programming, Part One
+
+On the twentieth island there is a small house, and countless pieces of paper are stuck to the wall of it. On every piece of paper an answer is written.
+
+Robin went inside. The owner of the house said — [robin:amused]"I am lazy. I do not work out the answer to the same question twice. Once I have worked it out, I stick it on the wall."[/]
+
+@read teach
+That is what [..]dynamic programming[..] is. Its name sounds frightening, but inside there is only this much to it: an answer already worked out is never counted again.
+
+The first example is the easiest, and it is Fibonacci. In it every number is the total of the two before it.
+
+If you write it straight out with recursion, the answer for n is the total of n-1 and n-2. That is correct, but it is terribly slow.
+
+Draw it on paper and see why it is slow. To work out the answer for five you need four and three. To work out four you need three and two. Now three has been counted twice. Going further down, two gets counted four times, and one gets counted eight times. The tree keeps spreading, and this is O(2ⁿ).
+
+But think about how many genuinely different questions there are. From one to n there are only n of them. We are working out the answers to n questions two to the power n times.
+
+@algo bhitta
+The rule of memory is this, and it fits in one sentence. Before working out the answer to any question, look at the wall first. If that answer is stuck on the wall, take it, and you never have to count it again. Only if it is not on the wall do you work out the answer. Once you have worked out the answer, stick it on the wall immediately, so that nobody has to count it the next time somebody asks. That one wall drops O(2ⁿ) to O(n), because there are only n genuinely different questions.
+@end
+
+@read teach
+This is called [..]memoization[..], and it is the way of going from the top downwards, because you start from the large question and come down towards the small ones.
+
+There is another way as well, and that is going from the bottom upwards. Write the smallest answer first, then climb up in order. This is called tabulation. It does not need recursion, so there is no fear of the stack filling up either.
+
+Now the second problem is the staircase. There are n steps, and you can climb one or two steps at a time. So in how many ways can you get to the top?
+
+Think slowly. Where did you arrive at the tenth step from? Either from the ninth, or from the eighth, and it is not possible from anywhere else. So the answer for ten is the total of nine and eight.
+
+There is something odd here, because this turns out to be Fibonacci again. Many DP problems are quietly the same shape underneath.
+
+The third problem is the thief's. There are houses in an array, and each one holds some money. But you cannot rob two neighbouring houses. So what is the most you can get?
+
+At every house there are two options. If you take this house you had to skip the previous one, so the answer is its money plus the answer from two houses back. If you skip this house, the answer up to the previous house stays as it was. Whichever of the two is larger is this house's answer.
+
+Here you can see the true shape of DP, and it is this that you should remember. Ask at every place — [aside]"How many options do I have?"[/] Build the answer for each option out of smaller answers, then pick the best one.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule of memory.
+
+@recall bhitta
+
+There is a small move as well. Here we only ever need the previous two answers, so the whole wall is not needed and two boxes are enough. That way the space drops from O(n) to O(1).
+
+The papers are moving on the wall of the house. The owner has fallen asleep in his chair. He did not think about the same question twice today.
+
+@read hush
+One last time before you sleep, very slowly, listen to that same rule.
+
+@recall bhitta
+
+@tier medium
+
+The owner of the house was still in his chair, but he was not fully asleep. Without opening his eyes he said — [aside]"There is still room on the wall."[/]
+
+In the first thing, every step of the staircase has its own tiredness, and you have to reach the top with the least tiredness. Ask at every step — [aside]"Did I come from the one below, or from the one below that?"[/] Take whichever is cheaper, then add your own tiredness.
+
+In the second thing the houses are in a circle, and the first and the last are neighbours too. Now what do you have to do? There is a clever move here, because you run it twice. Run it once leaving out the first house, and run it once leaving out the last house. Take the larger of the two answers.
+
+Why does this work? Because you cannot take both the first and the last, so one of them has to be left out. Checking both possibilities separately covers every case.
+
+In the third thing you have to find how many roads there are from the top-left corner to the bottom-right corner of a grid, where you may only go right and down. In every square the answer is the total of the one above and the one to the left. In the first row and the first column it is always one.
+
+And what do you do if some squares in that same grid are blocked? Write zero in the blocked squares, and leave the rest of the arithmetic as it was. One small change solves a new question.
+
+@tier long
+
+@read hush
+The lamp was low. The papers on the wall were moving lightly in the air.
+
+The owner said — [aside]"Now let me teach you how to write DP, because many people understand the idea and cannot write it."[/]
+
+Ask four questions, in this order. The first question is what my case is, that is, which numbers together name one sub-question completely.
+
+The second question is what choices I have when standing in that case. The third question is which smaller case each choice takes me to. The fourth question is what the answer to the smallest case is.
+
+Once you have written the answers to those four, the code almost writes itself. And if you put your hands on the keyboard without writing those four, you usually get tangled.
+
+Now a question many people ask, which is whether to go top down or bottom up.
+
+Going top down is easier, because it is straight recursion and it matches how you think. But if it gets deep, the stack fills up.
+
+Going bottom up is faster, because there is no cost of calling functions. But you have to get the order right yourself, and you have to think out for yourself which answer is needed first.
+
+The advice is this. Write it top down first, because it is easier to think about. If that works and you need to, change it to bottom up.
+
+Now listen to saving space. In many DP problems you do not need the whole table, because you only need the previous row. So keep two rows, and swap them turn by turn.
+
+Sometimes even one row is enough, but if you do that you have to pay attention to the direction of the walk. In the knapsack problem you have to fill from the reverse direction, or the same item gets counted twice.
+
+It is a small thing, and that same small thing has made many solutions wrong. Changing the direction changes the meaning, so always ask — [aside]"The answer I am reading while filling this square, is it the old one or the new one?"[/]
+
+Now listen to a new problem, and it is the coins. How many different ways are there to make some amount, where the order does not matter?
+
+Here the order of the loops changes everything. If you put the coins outside and the amount inside, combinations are counted, that is, [aside]"two plus three"[/] and [aside]"three plus two"[/] are treated as the same.
+
+If you do it the other way round, putting the amount outside and the coins inside, the order is counted and those two are treated as different ways. Swapping two loops in the same code gives you the answers to two different questions. It sounds astonishing, and it is true.
+
+Then a beautiful problem in the same family arrives. What do you do if the houses are not in an array but in a tree? Return two answers at every node, and they are [aside]"the most I can get from this branch if I am taken"[/] and [aside]"how much if I am not taken"[/].
+
+If I am taken, the children cannot be taken. If I am not taken, the children may be taken or not taken. This move of returning two numbers upwards comes up in many tree DP problems.
+
+At the end, listen to something that is the biggest thing tonight. DP is not magic. It is only recursion, in which the answers are not allowed to be forgotten.
+
+So when a problem feels far too large, write the straight recursion first, and write it however slow it is. Once that works, now add the wall. That is all of it.
+
+The owner leaned his head back in the chair. The papers on the wall had stopped moving. Inside the house, no answer had been worked out twice.
+
+On her way out of the door Robin read one of the papers. It said — [robin:amused]"Being lazy and being wise are sometimes the same thing."[/]
+
+That is tonight's lesson, and it is the greatest idea of the whole voyage. Doing work twice is not effort. Working out the answer to the same question twice is an insult to the first time.
+
+And the beautiful thing is that it asks for no new magic. Think it through straight first, and think it however slowly. Once that works, now add the wall. The difference between O(2ⁿ) and O(n) is usually only one wall.
+
+The same rule works in life. Write down whatever you learn. Remember whatever you go through. Whoever remembers does not have to suffer the same sorrow twice.
+
+@read hush
+The lamp was low. The papers were quiet all across the wall, and each one carried the answer to its own small question, and they were going to be there tomorrow as well.

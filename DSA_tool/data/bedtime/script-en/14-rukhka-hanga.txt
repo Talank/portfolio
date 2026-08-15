@@ -1,0 +1,101 @@
+# 14 — The Branches of the Tree: Tree DFS and BFS
+
+There is forest all over the fourteenth island, and in the middle of it stands one enormous tree. Its branches spread out two at a time.
+
+Chopper stood at the foot of it and asked — [chopper]"How would anyone count all the leaves on a tree this big?"[/]
+
+Robin said — [robin]"A tree looks frightening because it is large. But the secret of a tree is that every branch is itself a small tree. So whatever way you look at the whole tree, use that same way on a branch."[/]
+
+@read teach
+That is what [..]recursion[..] is, and it means calling yourself again on a smaller version. Recursion is so natural in a tree that it is almost like poetry.
+
+The first problem is how tall the tree is. Its answer comes in one sentence. The height of this tree is one added to whichever is taller, the left branch or the right branch. And if there is no branch at all, the height is zero.
+
+@read teach
+That last sentence is the most important one. It is called the base, and in English it is called the [..]base case[..]. Recursion without a base never stops. Wherever you call yourself, ask first — "Where does this stop?"
+
+Now there are two ways of walking, and remember both of them.
+
+@algo rukh
+These are the two ways of walking a tree. The first way is going into the depth, and it is called DFS. In it you take hold of one branch and go all the way to the tip, then come back and take hold of another branch, and this is the nature of a stack. The second way is walking level by level, and it is called BFS. In it you look at the root first, then the root's children, then the grandchildren, and this is the nature of a queue. Run BFS like this — put the root in the queue, then until the queue is empty, take the front node out and add both of its branches to the back of the queue. If the question is about depth, run DFS, and if the question is about what is near or about levels, run BFS.
+@end
+
+DFS has three orders. Looking at the root first is called preorder, and that is what you need to copy a tree. Looking at left, then root, then right is called inorder, and that gives the fruit in sorted order. Looking at the root last is called postorder, and that is what you need when deleting something, because it is only safe to delete the root after the branches are gone.
+
+If you need to separate the levels there is a small move. At the start of the loop, count how many members are in the queue. That many are the members of this level, and you collect them into one group.
+
+An easy and sweet problem is turning a tree inside out. At every node swap the left and right branches, and then repeat the same work on both sides. This finishes in three lines. This same question once caused a great deal of noise.
+
+@read hush
+Now keep your eyes closed and listen once again to the two ways of walking a tree.
+
+@recall rukh
+
+The leaves of the tree are moving in the wind. Chopper lay down right at the foot of it. Above him the branches spread out into the sky, and they cannot be counted, but every branch is itself a small tree.
+
+@read hush
+One last time before you sleep, very slowly, listen to the two ways.
+
+@recall rukh
+
+@tier medium
+
+The leaves were still moving. Chopper tried to get up, but Robin said — [robin]"Stay lying down. The tree has a few more stories."[/]
+
+The first story asks whether two trees are the same. Compare the roots of both, then compare left against left and right against right. If both are empty they are the same. If one is empty and the other is not, they are different.
+
+The second story asks whether a tree matches itself like a mirror. Here the comparison is reversed, because the left's left has to be matched against the right's right, and the left's right against the right's left. That small exchange changes the whole question.
+
+The third story asks whether there is a path from the root to some leaf whose total is exactly a given number. As you go down, keep subtracting from the total that remains. If the remainder is zero when you reach a leaf, that path has been found.
+
+Remember properly what a leaf is. Whoever has both branches empty is a leaf. A node with a branch on one side is not a leaf, and this is the place where many people slip.
+
+In the fourth story you have to say all the paths in the tree, and those run from the root to the leaves. As you walk, carry the path with you, and as you come back, remove what you added. This move of adding and removing is called backtracking, and it is the whole subject of the nineteenth island.
+
+@tier long
+
+The forest was quiet. A leaf came off a branch, and came down slowly.
+
+Robin said — [robin]"Now let me say the biggest lesson of the tree. Almost every problem on a tree pours into one mould, and that mould is very simple when you hear it."[/]
+
+The mould is this. Ask three questions. The first question is what you should return if an empty tree arrives. The second question is what you need from the left and right branches. The third question is what you build out of those two answers and your own value.
+
+If you find the answers to those three, the code writes itself. For height, empty is zero, take the larger of the two, and add one. For a total, empty is zero, take the total of both, and add your own value. For a count, empty is zero, take the total of both, and add one.
+
+Now let us pour a hard question into that same mould. How long is the longest path in the tree? The path does not have to go through the root, and it can run from anywhere to anywhere.
+
+Ask at every node — [aside]"How long is the longest path going down from me?"[/] That is one added to the larger of the left and right heights. Return that value upwards.
+
+But keep another account alongside it, and that one is [aside]"how long is the path that passes through me"[/]. That is the left height plus the right height. This one does not have to be returned upwards, and you just keep remembering the largest.
+
+This move of keeping two accounts at once comes up in many tree problems. One is returned upwards, and the other is noted at the side. Once you understand it, dozens of questions become easy.
+
+The next question asks which is the nearest shared ancestor of two nodes. Start from the root. If both nodes are in the same branch, go down that branch. If they have separated, the current node is the answer.
+
+In a BST this is easier still, because the order shows you the road. If both values are smaller than the current one, go left, if both are larger, go right, and otherwise this node is the answer.
+
+Now listen to some uses of the level-by-level walk. Sometimes you need the average of each level. Sometimes you need the rightmost node of each level, and that is called [aside]"what you see when you look at the tree from the right"[/].
+
+And there is the use that walks like a snake, in which one level goes from left to right and the next goes from right to left. The move is easy, because once you have collected a level you reverse it every other time.
+
+And there is the work of writing a tree out as letters and building the tree back from those letters. When you write it, mark the empty branches with some sign as well, or the shape cannot be worked out when you bring it back.
+
+And there is the question of rebuilding a tree from the fruit of two walks. The preorder tells you who the root is. The inorder tells you how much of that root is on the left and how much on the right. The two together build the whole tree.
+
+At the end, listen to an honest warning. Recursion is beautiful, but on a deep tree the stack fills up. If a tree arrives that is like a chain ten thousand levels deep, the code breaks.
+
+At a time like that you have to keep the stack yourself and walk, or use a queue. This trade between beauty and safety usually has to fall on the side of safety, because the code actually has to run.
+
+The leaf reached the ground. Chopper closed his eyes. Above him the branches were still spreading out in the dark.
+
+Robin put her hand on the bark of the tree and said — [robin:awed]"This tree is three hundred years old. Every year it has done the same one thing, and that thing is making two branches out of one."[/]
+
+That is tonight's lesson. A large thing is only a small thing repeated. A tree looks frightening because it is large, but its rule is one rule and that rule is small.
+
+So when some problem feels far too large, ask — [aside]"What does one small piece of it look like?"[/] If you can solve that piece, the whole thing solves itself.
+
+But there is a condition in it, and that condition must never be forgotten. Every job that calls itself has to have a place where it stops. Repetition without a base is endless, and an endless thing is never finished.
+
+The same rule works in life. A habit that feeds itself has to have a limit set on it, or that habit eats you.
+
+A leaf came away from a branch and drifted down. It settled beside Chopper, and the forest went quiet again.

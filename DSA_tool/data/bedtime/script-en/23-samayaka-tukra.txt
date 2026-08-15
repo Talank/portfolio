@@ -1,0 +1,109 @@
+# 23 — Pieces of Time: Merge Intervals
+
+On the twenty-third island the watch rota is being drawn up. Everybody has written down their own hours, that is, from when until when.
+
+But looking at the paper, it is a mess. One person's time overlaps with another's. In some places there are two people, and in some places nobody.
+
+Nami took the paper in her hand and said — [nami]"This has to be cleaned up. But one job is compulsory before starting, and if that job is forgotten everything else is wasted."[/]
+
+@algo tukra
+The rule for joining pieces of time is this. First of all, put every piece in order by its starting time, and never skip this step. Now take the first piece in your hand. Look at the pieces after it one at a time. If the new piece's start is before the end of the piece in your hand, these two overlap, so join them and make the end whichever of the two is further away. If the new piece's start is after it, there is empty space in between, so put the piece in your hand into the list and take the new one into your hand. Once everything is finished, do not forget to put the piece left in your hand into the list as well, because many people miss that last step.
+@end
+
+The reason the order has to be sorted first is this. Only once it is sorted is it enough for you to look at the neighbour alone. In an unsorted list any two pieces can overlap, so you have to check everything against everything, and that is O(n²).
+
+Its time is O(n log n), and that is spent on the sorting. The single pass after that is cheap.
+
+A small but important question hides here. If two pieces meet exactly at the edge, that is, one finishes at ten o'clock and another starts at ten o'clock, do you join them or not?
+
+The problem itself decides the answer to that. If it is about a watch, joining is right, because the watch is continuous. If it is about a meeting room, not joining is right, because the room was empty for a moment. Ask this in an interview, and asking is itself a good sign.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule for joining pieces.
+
+@recall tukra
+
+Now the second problem is a little different. How many rooms are needed for all the meetings to fit?
+
+There is a beautiful reversal of view here. Do not think of the pieces as pieces. Think of every start as [aside]"one person came in"[/], and every end as [aside]"one person went out"[/].
+
+Now put all the events in order by time. Keep walking, and add one to the count when somebody comes in and subtract one when somebody goes out.
+
+However high the count climbs, that is how many rooms are needed, because at that moment that many were inside at once.
+
+The same move shows aircraft parking, server load, and the size of a crowd all in one shape.
+
+In the third problem you have to insert a new piece. If the list is already in order, keep the separate pieces before it as they are, join the overlapping ones in the middle to the new one, then keep the ones after as they are.
+
+Nami stuck the clean rota on the wall. Now there is no overlap. The watch is continuous all night, and nobody has to do double duty.
+
+@read hush
+One last time before you sleep, very slowly, listen to that same rule.
+
+@recall tukra
+
+@tier medium
+
+The rota stuck on the wall was clean. Nami took out another sheet and said — [nami]"Pieces of time have a few more shapes."[/]
+
+In the first shape you have to match up two people's free time. Both of their busy times are given in order, and you have to find when both are free at once.
+
+Put two fingers on the two lists. Work out the shared part of two pieces, that is, take the larger of the starts and the smaller of the ends. If the start is less than the end, there is a shared part.
+
+Then move forward the finger whose piece finishes first. This finishes in a single pass over both lists.
+
+The second shape asks how many pieces you have to remove for all the rest to be separate. This is greedy, and here you sort by the end time. When you find an overlap, remove the one that finishes later, because that one narrows the future more.
+
+The third shape asks how few arrows can pierce all the pieces. This is in the same family too. Sort by the end, and shoot every arrow at the end of the current piece.
+
+Nami said — [nami]"Notice that in the joining work you sort by the start, and in the choosing work you sort by the end. It is a small difference, and that difference is what makes or breaks the solution."[/]
+
+@tier long
+
+@read hush
+The night watch had already begun. A lantern was hanging on the deck of the ship.
+
+Nami said — [nami]"Now let us look at that counting move in a little more detail, because it turns up in many places and it has a different name in each."[/]
+
+That idea of putting events on a line of time is called the event line. Every piece makes two events, and they are plus one at the start and minus one at the end.
+
+Sort all the events by time, then walk along adding them up. That running total is the crowd at any moment.
+
+There is a subtle thing here. If a start and an end fall at the same time, which do you count first? If the end of a piece is open, count the end first. If it is closed, count the start first.
+
+That one decision changes the answer by one, and it is a good thing to ask about in an interview.
+
+There is another shape of the same idea, which joins on to the seventh island, and that is the difference array. If the times are small numbers, you do not have to sort the events at all.
+
+Write plus one at the starting index, and minus one at the ending index, then work out the running total. The crowd at every moment appears by itself, and this finishes in O(n) with no sorting.
+
+This move works on problems like hotel rooms, car parking, and traffic on a road, wherever the time is in small numbers like days or hours.
+
+Now listen to a question that looks hard. Pieces keep arriving, and in between you are asked [aside]"how many are there at this moment"[/], and both jobs have to be fast.
+
+Here you need a sorted tree or a segment tree. Tonight you do not need those details, and it is enough to know that if you need [aside]"both adding and asking to be fast"[/], a tree is the answer.
+
+And there is searching among pieces too, which asks which piece some point falls inside. If the pieces are separate and in order, this is the throwing-away-half work of the eighth island. Do a binary search on the starts, then check the end of the piece you found.
+
+Now listen to a boundary matter that always goes wrong. What does "overlap" mean?
+
+Two pieces overlap when the first one's start is before the second one's end and the second one's start is before the first one's end. Remember that one sentence, and you do not have to think about it from two or three directions.
+
+Thinking about it backwards is easier still. [aside]"They do not overlap"[/] means that either the first finishes entirely before the second, or the second finishes entirely before the first. Everything except those two cases is an overlap.
+
+At the end, listen to one piece of advice. Before writing a problem about pieces, always draw three small examples on paper, and they are completely separate, partly overlapping, and one fitting entirely inside another.
+
+The third case is the one most often missed. If a small piece fits entirely inside a large one, then when joining, the end has to stay the large one's, and must not become the small one's.
+
+The lantern was swaying slowly. The watch was continuous, nowhere was empty, and nobody was doing double duty.
+
+Nami looked at the clean rota once more. At the start that paper had been full of mess, because there were overlapping times on it, there was double duty, and there were empty nights in the middle.
+
+That is tonight's lesson. The first step in turning disorder into order is usually not effort, it is sorting. The moment it is sorted, it is enough for every piece to look only at its neighbour, and the whole problem becomes narrow.
+
+Now listen to the second lesson, which comes back in many places. In the joining work, sort by the start, and in the choosing work, sort by the end. Two different orders on the same list give two different answers. The question of what to sort by is itself half the solution.
+
+And the third lesson is the most human. The question of whether to join two pieces that meet exactly at the edge is not answered by mathematics. The problem itself answers it, and when you do not know, asking is not something to be ashamed of. Asking is itself a good sign.
+
+@read hush
+The lantern's light went a little dimmer. The sea was calm, and the watch was going to run until morning.

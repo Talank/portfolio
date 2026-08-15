@@ -138,6 +138,19 @@ WORDS = {
     "index": "इन्डेक्स",
     "indexes": "इन्डेक्स",
     "top": "टप",
+    # The four directions a structure is read in, and the three words the story
+    # uses for the work itself. Nepali has perfectly good words for all of these
+    # — बायाँ, दायाँ, समस्या, तरिका — but a learner reads `left child` and
+    # `problem` in every book and every interview, so the story says what they
+    # will meet, and the Nepali sentence around it stays Nepali.
+    "left": "लेफ्ट",
+    "right": "राइट",
+    "bottom": "बटम",
+    "problem": "प्रोब्लम",
+    "problems": "प्रोब्लम",
+    "trick": "ट्रिक",
+    "tricks": "ट्रिक",
+    "approach": "एप्रोच",
     "count": "काउन्ट",
     "counts": "काउन्ट",
     "limit": "लिमिट",

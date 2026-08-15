@@ -1,0 +1,106 @@
+# 4 — Nami's Notebook: The Hash Map
+
+Night has fallen over the market on the fourth island. There are hundreds of stalls here. Nami is standing in the crowd, and there is a small notebook in her hand.
+
+@read teach
+This notebook is not an ordinary one. Whatever is written in it, you do not have to turn pages to find. The moment you say the name, the page opens by itself. That is what a [..]hash map[..] is. You give it a key, and you get the value immediately, and it comes in O(1) time.
+
+Now listen to the first problem. A trader said — "I will take exactly six hundred thousand, not one coin more and not one coin less. And I will accept only two purses at a time." There are many purses on the ship, and each one holds a different amount. So which two purses should you hand over?
+
+Usopp said — [usopp]"That is easy. I compare every purse against every other purse."[/] Shaking her head, Robin said — [robin]"That is O(n²). With a hundred purses that is ten thousand comparisons. With a thousand purses that is a million."[/]
+
+Nami opened her notebook and said — [nami]"I touch each purse only once. And each time I ask the same one question — the amount that this purse still needs to reach the target, have I already seen that amount before?"[/]
+
+The first purse holds three hundred thousand, so three hundred thousand more is needed. She looked in the notebook, and it was not there. So she wrote down three hundred thousand and moved on. The second purse holds two hundred thousand, so four hundred thousand is needed. That was not in the notebook either, so she wrote down two hundred thousand. The third purse holds four hundred thousand, so two hundred thousand is needed. She opened the notebook, and two hundred thousand was right there. The pair was found.
+
+@read teach
+That finished in a single pass, and its time is O(n). That is what [..]Two Sum[..] is, and it is the most asked question in the world.
+
+Now listen to the rule of this island, and it will come back three times tonight.
+
+@algo notebook
+The rule of the notebook is this, and its order must not be broken. Walk once, and only once, over every item in the array. The first job is to look, so look at whether the partner you need is already in the notebook. If the partner is found, the answer has arrived right there, and the work is done. Only if the partner is not found do you write the current item into the notebook. Always look first and only then write, because if you do it the other way round an item makes itself its own partner.
+@end
+
+That last sentence is the biggest trap here. Suppose the target is six and a purse holds three. Three plus three is six, but that was counting one purse twice. If you write first, you make something its own partner.
+
+Now the second problem is gentler. Are two words made of the same letters or not? For example "listen" and "silent" are made of the same letters. Nami counts every letter, and writes down how many l's and how many i's are in the first word. Then she goes along subtracting the letters of the second word. If every count in the notebook is zero at the end, they are made of the same letters.
+
+The third problem is whether any number repeats in this array. Write down every number you see in the notebook. If you find a number that has already been written, that one is a repeat. This is called a set, and it is a notebook that keeps only keys and no values.
+
+Robin gave the summary very slowly — [robin]"Whenever you feel 'have I seen this before', remember the hash map at that very moment. Memory removes searching. And when searching goes away, O(n²) drops to O(n)."[/]
+
+@read hush
+Now keep your eyes closed and listen to that same rule once again.
+
+@recall notebook
+
+The market lights are going out one by one. Nami put the notebook in her bag, and took the road back to the ship.
+
+@read hush
+One last time before you sleep, very slowly, listen to the rule of the notebook.
+
+@recall notebook
+
+@tier medium
+
+One stall in the market was still open. Nami stopped there, and opened the notebook again. She said — [nami]"There are still two or three pages left."[/]
+
+In the next problem you have to count how many times each name was heard in the crowd. This is the simplest use there is, and it is also the most useful one. In the notebook the name becomes the key, and the count becomes the value. Every time you hear a name, raise its count by one. This finishes in a single pass.
+
+Once you have the counts, the answers to many questions arrive by themselves. Who appeared the most times? Who appeared only once? Did any name appear more than half the time? All of these are now found by turning through the notebook once.
+
+Then a sweet problem arrives, in which words made of the same letters have to be put together. "Listen" and "silent" have to land in the same basket. The move is this. Sort the letters of each word into order. The sorted form of both of them comes out the same. Make that sorted form the key, and pile the words up underneath that key.
+
+There is a lesson hiding here. The key does not always have to be the thing you were given. The key is something you make. If you learn to make a good key, half the problem solves itself.
+
+Now listen to an honest thing as well. Saying the notebook is O(1) means on average, not always. Sometimes two different names land on the same page, and that is called a collision. When that happens you have to do a small search within that page. In a good notebook this is rare, so we take the average.
+
+@tier long
+
+The stall closed too. Nami sat down at the side of the road with the notebook in her lap. There was only one light left.
+
+Now comes a problem that looks hard and is easy. Among numbers scattered in no order, how long is the longest run of consecutive numbers? For example, in the array one, three, two, five, the numbers one, two and three make a run three long.
+
+The straightforward road is to sort them, but that costs O(n log n). Nami said — [nami]"I do not need order. I need memory."[/]
+
+The move is this. Put every number into the notebook. Now ask one question at every number — [aside]"Is the number one less than me in the notebook?"[/] If it is, then I am not the start of a run, so I keep quiet.
+
+If it is not, then I am a start. Now count upwards from me, and ask whether me plus one is there, and then whether me plus two is there. As long as they are there, keep counting. This way every run is counted exactly once, and the total work finishes in O(n).
+
+The next problem is very beautiful in shape, and it is whether two words have the same pattern. For example, in "egg" and "add" the first letter matches the first, and the second letter matches the second, in the same steady way.
+
+One notebook is not enough here, you need two. The first says which letter of the second word this letter of the first word goes to. The second says exactly the reverse. If you do not check from both sides, pairs like "foo" and "bar" will fool you.
+
+Now a question comes up for a lot of people. What does the notebook do inside? How does the page open the moment you say a name?
+
+Robin made it easy. She said — [robin]"Suppose there are a hundred pages in your notebook. When a name arrives, join up the letters of that name with some small piece of arithmetic to make a number, then divide by a hundred and keep the remainder. Go to that page."[/] That small piece of arithmetic is called a hash.
+
+A good hash scatters the names evenly across all hundred pages. A bad hash piles them all onto one page, and when that happens the notebook becomes an array again, and O(1) becomes O(n) again.
+
+Now listen to an honest limit. The notebook does not remember order. The notebook has no answer to the question [aside]"which one is the smallest"[/]. For that you need a heap or a sorted tree, which are found on later islands.
+
+The other limit is that the notebook eats space. N things need the space of n pages. So this is not pure magic, it is a trade. You bought time, and space paid the price.
+
+Now listen to one last story, and it is a light one. Suppose you have two piles of letters, and you have to find which letters are in both piles.
+
+Put one pile into the notebook. Then ask of every letter in the second pile — [aside]"Is this in the notebook or not?"[/] However many are found, those are the shared ones. This finishes in two passes.
+
+The same shape also solves the question [aside]"is in one but not in the other"[/]. This is called set arithmetic, and later it is quietly at work inside graphs and inside the trie as well.
+
+Nami closed the notebook and shut her eyes. She said — [nami]"To put it in one sentence, before you start searching, ask — could I have written this down beforehand?"[/]
+
+The last light went out too. The market went dark, and the sound of the sea started coming back.
+
+Nami was sitting at the side of the road with the notebook in her lap. She turned the pages and looked, and inside were years of accounts, and a record of the cheap days and the expensive ones.
+
+Telling herself, she said — [aside]"The biggest thing I ever learned is this notebook. People try to remember. I learned to write down."[/]
+
+That is tonight's lesson, and it is the most useful lesson of the whole voyage. Searching is expensive. Remembering is cheap. If you feel some piece of work repeating, write its answer down somewhere.
+
+But there is an honest thing alongside it. The notebook eats space. Whatever we remember, we have to carry. So writing everything down is not wise either, and you should only write down what will be asked again.
+
+Nami put the notebook in her bag. Telling nobody, she said — [nami]"And remember one thing. Look first, then write. If you do it the other way round you make yourself your own answer, and that answer is false."[/]
+
+@read hush
+The last light went out. The market slept, and the sound of the sea became the loudest thing again.

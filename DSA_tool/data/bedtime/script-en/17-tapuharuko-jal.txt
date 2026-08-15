@@ -1,0 +1,107 @@
+# 17 — The Web of Islands: Graphs, BFS and DFS
+
+Looking down from the seventeenth island you can see the whole sea. There are hundreds of islands here, and shipping roads are drawn between them.
+
+Nami spread out the map and said — [nami]"A tree is a graph too, but it is a disciplined graph. A tree has no cycle in it, and every node has one parent. A graph has no such rule. Here anyone can be joined to anyone, and the road can go in a circle."[/]
+
+That freedom brings one new danger, and remember this danger. Walking in a graph, you can go round and round and come back to the same place, and then keep going round forever.
+
+@algo jal
+The rule for walking the web is this, and never forget its first rule. Keep a notebook of "already been there". Put the starting island into a queue or onto a stack, and mark it in the notebook the moment you put it in. Now, until the queue is empty, take one island out and look at all of its neighbours. If some neighbour has already been reached, leave it alone. If it has not been reached, mark it and put it in. Always mark at the moment of putting in, and never at the moment of taking out. If you run a queue, that is the walk of breadth and it is called BFS; if you run a stack, that is the walk of depth and it is called DFS.
+@end
+
+That one notebook solves half the problems in graphs.
+
+There are two ways of writing a graph down. The first is the list of neighbours, where the neighbours of each island are noted beside it. The second is a table, where a mark says which is joined to which. The first is usually better, because in a real graph the connections are few.
+
+Now a question arrives that gets asked in almost every interview. There is land and water on a map, and you have to count how many separate islands there are.
+
+The move is this. Walk over every square of the map. If you find land and you have not been there before, add one to the count, because a new island has been found. Then run the rule above from there and mark all the land of that island, spreading out in all four directions.
+
+After that, move on. The remaining squares of that island are not counted now, because they have already been marked.
+
+Its time is O(V + E), that is, the work is as much as the number of nodes and roads there are. Every square is touched only once.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule for walking the web.
+
+@recall jal
+
+Now listen to the special power of BFS. If every road in the graph is the same length, the road BFS gives is the shortest road, and this is always true. The reason is that BFS spreads out level by level, because it looks at everything one step away first, and then everything two steps away. So the moment the destination is found, that is the shortest.
+
+DFS gives no such guarantee. DFS finds a road, but it does not find the short road.
+
+In another problem you have to make a copy of a graph. Here the notebook's job changes. In the notebook keep the old node joined to its new copy. When you reach a node for the second time you must not make a new copy, and you return the old copy from the notebook. That one thing solves the problem of cycles.
+
+The moon has risen over the sea. The islands are tied to each other by invisible threads. Nami folded the map.
+
+@read hush
+One last time before you sleep, very slowly, listen to that same rule.
+
+@recall jal
+
+@tier medium
+
+The moon was climbing. Nami opened the map again and said — [nami]"This web has a few more stories."[/]
+
+The first story is fog spreading. There is fog in some places on the map, and every minute it spreads into the empty places beside it. So how many minutes does it take to cover everywhere?
+
+@read teach
+Here you put all the fog into the queue at once, and then spread it level by level. The count of levels is the number of minutes. This is called many-source [..]BFS[..], and it is no harder in any way than the single-source kind.
+
+In the second story you have to find the empty places that are surrounded by wall. Start from the edges and mark every empty place you can reach. Whatever is left over is surrounded.
+
+Remember this reversed thinking. It is easier to look for [aside]"what is not surrounded"[/] than for [aside]"what is surrounded"[/]. Many graph problems become easy when they are turned around like this.
+
+The third story asks whether it can be painted in two colours. Here two joined nodes have to be different colours. Walk it with BFS, and give each neighbour the opposite colour. If you ever find a neighbour whose colour is the same as your own, it cannot be done.
+
+Nami added — [nami]"This question is really the question 'is there a cycle of odd length'. But asking it with colours is easier."[/]
+
+@tier long
+
+The sea was still. On the map the islands looked like small dots.
+
+Nami said — [nami]"Now listen to two uses of the walk of depth. Both of these are a little crooked, and both are very useful."[/]
+
+The first use asks whether there is a cycle in a one-way graph. Here the "already been there" notebook is not enough on its own, because a place reached again by another road is not a cycle.
+
+What is needed here is [aside]"is this place on the road I am on right now"[/]. So keep three cases, and they are untouched, on the current road, and completely finished.
+
+If you reach a place that is on the current road again, a cycle has been found. If you reach a finished place, it is nothing, because that road has already been checked.
+
+In a two-way graph this is easier, but there is a trap. Do not treat the neighbour you came from as a cycle, and leave your own parent alone.
+
+The second use asks which road, when cut, breaks the graph into two pieces. Such a road is called a bridge, and in a real network it is the weak link.
+
+The idea is this. Give every node a time saying [aside]"what number was I found at"[/]. Then ask — [aside]"Can anything in my branch reach somebody earlier than me without using this road?"[/] If it cannot, that road is a bridge.
+
+Tonight you do not have to learn its details by heart. Just remember that DFS gives every node a time, and that comparing those times tells you the shape of the graph.
+
+Now let us come back to the map of squares, because a graph is hiding there and many people do not recognise it. Every square is a node. The four squares beside it are its neighbours.
+
+So [aside]"counting islands"[/], [aside]"the largest island"[/], [aside]"filling with water"[/], and [aside]"is there a road"[/] are all graph questions, and they arrive dressed as a map.
+
+Listen to something practical. When you look in four directions, do not write four ifs every time. Make a small list of the directions, holding up, down, left and right, and run a loop over it. The code gets shorter, and the mistakes drop a great deal.
+
+And do not forget to check the boundary. Did you go off the map or not? A great deal of code has broken for want of that one check.
+
+Now let us remember the choice between depth and breadth in practical terms again. DFS needs little space, and that is as much as the depth of the road. BFS needs as much space as the width of a level, and in a wide graph that can be a lot.
+
+But BFS gives the short road, and DFS does not. So the rule is easy. On the question [aside]"is there a road"[/], run DFS. On the question [aside]"how short is the road"[/], run BFS.
+
+At the end, listen to one small thing, which is the place where the most mistakes happen. Mark it when you put it into the queue, and not when you take it out.
+
+If you mark it when you take it out, the same node goes into the queue many times. On a small graph you never notice, but on a large one the ship goes down.
+
+@read hush
+Nami folded the map and looked up. There were invisible threads between the stars as well, and those threads were part of some web too.
+
+She said quietly — "My father used to say that a person who gets lost at sea does not get lost from not knowing the road. They get lost from not noting the road they walked."
+
+That is tonight's lesson, and it is the simplest and the most forgotten one. Note where you have been. If you do not, the web takes you round forever, and you do not even know you are going round.
+
+There was no such problem in a tree, because a tree has no road back. A web has that road. That is the price of freedom, because where any road is possible, going round in a circle is possible too.
+
+Now listen to the second lesson. Sometimes it is easier to look for [aside]"what is not surrounded"[/] than for [aside]"what is surrounded"[/]. Turning a question around is itself a solution, and this move is useful in many places later.
+
+The moon had climbed high. The islands looked like small dots, and every dot was joined to somebody.

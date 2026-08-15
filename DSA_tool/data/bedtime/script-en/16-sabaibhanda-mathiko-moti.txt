@@ -1,0 +1,104 @@
+# 16 — The Pearl at the Very Top: Heap and Top-K
+
+On the sixteenth island there is a pearl trader. There are hundreds of pearls in front of him, but he never puts them all in order.
+
+Nami asked — [nami]"Do you not sort them?"[/] He said — [nami:firm]"Why sort them? I only ever need the single largest one. Sorting the whole lot is doing more work than the job needs."[/]
+
+@read teach
+That is the philosophy of the [..]heap[..]. There is no full order in it, and only the top is certain.
+
+A heap is a tree, but its rule is different. Here every parent is larger than its children, or smaller than them, and which one depends on what kind of heap it is. There is no rule at all here about left and right, so this is not a BST.
+
+That loose rule is what makes the heap cheap. Looking at the top costs O(1). Putting a new thing in costs O(log n). Taking the top out also costs O(log n). And building a heap out of a whole array happens in O(n).
+
+Now the main question arrives, one that gets asked countless times. You have to take the largest K out of an array.
+
+Usopp said — [usopp]"I sort them all and take the top K."[/] That is O(n log n). It does the job, but it is more than the job needs.
+
+Nami said — [nami]"I keep a small heap that holds exactly K. But it is inverted, because the smallest one sits at its top."[/]
+
+@algo top-k
+The rule for taking out the largest K is this. Keep a heap that holds exactly K, and build it so that the smallest one sits at its top. Now walk through the numbers of the array one at a time, and put every new number into the heap. If the size of the heap goes past K, throw away the number at the top, which is the smallest one. Once the array is finished, whoever is left inside the heap is the largest K. Its time is O(n log K) and it costs only O(K) space. Remember the inverted rule here — when you want the largest K keep a small heap, and when you want the smallest K keep a large heap, because the thing you have to throw away has to be the thing at the top.
+@end
+
+If K is small this is almost as good as O(n), and that is its greatest benefit.
+
+In another use you have to merge K sorted linked lists into one. Put the first node of every linked list into the heap. Now keep taking the smallest out of the top, and add the next node of whichever linked list it came from into the heap. There are never more than K things in the heap.
+
+In one more use you need the middle value of numbers that are flowing past. For this, two heaps are placed facing each other. Keep a large-topped heap for the lower half, and a small-topped heap for the upper half. Keep the two roughly equal in size, and the middle value is found right at the two tops.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule for taking out the largest K.
+
+@recall top-k
+
+Remember the signals, lightly. If the question says [aside]"the largest K"[/], remember this island. If it says [aside]"the nearest K"[/], remember it too. If it says "the Kth", remember this island as well.
+
+The trader put the pearls into the bag in no order at all. Only the one on top is shining, and that is enough.
+
+@read hush
+One last time before you sleep, very slowly, listen to that same rule.
+
+@recall top-k
+
+@tier medium
+
+The trader had not tied the bag shut. He turned a pearl over in his hand and said — [aside]"Listen to what this machine does inside as well."[/]
+
+Although a heap is called a tree, inside it is an ordinary array. The root sits in the first place. The children of any index sit at twice the index plus one, and twice the index plus two. The parent sits at the index of one less, divided by two.
+
+When you put a new value in, add it at the back, then compare it with its parent and lift it upwards, and keep lifting until it is in the right place. Let us call that swimming upwards.
+
+Taking the top out is exactly the reverse. Move the last value to the root, then compare it with the children and sink it downwards. Both of these take at most as many steps as the height of the tree, so this is O(log n).
+
+Now listen to a use that comes up in daily work, and it is finding the K nearest places to some point. Measure the distance, keep a heap of size K, and keep the furthest at the top and keep throwing it away.
+
+And then you have to arrange some letters so that the same letter never lands next to itself. Keep placing the letter you have most of first. Whichever letter was just placed, make it wait one turn. Here the heap answers the question [aside]"who has the most left right now"[/].
+
+@tier long
+
+The pearls were quiet inside the bag. The trader sat down by the lamp.
+
+He said — "Now ask a different question. Why was a heap needed? Nami's notebook already exists, and Robin's tree exists too. Why was this third thing built?"
+
+The answer is in the size of the need. The notebook says "is it there or not". The tree keeps the full order. The heap neither keeps the full order nor ignores it, because it answers one question cheaply, and that question is [aside]"who is at the front right now"[/].
+
+And a great share of real work is that one question. Which patient should be sent through first? Which job should be done first? Which road should be looked at first? The full order is never needed.
+
+Now listen to the largest use of this idea, and it is finding the short road where the roads have different lengths. On the seventeenth island a queue finds the short road, but that only works if all the roads are equal.
+
+Now the roads are different. One road takes an hour, and another takes ten. Now the queue is not enough, because a road with fewer steps can also be a long one.
+
+The move is this. Put a heap where the queue was, in which [aside]"the smallest distance so far"[/] decides the priority. Set the starting island's distance to zero, and everybody else's to infinity.
+
+Take the nearest island out of the heap. Do the arithmetic for all of its neighbours, and ask [aside]"how long does it take to reach you by going through me"[/]. If that is less than what was known so far, improve it, and put it into the heap.
+
+That is Dijkstra's algorithm. The name sounds hard, but the work is that of the pearl trader, because the nearest one is always looked at first.
+
+There is a condition, and remember it. The lengths of the roads must not be negative. If they are negative, an account that was already settled can go wrong again, and the whole reasoning breaks.
+
+In another use you have to find the cheapest group of bridges that joins all the islands. Start from the cheapest bridge, and keep adding bridges as long as no cycle is formed. Whether a cycle is formed is told by the joining-and-finding structure on the eighteenth island.
+
+Or use a heap. Start from one island, and keep taking, turn by turn, the cheapest bridge leading out of the islands joined so far. Both ways give the same result.
+
+Now listen to something small but beautiful. Building a heap out of an array happens in O(n), and does not cost O(n log n). The reason is that the leaves are already correct, and the higher you climb the fewer nodes there are.
+
+Half the nodes are leaves, and nothing has to be done to them. The quarter above them only have to be sunk one step. Adding that arithmetic up gives n in total. It sounds strange when you hear it, but it is right.
+
+And one way of sorting comes from here too. Turn the whole array into a heap, then keep taking the top out and putting it at the back. Its time is O(n log n), and it costs no new space at all.
+
+At the end, let us remember the two-heap move for the middle value in a little more detail. Keep a large-topped heap for the lower half, and a small-topped heap for the upper half. When a new number arrives, put it into one of them, then move one value across so that the two heaps never differ in size by more than one.
+
+If the sizes are equal, the middle value is the average of the two tops. If the sizes are different, the top of the larger heap is the middle value. This move is very useful on flowing data, where you never have all the numbers in your hand at once.
+
+The trader put out the lamp. Inside the bag the pearls were in no order, but the one on top was still shining.
+
+Tying the mouth of the bag, the trader said — "My neighbour puts all his pearls in order every evening. In the morning the customer buys one. It has been thirty years, and he has not had a single day of rest."
+
+That is tonight's lesson. Doing more work than the need is not effort, it is only waste. If the question asks for [aside]"the single largest"[/], you do not have to sort the whole lot, and having only the top be certain is enough.
+
+Now listen to the second lesson, which feels backwards and is worth remembering. When you want the largest K, keep a small heap, because the thing you have to throw away is what has to be in your hand, not the thing you have to keep.
+
+The same rule works in life, because whatever you have to let go of is what has to be kept at the very front. Otherwise, when the time comes to let go, you have to go looking for it.
+
+The trader went off to bed. The bag on the table was in no order, and that had been enough.

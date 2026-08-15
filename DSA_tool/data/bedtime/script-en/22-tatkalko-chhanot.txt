@@ -1,0 +1,117 @@
+# 22 — The Choice of the Moment: Greedy
+
+On the twenty-second island there is a racing track. There is no time to think here, because at every turn you have to choose immediately.
+
+Luffy was delighted and said — [luffy:excited]"This is my island! I always choose whatever looks best right now."[/]
+
+Robin said — [robin]"Yes, and that is sometimes right. But it is not always right. Knowing when it is right is the lesson of this island."[/]
+
+@algo lobhi
+The greedy rule is this. At every step choose whatever looks best right now, and once you have chosen, never turn back. But before choosing you have to be able to answer one question, and the question is this — "Can this choice of mine ever make the future worse?" If there is a proof that it can never make it worse, the greedy road is safe, and it finishes in a single pass. If you cannot give that proof, leave the greedy road and turn back towards the wall of memory. And greedy solutions usually begin with sorting by some one thing, so always ask first what it is that I should sort by.
+@end
+
+@read teach
+DP looks at every road and remembers. Greedy chooses one road and runs. So greedy is much faster, and usually finishes in O(n) or O(n log n).
+
+Remember the coins from the last island. Greedy failed there. But with Nepali notes, that is, one, five, ten, twenty, fifty and a hundred, greedy is always right. Where is the difference? The difference is in the make-up of the coins. So never trust greedy on a guess.
+
+The first problem is one where greedy really shines, and it is the jumping game. At every place in the array it is written how far at most you can jump from here. So can you reach the end or not?
+
+The move is this. Keep walking, and remember one thing, that is, remember [aside]"the furthest I could have reached so far"[/].
+
+Measure that limit afresh at every place. But first check whether the place I am standing on now is inside that limit. If it is not, the journey ended right there, because I cannot even get this far.
+
+This finishes in a single pass, and no table is needed.
+
+@read hush
+Now keep your eyes closed and listen once again to the greedy rule.
+
+@recall lobhi
+
+The second problem is the fuel one. There are pumps around a circular road. At every pump you get some fuel, and it costs some fuel to reach the next pump. So where do you have to start from to get all the way round?
+
+The first thing is that if the total fuel on the whole road is less than the total cost, it is impossible from anywhere. Do that check first.
+
+Now listen to the move. Walk from the start counting the tank. If the tank ever empties, you cannot start from any of the pumps up to that point. Throw all of those away, and start again from zero at the next pump. Wherever you were starting from at the end is the answer.
+
+The third problem is the meeting room. There are many meetings, and each has a start and an end time. What is the greatest number of meetings that fit in one room?
+
+Here is the true beauty of greedy. Which meeting do you have to choose first? Not the short meeting. Not the meeting that starts earliest either. You have to choose the meeting that finishes earliest.
+
+The reason is that the meeting that finishes earliest frees the room soonest. An empty room is the greatest number of possibilities for what comes after.
+
+So sort by the end time, then keep choosing without overlapping. This is O(n log n), and most of that time goes into the sorting.
+
+The racing track emptied. Luffy is lying in the grass, laughing. He did not think, and today he was right.
+
+@read hush
+One last time before you sleep, very slowly, listen to the greedy rule.
+
+@recall lobhi
+
+@tier medium
+
+Dew had fallen on the grass. Luffy was still laughing. Robin said — [robin]"There are a few more greedy roads, and all of them arrive with proofs."[/]
+
+The first road is reaching the end in the fewest jumps. Here remember two limits, and they are the last place the current jump reaches and the furthest the next jump could reach.
+
+The moment you arrive at the current limit, raise the jump count by one, and stretch the limit out to the new furthest point. This finishes in a single pass.
+
+The second road is handing out sweets to children, where among children standing next to each other, the one with the higher score has to get more. Walk twice, once from left to right and once from right to left, then take the larger of the two.
+
+This move of walking from two directions comes back in many places. If one pass only covers the condition on one side, run two passes.
+
+The third road is finding the fewest notes for giving change, where the notes are like Nepali notes. Start from the largest. This works, but the reason it works is in the make-up of the notes, because every larger note is greater than or equal to the total of all the smaller ones.
+
+Robin gave a warning — [robin]"Before you write a greedy solution, go looking for a counter-example. Only trust it if you cannot find one. If you find one, turn back to the wall."[/]
+
+@tier long
+
+The road was deserted. Somewhere a horse whinnied, and then went quiet again.
+
+Robin said — [robin]"Now let us talk about when greedy works, because that is the one real question on this island."[/]
+
+Two qualities are needed for it. The first quality is that the best choice right now has to be part of some best answer, and this is called the greedy choice property.
+
+The second quality is that after making that choice, the rest of the problem has to be a smaller problem of the same kind. This is the quality it shares with DP.
+
+In the meeting room problem this proof is easy. Suppose some best list does not contain the meeting that finishes earliest. Swap the first meeting in that list for the meeting that finishes earliest.
+
+The list stays valid, because the new meeting finishes even sooner and so fits with everything after it. And the length of the list stayed the same. So taking the meeting that finishes earliest can never be harmful.
+
+That reasoning is called the exchange argument, and many proofs of greedy solutions have this same shape. It says that even if I put the thing I took in the other one's place, the answer does not get worse.
+
+Now let us look at the boundary between greedy and DP. In the coin problem greedy failed, but in the meeting problem greedy won. Where is the difference?
+
+In the meetings, taking the one that finishes earliest never narrows the future, and it always widens it. With coins, taking a large coin can leave the remaining amount in an awkward shape.
+
+So let the question be this — [aside]"Can my current choice ever make the future worse?"[/] If it never can, greedy is safe.
+
+Now listen to the business of sorting. Many greedy solutions begin with sorting, and what you sort by is the whole solution.
+
+Meetings are sorted by end time. In the rope-joining problem they are sorted by length. In dividing up work they are sorted by deadline. In arranging letters they are sorted by count.
+
+So when you meet a greedy problem, ask this question first — [aside]"What should I sort by?"[/] That answer is usually the solution.
+
+Then listen to a beautiful use, and it is jobs and deadlines. Every job has a profit and a final date, and one job can be done in a day. So what is the greatest profit?
+
+Sort by profit, from largest down. Put every job on the latest free day before its deadline. If no free day is found, drop that job.
+
+To find the free day you can use the joining-and-finding structure from the eighteenth island, and doing that makes this very fast. Two islands joined again here.
+
+At the end, one thing is worth remembering. A greedy solution is easy to write, and hard to prove correct. DP is hard to write, and easy to be sure is correct.
+
+So if you are in doubt in an interview, write DP. A slow solution is correct, and a correct solution being slow is always better than a wrong solution being fast.
+
+The horse went quiet again. The dust had settled on the road, and in the east the sky was going a little pale.
+
+Luffy was asleep in the grass, laughing. Robin looked at him and said — [robin:amused]"This one never thinks twice. And the strange thing is that he is usually right."[/]
+
+@read teach
+That is tonight's lesson, and it has two edges. The choice of the moment is sometimes right, and when it is right it is the most beautiful solution there is, because it is fast, it is simple, and it runs without any table.
+
+But the condition is a hard one. You have to be able to say that your current choice can never make the future worse. If you can say it, run. If you cannot say it, turn back towards the wall.
+
+And that second lesson is the real lesson. A greedy solution is easy to write and hard to prove correct. The solution on the wall is hard to write and easy to be sure is correct. When in doubt, choose the hard road, because a slow correct answer is always better than a fast wrong one.
+
+The first bird of the morning called. Luffy did not get up. The racing track was empty, and it was not waiting for anybody.

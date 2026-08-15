@@ -1,0 +1,103 @@
+# 9 — Turning the Chain Around: The Linked List
+
+On the ninth island there is an old anchor, and a long chain is joined to that anchor. Every link is joined only to its own next link, and to nothing else.
+
+Franky picked up the chain and said — [franky]"This is not like an array. Here you cannot reach the middle link directly. You have to start from the first link and walk along one at a time."[/]
+
+@read teach
+That is what a [..]linked list[..] is. Every node in it has two things — one value, and one finger pointing towards the next node. In English that finger is called a pointer.
+
+Its trade with the array is exactly the reverse. In an array you find the middle thing immediately, but adding a new thing in the middle is very hard. In a linked list you have to walk to find something, but adding or removing takes only a moment, because changing two fingers finishes the job.
+
+Now listen to the main problem of this island.[..][lift]The whole linked list has to be turned around.[/]
+
+Luffy said — [luffy]"That is easy. I pull it and flip it over."[/] Zoro stopped him and said — [zoro]"It is not flipping it over. It is changing the direction of every finger."[/]
+
+@read hush
+[wonder]Let us call it the dance of the three fingers.[/] Now listen to the rule, and close your eyes while you listen.
+
+@algo reverse
+The rule for turning a linked list around is this. You have three fingers in your hand, and their names are behind, now, and tomorrow. At the start, behind is empty, and now sits on the first node. In the first step, put tomorrow on the node after now. In the second step, turn now's finger back towards behind. In the third step, move behind to where now is. In the fourth step, move now to where tomorrow is. Keep repeating these four steps until now is empty. Whichever node is at behind at the end is the new head of the turned-around linked list.
+@end
+
+The biggest trap here is hidden in the first step. If you turn the finger around without noting tomorrow first,[...]the whole rest of the linked list disappears in an instant. So always note tomorrow first, and only then change the direction.
+
+This work finishes in a single pass, so its time is O(n). You never had to build a new linked list, so its space is O(1).
+
+@read hush
+Now keep your eyes closed, and listen to those same four steps once more. This time do not try to follow the words, just let them go past.
+
+@recall reverse
+
+Franky put a small piece of the chain down on the deck, and showing four nodes, worked it through once himself. The first node's finger turned towards the empty place. The second one's finger turned towards the first. The third one's finger turned towards the second. The fourth one's finger turned towards the third,[..]and the linked list was turned around.
+
+@read teach
+Now let us go to the second problem, which is a gentle one. Two sorted linked lists have to be made into one. There is a small move here, which makes the code much cleaner. Put one fake node at the start, and in English that is called a [..]dummy[..]. Without it you have to write the special case of "which one is the first node" separately, and the fake node takes that trouble away.
+
+After that, keep comparing the heads of the two linked lists. Whichever is smaller, join it onto the new linked list and move that linked list forward one step. Once one linked list is finished, join on whatever is left of the other one directly.
+
+The third problem is beautiful as well. You have to remove the Kth node from the end. First send one finger K steps ahead. After that, move both fingers forward together. When the front finger reaches the end, the finger behind is standing in exactly the right place. This also finished in a single pass, because you never had to count the length first.
+
+@read hush
+The chain is sinking slowly into the water.[..]The links are going down one by one,[..]and the sound grew fainter.
+
+Now one last time before you sleep, very slowly, listen to those same four steps. Tomorrow morning these words will come back to you on their own.
+
+@recall reverse
+
+@tier medium
+
+The chain had not sunk completely into the water yet. Franky caught hold of the remaining part and pulled, and said — [franky]"There are three moves left, and all three of them are useful every day."[/]
+
+The first move is removing a node. Remember one truth here — you cannot erase a node, but you can ignore a node. Turn the previous node's finger towards the node after the next one, and the node is gone.
+
+So for removal you usually need the previous node. When you have to remove the first node there is no previous node, and that is the special case. That is where the fake node works again.
+
+The second move is removing repeated values, and it only works when the linked list is in order. It happens in a single walk. If the current value equals the next one's value, skip over the next one, and otherwise step forward.
+
+The third move asks — are two linked lists joined together anywhere? Count the length of both. Send the longer linked list forward by the difference. Now walk both together, and if they are joined, they meet exactly at the joining place.
+
+Laughing, Franky said — [franky]"There is one chant for working with linked lists. Never let go of one finger before you have taken hold of another."[/]
+
+@tier long
+
+The water was calm. The anchor chain was swaying slowly.
+
+[franky:firm]"Now listen to another form of turning around,"[/] Franky said. [franky]"What do you do if only one piece in the middle has to be turned around?"[/]
+
+The move stays the same, but you have to pay attention at the boundaries. Hold on to the node just before the piece begins, and hold on to the first node of the piece as well. Once the piece is turned around, turn the previous one's finger towards the new head, and turn the old head's finger towards the node after the piece.
+
+This sounds fiddly, and it really is fiddly. So draw a small picture of four nodes on paper and work it through once by hand, and after that you will never forget it.
+
+The next problem is turning the linked list around in groups of K. This is considered a hard interview question, but its shape is easy. First count whether there are K nodes ahead. If there are, turn that many around, and then repeat the same work on the rest of the linked list. If there are not, leave that piece exactly as it is.
+
+Now a beautiful question arrives. Does the linked list read the same backwards as forwards? Here the moves from three islands come together at once, and that is why this question is a favourite.
+
+First find the midpoint using the walk of the tortoise and the hare. After that, turn around the half from the middle to the end. After that, walk from the two heads together and compare. Its space is O(1), and its time is O(n).
+
+If you want to be decent about it, straighten the turned-around half again at the end. Leaving the linked list the way you found it is good behaviour.
+
+In the next problem you have to add the numbers written in two linked lists, where the digits are kept in reverse order. That sounds strange, but the reverse order is a blessing here. The ones digit is met first, so the addition can be done straight from the front.
+
+At every step add the two digits and the one being carried. If the total goes past ten, carry one. If there is still a carry left after both linked lists are finished, add one more node at the end, and many people forget this small thing.
+
+Now listen to the two-way linked list. Every node in it has two fingers — one points forward, and the other points backward. You can walk both ways in it, and to remove any node you do not have to go looking for the previous one.
+
+It has a price too. Every node costs the space of one extra finger, and every change needs the care of getting two fingers right. This is what the memory-box called LRU is built out of, in which a two-way linked list and a hash map work together. The map says where each thing is, and the linked list says how old each thing is.
+
+Franky let the linked list slip slowly into the water and said — [franky:firm]"Listen to the last thing. In linked list problems the mistake is usually not in the reasoning, it is at the boundary."[/]
+
+"What happens if an empty linked list arrives? What happens if a single node arrives? What happens if two nodes arrive? If you ask those three questions, the rest works itself out."
+
+@read hush
+The last link went under the water. The swell smoothed the surface over slowly, and everything around was quiet again.
+
+Franky sat down on the shore and said — [franky:firm]"There is one rule I learned from building ships, and that rule is the heart of tonight's story. Never let go of one rope before you have another rope in your hand."[/]
+
+That is tonight's lesson. When you turn a linked list around you have to note tomorrow first, and only then change the direction. If you do it the other way round, everything left disappears in an instant, and once it is gone there is no way to get it back.
+
+This is true outside code as well. Before you leave an old job you have to be sure of the new one. Before you leave an old house you have to know the new address. Before you break one connection you have to build another.
+
+The second lesson is the lesson of the fake node. A special case should be removed by an empty beginning, not by special code. In life too, sometimes one small extra step removes a great many exceptions.
+
+The water is calm now. Franky washed his hands, and turned back towards the ship.

@@ -1,0 +1,101 @@
+# 1 — The Ground Under Programming: Variables, Loops and Functions
+
+The ship came slowly in to the first island. The sand is soft. There is no problem here yet, because this is only the place where you learn the tools.
+
+Usopp opened his bag. There are only three tools inside it. He said — [usopp:firm]"However big the job is, I do it with these three."[/] The three tools are the box that holds a name, the wheel that repeats, and the string that ties work together.
+
+The first tool is the box, and in programming it is called a variable. You put something in the box, and you write a name on the box. For example, you write "age" on a box and you put twenty-five inside it. In code you only write this — age equals twenty-five. Now wherever you say "age", twenty-five arrives.
+
+@read teach
+A box does not have to hold only one thing. There are long boxes too, and a long box is called a list, and in English it is called an [..]array[..]. Many things live inside one array. It is like a basket of fruit, where the apple, the banana and the mango all sit together. They are known by their index number. But there is one strange thing here, because in programming the count starts from zero. The first thing has index zero. The second has index one. The third has index two. At the start this feels odd, but in a few days it becomes natural.
+
+The second tool is the wheel that repeats, and it is called a loop. Suppose you have to count every fruit in the basket. You do not say [aside]"look at the first, look at the second, look at the third"[/]. You only say this — [aside]"For every fruit in the basket, one at a time, do this work."[/] That is what you write in code as well, and after that you only have to write what happens inside.
+
+Think about how much that one sentence just saved you. If there are three fruits in the basket the code stays the same. If there are three hundred thousand fruits the code stays the same. A loop takes away your fear of numbers.
+
+The third tool is the string, and it is called a function. If you do some piece of work again and again, tie it into one bundle and give it a name. Then whenever you need it, just call the name.
+
+Sanji explains this well. In the kitchen he cooks rice hundreds of times. He does not think from the beginning every time about washing the rice, adding the water and lighting the fire. He keeps one word in his mind, and the word is rice. All the steps are hidden inside that word. That is what a function is.
+
+In code a function sounds like this — [aside]"Make a piece of work with this name. Give it these things. It gives back this much."[/] The more you hide inside, the cleaner it looks from outside.
+
+Now the fourth thing arrives, and it is not a tool, it is a question. It is called a condition, and in code it is called if. It says — [zoro]"If it is like this, do this. Otherwise, do the other thing."[/] When Zoro is choosing a road he asks exactly this — [zoro]"Is this road the right one? If it is, I go right. If it is not, then it makes no difference where I go."[/]
+
+That is all of it. Now listen to what the whole island comes down to, and this will come back three times tonight.
+
+@algo char-aujar
+These are the four tools of programming, and this is what they do. The first tool is the box, and the box gives a thing a name. The second tool is the wheel, and the wheel repeats the same work. The third tool is the string, and the string ties many steps into one name. The fourth tool is the question, and the question splits the road in two. Every program in the world is only these four tools joined together in different ways.
+@end
+
+Even very large software is only millions of layers of these. There is no new magic in any of it.
+
+With your eyes already closed, listen once more, lightly, to those same four tools.
+
+@recall char-aujar
+
+The ship put out again. The array is moving slowly. On the next island we will learn to measure time.
+
+@read hush
+One last time before you sleep, very slowly, listen to those four tools.
+
+@recall char-aujar
+
+@tier medium
+
+Sitting in the sand, Usopp took one more small tool out of his bag. He said — [usopp:firm]"This is not a fourth tool. This is another shape of the first wheel."[/]
+
+A loop has two faces. One of them says — [aside]"Go around once through all of these things."[/] The other says — [aside]"Keep going around as long as this stays true."[/] The first is called a for loop, and the second is called a while loop. If you know how many times you are going around, use the first. If you do not know, and you are going around until some condition is met, use the second.
+
+There is a trap in the while loop, and it sounds funny but it happens to everybody once. If the condition never becomes false, the loop never stops. Zoro was once lost in a forest exactly this way, because he kept saying [zoro]"I keep walking until I find the road"[/] while he was walking in a circle. Whenever you write a loop, always ask this — [zoro]"Which step is taking me towards the end?"[/]
+
+Now listen to something about two boxes. Say you have to swap what is in two boxes. If you try to do it directly, one of them disappears, because the moment you put the second one's contents into the first, the first one's contents are gone. So you need a third, empty box. Put the first box's contents there, put the second box's contents into the first, and then put the third box's contents into the second. This small three-step move turns out to be useful in many places later.
+
+There are also loops inside loops. When the outer wheel goes around once, the inner wheel goes all the way around. Nami said — [nami]"This is the place where time grows quietly."[/] Ten outside and ten inside makes a hundred. That is the thing we are going to measure on the next island.
+
+Listen to something about naming as well, because it looks small and it is large. If you name a box "a", tomorrow you will not recognise it yourself. If you name a box "seats_left", the code tells its own story. A good name is a letter written to the person you will be later.
+
+@tier long
+
+The ship is still at the shore. Luffy is lying in the sand, and Usopp still has not closed his bag.
+
+The fifth thing is about true and false. In the end a computer looks at the world in two words, and the words are yes and no. There are three joints that connect these two words, and they are "and", "or", and "not".
+
+"And" is strict, because the result is true only if both are true. "Or" is generous, because one of them being true is enough. "Not" turns whatever is there upside down. Sanji said — [sanji]"The same rule works in the kitchen. Rice cooks only if there is salt and there is fire. Your stomach fills if there is either rice or wheat."[/]
+
+The sixth thing is what a function gives back. There are two kinds of string. One of them brings something back, like a total, a name, or an answer. The other one does something, like writing, sending, or deleting. The first is called asking, and the second is called ordering.
+
+As much as you can, make functions of the asking kind. An asking function is easy to test, because you can put this much in, and check that this much came out. An ordering function changes the world, and changing the world is always a little risky.
+
+@read teach
+The seventh thing is that a function can also call itself. That sounds strange when you hear it. Robin said — "If you put two mirrors facing each other, what do you see? You see another mirror inside, and inside that one, another mirror." That is what [..]recursion[..] is. We will meet it properly in the branches of the tree, and in the maze.
+
+But listen to one rule right now. Every function that calls itself must have a place where it stops. Without that place the mirrors go deeper forever, and the ship sinks.
+
+The eighth thing is about mistakes, which happen to everyone. The first mistake is going past the last index of an array. The second mistake is looking for the first thing in an empty array. The third mistake is using a box before you have put anything in it.
+
+All three of these sound foolish, and all three have brought down large software in the world. So whenever you write code, always ask two cases — [aside]"What happens if it is empty?"[/] and [aside]"What happens if there is only one?"[/]
+
+The ninth thing is about the box that makes pairs. Sometimes you have to look something up not by a number, but by a name. The moment you say "Sanji", his age should arrive. That kind of box is called a dictionary, or a map. We will open it properly on the fourth island.
+
+The tenth thing is the habit of listening to code with your ears. Before you write any code, say it once in ordinary words, as though you were telling someone. For example, say — [aside]"Make an empty bag. Look at every name. If the name is longer than five letters, put it in the bag."[/]
+
+If you can say it that way, the code is already written. If you cannot say it, the problem is not in the code, it is in your understanding. Many people put their hands on the keyboard and try to think there. But thinking is not done with the hands, it is done with sentences.
+
+The eleventh thing is about comments. In code you do not need to write "what this does", because that is visible in the code itself. In code, write "why this was done". For example, write — [aside]"One is subtracted here, because the last drawer does not count."[/] Six months later that one sentence saves you.
+
+@read hush
+The twelfth thing is the last one for tonight. Clean code does not mean short code. Clean code means the code that a sleepy person can still read. The names in it are clear, the pieces of work are small, and the number of surprises is zero.
+
+Usopp closed his bag and said — [usopp]"That is all. Every island after this is only these same tools joined together in different ways."[/]
+
+Luffy had already fallen asleep. The sand was warm. The ship slowly raised its anchor and turned towards the next island.
+
+Luffy was asleep, but Usopp was still sitting in the sand. Stroking his bag with one hand, he said — [usopp]"I got this bag from my father. The tools inside it are old, but not one of them has stopped being useful."[/]
+
+Robin asked — [robin]"Have you never needed a new tool?"[/] Usopp shook his head and said — [usopp:firm]"I do not need new tools. I need new combinations."[/]
+
+That is tonight's lesson, and it stays true on every island after this. Power is not in the number of tools, it is in the imagination of the joining. A person who knows four tools can easily beat a person who knows forty, if they know how to join four of them in hundreds of ways.
+
+Now listen to one small thing, which also applies outside code. If you give something a good name today, the person you are tomorrow thanks you. Naming is sharing a memory between two people, the one today and the one tomorrow.
+
+The sound of the sea was coming in slowly. Usopp put the bag under his head, and slept. The sand was warm, and the tools were safe.

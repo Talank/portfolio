@@ -1,0 +1,106 @@
+# 15 — The Tree of Order: Binary Search Tree
+
+The tree on the fifteenth island looks like the tree on the last island, but one discipline has been added to it.
+
+Touching a branch, Robin said — [robin]"Here, on the left of every node there are only smaller ones, and on the right only larger ones. This is always true, and there is no exception to it."[/]
+
+@read teach
+That discipline alone turns an ordinary tree into a searching machine. That is what a [..]BST[..] is.
+
+@algo bst
+The rule of the tree of order is this. If you have to find some value, stand at the root. If the value you are looking for matches the current value, that is the answer, and the work is done. If the value you are looking for is smaller than the current one, go down the left branch, and throw away the entire right branch in a single stroke. If the value you are looking for is larger than the current one, go down the right branch, and throw away the entire left branch. If the branch is empty, that value is not in the tree. As long as the tree stays balanced, this search finishes in O(log n).
+@end
+
+@read teach
+This is the same move of throwing away half from the eighth island, except that it runs on a tree rather than on an array.
+
+But an honest thing has to be said here. This O(log n) only holds if the tree is balanced. Suppose you put the values in in the order one, two, three, four, five. Then every new value goes only to the right. The tree is not a tree any more, it has become a chain. And the search falls to O(n).
+
+Balanced trees were built to solve this problem, and they are the AVL tree and the red-black tree. They rotate themselves back straight. Tonight you do not need their details. It is enough to know that balance is the life of a BST.
+
+Now a question arrives that knocks a lot of people over. You have to check whether this tree really is a BST or not.
+
+Usopp said in a hurry — [usopp:excited]"That is easy. Look at every node, and if the left child is smaller and the right child is larger, that is enough."[/]
+
+Shaking her head, Robin said — [robin:firm]"That is not enough. A whole tree is not in order just because the neighbours are."[/]
+
+Think about it this way. The root is ten. The left child is five. Five's right child is twenty. Looking at each pair it seems fine, because five is smaller than ten and twenty is larger than five. But twenty is in the root's left branch, and twenty is larger than ten. That is how the rule breaks.
+
+So the true way to check is to carry a range down with you at every node, and it has a lower limit and an upper limit. When you go left, the upper limit becomes the current value. When you go right, the lower limit becomes the current value. If any node falls outside its range, it is not a BST.
+
+There is another beautiful way as well, and it is easy to remember. Walk the BST in inorder, that is, left, root, then right. If it is a real BST the values come out in exactly rising order. If they ever fall, it is not a BST.
+
+That same inorder unlocks another question. Which is the Kth smallest value? Walk in inorder and count as you go, and stop once you reach K.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule of the tree of order.
+
+@recall bst
+
+Moonlight has fallen on the tree like snow. Every branch is in its place, because the small ones are on the left and the large ones are on the right. There is no confusion here.
+
+@read hush
+One last time before you sleep, very slowly, listen to that same rule.
+
+@recall bst
+
+@tier medium
+
+The moonlight was still on the tree. Robin let go of the branch and said — [robin]"This discipline has some practical fruit as well."[/]
+
+The first fruit is the job of putting in a new value. Start from the root. If the value is smaller go left, and if it is larger go right. When you find an empty place, put it there. That is the same road as the search, and at the end a new leaf is made.
+
+The second fruit is the job of removing a value, and this one is a little crooked. There are three cases in it. If it is a leaf, remove it directly. If it has only one branch, lift that branch up into its place.
+
+What do you do if it has both branches? Somebody has to be called in to fill the empty place, and that somebody has to be one who will not break the order. The smallest value in the right branch is exactly the right successor. Bring them in and put them in the place, then remove them from their old place.
+
+The third fruit asks which value comes immediately after some value. This is called the successor. If there is a right branch, the leftmost value in it is the successor. If there is no right branch, look upwards, and whichever ancestor's left branch you are in is the successor.
+
+In the fourth fruit you have to build a balanced BST out of a sorted array. Make the middle value the root, then build the left branch out of the left half, and the right branch out of the right half. That is the same move of throwing away half, except that this time it is being run in order to build.
+
+@tier long
+
+The moonlight was scattered under the tree. Robin sat at the foot of it.
+
+She said — "Now let me ask a question, whose answer explains why the BST was built at all. We already had Nami's notebook, and it was O(1). So why was this O(log n) tree needed?"
+
+The answer is in one word, and the word is order. The notebook says [aside]"is this here or not"[/], but it cannot say [aside]"which is the smallest one larger than this"[/]. The tree can.
+
+So where a range is needed, where [aside]"everything between this and this"[/] is needed, and where "the previous" and "the next" are needed, a tree is needed. The notebook is fast, and the tree is orderly.
+
+Now listen to a question about a range. What is the total of all the values falling between two given limits? Keep walking, but walk wisely.
+
+If the current value is smaller than the lower limit, you do not have to go into the left branch at all, because everything there is smaller still. If the current value is larger than the upper limit, leave the right branch alone. That pruning is what makes the search fast.
+
+Now listen to the business of balance in a little more detail. There is one reason a tree goes bad, and it is the values arriving in order. Unfortunately, in the real world data usually does arrive in order, like dates, addresses, and counts.
+
+So in real use a balanced tree is always used. The AVL tree does not let the difference in height between two branches at any node be more than one. The red-black tree keeps a looser rule, so putting things into it is faster but searching it is a little slower.
+
+Listen lightly to what a rotation is as well. Imagine three nodes all leaning in the same direction. Lift the middle one up, and make the two on the ends its children. That way a chain of three nodes has become a small balanced tree.
+
+Tonight that is enough. You never have to learn the details of rotation by heart, and it is enough to know that a machine for keeping the balance is running inside.
+
+Now listen to a beautiful use, and it is merging two BSTs into one. Walk both in inorder to make two sorted arrays. Merge the two arrays, and that is the work of two fingers. Then build a balanced tree from the merged array.
+
+Here the tools of three islands were joined in one place, and they are walking a tree, two fingers, and half and half. Large solutions are usually built exactly this way.
+
+And there is a question that is liked in interviews. What do you do if the Kth smallest value in the inorder walk is asked for again and again? Walking every time is expensive.
+
+The move is to keep a count at every node of [aside]"how many are in my left branch"[/]. Now you can go straight down from the root, because the count on the left tells you whether K falls to the left or the right. That way the search is O(log n).
+
+At the end, listen to one small but deep thing. The rule of the BST is not about neighbours, it is about ranges. Every node has to sit inside the range it was given from above.
+
+Remember that one sentence, and half the BST questions unlock themselves. Carry the range when checking. The range narrows as you insert. The range shows you the road when searching.
+
+The wind stopped. The tree went still, and the moonlight was coming down to the ground between the branches.
+
+Sitting at the foot of the tree, Robin said — [robin:gentle]"This tree is beautiful because it is disciplined. The small ones are on the left, and the large ones are on the right. But discipline does not hold by itself, because somebody has to keep holding it."[/]
+
+That is tonight's lesson, and it is a little serious. Order is a gift, but order can also go to waste. If the values keep arriving in order, this tree does not stay a tree, it becomes a chain, and all the benefit disappears.
+
+That is why balanced trees are used in the real world, ones that rotate themselves back straight. This is worth remembering, because a good structure is not only a good rule, it is also the machine that keeps the rule.
+
+Now listen to the second lesson, which is the subtlest thing tonight. The rule of the BST is not about neighbours, it is about ranges. The whole thing is not right just because the parts beside each other are. That one sentence saves a great many wrong solutions. In life too, the whole road is not right just because you agree with the person nearest you.
+
+@read hush
+A star appeared between the leaves. The tree was in its place, and there was no confusion anywhere.

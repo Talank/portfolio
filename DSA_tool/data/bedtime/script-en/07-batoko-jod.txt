@@ -1,0 +1,105 @@
+# 7 — The Running Total: Prefix Sum
+
+On the seventh island there is a long road, and all along it there are stones set into the ground with distances written on them.
+
+Robin stood beside one stone and said — [robin]"These stones do not have the distance between two places written on them. Only the distance from the start is written here. But that is enough."[/]
+
+The idea on this island is so small that it sounds trivial, but it unlocks a great many problems.
+
+Suppose you have a long array of numbers. Somebody asks — [aside]"What is the total from the third to the seventh?"[/] You added five numbers. They ask again — [aside]"What is the total from the second to the ninth?"[/] You added again. What happens if they ask a hundred times? You sit there adding every time, and that costs O(n) per question.
+
+Now listen to Robin's move.
+
+@algo agadiko-jod
+The rule of the running total is this. At the beginning, walk through the array once and only once, and at every place note down the total from the start up to here. This is called the running total, and in English it is called a prefix sum. Now, when you need the total of some stretch, take the total up to the last place of that stretch. From it, subtract the total up to the place just before the stretch begins. Whatever is left is the total of that stretch. The preparation costs O(n) once, and after that every question is answered by a single subtraction, in O(1) time.
+@end
+
+The road makes this clear. If you want the distance between the stone at three kilometres and the stone at seven kilometres, subtract three from seven, and four kilometres comes out. You never had to walk the middle.
+
+Now a good problem arrives, and it joins the running total to Nami's notebook. How many consecutive stretches are there in the array whose total is exactly K?
+
+Think about it this way. If the total from the start up to here is S, and I want a stretch whose total is K, then that stretch has to begin at a place where the total up to it was S minus K.
+
+So keep walking. At every place work out the total so far. Then ask the notebook — [aside]"How many times have I seen the total S minus K before?"[/] However many times I have seen it, that many stretches end right here. Add that number to the count. Then note the current total in the notebook as well.
+
+Do not forget one small thing. At the very start, write in the notebook [aside]"I have seen the total zero once"[/], because a stretch that begins at the very beginning has to be counted too.
+
+Look at what happened here. The tools of two islands were joined, and they are the running total and the question [aside]"have I seen this before"[/]. That dropped O(n²) to O(n). Large solutions are usually built exactly this way, and they are built not out of new magic, but out of two straightforward ideas joined together.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule of the running total.
+
+@recall agadiko-jod
+
+The same move works in two dimensions as well. If you need the total inside some rectangle in a table like a sheet of paper, adding and subtracting the running totals at four corners is enough.
+
+Robin closed her notebook. The stones on the road are glinting in the moonlight. We are slowly making our way back to the shore.
+
+@read hush
+One last time before you sleep, very slowly, listen to the rule of the running total.
+
+@recall agadiko-jod
+
+@tier medium
+
+In the moonlight the road looked long. Robin opened her notebook again and said — [robin]"This idea of the stones has a few more shapes."[/]
+
+The first shape is the place of balance. In an array you have to find the place where the total on the left and the total on the right are equal.
+
+Work out the grand total once. Now walk from the left, piling up the left-hand total as you go. At every place the right-hand total is known for free, because subtracting the left-hand total and your own value from the grand total is enough. If the two are equal, that place is the answer. This finishes in a single pass.
+
+The second shape is the running product. Instead of a total you can pile up a product. But there is a trap here, because if a zero arrives in the middle every product becomes zero, and then instead of subtracting you have to divide, and division does not work with zero. So for products, the move of walking in from both directions is usually used instead.
+
+@read teach
+The third shape is a beautiful move in the opposite direction, and it is called the difference [..]array[..]. Suppose you are told again and again — "add five to everything from the third to the seventh." If you touch five places every time, that is a lot of work.
+
+Instead, keep an empty array. Write five at the third place, and write minus five at the eighth place. Do only that. Once all the instructions are finished, work out the running total of that array, and at every place the amount that should have been added appears by itself.
+
+Usopp's eyes went wide and he asked — [usopp]"Writing in one place changes a whole stretch?"[/] Shaking her head, Robin said — [robin]"The adding only has to be noted at the beginning and the end. The arithmetic in the middle happens later, all at once."[/]
+
+@tier long
+
+@read hush
+There was an old bench at the side of the road. Robin sat down on it, and made her voice quieter still.
+
+She said — [aside]"Now let us join the total to division. It sounds strange, but it is very good."[/]
+
+The question is this. How many consecutive stretches are there whose total divides exactly by K? On the straightforward road you have to work out the total of every stretch, and that costs O(n²).
+
+The move is this. If the running totals at two places leave the same remainder when divided by K, then the stretch between them divides exactly by K, because the remainder cancels in the subtraction.
+
+So in the notebook, note the remainder rather than the total. At every place ask — [aside]"How many times have I seen this same remainder before?"[/] That many stretches end here.
+
+Pay attention to one thing. If there are negative numbers, the remainder can come out negative too. When that happens, add K to the remainder and divide again, so that the remainder always sits between zero and K.
+
+The next problem is to find the longest stretch with equal numbers of zeros and ones. This is in the same family, but it needs one small translation.
+
+Treat zero as minus one. Now the question has changed, and it has become: which is the longest stretch whose total is exactly zero? Then run the same move, keep noting the running total, and put in the notebook where each total was first seen.
+
+If the same total is met again, the total of the stretch in between is zero. Subtract the place of the first sighting from the current place, and that is the length. Keep remembering the longest length.
+
+There is a small but important thing here. Keep only the place of the first sighting, and do not keep the later ones. The reason is that we are looking for the longest, and to get the longest the start has to be as far forward as possible.
+
+Now listen to the two-dimensional case in a little more detail. There is a table with rows and columns. The total inside some rectangle in it is asked for again and again.
+
+First, at every place, note the total of the whole rectangle from the top-left corner up to here. Now, when you need the total of some rectangle, subtract the strip above it from the large rectangle, then subtract the strip to the left, and then add back once the corner that was subtracted twice.
+
+That takes four numbers and three operations, and the time is O(1). Robin said — [robin]"This is called inclusion and exclusion. It sounds like a big name, but the work is the same thing a child understands by drawing it on paper."[/]
+
+At the end, listen to a different kind of total, and that is the running form of XOR. In XOR, if a number appears twice it cancels itself out. So instead of subtracting, XOR again is enough, and the same shape works in the same way. This idea comes back on later islands.
+
+Robin leaned back on the bench and said — [robin]"If the heart of this island has to be said in one sentence, it is that the answer to a question that gets asked again and again should be prepared in advance. And that preparation usually takes a single pass."[/]
+
+The stones on the road were still glinting. The air was warm. The ship's light was visible in the distance, and we walked slowly towards it.
+
+Robin got up from the bench. The stones on the road were still glinting in the moonlight, and on every stone the distance from the start was carved.
+
+She touched one stone and said — "The person who carved this died many years ago. They walked once, and that walk has been saving everybody ever since."
+
+That is tonight's lesson. Sometimes the best investment is a single pass. Walk once, and note things down at every place, and after that a thousand questions are answered by one subtraction.
+
+Now listen to the opposite lesson as well, and it is even more important. Preparation has a price. If the question is only going to be asked once, the preparation is wasted. If the question is going to be asked many times, the preparation is everything.
+
+So before you write code, ask — [aside]"Is this question asked once, or is it asked hundreds of times?"[/] The answer changes your whole approach.
+
+The air was warm. Robin held the notebook against her chest, and walked slowly towards the ship's light.

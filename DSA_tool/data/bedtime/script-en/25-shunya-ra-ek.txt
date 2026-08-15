@@ -1,0 +1,118 @@
+# 25 — Zero and One: Bit Manipulation
+
+The twenty-fifth island is the smallest, but the foundation of everything is here. There are only two signs here, and they are zero and one.
+
+Franky said — [franky]"The machine does not see our numbers. It only sees a row of lamps, some of them lit and some of them out."[/]
+
+Every number is a row of lamps like that. Five is one, zero, and one. Thirteen is one, one, zero, and one. This is called binary.
+
+Now there are some simple moves that work on these lamps, and they are remarkably fast, because this is the language the machine actually speaks.
+
+The first sign is AND. In it a lamp is lit only if both sides are lit, and it is used for filtering.
+
+The second sign is OR. In it a lamp is lit if either side is lit, and it is used for joining.
+
+The third sign is XOR, and this one is the most interesting. In it a lamp is lit only if the two differ, and it goes out if the two are the same.
+
+@algo xor
+The rule of XOR is this, and its foundation sits on two properties. The first property is that if you XOR any number with itself, you get zero. The second property is that if you XOR any number with zero, that same number comes back. So keep XORing all the numbers of the array together. The ones that have partners cancel each other out and become zero. Whatever is left at the end is the lonely number that had no partner. No notebook is needed for this, so the time is O(n) and the space is O(1).
+@end
+
+Now listen to how beautiful this is. In an array every number appears twice, except one that appears once. You have to find that one.
+
+Nami started to take out her notebook. Franky stopped her and said — [franky:excited]"You do not need the notebook. XOR them all together."[/]
+
+Seeing this the first time, people are astonished.
+
+Now listen to some small moves, which are useful to keep in mind.
+
+Is a number even or odd? Look at the rightmost lamp, and AND it with one. If you get zero, it is even.
+
+If you have to multiply by two, move all the lamps one place to the left. If you have to divide, move them right. For the machine this is much cheaper than multiplying and dividing.
+
+Do you have to count how many lamps are lit? There is a famous move for it, and it is to AND the number with one less than itself. That puts out the rightmost lit lamp. Repeat until it is zero and count, and it goes round exactly as many times as there are lamps lit.
+
+And there is a check that asks whether a number is a power of two. In a power of two exactly one lamp is lit. So if the AND of the number and one less than it is zero, it is a power of two.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule of XOR.
+
+@recall xor
+
+An honest thing has to be said here. These moves are beautiful, but they also make code harder to read. Use them only where they are genuinely needed. Showing a XOR move in an interview is good, but walking around shifting lamps everywhere is not.
+
+Small lamps are burning on the island, and some are lit and some are out. They sway slowly in the air. Such a large world has been built out of something this small.
+
+@read hush
+One last time before you sleep, very slowly, listen to that same rule.
+
+@recall xor
+
+@tier medium
+
+The small lamps were still burning. Franky took hold of a wire and said — [franky]"These moves have some pairs as well."[/]
+
+In the first pair you have to look at one particular lamp. Shift a one that many places to the left and AND it. If you get zero, that lamp is out, and otherwise it is lit.
+
+If you have to light a lamp, use OR. If you have to put it out, AND with the inverse. If you have to flip it, use XOR. Those four operations are worth knowing by heart.
+
+In the second pair you have to pull out the rightmost lit lamp on its own. AND the number with its own negative form. This move comes back in many places.
+
+In the third pair every number in the array appears twice, but two numbers appear once, and you have to find both.
+
+First XOR everything together, and that is the XOR of the two odd numbers out. Pick any one lit lamp in it. That lamp separates the two, because in one of them that lamp is lit and in the other it is out.
+
+Now split the array into two groups by that same lamp, and XOR each group separately. The two answers come out by themselves.
+
+@tier long
+
+The lamps were swaying in the air. The island was small, but the sky was large.
+
+Franky said — [franky]"Now let us look from a different angle. A row of lamps is not only a number, it is also a group."[/]
+
+Imagine it this way. There are ten things, and you have to remember which ones you took. Keep ten lamps, and set them lit where you took something and out where you did not.
+
+Now every possible group has become a number. All the groups of ten things run from zero to one thousand and twenty-three. You can go round every group by running a loop.
+
+@read teach
+This is called a bitmask, and it turns [..]backtracking[..] into an ordinary loop. On problems where n is small, that is, under about twenty, it is very useful.
+
+And this same idea joins on to DP. Here the case is [aside]"which ones have I taken so far"[/], and that is a single number. So the table becomes a plain array.
+
+This is called bitmask DP, and it solves problems like dividing up work, touring roads, and matching pairs, where n is small but the possibilities are many.
+
+Now listen to a small but sweet question. How many lamps are lit in every number from zero to n, and you need it separately for each one.
+
+The direct way is to count the lamps of every number. But there is a relationship here, because the lamp count of any number is the count of that number shifted right, plus the rightmost lamp.
+
+That is, the answer for half the numbers is already on the wall, and all the answers come in a single pass. The power of memory has arrived here as well.
+
+And XOR has one deep property, and it is that it is like addition but without the carrying. So in XOR the order makes no difference, and it can be done in groups.
+
+That is why the [aside]"running XOR"[/] works, exactly like the running total. If the running XOR at two places comes out the same, the XOR of the stretch in between is zero.
+
+That move fits exactly into the shape of the seventh island, and the only difference is that instead of subtracting you XOR again. That is why I said there that it would come back.
+
+Now listen to an honest warning, and it is a practical one. When you shift lamps on negative numbers, the behaviour differs between languages. Whether a zero or a one arrives at the top when shifting right is decided by the language.
+
+So think twice before running lamp moves on negative numbers, and check with a small example.
+
+And remember the limit of a number as well. The row of lamps is not endless, and it is usually thirty-two or sixty-four. When the limit is passed the number quietly wraps around, and that is the least detectable kind of mistake there is.
+
+At the end, listen to a philosophy. This island is small, but it is at the very bottom. All the islands above, that is, the notebook, the tree, the stack and the wall, are in the end sitting on these lamps.
+
+You will rarely write these moves in daily work. But knowing what is underneath makes everything above a little clearer.
+
+Franky let go of the wire. The lamps swayed at their own pace, and some were lit and some were out, and that had been enough.
+
+He looked up and said — "This island is the smallest, but every island stands on top of it. The notebook, the tree, the stack and the wall are in the end all made out of these two signs."
+
+That is tonight's lesson. Knowing what is in the foundation makes every floor above a little clearer, and that stays true even if you never have to work in the foundation yourself.
+
+Now listen to the second lesson, which is the most beautiful thing tonight. Pairs cancel themselves. Whatever came twice is erased, and what is left is the thing with no partner. No notebook was needed here, and no count was needed. There was only one property here, and that property made the whole problem disappear.
+
+That is the true shape of cleverness. The problem vanishes not by adding force, but by finding one property of nature.
+
+And the last lesson is an honest one. These moves are beautiful, but they also make code harder. Use them where they are genuinely needed. Where they are not needed, writing simple code is itself the clever thing.
+
+The lamps swayed on. The island was small, and the sky was large.

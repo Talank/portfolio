@@ -1,0 +1,98 @@
+# 12 — The Falling Stack: Monotonic Stack
+
+On the twelfth island there is a long wall, and posts of different heights stand along it.
+
+Looking at the wall, Robin said — [robin]"This is the stack from the last island. But one rule is added here, and it is that the stack must always stay in order."[/]
+
+@read teach
+The stack must always be falling, or always be rising. That one added rule turns an ordinary stack into a sharp weapon.
+
+The problem is this. For every post you have to say how far away the first post taller than it is, on its right.
+
+Luffy said — [luffy:excited]"I look to the right from every post."[/] That is O(n²), and on a large wall the ship goes down.
+
+Nami took out a stack and said — [nami]"I do not keep the posts, I keep the list of posts that are waiting."[/]
+
+@algo ghatdo-thupro
+The rule of the falling stack is this. Walk from left to right. When you reach each new post, look at the top of the stack. If the post at the top is shorter than the new post, that post's waiting is over today, because the taller post it was looking for is this one. So note its answer, and remove the top. Keep repeating this until the top is no longer shorter than the new one. After that, put the new post on the stack and move on, and now it waits for its own turn. Whoever is left on the stack at the end has no answer, because nobody taller than them ever came.
+@end
+
+Now listen to the arithmetic of the time, and it is beautiful. There is a loop inside, so at first glance this looks like O(n²). But it is not. The reason is that every post goes onto the stack exactly once and comes off exactly once. That is two n of work in total, so this is O(n).
+
+That reasoning is called amortised analysis. Do not panic the moment you see a loop inside, and count how many times each thing is touched.
+
+Now listen to another shape of the same move. The temperature of every day is given. For each day you have to say how many days you must wait for a warmer day.
+
+That is exactly the same move. Put the indexes of the days on the stack. If the new day is warmer, the answers for all the waiting cold days are settled today, and you work out the difference in days.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule of the falling stack.
+
+@recall ghatdo-thupro
+
+There is a deeper problem, and it is finding the largest rectangle among the posts of the wall. This is hard, but the idea is the same. Keep the stack in rising order. When a shorter post arrives, the rectangles of the taller posts on the stack end right here, because they cannot spread any further forward.
+
+Now remember the signals, lightly. If you hear the words [aside]"the next larger"[/], remember this island. If you hear [aside]"the next smaller"[/], remember it too. If you hear [aside]"the first taller"[/] or [aside]"how long must it wait"[/], remember this island as well.
+
+Wind is coming across the wall. The posts stand quietly, and some are tall and some are short. There is no hurry, and all of them are waiting their turn.
+
+@read hush
+One last time before you sleep, very slowly, listen to the rule of the falling stack.
+
+@recall ghatdo-thupro
+
+@tier medium
+
+The wind was still moving along the wall. Touching a post, Robin said — [robin]"This stack has four faces, and all four of them look alike."[/]
+
+The first face is the next larger to the right. The second is the next larger to the left. The third is the next smaller to the right. The fourth is the next smaller to the left. These four questions are only small changes to one piece of code.
+
+If you need to change direction, change the direction of the walk, and walk from right to left. If you need smaller instead of larger, change the comparison sign. Everything else stays the same.
+
+Now listen to one application, and it is finding the next larger in a circular array. Saying the array is circular means that after the last one the first one comes round again. The move is simple, because you walk the array twice, but you write the answer at the index from the first lap.
+
+In another application you have to remove some digits from a number to make the smallest number possible. Keep a rising stack. If the new digit is smaller than the top of the stack and you are still allowed to remove, remove the top.
+
+That sounds like a different problem, but the shape is the same. A large digit sitting behind is never going to help you now, so it has to come out.
+
+@tier long
+
+@read hush
+The posts were quiet. Robin sat down at the foot of the wall, and made her voice softer.
+
+She said — "Now let us hear the story of the water again, but tonight let us hear it from another road. Zoro collected the water with two fingers. A stack does the same work, and the stack's reasoning is clearer when you hear it."
+
+Put the indexes of the posts on a falling stack. If the new post is taller than the post at the top, then the post at the top is the floor of a hollow.
+
+Take that floor out. Now whoever is left on the stack is the wall on the left, and the new post is the wall on the right. Subtract the floor's height from the shorter of the two, and that is the depth. The width is the difference between the two indexes. Multiply the two together, and keep adding it up.
+
+The same thing happens in the rectangle problem, but there the search is inverted, because there we treat the shorter post as a limit rather than as a floor.
+
+Keep a rising stack. If the new post is shorter than the top, the post at the top can no longer spread to the right, so its rectangle ends right here.
+
+The height is that post's own. The right limit is the current index. The left limit is the index of whoever is underneath it on the stack. The width is between the two limits. In this arithmetic the off-by-one mistake happens a great deal, so draw a small picture of three posts on paper and check it once.
+
+At the end, do not forget to work out the rectangle for everyone left on the stack. The easy move for this is to add one fake post of zero height at the end of the array. That forces everybody out, and you never have to write separate code.
+
+This move of putting in a fake boundary is useful in many places. The fake head of a linked list, the zero at the end of an array, and the imaginary root of a graph are all the same idea. A special case should be removed by a fake object, not by special code.
+
+Now listen to a different family. A rising stack also solves the question [aside]"how many people can see me"[/]. Among people standing on a hill, how many pairs can see each other? They can see each other only if there is nobody taller in between.
+
+And one thing is the most important of all, and it is what teaches you to recognise this island. On the stack we do not keep values, we keep the things that do not have an answer yet.
+
+So whenever you feel [aside]"I do not know the answer for this thing now, but I will know once something arrives later"[/], remember this stack.
+
+And when the answer arrives, it arrives for many at once. One tall post ends the waiting of all ten waiting posts in a single instant. That is the beauty of this move.
+
+Robin took her hand off the wall. The wind was still moving, but it was not cold now. The posts stood in their places.
+
+Robin said — [robin:gentle]"The story of this island is a story about waiting. Every post is waiting for somebody, and nobody can end their own waiting themselves."[/]
+
+@read teach
+That is tonight's lesson, and it is a little unkind. Making something wait when it has no future is not a kindness, and it is only spending space. The falling stack takes out whatever is small and whatever is old immediately, because it is never going to win now.
+
+Now listen to the beautiful lesson. When the answer arrives, it arrives for many at once. The moment one tall post arrives, the waiting of ten of them ends in a single instant. Life is usually like that too, because many days of waiting bear fruit on one single day.
+
+So do not panic when you see a loop inside. The thing to count is not [aside]"how many times did it go round"[/], it is [aside]"how many times was each thing touched"[/]. Being able to tell that difference is a skill in itself.
+
+The wind stopped. The wall went quiet, and the shadows of the posts stretched out long in the moonlight.

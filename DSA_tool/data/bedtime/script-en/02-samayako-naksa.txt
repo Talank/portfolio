@@ -1,0 +1,103 @@
+# 2 — The Map of Time: Big-O
+
+There is fog on the second island. An old mapmaker lives here. He does not show you the road, he only tells you how long the road will be.
+
+Nami sat down in front of him. He asked — [nami]"How many people are there in your crew?"[/] Nami said — [nami]"There are n of us."[/] The old man smiled and said — [nami]"Now I will teach you the language of time."[/]
+
+Now imagine there are n boxes on the ship. Someone says to you — [aside]"Open the first box."[/] You open one box only. If there are ten boxes you still open one. If there are a million boxes you still open one. This is called O(1), and it means constant time. Here the effort does not grow when the number grows, and this is the happiest case there is.
+
+Now someone says — [aside]"Open every box and look inside."[/] Now your effort grows along with the number of boxes. If there are ten boxes you open them ten times. If there are a million boxes you open them a million times. This is called O(n), and it means straight-line time. This is also good, and most good solutions end up right here.
+
+Now listen to something a little sadder. Someone says — [aside]"Compare every box against every other box."[/] You have to match the first box against all of them. You have to match the second box against all of them too. With ten boxes that is a hundred comparisons. With a thousand boxes that is a million comparisons. This is called O(n²), and it means squared time. On small numbers it is fine, but on large numbers the ship goes down.
+
+@read teach
+And then there is something really beautiful. Suppose the boxes are arranged in order, from small to large. Now you open the middle box. If it is too big, throw away the right half. If it is too small, throw away the left half. Every time, half of it disappears. Even among a million boxes you find it in about twenty steps. This is called O(log n), and it truly is magic. We will meet it properly on the eighth island.
+
+The old mapmaker said the last thing slowly — "Do not panic looking at small numbers. This map does not talk about small numbers at all. It asks only one question — if the number grows ten times, how many times does your suffering grow?"
+
+That is why we throw away the hundred that was attached to the O(n²). Two n and three n are both just O(n). We look at the shape, not at the size.
+
+One thing is still left, and that is space. It is not only time that is counted, but also how much you had to remember. If you write n things in a notebook, that is O(n) space. If you managed without writing anything down, that is O(1) space. Usually there is a trade between these two, because you have to spend space to save time, or spend time to save space.
+
+Now listen to tonight's summary, and it is four lines long.
+
+@algo chaar-naap
+These are the four measures of time, and if you remember them most of the arithmetic does itself. If you only have to look at one, that is O(1). If you have to look at all of them once, that is O(n). If you have to match every one against every other one, that is O(n²). If you get to throw away half every time, that is O(log n). These four measures tell the story of almost all code.
+@end
+
+The fog is thinning. The mapmaker puts a small piece of paper into her hand, and smiles.
+
+@read hush
+Now keep your eyes closed and listen to those same four measures once again.
+
+@recall chaar-naap
+
+The ship put out again. The sea is wide, and the air is warm.
+
+@read hush
+One last time before you sleep, very slowly, listen to those four measures.
+
+@recall chaar-naap
+
+@tier medium
+
+The fog had not lifted completely. The old mapmaker said — [aside]"Sit. There are two or three measures left, and those are the most useful ones."[/]
+
+There is a measure in the middle, which falls a little above O(n) and a long way below O(n²). That measure is O(n log n). It turns up where you have to look at everything once, but where each time the work keeps splitting in half.
+
+Almost all the good ways of putting things in order live here. If you have to sort a million things, O(n²) asks for a trillion steps, but O(n log n) asks for only about twenty million. That difference is the difference between the ship crossing and the ship sinking.
+
+@read hush
+Now listen slowly to the numbers. Suppose n is a million. Then log n is about twenty. n log n is about twenty million. n squared is a trillion. And two to the power n is so large that the number cannot be spoken, and counting every star in the universe would not get you there.
+
+So keep one small rule in mind. If n is within a hundred, anything you do will work. If n is a thousand, even O(n²) will work. If n is a million, only O(n) or O(n log n) will work. If n is very large, you have to look for O(log n) or O(1).
+
+Now listen to the three faces, and they are the best case, the worst case, and the ordinary case. Suppose you are looking for a name in an array. If you find it in the first place, that is the best case. If you find it at the end, or do not find it at all, that is the worst case. We always talk about the worst case, because a ship is built for the biggest storm, not for the calmest day.
+
+@tier long
+
+Nami was starting to get up. The old man raised a hand and said — [nami:firm]"Wait. I taught you to read a map, but I have not taught you to draw one."[/]
+
+The first rule is to count the loops. If one loop in the code touches everything, that is O(n). If there is another loop inside a loop and both of them touch everything, that is O(n²). If there are three layers, that is O(n cubed). In most cases it really is that easy.
+
+But there is a trap here. The inner loop does not always touch everything. Sometimes the inner loop is like a second hand, and as the outer one moves forward the inner one never goes back. In a case like that the two of them together are still only O(n), and not O(n²).
+
+Robin put it well — [robin]"If two people walk the same road, and neither of them turns back, then however much both of them walk, the road is still one road long."[/] This idea comes back on the island of the sliding window.
+
+The second rule is to look for the work that halves. Anywhere you see [aside]"half was thrown away"[/], a log is hiding there. A log is also hiding in the height of a tree, because at every level the branches double.
+
+The third rule is that the question of which base the log is in does not matter. Whether the base is two or ten, the two are only a constant multiple of each other, and we throw away constant multiples. So when somebody says log, you do not have to ask about the base.
+
+The fourth rule is the difference between adding and multiplying. If you finish one piece of work and then do another, they add, and the larger one swallows the smaller one. If you do O(n) and then O(n²), the total is O(n²). But if one piece of work is inside another, they multiply.
+
+The fifth rule is about averages, and it is called amortised. Listen to this story. When Nami's bag is full, she buys a bag twice the size and moves everything across. That costs a lot, once.
+
+But how many times does she have to move? The bag doubles every time, so the moving happens rarely. Putting in hundreds of things means only a few moves in total. Adding it all up, putting in each thing costs only O(1) on average.
+
+This idea comes up in many places. Sometimes one step is expensive, but that step happens rarely. So do not panic at one step, and look at the average over the whole voyage.
+
+The sixth rule is about measuring space, which many people forget. If you build a new array, that is O(n) space. If you worked in place without building anything, that is O(1).
+
+But there is a hidden space too. When a function calls itself, the memory of every call piles up somewhere. The deeper the tree, the taller the stack. So the space of recursion is equal to the height of the tree, and it has to be counted in the total.
+
+The seventh rule is that the price of a few ordinary operations should be known by heart. Touching an array by index is O(1). Searching an array is O(n). Searching a sorted array by halving is O(log n).
+
+Putting into a hash map and looking up in one are O(1) on average. Sorting is O(n log n). Taking the smallest out of a heap is O(log n). If you know these seven numbers, half the arithmetic does itself.
+
+The eighth rule is the most important one, and it is that the measure is not a goal, it is a signal. Sometimes O(n²) is exactly right, because n is always under twenty. Sometimes even O(n) is bad, because the work inside is very expensive.
+
+The old mapmaker closed his eyes and said — "I am not giving you a number, I am giving you a question. When you write code, ask yourself — if the amount of stuff grows ten times, does my suffering grow ten times or a hundred times?"
+
+Nami folded the map. Outside, the fog was thinning. The ship raised its anchor, and the sea opened again.
+
+Once the ship was out, Nami stood on the deck holding that small piece of paper. What the old mapmaker had given her was not a map. It was a scrap with a single sentence written on it.
+
+What it said was — [aside]"What is easy today, will it still be easy tomorrow when there is ten times as much of it?"[/]
+
+Nami put the scrap into the box where she keeps her maps, and looked at the sky. This question is the one that has saved sailors from drowning. A boat that works in a small bay does not work on the open sea, and that is something you have to find out while building the boat, not after you have reached the middle of the ocean.
+
+That is tonight's lesson. Something is not good just because it works. What is good is what keeps working when the amount grows. And to know that you do not have to count numbers, it is enough to look at the shape of the growth.
+
+Now remember the opposite lesson too, because it saves a lot of people. You do not always need the fastest thing. Sometimes the amount is always going to be small, and at times like that simple code is better than clever code. Wisdom is not making everything fast, it is recognising when fast is needed.
+
+The fog lifted completely. The sea was wide, and the ship found its pace.

@@ -141,6 +141,7 @@
       <button class="bt-btn" id="bt-next" title="अर्को अध्याय (→)">⏭</button>
     </div>
 
+    <div class="bt-lengths" id="bt-langs" role="group" aria-label="भाषा / Language"></div>
     <div class="bt-lengths" id="bt-modes" role="group" aria-label="सुन्ने तरिका"></div>
     <div class="bt-lengths bt-tight" id="bt-lengths" role="group" aria-label="कथाको लम्बाइ"></div>
 
@@ -195,6 +196,12 @@
 <script src="js/app.js"></script>
 <script src="../shared/bed-engine.js"></script>
 <script src="data/bedtime/manifest.js"></script>
+<!-- The English edition of the same voyage. Loaded beside the Nepali one, not
+     instead of it: the two have different chapter offsets and different tier
+     sizes, because English runs shorter than Nepali for the same paragraph, so
+     one manifest cannot describe both. If this file is missing the page still
+     works and simply shows no language toggle. -->
+<script src="data/bedtime/manifest-en.js"></script>
 <script>
 (function () {
   'use strict';
@@ -207,6 +214,20 @@
   var RATE_KEY = 'dsa-bedtime-rate';
   var TIER_KEY = 'dsa-bedtime-tier';
   var MODE_KEY = 'dsa-bedtime-mode';
+  var LANG_KEY = 'dsa-bedtime-lang';
+
+  /* The same voyage in two languages. Both manifests are already loaded; this
+     is only a registry of which global holds which, and what to call it on the
+     button. `ui` is the handful of words the player itself says out loud —
+     everything else the listener reads (chapter titles, tier and mode labels)
+     comes out of the manifest and therefore switches on its own. */
+  var LANGS = [
+    { code: 'ne', label: 'नेपाली', m: window.BEDTIME_MANIFEST,
+      ui: { chapter: 'अध्याय' } },
+    { code: 'en', label: 'English', m: window.BEDTIME_MANIFEST_EN,
+      ui: { chapter: 'chapters' } },
+  ].filter(function (l) { return l.m && l.m.modes; });
+  var lang = LANGS[0];
 
   var els = [document.getElementById('bt-a0'), document.getElementById('bt-a1')];
   var $ = function (id) { return document.getElementById(id); };
@@ -251,6 +272,17 @@
       return (a === 'bedtime' ? 0 : 1) - (b === 'bedtime' ? 0 : 1);
     });
   }
+
+  /* Which language the listener left it in. Chosen before the first manifest
+     is read, so the page opens in that language rather than opening in Nepali
+     and visibly switching. */
+  (function () {
+    var saved = localStorage.getItem(LANG_KEY);
+    for (var i = 0; i < LANGS.length; i++) {
+      if (LANGS[i].code === saved) { lang = LANGS[i]; break; }
+    }
+    if (lang && lang.m) M = lang.m;
+  })();
 
   // What to retreat to if the segments turn out not to be on the server.
   var SPARE = M && M.modes ? asPlaylist(M.fallback) : null;
@@ -651,6 +683,47 @@
     render();
   }
 
+  /* ---------- language ----------
+     Same voyage, same twenty-seven chapters, same @algo methods — a different
+     recording. Switching is a manifest swap wrapped in reseat(), which already
+     knows how to hold the listener's place by *chapter* across a rebuild. That
+     is the right granularity here and the only one available: the two editions
+     have different durations, so a position in seconds means nothing after the
+     swap, while chapter 12 is chapter 12 in both. */
+  var langEl = $('bt-langs');
+  function buildLangs() {
+    langEl.innerHTML = '';
+    if (LANGS.length < 2) return;      // only one edition rendered — no toggle
+    LANGS.forEach(function (l) {
+      var b = document.createElement('button');
+      b.className = 'bt-len' + (l.code === lang.code ? ' on' : '');
+      b.innerHTML = '<span></span>';
+      b.firstChild.textContent = l.label;
+      b.title = l.code === 'en' ? 'Listen in English' : 'नेपालीमा सुन्नुहोस्';
+      b.addEventListener('click', function () { switchLang(l.code); });
+      langEl.appendChild(b);
+    });
+  }
+
+  function switchLang(code) {
+    if (code === lang.code) return;
+    var next = null;
+    for (var i = 0; i < LANGS.length; i++) {
+      if (LANGS[i].code === code) next = LANGS[i];
+    }
+    if (!next) return;
+    reseat(function () {
+      lang = next;
+      localStorage.setItem(LANG_KEY, lang.code);
+      SPARE = asPlaylist(lang.m.fallback);
+      useManifest(lang.m);
+      // The mode and tier the listener had chosen, if this edition has them.
+      loadMode(mode);
+      loadTier(tierInfoExists(tier) ? tier : 'core');
+    });
+    buildLangs();
+  }
+
   var modeEl = $('bt-modes');
   function buildModes() {
     modeEl.innerHTML = '';
@@ -669,7 +742,7 @@
   }
 
   function updateTotal() {
-    $('bt-total').textContent = hms(total) + ' • ' + chEls.length + ' अध्याय • ' +
+    $('bt-total').textContent = hms(total) + ' • ' + chEls.length + ' ' + lang.ui.chapter + ' • ' +
       (modeInfo().label || mode) + ' / ' + (tierInfo().label || tier);
   }
 
@@ -714,6 +787,7 @@
   loadMode((saved && saved.mode) || localStorage.getItem(MODE_KEY)
            || M.defaultMode || MODES[0]);
   loadTier((saved && saved.tier) || localStorage.getItem(TIER_KEY) || 'core');
+  buildLangs();
   buildModes();
   buildLengths();
   buildChapterList();

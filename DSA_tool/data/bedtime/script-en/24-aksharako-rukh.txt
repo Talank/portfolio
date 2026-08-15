@@ -1,0 +1,110 @@
+# 24 — The Tree of Letters: Trie
+
+On the twenty-fourth island there is a dictionary, but it is not a book, it is a tree.
+
+Robin touched it and said — [robin]"The words are not kept separately here. Words with the same beginning share a road."[/]
+
+Think about it this way. "Card", "car" and "care" all begin with "c". So "c" is written only once, and after that the road splits.
+
+@algo trie
+The rule of the tree of letters is this. Make the root an empty node, and put no letter in it. If you have to put a word in, start from the root, and look at the word's letters one at a time. If there is a branch for that letter, go down it, and if there is not, make a new branch and go down. When you reach the last letter, mark that node with "a whole word ends here". If you have to search for a word, follow that same road, and look at whether there is a mark at the end. If you only have to ask whether some prefix exists, it is enough to see whether the road went through, and you never have to look at the mark. Its time is decided only by the length of the word, and how many words are in the dictionary makes no difference.
+@end
+
+Why was that mark needed? Because "car" is a word too, and "card" is a word. Without the mark, "car" gets lost in the middle of the road.
+
+Now look at how fast searching for a word is. To find "card", go from the root towards "c", then to "a", then to "r", then to "d". That finished in four steps.
+
+Pay attention here. Whether there are ten words in the dictionary or a million makes no difference. The time is decided only by the length of the word, and that is O(m), where m is the length of the word.
+
+A hash map also finds a word in O(1). So why was the trie needed?
+
+Robin smiled and said — [robin]"A hash map only knows whole words. Ask it 'what are all the words beginning with c a'. It does not know. It has kept every word separately, and has kept no relationship."[/]
+
+The trie does know. Walk as far as "ca", then go round all the branches below it, and all the words are found right there.
+
+That is why suggestions come up when you type on a phone. That is why the list drops down while you are halfway through the search box.
+
+@read hush
+Now keep your eyes closed and listen once again to the rule of the tree of letters.
+
+@recall trie
+
+Now listen to its cost. Every node has to keep a list of its children. So a trie eats a lot of space, and that is its honest weakness. Space was spent to save time, and this is that same old trade again.
+
+A good problem is finding many words at once in a grid of letters.
+
+If you search for each word separately you have to go round the grid every time. But put all the words into one trie, then walk the grid only once, and go down the trie alongside.
+
+And here the cutting back arrives by itself. While walking the grid, if the trie has no branch at all for that letter, no word can possibly be formed on that road, so turn back immediately.
+
+This is the place where the island of the maze and this island are joined, because backtracking and the trie run together here. Joinings like that are the answers to hard questions.
+
+Wind is moving through the tree of the dictionary. Letters are hanging on every branch. Those with a shared beginning are standing together, and then slowly go their own ways.
+
+@read hush
+One last time before you sleep, very slowly, listen to that same rule.
+
+@recall trie
+
+@tier medium
+
+The letters were moving on the branches of the tree. Robin pulled a branch down and said — [robin]"It has a few more uses."[/]
+
+In the first use comes the question [aside]"is there any word in the dictionary beginning with this prefix"[/]. This is a straight walk, following the letters. If the road went through, such a word exists, and if a branch is missing in the middle, it does not. Here you never have to look at the [aside]"word ends"[/] mark.
+
+In the second use there is a sign meaning "anything" in place of some letter of the word. In such a place you have to try not one branch but all of them. That is, the walk becomes backtracking here.
+
+In the third use you have to work out the shortest unique prefix from a list of words. Keep a count at every node of [aside]"how many words are below me"[/]. The moment you reach the first node where the count is one, that prefix is already unique.
+
+The fourth use asks whether some long word can be broken up into words from the dictionary. Walk the trie from every place, and when you meet [aside]"word ends"[/], try again from there.
+
+Add the wall here as well, and remember the answer to [aside]"can it be broken up from this index onwards"[/]. Otherwise the same work repeats again and again. Here the trie and memory run together.
+
+@tier long
+
+The tree went still. Somewhere a leaf fell.
+
+Robin said — [robin]"Now let me tell you the strangest use of the trie, where there are no letters at all. Here zeros and ones live in the tree."[/]
+
+Imagine it this way. Think of every number as a row of lamps, running from the top lamp down to the bottom one. Now put that same array into a trie, and every node has two branches, that is, zero and one.
+
+Now the question is which number gives the largest result when XORed with a given number.
+
+The move is beautiful. Come down from the top lamp. At every level, look for the branch that is the opposite of your own lamp, because only if they differ does XOR give a one, and getting a one at a higher lamp is the most profitable thing there is.
+
+If the opposite branch is there, go that way. If it is not, go down the same branch because you have no choice. By the time you reach the bottom the answer has built itself.
+
+You could call this greedy thinking, and here the greed is right, because the value of the top lamp is greater than the total of all the lamps below it.
+
+Now listen to an honest thing about the trie's cost in space. If you keep an empty list of twenty-six branches at every node, the space fills up quickly.
+
+So in practice the children are kept in a notebook, and only as many branches as really exist are kept. It is a small change, but it makes a large saving.
+
+@read teach
+If you need to save more, a long chain of nodes with a single child each can be squeezed into one node. That is called a compressed [..]trie[..], and it is used in routing tables and in dictionaries.
+
+And the trie has a close relative as well, and that is the suffix tree, in which all the tails of one word are kept. That answers the question [aside]"is this piece inside this word"[/] in a single instant.
+
+Tonight you do not need its details. It is enough to know that whenever [aside]"a shared beginning"[/] or [aside]"a shared piece"[/] comes up, remember the tree of letters.
+
+Now let us make one comparison for the last time. On the question of whether some word exists, the notebook wins, because it is both faster and cheaper.
+
+But on the questions [aside]"how many begin with this"[/], [aside]"how long is the longest shared beginning"[/], and "give me a suggestion", the notebook falls silent. Here the tree is what is needed.
+
+So the choice is decided by the question, and not by the name of the structure. That has been true through the whole voyage, and it is true on this island too.
+
+Now listen to one last practical thing. When you build a trie, make the root an empty node, and put no letter in it. That way every word starts from the same place, and the case of the empty word works itself out too.
+
+We have already met this move of putting in a fake root in the linked list and in the stack. A special case should be removed by an empty node, not by special code, and this is the small but often-repeated lesson of the whole voyage.
+
+The wind moved again. The branches of letters swayed slowly, and then went still again.
+
+Robin put her hand at the foot of the tree and said — [robin:awed]"The beauty of this tree is that those whose beginning is shared have a shared road too. Only where they differ do they split."[/]
+
+That is tonight's lesson. One way of removing double work is memory, and we learned that on the island of the wall. The other way is sharing, and that is here. Whatever is the same only has to be kept once.
+
+Now listen to the second lesson. The choice is decided by the question, not by the name of the structure. On the question [aside]"does this word exist"[/], the notebook wins. On the question [aside]"what are the things beginning with this"[/], the notebook falls silent. No structure is better than another, and it is only better for some question.
+
+And one small thing has repeated through the whole voyage. The empty root, the fake node, and the zero post at the end are all the same idea. A special case should be removed by an empty beginning, not by special code. It is a small move, and one of the most frequently useful there is.
+
+A leaf fell, and the letters hung quietly in the dark.

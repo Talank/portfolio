@@ -1,0 +1,96 @@
+# 13 — The Discipline of the Line: Queue and Deque
+
+On the thirteenth island there is a queue at the bread shop early in the morning. But here you do not get your hand smacked, because the rule here is a fair one.
+
+Chopper asked — [chopper]"Does the last one in go first here as well?"[/] The baker laughed and said — [chopper]"No, child. Here the first one in goes first. This is a line, not a stack."[/]
+
+@read teach
+That is what a [..]queue[..] is. The first thing in is the first thing out, and this is called FIFO. Things are added at the back and removed from the front.
+
+A stack looks for depth, because it follows one road all the way to the end. A queue looks for breadth, because it looks at everything nearby first and only then goes further away. That difference will mean a great deal later, in trees and in graphs.
+
+Listen to one small but important thing. If you build a queue out of an ordinary array and remove from the front, everything behind has to shift over one place, and that is O(n). So a real queue is built out of a structure open at both ends, where both jobs are done in O(1).
+
+Now listen to the deque. Its full name is the double ended queue, and it is a queue open at both ends. You can add at the front and you can add at the back. You can remove from the front and you can remove from the back.
+
+That flexibility unlocks one beautiful problem, and this question gets asked a lot. A window of size K slides along an array, and at every position you have to say the largest number inside the window.
+
+Usopp said — [usopp]"I look at everything in every window."[/] That is O(n·m).
+
+Nami took out a deque, and made one wonderful rule. She said — [nami]"I do not put everybody in the queue. Whoever is never going to win, I take out immediately."[/]
+
+@algo deque
+The rule of the deque is this. When a new number arrives, first look from the back of the queue. If the ones sitting at the back are smaller than the new one, take them out, because they are both smaller than the new one and older than it, so they have no future. After that, put the new number at the back of the queue. Now look at the front of the queue, and if the number at the front has fallen outside the window, take it out. Whoever is at the front of the queue now is the largest in the window, and that is always true, because we kept the queue in falling order the whole time.
+@end
+
+The same amortised reasoning applies here again. Every number goes in once and comes out once, so the total time is O(n).
+
+Putting the pair together, Robin said — [robin]"The stack and the queue are twins. One looks for depth, and the other looks for breadth. Everything else is a shape of those two."[/]
+
+@read hush
+Now keep your eyes closed and listen once again to the rule of the deque.
+
+@recall deque
+
+The smell of warm bread is coming from the shop. The line is slowly getting shorter. Nobody is pushing, and everybody's turn comes.
+
+@read hush
+One last time before you sleep, very slowly, listen to that same rule.
+
+@recall deque
+
+@tier medium
+
+The smell of the bread was still there. The baker put a new lump of dough into the oven and said — [aside]"The queue has other shapes too, child."[/]
+
+The first shape is the circular queue. When you build a queue in an ordinary array, the space at the front empties out and the space at the back runs out. The move is to treat the array as circular, and to say that after the last index, zero comes round again.
+
+Keep two indexes, the front and the back, and when you move them, take the remainder after dividing by the length. This way no space is wasted, and both jobs still happen in O(1).
+
+In the second shape two queues build a stack, which is the reverse of the last island. Put the new thing into the second, empty queue, then move everything from the first queue in behind it, then swap the two queues. Now the newest thing is always at the front.
+
+The third shape is the queue with priority. Here the order of turns is decided not by arrival time but by importance. This is not a true queue, because it is built out of a heap, and the heap belongs to the sixteenth island.
+
+The baker added — "A line is justice. But sometimes the sick person has to be sent through first. At a time like that the shape of the queue stays the same, and only the rule changes."
+
+@tier long
+
+@read hush
+The fire in the oven was low. The queue was almost finished, and the morning air was cold.
+
+Now listen to another use of the deque, and it is even more beautiful than the last one. You have to find the shortest stretch in an array whose total is at least K, and the array has negative numbers in it as well.
+
+The ordinary window move does not work here, because once there are negative numbers, adding to a total can make it fall. So first build the array of running totals, then keep the indexes of those totals on the deque in rising order.
+
+At every place you have to do two jobs. The first job is to look at the front, and ask whether subtracting the front total from the current total reaches K. If it does, note the length and remove the front one, because it is never going to give a shorter answer now.
+
+The second job is to look at the back, and ask whether the total at the back is larger than the current total. If it is larger, remove it, because it is both larger and older, so it has no future.
+
+That rule of [aside]"take out immediately whoever has no future"[/] is the soul of the deque. It was the same in the window problem before, and it is the same here.
+
+Now let us go to the great use of the queue. A queue is a machine for walking from near to far, and that is exactly why it finds the shortest road.
+
+Imagine it this way. You threw a stone into a lake. The ripple spreads out in a circle. First the water nearby moves, then the water beyond that, then the water further out still. A queue does exactly that.
+
+So if all the steps are the same length, the road the queue finds is the shortest one. This comes back on the seventeenth island, and there it unlocks the whole map.
+
+Now listen to something practical. Sometimes you have to start not from one place in the queue but from many, as when fog is spreading out from several places at once. The move is easy, because you put all the starting places into the queue at once, and then run it as usual.
+
+@read teach
+And you can walk from the opposite direction as well. Running the queue from both ends at once makes the meeting happen sooner, and the work becomes about half. This is called two-way searching.
+
+At the end, listen to one small piece of advice, which is very useful when writing code. Mark something as [aside]"already seen"[/] the moment you put it into the queue, and not at the moment you take it out.
+
+If you mark it when you take it out, the same thing can go into the queue many times, and the work quietly doubles or triples. It is a small thing, and that same small thing has made many solutions slow.
+
+The baker pulled the shutter half down. There was nobody in the line now. The warmth of the oven was still in the air, and the morning was slowly getting light.
+
+Wiping his hands, the baker said — "I sold bread for thirty years. One rule saved me, and it is that the first one in goes first. The day that rule is broken, there is a fight."
+
+That is tonight's lesson. A line is justice, and justice is order. A stack looks for depth, and a queue treats everybody as equal. That is why the queue finds the shortest road, because it does not leave out anybody who is nearby.
+
+Now listen to the second lesson, which joins on to the last island. The deque does one hard but useful thing, because it takes out in advance whoever has no future. Justice and hardness can live inside one machine, and the question of which to run when decides your solution.
+
+And there is one small practical lesson, which saves hundreds of hours. Mark it the moment you put it into the queue, and not when you take it out. Otherwise the same person goes into the queue ten times, and you never find out.
+
+The shutter came all the way down. The morning was slowly getting light, and tomorrow's line had not formed yet.

@@ -1,0 +1,84 @@
+# 3 — The Store Room: Arrays and Strings
+
+The third island is small, but there is an old store room here. Inside, the drawers stand in one long line, and all of them are in one row and all of them are the same size.
+
+@read teach
+Sanji went inside and said — "Do you know what the beauty of this room is? To open the drawer in the middle I do not have to count from the beginning. I go straight there." That is the power of an [..]array[..]. If you know the index, reaching it takes no time at all, and so its time is O(1).
+
+But an array has a weakness too. Suppose you have to add a new drawer in the middle. Then every drawer behind it has to shift over by one place, and that is O(n) work. So an array is a king at reading, and weak at adding and removing in the middle.
+
+A string is an array too, and the only difference is that letters live inside it. The word "Luffy" has five letters, and they are kept in five drawers. So whatever move works on an array usually works on a string as well.
+
+Now let us look slowly at a small problem. Suppose there are numbers in an array and you have to find the largest one. What do you do?
+
+Zoro said — [zoro]"I carry a flag in my hand. I make the first number the flag. Then I keep moving forward. If I meet anyone bigger than me, I give the flag to them. Whoever has the flag at the end is the biggest."[/]
+
+That is a single pass, and its time is O(n). In the kind of code you can listen to, it sounds like this — "Put the first thing into a box called largest. Now look at every remaining thing, and if this thing is bigger than what is in the box, put this one in the box instead." That was finished in three lines.
+
+Now listen to the main move of this island, and it will come back three times tonight.
+
+@algo dui-hat
+Many jobs on an array can be finished with two hands, and the rule is this. One hand is the reading hand, and it always moves forward. The other hand is the writing hand, and it waits behind. When the reading hand finds something worth keeping, it gives that thing to the writing hand. Only after it receives something does the writing hand step forward. Wherever the writing hand stops at the end, everything up to that point is the clean answer. You do not have to build a new array for this at all, so the time is O(n) and the space is O(1).
+@end
+
+@read teach
+Nami used those same two hands to show how to reverse an array as well. She put her left hand at the start and her right hand at the end. She swapped whatever the two of them were holding. Then she moved her left hand one step to the right, and her right hand one step to the left. Once the two hands met in the middle the job was done. This is called in place, and it means doing the work where it already is.
+
+And there is a question that gets asked a lot, which is whether a word reads the same backwards as it does forwards. That is called a palindrome, and "level" is an example of one. The same two hands work here as well. Look at whether the letter on the left and the letter on the right are equal. If they are equal, move both hands inward. If they are not equal, say no immediately. If they stayed equal until they met in the middle, it is a palindrome.
+
+A small trap is hiding here, and many people fall into it. The last index of an array is not n, it is n minus one, because the count started from zero. There is no counting how much code this one-digit slip has ruined. It is called off by one, and it means a difference of one.
+
+@read hush
+Now keep your eyes closed and listen once again to that same rule of the two hands.
+
+@recall dui-hat
+
+Closing her book, Robin said — [robin]"The array is straightforward, and there is no mystery in it. But it is the foundation of every island that comes after. If the foundation is strong, every floor above it is easy."[/]
+
+Outside, the evening had come down. The door of the store room closed slowly.
+
+@read hush
+One last time before you sleep, very slowly, listen to the rule of the two hands.
+
+@recall dui-hat
+
+@tier medium
+
+But the door had not closed completely. Usopp's voice came from inside — [usopp:amused]"Wait. I still have the story of two more drawers."[/] Sanji breathed out slowly, and went back in. The light was dim.
+
+Suppose some of the drawers are empty, and a zero is written in them. What you want is for all the empty drawers to end up at the back, with the order of the remaining numbers left exactly as it was.
+
+Usopp said — [usopp]"I work with two hands. One hand walks ahead, looking. The other hand waits behind. When the front hand finds something that is not a zero, it gives it to the hand behind, and then the hand behind moves one step."[/] At the end, wherever the hand behind stopped, fill every drawer from there onwards with zero. This finishes in a single pass, and you never have to build a new array.
+
+The next story is about a sorted array. Suppose the numbers are sitting in order, from small to large, but here and there they repeat. Now you have to remove the repeats. The same two hands work here as well, except that now the hand behind remembers which number it put down last. If the hand in front finds that same number again, it moves on quietly. Only when it finds a new number does it hand it to the hand behind.
+
+Nami remarked — [nami]"Notice that both of these moves have the same shape. One hand reads, and the other hand writes. The reading hand is always in front, and the writing hand is always behind or beside it. You are going to meet this shape many more times later."[/]
+
+@tier long
+
+The ship rocked gently. Robin opened her book again and said — [robin]"If you are getting sleepy, stop here. But if you are awake, there are three more stories, and all three of them are good."[/]
+
+The first story is about rotating an array. Suppose the drawers have to move three places to the right, and the last three have to come back around to the front. The straightforward road is to build a new array. But there is a very sweet move here, and it sounds like magic when you hear it.
+
+The move is this. First turn the whole array around. Then turn the first three around. Then turn all the rest around. That finishes the job. Three reversals and the array has rotated, and no new space was spent. Shaking his head, Zoro said — [zoro]"Does this business of three turns making something straight apply to swords as well?"[/] Nobody answered.
+
+The second story is about the piece with the largest total. Suppose there are both profits and losses in the array, so some numbers are positive and some are negative. Now, which run of numbers sitting next to each other adds up to the most?
+
+Luffy gave the easy answer — [luffy]"As long as the total keeps going up, I keep walking. If the total drops below zero, I forget that road and start fresh from right there."[/] That is all of it. At every place, ask one question. Is it better to join on to the total so far, or better to start new from here? Take whichever is larger. And keep remembering the largest total you have seen along the way. This also finishes in a single pass.
+
+The third story is a little crooked, and it is the product of everything except yourself. For every drawer you have to work out the product of all the other drawers' numbers, but you are not allowed to divide. Her eyes lighting up, Nami said — [nami]"You have to walk twice. The first time, walk from left to right, and at every place remember the product of everything ahead of it. The second time, walk from right to left, and remember the product of everything behind it. Then multiply the two together and the answer arrives."[/]
+
+@read hush
+The light went out. The store room really was closed now. Outside, the sea was calm, and the ship moved slowly on.
+
+Even after the light went out, Sanji stood in the doorway for a while. From inside you could still make out the line of the drawers, because they were straight, they were equal, and there was nothing strange about them.
+
+He said quietly — "People think this room is ordinary. But in the kitchen I have learned that one wrong pot placed at the bottom brings down the whole stack above it."
+
+That is tonight's lesson. The array is the simplest structure there is, and that is exactly why the most mistakes happen there. The count starts from zero. The last index is not n, it is n minus one. Whoever knows those two sentences suffers less for the rest of their life.
+
+Now listen to the second lesson, which came twice tonight and will come again. One hand reads, and the other writes. The shape sounds ordinary when you hear it, but it teaches you to clean an array without spending any new space at all.
+
+The same rule works in life, because you do not have to carry everything you find. Whatever is worth keeping, keep moving that forward. The rest is left behind, and that is fine.
+
+The door closed. The ship raised its anchor, and the store room stayed quiet in the dark.
