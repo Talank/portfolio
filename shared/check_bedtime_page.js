@@ -256,11 +256,29 @@ function idsOf(html) {
   return ids;
 }
 
-function run(course) {
+/* The language codes the page's LANGS registry declares, in its own order.
+   The first is the one that boots with an empty localStorage. */
+function langsOf(html) {
+  const reg = /var\s+LANGS\s*=\s*\[([\s\S]*?)\]\s*\.filter/.exec(html);
+  if (!reg) return [];
+  const out = [];
+  const re = /\bcode:\s*'([a-z-]+)'/g;
+  let m;
+  while ((m = re.exec(reg[1]))) out.push(m[1]);
+  return out;
+}
+
+/* `lang` is null for the page's own default, or a code to seat in localStorage
+   before booting. A second edition is reachable only through the toggle, so
+   nothing above ever loads it: the first English voyage shipped with the
+   toggle wired to a manifest global the page never scripted in, and every
+   check here still passed because they all read the Nepali one. */
+function run(course, lang) {
   const dir = path.join(REPO, course);
   const pagePath = path.join(dir, 'bedtime.html');
-  console.log('\n' + course + '/bedtime.html');
+  console.log('\n' + course + '/bedtime.html' + (lang ? '  [' + lang + ']' : ''));
   const html = fs.readFileSync(pagePath, 'utf8');
+  const manFile = lang ? 'manifest-' + lang + '.json' : 'manifest.json';
 
   const doc = makeDocument();
   // Every id the markup declares, so getElementById can only fail on an id
@@ -283,6 +301,7 @@ function run(course) {
   });
 
   const store = new Map();
+  if (lang) store.set(prefixFor(course) + 'lang', lang);
   const timers = [];
   const sandbox = {
     console,
@@ -354,7 +373,7 @@ function run(course) {
                    + ' — nothing after that line ever ran');
     }
   });
-  if (!inlineRan) return;
+  if (!inlineRan) return [];
 
   check(doc.missingIds.length === 0,
         'every element the player asks for exists'
@@ -371,7 +390,12 @@ function run(course) {
   const urls = Array.from(new Set(requested));
   check(urls.length > 0, 'pressing play loaded a segment');
 
-  const man = JSON.parse(fs.readFileSync(path.join(dir, 'data', 'bedtime', 'manifest.json'), 'utf8'));
+  const manPath = path.join(dir, 'data', 'bedtime', manFile);
+  if (!fs.existsSync(manPath)) {
+    check(false, manFile + ' — the toggle offers this edition but it was never built');
+    return urls;
+  }
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
   const bad = urls.filter((u) => !fs.existsSync(path.resolve(dir, u)));
   check(bad.length === 0,
         urls.length + ' segment URL(s) resolve on disk' + (bad.length ? ' — missing: ' + bad.join(', ') : ''));
@@ -387,7 +411,9 @@ function run(course) {
       const seen = new Set();
       let sum = 0;
       t.playlist.forEach((p) => {
-        const f = path.join(dir, 'data', 'bedtime', 'audio', mode.dir, p.f);
+        // The audio root is the manifest's own, not a fixed 'audio/': the
+        // second edition renders beside the first in audio-en/.
+        const f = path.join(dir, man.dir || 'data/bedtime/audio/', mode.dir, p.f);
         if (seen.has(f) || !fs.existsSync(f)) return;
         seen.add(f);
         sum += fs.statSync(f).size;
@@ -426,6 +452,8 @@ function run(course) {
   check(keys.length > 0 && foreign.length === 0,
         'localStorage keys are this course\'s own'
         + (foreign.length ? ' — borrowed: ' + foreign.join(', ') : ''));
+
+  return urls;
 }
 
 /* Each voyage's own namespace. Derived from the page rather than guessed, so
@@ -448,10 +476,28 @@ function main() {
                     && fs.existsSync(path.join(REPO, d, 'data', 'bedtime', 'manifest.json')))
         .sort();
 
-  courses.forEach(run);
+  let boots = 0;
+  courses.forEach((course) => {
+    const first = run(course, null);
+    boots++;
+    // A page with a language toggle is really two players sharing one shell.
+    // Boot it once per edition, and require each to reach audio the others
+    // do not: a toggle that silently falls back to the default edition looks
+    // identical from the outside, and sounds identical too.
+    const codes = langsOf(fs.readFileSync(path.join(REPO, course, 'bedtime.html'), 'utf8'));
+    codes.slice(1).forEach((code) => {
+      const other = run(course, code);
+      boots++;
+      const shared = other.filter((u) => first.indexOf(u) !== -1);
+      check(other.length > 0 && shared.length === 0,
+            'the ' + code + ' toggle loads its own audio'
+            + (shared.length ? ' — fell back to the default edition: ' + shared.join(', ') : ''));
+    });
+  });
   console.log('\n' + (failures
     ? failures + ' problem(s) — a page that fails here is silent in a browser.'
-    : courses.length + ' page(s) boot, wire up and load their audio. clean.'));
+    : boots + ' page boot(s) across ' + courses.length
+      + ' course(s) wire up and load their audio. clean.'));
   process.exit(failures ? 1 : 0);
 }
 

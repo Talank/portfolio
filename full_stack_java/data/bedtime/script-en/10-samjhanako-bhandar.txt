@@ -1,0 +1,86 @@
+# 10 — The store of memory: heap, stack and garbage collection
+
+Beside the engine room is another door. Inside is a large open space, and boxes are piled up there.
+
+[aside]"This is the heap,"[/] said Franky. [aside]"Every piece of goods on the ship sits right here."[/]
+
+Beside it is a narrow, long place. There things are laid one on top of another like plates.
+
+[aside]"And this is the stack,"[/] he said. [aside]"No goods sit here. Only papers sit here, and on those papers is written the address of the goods."[/]
+
+Every time a method is called a new paper is added to the stack. On it are that method's variables. The moment the method ends that paper is torn up.
+
+This is why a variable inside a method goes with the method. But the goods that variable pointed at stay on the heap.
+
+Now the question comes. When are the goods on the heap taken away?
+
+In many languages that work has to be done by the programmer. If goods are not needed they must be thrown out by hand. If you forget, the room fills, and if you throw the same thing out twice there is a larger accident still.
+
+Java does that work itself, and its name is garbage collection.
+
+Now listen to today's rule.
+
+@algo kasle-samatchha
+The garbage collector's reckoning fits into one sentence. An object lives for exactly as long as some road to it is left from the running program, and the beginning of that road is called a root. The variables on the stack are roots, and the static fields are roots too. If walking from any root at all does not reach that object, that object is already dead, and the collector clears its place. So you never have to throw any goods out, and leaving go of the paper that points at them is enough.
+@end
+
+Luffy asked, [luffy]"When does the collector come?"[/]
+
+Franky said, [aside]"When there is a want of room. And it does not look at everything at once. It is clever about it."[/]
+
+The cleverness is this. Many objects die the moment they are born. A small thing made inside a loop finishes its work in that same loop and is gone.
+
+So the heap is put into two parts. New objects are born first in the small part, and that part is called the young part. Cleaning happens there over and over, and it is fast.
+
+An object that lives through many cleanings is moved into the large part. That part is cleaned fewer times.
+
+Here is how to check whether a thing is still alive, without any tool. Start at a root — a variable in a method that is running, or a static field — and see if you can walk to it by following addresses. If you can name that road out loud, it is alive. If you cannot find one, it is already rubbish, however important the thing seemed when you made it.
+
+@recall kasle-samatchha
+
+Dust has settled in the store room. The boxes are quiet.
+
+@read hush
+There is one thing this reckoning will not do for you. It knows what can still be reached and never what is still wanted. A list you filled in the morning and stopped needing at noon is reachable all day, so the collector guards it faithfully, and the room fills with things nobody will ask for again.
+
+@recall kasle-samatchha
+
+@tier medium
+
+Now let us get to know the names of the collectors, because these names are heard at work.
+
+The oldest way was this — stop all the work, clean, and then start again. That stopping is called stop the world.
+
+In a small program that stopping is never felt. But on a large server it can reach a whole second, and at that time thousands of people are waiting.
+
+So new collectors came. The collector called G1 divides the heap into small pieces, and cleans only a few pieces at a time. This makes the stopping short.
+
+Newer still is ZGC. It does nearly all its work while the program is still running, and keeps the stopping down to a few milliseconds.
+
+And let us understand one word, and that is memory leak. There are leaks in Java too, but they are of another kind.
+
+A leak here does not mean forgotten goods. A leak here means a paper still pointing at goods nobody wants. If you go on adding things to a static list and never take any away, the collector reckons them all alive.
+
+@tier long
+
+The night grew deep. Franky half closed the door of the store room.
+
+[aside]"I like this room,"[/] he said. [aside]"Because the cleaning work here happens without anybody seeing it."[/]
+
+Now I will give you a picture, and it is a good one to look at before sleeping.
+
+Imagine that all night a man walks about the ship. He does not look at every box. He only follows the ropes tied to his hand.
+
+A box the rope reaches, he leaves. If a rope has not reached some box, he picks that box up and clears the place.
+
+In the morning when you wake the room is clean, and you do not know how much work was done all night. Java's collector is that man.
+
+Now I will give a practical piece of advice. How large to keep the heap is something you can say.
+
+If you keep it very small the cleaning happens over and over, and the program is slow. If you keep it very large one cleaning takes long. A balance between these two has to be found, and it is known only by measuring.
+
+Measuring has come up, and tomorrow's island belongs to that. Tomorrow we will open the tool box.
+
+For now keep only the picture of the rope. If the rope reaches, the thing lives, and if the rope is let go, the thing goes.
+
+Let all of today's ropes go as well. The day's work is no longer tied to anything.

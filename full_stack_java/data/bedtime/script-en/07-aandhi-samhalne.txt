@@ -1,0 +1,80 @@
+# 7 — Holding the storm: exceptions and try-with-resources
+
+At night the sea changed. The waves grew tall, and the wind struck the sail hard. This is the island of the storm.
+
+But there is no need to be afraid. This is the storm of a story, and you are safe in your bed.
+
+Everybody on the ship took their place. Nami took the wheel. Zoro stood beside the sail. Sanji tied down the kitchen pots.
+
+[nami:firm]"When a storm comes there are two kinds of people,"[/] said Nami. [nami]"One is the kind who prepared beforehand. The other is the kind who waits and hopes."[/]
+
+Storms come in code as well. A file is not found. The network breaks. A number is divided by zero. Somebody looks for a name in an empty place.
+
+Java gave all of these one name, and that is the exception.
+
+When an exception comes Java stops the work in hand, and begins looking upward. Is anybody ready to catch this? If there is, it stops there. If there is not, the program shuts down.
+
+Now listen to today's rule.
+
+@algo aandhi-niyam
+Exceptions have three rules, and all three are easy to remember. First rule — catch only what you can really handle, and let what you cannot handle go on upward. Second rule — do not stay silent after catching, and either settle the trouble or add something to it and send it up again, but merely swallowing it is the greatest mistake of all. Third rule — open files, connections and other such opening things inside a try with resources, so that even if a storm comes they close themselves.
+@end
+
+Luffy asked, [luffy]"Why is staying silent a bad thing?"[/]
+
+Nami said, [nami]"Because tomorrow there is a hole in the ship, and nobody knows when it happened. The trouble does not go away, it only hides."[/]
+
+Now let us get to know the two kinds of exception. In Java one is called checked, and the other is called unchecked.
+
+Checked is the kind the compiler itself asks about. If you are reading a file there is a chance the file is not found, and Java asks you for your answer to that.
+
+Unchecked is the kind that is mostly the programmer's own mistake. Looking for a name in an empty place, or reaching past the limit of a list — these are of that kind.
+
+Here is how to check that a catch is worth having, without running anything. Read what is inside it and ask what the person using the program gets out of it. If the answer is a clearer message, or a second attempt, or a safe stop, the catch has earned its place. If the answer is nothing at all, that catch is not handling the storm and is only hiding it from you.
+
+@recall aandhi-niyam
+
+The ship shook hard once, and then steadied again.
+
+@read hush
+There is one thing these rules cannot arrange for you. Between the line that went wrong and the line that catches it, some work has already been done — a half written file, a number already added. Catching tells you the storm happened and never puts back what the storm moved, and only you know what needs putting back.
+
+@recall aandhi-niyam
+
+@tier medium
+
+Now let us open up the matter of try with resources a little, because it is Java's most useful small convenience.
+
+In the past people opened a file, did the work, and closed it at the end. But if an exception came in the middle, the closing line was never reached.
+
+So people began writing a part called finally, and put the closing work there. But that was long, and mistakes happened there too.
+
+Now Java says — write the thing you open inside the try's brackets. Whatever happens, it closes itself as you leave.
+
+For this the thing must have fulfilled a promise called Closeable. Java's files, streams and database connections have all fulfilled it.
+
+Another matter is the stack trace. When an exception comes Java prints a long list, and it looks frightening.
+
+But that list is your friend. Its topmost line says what happened, and the lines below say where it came from. Look for the name of your own file, and the cause is usually right at the first one you find.
+
+@tier long
+
+The storm eased. The waves are still tall, but the wind has softened.
+
+Nami let go of the wheel, and threw her wet hair back. [nami:gentle]"I felt like asking you something,"[/] she said. [nami]"Do you know why sailors are not afraid of storms?"[/]
+
+"Because they do not think a storm is out of the ordinary. For them a storm is one part of the weather. They allowed for storms while the ship was still being built."
+
+Good code is like that too. It does not treat failure as an exception. It asks from the beginning what has to be done if this thing goes wrong.
+
+There is a deep matter here. An exception is a message, and the work of a message is to tell somebody something.
+
+So when making an exception put something useful in it. Which file was not found? Which name was wrong? Merely saying "there was a mistake" helps nobody.
+
+You may make your own exceptions too. Your log pose can have its own exception saying [aside]"note not found"[/]. Reading its name is enough to know what happened.
+
+The last piece of advice is this. Never catch every exception at once and then fall silent. That looks like patching a hole in a ship, but really it is only laying a cloth over the hole.
+
+Now the storm is over. The ship has turned back the same way. The sea is growing calm again.
+
+Let your breath grow long as well. All is well, and the voyage goes on.

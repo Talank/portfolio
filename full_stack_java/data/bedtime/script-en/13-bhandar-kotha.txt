@@ -1,0 +1,89 @@
+# 13 — The store room: List, ArrayList and LinkedList
+
+There are two kinds of keeping place in the store room.
+
+One is a long chest, and in it the compartments are set one after another. On every compartment a number is written.
+
+The other is like a chain. In every link is one thing, and on it is a cord saying where the next link is.
+
+[robin]"The first is the ArrayList,"[/] said Robin. [robin]"The second is the LinkedList."[/]
+
+Now let us understand the difference between the two, and this difference is a practical one.
+
+If you want the thirteenth compartment of the chest you go straight there. Once the number is known there is no counting to do.
+
+If you want the thirteenth link of the chain you start at the first and follow the cord thirteen times. The road is long.
+
+But the reverse holds too. If a new thing has to be slipped into the middle of the chest, every thing after it has to be moved one compartment along.
+
+Slipping something into the middle of the chain is only a matter of changing two cords. Nothing nearby stirs at all.
+
+Now listen to today's rule.
+
+@algo kun-suchi
+The answer to which list to use is in three sentences. First — use an ArrayList nearly always, because it gives you a thing straight from its number, and since everything sits together in memory it is easy for the machine to read as well. Second — use a LinkedList only when you are adding and taking away over and over from both ends, and even in that state an ArrayDeque is usually better. Third — whichever list you use, keep the type of the variable List, so that changing the choice inside later does not change the rest of the code.
+@end
+
+Luffy asked, [luffy]"What happens if the chest fills up?"[/]
+
+Robin said, [robin]"Java quietly makes a bigger chest, and moves everything over. You never know."[/]
+
+Here the difference between two words comes in. Size means how many things are inside. Capacity means how many will fit.
+
+If you know beforehand that you will be putting in ten thousand things, say that number at the start. After that the moving does not happen over and over.
+
+Here is how to check that you picked the right one, without measuring anything yet. Say aloud the one thing your code does with that list most often. If the sentence is "look it up by its number", the chest is right. If it is "add at the front and take from the front", the chain is worth a thought. If you cannot say which is most often, that is the answer too — take the ArrayList.
+
+@recall kun-suchi
+
+The compartments of the chest are in the same places. The chain hangs on the wall.
+
+@read hush
+There is one thing this choice will not settle. Both hold whatever you hand them, in whatever order you handed it, and neither has any opinion about whether the same note went in twice. A list is a shape for keeping things and never a promise about what is kept.
+
+@recall kun-suchi
+
+@tier medium
+
+Now let us talk about a danger, and this has made many people cry once.
+
+You are going round a list. In the middle you take a dislike to some thing, and try to take it away.
+
+Java is angry at once, and throws an exception. Its name is ConcurrentModificationException.
+
+Let us see why this happens. The iterator going round has noted a count of the list at the start. If the list changes in the middle that count does not agree, and the iterator declares itself untrustworthy.
+
+@read teach
+This is called fail fast, and it is a convenience, not an obstruction. Because to go on going round a changed list is to give a wrong answer, and stopping at once is better than a wrong answer.
+
+The remedy is easy. Have the iterator take it away itself, or use the method called removeIf, or make a new list.
+
+And there is another small thing as well. Some lists in Java cannot be changed at all.
+
+A list made by saying List dot of is immutable. Trying to add to it brings an exception. This was made knowingly, because a list that does not change is safe to hand round.
+
+@tier long
+
+At night the store room was cold. Robin put the lantern down.
+
+[aside]"One thing pleases me,"[/] she said. [aside]"People ask — which list is faster? But that is not the question."[/]
+
+"The true question is this — what do you do with it? Choose whichever is fast for the work you do over and over."
+
+Now listen to a strange fact. Books say that slipping something into the middle of a LinkedList is fast.
+
+But in practice it usually is not. Because getting to the middle takes a long time in itself. And a modern machine reads memory that sits together much faster.
+
+The things in an ArrayList sit in one place in memory. The things in a LinkedList are scattered everywhere. Reading scattered things costs the machine dear.
+
+This is why in a real program the ArrayList nearly always wins. This is the sort of thing that is believed only after it has been measured.
+
+And here the lesson of the island before comes back. What is true is not what the book said, but what was measured.
+
+Now I will give a piece of advice, and it will be of use in your log pose. When you keep a list of notes, use an ArrayList, and write List above it.
+
+Later if order is needed, sort it. If duplicates are not wanted, use a Set, and tomorrow's island belongs to that.
+
+For now keep only two pictures, and those are the chest and the chain. If you have to look things up by number the chest is right, and if you have to add at the end the chain is right.
+
+The lantern went out. The store room grew dark. You rest.

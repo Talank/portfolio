@@ -1,0 +1,96 @@
+# 25 — The screen and the shore: frontend, JavaFX and packaging
+
+Morning came. The island's market opened, and the sound of people began to be heard.
+
+In the market there is a board in front of every shop. On it is written what there is, and the store inside is not seen.
+
+[robin]"That board is the screen,"[/] said Robin. [robin]"People do not look at the store. They look at the board."[/]
+
+Today we look at three roads to the screen.
+
+The first road is the web. In the browser HTML gives the shape, CSS gives the look, and JavaScript gives the behaviour.
+
+The browser talks to your server, and for that a thing called fetch is used. Inside, that is the HTTP of the island before.
+
+The second road is the desktop. In Java there is JavaFX for that.
+
+In JavaFX the screen is a tree. At the very top is the scene, and lower down, like branches, are buttons, text and lists.
+
+@read teach
+The third road is the game. In a game the screen is drawn over and over, and that is called a frame.
+
+Now listen to the rule shared by all three roads.
+
+@algo parda-ko-niyam
+Whatever the screen, the rule is one, and it is a road with two sides. The first side — the view is made from the state, that is, your truth must be in one place, and the screen must show that same truth, and the screen must never keep a separate truth of its own. The second side — an event changes the state, that is, what a person pressed or wrote changes the truth, and after that the view changes by itself. Once these two sides are kept apart any screen at all is simple, and if they are not kept apart two truths are made, and those two never agree again.
+@end
+
+Luffy asked, [luffy]"What happens if there are two truths?"[/]
+
+Robin said, [robin]"If that happens one thing is seen on the screen, and another is in the store. And then people say the program tells lies."[/]
+
+In JavaFX there are properties and binding for this. You join a value and a part of the screen, and the moment the value changes the screen changes by itself.
+
+In a game this same thing is called the game loop. In every frame there are three pieces of work — read the input, move the state forward, and draw.
+
+Here is how to check that there is only one truth, without reading much code. Pick one thing a person can see, and ask where the answer to what it should be is kept. If you can point at one place, the rule is holding. If you find yourself saying that the screen also remembers it, the second truth is already there, and it will disagree on the day somebody changes the first.
+
+@recall parda-ko-niyam
+
+The noise in the market is dying down. The boards are in the same places.
+
+@read hush
+There is one thing keeping the truth in one place will not give you. It makes the screen agree with your program, and never with the world your program was describing. A screen showing exactly what the store holds is honest and can still be showing something that stopped being true an hour ago.
+
+@recall parda-ko-niyam
+
+@tier medium
+
+Now let us answer a practical question. What should a Java team choose for the screen?
+
+There are three choices, and all three have their own place.
+
+If you use Thymeleaf the screen is made on the server itself. This is easy, and it is enough for a small team.
+
+If you use React the screen is made in the browser. This is supple, but another language and another build are added.
+
+If you use Vaadin the screen is written in Java as well. This is good for a team that knows only Java.
+
+Now let us talk about making the parcel, because what has been built has to be given to somebody too.
+
+In the past, to run a Java program a person had to have Java. These days that is not needed.
+
+A tool called jlink makes a small piece of Java, and in it there is only the part you need. A tool called jpackage makes that into a real app.
+
+On a Mac that is a dot app. On Windows that is an installer. People press twice, and the program opens.
+
+@tier long
+
+At night the market closed. The boards were taken down.
+
+[robin]"I feel like telling you something,"[/] said Robin. [robin:firm]"The screen is not decoration."[/]
+
+"The screen is the only proof of your work there is. People never see your beautiful code inside."
+
+This sounds hard, but it is true. So do not make the screen the last piece of work.
+
+Now listen to a rule which is the most important of all in JavaFX.
+
+@read teach
+The work of changing the screen must be done by one thread, and that is called the application thread. If you touch the screen from another thread the program goes wrong.
+
+And the reverse is true as well. If you do long work on that same thread the screen jams, and people say [aside]"the program has stuck"[/].
+
+So the rule is this — send the long work to another thread, and come back to the screen's thread only once the result has come. This is the work of the twentieth island's executor itself.
+
+Now let us say the matter of the iPhone briefly, because your log pose has to run there as well.
+
+A project called Gluon takes JavaFX to mobile. And GraalVM turns Java into native code.
+
+Its good is twofold. One — no JVM is needed on the mobile. The other — the program starts at once, and there is none of the ninth island's warm up pain.
+
+But it has a price too. When making native, reflection is limited, so which classes reflection uses has to be written down beforehand.
+
+Now the market has grown silent. Only one lamp is burning on the shore.
+
+Tomorrow we go to the cave of search. That is the island before the last.

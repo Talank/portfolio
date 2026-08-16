@@ -1,0 +1,101 @@
+# 19 — Many hands: threads, synchronized and the memory model
+
+In the morning there is much work on the deck. The sail has to be pulled, the ropes tied, and the water bailed.
+
+Done by one person it takes all day. Done by five it is finished in an hour.
+
+[aside]"But there is one condition,"[/] said Franky. [aside]"Five people must not pull one rope at once."[/]
+
+@read teach
+This is the story of the thread, and this is its danger too.
+
+A thread is work that runs alongside. There can be many threads in one program, and they go forward at once.
+
+If the pieces of work are different there is no trouble. Trouble comes only when two threads touch one thing, and at least one of them changes it.
+
+Now listen to a small example.
+
+There is a count, and it begins at zero. Two threads each add one a thousand times.
+
+At the end two thousand ought to come. But usually less than that comes.
+
+Let us see why this happens. "Adding one" is not one piece of work. It is three — read, add, write.
+
+One thread read, and before it added the other read as well. Both added to the same old number, and both wrote the same new number. One addition was lost.
+
+Now listen to today's rule, and this is the most useful of all.
+
+@algo teen-niyam-thread
+The danger of threads is born only when three things are there together. The first thing — some data is touched by more than one thread. The second thing — that data changes. The third thing — the touching happens at once. Take away any one of these three and the danger goes of itself, and the remedies are those same three roads. Do not share the data, or make the data immutable, or do not allow it to be touched at once. The third road is the most expensive, so look for the first two roads first.
+@end
+
+Luffy asked, [luffy]"What does not allowing it to be touched at once mean?"[/]
+
+Franky said, [aside]"That means a lock. One opens the door, goes in, and until he comes out the other waits."[/]
+
+In Java that lock is put on by the word synchronized. It gives the part inside to only one thread at a time.
+
+A lock is safe, but it is not cheap. The waiting thread does nothing, and that time is wasted.
+
+Now let us talk about volatile, because people mix it up with a lock.
+
+Volatile puts no lock on. It says only this much — let the fresh value of this variable always be seen.
+
+Why was this needed? Because every thread can have a small copy of its own. Once volatile is said there is no such copy.
+
+Here is how to check whether a piece of code is in danger, without running it a thousand times. Take the one field in question and say which threads reach it, and whether any of them writes. If the answer is one thread, or nobody writes, there is nothing to fix and no lock belongs there. If it is two and one writes, you have found the trouble, and you found it by reading rather than by waiting for the bad night.
+
+@recall teen-niyam-thread
+
+The work on the deck is in order. Nobody is on the same rope.
+
+@read hush
+There is one thing these three rules will not give you. They tell you where the danger is and never that you have found all of it — the sharing that matters is often through a field two objects away, which nobody thought of as shared. Code with no danger left and code where nobody has looked hard enough read exactly alike.
+
+@recall teen-niyam-thread
+
+@tier medium
+
+Now let us talk about Java's memory model, and this sounds strange to hear.
+
+Everybody believes that code runs in the order you wrote it. But that is not wholly true.
+
+The compiler can change the order. The machine can change it too. Both do this to raise the speed.
+
+In one thread this makes no difference, because the answer comes out the same. But looked at from another thread the order can seem strange.
+
+The memory model is the rule of exactly this. It says in which places the order is guaranteed.
+
+Putting a lock on is one such place. Volatile is another. Starting a thread and waiting for one are others.
+
+So the rule is easy. If two threads share data without using any of these tools, you have no guarantee at all.
+
+And let me say a nasty thing. Such code usually runs fine on your laptop, and goes wrong only on the large server in production.
+
+@tier long
+
+After night fell the deck emptied. Franky sat leaning against the wall.
+
+[aside]"I have met my hardest troubles right here,"[/] he said. [aside]"Because this trouble does not show itself every time."[/]
+
+"An ordinary mistake is honest. You ran it, it went wrong, and you saw it. A thread's mistake is not honest."
+
+This is true. A thread's mistake shows once in a thousand times. And when you sit down to watch, it does not show.
+
+This joins on to your own research. This is the greatest cause of flaky tests. Shared state and leaning on order are the root of it.
+
+So the advice of old programmers is this. Before learning to put locks on, learn to make locks unnecessary.
+
+Do not share data. If it must be shared, make it immutable. Only if neither will do, put a lock on, and put it on a small piece.
+
+Now I will say a word, and that is deadlock. Two threads take two different locks, and then each waits for the other's lock.
+
+Neither lets go, and both stick there. It is like two people on a ship standing in a doorway telling each other to go first for ever.
+
+There is one easy way to escape this — always take the locks in the same order. If everybody keeps the same order, no circle is made.
+
+On tomorrow's island we will look at a better road still. There the threads do not have to be run by you, and sending the work is enough.
+
+For now remember only three things — shared, changing, and at once. Taking away any one is enough.
+
+The deck is quiet. All the ropes are tied. You can sleep now.

@@ -1,0 +1,91 @@
+# 12 — The shape of the mould: generics, type erasure and PECS
+
+In the cabin Nami put down three empty boxes. All three are of the same shape.
+
+[aside]"These boxes are alike,"[/] she said. [aside]"But in one only maps are kept. In one only gold is kept. In one only medicine is kept."[/]
+
+[aside]"The box is the same. Only what goes inside is different."[/]
+
+This is the idea of generics. The shape stays the same, and only the type inside is different.
+
+In the past Java did not have this. Anything at all could be put in a list. But when it was taken out there was no knowing what it was, and the programmer had to guess and convert it.
+
+If the guess was wrong it was known only once the program was running. Hundreds of programs went wrong that way.
+
+After generics came you can say — this is a list of notes. Now if anything else is put in, the compiler itself stops it.
+
+There is a strange thing here, and its name is type erasure.
+
+Java does all these checks while compiling. But at the time the program runs, that knowledge is wiped away.
+
+At running time there is only a list there, and it does not know what is inside it. The checking has already been done, so that knowledge is not needed.
+
+This is why a new array of a generic type cannot be made in Java, and this question is often asked in interviews.
+
+@read teach
+Now today's rule comes. Its name in English is PECS.
+
+@algo pecs
+The answer to when to use a wildcard is in one sentence. If you are only taking things out of some collection, that is, if that collection is the giving side, use a wildcard with extends, and after that you may read but you may not add. If you are only putting things into some collection, that is, if that collection is the taking side, use a wildcard with super, and after that you may add. If you are doing both pieces of work, use no wildcard at all, and write the type outright.
+@end
+
+Luffy scratched his head. [luffy:tired]"That got a bit hard,"[/] he said.
+
+Nami laughed. [nami]"Then remember it this way,"[/] she said. [nami]"If you are taking out of the box it is a giving box. If you are putting into the box it is a taking box."[/]
+
+Now let us say a practical thing. In everyday code you will not have to write many wildcards.
+
+This is mostly for the people who write libraries. It is needed only when you have to make your method accept many kinds of list.
+
+Here is how to check which side a collection is on, without reading the rule again. Say out loud the one sentence of what your method does with it. If the sentence has the word "take" in it and never "put", it is giving. If it has "put" and never "take", it is taking. If both words are in the sentence, that is exactly the case where no wildcard belongs.
+
+@recall pecs
+
+The three boxes are in the same place on the table. The lamp is steady.
+
+@read hush
+There is one thing a wildcard will not do for you. It guards what may go into the collection and never what the things inside have already promised each other. A list that is safe to read from can still be holding two things that should never have been in one list, and no compiler was ever asked about that.
+
+@recall pecs
+
+@tier medium
+
+Now let us talk about bounded types, and this is of rather more use.
+
+Sometimes you do not need just anything. You need the sort of thing that can be compared, or that has a value you can count with.
+
+At a time like that you can say — this type may be whatever it likes, but it must be Comparable. Having said that, the compiler lets you compare over that thing.
+
+It is in this way that a sorting method is written. There is no knowing what is inside, but there is knowing that they can be compared. That much is enough for the work.
+
+Now let me say an ordinary mistake. People mix generics up with inheritance.
+
+A note is an entry, that is true. But a list of notes is not a list of entries.
+
+Why is it not? Because if it were, somebody would take it saying it was a list of entries, and put an experiment into it. And then an experiment would be sitting in your list of notes.
+
+The wildcard was made to settle this very trouble. Once extends is written on the giving side, reading is allowed, but nobody may put anything in, and the list stays safe.
+
+@tier long
+
+At night Nami arranged the boxes in the drawer.
+
+[aside]"I feel like telling you something,"[/] she said. [aside]"Do you know why people get tired learning generics?"[/]
+
+@read hush
+"Because it is the sort of thing whose good is never seen by you. When it is right, nothing happens. When it was not there, your program went wrong in the middle of the night."
+
+This applies to many of Java's conveniences. Their work is to keep bad things from happening, and a thing that did not happen is not seen.
+
+Now listen to a piece of history. Generics were not in Java from the beginning, and came only in the fifth version.
+
+At that time crores of lines of code were running all over the world. A new convenience must not break all of them.
+
+So type erasure was chosen. Let new code have its checks, and let old code run exactly as it is. Inside, both remain the same.
+
+This is a bargain, and it has troubles of its own. But it is because of this that Java's old code is still running today.
+
+Now keep only the picture of the box. The box is the same, and the thing inside is different.
+
+@read hush
+The cabin lamp grew dim. Tomorrow we go to the store room. You sleep now.

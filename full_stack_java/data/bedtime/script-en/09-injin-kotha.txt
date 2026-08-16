@@ -1,0 +1,83 @@
+# 9 — The engine room: class loaders, bytecode and the JIT
+
+@read hush
+Today we go to the lowest part of the ship. The stair is narrow. Below, the air is warm, and a low humming can be heard.
+
+This is the engine room. Franky works here, and he knows the ship's inner machinery.
+
+[aside]"The people upstairs do not know,"[/] said Franky. [aside]"They pull the sail, and think the ship goes. The real work happens down here."[/]
+
+It is the same in Java. You write a class, and it runs. But four pieces of work happen in between, and all four belong to this room.
+
+The first piece of work is finding. The moment you take the name of some class, the JVM looks for the file of that name.
+
+The finding is done by the class loader. And there is not only one class loader — they have a small stair of their own.
+
+The topmost loader carries Java's own classes. The loader below that carries the library classes. The lowest one carries your own classes.
+
+The rule is this — the lower one asks the upper one first. If the upper one finds it, the lower one does no work. This is why nobody can steal the name of one of Java's own classes and slip their own class in.
+
+Now listen to the remaining three, and this is today's rule.
+
+@algo char-kotha
+Java's engine does four pieces of work in order. The first is finding, and the class loader looks at the name and brings the class file in, and the lower loader always asks the upper one first. The second is checking, and the verifier reads the bytecode and looks at whether there is any wrong move in it, and if there is wrong it is not allowed to run at all. The third is running, and at the start the interpreter reads the bytecode one at a time and runs it outright. The fourth is heating, and whichever method or loop runs over and over is turned into the machine's language by the JIT, and after that that part is much faster.
+@end
+
+Franky turned a gear. [aside]"This fourth thing is Java's magic,"[/] he said. [aside]"Other languages turn everything at the start. Java waits, and looks to see which part is hot."[/]
+
+What is the good of this? Because the JIT has seen the program running. It knows which if is usually true, and which method is always called on one kind of object.
+
+That knowledge is not held by a compiler that compiles beforehand. This is why Java is sometimes even faster than C, and many people do not believe it when they hear it.
+
+Here is how to check whether a piece of code has been through all four, without any tool. Run the same work twice in one program and watch which run answers faster. If the second run is quicker than the first while nothing about the work has changed, you have watched the fourth step happen, and the difference between them is the size of what the JIT did.
+
+@recall char-kotha
+
+The humming of the engine keeps the same beat. The wall lamp is small.
+
+@read hush
+There is one thing this order cannot promise you. The fourth step happens when the engine judges that it should, and never at a time you chose — the same code can be fast in the afternoon and slow at midnight because the load changed. This is why a number measured once is not a measurement.
+
+@recall char-kotha
+
+@tier medium
+
+Now let us get to know a word, and its name is warm up.
+
+The first few seconds after you start a program are the slowest of all. At that time everything is being run by the interpreter.
+
+After a few thousand runs the JIT wakes. After that the same code can be up to ten times faster.
+
+This is why there is a rule about measuring time in Java. Never measure the first time round, because it tells lies. We will meet a tool called JMH on the twenty second island, and it handles this by itself.
+
+Another word is inlining. If some small method is called over and over, the JIT moves its inner code into the very place it was called from.
+
+After that the cost of calling a method goes, and further improvement becomes possible by joining with the code around it. This is why there is no need to be afraid of writing small methods in Java.
+
+There is one last thing left. Sometimes the JIT guesses, and later that guess turns out wrong.
+
+@read teach
+At a time like that it takes its own work back, and returns to the interpreter again. That is called deoptimization, and merely hearing of it tells you how clever the engine is.
+
+@tier long
+
+Franky put the oil can down, and sat leaning against the wall.
+
+[aside]"Ask me one thing,"[/] he said. [aside]"Why do you suppose all this bother was gone to?"[/]
+
+The answer is this. Java wanted two opposite things at once. One — let the code run anywhere. The other — let the code run fast.
+
+These two are hard to get together. Code that runs anywhere is usually slow, because it cannot take the advantage of any one machine.
+
+Java's answer was this — make it run anywhere at the start, and make it fast for this very machine as it runs. This one idea kept Java going for thirty years.
+
+Now I will say the name of a tool, and it comes again on tomorrow's island. Its name is javap.
+
+It reads your dot class file and shows the bytecode inside. Looking at it the first time seems frightening, but there are not really many kinds of instruction there.
+
+One day when you have time, write a small class and run javap on it. Look at how the loop you wrote appears there, and after that Java never seems like magic again.
+
+Now let us climb the stair and go up. It is warm below, but the sleeping place is above.
+
+@read hush
+The humming of the engine grew fainter. You can make that sound the beat of your sleep.

@@ -1,0 +1,94 @@
+# 22 — The discipline of tests: JUnit, Mockito and the flaky test
+
+Before going out to sea Usopp pulls every rope. He rubs every knot. He treads on every plank.
+
+[aside]"This is not doubt,"[/] he said. [aside]"This is habit. Only on a ship that has been checked can one sleep."[/]
+
+Today we are on the island of tests. This island joins on to your own research, so let us stay here a little longer.
+
+First let us get to know the smallest test, and that is the unit test. It checks one method or one class on its own.
+
+For this JUnit is used in Java. You write a method, put an annotation over it, and write an assert inside.
+
+Now listen to today's rule, and this applies to every test.
+
+@algo teen-kadam-test
+Every good test has three steps, and all three steps must be plainly visible. The first step is the preparing, where the things needed for the test are made and the state is arranged. The second step is the doing, where the method to be checked is called exactly once. The third step is the checking, where it is said whether the answer that came agrees with the answer expected. And one rule is added — let one test fail for one reason, because the name of a failed test must itself say what went wrong.
+@end
+
+Nami came over. [nami]"And when testing, is a real database to be used or not?"[/] she asked.
+
+The answer is this. For a small test, do not use one.
+
+For that pretend things are made, and they are of four kinds.
+
+A stub is a thing that gives a ready made answer. A mock is a thing that notes what was called. A spy is one that keeps a watch over a real thing. A fake is a working but simple copy, such as a store that keeps everything in memory.
+
+For this Mockito is used in Java. And here the promise of the sixth island is of service — once there is an interface, making a pretend one is easy.
+
+Here is how to check that a test is worth keeping, without waiting for it to fail. Break the thing it is meant to be watching, on purpose, and run it. If it goes red, it was watching. If it stays green, it has been telling you a comfortable thing all along, and it will go on telling you that on the day it matters.
+
+@recall teen-kadam-test
+
+The ropes have all been pulled. The knots have all been rubbed.
+
+@read hush
+There is one thing this shape cannot give a test. It arranges what the test does and never what the test is about — the three steps are just as clear in a test that guards the heart of the work as in one that guards a thing nobody could get wrong. Only you know which of the two you have written.
+
+@recall teen-kadam-test
+
+@tier medium
+
+Now let us talk about the larger tests. Checking with everything made pretend has one danger.
+
+The danger is that a pretend thing says whatever it was told to say. A real database can behave differently.
+
+So at the upper level an integration test is written. There a real database is used, but it is inside a container.
+
+For that Testcontainers is used in Java. When the test starts it raises a real Postgres, and when the test ends it throws it away.
+
+@read teach
+What should the balance between these two levels be? This is called the testing pyramid.
+
+At the bottom are many small tests, and they run fast. In the middle are some integration tests. At the very top are a few full tests, and those are slow and delicate.
+
+If the pyramid turns over, misery comes. If there are a thousand full tests, running them takes half an hour, and people simply stop running them.
+
+And let us talk about coverage as well. Coverage means how many lines the tests touched.
+
+But touching does not mean checking. A test that runs code and never checks the answer raises the coverage too, and that is hollow.
+
+@tier long
+
+At night Usopp put the lantern beside the bed.
+
+[aside]"Now let us talk about the thing nearest to you,"[/] he said. [aside]"Now it is the flaky test's turn."[/]
+
+A flaky test is one that sometimes passes and sometimes fails, while the code has not changed.
+
+This is the worst kind of test there is. Because when it passes it gives you a false trust, and when it fails you say [aside]"let me run it again"[/].
+
+And one day a real mistake comes, and you say [aside]"let me run it again"[/] once more. On that day the meaning of testing dies.
+
+The causes of flakiness can be counted, and they are not many.
+
+The first cause is time. If a test trusts that [aside]"it will be done in one second"[/], then one day when the machine is busy it fails.
+
+The second cause is order. If one test runs in the mess another left behind, the result changes the moment the order changes.
+
+The third cause is shared state, and this is the matter of the nineteenth island itself. Two threads touch one thing, and lean on the order.
+
+The fourth cause is the outside world. The network, the clock, the file system, and random numbers — none of these are the same every time.
+
+The direction of the remedy is one. Give the test a world of its own.
+
+Give the clock from outside, so that you can fix the time in the test. Fix the seed of the random numbers. Let every test make its own data, and clean up after it is done.
+
+And let me name one last tool, and that is JMH. It measures speed, and takes away the lie of the warm up.
+
+On the ninth island we heard that Java is slow at the start. JMH runs it some times first and throws those away, and only then measures.
+
+@read hush
+Now the lantern grew dim. The ship has been checked.
+
+You can sleep without a care. Only on a ship that has been checked can one sleep.

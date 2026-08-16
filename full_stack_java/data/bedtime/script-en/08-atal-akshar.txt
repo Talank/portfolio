@@ -1,0 +1,83 @@
+# 8 — Letters that do not move: String, equals and hashCode
+
+Inside the ship's belt is the store room. There are wooden drawers there, and on every drawer a slip is stuck.
+
+Robin showed one slip. [robin]"Once this slip is written it does not change,"[/] she said. [robin]"If it has to be changed a new slip is written, and the old one stays where it is."[/]
+
+@read teach
+This is the nature of the String. In Java a String never changes, and that is called immutable.
+
+If you join something onto a String, the old one does not change. A new String is made, and the name moves over to that.
+
+At first this seems a useless rule. But the good of it is large.
+
+The first good — a String can be handed round without worry. Sending one String to ten places, nobody at all can spoil it.
+
+The second good — even when many threads read it at once there is no danger. Accidents do not happen to a thing that does not change.
+
+The third good — its hash code can be counted once and kept. This is why a String is the most suitable thing to be the key of a map.
+
+But there is a web here too. If you go on joining Strings over and over inside a loop, a new String is made every time, and the work grows slow. At a time like that use a String Builder, because that is a vessel that is allowed to change.
+
+Now today's greatest rule comes. It is asked in interviews, and it is needed over and over at work.
+
+@algo dui-jodi
+Equals and hash code are always a pair, and these must never be separated. First rule — if two objects are equal by the reckoning of equals, their hash code must without fail be equal too. Second rule — if you have written equals, write hash code in that same class as well, and use the same fields in both. Third rule — keep a thing that becomes the key of a map or a member of a set immutable, because if its value changes after it has been put inside, it is lost in its own bucket. Follow these three and the collections always give the right answer.
+@end
+
+Luffy asked, [luffy]"What does lost mean? It is inside, is it not?"[/]
+
+Robin said, [robin]"It is, but we look in the wrong drawer. Because which drawer it is is settled by the hash code, and that changed."[/]
+
+Now let me say a small but often made mistake. When checking whether two Strings are equal, never use the double equals sign.
+
+That checks the address, not the letters inside. In a small program it sometimes comes out right even so, because Java can keep Strings with the same letters in one place. But that is not a thing worth leaning on.
+
+Here is how to check that your equals and hash code are truly a pair, without any test. Say aloud the fields equals looks at, and then say aloud the fields hash code counts. If the two lists are not the same list, the pair is already broken, and the field that appears in one and not the other is the one that will lose things.
+
+@recall dui-jodi
+
+The store room is quiet. The slips on the drawers are in the same places.
+
+@read hush
+There is one thing this pair will not settle. It says when two things count as the same and never whether they ought to. Two notes written on the same day with the same title are equal by every field you chose, and whether they are really one note is a question about your work and not about Java.
+
+@recall dui-jodi
+
+@tier medium
+
+Now let us make a picture of the bucket, because it opens up a great deal at once.
+
+Imagine there are sixteen drawers in the store room. You have a thing, and you have to decide which drawer to put it in.
+
+You count the hash code of that thing. That is a number. Divide it by sixteen and look at what remains, and that is the number of the drawer.
+
+Later when looking for it you do the same reckoning, and go straight to that drawer. This is the reason a map gives an answer in a moment from among millions of things.
+
+But two things can fall in one drawer, because sometimes the hash code of different things comes out the same. At that point equals is asked inside the drawer and the right thing is picked out.
+
+Now it is understood why both are needed. The hash code finds the drawer, and equals knows the exact thing inside. If there is only one of them the work is not finished.
+
+And this too is understood — why a bad hash code is a misery. If every thing's hash code comes out the same, everything piles into one drawer, and looking for something means reading the whole line.
+
+@tier long
+
+At night Robin told an old story.
+
+[aside]"In one village everybody wrote their name on their house,"[/] she said. [aside]"The postman looked at the name and delivered the letter. One day a man moved house, but did not tell the post office."[/]
+
+"After that all his letters went to the old house. The letters were not lost. The postman was looking in the wrong place."
+
+The same thing happens in a map. If you change a field of a thing already put inside, its hash code changes, but it goes on sitting in the old drawer.
+
+Now you look for that same thing. The new hash code points at a new drawer, and there is nothing there. The map says the thing is not there, and the thing is in your hand.
+
+This is why old programmers say — always keep the key of a map immutable. String is fine. Integer is fine. A record is fine too, and we will meet that on the eighteenth island.
+
+There is one last thing left. Write to String as well.
+
+It settles no reckoning. But when you are hunting some trouble at two in the morning, and your object is printed in the log, seeing a name and a value there makes the work half as hard.
+
+Now let the room grow quiet around you. The slips on the drawers are in the same places, and slips never change of their own accord.
+
+The store room is cold, but you are warm. Tomorrow we go to the engine room.

@@ -1,0 +1,93 @@
+# 24 — The road of messages: HTTP, REST and Spring
+
+The ship reached the edge of an island. On the shore is a small meeting place, and there messages are exchanged.
+
+The rule of the meeting place is easy. Whoever comes gives a slip. Four things are written on the slip.
+
+The first says what is to be done. The second says upon what it is to be done. The third says what has been brought. The fourth says what happened in reply.
+
+@read teach
+"This is HTTP," said Nami.
+
+Now let us give these four things names.
+
+The first is called the method, and in it are GET, POST, PUT and DELETE. GET means to look. POST means to make new. PUT means to change. DELETE means to take away.
+
+The second is called the path, and that is the address. The third is called the body, and usually that is JSON.
+
+The fourth is called the status code. If it is somewhere about two hundred the work was done. If it is somewhere about four hundred it is the asker's mistake. If it is somewhere about five hundred it is the server's mistake.
+
+Now listen to today's rule.
+
+@algo sandeshko-aakar
+When writing a server remember three things. First — let the address show a thing and not a piece of work, that is, put a name in the address and leave the action to the method, and so "all the notes" is a right address and "make a note" is a wrong address. Second — keep the controller thin, that is, let it only read the slip, check it and hand back the reply, and give the true work to the service. Third — never make a thing yourself, and ask for what you need, because whoever asks for a thing can be given a pretend one in a test.
+@end
+
+Luffy asked, [luffy]"What does asking for it mean?"[/]
+
+Nami said, [nami]"It means this. You do not have to go into the kitchen and cut the vegetables yourself. Saying that you want cut vegetables is enough. Who cut them is not your care."[/]
+
+@read teach
+This is dependency injection, and this is the foundation of Spring.
+
+In Spring your class asks in its constructor for what it needs. Spring makes those things and gives them, and for that it uses the reflection of the eleventh island.
+
+The things Spring has made and kept are called beans. All the beans sit in one place, and that place is called the container.
+
+Here is how to check that a controller is really thin, without counting its lines. Read it and ask what would have to be rewritten if the messages stopped coming over HTTP and started arriving another way. If the answer is the reading and the reply only, it is thin. If the true work would have to move too, the work was never in the service at all.
+
+@recall sandeshko-aakar
+
+The waves are coming slowly to the shore. The meeting place is quiet.
+
+@read hush
+There is one thing this shape will not save your server from. It settles where the work sits and never what it promised anyone outside — the address that was right for one thing is now used by other people's programs, and it goes on being their promise long after it stopped being right for yours.
+
+@recall sandeshko-aakar
+
+@tier medium
+
+Now let us talk about Spring Boot. Spring is large in itself, and a great deal had to be written to arrange it.
+
+Spring Boot took that bother away. Its philosophy is this — let whatever is usually needed be already arranged.
+
+If you add the dependency for Postgres, Spring Boot makes the connection pool itself. If you add the dependency for the web, it raises the server itself.
+
+This is called auto configuration. And its meaning is not that magic is happening, and its meaning is only that the ready made settings have already been written.
+
+Now let us say the matter of safety briefly. Keep two words apart.
+
+The first word is authentication, and it asks — who are you? The second word is authorization, and it asks — are you allowed to do this?
+
+A JWT is a token. Inside it your name and your rights are written, and over that is the server's signature.
+
+Its good is that the server has to remember nothing. It checked the signature, and that was all. This is why it is easy in a place with many servers.
+
+@tier long
+
+At night a fire was lit on the shore. The crew sat round it.
+
+[nami]"I feel like telling you something,"[/] said Nami. [nami]"Writing a server is really a matter of drawing a line."[/]
+
+[aside]"Inside is your world, and outside is other people's. Do not trust whatever comes to the line."[/]
+
+This is an important habit. Check everything that comes from outside.
+
+Is the name empty or not? Is the number within its range or not? Is the date real or not?
+
+In Spring there is validation for this. You put an annotation over the field, and if it does not agree Spring itself hands back a four hundred.
+
+And keep the inside shape and the outside shape apart. The entity inside is joined to the database, and the thing sent outside must be separate.
+
+Let us see why this is done. A day comes when the inside shape has to change, and at that time the promise made outside must not be broken. Once two different things are kept, both stay free.
+
+And let us talk about JSON. JSON is plain text, and in it names and values are written in pairs.
+
+For that Jackson is used in Java. It reads your object and makes text, and reads text and makes an object.
+
+This is called serialization. It sounds a small thing, but two programs of the world talk to each other in just this way.
+
+@read hush
+Now the fire grew dim. The waves come to the shore at the same beat.
+
+Tomorrow we will talk about the screen. This much is enough for today.

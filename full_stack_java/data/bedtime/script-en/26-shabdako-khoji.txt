@@ -1,0 +1,87 @@
+# 26 — The search for a word: Lucene, embeddings and semantic search
+
+In the middle of the island there is a cave. Water drips inside, and sound strikes the wall and comes back.
+
+Robin lifted the lantern. [robin:awed]"Thousands of letters are carved in this cave,"[/] she said. [robin:awed]"But there is no index."[/]
+
+Searching is exactly this trouble. There is a great deal, and what is wanted is little.
+
+The simplest way is this — read everything, and look for what agrees. This works in a small collection, and does not work in a large one.
+
+So an inverted index is made.
+
+What is an inverted index? In an ordinary index the words of every paper are written. In an inverted index the papers of every word are written.
+
+Now, looking for the word "flaky", you do not have to read every paper. You go to the row of that word, and there are the numbers of the papers.
+
+This is the shape of the fourteenth island's map itself. The word is the key, and the list of papers is the value.
+
+But that much is not enough. "Running" and "run" are forms of the same word, and they ought to agree.
+
+So some work is done before the words go into the store, and that work is in today's rule.
+
+@algo dui-khoji
+Searching is of two kinds, and both are needed in a good system. The first kind is the search for a word, and there the text is broken into words, those words are turned into small letters, their forms are brought back to the root, and an inverted index is made, and then the word that is in few papers is given more weight. The second kind is the search for meaning, and there every text is turned into one long list of numbers, and if the meaning of two texts agrees their lists are near each other too, and when searching, the texts whose lists are near are drawn out. The search for a word finds exactly that word, and the search for meaning finds the same thing written in different words.
+@end
+
+Luffy asked, [luffy]"How does a list of numbers carry meaning?"[/]
+
+Robin said, [robin]"Because that list was not written by any person. It was made by a model that has read crores of sentences, and it has learned to keep words that come together near each other."[/]
+
+That list of numbers is called an embedding. Its length is usually three hundred or seven hundred.
+
+In Java there are two roads for this. ONNX Runtime runs a ready made model, and DJL gives an easy covering over it.
+
+Here is how to check which of the two searches your question wants, before building either. Say the question aloud and ask whether you know the words the answer will be written in. If you do — a name, a tag, an error message — the search for a word will find it. If you know only what the answer is about, no list of words will reach it, and that is the case the meaning search exists for.
+
+@recall dui-khoji
+
+In the cave the drops of water are falling at the same beat. The lantern is steady.
+
+@read hush
+There is one thing neither search can do. Both find what is near what you asked, and neither knows whether what you asked was the right question. A search that answers perfectly every time is still bounded by what you thought to ask it.
+
+@recall dui-khoji
+
+@tier medium
+
+Now let us talk about Lucene. Lucene is a search library written in Java, and many of the world's largest search systems are built on it.
+
+There are three things in Lucene. The analyzer breaks the text into words. The index writer writes the inverted index. The index searcher searches.
+
+And Lucene reckons the weight itself as well. If some word came many times in a paper it is important. But if that word is in every paper it is useless.
+
+The reckoning that joins these two ideas is called TF-IDF. It is this that makes the weight of words like "and", "is" and "the" nearly zero.
+
+Now the question comes of where to keep the embeddings. Keeping a long list of numbers in an ordinary table makes searching hard.
+
+For exactly that there is pgvector. It is an addition to Postgres, and it lets vectors be kept and the near ones found.
+
+The best thing about it is that you do not need a new database. In the same Postgres of the twenty third island one column is added, and the work is done.
+
+@tier long
+
+At night the crew came out of the cave and sat on the shore.
+
+[robin]"I feel like telling you something,"[/] said Robin. [robin]"People ask which search is better. But both are needed."[/]
+
+"If you are looking for the name of some author, the search for a word is right. But if you are asking why tests are unsteady, the search for meaning is needed."
+
+@read teach
+This is why these days both are mixed, and that is called hybrid search.
+
+Both give their own list. Then the two lists are joined by a reckoning, and only some from the top are shown.
+
+Here the fifteenth island's priority queue is of use again. A thousand results do not have to be put in order, and keeping a line of ten is enough.
+
+Now let us talk about your true question. You ask the log pose — [aside]"what was it I thought about flaky tests?"[/]
+
+That question itself becomes an embedding. And its nearness to the embeddings of all your notes is measured.
+
+Three years ago you had written [aside]"why do tests go wrong only sometimes"[/]. The word flaky is not there. But the meaning is near, and that note comes to the top.
+
+This very moment is the purpose of this whole voyage. All the other islands were for this one moment.
+
+Now the lantern went out. The cave was left behind.
+
+Tomorrow the last island comes, and there we will join all the pieces. Rest today.

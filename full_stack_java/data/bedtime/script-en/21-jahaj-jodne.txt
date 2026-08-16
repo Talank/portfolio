@@ -1,0 +1,87 @@
+# 21 — Joining the ship: Maven, the POM and the build
+
+In the workshop Usopp stuck a large paper on the wall.
+
+On it every part of the ship is written. Which wood came from where, how large which nail is, and which part is joined after which — it is all there.
+
+[aside]"This paper is called the POM,"[/] he said. [aside]"The whole account of the ship is in it."[/]
+
+Maven is Java's build tool. It has three pieces of work — fetching the parts, joining them, and making the parcel.
+
+In the past programmers found and kept the library files themselves. Nobody knew which version came from where.
+
+And what ran on one person's machine did not run on another's. That is what the old complaint [aside]"but it worked on my machine"[/] means.
+
+Maven took that away. Now you write the name and the version, and it fetches it itself.
+
+Now listen to today's rule.
+
+@algo pom-ko-char
+Understanding four things in the POM file is enough. The first thing is the address, and it is of three words — the name of the group, the name of the artifact, and the version, and these three name any library in the world uniquely. The second thing is the dependency, that is, other people's libraries that you need, and Maven fetches their own dependencies itself as well. The third thing is the scope, and it says where that library is needed — while compiling, while testing, or while running. The fourth thing is the lifecycle, and it is a settled order, in which cleaning, compiling, checking, parcelling and installing come one after another.
+@end
+
+Luffy asked, [luffy]"What happens if one library brings another library?"[/]
+
+Usopp said, [usopp]"Maven brings that as well. That is called a transitive dependency. But right there a bother is born too."[/]
+
+The bother is this. If two libraries ask for different versions of one same third library, what is to be done?
+
+Maven's rule is easy — whichever is nearer wins. The version written in your own POM always wins.
+
+So if there is a quarrel about versions, the settlement is in your own POM. Fix the version there yourself, and the quarrel ends.
+
+Here is how to check what you are really building with, without reading anybody's POM but your own. Ask Maven to print the whole tree of what it fetched. If a library you never named appears twice at two versions, the nearer rule has already chosen for you, and it chose without telling you which one your code was compiled against.
+
+@recall pom-ko-char
+
+The paper on the wall is in the same place. The workshop is quiet.
+
+@read hush
+There is one thing this file cannot describe. It names the parts and the order of joining, and never why any part was chosen. The library somebody added for one line five years ago and the one the whole program stands on are written in exactly the same three words.
+
+@recall pom-ko-char
+
+@tier medium
+
+Now let us talk about a large project. As a program grows, everything does not fit in one parcel.
+
+So the work is shared into pieces, and every piece is called a module.
+
+A sharing like this fits your log pose. In one module the shape of the data sits. In one the store sits. In one the search sits. In one the server sits. In one the screen sits.
+
+What is the good of this? Because the leaning between modules must be one way.
+
+The shape of the data knows nobody. The store knows the shape. The server knows the store. But the shape never knows the server.
+
+This rule is written in the POM itself, and Maven makes it be kept. If somebody writes the leaning the other way round the build does not run at all.
+
+And let us talk about the BOM as well. In a large project ten modules use the same library.
+
+Writing the version in every place is a misery. A BOM is one place where all the versions are written, and all the rest take them from there.
+
+@tier long
+
+At night Usopp put the tools in order, and looked at the paper on the wall.
+
+[aside]"I feel like telling you something,"[/] he said. [aside]"Do you know why people do not like Maven?"[/]
+
+[aside]"Because it is long, and its file is not enjoyable to read. But that very length is its strength."[/]
+
+Maven's philosophy is this — what has to be somewhere must be exactly there. The structure of every project is the same.
+
+The code sits here. The tests sit there. The property files sit here. The results go there.
+
+So open any Maven project in the world, and in the first minute you know what is where. This is not a small thing.
+
+Now let us say the matter of Gradle briefly. Gradle does the same work, but its file is code.
+
+So Gradle is supple, and fast as well, because it does not build again the part that has not changed. But there is a price for being supple too — every project is a little different.
+
+The easy advice is this. If you are learning, begin with Maven, because there are fewer choices there, and it is easier to learn in a place with fewer choices.
+
+The last thing is this. The true work of a build tool is not to join code. Its true work is to make sure that exactly the same thing is built on your machine and on the server.
+
+@read hush
+Now let the paper stay on the wall. The lamp has gone out.
+
+Tomorrow we go to the island of tests. Rest today.

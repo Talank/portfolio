@@ -1,0 +1,86 @@
+# 18 — New shapes: record, sealed, pattern matching and java.time
+
+In the cabin Robin set two papers apart.
+
+On one paper a great deal is written — a name, a signature, rules, and conditions. On the other paper there are only three words.
+
+[aside]"The first is the class,"[/] she said. [aside]"The second is the record."[/]
+
+The record is Java's new shape. It has one piece of work — to carry data.
+
+In the old way a great deal had to be written even for a small data class. Adding the fields, the constructor, the getters, equals, hash code and to String came to sixty lines.
+
+In a record one line is written. Say the name and the names of the fields, and Java makes all the rest itself.
+
+And the fields of a record are final of themselves. Once born they do not change.
+
+This is why a record is fit to be the key of a map. The pair from the eighth island completes itself here.
+
+Now the second new shape is sealed. It says — this thing is one of these three, and it can be nothing else.
+
+The third shape is pattern matching. It makes the switch able to look at shape.
+
+These three go together, and so today's rule is one rule.
+
+@algo data-ko-aakar
+When choosing a shape for holding data remember three things. First — if some class's only work is to carry a few values together, make it a record, and after that equals, hash code and to String come right of themselves. Second — if the possible forms of some thing are countable and limited, make it sealed, and write all the forms in one place. Third — when working over such a thing, look at shape in a switch, and after that if some form is left out the compiler itself says so. Once these three come together the mistake is found not at running time, but at writing time.
+@end
+
+Luffy asked, [luffy]"What is the good of it?"[/]
+
+Robin said, [robin]"The good is that if tomorrow somebody adds a new kind of entry, it cannot be forgotten. The compiler reminds you."[/]
+
+This fits your log pose exactly. Entry can be sealed, and its forms can be review, experiment, thought and meeting.
+
+And each form can be a record. In the place where the summary is made one switch is written, and all the forms are seen there.
+
+Here is how to check that a class deserves to be a record, without changing anything. Ask whether two of them holding the same values are the same thing. If the answer is yes, it is data, and a record is right. If two of them with the same values are still two different things — because one has an identity of its own that the values do not carry — it was never data, and a record would have quietly said they were equal.
+
+@recall data-ko-aakar
+
+Two papers are on the table. On the small paper there are only three words.
+
+@read hush
+There is one thing a record will not keep for you. It makes the fields final and never what is inside them — a record holding a list is holding whatever anyone does to that list afterwards. The paper cannot be rewritten, and what the paper points at can be.
+
+@recall data-ko-aakar
+
+@tier medium
+
+Now let us talk about time, and here Java has healed an old wound.
+
+In old Java the thing that held a date could be changed, and its month began at zero. January was zero, and December was eleven.
+
+That gave birth to thousands of mistakes. And in Java eight a new library came.
+
+Now remember three names. LocalDate is a date on the calendar, and there is no time in it. LocalDateTime has both date and time, but has no saying which place it is of. Instant is one moment of the universe, and it is the same everywhere.
+
+The rule is easy. If you have to note down when some event happened keep an Instant. If you have to keep a birthday or a holiday keep a LocalDate.
+
+Always keep Instants in the database, and change to local time only at the time of showing. Doing this the bother of time zones stays shut in one place.
+
+And there is a new way of reading files as well. Two things called Files and Path take the old bother away, and a file can be made a stream and read directly.
+
+@tier long
+
+At night Robin put both papers in the drawer.
+
+[aside]"I feel like telling you something,"[/] she said. [aside]"Languages do not grow old, but their habits grow old."[/]
+
+[aside]"Java changed many habits in thirty years. But one thing it never changed — old code must run."[/]
+
+This is the reason two or three ways of doing one thing are found in Java. The old way has not died, and the new way has been added.
+
+For a person learning it new this is confusing. But there is an easy rule — use the new way in new code, and do not touch the old code.
+
+Now I will give a small piece of advice. If you have learned the record, begin using it at once.
+
+In many places you want small pairs of data. Two values have to be handed back together, or a reason has to be sent along with a result.
+
+In the past people used an array or a map for that, and it was unclear. Now write a small record for it, and give it a name.
+
+A thing with a name is easy to read. Six months later, reading your own code, that name saves you.
+
+Now let the room settle. There are three words on the small paper, and those three words are the whole of it.
+
+Tomorrow many hands will work at once on the deck. Rest today.

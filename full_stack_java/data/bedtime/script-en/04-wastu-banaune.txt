@@ -1,0 +1,78 @@
+# 4 — Making things: classes, constructors and encapsulation
+
+Today Usopp has put a mould on the table. It is a wooden mould, and melted metal is poured into it to make many pieces of the same shape.
+
+[aside]"This mould is the class,"[/] he said. [aside]"Every piece that comes out of it is an object."[/]
+
+There is one mould, but many pieces are made. Every piece has the same shape, but the colour and the name inside can be different.
+
+Now imagine that we made a mould for a note. Every note has a title, has a date it was written on, and has some words. These three are called fields.
+
+And a note can do some work as well. It can say its own title, or say how long it is. Those pieces of work are methods.
+
+Fields and methods together make a class. This is the most basic shape in Java.
+
+Now an important thing comes. When a piece is taken out of the mould, it must not come out half made.
+
+Here is where the constructor does its work. A constructor is a special method that runs once, at the moment the object is born. It fills every field that is needed.
+
+If you let a note without a title be made, that note goes wandering out into the world, and somewhere later it upsets something. That is hard to hunt down, because the place where the mistake was made and the place where the mistake showed up are not the same place.
+
+So today's rule is this.
+
+@algo char-kadam
+When writing a class follow four steps. First step — keep every field private, so that nobody outside can touch them directly. Second step — let the constructor leave the object only once it is complete, and let a half made object never get out. Third step — open only methods to the outside, and let what those methods do be visible in the name itself. Fourth step — make as many fields final as you can, because a thing that cannot change is a thing you never have to think about again.
+@end
+
+Sanji put his head out of the kitchen. [sanji]"It is the same in my kitchen,"[/] he said. [sanji]"Nobody else gets to touch my salt pot directly. If they want salt they have to tell me, and I put it in."[/]
+
+This is encapsulation. It means keeping what is inside inside, and keeping only one small clear door on the outside.
+
+The benefit of this does not show up at once. But six months later, when you have to change the way things work inside, then you find out. The door stays the same and anything at all can be changed behind it, and nobody outside ever knows.
+
+Now let us say the matter of static briefly. Static means a thing joined to the mould, not to the piece. Every note has its own title, but the count of how many notes were made sits in one place, and that is static.
+
+Here is how to check that a class is really closed, without reading it through. Ask what somebody outside could break if they wanted to. If the answer is that they could only call the methods you named, it is closed. If the answer is that they could reach in and leave a field holding something the constructor would never have allowed, the door is still open, and it is open at exactly that field.
+
+@recall char-kadam
+
+The wind has stopped outside. The mould is cooling on the table.
+
+@read hush
+There is one thing keeping the fields private will not do for you. A method can hand out the very list that lives inside, and then the outside is holding the inside after all, whatever the field said. What leaves by the door matters as much as what the door lets in.
+
+@recall char-kadam
+
+@tier medium
+
+Now let us get to know a word that confuses everybody at first. That word is this.
+
+If you write this inside a method, it means — [aside]"this very object, the one being worked on right now"[/]. Because although there is one mould there are many pieces, and the method has to know which piece is being spoken of.
+
+It shows up most of all in the constructor. When the name coming from outside and the name of the field inside are kept the same, this points at the one inside.
+
+Now let us look at another matter. More than one constructor is allowed in one class. One takes everything, another takes only half.
+
+But there is a web here. If the half taking constructor tries to fill in the rest by itself, the code slowly begins repeating. So keep the rule like this — let the small constructor call the big one, and let the filling happen in one place.
+
+And when there are many fields, seven or eight things have to be written in a line in the constructor. That is hard to read, and it is hard to tell which one is in which place. At a time like that a shape called a builder is used, and there every thing is given along with its name.
+
+@tier long
+
+Nami was awake at night. She took the old map out again, and moved a finger over it.
+
+[aside]"I want to tell you one thing,"[/] she said. "People mostly make the same one mistake when making classes. They make a class out of the doer, and not out of the thing."
+
+The meaning of what she said is this. You make a Note class, and that is right. But when names like Note Manager, Note Handler, Note Processor begin turning up, that is a sign that you are making an action, not a thing.
+
+When an action is made into a class, nothing sits inside it. Inside the empty class is a heap of methods, and every method has to be given everything from outside. Encapsulation dies of its own accord after that.
+
+So ask first — what sits inside this? If nothing sits inside, it is probably not a class, and it is only a method.
+
+Now let us join this to our log pose. There are some plain things there. There is a note. There is a review of an article. There is an experiment. There is a thought.
+
+All of these have their own insides, so these deserve to be moulds. We will meet them again on the last island, and by that time these names will feel familiar.
+
+For now keep only the picture of the mould and the pieces. There is one mould, and many pieces. A piece must be complete when it is born.
+
+The lamp has gone out. The sea is still calm. You have nothing to think about now.

@@ -1,0 +1,78 @@
+# 3 — Roads and turnings: loops, switch and methods
+
+Zoro is already up on the deck. He is cleaning his sword. He repeats one movement over and over, and every time he keeps the angle of his hand the same.
+
+[luffy]"Why do you do the same thing a hundred times?"[/] asked Luffy.
+
+[zoro]"Because doing the same thing a hundred times is one order,"[/] said Zoro. [zoro:firm]"Not a hundred orders."[/]
+
+This is the whole matter of the loop. A computer does not have to be told a hundred times. Tell it once, and write into that one telling how many times.
+
+There are a few ways to write a loop in Java, and the choice between them means something. If you need the count, that is, if you need to know which number you are on, a plain for loop is right.
+
+But if you do not need the count, and you only have to look once at every thing in a list, run a for each. That is easier to read, and the mistake of going one too far or one too few cannot happen there.
+
+If you do not know how many times to go round, and you have to keep going until some condition is met, run a while. There is one danger in this — if the thing inside never changes, the loop never stops.
+
+Now let us talk about turnings. A turning comes in the road, and there a decision has to be made.
+
+If there are only two roads, if and else are enough. But if there are five or seven roads, writing a switch is better than building a long staircase of ifs. The switch in newer Java hands the answer back itself, and does not leak into the case below.
+
+And then it is the method's turn. A method is a piece of work with a name on it.
+
+@algo ek-kaam
+When writing a method look at three things. First, let one method do one piece of work, and let its name say what that work is. Second, name the method after the thing it hands back, and name it from a verb if it does something instead. Third, if naming the method is proving hard, it is doing more than one piece of work, and it should be broken in two. A method being short is not a beauty, and it is only a matter of being easy to read.
+@end
+
+Sanji came out of the kitchen. [sanji]"There is the same rule in my kitchen too,"[/] he said. [sanji]"One dish is made in one pan. If you try to make two dishes in one pan, both are spoiled."[/]
+
+Another quality of methods is overloading. Two methods with the same name are allowed, but what they take must be different. One takes a number, another takes a String. Java picks which one to call while it is compiling.
+
+Here is how to check that a method really does one piece of work, without anyone else reading it. Say its name out loud, and then say everything it does. If the saying of what it does needs the word "and" in the middle, the name is a promise the method is not keeping. The place where that "and" falls is the place to cut it in two.
+
+@recall ek-kaam
+
+The sea is calm. The sound of Zoro's sword has stopped.
+
+@read hush
+There is one thing this rule will not save you from. A method can do exactly one piece of work and still be the wrong piece of work to have. Ten small honest methods that nobody needed are harder to read afterwards than one long one that somebody did, and no rule about naming will show that up.
+
+@recall ek-kaam
+
+@tier medium
+
+Now I will say a small but useful thing. How does a thing reach a method?
+
+In Java everything arrives as a value. When you send a primitive, a copy of it goes, and so changing it inside does not change it outside. When you send an object, a copy of the address goes.
+
+What does that mean? If you go inside and change something within that object, it changes outside as well, because the thing is one thing. But if you go inside and make a new object and put it under the same name, nothing changes outside.
+
+This one sentence clears up a great deal of confusion. In Java the address is sent, but a copy of the address is sent.
+
+Another matter is recursion. A method can call itself. This sounds roundabout, but sometimes it is the straightest road.
+
+Recursion needs two parts. The first part is the stopping place, that is, where the answer is known outright. The second part is the shrinking place, that is, where the problem is made a little smaller and itself is called again.
+
+If you forget the stopping place, the stack fills, and the program stops. The name of that message is stack overflow, and most programmers in the world have seen it at least once.
+
+@tier long
+
+The night deepened. Zoro sat with his sword leaning against the wall.
+
+[aside]"I will tell you one thing,"[/] he said. "I used to learn every movement separately. Later I found that all the movements were only three basic ones added together."
+
+It is the same in code. Loops, turnings, and methods — all the programs in the world are made by joining these three. Everything else is decoration on top of them.
+
+Now I will give you a small exercise, but it does not have to be written. Look at it in your mind.
+
+There is a list, and in it are the day's notes. You need only the long ones among them. What do you do?
+
+Make an empty list. Look once at every note in the old list. If it is long, add it to the new list. At the end hand back the new list.
+
+You will write this same shape hundreds of times. It has four parts — an empty vessel, one turn round, one condition, and one answer. Later, when we go to the island of streams, we will learn to write these same four lines in one line. But the shape stays the same.
+
+Now let the sound of the sea come nearer than the sound of the words. The loop is turning, but it is not your loop. It is the ship's loop, and it turns by itself.
+
+A wave comes, and goes. It comes again, and goes again. That too is a loop, and it has no end.
+
+You do not have to keep the count now. Just go on listening.

@@ -1,0 +1,82 @@
+# 5 — Inheritance and many shapes: extends, super and dynamic dispatch
+
+@read hush
+There is a dim lamp inside the cabin. Robin is looking at an old family tree. On the paper there is one name at the top, and lower down many names spread out like branches.
+
+[aside]"There is a tree like this in code as well,"[/] she said. [aside]"The class above gives the one below its property, and the one below adds its own to that."[/]
+
+This is called inheritance. In Java the word extends makes this relation.
+
+Suppose we have a class called Entry, and in it are a date and a title. Now a review of an article is also an entry, but it needs the author's name too. An experiment is also an entry, but it needs a result.
+
+So both review and experiment extend Entry. The date and the title do not have to be written again, because those come from above.
+
+Now the main part of the story comes, and it is a small piece of magic.
+
+@read teach
+Suppose Entry has a method called summary. Review can write that method in its own way. Experiment can also write it in its own way. This is called overriding.
+
+Now there are ten entries in a list, and inside some are reviews and some are experiments. You go round, and ask each one for its summary.
+
+Java makes each one give the right answer. The review says it in the review's way, and the experiment says it in the experiment's way. You do not have to write an if anywhere.
+
+@read teach
+This is having many shapes, and in English it is called polymorphism. Its rule is like this.
+
+@algo kun-haat
+Two things in Java are different, and until you separate the two the confusion stays. The first thing is the type of the variable, and that settles which methods you are allowed to call, and it is checked while compiling. The second thing is the real object inside, and that settles which method actually runs, and it is known only once the program is running. So the variable opens the door, and the object does the work. If you remember that much, all the behaviour of overriding opens up by itself.
+@end
+
+Luffy came over. He asked, [luffy]"And what is super?"[/]
+
+Robin said, [robin]"Super is the class above. The constructor below has to call the one above first, because a house is not built without laying the foundation."[/]
+
+And super can be called from inside an overridden method too. That means — [aside]"first do what the father did, and then I add mine"[/].
+
+Here is how to check that you have those two apart. Take one line where a variable of the type above is holding an object of the type below, and say what happens for a method that exists only on the one below. If you can say that the compiler refuses it while the object would have been perfectly able to do it, the two are separate in your mind. That single case is the whole of dynamic dispatch.
+
+@recall kun-haat
+
+There is a small sound of water outside. The family tree lies open on the table.
+
+@read hush
+There is one thing this rule will not warn you about. An override is allowed to keep the name and quietly break the promise — to return nothing where the one above always returned something, or to refuse what the one above accepted. Java checks the shape of the method and never checks the meaning of it, and the caller upstairs has no way to find out.
+
+@recall kun-haat
+
+@tier medium
+
+Now let us talk about abstract. Sometimes the class above does not deserve to exist itself.
+
+The thing called Entry does not exist on its own. In the world there is a review, there is an experiment, there is a thought — but there is no bare entry. At a time like that the class is made abstract.
+
+No object is made from an abstract class. But it can hold the shared fields, and it can leave some methods unfinished. The unfinished methods must be filled in by the class below.
+
+There is a piece of advice here, and old programmers learned it at a high price. The less inheritance you use, the better.
+
+The reason is simple. Inheritance is a tight knot. The class below gets to know the inner ways of the one above too, and a small change above can bring down everything below.
+
+So the rule they state is this — extend only if the relation is really of the [aside]"this is that"[/] kind. If the relation is of the [aside]"this has that"[/] kind, put a field inside, and that is called composition.
+
+A review is an entry, so extending is right there. But a note has an author, and there a field is the right thing.
+
+@tier long
+
+The night grew deep. Robin folded the family tree, and put it in the drawer.
+
+[aside]"There is an old story,"[/] she said. "In one kingdom the king gave all his sons his own rules. The kingdom ran as long as the sons kept those rules."
+
+"One day the king changed a rule. It seemed a small thing to him. But below, hundreds of people were standing on that very rule, and all of them fell."
+
+This is the danger of inheritance. The class sitting above does not see what is going on below, but its every movement has an effect below.
+
+Now let me answer a question that many people ask. Why is a class in Java not allowed to extend two classes at once?
+
+Because if both have a method of the same name, the question of which one runs has no answer. Older languages allowed this, and it gave a great deal of grief. Java kept that door shut from the beginning.
+
+But in the matter of promises there is an allowance. One class can take many interfaces, because an interface gives no work, and gives only a promise. Tomorrow's island belongs to that.
+
+For now keep one picture only. The variable opens the door, and the object does the work.
+
+@read hush
+The cabin lamp went out. The ship goes on at the same pace. You rest now.

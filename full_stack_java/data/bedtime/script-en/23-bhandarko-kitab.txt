@@ -1,0 +1,92 @@
+# 23 — The store's ledger: SQL, JDBC and JPA
+
+In the corner of the store room there is a thick book. In it the account of every piece of goods is kept.
+
+On every page is a large frame drawn out into little rooms. In every line of it is one piece of goods, and in every column is one quality of it.
+
+@read teach
+"This is the table," said Robin. "And the line is called a [..]row[..], and the column is called a column."
+
+A relational database is just this, and only three words are needed there — table, row and column.
+
+@read teach
+The first rule is this — every row must have one unique mark that names it, and that is called the primary [..]key[..].
+
+The second rule is this — one table knows another table by that same key, and that is called a foreign key.
+
+Now let us make a picture of your log pose. In one table the notes sit. In another table the tags sit. In the third sits the pairing of which note carries which tag.
+
+Now listen to today's rule.
+
+@algo teen-tah-data
+When working with a database remember three layers. The first layer is the shape, and make that first, because if the shape of the data is right all the rest is easy, and if the shape is spoiled no code at all will save you. The second layer is the question, and always send the question in a made ready form, that is, use a prepared statement, because it gives speed and it gives safety too. The third layer is the dealing, and keep all the related changes inside one transaction, so that either all of it happens, or none of it does.
+@end
+
+Luffy asked, [luffy]"What is a made ready question?"[/]
+
+Robin said, [robin]"That is a question with the places left empty. The shape of the question is sent first, and the values are sent separately afterwards."[/]
+
+Its great good is in safety. If you send the question with the values joined into it, somebody can be clever and slip in an order of their own.
+
+That is called SQL injection, and it is the oldest and most ordinary weakness in the world. A made ready question shuts that door.
+
+Here is how to check that a question is really made ready, without any tool. Read the line that builds it and look for the place where a value meets the text of the question. If the value is joined with a plus sign anywhere at all, the door is open on that line, however careful every other line is.
+
+@recall teen-tah-data
+
+The pages of the book are in the same place. The lantern is steady.
+
+@read hush
+There is one thing these three layers will not decide for you. They say how to ask safely and never what is worth keeping. A shape that holds every field anybody ever asked for is correct in all three layers, and reading it two years later nobody can say what the thing is.
+
+@recall teen-tah-data
+
+@tier medium
+
+Now let us get to know the four qualities of a transaction, and their shared name is ACID.
+
+The first quality is undividedness. All the pieces of work of one transaction are like one piece of work, and half does not happen.
+
+The second quality is agreement. When the transaction ends every rule of the database must have been kept.
+
+The third quality is aloneness. While one transaction is running another must not see its unfinished work.
+
+The fourth quality is lastingness. Once it has been committed, even if the power goes, that thing is not lost.
+
+Now let us talk about JPA and Hibernate. This joins Java's objects to the database's rows.
+
+You write a class, put an annotation over it, and it is joined to that table. And you can use save and find without writing SQL.
+
+This is convenient, but there is a famous snare in it, and its name is N plus one.
+
+You drew out a hundred notes. That was one question. And then you began looking at the tags of every note, and Hibernate sent a separate question for each one.
+
+That made a hundred and one questions, and the work grew a hundred times slower. The remedy is to bring them with a join at the start.
+
+@tier long
+
+At night Robin closed the book.
+
+[aside]"I feel like telling you something,"[/] she said. [aside]"People take a database for a store. But it is not a store."[/]
+
+[aside]"A database is a witness. Every version of the code goes, but the data stays."[/]
+
+This matter is a deep one. You can write a program again three times. But you cannot change the data, because that is the true property.
+
+So make the shape thoughtfully. Keep the names plain. Whatever repeats, put it in a table of its own.
+
+Now let us say the matter of the index. An index is like the list at the back of a book.
+
+Without an index, looking for a name means reading the whole book. With an index it is found straight away, and this is the idea of the fourteenth island's map itself.
+
+But an index is not free. Every time a new row is added the index is brought up to date as well. So put one only on the column that is really searched.
+
+And let us talk about migration too. A shape changes with time, and that changing must be written down as well.
+
+A tool called Flyway makes every change into one numbered file. On your machine, on a friend's machine, and on the server the same changes run in the same order.
+
+So the history of the database sits alongside the code as well. The question of when what changed always has an answer.
+
+Now the book has gone into the drawer. The store room grew dark.
+
+Tomorrow we will walk the road of messages. This much is enough for today.

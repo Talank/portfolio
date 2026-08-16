@@ -1,0 +1,106 @@
+# 27 — The log pose: the capstone and the last resting place
+
+The last night came. The ship has come back to the same harbour we set out from.
+
+But now something is different. The needle of the log pose in Nami's hand is steady now, and it shows one direction.
+
+The crew gathered on the deck. Nobody is in a hurry.
+
+Today we do not learn anything new. Today we join the pieces.
+
+The name of the program you will build is the log pose. It is the daily record of your research.
+
+Five kinds of thing go into it. The first kind is reviews of articles you read. The second kind is experiments you ran and their results. The third kind is things you are writing. The fourth kind is thoughts that came to you. The fifth kind is new things you learned.
+
+Now let us look at where the islands we went round sit in this.
+
+The first five islands give the shape. Entry is a sealed thing, and its forms are records, and this is the work of the eighteenth island.
+
+The sixth gives the promise. The store is an interface, and behind it sometimes there is a file, and sometimes a database.
+
+The thirteenth and fourteenth give the collections. The map of tags and the list of notes come from there.
+
+The twenty second gives the tests. The twenty third gives the store. The twenty fourth gives the server. The twenty fifth gives the screen. The twenty sixth gives the search.
+
+Now listen to the last rule that binds them all, and it is the three questions of the first night.
+
+@algo tin-prashna
+Whenever anything in Java feels confusing, ask it three questions. The first question is this — where does this thing live? Everything lives either on the stack or on the heap, and once you know that much you also know when it disappears. The second question is this — what has it promised? Every thing has a promise, and Java calls that promise its type. The third question is this — when is it checked? Some things are checked while compiling, and some things are checked only once the program is running. Place, promise, and time — once you have those three answers the rest opens by itself.
+@end
+
+Luffy asked, [luffy]"But this is the thing from the first night, is it not?"[/]
+
+@read teach
+Nami said, "Yes. And that is the main thing of the whole matter. You went round twenty seven islands, and the questions stayed the same."
+
+Now let us say the order of building, because the question of where to begin is the hardest of all.
+
+Write the shape first, and write its tests. In the second stage write a store that keeps everything in memory, and run the search over that.
+
+Only in the third stage join the real database. In the fourth raise the server. In the fifth make the screen.
+
+There is one reason for this order — at the end of every stage you must have something that runs.
+
+Here is how to check that a stage is really finished, without asking anybody. Try to show it to somebody in one sentence, and see whether that sentence has a "not yet" in it. If you can say "you can write a note and find it again" with nothing added, the stage is done. If the sentence needs three conditions before it is true, you are in the middle of the next stage already and the last one was never closed.
+
+@recall tin-prashna
+
+The harbour is quiet. The shadow of a lamp is moving on the water.
+
+@read hush
+There is one thing these three questions were never able to answer. They tell you how a thing behaves and never whether it was worth building. Every island tonight was about making a program right, and only you can say what it is for, and that question does not have an answer in Java.
+
+@recall tin-prashna
+
+@tier medium
+
+Now I will say something that is written in no book.
+
+You will never finish this program. And that is right.
+
+A true program never ends. It only begins to be useful, and then becomes a little more useful, and then becomes your habit.
+
+So do not look for every convenience on the first day. A program in which one note can be written and can be found is of use in the first week.
+
+And let me give a piece of advice that joins on to your profession. Put three things in the note of every experiment.
+
+First — what had I asked? Second — what did I do? Third — what did I see?
+
+The third thing is the most important, and that is the one most often left out. Without the result the experiment is lost.
+
+And when writing a note remember your future self. The you of six months from now does not know today's setting.
+
+So do not write briefly. Write whole sentences, and write the why as well.
+
+@tier long
+
+The night grew deep. One by one the members of the crew went to sleep.
+
+Zoro had fallen asleep already. Sanji put out the kitchen light. Usopp closed the tool box. Franky went down towards the engine room. Robin marked the page of her book and closed it.
+
+Nami stood last. She looked at the log pose once, and put it on the table.
+
+[aside]"The needle does not move now,"[/] she said. [aside]"The road is known."[/]
+
+Now I will tell you the last thing.
+
+Tonight you heard a great deal. All of it does not have to be remembered, and it should not be remembered either.
+
+Your mind sorts through it all night by itself. It knows which to keep and which to throw away. Your work was only to listen, and that is done.
+
+Tomorrow, when you sit down to write code, some word comes back by itself. The question [aside]"where does this live?"[/] comes by itself. That much is enough.
+
+@read hush
+And if you fell asleep on some island tonight, that is right too. The ship stops there, and tomorrow it begins from there.
+
+Now take a long breath. One... two... three. And let it out slowly.
+
+Let your shoulders melt into the bed. Let your arms grow heavy. Let your forehead go loose.
+
+@read hush
+The water in the harbour keeps the same beat. The ship's timber is talking quietly. The stars are in the same places.
+
+The voyage is over, but the road is not over. The needle of the log pose is still showing your own direction.
+
+@read hush
+Good night. Sleep sweetly.

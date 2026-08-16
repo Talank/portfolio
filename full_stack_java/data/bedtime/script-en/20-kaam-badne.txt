@@ -1,0 +1,88 @@
+# 20 — Sharing the work: executors, futures and virtual threads
+
+Last night we came to know the danger of threads. Today we look at the road that lessens that danger.
+
+On the deck Franky brought in a new rule. Before, everybody looked for their own work, and a crowd formed.
+
+Now a box has been put in the middle. Whoever has work writes a slip and puts it in the box. A person who is free draws a slip, and does the work.
+
+[aside]"Now nobody has to look for anybody,"[/] said Franky.
+
+This is the idea of the executor.
+
+Making a thread is expensive. Every thread eats memory, and it takes the machine time to change between them as well.
+
+So making and throwing away threads over and over is wrong. Make a few threads at the start instead, and go on sharing the work out to them.
+
+That group is called a thread pool. The executor runs that pool.
+
+Now listen to today's rule.
+
+@algo kaam-ra-thread
+When doing work alongside remember three things. First — do not make threads yourself, and send the work to an executor, because your care is that the work be finished, and not who did it. Second — the size of the pool is settled by the nature of the work, and for work of reckoning keep as many as there are processors, but for work of waiting keep more than that. Third — the answer to the work you sent comes in a future, and do not open the future at once, because opening is waiting, and waiting is right only after all the work has been sent.
+@end
+
+Luffy asked, [luffy]"What is a future?"[/]
+
+Franky said, "A future is a receipt. You give the work, and get a receipt in return. When the work is done you show that receipt and take the answer."
+
+The old future was a little rough. Only waiting was allowed with it.
+
+The new CompletableFuture is much sweeter. With it you can say — [aside]"when this is done do this, and when that is done do that"[/].
+
+And two pieces of work can be run together and both their answers joined as well. This is called an asynchronous pipeline.
+
+Here is how to check that you are getting any benefit at all, without measuring. Follow your own lines in order and find where the first future is opened. If it is opened before the last piece of work has been sent, everything after it was sent by a thread that was already standing still, and the work is running one at a time under a name that says otherwise.
+
+@recall kaam-ra-thread
+
+The slips in the box are growing fewer. There is no crowd on the deck.
+
+@read hush
+There is one thing sharing the work will not do. It hands out the pieces and never notices that one of them is holding something the others need — the pool goes on filling with work that is all waiting on the same thing. Nothing looks broken from outside, and nothing gets finished either.
+
+@recall kaam-ra-thread
+
+@tier medium
+
+Now let us talk about Java's newest and largest change. Its name is the virtual thread, and it came from Project Loom.
+
+The old thread is the machine's thread. It is expensive, and more than a few thousand cannot be kept on one server.
+
+The virtual thread is the JVM's own thread. It is so cheap that ten lakh can be made.
+
+This settles an old trouble. On a server most of the work goes in waiting — wait for the database, wait for the network, wait for the file.
+
+When an old thread waited, the machine's thread was tied up, and that was wasted. When a virtual thread waits it steps aside, and gives the machine's thread to another.
+
+The best thing about it is that your code does not have to change. Write straight code, and wait. The work inside is done by the JVM.
+
+This is why these days it is said — you do not have to write asynchronously, and using virtual threads is enough. Straight code is easier to read as well, and its stack trace is readable too.
+
+@tier long
+
+At night the box emptied. Franky sat beside it.
+
+[aside]"I feel like telling you something,"[/] he said. [aside]"The root of all this is in one idea."[/]
+
+"That idea is this — the person should say the work, and the machine should share it out. If the person begins sharing it out, mistakes happen."
+
+We have met this many times tonight already. It was the same in streams — say what to do, do not say how to do it.
+
+Let me give a practical piece of advice. Use a ConcurrentHashMap.
+
+An ordinary HashMap is not safe on many threads. If two threads make it resize at once the linked list inside can be spoiled.
+
+The ConcurrentHashMap uses small locks inside. When many threads touch different buckets at once nobody has to wait.
+
+@read hush
+And for an ordinary count there is the AtomicInteger. Its work of adding one is a single undividable step, and there the lost addition of the night before does not happen.
+
+Now I will give one last piece of advice. Before doing work alongside always ask whether it is really needed or not.
+
+Many programs are quick enough on one thread. After adding parallelism the speed may rise or may not, but the difficulty of finding mistakes certainly rises.
+
+The box is empty. The slips are finished. Nobody is on the deck.
+
+@read hush
+You have no work to wait for now. Sleep.

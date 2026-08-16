@@ -1,0 +1,84 @@
+# 11 — The tool box: javap, JFR, profiling and reflection
+
+In Usopp's workshop tools hang on the wall. Every one has its own place, and every one has its own work.
+
+[aside]"People take tools for decoration,"[/] he said. [aside]"But a tool is an eye. What is not seen cannot be built."[/]
+
+Today we get to know four tools. All four come along with Java itself, and nothing has to be bought for them.
+
+The first tool is javap. It opens your dot class file and shows the bytecode inside.
+
+When is this useful? When you do not know what Java really made of your line. What is made inside when Strings are joined, or what happens in a loop — these things are seen there.
+
+The second tool is JFR, and its full name is Java Flight Recorder. It notes down the happenings of a running program.
+
+This is like the black box of an aeroplane. If something goes wrong in the program, the record can be opened and looked at afterwards.
+
+The third tool is the profiler. It says where the time is being spent.
+
+The fourth tool is the heap dump. It says who is eating the memory.
+
+Now today's rule comes, and this is the most expensive lesson of all.
+
+@algo napne-niyam
+There are three steps in the work of improving speed, and reversing the order is the greatest mistake. First step — measure first, and never guess, because a person's guess about where a program is slow is nearly always wrong. Second step — having measured, pick only the one largest part, and improve that one, because putting all the rest right together does not give as much good. Third step — measure again after improving, and check whether it really improved or not, because many things called improvements have in fact made no difference at all.
+@end
+
+Sanji was standing in the doorway listening. [sanji]"It is the same in the kitchen,"[/] he said. [sanji]"Whether the soup is salty enough is known by tasting, not by reckoning."[/]
+
+Now let us get to know a new word, and its name is the flame graph.
+
+A profiler gives many numbers, and those are hard to read. The flame graph makes a picture of them.
+
+In the picture the main method is at the bottom, and above it are the methods it called. Whichever method ate the most time has the widest band. Look for the widest band, and that is your trouble.
+
+Here is how to check that an improvement was really an improvement, without trusting anyone's word. Write down the measured number before you touch anything, and put that number where you can see it. If after the change the new number is not plainly outside the wobble between two runs of the old one, nothing has been improved, and what has happened is that the code got harder to read for nothing.
+
+@recall napne-niyam
+
+The tools are in the same places on the wall. The lamp is steady.
+
+@read hush
+There is one thing measuring will not tell you. It shows where the time went on the machine you measured on, with the load you happened to have. Move to a machine with more cores, or a day with ten times the traffic, and the widest band can be somewhere else entirely.
+
+@recall napne-niyam
+
+@tier medium
+
+Now let us talk about reflection, and this is a slightly strange subject.
+
+Ordinarily it is known while you are writing your code which class is going to be used. But reflection lets a class be known while the program is running.
+
+You can ask — what is the name of this object's class? Which methods are in it? What is the value of this field of it?
+
+And you can also call a method of which you know only the name.
+
+Why was this needed? Because the large libraries use exactly this. Spring looks for your classes, and makes them itself. Jackson reads the fields of your object and makes JSON.
+
+They do not know the name of your class beforehand. They look at the annotations, and reflection does the rest of the work.
+
+But in your own ordinary code reflection should never be the first choice. It is slow, and the compiler can make no check on it. The mistake shows up not while compiling, but only once it is running.
+
+@tier long
+
+At night Usopp closed the tool box, and put a hand on top of it.
+
+[aside]"I feel like telling a story,"[/] he said.
+
+"In one village there was a woodcutter. He cut trees all day, but every day his work grew less. He began cutting harder still, and grew more tired still."
+
+"One day an old man asked — when did you sharpen your axe? He said — I have no time for that."
+
+The same thing happens in code. People try for months to improve speed on the strength of guesses. Had they run a profiler for one hour, the trouble would have been found on the first day.
+
+Now let me answer a question that many people ask. Is it all right to run a profiler in production?
+
+JFR is all right. Its cost is under one percent, and it was built for exactly that. Large companies keep it open all the time.
+
+And when one day the program goes wrong at three in the morning, that record is the only proof there is. Without it all you have left is guessing.
+
+The last thing is this. Learning to use tools is as large a skill as learning to write code. And a tool gives you the habit of not believing in what you have not seen.
+
+Now the box is closed. The workshop is quiet. Tomorrow we will look at the shape of the mould.
+
+You have nothing to measure today. Just breathe, and rest.

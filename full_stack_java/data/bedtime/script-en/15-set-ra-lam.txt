@@ -1,0 +1,94 @@
+# 15 — Sets, lines and priority: Set, Queue and Deque
+
+In the morning at the time of handing out food a line forms on the deck. Whoever comes first gets first.
+
+@read teach
+"This is the queue," said Sanji. "Join the line at the back, and leave from the front."
+
+Beside it is another rule. Sanji has kept a paper for noting names, and no name is written there twice.
+
+@read teach
+"And this is the set," he said. "No duplicate thing sits here."
+
+Now let us get to know three shapes at once.
+
+A set is a collection with no duplicates. It answers the question of whether some thing is there or not at once.
+
+A queue is a line. Things are added at the back, and taken from the front.
+
+A deque is a line with both ends open. Adding at the front is allowed, and adding at the back is allowed.
+
+And there is a fourth as well, and that is the priority queue. Here the order of the line is settled not by the time of coming, but by importance.
+
+A hospital's emergency room is like this. Not whoever came first, but whoever is most serious goes first.
+
+Now listen to today's rule.
+
+@algo teen-bhanda
+There are four vessels, and which to use is settled by your question. If your question is "was this thing met before or not" use a set, and no duplicate ever sits there. If your question is "let the first to come go first" use a queue, and in Java an ArrayDeque is the best thing for that. If you have to add and take away at both ends use a deque, and that does the work of a stack as well. If your question is "which is the smallest or the largest right now" use a priority queue.
+@end
+
+Luffy asked, [luffy]"How does the set know that this name has come before?"[/]
+
+Sanji said, [sanji]"Because inside it there is a map. A set is a map with no values."[/]
+
+This is true. Inside a HashSet there is a HashMap, and there every key is there and the value is empty.
+
+This is why all the rules of the island before apply here as well. Write equals and hash code together, and keep the members immutable.
+
+Here is how to check that you picked the right vessel, without writing any code. Say your question in one sentence, and listen for its first word. "Have I seen" wants a set. "Who is next" wants a queue. "Which is worst" wants a priority queue. If the sentence begins "what is at position", you did not want any of these, and you wanted a list.
+
+@recall teen-bhanda
+
+The line on the deck grew short. The pots are being washed.
+
+@read hush
+There is one thing choosing the right vessel will not spare you. Each of them answers its own question quickly and refuses the others outright — a set can tell you a name was seen and never when, a queue can give you the next one and never look at the tenth. The speed is bought by giving something up, and it is worth knowing what you gave.
+
+@recall teen-bhanda
+
+@tier medium
+
+Now I will say an old piece of advice, which has changed these days.
+
+Old books say to use the class called Stack for a stack. But that class is very old, and it puts a lock on at every step.
+
+These days an ArrayDeque is used for a stack too. Put in from the top, and take out from the top.
+
+The same thing serves for a queue as well. This is why the ArrayDeque is among the most useful collections in Java.
+
+Now let us get to know the set's brothers. A HashSet has no order. A LinkedHashSet keeps the order things were put in. A TreeSet keeps them in order from small to large.
+
+And let me say a small and sweet use. If you have a list, and duplicates have to be taken out of it, put it into a HashSet, and bring it back into a list.
+
+But be careful. Doing this the order is lost. If the order has to be saved as well use a LinkedHashSet, and that does both pieces of work.
+
+@tier long
+
+@read hush
+At night Sanji made the kitchen light dim, and sat on the stool.
+
+[aside]"I feel like telling you something,"[/] he said. [aside]"In a kitchen every pot has one piece of work."[/]
+
+"The pan is large, but tea is not made in it. The kettle is small, but rice is not cooked in it. Knowing how to choose a pot is half of cooking."
+
+The same holds in collections. A list can do every piece of work, but a list should not do every piece of work.
+
+Let me give an example. Suppose you have ten thousand names, and you have to check for every new name whether it came before.
+
+If you use a list, the whole list has to be read for every check. For ten thousand names that is five crore comparisons.
+
+If you use a set, every check ends in one step. For ten thousand checks only ten thousand steps are taken.
+
+The difference in the code is one word. The difference in the time is thousands of times over.
+
+Now listen to one use of the priority queue, which will be of service in your log pose.
+
+When searching, hundreds of notes may agree. But you want only the ten that agree best.
+
+Putting them all in order is expensive. Keep instead a priority queue of ten, and when something better is found throw away the weakest of them.
+
+@read hush
+Now the kitchen light went out. The line has quite gone.
+
+You do not have to stand in any line now. Sleep, and tomorrow we will talk about short orders.

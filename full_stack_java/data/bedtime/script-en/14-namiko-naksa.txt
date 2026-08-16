@@ -1,0 +1,81 @@
+# 14 — Nami's map: the story inside HashMap
+
+There is a large table in Nami's cabin. On it are hundreds of small cards.
+
+On every card is a name, and under it the particulars of that place. When Nami wants some place she does not read all the cards.
+
+[aside]"I know which pile the card of which name is in,"[/] she said. [aside]"I put my hand straight into that pile."[/]
+
+This is the idea of the map. Its work is to take you straight from a name to a thing.
+
+There are two things in a map. One is the key, the other is the value. The key finds the value.
+
+Now let us hear the story inside, because this is the interview's dearest question.
+
+@algo char-kadam-map
+A hash map does its work in four steps. First step — the hash code of the key is counted, and that is a number. Second step — that number is divided by the count of buckets and the remainder is taken, and that is the number of the bucket. Third step — going inside that bucket, equals is asked of every entry there, and once the agreeing entry is found its value is handed back. Fourth step — if the buckets fill up too much the map makes the count of buckets double, and shares all the entries out again, and that is called a resize.
+@end
+
+Luffy asked, [luffy]"What if many cards fall in one bucket?"[/]
+
+Nami said, [nami]"Then that bucket grows long, and the looking is slow. If it grows very long indeed Java turns it into a tree."[/]
+
+Now let us talk about the load factor. This is a small number, and in Java it is seventy five percent.
+
+Its meaning is this. Once the buckets are seventy five percent full the map makes itself larger.
+
+Why does it not wait to be quite full? Because as it fills the collisions grow, and the looking slows. Let a little room be wasted, but let the speed not spoil — this is the bargain.
+
+Here is how to check that a key is fit to be a key, before you ever put anything in. Ask whether the thing could change while it is inside the map. If nothing about it can change, it is a good key. If some field of it can be set later, the map will lose it, and it will lose it silently on the day somebody sets that field.
+
+@recall char-kadam-map
+
+The cards are in the same piles on the table. Moonlight is coming through the window.
+
+@read hush
+There is one thing these four steps cannot promise. They are quick when the hash codes spread out, and every one of them still runs when the hash codes all come out alike — the map goes on giving right answers while slowing to the speed of reading a list. It never breaks, and it never complains either.
+
+@recall char-kadam-map
+
+@tier medium
+
+Now let us get to know the map's three brothers, because each of the three has its own work.
+
+The first is the HashMap. There is no order in this. Things do not come out in the order you put them in.
+
+The second is the LinkedHashMap. It remembers the order they were put in. Inside there is a linked list as well, and that keeps the order.
+
+There is a sweet use for this. If you keep that linked list in the order things were last touched, the oldest thing is always at the front.
+
+And when the room fills you take away the one at the front. This is the LRU cache, and it is made in a few lines of LinkedHashMap.
+
+The third is the TreeMap. It keeps the keys in order. If order by name is wanted, or order by date is wanted, this is of use.
+
+Its looking is a little slower than the HashMap's. But it can answer the question [aside]"everything from this date to that date"[/], and the HashMap cannot.
+
+@tier long
+
+At night Nami gathered the cards up, and put them in a box.
+
+[aside]"Ask me one thing,"[/] she said. [aside]"What is the true power of a map?"[/]
+
+The answer is this. A map frees the looking from the count.
+
+If there are ten lakh things in a list, looking means looking ten lakh times. If there are ten lakh things in a map, looking once is enough.
+
+This difference is not a small one. This is why in nearly every real program there is a map somewhere.
+
+Now let us talk about your log pose. Where does a map sit there?
+
+There is one place where, for every tag, a list of the notes carrying that tag is kept. The name of the tag is the key, and the list is the value.
+
+@read teach
+There is another place where, for every word, a list of the notes containing that word is kept. This is called an inverted index, and on the twenty sixth island we will make that the foundation of the search.
+
+There is one last piece of advice. Always keep an immutable thing as the key of a map, and remember the pair from the eighth island.
+
+Write equals and hash code together. String, Integer and record do this by themselves, and that is why they are the safest keys of all.
+
+Now the box of cards is closed. The moon has gone into the clouds.
+
+You have no name to look for now. All the cards are in their own places.

@@ -1,0 +1,81 @@
+# 6 — The promise: interfaces and default methods
+
+There is a paper on the cabin table. Only two lines are written on it.
+
+On the first line is written — [aside]"Whoever signs this paper must be able to sail the ship."[/]
+
+On the second line is written — [aside]"How he sails it is his own affair."[/]
+
+@read teach
+"This is the interface," said Robin. "This is not a class. This is a promise."
+
+An interface has only the names of methods, and no work inside. Whoever takes that interface has to write those methods themselves.
+
+Now let us look at what this is good for. Suppose your log pose has to keep its notes somewhere.
+
+At first you keep them in a file. Later you keep them in a database. Later still you send them to a server.
+
+If the rest of your code knows the file directly, everything has to be changed three times. But if the rest of your code knows only one promise called Store, nothing has to be changed.
+
+A class that keeps things in a file fulfils that promise. Another that keeps them in a database fulfils it too. Nobody outside ever knows the difference.
+
+This is today's rule.
+
+@algo wacha
+The way to use an interface fits into three sentences. First — write the promise under the name of the work to be done, and write in it only what is to be done, and never write how it is to be done. Second — let all the rest of the code lean on that promise, and let it nowhere know the name of the class that does the making. Third — decide which making class to use in one place, and keep that place at the start of the program. Doing it this way, if the way things work inside has to change, changing one file is enough, and the remaining hundreds of files stay exactly as they are.
+@end
+
+Usopp came in. [usopp:sad]"I worked for many years without doing this,"[/] he said. [usopp:sad]"Later I found that I had been pulling down the same room and building it again every time."[/]
+
+Now let us add something new. In the past only names were allowed in an interface.
+
+But later Java brought the default method. Now a plain piece of work can be written into an interface and left there, and whoever wants to can change it.
+
+Why was this needed? Because adding a new method to an old interface used to break every class in the world. The default method took that trouble away.
+
+Here is how to check that the promise is really doing its work, without changing anything. Search your code for the name of the making class. If it turns up only in the one place that decides, the promise is holding. If it turns up in twenty files, those twenty files are all leaning on the file and not on the promise, and the swap you were planning will cost twenty edits.
+
+@recall wacha
+
+@read hush
+The paper is in the same place on the table. The lamp has grown a little dimmer.
+
+There is one thing a promise cannot make anyone keep. It fixes the name and the shape of the work, and never how long that work takes, nor what it does when it fails. The store that answers from memory and the store that goes across the sea to a server sign exactly the same paper, and the code above them was written as though they were alike.
+
+@recall wacha
+
+@tier medium
+
+Now let us say the difference between an interface and an abstract class briefly, because this question is asked over and over in interviews.
+
+An abstract class can hold state, that is, it can have fields in it. An interface has no ordinary fields, and everything in it is a constant.
+
+A class can take only one abstract class. But it can take as many interfaces as it likes.
+
+So the easy rule is this. If shared state and shared work are to be handed out, use an abstract class. If a bare ability is to be stated, use an interface.
+
+There are good examples of this in Java's own library. The interface called Comparable says — [aside]"I can compare myself with another"[/]. The one called Iterable says — [aside]"I can be gone through one at a time"[/].
+
+Once these two promises are made, your class fits into Java's own loops and sorting. This is the true power of a promise — your thing fits into other people's world.
+
+@tier long
+
+Robin closed the book, and looked out of the window.
+
+[aside]"One thing always pleases me,"[/] she said. [aside]"On a ship everybody does different work. But everybody has agreed to one promise — not to let the ship sink."[/]
+
+"Somebody pulls the sail, somebody bails the water, somebody cooks. Nobody asks anybody else about their method. Once the promise is the same, the methods may differ."
+
+The same thing happens in large programs too. When a team of ten writes one program, they cannot all read each other's inner code. They read only the promise.
+
+So naming a promise well is a large piece of work. The name has to say what it does, and has to hide how it does it.
+
+[aside]"Note Store"[/] is a good name. [aside]"Write JSON To File"[/] is a bad name, because it has brought the inner method into the name itself.
+
+There is one last thing left. When you write tests, the worth of a promise is felt most of all.
+
+If you have to test without running a real database, you make a pretend class that fulfils that same promise. It keeps everything in memory, and answers at once. The tests run fast, and no server is needed anywhere.
+
+We will do that very thing again on the twenty second island. By that time today's promise will be useful.
+
+Now let the lamp go out. Let the paper stay on the table. We will talk about tomorrow's storm tomorrow.

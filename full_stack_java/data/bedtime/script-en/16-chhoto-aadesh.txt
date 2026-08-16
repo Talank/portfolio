@@ -1,0 +1,89 @@
+# 16 — The short order: lambdas and functional interfaces
+
+Zoro and Sanji are standing on the deck. Zoro gave Sanji a small slip.
+
+[sanji]"There is one line on this,"[/] said Sanji. [sanji:firm]"Do this much, and it is done."[/]
+
+In the past a long paper had to be written to give an order on the ship. On the paper was a heading, a name, a date, and then one sentence at the bottom.
+
+Now only that sentence is written. All the rest was taken away.
+
+This is the story of the lambda.
+
+In the past in Java, if some small piece of work had to be sent, a whole class had to be written. Inside it was one method, and inside that was one line.
+
+The frame was five lines, and the work inside was one line. People grew tired of this.
+
+So in Java eight the lambda came. Now you write that one line, and Java understands the rest.
+
+Now let us understand its foundation, and today's rule is right there.
+
+@algo ek-method
+A lambda is not magic, and its rule is simple. If some interface has exactly one method to be filled in, a lambda may be written in its place, and such an interface is called a functional interface. On the left of the lambda is what that method takes, and on the right is the work it does. What this means is that in Java a piece of work is a value too, and just as a value can be put in a variable, given to a method and handed back from a method, so can a piece of work. This one idea opens half the conveniences of streams, threads and Spring.
+@end
+
+Luffy asked, [luffy]"What is the good of it?"[/]
+
+Zoro said, [zoro]"The good is that now I do not have to say who is to do what. I only say what is to be done, and somebody else settles who does it."[/]
+
+Java has given some ready made functional interfaces, and their names are useful.
+
+A Function takes one thing, and hands back another. A Predicate takes one thing, and says true or false. A Consumer takes one thing, and hands back nothing. A Supplier takes nothing, and gives one thing.
+
+If you remember these four names, half of Java's new library is easy to read.
+
+Here is how to check whether a lambda belongs where you are about to write one. Look at what it is being handed to and count the methods that must be filled. If there is exactly one, the short form is allowed and the reader will still know what it does. If you cannot find that one method by name, you do not yet know what you are promising, and the long form will teach you faster.
+
+@recall ek-method
+
+The wind on the deck is soft. The slip is still in Zoro's hand.
+
+@read hush
+There is one thing this shortness will cost you. A name is the only place a reader learns why a piece of work exists, and a lambda has no name. Written small it reads like a sentence, and written long it becomes a stranger sitting in the middle of somebody else's line.
+
+@recall ek-method
+
+@tier medium
+
+Now let us talk about the method reference, and this is a way of writing shorter still.
+
+Sometimes inside a lambda you do nothing but call another method. At a time like that the name of that method may be written outright.
+
+Read out, this is like a sentence. The thing [aside]"take the title of every note"[/] appears in that very form.
+
+Now let me say a limit. A variable from outside may be touched from inside a lambda, but that variable must not change.
+
+Java calls this effectively final. Once a value is put in do not change it again, and after that it may be used inside a lambda.
+
+Let us see why this rule was made. A lambda can run later, on another thread, at another time. At that time what the outside variable was must be dependable.
+
+And there is a piece of advice. Keep lambdas short.
+
+If it grows longer than three lines, make it a method with a name, and write a method reference here. The name tells the person reading, and the code does not.
+
+@tier long
+
+At night Zoro sat alone on the deck.
+
+[aside]"I did not like this thing at first,"[/] he said. [aside]"I thought it was a short cut for lazy people."[/]
+
+[aside]"Later I found that it is not a short cut. It is a different way of thinking."[/]
+
+This thing is true. In old Java you always said — take this thing, do this to it, put it there.
+
+In new Java you say — do this work to all of these. How to go round, where to begin, where to stop, is settled by the library.
+
+@read teach
+This is called the declarative way. You say what you want, and you do not say how it is to be done.
+
+Its great advantage is seen on tomorrow's island. Because once how to go round is in the library's hand, it may if it likes share that work among many threads, and your code does not change by a single letter.
+
+Now listen to a little history. The idea of the lambda is much older than Java.
+
+It came from mathematics nearly a hundred years old, and there it was called the lambda calculus. There were no numbers there either, and everything was only work.
+
+Java did not take that idea at first. It took it twenty years later, and now it is Java's most used convenience of all.
+
+Now let the words grow quiet. There is one line on the slip, and that line is small.
+
+Tomorrow we will flow down the stream. This much is enough for today.

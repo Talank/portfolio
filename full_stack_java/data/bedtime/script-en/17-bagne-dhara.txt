@@ -1,0 +1,86 @@
+# 17 — The flowing current: Stream, Collector and Optional
+
+There is a current in the sea. The water looks the same, but inside it a road is running.
+
+Nami drew that current on the map. [nami]"Once the ship gets into the current it flows by itself,"[/] she said. [nami:gentle]"We do not have to steer."[/]
+
+There is a current like that in code too, and its name is the stream.
+
+The old way was this. Make an empty list. Go round. Check the condition. Add the ones that agree.
+
+The new way is this. Make the list a current. Filter. Change. Gather.
+
+The count of lines falls, but that is not the main thing. The main thing is that now the code says what to do, and does not say how to do it.
+
+Now let us understand how a stream is put together, and this is today's rule.
+
+@algo tin-charan
+Every stream has three stages, and until these three are told apart a stream seems bewildering. The first stage is the source, and that may be some list, some set, some file or some range of numbers. The second stage is the middle work, such as filtering, changing and putting in order, and all of these are lazy, that is, they do not run merely by being written. The third stage is the final work, such as gathering, counting or doing something to each one, and only once this stage comes does the whole current flow once. This is why a stream may be used only once, and trying to use a current that has already flowed brings an exception.
+@end
+
+Luffy asked, [luffy]"What does lazy mean?"[/]
+
+Nami said, [nami]"Lazy means putting work off. But here that is wisdom."[/]
+
+Why is it wisdom? Because if only the first five out of ten lakh notes are wanted, the stream stops once it has found five.
+
+In the old way all ten lakh were looked at, and then the first five were taken. In the new way the rest are never touched.
+
+Now let us talk about the collector. Once the current has flowed the water has to be gathered somewhere.
+
+It can be gathered into a list. It can be gathered into a set. It can be gathered into a map as well.
+
+The sweetest collector is the one that makes groups. You say — share these notes out by tag. In one line a map is made, and in every key of it there is a list.
+
+Here is how to check that a stream will actually do anything, without running it. Read it to the end and look at the last thing on the line. If the last thing only filters or changes, nothing happens at all, and the whole current is sitting there written and unused. Only a gathering, a counting or a doing at the end makes the water move.
+
+@recall tin-charan
+
+The current is flowing the same way. The ship is sitting in it.
+
+@read hush
+There is one thing this laziness will hide from you. Between the writing and the flowing nothing has been checked, so a mistake in the middle of the current waits quietly until the last line calls for it. The line the trouble is reported on and the line the trouble was written on are not the same line.
+
+@recall tin-charan
+
+@tier medium
+
+Now let us talk about Optional, and this is a small but deep improvement in Java.
+
+In old Java, when some thing was not found, null was handed back. And whoever called had to check.
+
+But that a check was needed was written nowhere. People forgot, and programs went wrong.
+
+An Englishman called that mistake [aside]"the billion dollar mistake"[/], because it has cost that much all over the world.
+
+Optional is a small box. There may be a thing inside, and there may not. The box is handed back, and before opening it one must ask.
+
+This writes the matter into the code itself. Looking at a method's answer is enough to know that emptiness can come here.
+
+But keep one rule. Use Optional only in the answer of a method.
+
+Do not use it in a field of a class or in the input of a method. It gives no good there, and only makes the code longer.
+
+@tier long
+
+At night Nami drew the line of the current on the map again.
+
+[aside]"There is one thing about streams I like best of all,"[/] she said. [aside]"It makes code readable like a sentence."[/]
+
+It really is so. [aside]"Take all the notes, filter only this year's, draw out their titles, and make a list"[/] — this is a sentence of English as well, and it is also code.
+
+But there is a warning, and it is important. Do not change anything outside from inside a stream.
+
+The work inside a current can run in any order, on any thread. If you begin adding to a list outside from in there, one day a wrong answer comes.
+
+Always give the gathering work to a collector. It was made for exactly that, and it does right work even on many threads.
+
+Now let us say the matter of the parallel stream. By adding one word you can share the current out among many threads.
+
+Hearing this it sounds very attractive. But in practice it is usually slower, because the cost of sharing the work out and joining it again is large in itself.
+
+Use it only when the count of things is very large indeed, and the work on each thing is truly heavy as well. And measure after using it, and remember the rule of the eleventh island.
+
+For now keep only the picture of the current, and its three parts are the source, the middle work, and the gathering at the end.
+
+The water is flowing. The ship is going by itself. You do not have to steer.

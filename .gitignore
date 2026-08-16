@@ -5,12 +5,19 @@
 # at full quality on disk so rebuilds don't re-stitch from lossy input.
 # Globbed rather than listed per course: the per-course list silently missed
 # every parts-en/ when the English editions arrived, and 483 MB of clip cache
-# — 38% of the whole deployed site — rode along to Pages before anyone noticed.
+# — more than half again the size of the deployed site — sat staged and one
+# commit away from being in this history permanently.
 */data/bedtime/parts/
 */data/bedtime/parts-en/
 
 # The ~400MB PCM intermediate build_bedtime.py mixes from and then deletes.
 _narration.wav
+
+# Superseded single-file renders. build_bedtime.py's prior_single_file() carries
+# a monolith forward into the next manifest only while it sits beside the
+# script, so retiring one means moving it here rather than deleting it: the
+# recording survives on disk, the player stops being told it exists.
+*/data/bedtime/retired/
 
 # Render logs. Useful while a build is in flight, nothing but weight on Pages.
 # The ones committed before this line existed have now been untracked too.
