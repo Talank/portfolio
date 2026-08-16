@@ -21,7 +21,7 @@ Now a deeper question arrives, which confuses a lot of people. We know there is 
 The answer to it is strange, and it sounds like magic. It is right there in the last part of the rule. There is mathematics behind why it works, and tonight you do not have to do that arithmetic. Just remember this much — after the meeting, send one of them home, and then walk together.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of the tortoise and the hare.
+The reason this works is a small one. Inside a loop the hare comes one pace closer to the tortoise on every step, so the distance falls one at a time until it reaches zero. The distance can never jump over, and that is the proof that they must meet.
 
 @recall kachhuwa
 
@@ -33,7 +33,7 @@ That sounds strange when you hear it, but that is all it is. Being able to see a
 Chopper is tired. He lay down slowly in the grass. The secret of the circular road is out, and now it is possible to sleep.
 
 @read hush
-One last time before you sleep, very slowly, listen to the rule of the tortoise and the hare.
+Do not forget one thing when you write this. Before moving the hare two steps, check that both the hare and the one after it exist, or the code breaks at the end of a straight path. That single check covers every small case from an empty list to a single node.
 
 @recall kachhuwa
 

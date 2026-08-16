@@ -1,0 +1,84 @@
+# 7 — The measure of surprise: entropy and cross-entropy
+
+The sky cleared again. There are a great many stars. The ship is drifting almost without moving.
+
+Robin lay down on the deck. She said — [robin]"I think information is a thing that can be measured."[/]
+
+Luffy asked, [luffy]"How is information measured?"[/]
+
+Robin's answer was a small one. [robin]"It is measured by surprise."[/]
+
+@read teach
+This is today's foundation. The more some piece of news astonishes you, the more information there is in it.
+
+Think about it. There is nothing in the news that no rain fell in the desert today, because that was known already. There is a great deal in the news that rain fell in the desert today.
+
+There is a rule for measuring this exactly. The smaller the probability of an event, the larger its surprise. In the arithmetic, the log of one over the probability is taken.
+
+Now weigh the surprise of every possible event by its own probability and add them up. What comes out is the average surprise, and that is called the entropy.
+
+@read teach
+Entropy measures uncertainty. If a coin is perfectly even the entropy is at its largest, because what will come up cannot be guessed at all. If a coin always comes up heads the entropy is zero, because there is no surprise there.
+
+Now a comparison between two beliefs is needed, and this is where a model's loss comes from.
+
+Suppose the true thing is one thing, and the model has guessed another. The measure of how much it costs to tell the true thing using the model's guess is called cross-entropy.
+
+If the model's guess agrees with the truth this cost is small. If it does not, the cost is large. So the work of bringing this down is training.
+
+@read teach
+There is one more measure, and it is the difference between two guesses. The measure of how much extra it costs to use the second in place of the first is called the KL divergence.
+
+KL is always zero or larger. It is zero only when both guesses are exactly the same.
+
+At the end one word is left, and it is asked again and again in examinations. The exponential of cross-entropy is called perplexity.
+
+The meaning of perplexity is easy. It says how many choices the model is wavering between at each step. If the perplexity is ten it is as though the model were choosing between ten equal choices. A small perplexity is good.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo achamma-nap
+Information is measured like this. The first thing is that the information in some piece of news is measured by its surprise, and the smaller the probability the larger the surprise. The second thing is that weighing the surprise of every possibility by its own probability and adding them gives the average surprise, and that is called entropy. The third thing is that the cost of telling the true thing using the model's guess is called cross-entropy, and bringing that down is training. The fourth thing is that the exponential of cross-entropy is called perplexity, and it says how many choices the model is wavering between at each step.
+@end
+
+That is all of it. All these measures are different shapes of one idea.
+
+Here is how to check that a perplexity is sane. It can never be smaller than one, and it can never be larger than the count of things the model is choosing between. A perplexity below one means the arithmetic is wrong, and a perplexity equal to the whole count means the model has learned nothing at all.
+
+@recall achamma-nap
+
+The stars are where they were. The water is calm.
+
+@read hush
+There is one thing this measure will not tell you. Cross-entropy punishes a confident wrong answer far more harshly than an unsure one, which is what you want — but it says nothing about which mistakes matter. To the loss, every wrong word is simply a wrong word.
+
+@recall achamma-nap
+
+@tier medium
+
+The night is long. Robin told another thing, and it was about why the log came in.
+
+The log turns multiplying into adding. The probability of two independent events happening together is a product, and their information ought to be a sum.
+
+That one condition alone makes the log unavoidable. No other measure gives this property.
+
+What base to use for the log is a matter of taste. With two, the measure comes out in bits. With the natural base, it comes out in nats.
+
+In practice the natural base is what runs in the code. But when talking, people mostly say it in bits.
+
+@tier long
+
+Franky asked from below, [franky]"Where does this get used?"[/]
+
+The first use is compression. Whichever letter comes often is given a short signal, and a rare letter a long one.
+
+This same idea comes back in the third part. The way tokens are made stands on this same principle.
+
+The second use is testing a model. How good a language model is is mostly said by its perplexity.
+
+The third use is choosing a road. When a decision tree chooses which question to ask, it chooses the question that reduces the uncertainty the most.
+
+That measure of reduced uncertainty is called information gain. On the twelfth island we will climb that same tree.
+
+@read hush
+Now sleep. The sky is clear, and there is no surprise today.

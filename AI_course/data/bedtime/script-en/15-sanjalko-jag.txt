@@ -1,0 +1,93 @@
+# 15 — The foundation of the network: from the perceptron to the MLP
+
+The lamp is burning in Franky's workshop. There are wires, buttons and a small bell on the table.
+
+Franky said, [franky]"Today I am going to build a small machine, and it will decide for itself."[/]
+
+Luffy asked, [luffy]"How does a machine decide?"[/]
+
+@read teach
+The answer begins from the ninth island, because that is where we learned the straight line. Give every input a weight, add all the products together, and add a bias.
+
+That sum is a single number. Now put that number into a small rule, and it says yes or no.
+
+This is the smallest unit there is, and it is called a perceptron. It is like an ear, and it listens more to whichever wire is pulled tight.
+
+But one perceptron can only draw a straight line. It will never separate anything a line cannot separate.
+
+@read teach
+Listen to the famous example of this. There are two lamps, and the rule is this — if exactly one of them is lit, the bell rings.
+
+If both are out it does not ring. If both are lit together it does not ring either. This is called XOR.
+
+No straight line at all can separate this rule. Draw all four points on paper, and try it yourself.
+
+This is why one perceptron is not enough. At this very place all the work once stopped for a while in history.
+
+@read teach
+The remedy is simple, and it is to make a stack. Put many perceptrons in the first row, and give them all the same input.
+
+Each one draws a line from its own angle. Now gather up their answers and give them to a second row.
+
+The second row joins those lines together and makes a bent boundary. One row is called a layer, and a stack like this is called a multi layer perceptron.
+
+The rows in between are called hidden layers, because their answers are not seen from outside.
+
+@read teach
+But there is a condition, and do not forget this condition. After every row a bent rule is needed, and that is called an activation.
+
+Why this is needed is something the mathematics tells you. Putting a straight thing on top of a straight thing still leaves the result straight.
+
+So without a bend in between, even a hundred layers come to the same thing as one layer.
+
+The most used activation is an easy one. If the number is negative make it zero, and if it is positive leave it as it is. This is called ReLU.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo sanjal-jag
+A network is built like this. The first thing is that every input is multiplied by a weight, all the products are added, and a bias is added, and that becomes a single number, and this small unit is called a perceptron. The second thing is that one perceptron can only draw a straight line, so many perceptrons are put in one row and row is added on row, and such a stack is called a multi layer perceptron. The third thing is that a bent rule is put after every row and it is called an activation, and without it even a hundred layers come to the same thing as one layer. The fourth thing is that the common activation makes a negative number zero and leaves a positive number as it is, and it is called ReLU.
+@end
+
+That is all of it. A network is made by stacking straight lines and bent rules by turns.
+
+Here is how to check that the bends are really doing their work. Take the activations out and train the network again. If the answer stays about the same, the bends were never mattering, and however many layers you have you own a single straight line.
+
+@recall sanjal-jag
+
+The bell rang once in the workshop. Franky is smiling.
+
+@read hush
+There is one failure that ReLU brings with it. If a unit's number falls to the negative side for every example, it gives out zero every time, and no gradient reaches it any more, so it never learns again. This is called a dead unit, and it is why very large steps early in training are dangerous.
+
+@recall sanjal-jag
+
+@tier medium
+
+The night is long. Franky told another thing, and it was about what a network is capable of.
+
+Mathematics has proved one astonishing thing. Even with a single hidden layer in the middle, if enough units are put into it the network can copy any bent shape at all.
+
+This is called universal approximation. As bright as it sounds, it is not that useful in practice.
+
+The reason is that the single layer would have to be enormously wide. Making it deep costs less than making it wide.
+
+The last row changes according to the job. If a number has to be guessed, leave the last unit as it is.
+
+If it is yes or no, put the sigmoid from the tenth island there. If one has to be chosen out of many classes, put the softmax from that same place.
+
+@tier long
+
+Robin came into the workshop. She asked — [robin]"What is the difference between a wide network and a deep one?"[/]
+
+The difference is large, and a picture makes it clear. A wide network draws many lines at once and joins them all in one go.
+
+A deep network divides the work up in stages. The first layer recognises a small piece, the second joins those pieces and recognises a shape, and the third joins shapes and recognises an object.
+
+This can be called the staircase of representation. Ordinary things sit at the bottom, and tangled things are built going up.
+
+This is why a deep network needs fewer weights. The same piece gets used again in many places.
+
+But depth has its own price. If it goes very deep the training becomes hard, and we will meet that problem on the next island.
+
+@read hush
+Now sleep. The workshop lamp has gone dim, and the wires are quiet.

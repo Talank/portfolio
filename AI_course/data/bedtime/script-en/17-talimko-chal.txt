@@ -1,0 +1,93 @@
+# 17 — The moves of training: optimizers, batches, dropout and batch norm
+
+The ship is on the open sea. The waves are coming evenly, and the wind is steady.
+
+Zoro stood on the deck and said, [zoro]"The road is known. But how large a step should be taken?"[/]
+
+@read teach
+This is today's first question. On the fourth island we learned the rule for going down the slope, and there the size of the step was ours to choose.
+
+That size is called the learning rate, and it is the most important setting there is. If it is small the training never finishes.
+
+If it is large the step jumps out of the hollow, and the loss rises instead of falling. So put it a little large at the start and go on lowering it afterwards.
+
+A timetable for lowering it like that is called a schedule. Most training is made or ruined by this one thing.
+
+@read teach
+The second question is how many examples to look at in one go. Taking a step only after looking at all the data at once costs far too much.
+
+Taking a step after looking at a single example is cheap, but the road shakes a great deal. So the middle road is taken.
+
+Take a small group of a few dozen examples, work out their average gradient, and take one step. That group is called a batch.
+
+When all the data has been looked at once through, one cycle is finished, and that is called an epoch.
+
+@read teach
+The third question is how to remember the steps. If it has been going in an even direction, thinking again from the beginning every time is wasteful.
+
+So remember the average of the earlier steps, and add speed in that same direction. This is called momentum, and it is like a stone rolling down a slope.
+
+There is a better trick still. For every weight, remember also how large its earlier gradients were, and give a weight that shakes a great deal a smaller step.
+
+This trick that joins speed and size together is called Adam. Most of today's training is run with it.
+
+@read teach
+The last question is about the habit of memorising, and it came from the eighth island. If the network gets large it begins learning the examples by heart.
+
+The first medicine is a strange one. During training, force some of the units to shut off each time.
+
+Now no single unit can be relied on, because it might vanish at any moment. This is called dropout.
+
+The second medicine is to even out the scales. In the middle of every row pull the average of the numbers towards zero and the spread towards one, and this is called normalization. It makes the training fast and steady.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo talim-chal
+Training is arranged like this. The first thing is that the size of the step is chosen and it is called the learning rate, and it is put a little large at the start and lowered afterwards. The second thing is that instead of looking at all the data at once, a small group of a few dozen examples is taken and one step is made from their average gradient, and that group is called a batch. The third thing is that the average of earlier steps is remembered and speed is added in that direction, and a weight that shakes is given a smaller step, and these two together are called Adam. The fourth thing is that to stop the habit of memorising some units are forced to shut off during training and that is called dropout, and the average and spread of the numbers in each row are evened out and that is called normalization.
+@end
+
+That is all of it. The rule of learning is the same, and all these moves were made to keep it standing.
+
+Here is how to check the learning rate before spending a night on it. Run the training for a short while at several different rates and look at where the loss falls fastest. The right rate is usually a little below the largest one that has not yet started to burst — and finding it this way costs minutes, while guessing it wrong costs the whole run.
+
+@recall talim-chal
+
+The sea is even. The ship is going at a steady pace.
+
+@read hush
+There is one thing about dropout that surprises people. It is used only while training and is shut off when the model is being used, because at that time you want the whole network and not a crippled one. Forgetting to shut it off makes the same question give a different answer every time it is asked.
+
+@recall talim-chal
+
+@tier medium
+
+The night is long. Zoro told a practical thing, and it was about how to watch a training run.
+
+While the training runs, watch two lines together. One is the loss on the training data, and the other is the loss on data that was kept aside.
+
+If both are falling together, all is well. If the training loss is falling but the other is rising, the memorising has begun.
+
+Stop at that very point, and this is called early stopping. Training for a long time is not always better.
+
+If the loss never falls at all from the start, there are usually two reasons. The first is that the learning rate is too large, and the second is that the scale of the data has not been evened out.
+
+There is one more easy check. Give it very few examples and let the network learn just those by heart.
+
+If it cannot even do that, there is a mistake somewhere in the code itself. This check saves a great many nights.
+
+@tier long
+
+Robin came onto the deck. She asked — [robin]"Why does the result differ when the batch is kept small?"[/]
+
+This is a subtle question. There is a little shaking in the gradient of a small batch, because it came from few examples.
+
+That shaking is not an obstacle, and it is a help. In a narrow deep hollow the step cannot settle, and the network goes and sits in a wide hollow instead.
+
+A model sitting in a wide place works well on new data, because there the loss does not change much even when the weights move a little.
+
+So making the batch large to make training fast can leave the result a little weaker. The remedy for this is to raise the learning rate along with it.
+
+The rule here is easy to remember. However many times over you make the batch larger, raise the learning rate by about that many times as well.
+
+@read hush
+Now sleep. The waves are even, and the ship is going in its own rhythm.

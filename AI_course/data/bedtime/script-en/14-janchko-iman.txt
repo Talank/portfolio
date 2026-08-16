@@ -1,0 +1,86 @@
+# 14 — The honesty of testing: precision, recall and ROC
+
+A small table is drawn beside the map in Nami's room. There are four boxes in it.
+
+She said — [nami]"The model said it was right ninety percent of the time. But I am not happy."[/]
+
+Usopp asked in surprise, [usopp]"Is ninety percent a bad thing?"[/]
+
+@read teach
+The answer is here, and it is worth remembering. Suppose only five out of a hundred ships have a hole in them.
+
+Now build a model that always says there is no hole. That model is right ninety five percent of the time, and it is entirely useless.
+
+This is why looking at accuracy alone is dangerous. Where the classes are unbalanced, it lies.
+
+So a table of four boxes is needed, and it is called the confusion matrix.
+
+The first box is said yes and truly was. The second box is said yes but truly was not, and that is called a false positive. The third box is said no but truly was, and that is called a false negative. The fourth box is said no and truly was not.
+
+@read teach
+Now two measures are made out of these four, and these two are the most important there are.
+
+The first measure asks — of the ones I said had a hole, how many truly did? This is called precision.
+
+The second measure asks — of the ones that truly had a hole, how many did I find? This is called recall.
+
+These two are always pulled in opposite directions. If you are very cautious the precision rises and the recall falls. If you are very generous the recall rises and the precision falls.
+
+Now which one is wanted is settled by what a mistake costs. If a hole in a ship goes unfound the ship sinks, so recall matters there. Calling an innocent person a thief is a great injustice, so precision matters there.
+
+If both have to be brought into one number, a particular kind of average of the two is taken, and that is called F1. It is not an ordinary average, and it gives more weight to whichever of the two is smaller.
+
+@read teach
+Now the matter of the threshold comes back. On the tenth island we said that the threshold is yours to choose.
+
+For every threshold the precision and the recall are different. Draw the results of all the thresholds in one picture, and a curve is made, and that is called the ROC.
+
+The area under that curve gives one number, and that is called the AUC. If the AUC is near one the model is good, and if it is near a half the model is only guessing.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo janch-nap
+A model is tested honestly like this. The first thing is that looking at accuracy alone is dangerous, because where the classes are unbalanced even a model that always gives the same answer looks high. The second thing is that a table of four boxes is made and it is called the confusion matrix, and in it the wrongly said yes and the wrongly said no are counted separately. The third thing is that the measure of how many of the ones said yes were true is called precision, and the measure of how many of the true ones were found is called recall. The fourth thing is that these two are pulled in opposite directions, so what a mistake costs settles which one matters, and when both are wanted a particular average of the two is taken and it is called F1.
+@end
+
+That is all of it. If the way of measuring is wrong, even a good model looks bad.
+
+Here is how to check that you picked the right measure. Write down, before you look at any number, which of the two mistakes you would rather your model made. If you cannot answer that, no score will help you, because precision and recall will disagree and you will have no ground to choose between them.
+
+@recall janch-nap
+
+The lamp is burning beside the map. The table is where it was.
+
+@read hush
+There is one thing the ROC will not tell you. Where one class is very rare, the curve can look excellent while nearly every yes the model says is wrong, because the count of the common class is so large that false alarms barely move it. Where the rare class is what you care about, look at precision and recall directly.
+
+@recall janch-nap
+
+@tier medium
+
+The night is long. Nami told another thing, and it was about how to measure work that has no numbers.
+
+If the model wrote text, saying right or wrong is not easy. The same thing can be written in many ways.
+
+The old trick is to count matching words. It is counted how many pairs of words agree between what the model wrote and what a person wrote.
+
+But this measure is weak, because it does not look at meaning. Different words can carry the same meaning.
+
+These days another trick is used. Another large model is made the judge, and it is asked whether the answer is good. This has its own dangers, and we will take that matter up on the thirty-first island.
+
+@tier long
+
+Robin came into the room. She asked — [robin]"Is the difference between ninety and ninety one real?"[/]
+
+Many people do not ask this question, and it ought to be asked.
+
+If the results of two models look a little different, that difference can also be a coincidence. Had the test set been another one, the order could have turned over.
+
+So the uncertainty has to be told along with the result. The confidence interval learned on the sixth island comes back here.
+
+In practice there is an easy way. Draw samples out of the test set again and again and repeat the measurement, and see how far the results spread.
+
+Only if that spread is small is the difference real. This one habit saves you from a great many wrong claims.
+
+@read hush
+Now sleep. If the measuring is right, the rest of the work is easy.

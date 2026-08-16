@@ -1,0 +1,77 @@
+# 2 — The machine that changes shape: the matrix
+
+In the morning the ship stopped at a small island. Franky's workshop is there. Tools are hanging inside, and an old machine sits in the corner.
+
+Franky put a hand on that machine. He said, [franky]"Put an arrow into this. A different arrow comes out."[/]
+
+That machine is what a matrix is. A matrix is a square table of numbers, and its job is to take one vector and hand back another.
+
+@read teach
+Put it in a single sentence, and this sentence is useful for the whole course. A matrix bends space. Whatever you put in can turn, or stretch, or be pressed flat, or be flipped over.
+
+Listen to how the arithmetic works, because this too is only the dot product happening over and over. Take the first line of the matrix, work out its dot product with the vector you put in, and what comes out is the first number of the vector that comes back. Now do the same with the second line, and that is the second number. Repeat it like that for every line.
+
+So multiplying by a matrix is not a new thing. It is many dot products done at once.
+
+Franky joined two machines together. The arrow coming out of one went straight into the other.
+
+That is what multiplying two matrices means. Whatever the first one does, the second one does again on top of it. The work of both is joined into one new matrix.
+
+@read teach
+There is a rule here that must not be forgotten. In matrix multiplication the order matters. Turning first and then stretching is a different thing from stretching first and then turning. That is what you see on paper, and that is what happens in the machine.
+
+Now learn a few particular machines. One machine hands back the arrow you put in exactly as it was, and that is called the identity. Another machine undoes exactly what the one before it did, and that is called the inverse.
+
+But not every machine has an undoing. Some machines press space so flat that information itself is lost. Once information is lost there is no road back.
+
+Luffy asked, [luffy]"Does that mean the machine does not think?"[/] Franky laughed and shook his head.
+
+Remember this, because it is the foundation of the course. What happens inside a neural network is mostly this. Matrix multiplication happens layer upon layer, and a small bent operation is mixed in between them.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo myatriks-yantra
+A matrix works like this. The first thing is that a matrix is a table of numbers, and its job is to take one vector and hand back another. The second thing is that the arithmetic is done by the dot product, because the dot product of each line of the matrix with the vector you put in makes one number of the vector that comes out. The third thing is that multiplying two matrices means doing two pieces of work one after the other, and here the order matters. The fourth thing is that a machine which presses information flat and loses it has no undoing.
+@end
+
+Once you know that much, a matrix is nothing to be afraid of. It is only a machine that bends space.
+
+Here is how to check that you multiplied correctly. Put the arrow that is one in the first place and zero everywhere else through the machine, and what comes out must be exactly the first column of the matrix. That is not a rule to memorise — it falls out of the arithmetic, and it will catch a matrix you have written down sideways.
+
+@recall myatriks-yantra
+
+The workshop is silent. Outside the waves are coming in slowly.
+
+@read hush
+There is one place where this quietly goes wrong. If two lines of a matrix say the same thing, the machine presses space into fewer dimensions than it looks like it has, and it has no undoing however square it may be. The shape of the table does not tell you this. Only the work it does tells you.
+
+@recall myatriks-yantra
+
+@tier medium
+
+The night is long. Franky told another thing, and it was about shape.
+
+Shapes have to agree in matrix multiplication. However long the line of the first is, the column of the second must be exactly that tall. If they do not agree, there is no arithmetic.
+
+There is an easy trick for remembering this rule. Write the two shapes down side by side, and the two inner numbers must match, and then the two outer numbers make the shape of the result.
+
+In practice this one thing causes more mistakes than anything else. Most of the error messages that come up in PyTorch are this same shape disagreement.
+
+So build one habit when you write code. Print the shape after every layer and look at it. This saves hours.
+
+@tier long
+
+Robin stood in the doorway. She asked — [robin]"Is turning a picture this same work?"[/]
+
+Franky nodded. A small matrix made of two numbers turns an arrow that is on paper.
+
+There is a beautiful thing here. A matrix that turns does not change length. It changes only direction.
+
+Another kind of matrix does the opposite. It stretches the length only, without changing the direction, and that is called scaling.
+
+And a third kind of matrix bends space sideways, and that is called shear. A square drawn on paper becomes a leaning quadrilateral after it.
+
+These three pieces of work — turning, stretching and bending — make up nearly all linear work between them. On tomorrow's island we will look for one direction hidden inside them that does not change.
+
+@read hush
+Now sleep. The machine has been shut off, and the arrow has come back to its own place.

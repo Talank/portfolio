@@ -1,0 +1,75 @@
+# 5 — Guessing the weather: probability and Bayes
+
+The ship is out on the open sea again. There are clouds in the sky, but no rain has fallen.
+
+Nami stood on the deck. She looked at the sky and said — [nami]"I do not say it will rain. I say seventy percent."[/]
+
+Today's lesson begins from this place. Probability is not certainty. Probability is a way of measuring uncertainty.
+
+@read teach
+A probability is a number between zero and one. Zero means it never happens. One means it always happens. All doubt sits in between.
+
+There are two easy rules about two events. If both have to happen together, the probabilities of both are multiplied. If either one is enough, they are added, but the part where both happen together is subtracted once.
+
+Now a third word is needed, and it is conditional. It says how likely one thing is given that another thing has already happened.
+
+Nami gave an example. [nami]"Now it is known that there are clouds. The chance of rain has changed."[/] When new information arrives the old guess is revised, and this is the foundation of all learning.
+
+@read teach
+The rule for writing exactly that down is called Bayes. It answers the reversed question, and that is its magic.
+
+The problem goes like this. A patient is tested and the test comes back positive. Now the question is how likely it is that the disease is really there.
+
+Many people slip here. They take the accuracy of the test to be the answer. But that is wrong.
+
+Bayes says to join three things. The first is how rare the disease is, and that is called the prior. The second is the chance of the test coming back positive in someone who has it. The third is the chance of the test coming back positive even in someone who does not.
+
+If the disease is very rare, many positive tests are in truth false signals. This stays true even when the test is a good one.
+
+This thinking comes back at models later. Whether some email is spam is this same question. A word has been seen, and now the class has to be guessed.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo bayes-niyam
+New information changes a guess like this. In the first step the belief held before the information arrived is written down, and that is called the prior. In the second step the chance of seeing information like this if the thing were true is measured, and that is called the likelihood. In the third step those two are multiplied, and the same multiplication is done for the opposite case. In the fourth step the first product is divided by the sum of both products, and what comes out is the new belief. For a rare thing, most positive signals are wrong even when the test is good.
+@end
+
+That is all of it. This rule is small, and it clears away a great deal of confusion.
+
+Here is how to check that you used it correctly. Work out the answer for both cases — that the thing is true, and that it is not — and the two must add up to exactly one. If they do not, the dividing step was left out, and what you are holding is not a probability at all.
+
+@recall bayes-niyam
+
+The clouds are moving. The ship is going at the same pace.
+
+@read hush
+There is one thing this rule cannot supply. It cannot tell you the prior — how rare the thing is to begin with — and that number has to come from somewhere outside the arithmetic. Guess the prior badly and every answer after it is wrong, no matter how carefully the rest was worked.
+
+@recall bayes-niyam
+
+@tier medium
+
+There is night left. Nami told another thing, and it was about shape.
+
+Probabilities together make a shape, and that is called a distribution.
+
+The best known shape is like a bell. It is tall in the middle and falls away on both sides. This is called the normal.
+
+Another shape is made by tossing a coin. There are only two outcomes here, and it is called Bernoulli.
+
+A third shape spreads across many classes. Guessing which word comes next is like this, and it is called categorical. What comes out of the last layer of a model is this as well.
+
+@tier long
+
+Robin came onto the deck. She asked — [robin]"What do the average and the spread mean?"[/]
+
+The average is called the expected value. It says where the middle sits when a thing is repeated many times.
+
+The spread is called the variance. It says how far the outcomes scatter from the average.
+
+These two numbers say a great deal, but they do not say everything. Two different shapes can have the same average.
+
+This is why deciding by looking at an average alone is dangerous. It stays true when testing a model too, and we will take that matter up again on the fourteenth island.
+
+@read hush
+Now sleep. There are clouds, and it may rain or it may not.

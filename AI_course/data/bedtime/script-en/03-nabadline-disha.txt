@@ -1,0 +1,75 @@
+# 3 — The direction that does not change: eigenvectors and SVD
+
+There is a cliff at the top of the island. The whole sea can be seen from up there. The wind is blowing, but one large stone does not move.
+
+Robin sat down on that stone. She said — [robin]"Yesterday's machine turned every arrow. But not all of them turned."[/]
+
+Today's lesson sits inside that one sentence. Inside every matrix there are certain particular directions, and the arrows along those directions do not turn. They stretch or they shrink, but their direction stays the same.
+
+@read teach
+Such an unchanging direction is called an eigenvector. And the number saying how many times over it stretched is called an eigenvalue.
+
+Understand it with a picture. Stretch out a sheet of rubber. Most of the lines drawn on it turn. But two lines do not turn, and they only become longer or shorter. Those two lines are the eigenvectors of that stretching.
+
+The eigenvalue tells you what happened. If the eigenvalue is greater than one, that direction stretched. If it is less than one, it shrank. If it is negative, that direction was flipped.
+
+Now comes the matter of why this is useful. If some piece of work has to be repeated many times, eigenvectors make the arithmetic easy. For an ordinary arrow the arithmetic has to be done over and over. But for an eigenvector it is done in one go, because there it is enough to multiply the eigenvalue by itself that many times.
+
+@read teach
+Now listen to the larger form of this, and it is SVD. SVD says that any matrix at all can be broken into three easy machines. The first machine turns. The second stretches along each axis. The third turns again.
+
+The meaning of this is beautiful. However tangled it looks, every linear piece of work is only a mixture of turning and stretching. There is nothing else besides that.
+
+The stretching numbers in the middle are called singular values. They sit in order from large to small, and this order gives one great convenience.
+
+Robin looked down towards the sea. She said — [robin]"Keep a few of the large ones, and throw the small ones away. The picture stays the same."[/]
+
+This is exactly what compression is. Keep only the first few singular values, and make the rest zero. The data becomes much smaller, and the meaning stays nearly the same.
+
+The thing called PCA is this too, and that is only another name. Finding the direction in which the data spreads out the most, and writing the data down again along that direction — this is the work of SVD.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo aaigan-disha
+The matter sits like this. The first thing is that inside every matrix there are certain particular directions that the matrix does not turn, and those directions are called eigenvectors. The second thing is that the number saying how many times over those directions stretched or shrank is called an eigenvalue, and greater than one means it stretched and less than one means it shrank. The third thing is that any matrix at all can be broken into three parts — turning, stretching, and turning again — and that is called SVD. The fourth thing is that the stretchings in the middle sit in order from large to small, so keeping a few of the large ones and throwing away the rest makes the data small while the meaning remains.
+@end
+
+This same idea comes back later at embeddings. There too we will hold a great deal of meaning along a few directions.
+
+Here is how to check that a direction really is an eigenvector. Put it through the matrix, and what comes out must be the very same arrow, only longer or shorter. If it has tilted even a little, it is not an eigenvector, however close the answer looks.
+
+@recall aaigan-disha
+
+The wind is blowing on the cliff. The stone is where it was.
+
+@read hush
+There is one place where this idea does not reach. Not every matrix has real unchanging directions at all — a machine that only turns has none, because it tilts every single arrow. SVD works on every matrix precisely because it does not ask for that, and this is why SVD is the safer of the two tools.
+
+@recall aaigan-disha
+
+@tier medium
+
+The night wore on. Robin told another thing, and it was about how many are needed.
+
+Even if there are a thousand dimensions in a picture, usually the first fifty directions catch most of the spread. The rest add only a little.
+
+There is an easy way to measure this. Take the square of each singular value, and add them all up. Now look at how large a share the first few of them hold.
+
+In practice people keep directions until the share reaches ninety or ninety five percent. After that the rest is thrown away.
+
+This decision is not always the same. It is one thing for pictures and another for text. This is work of looking at the measure and choosing, and it has no single right answer.
+
+@tier long
+
+Sanji came carrying food. He asked, [sanji]"What was all of this needed for?"[/]
+
+Robin answered him straight. [robin]"Because meaning gets pressed down the same way later on."[/]
+
+This is true. The meaning of a word is held in hundreds of numbers, and many of those numbers say much the same thing.
+
+When some search system has to hold millions of pieces, space has to be saved. That is where this same pressing trick is used.
+
+There is one more place it comes back, and that is LoRA. Instead of training a large model all through, a small change is taught along a few directions only. That idea came from this island.
+
+@read hush
+Now sleep. The wind is blowing, and the stone has not moved.

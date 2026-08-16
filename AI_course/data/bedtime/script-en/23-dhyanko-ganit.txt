@@ -1,0 +1,108 @@
+# 23 — The arithmetic of attention: query, key and value
+
+Standing at the top of the cliff and looking down, the whole island is seen at once. The road, the stream and the houses are all together.
+
+Zoro stood there. He said, [zoro]"Down below only one thing could be seen. From up here they are all seen together."[/]
+
+@read teach
+This is today's change. On the last island the attention was between two sentences, and one was looking at the other.
+
+Now let a sentence look at itself. Every word looks at all the words of the same sentence, and picks up what it needs.
+
+This is called self attention. It is what made the old part that reads order unnecessary.
+
+An example makes it clear. If the word he appears in some sentence, who it stands for is known only by looking at a name some way off.
+
+In self attention that name is reached in a single step however far away it is. In the old trick many steps were needed to get there.
+
+@read teach
+Now listen to the arithmetic, and this is the most asked question in interviews.
+
+Every word has a vector. Multiply that same vector by three different matrices, and make three new vectors.
+
+The first is called the query, and it carries what I need. The second is called the key, and it announces what I hold.
+
+The third is called the value, and it carries the material actually given. Those three matrices are learned in training.
+
+@read teach
+Now the joining is done in four steps. In the first step compare one word's query against the keys of all the words with a dot product.
+
+In the second step divide those numbers by the square root of the length of the vector. This seems a small thing, and it is unavoidable.
+
+The reason is that the dot product of a long vector goes on getting larger. If the numbers get large the softmax gives one of them the whole share, and the gradient of all the rest is zero.
+
+In the third step put those numbers into a softmax, and they add up to one. In the fourth step multiply the values of all the words by their own weights and add them.
+
+That sum is that word's new vector. Now it carries its own context.
+
+@read teach
+One more joining is left. One attention catches only one kind of relation at a time.
+
+But many kinds of relation sit together in a sentence. Some are of subject and verb, some of adjective and noun, and some of a distant pronoun.
+
+So keep many sets of query, key and value together, and let each run its own attention. Each set is called a head.
+
+At the end join the results of all the heads side by side, and even them out again with one matrix. This is called multi head attention.
+
+@read teach
+The last matter is the mask, and it is unavoidable for a model that writes.
+
+While writing the answer the model must not be allowed to look at the future. Making it guess the next word and letting it see that same word is cheating.
+
+So in the table of comparisons give the future places an enormously large negative number. After the softmax their weight is zero.
+
+This is called masking. This one triangle is what separates a model that reads from a model that writes.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo dhyan-ko-ganit
+The arithmetic of attention is this. The first thing is that every word's vector is multiplied by three learned matrices to make three vectors, and they are called the query, the key and the value. The second thing is that one word's query is compared against the keys of all the words with a dot product, and those numbers are divided by the square root of the length of the vector so that the softmax does not stick on one and kill the gradient. The third thing is that those numbers are put into a softmax and the values of all the words are multiplied by that weight and added, and that sum is the word's new vector carrying its context. The fourth thing is that many sets of query, key and value are run together and each is called a head, and in a model that writes the weight of the future places is made zero and that is called masking.
+@end
+
+That is all of it. Every word asks, everybody answers, and whoever agrees is heard more.
+
+Here is how to check that the mask is really doing its work. Change a word near the end of the sentence and look at whether the answer for a word near the beginning moved. It must not move at all. If it does, the future is leaking backwards, and the model is being taught to read something it will not have when the time comes.
+
+@recall dhyan-ko-ganit
+
+The wind blew on the cliff. Down below the island is where it was.
+
+@read hush
+There is one thing this arithmetic does not contain. Nothing in it knows which word came first — the same set of words in any order gives the same answer. Order has to be added in separately, and that is why position is put into the vectors before any of this begins.
+
+@recall dhyan-ko-ganit
+
+@tier medium
+
+The night is long. Zoro raised the matter of cost, and this cost is plain to see even today.
+
+Every word looks at every word. So in a sentence of a hundred words there are ten thousand comparisons.
+
+If the words double, the comparisons become four times as many. This is called a squared cost, and it is why a long context is expensive.
+
+That one count explains a great deal. Why the context window is limited, why a long question costs more money, and why the research has gone towards bringing this down.
+
+Some remedies have come out as well. Some let every word look only at a few nearby words.
+
+Some break the arithmetic into pieces that fit in the machine's fast memory, and that raises the speed without changing the result.
+
+Because the result does not change, this trick is used nearly everywhere today.
+
+@tier long
+
+Robin came to the cliff. She asked — [robin]"Why were three different vectors needed?"[/]
+
+This question ought to be asked. It feels as though one vector might have done all three jobs.
+
+But the three jobs are different. What I am looking for, what I am, and what I give are not one thing.
+
+Listen to an example. Some adjective is looking for a noun, but does not present itself as a noun.
+
+Once the query and the key are separate this becomes possible. The looking can be uneven, and if this one looks at that one, that one need not look back.
+
+The value is separate for another reason. There is no reason at all why the thing that measures agreement and the material that gets sent should be the same.
+
+So the three matrices give the model three freedoms. That freedom is its power.
+
+@read hush
+Now sleep. Everything was seen from the top, and there is nothing left to look at.

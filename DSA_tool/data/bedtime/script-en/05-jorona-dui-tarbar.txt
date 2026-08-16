@@ -28,7 +28,7 @@ In the third problem you have to make three numbers add up to zero, and this is 
 Do not forget to skip repeated numbers here, or the same answer comes back again and again.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of the two fingers.
+The proof that this approach is right is a small one, so listen to it. When you moved the left finger, every pair you threw away was smaller than the one you were holding, so the answer could never have been among them. If you can show that each step throws away only what could never have helped, the approach is correct.
 
 @recall dui-aunla
 
@@ -37,7 +37,7 @@ Now remember one distinction, and it is very useful on questions. There are two 
 Under the bridge the waves are calm. Zoro put his sword back in its sheath, leaned against the wall and closed his eyes. He always sleeps like that.
 
 @read hush
-One last time before you sleep, very slowly, listen to the rule of the two fingers.
+Never forget the one condition here. This rule only works while the array is in order, and on an unsorted array it gives a wrong answer without telling you it is wrong. So before you use it, always ask — is this array really sorted?
 
 @recall dui-aunla
 

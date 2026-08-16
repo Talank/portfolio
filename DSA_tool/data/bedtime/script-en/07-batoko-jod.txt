@@ -27,7 +27,7 @@ Do not forget one small thing. At the very start, write in the notebook [aside]"
 Look at what happened here. The tools of two islands were joined, and they are the running total and the question [aside]"have I seen this before"[/]. That dropped O(n²) to O(n). Large solutions are usually built exactly this way, and they are built not out of new magic, but out of two straightforward ideas joined together.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of the running total.
+You can check your totals in a single step. Ask for the sum of the whole stretch from the beginning to the end, and hold that against the plain sum of every number in the array. If those two agree, your prefix sum is built correctly.
 
 @recall agadiko-jod
 
@@ -36,7 +36,7 @@ The same move works in two dimensions as well. If you need the total inside some
 Robin closed her notebook. The stones on the road are glinting in the moonlight. We are slowly making our way back to the shore.
 
 @read hush
-One last time before you sleep, very slowly, listen to the rule of the running total.
+There is a small trick here that removes one large mistake. Put a single zero at the front of the prefix sum, so that asking for a piece that starts at the very first place has something to subtract instead of falling over. That one zero takes away all the trouble with the index.
 
 @recall agadiko-jod
 

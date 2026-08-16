@@ -1,0 +1,79 @@
+# 11 — Words into numbers: bag of words and TF-IDF
+
+Books are piled up in the ship's hold. Robin is sitting there, and there is dust all around.
+
+She said — [robin]"I have to find one among these hundreds of papers. I cannot read them all."[/]
+
+@read teach
+There is an obstacle here. Every tool learned on the first island runs on numbers. But there are words on paper, and words are not numbers.
+
+So the first job is to make numbers out of words. This is the whole subject of this island.
+
+Listen to the easiest way. First make a list of all the different words that appear across all the papers, and that is called the vocabulary.
+
+Now make one long vector for each paper. It has as many places in it as there are words in the vocabulary. In each place put the number of times that word appeared in that paper.
+
+This is bag of words. The name was not given lightly, because it forgets the order of the words. It is like putting a paper into a bag and shaking it.
+
+@read teach
+Now a problem shows itself. The words that come most often are usually the ones with the least meaning. Words like and, of and is are in every paper.
+
+So the counts have to be weighted. A word that appears in only a few papers tells you more about which paper this is.
+
+The measure for this is TF-IDF. The first part is how many times the word appeared in this paper. The second part is how few papers the word appears in, and that comes from dividing the total papers by the papers holding that word and taking the log.
+
+Multiply those two. What comes out is the weight of that word.
+
+Now searching has become easy. Make the question into a vector the same way, and work out the cosine similarity with every paper. Whichever comes out largest is the paper that is the answer.
+
+Robin smiled. [robin]"The arrow from the first island turned out to be useful here."[/]
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo shabda-number
+Text is turned into numbers like this. In the first step all the different words from all the papers are gathered into one list, and that is called the vocabulary. In the second step a vector of that same length is made for each paper, and in each place goes the number of times that word appeared, and this is called bag of words. In the third step every count is weighted, and a word appearing in only a few papers gets a large weight, and that measure is called TF-IDF. In the fourth step the question is made into a vector the same way, and cosine similarity finds the nearest paper.
+@end
+
+That is all of it. This trick is old, but it still works.
+
+Here is how to check that the weighting is doing its job. Look at which words came out with the largest weights in one paper. They should be words you could use to describe that paper to somebody. If they are the ordinary joining words of the language, the second part of the measure has been left out.
+
+@recall shabda-number
+
+Dust has settled in the hold. The books are where they were.
+
+@read hush
+There is one place where this measure will mislead you. A very long paper holds every word more often simply because it is long, so it can look closer to everything. This is why the vectors are brought to one length before they are compared, and skipping that step quietly rewards the longest paper in the pile.
+
+@recall shabda-number
+
+@tier medium
+
+The night is long. Robin told its limits, and these limits are half the course that follows.
+
+Bag of words forgets order. The dog bit the man and the man bit the dog are the same thing to it.
+
+The second limit is larger still. It does not recognise meaning, and recognises only words.
+
+Doctor and physician are wholly different words to it, because the letters differ. But to a person they are nearly the same.
+
+The third limit is size. If there are millions of words in the vocabulary then every paper's vector is millions long as well, and nearly every place in it is zero.
+
+Those three limits are what gave birth to embeddings. On the twenty-first island we will take up that matter.
+
+@tier long
+
+Usopp slipped in through the door. He asked, [usopp]"How is the work of cutting words into pieces done?"[/]
+
+Robin said — [robin]"It is harder than it looks."[/]
+
+Cutting at the blank spaces sounds easy. But the question of where to put the punctuation marks arrives at once.
+
+And eats, ate and eating are counted as different words, though their root is the same. Work is done to turn them back to the root, and that is called stemming.
+
+In Nepali this is harder still, because many parts join onto a word. A word meaning in the houses is a single word, and there are three things inside it.
+
+There is a modern answer to this hardness, and it is to cut a word into small pieces. On the twentieth island we will learn that trick.
+
+@read hush
+Now sleep. The words became numbers, and we know how to play with numbers.

@@ -1,0 +1,95 @@
+# 16 — The voice that comes back: backpropagation
+
+It is dark inside the cave. The sound of water dripping is coming off the walls.
+
+Usopp shouted to see what would happen. His voice went in, and after a few moments it came back.
+
+He said, [usopp]"The voice went, struck something, and came back."[/]
+
+@read teach
+Today's learning is exactly this, and it is the heart of the whole of deep learning. In a network the input flows forward and at the end an answer comes out, and this is called the forward pass.
+
+Once the answer has come, the error is measured. That error is called the loss, and that name came from the sixth island.
+
+Now the main question is this — which weight does the blame for this error go to?
+
+To find the answer, send the error back. Like the voice in the cave it turns back from the last row towards the first. This is called backpropagation.
+
+@read teach
+How this became possible is something the fourth island has already told. There we learned the chain rule.
+
+The chain rule says that the effects of joined changes go on multiplying. How much the first moves the second, how much the second moves the third — multiply all of those.
+
+A network is nothing but a long chain of joined changes. So the chain rule applies here exactly as it is.
+
+At the last row the error is known directly, because that is where the answer came out. Multiply that same error by the weights and send it back to the row before.
+
+Every unit gets blame in proportion to what it sent. Whoever spoke the most gets the most blame, and whoever kept quiet gets a little.
+
+@read teach
+Now listen to the whole cycle, because this cycle repeats millions of times.
+
+First flow the input forward and get the answer out. After that measure the loss between the answer and the true one.
+
+Then send that loss back and work out the gradient of every weight. At the end, by the rule from the fourth island, move every weight a little.
+
+These four steps are what training is. Everything else turns around them.
+
+@read teach
+There is a beautiful thing here too, and it is worth remembering. The network does not work out a separate calculation for every weight.
+
+On the way back the results in the middle are worked out only once and everybody shares them. So even with millions of weights the cost stays about the same as the forward pass.
+
+This thrift is what made today's large models possible. Without it the training would never have finished.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo pachhadi-farkane
+A network learns like this. In the first step the input is flowed forward and the answer comes out of the last row, and this is called the forward pass. In the second step the difference between the answer and the true one is measured, and that is called the loss. In the third step that error is sent back from the last row towards the first and the chain rule works out the blame of every weight, and this is called backpropagation. In the fourth step every weight is moved a little in the direction opposite to its own blame, and these four steps repeat millions of times.
+@end
+
+That is all of it. The error comes back, and on the way back it hands everyone their share.
+
+Here is how to check that a network really is learning. Take four or five examples and try to train the network to fit only those. The loss there should fall almost to nothing. If it will not, the trouble is not the data — something in these four steps is not connected, and no amount of more data will mend it.
+
+@recall pachhadi-farkane
+
+The sound in the cave has gone faint now. The drops of water are falling one by one.
+
+@read hush
+There is one thing this method never questions. It faithfully works out the blame for the loss you gave it, whatever that loss happens to measure. If the loss is measuring the wrong thing, backpropagation will pursue the wrong thing with perfect diligence, and nothing in the arithmetic will complain.
+
+@recall pachhadi-farkane
+
+@tier medium
+
+The night is long. Usopp told of a fear inside the cave, and that fear is a real one.
+
+As the error comes back it gets multiplied by a small number at every row. If those numbers are smaller than one the product goes on falling.
+
+By twenty rows back it is nearly zero. Then the first row learns nothing, and this is called the vanishing gradient.
+
+The reverse happens too. If those numbers are larger than one the product goes on growing, and the network bursts. This is called the exploding gradient.
+
+The old sigmoid went out of use for just this reason, because its slope is nearly zero at both ends. ReLU keeps the slope alive on the positive side.
+
+Another remedy is to shorten the road. Add the input of some row directly onto its own output, and let the error come back along that short road.
+
+This is called a residual connection. A network of a hundred rows became possible through this one trick.
+
+@tier long
+
+Robin came into the cave. She asked — [robin]"Is it that the arithmetic no longer has to be done by hand?"[/]
+
+These days it does not, and this same matter comes back on the eighteenth island. The library remembers every operation and does the going back by itself.
+
+But doing it by hand once is useful. Draw a small network with two inputs, two units and one output on paper, and run one cycle yourself.
+
+Doing that makes one thing show itself. In the gradient, the blame of every weight is tied to the size of the signal that unit sent.
+
+And another thing shows itself as well. Where the input was zero, that weight does not move, because it has no blame at all.
+
+Once these two things are understood, a great deal of the strange behaviour of training begins to look ordinary.
+
+@read hush
+Now sleep. The cave is quiet, and the voice has come back and gone to sleep.

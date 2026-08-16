@@ -1,0 +1,77 @@
+# 2 — Names and shapes: types, variables and operators
+
+Last night we learned the three layers. Today we put the first thing inside those layers, and the name of that thing is a variable.
+
+There are two kinds of box on Usopp's table. One is small and solid, and a thing fits straight inside it. The other is light, and there is no thing inside it — inside there is a piece of paper, and an address is written on that paper.
+
+[usopp]"The difference between those two boxes is half the story of Java,"[/] said Usopp.
+
+The first box is called a primitive. int, long, double, boolean, char, byte — all of these are of that kind. The number itself lives inside them. If you say int, then there really is a number in that place.
+
+The second box is called a reference. String, array, list, and every object you build are of that kind. There is no thing inside these. Inside there is only the address of where that thing is.
+
+This difference weaves a narrow web, and new people usually get caught in it. When you ask whether two variables are equal, the question is really two questions.
+
+The first question — do these two point at the same place? The second question — is what is inside these two alike? For the first, Java uses the double equals sign. For the second, a method called equals is used.
+
+For primitives this is no trouble, because there is no address there. But for references this rule must never be forgotten.
+
+Now listen to today's rule.
+
+@algo do-thari
+In Java every variable is one of two things. If it is a primitive, the value itself lives inside it, and it lives on the call stack, and it disappears the moment the method ends. If it is a reference, only an address lives inside it, and the real thing lives on the heap, and it goes on living until nobody is looking at it. This is why adding two primitives makes a new value, but setting one reference equal to another makes no new thing and both point at the same thing. When you have to ask whether they are equal, use the double equals sign to check the address and use equals to check what is inside.
+@end
+
+Nami came over, and made a small mark on the map. [nami]"There is another thing as well,"[/] she said. [nami]"Java can put a number into a box by itself."[/]
+
+@read teach
+This is called autoboxing. int is a primitive, but Integer is an object. A primitive cannot be put inside a list, so Java quietly turns the int into an Integer.
+
+This is a convenience, but it has a price too. Working over millions of numbers, a small object is made for every number, and that fills the heap. So in very large arithmetic it is better to keep primitives.
+
+Here is how to check which of the two you are holding, without looking anything up. Ask whether the thing could ever be nothing at all. A primitive always holds some value, even if it is zero, and a reference can hold nothing. If the answer is that it could be nothing, you are holding an address, and the equals rule above applies to it.
+
+@recall do-thari
+
+@read hush
+The night wind grew cold. Nami folded the map, and turned the lamp down a little.
+
+There is one thing this difference will not save you from. Two boxes can hold the same address, so changing what is inside through one of them changes what the other sees, and neither box ever said anything about it. This is why a thing meant to be shared and a thing meant to be private are worth deciding early rather than late.
+
+@recall do-thari
+
+@tier medium
+
+Now let us talk about naming. There is one word in Java, and its name is var. It works the type out by itself.
+
+But writing var does not make Java a loosely typed language. The type does not disappear, and it is settled at compile time. var is only a small allowance given to the person doing the writing.
+
+The question comes of when to use it. Use it when the type is plain to see on the right hand side. If you are making a new HashMap, writing the same thing again on the left is doubled work. But if there is the answer of some method on the right and the name says nothing, then writing the type is the sweeter thing.
+
+I will say two things about operators. First, dividing an int loses the fraction. Dividing seven by two gives three, and the half is thrown away.
+
+Second, an int has a limit. It reaches nearly two billion, and if it goes above that the number turns over and becomes negative. Java does not complain, and quietly gives a wrong answer. So use long for arithmetic about time or about money.
+
+Money has come up, so let me say the other thing at once. Never use double for money. A double cannot hold a decimal exactly, and small errors gather up. For money there is a thing called BigDecimal, and that is the right one.
+
+@tier long
+
+Robin came onto the deck. There was an old book in her hand. [robin]"Will you hear something?"[/] she asked.
+
+[aside]"Many years ago a spacecraft was destroyed in the sky,"[/] she said. [aside]"The cause was a small one. A large number was put into a small box, and it did not fit."[/]
+
+@read teach
+This same thing happens in Java too, and it is called overflow. Imagine the hand of a clock. If it goes forward from twelve it comes back to one. The box of a number is a clock like that, and once the limit is passed it comes out of the other side.
+
+Now let us make a picture of the stack and the heap once. The stack is a pile of plates in a washing up place. They are put on from the top, and taken off from the top. Every time a method is called one plate is added, and when the method ends it is taken away.
+
+The heap is a store room. Things are put down wherever room is found. Which thing is where is told by the addresses on the stack.
+
+This gives the answer to an old question. Why does an object inside a method go on living after the method ends? Because the object was never on the stack. Only the address was on the stack, and the thing was on the heap.
+
+And when does that thing on the heap disappear? When no address pointing at it is left. Then the garbage collector comes, and clears the room. We will meet it properly on the tenth island.
+
+For now hold only this — value or address. Every variable is one of those two, and knowing that much clears half the confusion by itself.
+
+@read hush
+Outside the stars are still where they were. The ship is rocking slowly. You can sleep now.

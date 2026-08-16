@@ -24,7 +24,7 @@ The simple way is this. For every place, ask — [aside]"How long is the longest
 There is a faster way as well, which uses binary search and reaches O(n log n). Tonight you do not need those details. It is enough to know that sometimes, when the tools of two islands are joined, a new speed comes out.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of the table.
+Here is the easy way to check the answer once the table is full. Hold the smallest case in the table against the answer you counted by hand, then do the same for the second smallest. If the base is right then every box above it is right on its own, because each box is built out of the boxes below it.
 
 @recall talika
 
@@ -44,7 +44,7 @@ Now remember lightly how to recognise DP. If the question asks [aside]"the most"
 The papers on the wall are quiet. Outside, the wind is moving. The table is filling itself in, one square at a time.
 
 @read hush
-One last time before you sleep, very slowly, listen to that same rule.
+The order in which you fill the table is itself a rule. Before you fill any box, every box it looks at must already be filled. Get the order backwards and the code still runs and still gives an answer, but that answer is built out of empty boxes.
 
 @recall talika
 

@@ -14,7 +14,7 @@ Now listen to the main problem of this island.[..][lift]The whole linked list ha
 Luffy said — [luffy]"That is easy. I pull it and flip it over."[/] Zoro stopped him and said — [zoro]"It is not flipping it over. It is changing the direction of every finger."[/]
 
 @read hush
-[wonder]Let us call it the dance of the three fingers.[/] Now listen to the rule, and close your eyes while you listen.
+[wonder]Let us call it the dance of the three fingers.[/] Now listen to its rule, slowly.
 
 @algo reverse
 The rule for turning a linked list around is this. You have three fingers in your hand, and their names are behind, now, and tomorrow. At the start, behind is empty, and now sits on the first node. In the first step, put tomorrow on the node after now. In the second step, turn now's finger back towards behind. In the third step, move behind to where now is. In the fourth step, move now to where tomorrow is. Keep repeating these four steps until now is empty. Whichever node is at behind at the end is the new head of the turned-around linked list.
@@ -25,7 +25,7 @@ The biggest trap here is hidden in the first step. If you turn the finger around
 This work finishes in a single pass, so its time is O(n). You never had to build a new linked list, so its space is O(1).
 
 @read hush
-Now keep your eyes closed, and listen to those same four steps once more. This time do not try to follow the words, just let them go past.
+Once you have reversed it, how do you know the answer is right? When the loop ends the finger called 'now' must be empty, and the new beginning must be under the finger called 'behind'. Many people hand back the old beginning instead, and then all they are holding is a single node.
 
 @recall reverse
 
@@ -41,7 +41,7 @@ The third problem is beautiful as well. You have to remove the Kth node from the
 @read hush
 The chain is sinking slowly into the water.[..]The links are going down one by one,[..]and the sound grew fainter.
 
-Now one last time before you sleep, very slowly, listen to those same four steps. Tomorrow morning these words will come back to you on their own.
+Check this rule on two small cases. An empty Linked List must give back an empty answer. A Linked List with one node must give back that same node. Once those two work, the same four steps work on a chain of any length.
 
 @recall reverse
 

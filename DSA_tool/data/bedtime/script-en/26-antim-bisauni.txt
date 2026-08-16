@@ -61,7 +61,7 @@ Whenever you see any new problem, ask these seven questions. The first question 
 The questions are the real tools, and the moves are only their answers.
 
 @read hush
-Now keep your eyes closed and listen to those seven questions once again.
+How do you know whether those seven questions are working? If at least one of them sticks within fifteen seconds of reading a new problem, you have found your way in. If not one of them sticks, the problem is not new — its language is unfamiliar, so read it again.
 
 @recall saat-prashna
 
@@ -71,7 +71,7 @@ Now sleep. Really sleep. The code gets written in the morning, and tonight's wor
 The ship is finding its own way forward. Above there are more stars than anyone could count. The waves knock gently against the side of the ship.
 
 @read hush
-One last time before you sleep, very slowly, listen to those seven questions. Tomorrow morning they will come back to you on their own.
+This is the last thing, and it is true on every island. Before you send an answer, always check three cases by hand. Those three cases are empty input, input with exactly one thing in it, and the largest input there could be. The habit of checking those three will save you many nights later on.
 
 @recall saat-prashna
 

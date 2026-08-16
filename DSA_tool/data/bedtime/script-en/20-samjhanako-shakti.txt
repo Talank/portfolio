@@ -37,7 +37,7 @@ At every house there are two options. If you take this house you had to skip the
 Here you can see the true shape of DP, and it is this that you should remember. Ask at every place — [aside]"How many options do I have?"[/] Build the answer for each option out of smaller answers, then pick the best one.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of memory.
+Counting tells you whether the memory is doing its job. Compare how many times you counted before using the wall and after, and the difference should be large. If the difference is small then the key on the wall is wrong, which means the same question is being written down under different names.
 
 @recall bhitta
 
@@ -46,7 +46,7 @@ There is a small move as well. Here we only ever need the previous two answers, 
 The papers are moving on the wall of the house. The owner has fallen asleep in his chair. He did not think about the same question twice today.
 
 @read hush
-One last time before you sleep, very slowly, listen to that same rule.
+Choosing the key is the most important part of pinning things to the wall. Every number that fully identifies the question must be in the key, and not one unnecessary number more. Too few and the answer is wrong; too many and the memory saves you nothing.
 
 @recall bhitta
 

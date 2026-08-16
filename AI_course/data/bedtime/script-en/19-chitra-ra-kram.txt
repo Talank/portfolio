@@ -1,0 +1,97 @@
+# 19 — Pictures and order: CNNs and RNNs
+
+Morning has come in the forest. A small piece of sunlight has fallen on the ground through the middle of the leaves.
+
+Usopp looked towards a far off tree and said, [usopp]"I saw a bird. But I saw the wing first, and only then did I recognise the bird."[/]
+
+@read teach
+This is today's first trick. A picture is a large table of numbers, and every dot is one number.
+
+The network from the fifteenth island cannot be put here directly. The reason is counting — joining every dot of even a small picture to every unit brings the weights to millions.
+
+The larger problem is one of place. Whether the bird is in the left corner of the picture or the right corner, it is still the bird.
+
+A fully joined network does not understand this, because to it every place is separate.
+
+@read teach
+The remedy comes with a small window. Make a small square, and put a few weights inside it.
+
+Now move that window across the whole picture, and work out the arithmetic with the same weights at every place. This is called convolution, and that small window is called a filter.
+
+One filter feels the whole picture, so few weights are needed. And wherever an edge is met, the same filter recognises it.
+
+The filters of the first row recognise edges and changes of colour. The rows above join those and recognise an eye, a wing, and finally a bird.
+
+In between, the picture is also made smaller. Keep only the largest number inside a small square, and this is called pooling.
+
+A network like this is called a convolutional neural network.
+
+@read teach
+Now the second trick comes, and it is not about pictures but about order. In a sentence the words come one after another, and if the order changes the meaning changes too.
+
+For this, give the network a memory. Keep a small state, and bring that state up to date with every new word.
+
+When the first word is read the state changes, when the second is read it changes again, and it goes forward like that. This is called a recurrent neural network.
+
+Here too the weights are the same, because the same rule is applied again at every step.
+
+@read teach
+But right here a large problem appeared, and this problem later changed everything. In a long sentence what was at the start does not reach the end.
+
+The reason has already been told by the sixteenth island. As the error comes back it is multiplied at every step, and by a hundred steps back it is zero.
+
+The first remedy was to put in gates. Small gates that learn for themselves what to remember and what to forget were added, and this is called LSTM.
+
+This improved a great deal, but the root difficulty remained. The words still have to be read one after another, so the work cannot be done side by side and the training is slow.
+
+These two pains gave birth to the next invention, and we will meet it on the twenty-second island.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo chitra-ra-kram
+Remember the two old builds like this. The first thing is that for pictures a few weights are put in a small window and that same window is moved across the whole picture, and this is called convolution, and it both lowers the weights and lets an object be recognised wherever it is. The second thing is that the filters of the lower rows recognise edges and the rows above join those and recognise objects, and in between the picture is made smaller and that is called pooling. The third thing is that for order a small state is kept and that state is brought up to date with every new word, and this is called a recurrent neural network. The fourth thing is that in it the start of a long sentence does not reach the end, and because the words must be read one after another the training is slow, and these two pains gave birth to the next build.
+@end
+
+That is all of it. One understood place, and the other understood order.
+
+Here is how to check that a picture network has learned the right thing. Move the object a little to one side and ask again. The answer should not change. If it does, the network has learned where the thing sits rather than what it is, and it will fail the moment the camera moves.
+
+@recall chitra-ra-kram
+
+A bird flew off in the forest. The leaves moved once.
+
+@read hush
+There is one limit worth naming here. The small window sees only what is inside it, so at the first row a dot knows nothing of the far side of the picture. Distant things only come together as the rows pile up, and that is why depth matters so much in this build.
+
+@recall chitra-ra-kram
+
+@tier medium
+
+The night is long. Usopp asked whether these old tricks still work or not.
+
+For work with pictures, convolution is strong to this day. On small data and small machines it is still the first choice.
+
+There is one more large benefit. Take a network somebody has already trained, change only the last row on top, and train it a little on your own small data.
+
+This is called transfer learning, and it works with even a few hundred examples. This same idea comes back later at LLMs.
+
+For work with order, though, the old trick has largely gone. But it is still found in small and continuously arriving data.
+
+Listen to one name as well, because it comes up in interviews. The short road that made deep networks possible for pictures is called a residual connection, and it was used here first.
+
+@tier long
+
+Robin came into the forest. She asked — [robin]"What is written inside a filter?"[/]
+
+This question is a beautiful one. At the start nothing is written there, and only random numbers sit in it.
+
+Looking after the training, shapes are seen there. Some filter wakes at a straight line, some at a level line, and some at the meeting of two colours.
+
+A person never wrote these, and they came out of the training by themselves. This one thing made the old way old all at once.
+
+Before, people wrote the marks by hand, and that was called feature engineering. That work demanded years of experience.
+
+Deep learning handed that work over to the data. This one change is the main story of the whole subject.
+
+@read hush
+Now sleep. The forest is quiet, and the piece of sunlight is moving.

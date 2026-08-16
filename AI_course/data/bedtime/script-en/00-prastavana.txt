@@ -1,0 +1,79 @@
+# 0 — Introduction: the map of the Poneglyph
+
+The ship is standing in the harbour. The night is quiet. The water is black, and long lines of lamplight are swaying on it.
+
+There is nowhere to go today. Today there is only the map to look at, and looking at the map is part of the voyage too.
+
+Robin is sitting at the edge of the deck. There is a piece of stone in her lap, and someone cut something into it a great many years ago. She said — [robin]"People call this a stone. I call it a sentence."[/]
+
+The whole course sits inside that one sentence. The marks are on the stone, and the meaning is not on the stone. The meaning is in the head of whoever can read it. Teaching a machine to read means teaching it to pull meaning out of marks.
+
+@read teach
+Now let us clear up the first confusion, because these words arrive all mixed together. The outermost umbrella is artificial intelligence. Under it comes any method at all that makes a computer look intelligent. The old program that played chess comes under it too, and there was no learning in that one at all.
+
+Inside that umbrella there is a smaller circle, and it is called machine learning. Here a human does not write the rule. The rule comes out of the data by itself. You do not write the rule for recognising spam. You show ten thousand spam letters and ten thousand real ones, and the machine finds the rule on its own.
+
+Now pay attention to one thing, because this is the foundation of the whole course. The rule the machine found is not in words. That rule is only numbers. Those numbers are called weights, and turning them until they agree with the data is exactly what training is.
+
+Inside machine learning there is a smaller circle still, and it is called deep learning. Here the model is a neural network with many layers. The idea is the same, but the numbers run to millions or billions, and they sit in layer upon layer. Once there are that many numbers, the model learns its own features by itself.
+
+Now the question comes of where NLP fits. NLP does not fall inside any circle, because it is not a circle, it is a job. NLP means getting a computer to handle human language. Classical machine learning used to do that job, and deep learning does it now.
+
+@read teach
+Large language models sit at the join of those two. They are large deep learning transformers, and they have been trained on a single task. That task is guessing the next token. GPT, Claude, Gemini and Llama are all of that same one breed.
+
+Last comes the agent, and this is where a lot of people get tangled. An agent is not a model. An agent is a program you write, and it calls the model round and round. In between it runs a tool, and shows the answer that comes back to the model again. The model is the engine, and the agent is the vehicle built around it.
+
+Luffy asked through a yawn, [luffy]"So what is it we are learning?"[/] Robin put a finger on the stone.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo char-ghera
+The four words sit like this. Artificial intelligence is the outermost umbrella, and any method that looks intelligent comes under it. Machine learning is the circle inside that, and here the rule comes out of the data. Deep learning is the small circle inside that, and here the model is a network with many layers. Large language models live inside that third circle, and they learn to guess the next token. An agent falls inside no circle at all, because an agent is the program that calls a model.
+@end
+
+Now you will not get lost reading any article. You can put every new name into one of those four circles.
+
+Here is how to check that you have put a name in the right circle. Ask one question about it — where does its rule come from? If a person wrote the rule it is only artificial intelligence, and if the rule came out of data it is machine learning. If you cannot answer that question at all, then what you are holding is not a method but a product name.
+
+@recall char-ghera
+
+Robin pushed the stone aside. The ship did not rock. The water is as black as it was.
+
+@read hush
+There is one place where these circles mislead, and it is worth knowing tonight. The circles say nothing about how large a thing is or how well it works. A tiny model can sit in the innermost circle and a huge system can sit in the outermost one. The circles tell you where the rule came from, and nothing more than that.
+
+@recall char-ghera
+
+@tier medium
+
+The night is still long. Robin told another thing, and it was about the word model itself.
+
+[robin]"People take a model for a mystery. A model is not a mystery."[/] She said that a model is only a function with numbers in it that can be turned.
+
+Listen to the smallest model there is. It is f of x equals w times x plus b. There are only two numbers here that can be turned, and they are w and b. This is a model too.
+
+The largest model is of that same kind. There the numbers that can be turned run to hundreds of billions, and the shape of the function is far more tangled. But the class is the same.
+
+Now listen to what training is, and it is one cycle of five steps. In the first step the data and the model are taken up. In the second step it is measured how wrong the answer is, and that measurement is called the loss. In the third step it is worked out which way each number should turn for the loss to fall, and that working out is called the gradient. In the fourth step every number is turned a little that way. In the fifth step all of it happens again.
+
+Those five steps are the whole course. In a small model this runs with two numbers. In a large model the same cycle runs with millions of numbers. The story is the same, and only the numbers are more.
+
+So when somebody says download the model, what they mean is download the values of those numbers. Inside the large file there are only the learned numbers, and along with them a little code that says what shape the function has.
+
+@tier long
+
+Franky put his head up from the engine room below. He asked, [franky]"There are no facts written inside that file?"[/]
+
+Robin shook her head. [robin]"There are not. That file is not a database."[/]
+
+This is worth remembering. There is no table of facts inside a model. The knowledge is spread across billions of weights, and something is lost in the spreading.
+
+This is the reason a model sometimes says a thing that was never so, and that is called hallucination. The model does not read a fact it stored. The model builds a likely answer again.
+
+If you understand this, half the trouble that comes later is understood in advance. Why RAG is needed comes out of this same place.
+
+Nami rolled the map up and put it away. The ship is standing where it stood, and the first island comes tomorrow. There are arrows on that island.
+
+@read hush
+Now sleep. The map has been looked at, and the voyage begins tomorrow.

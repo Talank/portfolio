@@ -1,0 +1,104 @@
+# 22 — The birth of attention: seq2seq and attention
+
+Two people are standing on the deck. One is listening, and the other is speaking.
+
+Usopp told a long story in one breath. Sanji shook his head and said, [sanji]"I have already forgotten the beginning."[/]
+
+@read teach
+This is today's problem. On the nineteenth island we learned the network that reads order.
+
+For translation two networks were joined. The first reads the whole sentence, and it is called the encoder.
+
+The second writes the answer one word at a time, and it is called the decoder. This pair is called seq2seq.
+
+One small message goes between them. The encoder reads the whole sentence and makes a single vector, and the decoder writes the whole translation looking only at that one vector.
+
+@read teach
+Right here is the trouble, and it is like Sanji's complaint. A sentence of fifty words has to be crammed into that same single small vector.
+
+As the sentence gets longer that vector fills up and the beginning is lost. This is called the bottleneck.
+
+When the results were measured, that is what was seen. The translation of a short sentence came out well, and the translation of a long one went on getting worse.
+
+@read teach
+The remedy is simple and beautiful. Why did everything have to be crammed into one message?
+
+The encoder makes a vector as it reads each word, so keep all the vectors of the whole sentence. Now let the decoder look back before writing each word.
+
+But looking back, it must not look at everything equally. Whichever agrees with the word about to be written is the one that must be looked at more.
+
+This is attention.
+
+@read teach
+Now listen to how it is worked out, because the first island comes back here.
+
+Compare the decoder's present state against each of the encoder's vectors with a dot product. Each comparison gives a number, and that number stands for agreement.
+
+Put all those numbers into a softmax, and they add up to one. These are the weights.
+
+Now multiply all the encoder's vectors by their own weights and add them. Whichever agreed more has the larger share.
+
+That sum is the message for now, and looking at that message the decoder writes the next word.
+
+@read teach
+There is a good side to this as well, and it is openness. Those weights can be printed out and looked at.
+
+Looking at a translation, which source word each answer word came from shows itself. This is called alignment, and nobody taught it.
+
+And out of this observation another question rose. If attention is doing all the work, why was the old part that reads order needed in the middle at all?
+
+The answer to that question is the next island.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo dhyan-ko-janma
+Attention was born like this. The first thing is that two networks were joined for translation, and the one reading the whole sentence was called the encoder and the one writing the answer word by word was called the decoder. The second thing is that a single vector used to be sent between them, so in a long sentence the beginning was lost, and that was called the bottleneck. The third thing is that the remedy is to keep all the encoder's vectors and let the decoder look back before writing each word, and this is called attention. The fourth thing is that the weights for looking are made like this — the decoder's present state is compared against each vector with a dot product, those numbers are put into a softmax, and then all the vectors are multiplied by their own weights and added.
+@end
+
+That is all of it. Rather than remembering everything, it is easier to look back when you need to.
+
+Here is how to check that the attention learned something real. Print the weights for a translated sentence and look at where they fall. They should land on the source words that carry the answer. If they are spread evenly across every word, the decoder is not looking at anything in particular, and the bottleneck has merely moved rather than gone.
+
+@recall dhyan-ko-janma
+
+The wind blew on the deck. Both of them are quiet.
+
+@read hush
+There is a price to this that is worth naming. Every word written has to be compared against every word read, so the work grows with the two lengths multiplied together rather than added. On a short sentence this is nothing, and on a very long one it is the whole cost.
+
+@recall dhyan-ko-janma
+
+@tier medium
+
+The night is long. Usopp asked how the decoder does the work of choosing a word.
+
+At every step the decoder works out a probability over the whole list. Picking the word with the largest probability is the easy thing.
+
+But that is not always best. Picking the second best word now can make the whole sentence that follows better.
+
+So a trick of carrying a few candidates along together is used. At every step only a few of the top roads are kept, and at the end the best road is taken.
+
+This is called beam search. It is still used in translation to this day.
+
+In training, though, another trick is needed. At the start the model's guesses are poor, and one wrong word gets piled on another.
+
+So during training the true word is given at the previous step, and this is called teacher forcing.
+
+@tier long
+
+Robin came onto the deck. She asked — [robin]"So attention is like searching?"[/]
+
+It is exactly like that, and this same comparison becomes the foundation of the next island. You have a question, and there are many papers in front of you.
+
+Compare the question against the title of every paper, and work out a number for agreement. That comparison is the weight.
+
+But there is one difference here, and this difference matters. In ordinary searching one paper is picked.
+
+In attention no single one is picked, and a mixture of all the papers is taken. Whichever agrees more has the larger share, and whichever does not has a share near zero.
+
+This soft choosing is what made it something that can be taught. In a hard choice no gradient flows, and in a soft mixture it does.
+
+So attention is a search that can be learned. The cosine search of the eleventh island and this are two forms of one idea.
+
+@read hush
+Now sleep. The story is over, and the beginning of it has not been lost either.

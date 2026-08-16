@@ -28,14 +28,14 @@ The same amortised reasoning applies here again. Every number goes in once and c
 Putting the pair together, Robin said — [robin]"The stack and the queue are twins. One looks for depth, and the other looks for breadth. Everything else is a shape of those two."[/]
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of the deque.
+One single sign tells you whether this queue is working. The queue must always run from largest to smallest, with the largest at the front and the smallest at the back. If that order breaks on any step, the step that removes from the back has been missed somewhere.
 
 @recall deque
 
 The smell of warm bread is coming from the shop. The line is slowly getting shorter. Nobody is pushing, and everybody's turn comes.
 
 @read hush
-One last time before you sleep, very slowly, listen to that same rule.
+When you drop the number at the front, check it by index and not by value. The same value can sit in two places inside the window, and checking by value makes you think a number that is still inside has gone out. Keeping the index removes this problem at the root.
 
 @recall deque
 

@@ -1,0 +1,78 @@
+# 8 — Learning and memorising: overfitting and bias
+
+Practice is going on out on the deck in the morning. Zoro is swinging a sword, and Usopp is standing beside him.
+
+Usopp said, [usopp]"I have learned every one of your moves by heart."[/] Zoro used a new move, and Usopp went down at once.
+
+Robin watched from a distance. She said — [robin]"He did not learn. He memorised."[/]
+
+@read teach
+The difference between those two words is today's lesson. Memorising means remembering what you saw exactly as it was. Learning means finding a rule that works even on what you have not seen.
+
+The same thing happens with a model. Some model answers correctly on every one of the training examples, but fails on new data. That is called overfitting.
+
+The reverse of it happens too. Some model does not do well even on the training data, because it is far too simple. That is called underfitting.
+
+Now two words are needed to measure these. The first word is bias, and it says how rigid the model is. The second word is variance, and it says how much the model shakes at a small change in the data.
+
+@read teach
+These two are always pulled in opposite directions, and this tension is called the bias-variance trade-off.
+
+If the model is simple the bias is large and the variance is small. If the model is tangled the bias is small and the variance is large. Both cannot be made small at once.
+
+Robin explained it to Usopp — [robin]"A rule that is too hard does not recognise a new enemy. A rule that is too loose takes the wind for an enemy."[/]
+
+Now listen to the way of finding this out, and it is astonishingly easy. Make two parts of the data. Train the model with one part, and that is called the training set. Keep the other part untouched, and that is called the test set.
+
+Now measure the error on both. If the error is large on both, that is underfitting. If the error is small in training and large in testing, that is overfitting.
+
+@read teach
+There are four easy ways to stop overfitting. The first is to bring more data, and this is the most dependable of them. The second is to make the model simpler. The third is to not let the weights grow large, and that is called regularization. The fourth is to stop the training partway, and that is called early stopping.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo siknu-ratnu
+Learning is tested like this. The first thing is that doing well on the training data is not proof of learning, because that can also be memorising. The second thing is that the data is made into two parts, training and testing, and the testing part is never touched during training. The third thing is that if the error is large on both the model is too simple and that is called underfitting, and if it is small in training and large in testing that is called overfitting. The fourth thing is that to reduce overfitting you bring more data, or make the model simpler, or do not let the weights grow large, or stop the training partway.
+@end
+
+If you understand this one thing, half of the mistakes fall away by themselves.
+
+Here is how to check which of the two you are looking at. Train the model on a handful of examples only, and it must be able to memorise those completely — the error there should go almost to nothing. If it cannot even do that, the trouble is not too little data, it is that the model is too small or the learning rate is wrong.
+
+@recall siknu-ratnu
+
+The practice on the deck is over. The sun is going down slowly.
+
+@read hush
+There is one form of overfitting that no split will catch. If the same thing appears in both the training part and the testing part, the test is no longer a test, and the score it gives will be high and meaningless. So before trusting any number, ask first whether the two parts really are strangers to each other.
+
+@recall siknu-ratnu
+
+@tier medium
+
+Evening came. Robin told another thing, and it was about the honesty of testing.
+
+The test set must be used only once. If you look at it again and again and improve the model each time, you have mixed the test set into the training after all.
+
+So a third part is kept in between, and it is called the validation set. Choosing is done on this one, and the test set is opened only once at the very end.
+
+This rule sounds ordinary, but in practice a great many people slip right here.
+
+The question comes in examinations too. The answer is short, and it is that testing data must never be used in making a decision.
+
+@tier long
+
+Sanji came out of the kitchen. He asked, [sanji]"What should be done if there is very little data?"[/]
+
+Robin's answer was an easy one. [robin]"Test by turns."[/]
+
+Divide the data into five or ten pieces. Keep one piece for testing, and train with the rest.
+
+Now change the testing piece, and repeat all of this for every piece. At the end take the average of all the results.
+
+This is called cross-validation. It gives a dependable estimate even from a little data.
+
+Its price is time. With five pieces the training has to be run five times. On a small model this is cheap, and on a large model it is expensive.
+
+@read hush
+Now sleep. What was memorised is forgotten, and what was learned stays.

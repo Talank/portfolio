@@ -1,0 +1,116 @@
+# 31 — Memory and limits: an agent's memory, testing and railings
+
+The sand is wet at the shore. A line the wave has written is wiped out in a moment.
+
+Chopper wrote a name in the sand. A wave came, and the name was gone. He said, [chopper]"I had to write it again."[/]
+
+@read teach
+This is an agent's first trouble. Every time you ask, the model has only that one context.
+
+If the conversation gets long it fills up. Old matter has to be cut away, and once it is cut the agent forgets.
+
+So divide the memory into two parts. The short memory is the present conversation, and it sits inside the context.
+
+When that begins to fill, make a summary of the old part and keep it, and throw the long text away. A summary takes little room.
+
+@read teach
+The long memory is another matter. This has to remain even after the conversation is over.
+
+The remedy for it is on the last island. Write facts worth remembering separately and keep them in a store, and search them out later when they are needed.
+
+That is to say, memory is a search as well. There is nothing new in it, and the trick is the same.
+
+There is a third kind of memory too, and it is for the present work. While doing a long job, go on writing the results from the middle into a file.
+
+Doing this, even if it stops partway it can be started again from there.
+
+@read teach
+Now listen to the second trouble, and it is one of testing. An agent does not give the same answer every time.
+
+So running it once and seeing that it looked good is not enough. Build the habit of measuring it.
+
+First pick a few dozen real jobs and make a list, and write the right result of each as well. Now run that same list after every change.
+
+Measure three things, and they are whether the work succeeded, how many steps it took, and how much money it cost.
+
+Keep a record of every step as well. Without keeping which tool ran, what it was given, and what it handed back, finding a mistake is impossible.
+
+@read teach
+There is a custom of making another model the judge for measuring the quality of an answer. This is easy, and it has dangers of its own.
+
+The first danger is one of length. A judge usually gives a long answer a higher score.
+
+The second danger is one of order. Of two answers, the one shown first may get the higher score, so ask with the order reversed as well.
+
+The third danger is one of kinship. A judge may prefer the writing of its own family.
+
+So do not let the judge be the only evidence. In work that can be checked, run the real check, and add a sample check by people as well.
+
+@read teach
+The last matter is the railings, and it is the most serious. An agent uses tools, and tools have effects in the real world.
+
+The first railing is one of authority. Do not give any tool more authority than it needs.
+
+For work that deletes, or sends, or pays money, make a person's approval unavoidable. Make this a rule, and do not leave it to the model's judgement.
+
+The second railing is about text coming in, and it is subtle. Somebody can write an instruction into a paper or a web page the agent reads.
+
+To the model both the instruction and the material are text, so that instruction may be obeyed. This is called prompt injection.
+
+So never treat text that came from a tool as an instruction. Always treat it as material only, and do not do anything dangerous on the strength of it.
+
+The third railing is one of cost. Fix limits of steps, of time and of money, and make it stop by itself once they are passed.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo smriti-ra-sima
+An agent is made dependable like this. The first thing is that memory is of three kinds, and the short memory sits inside the context and shrinks into a summary as it fills, the long memory is written into a store and searched out when needed, and the results from the middle of the present work are written into a file. The second thing is that an agent does not give the same answer every time, so a list of real jobs is made and run after every change, and whether the work succeeded, how many steps it took and how much money it cost are measured, and a record of every step is kept. The third thing is that making another model the judge gives a higher score to a long answer and to the one shown first, so it is asked with the order reversed and a sample check by people is added. The fourth thing is that no tool is given more authority than it needs, a person's approval is unavoidable for deleting and for paying, text that came from a tool is never treated as an instruction and this is called prompt injection, and limits of steps and of money are fixed.
+@end
+
+That is all of it. Memory, measure and railings — these three turn a toy into a working thing.
+
+Here is how to check that the railings actually hold. Write a page yourself containing an instruction, put it where the agent will read it, and see whether it obeys. It must not. Testing this deliberately is the only way to know, because an agent that has never met such a page will look perfectly safe.
+
+@recall smriti-ra-sima
+
+The waves are coming in at the shore. The sand has gone level again.
+
+@read hush
+There is one thing about the summarising that is easy to miss. Whatever gets left out of the summary is gone for good, and the agent will not know it is missing — it will go on confidently with the part it kept. So what goes into a summary is a decision, and it is worth making deliberately rather than by length alone.
+
+@recall smriti-ra-sima
+
+@tier medium
+
+The night is long. Chopper raised the matter of bias, and this was left over from the twenty-first island.
+
+A model learns from data. The data was written by people, and the leanings of people are in it.
+
+So the model repeats those leanings. The habit of tying some occupation to some gender was found in the vectors themselves.
+
+This is not only a moral question, and it is a technical mistake as well. A leaning makes the result itself wrong.
+
+The remedy begins at the very first stage. Write down where the data came from, who is represented in it, and who is not.
+
+The second remedy is to measure it separated out. Do not look only at the whole average, and measure it group by group.
+
+Even where the average looks good it can be bad in some group. That same lesson from the fourteenth island applies here again.
+
+@tier long
+
+Robin came to the shore. She asked — [robin]"When should an agent be used and when not?"[/]
+
+Many people forget to ask this question. An agent is enjoyable, and it is not always necessary.
+
+If the work is definite and the steps are known, write an ordinary program. That is cheap, fast and dependable.
+
+If it is a one time question, ask it directly. No loop is needed here.
+
+An agent is needed where the steps are not known in advance. It suits work where you have to search as you go, decide partway, and change road after seeing a result.
+
+Keep a practical order as well. Begin from a plain question, then search out papers and give them if that is not enough, then give tools only if that is not enough, and only after that build a loop.
+
+Every layer added raises the power, and along with it raises the cost, the delay and the roads to a mistake.
+
+@read hush
+Now sleep. The waves keep coming, and the sand always goes level again.

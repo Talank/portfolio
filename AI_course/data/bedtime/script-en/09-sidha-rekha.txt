@@ -1,0 +1,77 @@
+# 9 — The straight line: linear regression
+
+In the workshop Franky put a sheet of paper up on the wall. There are dots scattered on it.
+
+He said, [franky]"Every dot is a ship. Across is the length, and up is the price."[/]
+
+Luffy looked and said, [luffy]"So a long ship is an expensive one."[/] Franky nodded.
+
+@read teach
+Now the work is only this. Draw one straight line among those dots, and that line will guess the price of a new ship. This is linear regression.
+
+A line is named by two numbers. The first number says how steeply the line leans, and it is called the slope. The second says where the line starts from, and it is called the intercept.
+
+Now the question is which one of the countless possible lines is the right one.
+
+The answer begins from measuring. For every dot take the difference between the price the line says and the true price. That difference is called the error.
+
+@read teach
+Now those errors cannot simply be added, because some are above and some below, and they would cancel. So the square of each error is taken, and a square is always positive.
+
+Take the average of all the squares. What comes out is the mean squared error, and that is this model's loss.
+
+Now the tool from the fourth island comes back here. The gradient shows the direction that brings the loss down, and the slope and the intercept are moved a small step that way.
+
+Go on repeating this. The line slowly settles in among the dots, and at one place it comes to rest.
+
+Franky said, [franky]"This is what training is. Nothing larger than this comes later either."[/]
+
+This is true. The training of GPT is this same cycle, and there are only more numbers there.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo sidha-rekha
+The straight line is found like this. In the first step the line is named by two numbers, and they are the lean and the starting place. In the second step, for every dot, the difference between what the line says and the true value is taken, and that difference is squared. In the third step the average of all the squares is taken, and that is called the mean squared error. In the fourth step the gradient shows the direction that brings that average down, and both numbers are moved a small step that way. In the fifth step this repeats, and it stops when the error stops falling.
+@end
+
+That is all of it. This is the smallest model there is, and its cycle is the same as the largest one's.
+
+Here is how to check that the line settled where it should. At the resting place the errors above the line and the errors below it must balance out. If nearly every dot is sitting on one side of your line, the line has not finished coming down, or the intercept was never allowed to move.
+
+@recall sidha-rekha
+
+The line is drawn on the paper. The dots are all around it.
+
+@read hush
+There is one thing this line cannot tell you. It says how the price moves along with the length, and it never says that the length is the cause. Two things can rise together because a third thing moves them both, and no amount of lowering the error will separate those two stories.
+
+@recall sidha-rekha
+
+@tier medium
+
+The night is long. Franky told another thing, and it was about having more than one cause.
+
+The price of a ship is not settled by the length alone. The kind of wood, the size of the sail and the engine settle it too.
+
+So one lean is not enough. A separate number is needed for every cause, and all of them together make a vector.
+
+Now the work of getting the estimate is a dot product. That same tool learned on the first island has come back here.
+
+But there is a new trap here. When two causes agree closely with each other the model becomes confused, because which cause had the effect cannot be separated out. This is called multicollinearity.
+
+@tier long
+
+Nami came into the workshop. She asked — [nami]"What happens if the scales are different?"[/]
+
+This is a good question. The length is in metres, and the price is in thousands, and those two get mixed into one piece of arithmetic.
+
+Once the scales differ, gradient descent walks a crooked road. The step falls large in one direction and small in another.
+
+The remedy for this is easy. Bring every feature onto one scale, and that is called scaling.
+
+The most used way is this. Subtract from every feature its own average, and divide by its own spread. Now all the features sit in the same rhythm.
+
+This is a small step, but it makes training a great deal faster. Forgetting it can make a model look as though it never learned at all.
+
+@read hush
+Now sleep. The line has been drawn, and the dots are quiet.

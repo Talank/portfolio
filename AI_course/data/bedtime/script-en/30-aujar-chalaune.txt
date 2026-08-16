@@ -1,0 +1,103 @@
+# 30 — Using tools: tool calls, ReAct and frameworks
+
+We went into the cave again. This time tools are hanging on the walls.
+
+Luffy looked at the tools and asked, [luffy]"But a model has no hands at all. How does it use these?"[/]
+
+@read teach
+This is today's key, and once it is understood everything becomes easy. A model truly has no hands.
+
+It can only write text. So take its text itself as the order.
+
+You give it a list of tools, and write in words what each tool does. Write also what has to be given to it.
+
+Now the model does not write an answer, and it writes which tool to run with what material. Your program reads that and runs the tool.
+
+Give the result back to the model again. This cycle is what an agent is.
+
+@read teach
+The cycle has been given a name too, and it is of three words. First the model thinks and writes its plan.
+
+Then it chooses one piece of work. Then, once that work has run, it looks at the result.
+
+Looking at that result it thinks again. This is called ReAct, and it is a cycle of thinking, doing and looking.
+
+There is a beautiful thing here. Because the plan is written out in text, you get to read the model's thinking.
+
+@read teach
+Now the question comes of where to stop this loop, and this question is a serious one.
+
+If the model writes a final answer saying the work is done, stop. But it may never say so.
+
+So put a limit on the steps, and put a limit on the time as well. A loop with no limit sometimes repeats the same piece of work again and again.
+
+Decide also what to do when an error comes. The easy and effective remedy is to give the error message back to the model exactly as it is.
+
+It may be surprising, but it usually corrects itself. If it wrote a wrong name it fixes that and tries again.
+
+@read teach
+Now listen to one piece of advice about building, and this advice is valuable.
+
+Keep the loop in your own hands. Write which model to run in one small place only.
+
+Doing this makes it easy to move to another model tomorrow. This field changes fast, and being tied down beyond changing costs a great deal.
+
+There are ready frameworks too, and they have their own places. Some make the work of joining tools and question formats easy.
+
+Some let the whole job be written like a map, where every point is a step and a winding road can be put in between. In these the state is kept safe, and a person can be asked partway as well.
+
+Some make a team by dividing roles among many agents. And a common rule has been made as well that presents a tool so any model at all can recognise it, and that is called MCP.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo aujar-chalaune
+An agent is built like this. The first thing is that a model has no hands and only writes text, so a list of tools and what each tool needs is written out in words and given to it. The second thing is that the model writes which tool to run with what material, your program runs it, and the result is given back to the model, and this cycle is what an agent is. The third thing is that this cycle has three steps of thinking, doing and looking, and it is called ReAct. The fourth thing is that limits of steps and of time must be put on the loop, the error message must be given back to the model exactly as it is because it usually corrects itself, and which model to run must be kept in one small place.
+@end
+
+That is all of it. The model says it, and your program does the work.
+
+Here is how to check whether the tools are described well enough. Read only their names and descriptions yourself, with nothing else, and see whether you could choose the right one for a question. If you cannot, the model cannot either, and the fault is in the writing rather than in the model.
+
+@recall aujar-chalaune
+
+The tools are hanging in their own places in the cave. It is silent inside.
+
+@read hush
+There is one thing to hold onto about this loop. Every turn of it puts the whole history back into the question, so the cost does not stay level as the work goes on — it grows with each step. A loop that runs twenty steps is far more than twice the price of one that runs ten.
+
+@recall aujar-chalaune
+
+@tier medium
+
+The night is long. Luffy asked what a tool should be like, and the answer is practical.
+
+The first rule is about the name. The name and description of a tool are written for the model, and it chooses by reading them.
+
+If you put an unclear name the wrong tool gets run. So write in the description when it should be used as well.
+
+The second rule is about counting. If you give twenty tools the model gets confused.
+
+So keep few and clear tools. If many are needed, divide them into groups and show them only as they are required.
+
+The third rule is about results. Keep the text a tool hands back short and clean.
+
+If you hand back the whole raw result the context fills up and the money rises. Choose only the part that is needed and hand that back.
+
+@tier long
+
+Robin came into the cave. She asked — [robin]"Is it really better to have many agents?"[/]
+
+Mostly it is not, and this has to be said honestly. A team of many agents sounds good.
+
+But every agent added raises the cost and raises the delay. And the mistake of one passes into another.
+
+Giving one good agent good tools is usually more effective. Adding more agents is not a solution.
+
+There are places where a team is needed too. If the work truly calls for different skills, dividing the roles is right.
+
+Another useful pattern is the checking role. Let one do the work, and another check it.
+
+But put a limit here as well. Two agents can go round correcting each other forever, and that is a pit for money.
+
+@read hush
+Now sleep. The tools are in their places, and they will run again tomorrow.

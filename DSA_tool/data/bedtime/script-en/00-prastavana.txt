@@ -29,16 +29,16 @@ Now listen to what the whole night comes down to, and it is very small. This wil
 Whatever the problem is, ask it two questions. The first question is this — have I already done this piece of work once before? If I have, then that answer should be written down somewhere, and I should not count it again. The second question is this — can I throw away half of the remaining work right now? If I can, then even a very large problem finishes in a few steps. These two questions carry you half the way there on their own.
 @end
 
-Now close your eyes. The ship is moving. The first island is coming up on the horizon, and it is small, and green, and half covered in fog.
+The ship is moving. The first island is coming up on the horizon, and it is small, and green, and half covered in fog.
 
-Now listen to those two questions once more. This time do not try to follow the words, just let them go past.
+When can you trust that an answer is right? There is an easy check for it. Take an example small enough that you can count the answer on your fingers, and hold it up against what your approach gave you. If both agree on the small case they usually agree on the large one, and if they disagree, that same small example shows you where the mistake is.
 
 @recall dui-prashna
 
 I will speak slowly. There is no hurry. The whole night belongs to us.
 
 @read hush
-One last time before we reach the first island, very slowly, listen to those two questions. Tomorrow morning these words will come back to you on their own.
+Now listen to those two questions again, but this time hold two hard cases in mind. The first case is empty input, where there is nothing at all. The second case is input with exactly one thing in it. When an approach survives both of those, it is usually finished.
 
 @recall dui-prashna
 
@@ -90,7 +90,7 @@ Now look outside, in your imagination. The sea is black, but it is not frighteni
 Nothing will be loud all night. There will be no jolt. There will be no sound that wakes you. I will keep talking, and you are free to fall asleep at any moment.
 
 @read hush
-Now one last time before you sleep, very slowly, listen to those two questions. These two questions hold the whole night together, and everything else is just their expansion.
+This is why those two questions are so large. The first question removes work you have already done, and the second question shrinks the work that is left. Every island tonight is only one of those two, stretched out.
 
 @recall dui-prashna
 

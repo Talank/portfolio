@@ -30,7 +30,7 @@ Think for a moment about how large a saving that is. If you cut a bad road off a
 Robin said — [robin]"Weak backtracking looks at everything. Strong backtracking knows how to give up early."[/]
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of the art of turning back.
+One check tells you whether the art of turning back is working. After you finish a branch and come back, the place must be exactly as it was. If anything you added is still there, the next branch inherits a dirty state, and things appear in the answer that were never meant to be in it.
 
 @recall backtrack
 
@@ -41,7 +41,7 @@ Now listen to the signals. If the question says [aside]"all the possibilities"[/
 Inside the maze Luffy is asleep in the middle of the path. He does not remember about coming back, but tonight that is all right.
 
 @read hush
-One last time before you sleep, very slowly, listen to that same rule.
+If you need speed there is only one approach here, and that is to stop early. If you already know before entering a branch that no answer can come out of it, turn back right there. This is called pruning, and in a large maze that single step turns hours into seconds.
 
 @recall backtrack
 

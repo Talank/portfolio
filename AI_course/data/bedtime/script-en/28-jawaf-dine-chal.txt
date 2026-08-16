@@ -1,0 +1,109 @@
+# 28 — The trick of answering: sampling, the KV cache and serving
+
+There is the bustle of daytime at the harbour. Ships arrive, goods come down, and the queue is long.
+
+Nami looked towards the queue and said — [nami]"Making the goods is one thing. Handing them out is another."[/]
+
+@read teach
+This is today's difference. On the islands before we built the model, and today we will talk about running it.
+
+The answer is not made in one go. The model gives one token, that is joined on the end, and it is asked again.
+
+This repeating is what writing is. So a long answer comes slowly, and a short answer comes fast.
+
+At every step the model gives a probability over the whole list. Now one has to be picked from there, and the way of picking settles the style.
+
+@read teach
+The easiest way is to pick the one with the largest probability. This is definite, and it becomes dull quickly.
+
+The model can get stuck in one sentence and start repeating it. So chance is mixed in.
+
+The first knob is the temperature. Heating the probabilities brings the small ones up as well, and the answer becomes inventive.
+
+Cooling them makes the large probability more dominant, and the answer becomes safe. This is called temperature.
+
+The second knob is shortening the list. Keep only a few of the top ones and throw the rest away, or keep only as many as it takes for the total to reach a limit.
+
+The first is called top k, and the second is called top p. The second is more supple, because it fits the length of the list to the context by itself.
+
+For work where facts are wanted, keep the temperature low. For work where a story or an idea is wanted, raise it.
+
+@read teach
+Now listen to the main trick for speed, because it is asked in interviews.
+
+Working out the attention of the whole sentence again for every new token would be foolishness. The keys and values of the old words do not change.
+
+So keep them in memory, and add only the new part for the new token. This is called the KV cache.
+
+This turns the cost of each step from squared into straight. Without it, a conversation could not run at all.
+
+But it has its own price, and that is memory. If the context is long this cache alone fills the memory of the machine.
+
+So a long context costs a great deal. It is now a question not only of arithmetic but of memory.
+
+@read teach
+The last trick is lowering the weight. There is no obligation to hold the weights at sixteen bits.
+
+Squeeze them into eight bits or four, and this is called quantization. The memory becomes a half or a quarter, and the speed rises.
+
+The quality falls a little, and usually that is a small amount. Running a large model squeezed down is usually better than running a small model.
+
+Now let us talk about the choice. Using an outside service means nothing has to be set up, and the money goes by the token.
+
+Running on your own machine means the data does not go out and there is no money per question, but the machine and the labour are yours to find. On small work a small model is the wise thing.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo jawaf-dine-chal
+An answer is given like this. The first thing is that the answer is not made in one go, and the model gives one token, it is joined on the end, and it is asked again. The second thing is that at every step a probability comes over the whole list and one is picked from there, and raising the temperature makes the answer inventive and lowering it makes it safe, and the trick of keeping only a few of the top ones is called top k and top p. The third thing is that the keys and values of the old tokens do not change, so they are kept in memory and only the new part is added, and this is called the KV cache, and it makes the cost of each step straight but eats memory. The fourth thing is that squeezing the weights into eight or four bits lowers the memory and raises the speed, and this is called quantization.
+@end
+
+That is all of it. The making is done once, and the handing out is done every time.
+
+Here is how to check whether the temperature is set right for your work. Ask the same question several times over. If you need facts, the answers should agree with each other, and if they do not the temperature is too high. If you want ideas and every answer comes back the same, it is too low.
+
+@recall jawaf-dine-chal
+
+The queue is shrinking at the harbour. The goods have reached their places.
+
+@read hush
+There is one thing about this cache worth holding onto. It is tied to the exact text that came before, so changing anything early in a long conversation throws all of it away and the work has to be done again. This is why what you put at the very start is worth putting there once and leaving alone.
+
+@recall jawaf-dine-chal
+
+@tier medium
+
+The night is long. Nami told the arithmetic of serving, and this ties straight to money.
+
+The work of answering divides into two parts. In the first part the whole text of the question is read at once, and that is fast.
+
+In the second part the tokens come out one at a time, and that is slow. The time until the first letter appears is settled by the first part.
+
+So two different measures are needed. The first is how quickly the first letter came, and the second is how many tokens came per second.
+
+In a conversation the first measure matters. For bulk work the second measure matters.
+
+The big trick for raising the speed is to run things together. Putting many questions into one batch keeps the machine fully occupied.
+
+There is a better trick still. As soon as one question finishes, a new question is put in that place, and nobody has to wait for everybody.
+
+Another cheap trick is remembering a repeated question. In many uses the same opening instruction arrives again and again, and its cache can be kept.
+
+@tier long
+
+Robin came to the harbour. She asked — [robin]"When is a large model needed and when is a small one enough?"[/]
+
+There is an easy rule for this, and it is a rule that saves money. The narrower the work, the smaller the model that is enough.
+
+For separating classes, changing a format, or making a short summary, a small model is enough. Running a large model here is throwing money away.
+
+For reasoning of many steps, a strange problem, or long code, a large model is needed. A small one gives a confidently wrong answer here.
+
+In practice a mixture is best. Send the easy question to the small one, and move only the hard question over to the large one.
+
+Keep one easy habit as well. Begin from the largest model, come down to smaller ones once the result is good, and stop at the place where the result falls off.
+
+Doing this, you learn both the quality and the limit.
+
+@read hush
+Now sleep. The harbour has gone quiet, and the last ship has set out.

@@ -27,14 +27,14 @@ If you need to separate the levels there is a small move. At the start of the lo
 An easy and sweet problem is turning a tree inside out. At every node swap the left and right branches, and then repeat the same work on both sides. This finishes in three lines. This same question once caused a great deal of noise.
 
 @read hush
-Now keep your eyes closed and listen once again to the two ways of walking a tree.
+The question itself tells you which approach to choose. If it asks for the shortest path or the nearest thing, choose BFS, because it spreads out level by level. If it asks for every path, or for depth, choose DFS.
 
 @recall rukh
 
 The leaves of the tree are moving in the wind. Chopper lay down right at the foot of it. Above him the branches spread out into the sky, and they cannot be counted, but every branch is itself a small tree.
 
 @read hush
-One last time before you sleep, very slowly, listen to the two ways.
+Both approaches need the same check. Before you go down a branch, look at whether that branch is really there, because stepping into an empty branch is the most ordinary mistake in tree code. Decide at the very start what the answer is for an empty tree as well.
 
 @recall rukh
 

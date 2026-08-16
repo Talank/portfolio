@@ -1,0 +1,103 @@
+# 29 — Searching before speaking: vector databases and RAG
+
+The library boxes have been opened on the deck. Robin is sorting through papers.
+
+Usopp asked, [usopp]"You could just ask the model. Why were all these papers needed?"[/]
+
+@read teach
+The answer is in the model's limit. What the model knows reaches up to the day its training ended.
+
+Your company's papers were not there. Yesterday's news was not there either.
+
+The worse thing is that it writes confidently even when it does not know. This is called hallucination.
+
+So the remedy is simple. Before asking, search for the papers that bear on it, and give those papers along with the question.
+
+This is called RAG. Here the model does not have to remember, and it has to read before speaking.
+
+@read teach
+Now listen to how this is built, and there are five steps here.
+
+In the first step break the papers into pieces. A whole book cannot be given at once, and one sentence alone is not enough either.
+
+In the second step make a vector of every piece, and this work is done by the heir of the model from the twenty-first island. Keep those vectors in a store, and it is called a vector database.
+
+In the third step, once the question arrives, make its vector too. In the fourth step draw the few most agreeing pieces out of the store, and the agreement is measured by the cosine from the first island.
+
+In the fifth step put those pieces and the question together and give them to the model, and tell it to answer on the basis of what is inside them.
+
+@read teach
+There is a clever thing inside the store, and without understanding it the system will be slow.
+
+Comparing one by one against millions of pieces costs a great deal. So the store does not compare against everything.
+
+It keeps a web of near neighbours, and when searching it walks that web and arrives near. This is called approximate nearest neighbour.
+
+A little accuracy is lost here, and the speed rises hundreds of times. In practice that is a good bargain.
+
+@read teach
+Now listen to three matters of quality, because these are where RAG goes wrong.
+
+The first matter is the size of the pieces. If a piece is large, unwanted things get mixed inside it and the model is confused.
+
+If a piece is small the context is cut and the meaning is lost. So let the edges of the pieces overlap a little.
+
+The second matter is the way of searching. A vector finds meaning, but misses an exact name or number.
+
+So run both the old word search and the new vector search together, and this is called hybrid search.
+
+The third matter is a second choosing. First draw twenty pieces with the cheap trick, then let an expensive and better model put those same ones in order again, and this is called reranking.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo khojera-bhannu
+A system that reads before speaking is built like this. The first thing is that a model's knowledge stops on the day its training ended and it writes confidently even when it does not know, so papers are searched for before asking and given along with the question, and this is called RAG. The second thing is that the papers are broken into pieces, a vector of every piece is made and kept in a store, a vector of the question is made too, and the cosine draws out the most agreeing piece. The third thing is that the store searches by walking a web of near neighbours rather than comparing against everything, and this is called approximate nearest neighbour, and it gives a great deal of speed for a little accuracy. The fourth thing is that the quality is made of three matters, and in the first the size of the pieces is fitted and the edges are overlapped, in the second word search and vector search are run together and that is called hybrid search, and in the third an expensive model puts the drawn pieces in order again and that is called reranking.
+@end
+
+That is all of it. Reading before speaking is more dependable than speaking from memory.
+
+Here is how to check where such a system is failing. Look first at whether the right piece was drawn out at all. If it was not, no wording of the instruction will save the answer, and the fault is in the searching. Only when the right piece was there and the answer still went wrong is the fault in the asking.
+
+@recall khojera-bhannu
+
+The papers are piled in order on the deck. Robin closed the box.
+
+@read hush
+There is one thing this arrangement cannot fix. If the answer is not in any of the papers, a model told to answer from them will often answer anyway. So the instruction has to allow it to say that the papers do not contain this, and that permission has to be given deliberately.
+
+@recall khojera-bhannu
+
+@tier medium
+
+The night is long. Robin told the way of measuring the system, and without measuring it improvement is impossible.
+
+RAG goes wrong in two places. Either the right paper is not found at all, or the paper is found and the answer still goes wrong.
+
+So take two measures separately. The first measure looks at how high up the right piece came.
+
+The second measure looks at whether the answer stayed standing on the paper it was given, and this is called groundedness.
+
+If the first measure is poor, improve the searching. If the second is poor, improve the instruction.
+
+Keep one habit without fail. Have it show, along with the answer, which paper it came from.
+
+This gives two benefits. The user can check it, and the model is also forced to stay standing inside the papers.
+
+@tier long
+
+Robin asked herself a question — [robin]"If the context is this long, surely there is no need to search?"[/]
+
+This question is heard often these days, and the answer is that there is not one yet. A long context is a good thing, and it does not remove the searching.
+
+The first reason is money. Sending the whole book with every question, and sending it forever, costs a great deal.
+
+The second reason is one of attention. When a great deal of text is given the model forgets the middle part, and this is a measured thing.
+
+The third reason is quantity. A company's papers run to millions of pages, and that fits in no context at all.
+
+The fourth reason is control. Once the searching is separate, the rule of who may look at what can be applied right there.
+
+So a long context does not kill searching. It makes searching easier, because now fifty pieces can be sent instead of five.
+
+@read hush
+Now sleep. The papers are in their places, and the answer is inside them.

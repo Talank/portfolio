@@ -33,14 +33,14 @@ There is another beautiful way as well, and it is easy to remember. Walk the BST
 That same inorder unlocks another question. Which is the Kth smallest value? Walk in inorder and count as you go, and stop once you reach K.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of the tree of order.
+There is a clean way to check whether this really is a tree of order. Read the tree from the middle out, which means left first, then yourself, then right. If the values come out running from small to large the tree is right, and if any of them come out backwards it is not.
 
 @recall bst
 
 Moonlight has fallen on the tree like snow. Every branch is in its place, because the small ones are on the left and the large ones are on the right. There is no confusion here.
 
 @read hush
-One last time before you sleep, very slowly, listen to that same rule.
+Learn one weakness of this approach at the very start. If you insert values that are already in order, the tree stretches out to one side like a chain, and searching falls back to O(n). So the true measure is the depth of the tree, not the count of nodes.
 
 @recall bst
 

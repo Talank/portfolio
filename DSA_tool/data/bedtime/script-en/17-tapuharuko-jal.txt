@@ -23,7 +23,7 @@ After that, move on. The remaining squares of that island are not counted now, b
 Its time is O(V + E), that is, the work is as much as the number of nodes and roads there are. Every square is touched only once.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule for walking the web.
+There is one sign that tells you the web code is right. Every island must be reached exactly once, so the count of islands you marked must match the count of islands you walked. If those two disagree, some island went into the queue twice.
 
 @recall jal
 
@@ -36,7 +36,7 @@ In another problem you have to make a copy of a graph. Here the notebook's job c
 The moon has risen over the sea. The islands are tied to each other by invisible threads. Nami folded the map.
 
 @read hush
-One last time before you sleep, very slowly, listen to that same rule.
+When you mark an island is the whole story of this approach. Mark it as you put it into the queue, not as you take it out. Mark it on the way out and the same island lands in the queue many times over, and on a large web that simply stalls.
 
 @recall jal
 

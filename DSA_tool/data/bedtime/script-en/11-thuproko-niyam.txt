@@ -26,7 +26,7 @@ There is another trap as well. If the stack is already empty when a closing brac
 Its time is O(n) and its space is O(n) as well, and it finishes in a single pass.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of the stack.
+There is one last check before you may say it matches, and it is the one most people forget. When the letters run out, look at whether the stack is empty. Only then does it match, and if anything is left over then a bracket was opened somewhere and never closed.
 
 @recall thupro
 
@@ -42,7 +42,7 @@ Listen to one more thing. When you write recursion, the computer is running this
 The kitchen is clean. The plates are sitting one on top of another. Sanji put out the light.
 
 @read hush
-One last time before you sleep, very slowly, listen to the rule of the stack.
+Check this rule on three small cases. Empty text must come back as matching. Text with a single open bracket must come back as not matching. Text with a single close bracket must also come back as not matching.
 
 @recall thupro
 

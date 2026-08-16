@@ -1,0 +1,97 @@
+# 18 — The tensor loop: the three tools of PyTorch
+
+The lamp came on again in Franky's workshop. This time there are no wires on the table, and there is only a book.
+
+Franky said, [franky]"All the arithmetic of the last two islands I did by hand. Today a tool will do that work."[/]
+
+@read teach
+The name of that tool is PyTorch, and it gives three things. The first is a vessel for holding numbers.
+
+A single number, a row of numbers, or the matrix from the second island — all of these are covered by one shape, and it is called a tensor.
+
+A tensor is like a box put inside a box. However many layers are added inside, that many dimensions are added as well.
+
+Its first benefit is speed. Work on a tensor is applied to thousands of numbers at once, and moving that same work onto a GPU makes it many times faster.
+
+@read teach
+The second tool is the answer to the last island. Every operation you do on a tensor, the tool quietly remembers.
+
+Those operations together make a map, and that map shows what was made out of what. This is called a graph.
+
+Now give the order to go back from the loss. The tool walks that same map in reverse and fills in the gradient of every weight by itself.
+
+This is called autograd. All the arithmetic of the sixteenth island fits inside this one order.
+
+@read teach
+The third tool is the shape of the writing. The rows of a network are found ready made like parts, and joining them in order makes a model.
+
+Now the same loop repeats in every training, and learn this loop by heart. It is asked in interviews again and again.
+
+First take a batch. Put it into the model and get the answer out.
+
+Measure the loss from the answer and the true one. Clear the gradients from the last cycle, give the order to go back from the loss, and tell the optimizer to take one step.
+
+@read teach
+There is a mistake here that everybody makes, and it must be heard. If the gradients are not cleared they go on adding up.
+
+The tool does not wipe out the old gradient, because sometimes adding is exactly what is wanted. So the clearing is your job.
+
+Forgetting this one line spoils the training for no visible reason. It is hard to find as well, because no error shows anywhere.
+
+Another thing concerns testing time. Gradients are not needed while testing, so shut off the remembering, and put the model into its testing state.
+
+Without this, dropout runs during testing as well, and the result drops for no reason.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo tensor-lup
+The tool works like this. The first thing is that all numbers are held in a vessel of one shape and it is called a tensor, and work on it is applied to thousands of numbers at once. The second thing is that the tool remembers every operation done on a tensor and makes a map, and when the order to go back from the loss is given the gradient of every weight is filled in by itself, and this is called autograd. The third thing is that the training loop has five steps, and they run like this — a batch is taken, the answer is got out, the loss is measured, the gradients are cleared and it goes back, and at the end the optimizer takes one step. The fourth thing is that the old gradient is not wiped out by itself so it must be cleared every cycle, and at testing time the remembering must be shut off and the model put into its testing state.
+@end
+
+That is all of it. The tool does the arithmetic, and the thinking is left to you.
+
+Here is how to check that the loop is wired up at all. Print the loss on the very first batch before any step is taken. For a model choosing between a known count of classes, that first loss should be close to the log of that count, because an untrained model is guessing evenly. A first loss far from it means something is wrong before the training has even begun.
+
+@recall tensor-lup
+
+A page of the book turned over in the workshop. Franky looks satisfied.
+
+@read hush
+There is one thing worth knowing about this remembering. The map is held in memory for as long as it may still be needed, so keeping the loss of every batch and stacking them up quietly keeps every graph alive as well. This is why memory runs out on the hundredth batch and not the first.
+
+@recall tensor-lup
+
+@tier medium
+
+The night is long. Franky told the small habits of the tool, and knowing them lessens the trouble.
+
+The first habit is about shape. To add or multiply two tensors their shapes must agree.
+
+Even when they do not, the tool sometimes stretches them into agreement by itself, and this is called broadcasting. This is a convenience, but it can hide a mistake as well.
+
+So when in doubt, print the shape and look at it. The root of most strange results is the shape itself.
+
+The second habit is about place. A tensor sits either in RAM or on the GPU.
+
+Tensors in two different places will not join together, so move both the model and the data to one place.
+
+The third habit is about serving the data. Reading the data and making batches is done by a separate part, and it does the shuffling as well.
+
+Shuffle the order every epoch, or the model will learn the order itself.
+
+@tier long
+
+Robin came into the workshop. She asked — [robin]"Why choose this one over the other tools?"[/]
+
+The reason is one of learning. This tool is written like an ordinary program, and loops, conditions and printing can all be put anywhere at all.
+
+So you can stand in the middle and look at the numbers inside. While learning, this convenience is beyond price.
+
+The earlier tools made you build the whole map first and only run it afterwards. That was fast, but hunting for mistakes was painful.
+
+Today that difference is nearly wiped out, because the convenience of compiling finished code afterwards has arrived as well.
+
+So for learning and for research this is the right one. And today it runs a great deal in production too.
+
+@read hush
+Now sleep. The book is open, and the lamp has gone dim.

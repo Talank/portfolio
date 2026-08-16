@@ -1,0 +1,79 @@
+# 10 — Yes or no: logistic regression
+
+The next day Franky changed the paper on the wall. There is no price on the upright axis now.
+
+He said, [franky]"Now the question has changed. Does this ship live through the storm or not?"[/]
+
+This is a new kind of question. The answer is not any number. The answer is yes or no, and this is called classification.
+
+@read teach
+The first trick that comes to mind is to use yesterday's line, but that does not work. A line can give any number at all, and it can go above a hundred or below zero.
+
+We need a number between zero and one, because it has to be a probability.
+
+So the line's answer is passed through a small machine. That machine presses any number at all into the space between zero and one, and it is called the sigmoid.
+
+The shape of the sigmoid is like the letter S. Put a large positive number in and something near one comes out. Put a large negative one in and something near zero comes out. Put zero in and exactly a half comes out.
+
+@read teach
+Now the matter of the loss comes up, and yesterday's square does not work here. The likelihood learned on the sixth island comes back here.
+
+The rule is easy. If the true answer is yes, take the log of the probability the model gave to yes. If the true answer is no, take the log of the probability it gave to no. Then put a minus sign in front.
+
+This is cross-entropy loss. If the model gave the true answer a small probability this measure is large, and so the model is punished.
+
+Everything else is just as it was yesterday. Work out the gradient, move the weights, and repeat.
+
+Nami asked — [nami]"So how much does it take before you say yes?"[/]
+
+This is a good question. The model gives a probability, and the decision of yes or no is yours. A line has to be drawn in between, and it is called the threshold.
+
+Putting it at a half is the ordinary custom, but that is not always right. Where the cost of a mistake differs, the threshold has to be moved.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo ho-ki-hoina
+Yes or no is taught like this. In the first step the dot product of the features and the weights is taken just as it was yesterday, and one number comes out. In the second step the sigmoid presses that number into the space between zero and one, and that is the probability. In the third step the log of the probability the model gave the true answer is taken and a minus sign is put in front, and that is called cross-entropy loss. In the fourth step the weights are moved in the direction that brings that loss down, and this repeats. In the fifth step a threshold is chosen to turn the probability into a yes or a no, and it is moved according to what a mistake costs.
+@end
+
+That is all of it. This model is small, but its shape matches the last layer of a neural network exactly.
+
+Here is how to check the threshold you chose. Ask which mistake you would rather make, and then look at whether your threshold actually makes that one more often. A ship wrongly called safe and a ship wrongly called doomed do not cost the same, and a threshold of a half quietly says that they do.
+
+@recall ho-ki-hoina
+
+The lamp is dim in the workshop. The wind is blowing outside.
+
+@read hush
+There is one thing worth watching here. If nearly every ship in the data survived, a model that always says yes will be right almost every time and will have learned nothing. So before believing any score, ask how the answers were divided up to begin with.
+
+@recall ho-ki-hoina
+
+@tier medium
+
+The night is long. Franky told another thing, and it was about having more than two choices.
+
+The question is not always yes or no. Sometimes there are three choices, or ten.
+
+The sigmoid is not enough there. One number is worked out for each choice, and all of them are turned into probabilities at once.
+
+The machine that does that work is called the softmax. It takes the exponential of every number, and divides it by the sum of all the exponentials.
+
+Doing this makes all the probabilities add up to exactly one. This same machine sits in the last layer of a language model too, and there the choices are every token in the vocabulary.
+
+@tier long
+
+Robin came to the door. She asked — [robin]"Is this line always straight?"[/]
+
+Franky said, [franky]"It is. And that is its limit."[/]
+
+Logistic regression can only draw a straight line between two classes. If a round ring is needed on the paper, it cannot do it.
+
+There is an old remedy for this. Multiply a feature by itself to make a new feature, and after that even a straight line makes a bent boundary.
+
+But making features by hand is tiring work. Nobody knows which multiplication is the one that is needed.
+
+That same tiredness gave birth to deep learning. On the fifteenth island we will take up that matter, where the model makes its own features by itself.
+
+@read hush
+Now sleep. The question was yes or no, and the answer is a probability.

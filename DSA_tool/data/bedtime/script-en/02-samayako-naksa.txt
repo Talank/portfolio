@@ -28,14 +28,14 @@ These are the four measures of time, and if you remember them most of the arithm
 The fog is thinning. The mapmaker puts a small piece of paper into her hand, and smiles.
 
 @read hush
-Now keep your eyes closed and listen to those same four measures once again.
+There is an easy way to check whether you named the right measure. Work out in your head how much the time grows when you make the input ten times larger. Ten times larger is O(n), a hundred times larger is O(n²), and barely larger at all is O(log n).
 
 @recall chaar-naap
 
 The ship put out again. The sea is wide, and the air is warm.
 
 @read hush
-One last time before you sleep, very slowly, listen to those four measures.
+There is one mistake almost everyone makes when counting. A single line inside a loop looks small, but if that line itself walks the whole array then it is not small at all. So when you count, ask what is hidden inside every line, and measure by the work being done rather than by the count of lines.
 
 @recall chaar-naap
 

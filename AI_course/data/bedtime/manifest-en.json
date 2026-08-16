@@ -1,0 +1,3252 @@
+{
+ "overlap": 1.5,
+ "dir": "data/bedtime/audio-en/",
+ "voice": "en-US-BrianNeural",
+ "chapters": [
+  {
+   "num": "00",
+   "title": "0 — Introduction: the map of the Poneglyph"
+  },
+  {
+   "num": "01",
+   "title": "1 — The arrow of direction: vectors, dot product and cosine"
+  },
+  {
+   "num": "02",
+   "title": "2 — The machine that changes shape: the matrix"
+  },
+  {
+   "num": "03",
+   "title": "3 — The direction that does not change: eigenvectors and SVD"
+  },
+  {
+   "num": "04",
+   "title": "4 — The road down the slope: derivatives and gradient descent"
+  },
+  {
+   "num": "05",
+   "title": "5 — Guessing the weather: probability and Bayes"
+  },
+  {
+   "num": "06",
+   "title": "6 — Guessing from a sample: statistics and MLE"
+  },
+  {
+   "num": "07",
+   "title": "7 — The measure of surprise: entropy and cross-entropy"
+  },
+  {
+   "num": "08",
+   "title": "8 — Learning and memorising: overfitting and bias"
+  },
+  {
+   "num": "09",
+   "title": "9 — The straight line: linear regression"
+  },
+  {
+   "num": "10",
+   "title": "10 — Yes or no: logistic regression"
+  },
+  {
+   "num": "11",
+   "title": "11 — Words into numbers: bag of words and TF-IDF"
+  },
+  {
+   "num": "12",
+   "title": "12 — Neighbours and trees: k-NN, decision trees and random forests"
+  },
+  {
+   "num": "13",
+   "title": "13 — Groups without labels: k-means and PCA"
+  },
+  {
+   "num": "14",
+   "title": "14 — The honesty of testing: precision, recall and ROC"
+  },
+  {
+   "num": "15",
+   "title": "15 — The foundation of the network: from the perceptron to the MLP"
+  },
+  {
+   "num": "16",
+   "title": "16 — The voice that comes back: backpropagation"
+  },
+  {
+   "num": "17",
+   "title": "17 — The moves of training: optimizers, batches, dropout and batch norm"
+  },
+  {
+   "num": "18",
+   "title": "18 — The tensor loop: the three tools of PyTorch"
+  },
+  {
+   "num": "19",
+   "title": "19 — Pictures and order: CNNs and RNNs"
+  },
+  {
+   "num": "20",
+   "title": "20 — The trick of making pieces: from words to BPE subwords"
+  },
+  {
+   "num": "21",
+   "title": "21 — The place of meaning: word2vec and the geometry of meaning"
+  },
+  {
+   "num": "22",
+   "title": "22 — The birth of attention: seq2seq and attention"
+  },
+  {
+   "num": "23",
+   "title": "23 — The arithmetic of attention: query, key and value"
+  },
+  {
+   "num": "24",
+   "title": "24 — The layers of the transformer: one layer at a time"
+  },
+  {
+   "num": "25",
+   "title": "25 — Two families: BERT, GPT and a small model of your own"
+  },
+  {
+   "num": "26",
+   "title": "26 — Pretraining: data, scaling laws and training spread out"
+  },
+  {
+   "num": "27",
+   "title": "27 — A small improvement: SFT, LoRA and alignment"
+  },
+  {
+   "num": "28",
+   "title": "28 — The trick of answering: sampling, the KV cache and serving"
+  },
+  {
+   "num": "29",
+   "title": "29 — Searching before speaking: vector databases and RAG"
+  },
+  {
+   "num": "30",
+   "title": "30 — Using tools: tool calls, ReAct and frameworks"
+  },
+  {
+   "num": "31",
+   "title": "31 — Memory and limits: an agent's memory, testing and railings"
+  },
+  {
+   "num": "32",
+   "title": "32 — The map of a system: system design and the last night"
+  }
+ ],
+ "defaultMode": "bedtime",
+ "modes": {
+  "bedtime": {
+   "label": "Bedtime",
+   "label_en": "Bedtime",
+   "dir": "bedtime/",
+   "rate": "-32%",
+   "pitch": "-2Hz",
+   "tiers": {
+    "core": {
+     "label": "Short",
+     "label_en": "Short",
+     "duration": 19054.24,
+     "bytes": 34492107,
+     "starts": {
+      "00": 0.0,
+      "01": 574.66,
+      "02": 1119.06,
+      "03": 1632.99,
+      "04": 2194.32,
+      "05": 2725.58,
+      "06": 3219.28,
+      "07": 3733.41,
+      "08": 4257.94,
+      "09": 4776.46,
+      "10": 5225.83,
+      "11": 5733.42,
+      "12": 6210.62,
+      "13": 6776.28,
+      "14": 7306.39,
+      "15": 7861.22,
+      "16": 8396.66,
+      "17": 8919.16,
+      "18": 9486.21,
+      "19": 10070.81,
+      "20": 10682.92,
+      "21": 11298.79,
+      "22": 11912.86,
+      "23": 12495.08,
+      "24": 13144.59,
+      "25": 13759.03,
+      "26": 14380.93,
+      "27": 15018.2,
+      "28": 15656.51,
+      "29": 16303.07,
+      "30": 16949.29,
+      "31": 17516.78,
+      "32": 18268.67
+     },
+     "playlist": [
+      {
+       "f": "ch00-core.opus",
+       "d": 576.16,
+       "c": "00"
+      },
+      {
+       "f": "ch01-core.opus",
+       "d": 545.9,
+       "c": "01"
+      },
+      {
+       "f": "ch02-core.opus",
+       "d": 515.43,
+       "c": "02"
+      },
+      {
+       "f": "ch03-core.opus",
+       "d": 562.83,
+       "c": "03"
+      },
+      {
+       "f": "ch04-core.opus",
+       "d": 532.76,
+       "c": "04"
+      },
+      {
+       "f": "ch05-core.opus",
+       "d": 495.2,
+       "c": "05"
+      },
+      {
+       "f": "ch06-core.opus",
+       "d": 515.63,
+       "c": "06"
+      },
+      {
+       "f": "ch07-core.opus",
+       "d": 526.03,
+       "c": "07"
+      },
+      {
+       "f": "ch08-core.opus",
+       "d": 520.02,
+       "c": "08"
+      },
+      {
+       "f": "ch09-core.opus",
+       "d": 450.87,
+       "c": "09"
+      },
+      {
+       "f": "ch10-core.opus",
+       "d": 509.09,
+       "c": "10"
+      },
+      {
+       "f": "ch11-core.opus",
+       "d": 478.7,
+       "c": "11"
+      },
+      {
+       "f": "ch12-core.opus",
+       "d": 567.16,
+       "c": "12"
+      },
+      {
+       "f": "ch13-core.opus",
+       "d": 531.61,
+       "c": "13"
+      },
+      {
+       "f": "ch14-core.opus",
+       "d": 556.33,
+       "c": "14"
+      },
+      {
+       "f": "ch15-core.opus",
+       "d": 536.94,
+       "c": "15"
+      },
+      {
+       "f": "ch16-core.opus",
+       "d": 524.0,
+       "c": "16"
+      },
+      {
+       "f": "ch17-core.opus",
+       "d": 568.55,
+       "c": "17"
+      },
+      {
+       "f": "ch18-core.opus",
+       "d": 586.1,
+       "c": "18"
+      },
+      {
+       "f": "ch19-core.opus",
+       "d": 613.61,
+       "c": "19"
+      },
+      {
+       "f": "ch20-core.opus",
+       "d": 617.37,
+       "c": "20"
+      },
+      {
+       "f": "ch21-core.opus",
+       "d": 615.57,
+       "c": "21"
+      },
+      {
+       "f": "ch22-core.opus",
+       "d": 583.72,
+       "c": "22"
+      },
+      {
+       "f": "ch23-core.opus",
+       "d": 651.01,
+       "c": "23"
+      },
+      {
+       "f": "ch24-core.opus",
+       "d": 615.94,
+       "c": "24"
+      },
+      {
+       "f": "ch25-core.opus",
+       "d": 623.4,
+       "c": "25"
+      },
+      {
+       "f": "ch26-core.opus",
+       "d": 638.77,
+       "c": "26"
+      },
+      {
+       "f": "ch27-core.opus",
+       "d": 639.81,
+       "c": "27"
+      },
+      {
+       "f": "ch28-core.opus",
+       "d": 648.06,
+       "c": "28"
+      },
+      {
+       "f": "ch29-core.opus",
+       "d": 647.72,
+       "c": "29"
+      },
+      {
+       "f": "ch30-core.opus",
+       "d": 568.99,
+       "c": "30"
+      },
+      {
+       "f": "ch31-core.opus",
+       "d": 753.39,
+       "c": "31"
+      },
+      {
+       "f": "ch32-core.opus",
+       "d": 762.07,
+       "c": "32"
+      },
+      {
+       "f": "outro.opus",
+       "d": 25.0,
+       "c": null
+      }
+     ]
+    },
+    "medium": {
+     "label": "Medium",
+     "label_en": "Medium",
+     "duration": 22108.71,
+     "bytes": 39871056,
+     "starts": {
+      "00": 0.0,
+      "01": 741.66,
+      "02": 1379.41,
+      "03": 1974.93,
+      "04": 2618.17,
+      "05": 3249.39,
+      "06": 3810.46,
+      "07": 4403.5,
+      "08": 5000.19,
+      "09": 5589.14,
+      "10": 6115.17,
+      "11": 6695.75,
+      "12": 7253.39,
+      "13": 7893.84,
+      "14": 8496.09,
+      "15": 9125.5,
+      "16": 9748.31,
+      "17": 10378.32,
+      "18": 11046.02,
+      "19": 11736.0,
+      "20": 12439.78,
+      "21": 13148.09,
+      "22": 13861.63,
+      "23": 14540.26,
+      "24": 15284.28,
+      "25": 16000.3,
+      "26": 16732.04,
+      "27": 17470.3,
+      "28": 18211.44,
+      "29": 18977.5,
+      "30": 19713.93,
+      "31": 20372.28,
+      "32": 21223.43
+     },
+     "playlist": [
+      {
+       "f": "ch00-core.opus",
+       "d": 576.16,
+       "c": "00"
+      },
+      {
+       "f": "ch00-medium.opus",
+       "d": 168.5,
+       "c": "00"
+      },
+      {
+       "f": "ch01-core.opus",
+       "d": 545.9,
+       "c": "01"
+      },
+      {
+       "f": "ch01-medium.opus",
+       "d": 94.85,
+       "c": "01"
+      },
+      {
+       "f": "ch02-core.opus",
+       "d": 515.43,
+       "c": "02"
+      },
+      {
+       "f": "ch02-medium.opus",
+       "d": 83.09,
+       "c": "02"
+      },
+      {
+       "f": "ch03-core.opus",
+       "d": 562.83,
+       "c": "03"
+      },
+      {
+       "f": "ch03-medium.opus",
+       "d": 83.41,
+       "c": "03"
+      },
+      {
+       "f": "ch04-core.opus",
+       "d": 532.76,
+       "c": "04"
+      },
+      {
+       "f": "ch04-medium.opus",
+       "d": 101.46,
+       "c": "04"
+      },
+      {
+       "f": "ch05-core.opus",
+       "d": 495.2,
+       "c": "05"
+      },
+      {
+       "f": "ch05-medium.opus",
+       "d": 68.87,
+       "c": "05"
+      },
+      {
+       "f": "ch06-core.opus",
+       "d": 515.63,
+       "c": "06"
+      },
+      {
+       "f": "ch06-medium.opus",
+       "d": 80.41,
+       "c": "06"
+      },
+      {
+       "f": "ch07-core.opus",
+       "d": 526.03,
+       "c": "07"
+      },
+      {
+       "f": "ch07-medium.opus",
+       "d": 73.66,
+       "c": "07"
+      },
+      {
+       "f": "ch08-core.opus",
+       "d": 520.02,
+       "c": "08"
+      },
+      {
+       "f": "ch08-medium.opus",
+       "d": 71.93,
+       "c": "08"
+      },
+      {
+       "f": "ch09-core.opus",
+       "d": 450.87,
+       "c": "09"
+      },
+      {
+       "f": "ch09-medium.opus",
+       "d": 78.16,
+       "c": "09"
+      },
+      {
+       "f": "ch10-core.opus",
+       "d": 509.09,
+       "c": "10"
+      },
+      {
+       "f": "ch10-medium.opus",
+       "d": 74.49,
+       "c": "10"
+      },
+      {
+       "f": "ch11-core.opus",
+       "d": 478.7,
+       "c": "11"
+      },
+      {
+       "f": "ch11-medium.opus",
+       "d": 81.94,
+       "c": "11"
+      },
+      {
+       "f": "ch12-core.opus",
+       "d": 567.16,
+       "c": "12"
+      },
+      {
+       "f": "ch12-medium.opus",
+       "d": 76.29,
+       "c": "12"
+      },
+      {
+       "f": "ch13-core.opus",
+       "d": 531.61,
+       "c": "13"
+      },
+      {
+       "f": "ch13-medium.opus",
+       "d": 73.64,
+       "c": "13"
+      },
+      {
+       "f": "ch14-core.opus",
+       "d": 556.33,
+       "c": "14"
+      },
+      {
+       "f": "ch14-medium.opus",
+       "d": 76.08,
+       "c": "14"
+      },
+      {
+       "f": "ch15-core.opus",
+       "d": 536.94,
+       "c": "15"
+      },
+      {
+       "f": "ch15-medium.opus",
+       "d": 88.87,
+       "c": "15"
+      },
+      {
+       "f": "ch16-core.opus",
+       "d": 524.0,
+       "c": "16"
+      },
+      {
+       "f": "ch16-medium.opus",
+       "d": 109.01,
+       "c": "16"
+      },
+      {
+       "f": "ch17-core.opus",
+       "d": 568.55,
+       "c": "17"
+      },
+      {
+       "f": "ch17-medium.opus",
+       "d": 102.15,
+       "c": "17"
+      },
+      {
+       "f": "ch18-core.opus",
+       "d": 586.1,
+       "c": "18"
+      },
+      {
+       "f": "ch18-medium.opus",
+       "d": 106.88,
+       "c": "18"
+      },
+      {
+       "f": "ch19-core.opus",
+       "d": 613.61,
+       "c": "19"
+      },
+      {
+       "f": "ch19-medium.opus",
+       "d": 93.17,
+       "c": "19"
+      },
+      {
+       "f": "ch20-core.opus",
+       "d": 617.37,
+       "c": "20"
+      },
+      {
+       "f": "ch20-medium.opus",
+       "d": 93.94,
+       "c": "20"
+      },
+      {
+       "f": "ch21-core.opus",
+       "d": 615.57,
+       "c": "21"
+      },
+      {
+       "f": "ch21-medium.opus",
+       "d": 100.97,
+       "c": "21"
+      },
+      {
+       "f": "ch22-core.opus",
+       "d": 583.72,
+       "c": "22"
+      },
+      {
+       "f": "ch22-medium.opus",
+       "d": 97.91,
+       "c": "22"
+      },
+      {
+       "f": "ch23-core.opus",
+       "d": 651.01,
+       "c": "23"
+      },
+      {
+       "f": "ch23-medium.opus",
+       "d": 96.01,
+       "c": "23"
+      },
+      {
+       "f": "ch24-core.opus",
+       "d": 615.94,
+       "c": "24"
+      },
+      {
+       "f": "ch24-medium.opus",
+       "d": 103.08,
+       "c": "24"
+      },
+      {
+       "f": "ch25-core.opus",
+       "d": 623.4,
+       "c": "25"
+      },
+      {
+       "f": "ch25-medium.opus",
+       "d": 111.34,
+       "c": "25"
+      },
+      {
+       "f": "ch26-core.opus",
+       "d": 638.77,
+       "c": "26"
+      },
+      {
+       "f": "ch26-medium.opus",
+       "d": 102.49,
+       "c": "26"
+      },
+      {
+       "f": "ch27-core.opus",
+       "d": 639.81,
+       "c": "27"
+      },
+      {
+       "f": "ch27-medium.opus",
+       "d": 104.33,
+       "c": "27"
+      },
+      {
+       "f": "ch28-core.opus",
+       "d": 648.06,
+       "c": "28"
+      },
+      {
+       "f": "ch28-medium.opus",
+       "d": 121.0,
+       "c": "28"
+      },
+      {
+       "f": "ch29-core.opus",
+       "d": 647.72,
+       "c": "29"
+      },
+      {
+       "f": "ch29-medium.opus",
+       "d": 91.71,
+       "c": "29"
+      },
+      {
+       "f": "ch30-core.opus",
+       "d": 568.99,
+       "c": "30"
+      },
+      {
+       "f": "ch30-medium.opus",
+       "d": 92.36,
+       "c": "30"
+      },
+      {
+       "f": "ch31-core.opus",
+       "d": 753.39,
+       "c": "31"
+      },
+      {
+       "f": "ch31-medium.opus",
+       "d": 100.76,
+       "c": "31"
+      },
+      {
+       "f": "ch32-core.opus",
+       "d": 762.07,
+       "c": "32"
+      },
+      {
+       "f": "ch32-medium.opus",
+       "d": 101.21,
+       "c": "32"
+      },
+      {
+       "f": "outro.opus",
+       "d": 25.0,
+       "c": null
+      }
+     ]
+    },
+    "long": {
+     "label": "Long",
+     "label_en": "Long",
+     "duration": 25433.15,
+     "bytes": 45614264,
+     "starts": {
+      "00": 0.0,
+      "01": 851.53,
+      "02": 1608.29,
+      "03": 2304.34,
+      "04": 3030.03,
+      "05": 3769.76,
+      "06": 4407.82,
+      "07": 5087.76,
+      "08": 5775.61,
+      "09": 6454.83,
+      "10": 7077.31,
+      "11": 7752.44,
+      "12": 8405.14,
+      "13": 9141.66,
+      "14": 9834.56,
+      "15": 10554.11,
+      "16": 11279.18,
+      "17": 12009.35,
+      "18": 12778.3,
+      "19": 13560.0,
+      "20": 14357.78,
+      "21": 15176.05,
+      "22": 15995.38,
+      "23": 16791.39,
+      "24": 17642.54,
+      "25": 18462.16,
+      "26": 19293.31,
+      "27": 20144.88,
+      "28": 20996.32,
+      "29": 21873.56,
+      "30": 22722.84,
+      "31": 23479.3,
+      "32": 24441.41
+     },
+     "playlist": [
+      {
+       "f": "ch00-core.opus",
+       "d": 576.16,
+       "c": "00"
+      },
+      {
+       "f": "ch00-medium.opus",
+       "d": 168.5,
+       "c": "00"
+      },
+      {
+       "f": "ch00-long.opus",
+       "d": 111.37,
+       "c": "00"
+      },
+      {
+       "f": "ch01-core.opus",
+       "d": 545.9,
+       "c": "01"
+      },
+      {
+       "f": "ch01-medium.opus",
+       "d": 94.85,
+       "c": "01"
+      },
+      {
+       "f": "ch01-long.opus",
+       "d": 120.51,
+       "c": "01"
+      },
+      {
+       "f": "ch02-core.opus",
+       "d": 515.43,
+       "c": "02"
+      },
+      {
+       "f": "ch02-medium.opus",
+       "d": 83.09,
+       "c": "02"
+      },
+      {
+       "f": "ch02-long.opus",
+       "d": 102.03,
+       "c": "02"
+      },
+      {
+       "f": "ch03-core.opus",
+       "d": 562.83,
+       "c": "03"
+      },
+      {
+       "f": "ch03-medium.opus",
+       "d": 83.41,
+       "c": "03"
+      },
+      {
+       "f": "ch03-long.opus",
+       "d": 83.95,
+       "c": "03"
+      },
+      {
+       "f": "ch04-core.opus",
+       "d": 532.76,
+       "c": "04"
+      },
+      {
+       "f": "ch04-medium.opus",
+       "d": 101.46,
+       "c": "04"
+      },
+      {
+       "f": "ch04-long.opus",
+       "d": 110.01,
+       "c": "04"
+      },
+      {
+       "f": "ch05-core.opus",
+       "d": 495.2,
+       "c": "05"
+      },
+      {
+       "f": "ch05-medium.opus",
+       "d": 68.87,
+       "c": "05"
+      },
+      {
+       "f": "ch05-long.opus",
+       "d": 78.49,
+       "c": "05"
+      },
+      {
+       "f": "ch06-core.opus",
+       "d": 515.63,
+       "c": "06"
+      },
+      {
+       "f": "ch06-medium.opus",
+       "d": 80.41,
+       "c": "06"
+      },
+      {
+       "f": "ch06-long.opus",
+       "d": 88.4,
+       "c": "06"
+      },
+      {
+       "f": "ch07-core.opus",
+       "d": 526.03,
+       "c": "07"
+      },
+      {
+       "f": "ch07-medium.opus",
+       "d": 73.66,
+       "c": "07"
+      },
+      {
+       "f": "ch07-long.opus",
+       "d": 92.66,
+       "c": "07"
+      },
+      {
+       "f": "ch08-core.opus",
+       "d": 520.02,
+       "c": "08"
+      },
+      {
+       "f": "ch08-medium.opus",
+       "d": 71.93,
+       "c": "08"
+      },
+      {
+       "f": "ch08-long.opus",
+       "d": 91.77,
+       "c": "08"
+      },
+      {
+       "f": "ch09-core.opus",
+       "d": 450.87,
+       "c": "09"
+      },
+      {
+       "f": "ch09-medium.opus",
+       "d": 78.16,
+       "c": "09"
+      },
+      {
+       "f": "ch09-long.opus",
+       "d": 97.95,
+       "c": "09"
+      },
+      {
+       "f": "ch10-core.opus",
+       "d": 509.09,
+       "c": "10"
+      },
+      {
+       "f": "ch10-medium.opus",
+       "d": 74.49,
+       "c": "10"
+      },
+      {
+       "f": "ch10-long.opus",
+       "d": 96.05,
+       "c": "10"
+      },
+      {
+       "f": "ch11-core.opus",
+       "d": 478.7,
+       "c": "11"
+      },
+      {
+       "f": "ch11-medium.opus",
+       "d": 81.94,
+       "c": "11"
+      },
+      {
+       "f": "ch11-long.opus",
+       "d": 96.56,
+       "c": "11"
+      },
+      {
+       "f": "ch12-core.opus",
+       "d": 567.16,
+       "c": "12"
+      },
+      {
+       "f": "ch12-medium.opus",
+       "d": 76.29,
+       "c": "12"
+      },
+      {
+       "f": "ch12-long.opus",
+       "d": 97.57,
+       "c": "12"
+      },
+      {
+       "f": "ch13-core.opus",
+       "d": 531.61,
+       "c": "13"
+      },
+      {
+       "f": "ch13-medium.opus",
+       "d": 73.64,
+       "c": "13"
+      },
+      {
+       "f": "ch13-long.opus",
+       "d": 92.15,
+       "c": "13"
+      },
+      {
+       "f": "ch14-core.opus",
+       "d": 556.33,
+       "c": "14"
+      },
+      {
+       "f": "ch14-medium.opus",
+       "d": 76.08,
+       "c": "14"
+      },
+      {
+       "f": "ch14-long.opus",
+       "d": 91.64,
+       "c": "14"
+      },
+      {
+       "f": "ch15-core.opus",
+       "d": 536.94,
+       "c": "15"
+      },
+      {
+       "f": "ch15-medium.opus",
+       "d": 88.87,
+       "c": "15"
+      },
+      {
+       "f": "ch15-long.opus",
+       "d": 103.76,
+       "c": "15"
+      },
+      {
+       "f": "ch16-core.opus",
+       "d": 524.0,
+       "c": "16"
+      },
+      {
+       "f": "ch16-medium.opus",
+       "d": 109.01,
+       "c": "16"
+      },
+      {
+       "f": "ch16-long.opus",
+       "d": 101.66,
+       "c": "16"
+      },
+      {
+       "f": "ch17-core.opus",
+       "d": 568.55,
+       "c": "17"
+      },
+      {
+       "f": "ch17-medium.opus",
+       "d": 102.15,
+       "c": "17"
+      },
+      {
+       "f": "ch17-long.opus",
+       "d": 102.75,
+       "c": "17"
+      },
+      {
+       "f": "ch18-core.opus",
+       "d": 586.1,
+       "c": "18"
+      },
+      {
+       "f": "ch18-medium.opus",
+       "d": 106.88,
+       "c": "18"
+      },
+      {
+       "f": "ch18-long.opus",
+       "d": 93.22,
+       "c": "18"
+      },
+      {
+       "f": "ch19-core.opus",
+       "d": 613.61,
+       "c": "19"
+      },
+      {
+       "f": "ch19-medium.opus",
+       "d": 93.17,
+       "c": "19"
+      },
+      {
+       "f": "ch19-long.opus",
+       "d": 95.5,
+       "c": "19"
+      },
+      {
+       "f": "ch20-core.opus",
+       "d": 617.37,
+       "c": "20"
+      },
+      {
+       "f": "ch20-medium.opus",
+       "d": 93.94,
+       "c": "20"
+      },
+      {
+       "f": "ch20-long.opus",
+       "d": 111.46,
+       "c": "20"
+      },
+      {
+       "f": "ch21-core.opus",
+       "d": 615.57,
+       "c": "21"
+      },
+      {
+       "f": "ch21-medium.opus",
+       "d": 100.97,
+       "c": "21"
+      },
+      {
+       "f": "ch21-long.opus",
+       "d": 107.29,
+       "c": "21"
+      },
+      {
+       "f": "ch22-core.opus",
+       "d": 583.72,
+       "c": "22"
+      },
+      {
+       "f": "ch22-medium.opus",
+       "d": 97.91,
+       "c": "22"
+      },
+      {
+       "f": "ch22-long.opus",
+       "d": 118.88,
+       "c": "22"
+      },
+      {
+       "f": "ch23-core.opus",
+       "d": 651.01,
+       "c": "23"
+      },
+      {
+       "f": "ch23-medium.opus",
+       "d": 96.01,
+       "c": "23"
+      },
+      {
+       "f": "ch23-long.opus",
+       "d": 108.63,
+       "c": "23"
+      },
+      {
+       "f": "ch24-core.opus",
+       "d": 615.94,
+       "c": "24"
+      },
+      {
+       "f": "ch24-medium.opus",
+       "d": 103.08,
+       "c": "24"
+      },
+      {
+       "f": "ch24-long.opus",
+       "d": 105.1,
+       "c": "24"
+      },
+      {
+       "f": "ch25-core.opus",
+       "d": 623.4,
+       "c": "25"
+      },
+      {
+       "f": "ch25-medium.opus",
+       "d": 111.34,
+       "c": "25"
+      },
+      {
+       "f": "ch25-long.opus",
+       "d": 100.91,
+       "c": "25"
+      },
+      {
+       "f": "ch26-core.opus",
+       "d": 638.77,
+       "c": "26"
+      },
+      {
+       "f": "ch26-medium.opus",
+       "d": 102.49,
+       "c": "26"
+      },
+      {
+       "f": "ch26-long.opus",
+       "d": 114.81,
+       "c": "26"
+      },
+      {
+       "f": "ch27-core.opus",
+       "d": 639.81,
+       "c": "27"
+      },
+      {
+       "f": "ch27-medium.opus",
+       "d": 104.33,
+       "c": "27"
+      },
+      {
+       "f": "ch27-long.opus",
+       "d": 111.8,
+       "c": "27"
+      },
+      {
+       "f": "ch28-core.opus",
+       "d": 648.06,
+       "c": "28"
+      },
+      {
+       "f": "ch28-medium.opus",
+       "d": 121.0,
+       "c": "28"
+      },
+      {
+       "f": "ch28-long.opus",
+       "d": 112.68,
+       "c": "28"
+      },
+      {
+       "f": "ch29-core.opus",
+       "d": 647.72,
+       "c": "29"
+      },
+      {
+       "f": "ch29-medium.opus",
+       "d": 91.71,
+       "c": "29"
+      },
+      {
+       "f": "ch29-long.opus",
+       "d": 114.35,
+       "c": "29"
+      },
+      {
+       "f": "ch30-core.opus",
+       "d": 568.99,
+       "c": "30"
+      },
+      {
+       "f": "ch30-medium.opus",
+       "d": 92.36,
+       "c": "30"
+      },
+      {
+       "f": "ch30-long.opus",
+       "d": 99.61,
+       "c": "30"
+      },
+      {
+       "f": "ch31-core.opus",
+       "d": 753.39,
+       "c": "31"
+      },
+      {
+       "f": "ch31-medium.opus",
+       "d": 100.76,
+       "c": "31"
+      },
+      {
+       "f": "ch31-long.opus",
+       "d": 112.46,
+       "c": "31"
+      },
+      {
+       "f": "ch32-core.opus",
+       "d": 762.07,
+       "c": "32"
+      },
+      {
+       "f": "ch32-medium.opus",
+       "d": 101.21,
+       "c": "32"
+      },
+      {
+       "f": "ch32-long.opus",
+       "d": 107.96,
+       "c": "32"
+      },
+      {
+       "f": "outro.opus",
+       "d": 25.0,
+       "c": null
+      }
+     ]
+    }
+   },
+   "bed": {
+    "gain": 1.0,
+    "swellDb": 6.0
+   },
+   "segments": {
+    "ch00-core.opus": {
+     "s": "harbour_night",
+     "g": "AJYBrQEgdSXKAmmVASD3AoIBwwEhxwMFtgEtrQGCAdoBIagCJuEBLb0Cc5kDIY0CJdoCLZ0DadgCIcIBJdYBLesBI9UDgAHMAiHfASajAS3PA4QB7gIhgwImuAMt6gJx2QEh9AIllQIrvQJpiAIghwMmyAEr5wJ1mwIonQEhuQIj0QIrvgJkkQENowE0swF97QKJAZkBKNsDIOwCI7ADK54DKLADdeYBKI4CZJ8CKJcCKoIEI6wDfZkBKNsDIOwCI7ADKp4DKLADigGnASiFASC2AXiOAyjkAiHEAyPKAmSZASjbAyDsAiOwAyieAyiwA0s"
+    },
+    "ch00-medium.opus": {
+     "s": "harbour_night",
+     "g": "AHiFASi1AmveASjJASrtAoIB0gEokAIh7wIjeYIB2wEo5gMglAFzxgIogwIhpwMjjQQqiwIoyAFprQEo3QEgqwIj-QGAAfkCKPgDSw"
+    },
+    "ch00-long.opus": {
+     "s": "harbour_night",
+     "g": "AHirAgzdAXF4L4oBI94BaYkBKNoBI4wDbrgDIMwBJskBbP0CIfcBf8MBINQCJZMBhwFZILMCSw"
+    },
+    "ch01-core.opus": {
+     "s": "night_sky",
+     "g": "AN4CgAIgjgJpZyGdASjIAQWwAYIB5wEhrgEovgEoogEjrgGFAYACIIICKNcBKN4CI7cCIagCKIgBKIIBI9cBc48CIY4CaeEBIeYBKMsBKP4CI7UBggH1ASDEAijjASiPAoUB9wEh2wEo5gIoowJxwQEoxgEojgIrzQFprQEgkQMouwKFAcwCJuEBK9MBKNcBggGsAiVrK5gBKPMBHp4Cae0CcYsCJqMEKvsDKPsDHtwDhAFtJrUCggHgASWrBCrWA2mMAiajBCr7Ayj7Ax7bA3GSASaSAYUB-QEmtgMqhASAAYsCJqMEK_oDJvsDIdsDSw"
+    },
+    "ch01-medium.opus": {
+     "s": "night_sky",
+     "g": "AHiGASOUAn3cASO3Ay2SA2SfAiPcAi2CAXixASPbAYkBeiPSAS3SAiWhA0s"
+    },
+    "ch01-long.opus": {
+     "s": "night_sky",
+     "g": "AHi7AQqLAmRbKrUBLZsBeL4CI98BLosCJvwCiQHSASbyAyrDAn3qAiW8AyrTA4wBWSvIAks"
+    },
+    "ch02-core.opus": {
+     "s": "workshop",
+     "g": "AN4C4wElnwEqvQJs9AEKnwEqqQGCAcQBJssDggHNAiWMASvYAnOrAybXBC23AiWvAWn5ASXEAX-9ASX3AYUB5wEmqgIq9gFx4gEj8gEt9QIlzQJpyQEjqwMuqgOGAdIBK9oCJf4BgAFfDMoBPK4Ba40CK48CJeoDbvMChwGYASvmAyWnBSGYBCafA3-ZAivIAWzrAS3dBCXzA26ZAS3mAyWnBSGYBCafA4cBjAEtygF9gAItgwYj5wEgtQGMAZkBKuYDJqcFIJkEJaADSw"
+    },
+    "ch02-medium.opus": {
+     "s": "workshop",
+     "g": "AHhtK-ABZ_IBK4IDJf4BddQBK6oEjAG3AivqAnjDASrqASZsSg"
+    },
+    "ch02-long.opus": {
+     "s": "workshop",
+     "g": "AHjkAQXUAXZiK8QCjAGPASrdASWYAXrSASuDA4oBvwIjugJ9wQMj-QJkWSPuAks"
+    },
+    "ch03-core.opus": {
+     "s": "cliff",
+     "g": "AN4CwAEjvAErsgJp8gED-QErvwGCAfEBI-4DK6wCggGWAiPaAnObASOUASu5ASjKAiD3AWmrASOcAiuuASjUAYABzgEjpQMrtgIo-gOEAbcCI_oCKo4BKNcBIIEBcKcBI8cDKKkBaZ8CI_kCc-8BAtwCKMEBZ7sBI7ACKMICe7UCI9EEjAHoAnOKASPvBCjLBSuuBCPMBWfsASPAAnu5AiOfAyiQA44BigEj7wQoywUrrgQjzAV2swEgmwFmiAIh9QQo_ARuigEg7wQoywUorgQjzQVL"
+    },
+    "ch03-medium.opus": {
+     "s": "cliff",
+     "g": "AHhqIJoCffEDIJ8BhwG2ASGtAiiRAnGdAyC7AWzMASD-ASiMA0s"
+    },
+    "ch03-long.opus": {
+     "s": "cliff",
+     "g": "AHjkAQrAAYcBkgEopAJuWSC4A2v2AiHZAXH0ASaxAyGsAWlZJqQCSw"
+    },
+    "ch04-core.opus": {
+     "s": "island_shore",
+     "g": "AN4CiQEqiAImswJpuAEF3wEl0wJ_8QErwgOEAckCK_0Cc7kBK3IlhAIh_AEmxgJpkQIr0AElvAKCAf0BKsYCJf4CggGwASvoAnCJASqQASZsHvoCaY0DK48CJcICjAGGA3r1ASG4A2euASCZAyjLAnOlASivASi2AYwB7QJ7xQEgowQovAMr_gMjuwMgyANnbiC3AnPuASCmAii-BYwBxQEhowQovAMo_gMjuwMgyAN4byDAAYcB6gEhtgQoggR9xAEhowQovAMr_gMjugMhyANL"
+    },
+    "ch04-medium.opus": {
+     "s": "island_shore",
+     "g": "AHhwIMMCcNYBIJcChAGUAiGyAn_6ASCuBG7MAiCMAyh_btoBIKACKM8CSw"
+    },
+    "ch04-long.opus": {
+     "s": "island_shore",
+     "g": "AHjsAQrUAX9_CrkBKIAChAGsAiakA4IBmgIlkgJp1wEl-QIghwFwwwImrQIg4AGEAVklrAJL"
+    },
+    "ch05-core.opus": {
+     "s": "open_sea",
+     "g": "AN4CvAErgQJpkAEqnQEDpwEgpwF_yQEqpQEj8wGFAYMCK7ABI6cBIJ4BcMcBK8wCI6sDaYkCK90CggGRATLQASPEASqyA4UBkgIqmAJwjQEqgwIjqwJpgwEq7QEja26qASqlAiblAh75Amz4AivvAX_NASvyASajAocB-QJu1wErywMm9gMewQMo4wMq1wJscSqtAoAB2AEq-wMlrwOHAdcBKswDJfcDHsEDKOIDK9cCbncrtAFu5QEqsgQl7wN11wEtzAMj9gMhwQMl4wMt1wJL"
+    },
+    "ch05-medium.opus": {
+     "s": "open_sea",
+     "g": "AHhzLeQBeNECjAGyAS2DAiOCAXPSAS33AWfUAS3QAiONAks"
+    },
+    "ch05-long.opus": {
+     "s": "open_sea",
+     "g": "AHjfAQXMAYwBxAEtrgJzrQEr_QFmqgIq1QF1vgIjvANiWCTvAUs"
+    },
+    "ch06-core.opus": {
+     "s": "cabin",
+     "g": "AN4CxAEo-wJpWQW4AR7OAX_xASiVAR6WAoUBoAEozgNwrAIo-wJsjwEvuAIm-AGCAZIBKIIBHuABggH4AijDA3GHASa-AiDhAWmMAibHASHoA3H0AiPoASvrAWmkASbIAyqsAoIBmwMlvAOFAWAqgAJw6AJpoQEm2wIthQUm9QIgvgQl-QKCAbUCJcwBhQHbASaDBCrZAyWjAnChASPbAi2FBSb1AiG9BCP5AmxvI6wBePwBJf0EK_0EZKEBJdsCK4UFJvUCIb0EJvgCSw"
+    },
+    "ch06-medium.opus": {
+     "s": "cabin",
+     "g": "AHhxJe0BiQGYAiXoAXjZASaOAmSsASb2AnvfASa-AokBywEl2QJL"
+    },
+    "ch06-long.opus": {
+     "s": "cabin",
+     "g": "AHjZAQrZAWRZA64Bc9YDZ90CKI8CeqACKL8DjAHYASisAnNZKOYBSw"
+    },
+    "ch07-core.opus": {
+     "s": "night_sky",
+     "g": "AN4CfiiQASDeAWroAQWOAoABXwywAYUBuAEvzgFxnQEo_gJpXCitAyOpAoIB1gEo0AIjuwKCAY4DKK0CcLEBKOMDIf8CaawDigHCAiivA32aAii0ASPXAWG1AijNA3XCASiWAokBgwMoiQJ9uQEouwIj_wIjoQFk6AJ1ugEozgQj-gQjsQQq7wSKAW4o9AF98QEo2gMgugSFAboBKM0EIPsEI7EEKO4EgAGSASh0aeYBKL8FIY4Cc7oBKM0EIPsEI7EEKO4ESw"
+    },
+    "ch07-medium.opus": {
+     "s": "night_sky",
+     "g": "AHhuKKMCggHXASj_A2mQAijAAXOAAijLASDcAYQBjgIo6gFL"
+    },
+    "ch07-long.opus": {
+     "s": "night_sky",
+     "g": "AHiaAQyiAYcBowEehgOAAc0BHowCa74BIMcCbrQBIIcEhwG-AiDsAYABWSCmAks"
+    },
+    "ch08-core.opus": {
+     "s": "deck",
+     "g": "AN4C6gEgxwJpXgrqATKKAoIB4gEClwEonQGFAYoCIbkCKMwCcacBIKIDKI8BaZoBIegCKJQBgQHIASCbAiimA4QB1QNzwwIhygIougFptwEDwQIosAKCAfkCI5EBKqUCKJUCggGmASP9ASvNAnHYASPZAivSASiDAyHiAmvtAoABngEjzwMrkQQouQUh5QSEAd8Cc_sBI-sEKoYEaZ4BI88DK5EEKLkFIeUEggGoASOjAYUBsgIjgAUo-wN9ngEjzwMrkQQouQUh5QRL"
+    },
+    "ch08-medium.opus": {
+     "s": "deck",
+     "g": "AHhaI6UCdccBI-EDZNkCI4oDfesCigHPASOaA0s"
+    },
+    "ch08-long.opus": {
+     "s": "deck",
+     "g": "AHjiAQrfAWSwASujAXrcASPuAYkBqwIj2QF4owEthAKMAXUtmQIj5gJ1WS3PAks"
+    },
+    "ch09-core.opus": {
+     "s": "workshop",
+     "g": "AN4CjgIgkwFpWQqhASWIAoIBgwEKzwEwYYUBoAEhrwMllAFwtgEg1wImzwJpyQKCAa0BIesCJqQBhQG8AyDhAnGyASHKAmnqASDsA2R8KI0DeF8KqAEe0QGJAVko4gJ97QJkrgEomwMeogQmowMqkwQo0QJ4cSiMA4kB9AEogQMe2QR7rgEomwMeogQmowMqkwQo0QJhrQEmmAF14AElzAMg0gRprgEmmwMhogQjowMtkgQm0QJL"
+    },
+    "ch09-medium.opus": {
+     "s": "workshop",
+     "g": "AHhyJsIChQGLAiasAoIBqQEmiANpiAImlwJxkQElwgQgtQFL"
+    },
+    "ch09-long.opus": {
+     "s": "workshop",
+     "g": "AHjsAQXGAYIBdya0A2q6AiWiAnOcASWkAmudASHzAijeAW6aAiCpAocBWCGfAks"
+    },
+    "ch10-core.opus": {
+     "s": "workshop",
+     "g": "AN4C7gEq3QF6WQ3AASPbAWSaASqkASOmAnihAyuDA4oB6wJ7-AEr4gNk6QEruAIjrAIg6QF4_QIrlAKJAXQq-wIj2gIgrAF9lAEqzANw2wEghwJrWQPwAX16IeQCJsQChwHdAiCxAm7tAm6oASCHBCX5AyvwBCWUAyC5BH9sIYoDhAHTASHDAyWhBG6oASGGBCb5Ay3wBCOTAyG4BGywASGZAXO_ASHeBCXBA2aoASGGBCb5AyrwBCaTAyG4BEs"
+    },
+    "ch10-medium.opus": {
+     "s": "workshop",
+     "g": "AHhuHr0CjAG9AR7MAXOpASCpA2f2ASCiA3qqAiCFBEs"
+    },
+    "ch10-long.opus": {
+     "s": "workshop",
+     "g": "AHjWAQLBAXZjCnEonQFn1gIeigJ4pwEo6gNk7gEosAJ73AEougOJAVkoygJL"
+    },
+    "ch11-core.opus": {
+     "s": "ship_hold",
+     "g": "AN4CuQEqhQJ6WQWMAiWwAWSTASqUAiabAnj0ASrHAYoBlwEr2gN60gEruwImuQJkfirSAiXvAXikASvSAib_AYoBpAEr_AJ96gErmgIl6QSMAYIBKsQBeK8BKtEDI6kCZ2gyxwJ18wKMAc4BK_UDI5QFI-YEKPIDeG4quwFmgwIrrwIjqQIjuANzzwEq9gMjlAUg5QQo8gOMAaIBK40Be44CKoYEI4UFhwHPASj1AyOUBSHlBCjyA0s"
+    },
+    "ch11-medium.opus": {
+     "s": "ship_hold",
+     "g": "AHhtKL4CbJwBKKgCbrIBKLsChwHCAijBAYABjAEoqgRs8QEo-wFL"
+    },
+    "ch11-long.opus": {
+     "s": "ship_hold",
+     "g": "AHjwAQyBAocBWQW6AX3KASq3AoQBkQMmrQJ_uAIm9QJphgMm4gFzWSayAks"
+    },
+    "ch12-core.opus": {
+     "s": "forest",
+     "g": "AN4CvAEosgJ9vQEM-QFkXQ16N1sK0gJ4vwIolgSJAYkBKNcBeqsCKK8CZJcBKJACI9oCePoCKNMCI4ACigG-AiidAn2PAjXjASDtAYkBhQEjzwJ7igIjxgFk1wIjhQR4qQIjxwIr_wKJAa0BI-kBetQDI68BZIkDI6sBeK4BI-ADigH5An2iASPBBCjoBSiABiDcA4QBbyL_AYIB3wEjhgIqtgVpogEjwQQr6AUogAYg2wNxuwEjfIQB5gEjogQrhgWCAaIBI8EEKugFKIAGIdsDSw"
+    },
+    "ch12-medium.opus": {
+     "s": "forest",
+     "g": "AHhyI-8BcK8CI9cDggGyASOeAoIB9wEjqAGHAX4tnAQj3QFL"
+    },
+    "ch12-long.opus": {
+     "s": "forest",
+     "g": "AHjuAQXcAWzAAS2BAnDgAi33AYcB7wKAAYsCLcoEbpwBLcwDblgtwQJL"
+    },
+    "ch13-core.opus": {
+     "s": "island_shore",
+     "g": "AN4C4AEorAJ9Xg3NAWRZBJUBHqsBeI4BKPoCHtMBiQGDASjpAh6mAXqvASiZAWRzKKsCHvgBeIEDKP8BjAGCASbRAR5yfcIBJroCc5MBKIQDHsQCJpoCaekBKOoCHpUCgAGrAoQBmwIoigNz3gEoggJplAMo4wOCAb4DggFZBfECceMCadwBJZsDHqQGJaAFK_ACdmwlugJi9AEl-gEgmgIjxwN93AElmgMhpAYjoAUt8AKKAboBJaYBdZgCJtsDILgCI-ICZNwBJZsDIKQGI6AFLfECSw"
+    },
+    "ch13-medium.opus": {
+     "s": "island_shore",
+     "g": "AHhuJuYCiQG5ASWOAnjZAiXbAmSPASW1A3aVAyHmAUs"
+    },
+    "ch13-long.opus": {
+     "s": "island_shore",
+     "g": "AHjeAQKUAniCASG4A4wBcSDJAnPOAmbCAiCLA3vZASDvAowBWSGTAks"
+    },
+    "ch14-core.opus": {
+     "s": "cabin",
+     "g": "AN4CigIhiQF6WQP6ASiVAWSYAQu1AXj-ASGeAooB9AEg-gJ6jwIg2QFk-gJ42AEhgAMo4gIo7AGKAYcDfckCKoUBggHzAjJ5ggH0ASWrAiGyAmuaAibPAiCGA3CgBCaDA4UB1wElswKAAacCJdkDafcCJbsDc-0ChAHRASbwBCCnBSP1BC3-BYIBbiaWAokB4QElowMepQR90AEm8AQgqAUl9QQq_gVkvgElngF28AElowYhhQOJAdEBJfAEIacFJfUEK_0FSw"
+    },
+    "ch14-medium.opus": {
+     "s": "cabin",
+     "g": "AHhsKNcCZI0CJsYBdcQBJYsDiQGHAijAAXu1ASj6Ah6AA0s"
+    },
+    "ch14-long.opus": {
+     "s": "cabin",
+     "g": "AHjaAQOPAniWAmeFAyCUAnaLAiGnAowBrwEh1wN4-AEgkQJmWSCNAks"
+    },
+    "ch15-core.opus": {
+     "s": "workshop",
+     "g": "AN4C2QEh-wF6YQr5AmRcCqoBePQCINUCiQGkASCdAnq2AiDTAmT4ASCAAnjWASDyAokBowEh3wEmf33bASHxAXjkASOpAmTwASPuAn3WASOLAocBtAIj_AJ4ogNknwIj7wJ7gwIjvgKJAf0CdecBI_gCK4QBYfkCcZ0BI8QFKNUFKPYEILMEaXIj0gKCAZcCI_0BKIoEhAGeASPEBSjUBSj2BCGzBHC0ASN-aYACI7IFKLcDggGdASPEBSvVBSj2BCCzBEs"
+    },
+    "ch15-medium.opus": {
+     "s": "workshop",
+     "g": "AHhyI9cCc_0BI5AEad0BI5cCbr4CKt0Ba9EBK68CgAGRAiuFA0s"
+    },
+    "ch15-long.opus": {
+     "s": "workshop",
+     "g": "AHjuAQWYAm7wASvaAmvxASurBXz-ASq-AocB4gEq7gFungEroANsWCu4Aks"
+    },
+    "ch16-core.opus": {
+     "s": "cave",
+     "g": "AN4CnAEj8QF7xQEiiAJkWQqJAniAAyTRA4cB-gEjzwJ8wQJk2gEjxAIrpQF40gIjlgGJAcICI60DfZICI4MCdocDKtACZ4sCK4EDeNoCjAHwASqaAnadAivTAmezASqjAXi9AivKAowBhQMq6gJzjQIo3AFm7QJumQEq6gMjvQMg7gQouQRrbCu6AoAB-gErywIjxwEhjwSHAZgBK-kDI70DIe0EKLkEbssBK9UBbPkBK8gDI7oFgAGYASvpAyO9AyHtBCi5BEs"
+    },
+    "ch16-medium.opus": {
+     "s": "cave",
+     "g": "AHhyKuoCcNECK60CbMoBK9YCcIkBI4wDLb0Ba6kDI4MCggHNASPSA4IBwAEjvQJL"
+    },
+    "ch16-long.opus": {
+     "s": "cave",
+     "g": "AHjuAQK5AmnsAiPiAn_OASP7A4UBxwEj_wJwwAEm2wJp2gNmWS3cAks"
+    },
+    "ch17-core.opus": {
+     "s": "open_sea",
+     "g": "AN4CngEmmgJ6ugEKoQEr2gFkpAEm4gN44QImzgGKAYcDJaMCfYkCJfUBZLICJvYCeKMDJZkBiQGjAyOfAX2iA4cB6gEevAN9igMeygJrigEekARupAIexgGHAY4DHsQCfcMBHqcCa4IDHoEBce8BHpEEKMABhwHzAn-nASDEBCWABiuyBSadBowBbiDJAnqrAiGXAyX9BGenASDEBCWABi2yBSOeBnNwILkBjwGaAiDjBCWnA3qnASHDBCaABi2yBSOeBks"
+    },
+    "ch17-medium.opus": {
+     "s": "open_sea",
+     "g": "AHhtIboCc9cBIJsDjAHDASHjAniCAiHbAYoB1wIo4wN9mwEoygJk4QIouAFL"
+    },
+    "ch17-long.opus": {
+     "s": "open_sea",
+     "g": "AHjpAQWTAokBhQEogAN7gQIosQNkkQR45AIongKMAb8BKOIDfVoo1wJL"
+    },
+    "ch18-core.opus": {
+     "s": "workshop",
+     "g": "AN4C8gErwAJ9YQ2oAia4AWSXAivaAXasBIoB5gEr-QJ8ngEqwwRk8AEqwwJ19gIqgAGKAdABKpQDe4kBKssCe8oBKrcDjAHOAirUAXNuLdgBZucBKoMEe8QCKoACjAGzAyuYAXPIAiqvAmbAASvbA3iQA4wB7AJ9iQEr6AQmtQYeqgYl7QWHAXAqiwJw-wEqvQImjwUg_gJriQEr6QQltQYgqgYm7QV_6gErkgGFAYwCK9gFJtYCbokBKukEJbUGIaoGJe0FSw"
+    },
+    "ch18-medium.opus": {
+     "s": "workshop",
+     "g": "AHhtK-sCgAGrASuiAocBzQMrgAKCAfYBI5IChQG3ASP7AXDTA2nSASOnA4IB0gJL"
+    },
+    "ch18-long.opus": {
+     "s": "workshop",
+     "g": "AHjuAQLjAXCWASPTA2mGAiPpAYIB0wIjnQKCAYYEjAH1ASjzAXhZKPYBSw"
+    },
+    "ch19-core.opus": {
+     "s": "forest",
+     "g": "AN4CrgEq2QJ97wEMkwEj3wJknwEq4gJ2pgIqywOJAcUBKpEDfZMDZMABK_wBddwDKq4CigGUAirDAnvLAiqFA2znASPxAm6aAocB1AIjvAOAAcQBI9cCa98DIcwBbukChwH9AiOqAn-HAiOiA2u_ASHnA26NAiDpA2a0A3XtAowBugEg6AYo5AUo2QQjmAZ4bSH4AWmoAiCAAiiQASjpA3O6ASHnBijkBSjaBCOYBowBpgEhgQF40gEhlAQohwRnugEg5wYo5QUq2QQjmAZL"
+    },
+    "ch19-medium.opus": {
+     "s": "forest",
+     "g": "AHhyIIgCYq4CJrECdawBJZkEjAHZAibsAX2MAiW4AmSfAiaKBEs"
+    },
+    "ch19-long.opus": {
+     "s": "forest",
+     "g": "AHj1AQXIAYoBpgEm1QJ97QEmvANktQIo6AF27AIo1QFw6AEeiAJrWR7DAks"
+    },
+    "ch20-core.opus": {
+     "s": "ship_hold",
+     "g": "AN4CxgEj5gF46AEK9AEo0wFmggEjxQJzkQMj_AKMAa8CI5kCeI4BI_ECZq8BI_oCdqQCIoQCjgGtASPqAnubAiOnAmSdASGjA3jpA4oB0QEgiwN6qgIhqwFkpwEgzwJ4ywEh6AOJAcECfbQBIPkCZL0BIMkDdpUCIK0EacABI8sDcO0ChAHAASP8BCiKBiu4ByPHBYIBbCOxAmnUASOhBCiCBXDAASP8BCiKBiq5ByPHBYQB3AEjlAGCAYECI7gDKNwFaMABIfwEKIoGKrkHI8YFSw"
+    },
+    "ch20-medium.opus": {
+     "s": "ship_hold",
+     "g": "AHhtIZACbLwBJt8CbtoCJe4BhwGrASa9An2eAiaUAmyoASXrAW7JAyaFAUs"
+    },
+    "ch20-long.opus": {
+     "s": "ship_hold",
+     "g": "AHjiAQX2AX-zAiboAmuHAyayAm7MASXDAnbPAiCuAmSwASCkA32sAooBWiDhAks"
+    },
+    "ch21-core.opus": {
+     "s": "night_sky",
+     "g": "AN4CcyOxAnuSAQLGAS3UAWbNASONAnOeASOjA4wBjwEjiwN4fSOUA2fzAXaKAyOvAo4BjQImgAJ78QEmwQKAAdsBK9kChQGDASr_AnOIAivIAmmoAirrAoEB-QEqrAKCAbEBKrwCcLEEKosBbKoCKpwDggHrAoUB2wEriAJ90QIryAGJAfYCKtwBde0CZOgBKssFJpwEIJUHJssGfXItnQKJAd4BLYYDJvkBIdsDdegBK8sFJZwEIZUHJcwGZJgBK3R7hAItrwUj5QKJAegBLcsFI5wEIZQHJswGSw"
+    },
+    "ch21-medium.opus": {
+     "s": "night_sky",
+     "g": "AHhtI98CjAGGAyOeAXbwAiOkAWfzASOgAniUAyOmAYwBxQEj9AJ2hAEjkARL"
+    },
+    "ch21-long.opus": {
+     "s": "night_sky",
+     "g": "AHjfAQPgAXuMAiP3A4wBvgEj5wKEAZMDK5sDggG8ASrcAmmsASqhBHBZK4UCSw"
+    },
+    "ch22-core.opus": {
+     "s": "deck",
+     "g": "AN4CtAEg4gF45gEhrAEM0gFnhwEhngJ2zAEgowKMAe4CILQBeMoBIbQEZpYCIe8CduACIZUBjAH6ASHOA3vAASCQAn20AyOKAocBgQIj8gJwa2zGAn2ZAyPRAocBpQIjam7KAiPbAWyXA3-JAibZAYcB8AIm1AF78QEm-wKOAdYBc-gCZp8BJa8FKsMEKNQEHvAGenAl4gKMAZMCJbICK4ICKIcFc54BJq4FK8IEKNQEHvAGZ5IBJYABeOcBJvgEK5sDjAGfASWuBSvCBCbUBB7wBks"
+    },
+    "ch22-medium.opus": {
+     "s": "deck",
+     "g": "AHhwKqUCiQHcAiupAnilASraAmTAAiuzA32SASriAYkB0QErjgN1ngNL"
+    },
+    "ch22-long.opus": {
+     "s": "deck",
+     "g": "AHjlAQXFAX2jAyiOAokBqAMoqQGHAaACI90Bf_gCI6wDbIwCI80CbtMBI88ChwFZI-MCSw"
+    },
+    "ch23-core.opus": {
+     "s": "cliff",
+     "g": "AN4C3QIh_gF4rAEKgAIm4gFmhQEhswN2tAEg8wKMAZoBIJYCeJgBIOQDZvMCIfMBdt8CjAGQASGIA3uNAiCdAmbJAijXAXXPASieA4wB6AIo7gF45QIo5QNm2gIoggN2twEouAGMAZwBKL4CeJMCKKsDZqIDKI4Bc8MDKLEBbPcCbskCKMMChwGvAyjPAYABfijtAmvoAm7EASjYBCD3BiPMBSvmBYcBbCjXAn-GAiifAyGEASPvA27EASjYBCD3BiPMBSjmBW6YASjQAWmQAh7oAyipBHPDAR7YBCj3BivMBSblBUs"
+    },
+    "ch23-medium.opus": {
+     "s": "cliff",
+     "g": "AHhtHvICf7EBHroCbKcCHssCccQBHpsEggG5AR6YAoIBvgRp9AJL"
+    },
+    "ch23-long.opus": {
+     "s": "cliff",
+     "g": "AHjkAQLbAXOiASiQAmedASjKAnqMASj8Ao8BqgIoogNz1AEozQNngwIonQF7WijcAks"
+    },
+    "ch24-core.opus": {
+     "s": "cabin",
+     "g": "AN4CqgEogAN4wAEF0QEhygFnlQEotwN1ggIoqQOMAaIBKN4DeJUBKJUDZ4cCKP4Bc_sBKKUBjAG9ASilA3ruASjUAnjYASjBA4wBwQJzpQIopgFm2gIo-AF41wEozwKMAbIBKIgDddQCZsICKKEDe7gBKOACjwHzAiiwAoAB-wKHAfkCbrYBKNYFI5kHI4kFKp4Ha3AoswJ_wgIo3wEjhQEjhgSHAbYBKNYFI5gHI4oFKp0Hbs8BKHVs9QEokwYjowN9tgEo1gUhmAcjiQUrnQdL"
+    },
+    "ch24-medium.opus": {
+     "s": "cabin",
+     "g": "AHhxKK0CggG0AyDSAYUBrAMgrQFx9QIgwQJpnAEgtgKAAcYDIckChAGdA0s"
+    },
+    "ch24-long.opus": {
+     "s": "cabin",
+     "g": "AHipAQPrAWnoAiC4A4IBswMh-gGFAZoBIPYDjAGkASbRA3v7ASWIAmdYJtACSw"
+    },
+    "ch25-core.opus": {
+     "s": "workshop",
+     "g": "AN4C_AEmvwJ4Ygp-IYQBJdABZp0BJrkDdr8CJr4CjAHeAibAAXqeASbzAmbMASb9A3WgAibRAowBzwEo-QJ7zgEovgRu2QJu4QMm6wGFAb4CJZkCf6EDJZMCbK0BJZQEcJ0DJZAChwHZASXLBX2sASaTA2vsASXvBG6xASbGA2boAnPKASWiAyqpBibgBSHEBowBbCPdAXucAiX2AyuRBWfJASahAyupBiXhBSDFBnP9ASWmAYwBwAImtgQrnAImsAN6ygElogMtqQYl4QUhxAZL"
+    },
+    "ch25-medium.opus": {
+     "s": "workshop",
+     "g": "AHhxI6UDdYACI6MDZPMBK8gDeLgBKtoCiQHJASrBA3q9AiuQAmS2ASuWBEs"
+    },
+    "ch25-long.opus": {
+     "s": "workshop",
+     "g": "AHj8AQX-AYoB1AErsgJ6fSvUA2G9ASqXA3WSASqeA26wAiOzA2xZI7kCSw"
+    },
+    "ch26-core.opus": {
+     "s": "open_sea",
+     "g": "AN4ClQEqnwJ4nQENsQFnzgEr-QJ1uQEqmQKMAbcCKr0CeL8BK4UCZ5wCK8ICdtMBK_oBjAHnASqYA3vnASv5Amm0Ai3DBHKDA4IB-AMthwKCAe4CLZYBaeYBLeUCc7YBLdwChAGxAi3uAX_cAS31AWmzASqXBHGXASqrAmSvAiqzA3WqASuPBIkB6AJ9twEq-gUmkgYevQYogAdibiuoAnaQAir-Aib4BIkBtwEq-gUmkgYevQYogAd9ZiumAWT_ASv-AiaoBXi3ASr6BSaSBiC9BiaAB0s"
+    },
+    "ch26-medium.opus": {
+     "s": "open_sea",
+     "g": "AHhsI7QCc4wCI_gBjAGOASPkAnuzASOvA2abAiPlAnW1AiPiAYwBqgEjsgRL"
+    },
+    "ch26-long.opus": {
+     "s": "open_sea",
+     "g": "AHjiAQLNAWSbASPAA3OqASO9AnC9Aiv3Amm9ASqbA4IBhQIr6AOFAdsBK60CcFkrmgJL"
+    },
+    "ch27-core.opus": {
+     "s": "workshop",
+     "g": "AN4C_QErkgJ4YwzhASWrAWaEASvNAna5ASq5AowBdirWA3ilASuIA2fCASq2AnbbASvgAowBzwEqvAN7iwIr1wJ71AEhbIkBiAEg2gN4iwEhvwNk1wEhmwN74QIgjQGJAagBIZ0CeIgCIYgCZI8CINABfcgDI4MCigGlASOtAoIB1wEh9QSEAY8BIKQCcPkCackBIO0FKKkGKpMFI_QIggFyIbwChQHjASCRAijkAiqcA3HIASDtBSipBiuSBSP0CGncASDAAYABnAIh6QQorAOFAcgBIO0FKKkGK5IFI_QISw"
+    },
+    "ch27-medium.opus": {
+     "s": "workshop",
+     "g": "AHhxKOMChwHaAih_bvkDKIYCbogCKIgDfXkopwOHAasBKM8CcKYBKLIDSw"
+    },
+    "ch27-long.opus": {
+     "s": "workshop",
+     "g": "AHjxAQX2AYABhwEmzQOHAcYBJeoBigG7AR7eAn3uAh7BAmSWAR6jAnboAR7gA4oBWR6uAks"
+    },
+    "ch28-core.opus": {
+     "s": "harbour_day",
+     "g": "AN4C3gEmuQJ6xAECtQEtpAFmjwEl9AJzvQEl7QKMAbgBJcICercCJt4CZ64CJd0Bc6QCJZMBjAGwASOxA3iCAyOFAYQBwwEohwSCAbwCKIEDaaYCKLYCcMcChAGXAyj8AYIBxQIongFqlQIo5AFw1wEouAKCAcoBKpsCggG5ASubAokBvgIrowJ7mwIr6gJkpAErpAN4uwQr7AGKAegCfaYBK7cEI8YHI74GKKoEZG0rqwJ4qQIr1gEjswMj0wKKAacBKrgEI8YHIL0GKKsEfbMBKqgBjwGPAiWdBS2rA3umASa3BC3GBya9BiGqBEs"
+    },
+    "ch28-medium.opus": {
+     "s": "harbour_day",
+     "g": "AHhxJdACc-IBJewCjAHAAia8AnqwASaqA2bdASbaAXOcAibXAowBjwEjhAR4gwIjvANL"
+    },
+    "ch28-long.opus": {
+     "s": "harbour_day",
+     "g": "AHjaAQWsAoUBkAIrjwJzpgMr8AFplQMr8AGCAa0BKqMDggGoASupBHD7AWxYLcICSw"
+    },
+    "ch29-core.opus": {
+     "s": "deck",
+     "g": "AN4C5gEjqAF7XQqnASuwAWTAASOhAnO0ASPAAYwBvAIjnAF6kAEjrwNnhQEj3AJzjgKMAeIBI_sCePcDI6oCdqsCILIEZMsEfa4DigHVAiDzAXWKAyDSAWToAh63AX3lAooB1QEhjgN4rQIe7wFkzAEevAJzwgNpvAEh9ASAAe0ChAGNAiHcBiWVBiqzBiWNCXFsIbICa_cBIYQCJqUDKvMCggGNAiDdBiWVBi2yBiaNCYIB2AEgjQFw-gEg6gMluARpjQIg3QYllQYtsgYjjQlL"
+    },
+    "ch29-medium.opus": {
+     "s": "deck",
+     "g": "AHhsKLADa6QBKIADf5wBKPsBhwHfA27yASjlAWyoASifAn-KASiPA0s"
+    },
+    "ch29-long.opus": {
+     "s": "deck",
+     "g": "AHisAQXlAm70Aii-Am6RASj5AmTBASOMA3igASCSA4oBpwEj8QJ74gEi7gJkWiTjAks"
+    },
+    "ch30-core.opus": {
+     "s": "cave",
+     "g": "AN4CmgElxwFuvQEKywEgmgF_8QIlrAGEAYoBJs8BcaUCJcsBa4gDJcsBfboBJbIBhwG-AiXeAW62ASj-AWvIASiwAmyRASa4Am6BA4cBuAIlhAGAAaECJtYCa9QBJowDboICJfsBhwH3An-iASaEAmyUAiXjAnGWAia2AmfoAyjQAnOWAiiqBIwB7QJ4pAEotAQeqwUmnwMq8AZmcSjsAXaxAiiEBB6fA4wBpAEotAQeqwUmnwMq8AZ4hgIoiwFmgQIm2AQgogNzpAEmtAQgqwUloAMq8AZL"
+    },
+    "ch30-medium.opus": {
+     "s": "cave",
+     "g": "AHhtIb4CdasBIIcDigHwASCIAn20ASHzAWKjASHsAna0ASDmAYkB2gIgiAJL"
+    },
+    "ch30-long.opus": {
+     "s": "cave",
+     "g": "AHjfAQPdAWTxASCvAXieAiHfAW6aAijMAW7IASi5AoAB2AEo0gGEAZkBKPUCcFkoqQJL"
+    },
+    "ch31-core.opus": {
+     "s": "island_shore",
+     "g": "AN4CmwEo_wFutAEo9AEKugGAAagBKKMChQHTASjTAnHCASj9AmufAyiSAX23ASiXAocB0wEo4ANu5AEo6wFsxAIo5QJ7xwKMAZECI4ICc5cCI7EBZqEDIt0Be8QDjAHDASPEA3OiAyPnAWe4AST9AXi1ASOzA4wBugEk9gF_3QEj6wKFAbECI7MCbrwBI_EBbq4DI40CfZQCI-QChwGSAyOlAXCdAiOkA2usASOqA3_oAocB1wEj4wco0QcovwUglAiCAXAq1QKFAf0BKtAEJZ8EcNcBK-IHJtEHHr8FKJQIabwBK6cBggHFAiqLBSWLBIUB1wEq4wcm0AcewAUolAhL"
+    },
+    "ch31-medium.opus": {
+     "s": "island_shore",
+     "g": "AHhuK58DaZUBKqwCgAG4ASqSA4QB4QIrzAGMAd8BJegCeP8BJbcCZ50CJpoCSw"
+    },
+    "ch31-long.opus": {
+     "s": "island_shore",
+     "g": "AHjRAQLdAYwBwwElqAJ4tAIl1QFm4gEliQF1oAIm3QOPAbABJpAFe-cDiQFZK9ACSw"
+    },
+    "ch32-core.opus": {
+     "s": "harbour_night",
+     "g": "AN4C0AEqoANumAEqzwN9Wg3mAYcBswEr-wJwnAMq9QFsxwEq_wF9pAEr5gKHAcABK5kCbsECbKMBK9oBfYECKL8CiQH7ASjmAXW1ASivAmTwASiOA33KAooBmQIopAJ2-gEo7AJiyQEr4QN6xAEqoAOJAZYCK44CggGIAoIB3wEriANzqAEr1wNpyQIrlAN_yQIrvgKEAaIBK8IDc_YCabEBKoQGI-4FI-gEKIoGK7MFI9oHggFsK_0BhAHmASqcBCOaA4ABsAEmgwYr7gUl6QQhiQYmswUr2geHAawBJawBbqkCJvoDK-MDbLABJoMGK-4FJekEIYkGJrMFKtsHSw"
+    },
+    "ch32-medium.opus": {
+     "s": "harbour_night",
+     "g": "AHizAibJAYcBWQOkAm6oASa5AmzNASXFA33bASOwBIYBmgIkoAKJAdQBK6oCSg"
+    },
+    "ch32-long.opus": {
+     "s": "harbour_night",
+     "g": "AHikAQWcAWSZAnjMAS3UAokBsQEq0wJ6xQEqtAFk7QJ4nQErtgKJAbUBLZoEfVktqQJL"
+    },
+    "outro.opus": {
+     "s": "harbour_night",
+     "g": ""
+    }
+   }
+  },
+  "drive": {
+   "label": "Driving",
+   "label_en": "Driving",
+   "dir": "drive/",
+   "rate": "-21%",
+   "pitch": "+0Hz",
+   "tiers": {
+    "core": {
+     "label": "Short",
+     "label_en": "Short",
+     "duration": 14585.43,
+     "bytes": 28087808,
+     "starts": {
+      "00": 0.0,
+      "01": 435.59,
+      "02": 844.81,
+      "03": 1235.64,
+      "04": 1664.1,
+      "05": 2067.95,
+      "06": 2438.91,
+      "07": 2830.76,
+      "08": 3231.53,
+      "09": 3629.61,
+      "10": 3970.04,
+      "11": 4357.51,
+      "12": 4719.73,
+      "13": 5153.73,
+      "14": 5554.71,
+      "15": 5983.07,
+      "16": 6393.78,
+      "17": 6790.75,
+      "18": 7228.84,
+      "19": 7678.05,
+      "20": 8150.77,
+      "21": 8627.06,
+      "22": 9098.38,
+      "23": 9545.66,
+      "24": 10044.67,
+      "25": 10517.81,
+      "26": 10997.83,
+      "27": 11487.59,
+      "28": 11978.91,
+      "29": 12473.57,
+      "30": 12976.54,
+      "31": 13409.2,
+      "32": 13991.46
+     },
+     "playlist": [
+      {
+       "f": "ch00-core.opus",
+       "d": 437.09,
+       "c": "00"
+      },
+      {
+       "f": "ch01-core.opus",
+       "d": 410.72,
+       "c": "01"
+      },
+      {
+       "f": "ch02-core.opus",
+       "d": 392.33,
+       "c": "02"
+      },
+      {
+       "f": "ch03-core.opus",
+       "d": 429.96,
+       "c": "03"
+      },
+      {
+       "f": "ch04-core.opus",
+       "d": 405.35,
+       "c": "04"
+      },
+      {
+       "f": "ch05-core.opus",
+       "d": 372.46,
+       "c": "05"
+      },
+      {
+       "f": "ch06-core.opus",
+       "d": 393.35,
+       "c": "06"
+      },
+      {
+       "f": "ch07-core.opus",
+       "d": 402.27,
+       "c": "07"
+      },
+      {
+       "f": "ch08-core.opus",
+       "d": 399.58,
+       "c": "08"
+      },
+      {
+       "f": "ch09-core.opus",
+       "d": 341.93,
+       "c": "09"
+      },
+      {
+       "f": "ch10-core.opus",
+       "d": 388.97,
+       "c": "10"
+      },
+      {
+       "f": "ch11-core.opus",
+       "d": 363.72,
+       "c": "11"
+      },
+      {
+       "f": "ch12-core.opus",
+       "d": 435.5,
+       "c": "12"
+      },
+      {
+       "f": "ch13-core.opus",
+       "d": 402.48,
+       "c": "13"
+      },
+      {
+       "f": "ch14-core.opus",
+       "d": 429.86,
+       "c": "14"
+      },
+      {
+       "f": "ch15-core.opus",
+       "d": 412.21,
+       "c": "15"
+      },
+      {
+       "f": "ch16-core.opus",
+       "d": 398.47,
+       "c": "16"
+      },
+      {
+       "f": "ch17-core.opus",
+       "d": 439.59,
+       "c": "17"
+      },
+      {
+       "f": "ch18-core.opus",
+       "d": 450.71,
+       "c": "18"
+      },
+      {
+       "f": "ch19-core.opus",
+       "d": 474.22,
+       "c": "19"
+      },
+      {
+       "f": "ch20-core.opus",
+       "d": 477.79,
+       "c": "20"
+      },
+      {
+       "f": "ch21-core.opus",
+       "d": 472.82,
+       "c": "21"
+      },
+      {
+       "f": "ch22-core.opus",
+       "d": 448.78,
+       "c": "22"
+      },
+      {
+       "f": "ch23-core.opus",
+       "d": 500.51,
+       "c": "23"
+      },
+      {
+       "f": "ch24-core.opus",
+       "d": 474.64,
+       "c": "24"
+      },
+      {
+       "f": "ch25-core.opus",
+       "d": 481.52,
+       "c": "25"
+      },
+      {
+       "f": "ch26-core.opus",
+       "d": 491.26,
+       "c": "26"
+      },
+      {
+       "f": "ch27-core.opus",
+       "d": 492.82,
+       "c": "27"
+      },
+      {
+       "f": "ch28-core.opus",
+       "d": 496.16,
+       "c": "28"
+      },
+      {
+       "f": "ch29-core.opus",
+       "d": 504.47,
+       "c": "29"
+      },
+      {
+       "f": "ch30-core.opus",
+       "d": 434.16,
+       "c": "30"
+      },
+      {
+       "f": "ch31-core.opus",
+       "d": 583.76,
+       "c": "31"
+      },
+      {
+       "f": "ch32-core.opus",
+       "d": 589.47,
+       "c": "32"
+      },
+      {
+       "f": "outro.opus",
+       "d": 6.0,
+       "c": null
+      }
+     ]
+    },
+    "medium": {
+     "label": "Medium",
+     "label_en": "Medium",
+     "duration": 16871.43,
+     "bytes": 32454393,
+     "starts": {
+      "00": 0.0,
+      "01": 562.39,
+      "02": 1040.89,
+      "03": 1491.45,
+      "04": 1981.7,
+      "05": 2461.03,
+      "06": 2880.56,
+      "07": 3330.65,
+      "08": 3784.93,
+      "09": 4236.3,
+      "10": 4634.63,
+      "11": 5077.39,
+      "12": 5498.78,
+      "13": 5988.39,
+      "14": 6442.83,
+      "15": 6926.36,
+      "16": 7402.27,
+      "17": 7880.02,
+      "18": 8393.11,
+      "19": 8921.5,
+      "20": 9464.19,
+      "21": 10008.73,
+      "22": 10554.14,
+      "23": 11073.35,
+      "24": 11644.74,
+      "25": 12194.97,
+      "26": 12758.53,
+      "27": 13323.84,
+      "28": 13891.66,
+      "29": 14476.38,
+      "30": 15046.06,
+      "31": 15545.65,
+      "32": 16202.3
+     },
+     "playlist": [
+      {
+       "f": "ch00-core.opus",
+       "d": 437.09,
+       "c": "00"
+      },
+      {
+       "f": "ch00-medium.opus",
+       "d": 128.3,
+       "c": "00"
+      },
+      {
+       "f": "ch01-core.opus",
+       "d": 410.72,
+       "c": "01"
+      },
+      {
+       "f": "ch01-medium.opus",
+       "d": 70.78,
+       "c": "01"
+      },
+      {
+       "f": "ch02-core.opus",
+       "d": 392.33,
+       "c": "02"
+      },
+      {
+       "f": "ch02-medium.opus",
+       "d": 61.23,
+       "c": "02"
+      },
+      {
+       "f": "ch03-core.opus",
+       "d": 429.96,
+       "c": "03"
+      },
+      {
+       "f": "ch03-medium.opus",
+       "d": 63.29,
+       "c": "03"
+      },
+      {
+       "f": "ch04-core.opus",
+       "d": 405.35,
+       "c": "04"
+      },
+      {
+       "f": "ch04-medium.opus",
+       "d": 76.98,
+       "c": "04"
+      },
+      {
+       "f": "ch05-core.opus",
+       "d": 372.46,
+       "c": "05"
+      },
+      {
+       "f": "ch05-medium.opus",
+       "d": 50.07,
+       "c": "05"
+      },
+      {
+       "f": "ch06-core.opus",
+       "d": 393.35,
+       "c": "06"
+      },
+      {
+       "f": "ch06-medium.opus",
+       "d": 59.74,
+       "c": "06"
+      },
+      {
+       "f": "ch07-core.opus",
+       "d": 402.27,
+       "c": "07"
+      },
+      {
+       "f": "ch07-medium.opus",
+       "d": 55.01,
+       "c": "07"
+      },
+      {
+       "f": "ch08-core.opus",
+       "d": 399.58,
+       "c": "08"
+      },
+      {
+       "f": "ch08-medium.opus",
+       "d": 54.79,
+       "c": "08"
+      },
+      {
+       "f": "ch09-core.opus",
+       "d": 341.93,
+       "c": "09"
+      },
+      {
+       "f": "ch09-medium.opus",
+       "d": 59.4,
+       "c": "09"
+      },
+      {
+       "f": "ch10-core.opus",
+       "d": 388.97,
+       "c": "10"
+      },
+      {
+       "f": "ch10-medium.opus",
+       "d": 56.79,
+       "c": "10"
+      },
+      {
+       "f": "ch11-core.opus",
+       "d": 363.72,
+       "c": "11"
+      },
+      {
+       "f": "ch11-medium.opus",
+       "d": 60.67,
+       "c": "11"
+      },
+      {
+       "f": "ch12-core.opus",
+       "d": 435.5,
+       "c": "12"
+      },
+      {
+       "f": "ch12-medium.opus",
+       "d": 57.11,
+       "c": "12"
+      },
+      {
+       "f": "ch13-core.opus",
+       "d": 402.48,
+       "c": "13"
+      },
+      {
+       "f": "ch13-medium.opus",
+       "d": 54.96,
+       "c": "13"
+      },
+      {
+       "f": "ch14-core.opus",
+       "d": 429.86,
+       "c": "14"
+      },
+      {
+       "f": "ch14-medium.opus",
+       "d": 56.67,
+       "c": "14"
+      },
+      {
+       "f": "ch15-core.opus",
+       "d": 412.21,
+       "c": "15"
+      },
+      {
+       "f": "ch15-medium.opus",
+       "d": 66.7,
+       "c": "15"
+      },
+      {
+       "f": "ch16-core.opus",
+       "d": 398.47,
+       "c": "16"
+      },
+      {
+       "f": "ch16-medium.opus",
+       "d": 82.28,
+       "c": "16"
+      },
+      {
+       "f": "ch17-core.opus",
+       "d": 439.59,
+       "c": "17"
+      },
+      {
+       "f": "ch17-medium.opus",
+       "d": 76.5,
+       "c": "17"
+      },
+      {
+       "f": "ch18-core.opus",
+       "d": 450.71,
+       "c": "18"
+      },
+      {
+       "f": "ch18-medium.opus",
+       "d": 80.68,
+       "c": "18"
+      },
+      {
+       "f": "ch19-core.opus",
+       "d": 474.22,
+       "c": "19"
+      },
+      {
+       "f": "ch19-medium.opus",
+       "d": 71.47,
+       "c": "19"
+      },
+      {
+       "f": "ch20-core.opus",
+       "d": 477.79,
+       "c": "20"
+      },
+      {
+       "f": "ch20-medium.opus",
+       "d": 69.75,
+       "c": "20"
+      },
+      {
+       "f": "ch21-core.opus",
+       "d": 472.82,
+       "c": "21"
+      },
+      {
+       "f": "ch21-medium.opus",
+       "d": 75.59,
+       "c": "21"
+      },
+      {
+       "f": "ch22-core.opus",
+       "d": 448.78,
+       "c": "22"
+      },
+      {
+       "f": "ch22-medium.opus",
+       "d": 73.43,
+       "c": "22"
+      },
+      {
+       "f": "ch23-core.opus",
+       "d": 500.51,
+       "c": "23"
+      },
+      {
+       "f": "ch23-medium.opus",
+       "d": 73.88,
+       "c": "23"
+      },
+      {
+       "f": "ch24-core.opus",
+       "d": 474.64,
+       "c": "24"
+      },
+      {
+       "f": "ch24-medium.opus",
+       "d": 78.59,
+       "c": "24"
+      },
+      {
+       "f": "ch25-core.opus",
+       "d": 481.52,
+       "c": "25"
+      },
+      {
+       "f": "ch25-medium.opus",
+       "d": 85.04,
+       "c": "25"
+      },
+      {
+       "f": "ch26-core.opus",
+       "d": 491.26,
+       "c": "26"
+      },
+      {
+       "f": "ch26-medium.opus",
+       "d": 77.05,
+       "c": "26"
+      },
+      {
+       "f": "ch27-core.opus",
+       "d": 492.82,
+       "c": "27"
+      },
+      {
+       "f": "ch27-medium.opus",
+       "d": 78.0,
+       "c": "27"
+      },
+      {
+       "f": "ch28-core.opus",
+       "d": 496.16,
+       "c": "28"
+      },
+      {
+       "f": "ch28-medium.opus",
+       "d": 91.56,
+       "c": "28"
+      },
+      {
+       "f": "ch29-core.opus",
+       "d": 504.47,
+       "c": "29"
+      },
+      {
+       "f": "ch29-medium.opus",
+       "d": 68.21,
+       "c": "29"
+      },
+      {
+       "f": "ch30-core.opus",
+       "d": 434.16,
+       "c": "30"
+      },
+      {
+       "f": "ch30-medium.opus",
+       "d": 68.43,
+       "c": "30"
+      },
+      {
+       "f": "ch31-core.opus",
+       "d": 583.76,
+       "c": "31"
+      },
+      {
+       "f": "ch31-medium.opus",
+       "d": 75.89,
+       "c": "31"
+      },
+      {
+       "f": "ch32-core.opus",
+       "d": 589.47,
+       "c": "32"
+      },
+      {
+       "f": "ch32-medium.opus",
+       "d": 76.66,
+       "c": "32"
+      },
+      {
+       "f": "outro.opus",
+       "d": 6.0,
+       "c": null
+      }
+     ]
+    },
+    "long": {
+     "label": "Long",
+     "label_en": "Long",
+     "duration": 19367.07,
+     "bytes": 37111005,
+     "starts": {
+      "00": 0.0,
+      "01": 643.89,
+      "02": 1212.81,
+      "03": 1737.99,
+      "04": 2289.55,
+      "05": 2850.7,
+      "06": 3327.1,
+      "07": 3842.52,
+      "08": 4365.57,
+      "09": 4883.13,
+      "10": 5353.41,
+      "11": 5866.99,
+      "12": 6360.25,
+      "13": 6921.28,
+      "14": 7444.82,
+      "15": 7996.84,
+      "16": 8549.12,
+      "17": 9103.7,
+      "18": 9693.78,
+      "19": 10291.13,
+      "20": 10904.16,
+      "21": 11532.49,
+      "22": 12157.41,
+      "23": 12764.97,
+      "24": 13416.86,
+      "25": 14045.63,
+      "26": 14684.21,
+      "27": 15335.07,
+      "28": 15985.47,
+      "29": 16653.26,
+      "30": 17308.59,
+      "31": 17879.76,
+      "32": 18619.38
+     },
+     "playlist": [
+      {
+       "f": "ch00-core.opus",
+       "d": 437.09,
+       "c": "00"
+      },
+      {
+       "f": "ch00-medium.opus",
+       "d": 128.3,
+       "c": "00"
+      },
+      {
+       "f": "ch00-long.opus",
+       "d": 83.0,
+       "c": "00"
+      },
+      {
+       "f": "ch01-core.opus",
+       "d": 410.72,
+       "c": "01"
+      },
+      {
+       "f": "ch01-medium.opus",
+       "d": 70.78,
+       "c": "01"
+      },
+      {
+       "f": "ch01-long.opus",
+       "d": 91.92,
+       "c": "01"
+      },
+      {
+       "f": "ch02-core.opus",
+       "d": 392.33,
+       "c": "02"
+      },
+      {
+       "f": "ch02-medium.opus",
+       "d": 61.23,
+       "c": "02"
+      },
+      {
+       "f": "ch02-long.opus",
+       "d": 76.12,
+       "c": "02"
+      },
+      {
+       "f": "ch03-core.opus",
+       "d": 429.96,
+       "c": "03"
+      },
+      {
+       "f": "ch03-medium.opus",
+       "d": 63.29,
+       "c": "03"
+      },
+      {
+       "f": "ch03-long.opus",
+       "d": 62.81,
+       "c": "03"
+      },
+      {
+       "f": "ch04-core.opus",
+       "d": 405.35,
+       "c": "04"
+      },
+      {
+       "f": "ch04-medium.opus",
+       "d": 76.98,
+       "c": "04"
+      },
+      {
+       "f": "ch04-long.opus",
+       "d": 83.32,
+       "c": "04"
+      },
+      {
+       "f": "ch05-core.opus",
+       "d": 372.46,
+       "c": "05"
+      },
+      {
+       "f": "ch05-medium.opus",
+       "d": 50.07,
+       "c": "05"
+      },
+      {
+       "f": "ch05-long.opus",
+       "d": 58.37,
+       "c": "05"
+      },
+      {
+       "f": "ch06-core.opus",
+       "d": 393.35,
+       "c": "06"
+      },
+      {
+       "f": "ch06-medium.opus",
+       "d": 59.74,
+       "c": "06"
+      },
+      {
+       "f": "ch06-long.opus",
+       "d": 66.83,
+       "c": "06"
+      },
+      {
+       "f": "ch07-core.opus",
+       "d": 402.27,
+       "c": "07"
+      },
+      {
+       "f": "ch07-medium.opus",
+       "d": 55.01,
+       "c": "07"
+      },
+      {
+       "f": "ch07-long.opus",
+       "d": 70.27,
+       "c": "07"
+      },
+      {
+       "f": "ch08-core.opus",
+       "d": 399.58,
+       "c": "08"
+      },
+      {
+       "f": "ch08-medium.opus",
+       "d": 54.79,
+       "c": "08"
+      },
+      {
+       "f": "ch08-long.opus",
+       "d": 67.69,
+       "c": "08"
+      },
+      {
+       "f": "ch09-core.opus",
+       "d": 341.93,
+       "c": "09"
+      },
+      {
+       "f": "ch09-medium.opus",
+       "d": 59.4,
+       "c": "09"
+      },
+      {
+       "f": "ch09-long.opus",
+       "d": 73.45,
+       "c": "09"
+      },
+      {
+       "f": "ch10-core.opus",
+       "d": 388.97,
+       "c": "10"
+      },
+      {
+       "f": "ch10-medium.opus",
+       "d": 56.79,
+       "c": "10"
+      },
+      {
+       "f": "ch10-long.opus",
+       "d": 72.32,
+       "c": "10"
+      },
+      {
+       "f": "ch11-core.opus",
+       "d": 363.72,
+       "c": "11"
+      },
+      {
+       "f": "ch11-medium.opus",
+       "d": 60.67,
+       "c": "11"
+      },
+      {
+       "f": "ch11-long.opus",
+       "d": 73.37,
+       "c": "11"
+      },
+      {
+       "f": "ch12-core.opus",
+       "d": 435.5,
+       "c": "12"
+      },
+      {
+       "f": "ch12-medium.opus",
+       "d": 57.11,
+       "c": "12"
+      },
+      {
+       "f": "ch12-long.opus",
+       "d": 72.92,
+       "c": "12"
+      },
+      {
+       "f": "ch13-core.opus",
+       "d": 402.48,
+       "c": "13"
+      },
+      {
+       "f": "ch13-medium.opus",
+       "d": 54.96,
+       "c": "13"
+      },
+      {
+       "f": "ch13-long.opus",
+       "d": 70.6,
+       "c": "13"
+      },
+      {
+       "f": "ch14-core.opus",
+       "d": 429.86,
+       "c": "14"
+      },
+      {
+       "f": "ch14-medium.opus",
+       "d": 56.67,
+       "c": "14"
+      },
+      {
+       "f": "ch14-long.opus",
+       "d": 69.99,
+       "c": "14"
+      },
+      {
+       "f": "ch15-core.opus",
+       "d": 412.21,
+       "c": "15"
+      },
+      {
+       "f": "ch15-medium.opus",
+       "d": 66.7,
+       "c": "15"
+      },
+      {
+       "f": "ch15-long.opus",
+       "d": 77.87,
+       "c": "15"
+      },
+      {
+       "f": "ch16-core.opus",
+       "d": 398.47,
+       "c": "16"
+      },
+      {
+       "f": "ch16-medium.opus",
+       "d": 82.28,
+       "c": "16"
+      },
+      {
+       "f": "ch16-long.opus",
+       "d": 78.33,
+       "c": "16"
+      },
+      {
+       "f": "ch17-core.opus",
+       "d": 439.59,
+       "c": "17"
+      },
+      {
+       "f": "ch17-medium.opus",
+       "d": 76.5,
+       "c": "17"
+      },
+      {
+       "f": "ch17-long.opus",
+       "d": 78.49,
+       "c": "17"
+      },
+      {
+       "f": "ch18-core.opus",
+       "d": 450.71,
+       "c": "18"
+      },
+      {
+       "f": "ch18-medium.opus",
+       "d": 80.68,
+       "c": "18"
+      },
+      {
+       "f": "ch18-long.opus",
+       "d": 70.46,
+       "c": "18"
+      },
+      {
+       "f": "ch19-core.opus",
+       "d": 474.22,
+       "c": "19"
+      },
+      {
+       "f": "ch19-medium.opus",
+       "d": 71.47,
+       "c": "19"
+      },
+      {
+       "f": "ch19-long.opus",
+       "d": 71.84,
+       "c": "19"
+      },
+      {
+       "f": "ch20-core.opus",
+       "d": 477.79,
+       "c": "20"
+      },
+      {
+       "f": "ch20-medium.opus",
+       "d": 69.75,
+       "c": "20"
+      },
+      {
+       "f": "ch20-long.opus",
+       "d": 85.29,
+       "c": "20"
+      },
+      {
+       "f": "ch21-core.opus",
+       "d": 472.82,
+       "c": "21"
+      },
+      {
+       "f": "ch21-medium.opus",
+       "d": 75.59,
+       "c": "21"
+      },
+      {
+       "f": "ch21-long.opus",
+       "d": 81.01,
+       "c": "21"
+      },
+      {
+       "f": "ch22-core.opus",
+       "d": 448.78,
+       "c": "22"
+      },
+      {
+       "f": "ch22-medium.opus",
+       "d": 73.43,
+       "c": "22"
+      },
+      {
+       "f": "ch22-long.opus",
+       "d": 89.85,
+       "c": "22"
+      },
+      {
+       "f": "ch23-core.opus",
+       "d": 500.51,
+       "c": "23"
+      },
+      {
+       "f": "ch23-medium.opus",
+       "d": 73.88,
+       "c": "23"
+      },
+      {
+       "f": "ch23-long.opus",
+       "d": 82.0,
+       "c": "23"
+      },
+      {
+       "f": "ch24-core.opus",
+       "d": 474.64,
+       "c": "24"
+      },
+      {
+       "f": "ch24-medium.opus",
+       "d": 78.59,
+       "c": "24"
+      },
+      {
+       "f": "ch24-long.opus",
+       "d": 80.04,
+       "c": "24"
+      },
+      {
+       "f": "ch25-core.opus",
+       "d": 481.52,
+       "c": "25"
+      },
+      {
+       "f": "ch25-medium.opus",
+       "d": 85.04,
+       "c": "25"
+      },
+      {
+       "f": "ch25-long.opus",
+       "d": 76.52,
+       "c": "25"
+      },
+      {
+       "f": "ch26-core.opus",
+       "d": 491.26,
+       "c": "26"
+      },
+      {
+       "f": "ch26-medium.opus",
+       "d": 77.05,
+       "c": "26"
+      },
+      {
+       "f": "ch26-long.opus",
+       "d": 87.05,
+       "c": "26"
+      },
+      {
+       "f": "ch27-core.opus",
+       "d": 492.82,
+       "c": "27"
+      },
+      {
+       "f": "ch27-medium.opus",
+       "d": 78.0,
+       "c": "27"
+      },
+      {
+       "f": "ch27-long.opus",
+       "d": 84.08,
+       "c": "27"
+      },
+      {
+       "f": "ch28-core.opus",
+       "d": 496.16,
+       "c": "28"
+      },
+      {
+       "f": "ch28-medium.opus",
+       "d": 91.56,
+       "c": "28"
+      },
+      {
+       "f": "ch28-long.opus",
+       "d": 84.57,
+       "c": "28"
+      },
+      {
+       "f": "ch29-core.opus",
+       "d": 504.47,
+       "c": "29"
+      },
+      {
+       "f": "ch29-medium.opus",
+       "d": 68.21,
+       "c": "29"
+      },
+      {
+       "f": "ch29-long.opus",
+       "d": 87.15,
+       "c": "29"
+      },
+      {
+       "f": "ch30-core.opus",
+       "d": 434.16,
+       "c": "30"
+      },
+      {
+       "f": "ch30-medium.opus",
+       "d": 68.43,
+       "c": "30"
+      },
+      {
+       "f": "ch30-long.opus",
+       "d": 73.08,
+       "c": "30"
+      },
+      {
+       "f": "ch31-core.opus",
+       "d": 583.76,
+       "c": "31"
+      },
+      {
+       "f": "ch31-medium.opus",
+       "d": 75.89,
+       "c": "31"
+      },
+      {
+       "f": "ch31-long.opus",
+       "d": 84.47,
+       "c": "31"
+      },
+      {
+       "f": "ch32-core.opus",
+       "d": 589.47,
+       "c": "32"
+      },
+      {
+       "f": "ch32-medium.opus",
+       "d": 76.66,
+       "c": "32"
+      },
+      {
+       "f": "ch32-long.opus",
+       "d": 80.06,
+       "c": "32"
+      },
+      {
+       "f": "outro.opus",
+       "d": 6.0,
+       "c": null
+      }
+     ]
+    }
+   },
+   "bed": {
+    "gain": 0.55,
+    "swellDb": 3.0
+   },
+   "segments": {
+    "ch00-core.opus": {
+     "s": "harbour_night",
+     "g": "ADyQBC-9Az6pBAOmAkj_BjDICS_dCUHxB0a2CTLpBy-LCCqoCTd7CI4BFpgBS7sCOZMPK7EDN5wKS5MPOpkDK5EKNJQPSw"
+    },
+    "ch00-medium.opus": {
+     "s": "harbour_night",
+     "g": "ADn_AjLrAhnBAkbPBj_eBTCpDTKlBkbtBUs"
+    },
+    "ch00-long.opus": {
+     "s": "harbour_night",
+     "g": "ADmDAgfAAS9oFq0CMosFLdMFNZUEQ78EQcQCSw"
+    },
+    "ch01-core.opus": {
+     "s": "night_sky",
+     "g": "AKABwQMtiAMDmAE_oAZGrA4w2gMvmghBmAdGtgcypQEZtwQv8AU_vQZGoAcyvwIvtg8_4gJGpAgytg8v9wFB7wdGtg9L"
+    },
+    "ch01-medium.opus": {
+     "s": "night_sky",
+     "g": "ADnfAkuKBzSOBSvRAjyhB0s"
+    },
+    "ch01-long.opus": {
+     "s": "night_sky",
+     "g": "ADmhAQjpATRZFJwCK_8HOoUHS8sIPOYCSw"
+    },
+    "ch02-core.opus": {
+     "s": "workshop",
+     "g": "AKAB0gQw1AEKiAI-uQRGuAUwjwov-AJB9QJGlwUy6AcwggdBwwVEWAq0ARyaATT5Bi2_AkGXD0SbAzX8CC2XD0GnAkS8CTyXD0o"
+    },
+    "ch02-medium.opus": {
+     "s": "workshop",
+     "g": "ADmaAjrjBSiFBT69BEjKA0s"
+    },
+    "ch02-long.opus": {
+     "s": "workshop",
+     "g": "ADnFAQO2ASjpAjy4A0j8AzmbBEu-BTf_Aks"
+    },
+    "ch03-core.opus": {
+     "s": "cliff",
+     "g": "AKAB0QQv1AEC9QI_9gZGlQQyhAcwvgVByAlGtAcyowUwuQQozQECxwM6sQVIigY8swIotRI53QNIzgc8tRIooAI3igottRJL"
+    },
+    "ch03-medium.opus": {
+     "s": "cliff",
+     "g": "ADnNAkawBEGOBS2IBDLgBUs"
+    },
+    "ch03-long.opus": {
+     "s": "cliff",
+     "g": "ADnEAQWmAUN9EfYBLb8DNPcDMNEFMsACSw"
+    },
+    "ch04-core.opus": {
+     "s": "island_shore",
+     "g": "AKAB4wQvoAEC3wNB2ARG3gQyygctsQU-vAZJzwMyigUwzwY8zAJJxwQ5iQYojQESsQI8ugJJrhE65AIolQg8rxFI_AFBzghDrxFL"
+    },
+    "ch04-medium.opus": {
+     "s": "island_shore",
+     "g": "ADn1AiypA0H6A0OzBTXZBS3PBUs"
+    },
+    "ch04-long.opus": {
+     "s": "island_shore",
+     "g": "ADnPAQW6AUNvBfYCP_YERuYDMvEEL9MFPsMCSw"
+    },
+    "ch05-core.opus": {
+     "s": "open_sea",
+     "g": "AKAB-gIv_QEClQJBgwRGgwUytQYtlQQ-fhLcAhv6AkbYAzLTBDCTAy3_BzWWBEP-BEHLAi2zEDTmAkPcB0GzEC3_ATWvCCizEEs"
+    },
+    "ch05-medium.opus": {
+     "s": "open_sea",
+     "g": "ADmlAkmjAj_jAyiFAzesBUs"
+    },
+    "ch05-long.opus": {
+     "s": "open_sea",
+     "g": "ADm9AQKrAT6nAyjsAjq7AyqVBTiUAko"
+    },
+    "ch06-core.opus": {
+     "s": "cabin",
+     "g": "AKAB7QMwWAPOAkG6BEaSBDLNBDB5D4wCFtMBP6sDRsEFMrIEMKwGL9AFMpIGR9wFPlkU2QEwtgIyxhBGuAM-gAowxhAy9wErqgo0xhBM"
+    },
+    "ch06-medium.opus": {
+     "s": "cabin",
+     "g": "ADmqAjy2AyugAzfVA0vVAzraA0s"
+    },
+    "ch06-long.opus": {
+     "s": "cabin",
+     "g": "ADm9AQe_ATdZApgBKpEDOZAESeoEPLYDKIwCSw"
+    },
+    "ch07-core.opus": {
+     "s": "night_sky",
+     "g": "AKABqAMvygEC6AFBWQWdAUafARKyATLLAzC7BT_jBUbXBDL5Bi_2AjmNBUvKBDaRBSqQAzmkBEvzBjezAiuuETyuAkvACEGuEUbdAS_xBzCuEUs"
+    },
+    "ch07-medium.opus": {
+     "s": "night_sky",
+     "g": "ADnbAkb0BDKRAy3IBD-uA0s"
+    },
+    "ch07-long.opus": {
+     "s": "night_sky",
+     "g": "ADmGAQeNAUHaA0OVAzTAAy3cBEHfA0THAks"
+    },
+    "ch08-core.opus": {
+     "s": "deck",
+     "g": "AKAB4AMwWAjMARHlAT_EAQKCAkaIBjLoBDCvBD6GBkaSAzLTBS2fAQOTBEauBz-MBS-JCjK6Aka7EEGxAjCwCTK7EEafAj7RCUu7EEs"
+    },
+    "ch08-medium.opus": {
+     "s": "deck",
+     "g": "ADnFAirHBDf7BEu5AjqKBEs"
+    },
+    "ch08-long.opus": {
+     "s": "deck",
+     "g": "ADnBAQe_ATeXARSKAUv_Ajy2A0jrAjyEBSjrAko"
+    },
+    "ch09-core.opus": {
+     "s": "workshop",
+     "g": "AKAB4wIwWQfYAj9vCLMBD1lG8wQy1wUwmQI-1wRGqgUytAMt6gQ1tQMqWQi0Ajz2Aku7AjSVECu4AzybCEuVEDeSAiq3CDKVEEs"
+    },
+    "ch09-medium.opus": {
+     "s": "workshop",
+     "g": "ADn5Aj_xA0bsAzLWAzCDBks"
+    },
+    "ch09-long.opus": {
+     "s": "workshop",
+     "g": "ADnNAQKtAUbdAzCFBDCEAzX-BC3wA0G7Aks"
+    },
+    "ch10-core.opus": {
+     "s": "workshop",
+     "g": "AKABiAM8WQjTAiuQBDevBUvBAjyBBSqLBzWxBEnUBjmJBC2XAzJZAtEBRK0FQ7gELbcCNNISQ6QDQfUHLdISNJoCKJ0IOdISSw"
+    },
+    "ch10-medium.opus": {
+     "s": "workshop",
+     "g": "ADnvAjzRAij4Azm6BEm7BUs"
+    },
+    "ch10-long.opus": {
+     "s": "workshop",
+     "g": "ADm8AQKnAShZBd8BN5UEKrgENNEDS7cEPOECSw"
+    },
+    "ch11-core.opus": {
+     "s": "ship_hold",
+     "g": "AKAB-gI6WAPwAivYBDeAA0uXBDzEBSrSBDWEBUvMAznJBz6ZAkmzBjdbGZkCKMMCPswQSf0BN9cIKMwQPIYCSMsJQcwQSw"
+    },
+    "ch11-medium.opus": {
+     "s": "ship_hold",
+     "g": "ADnvAjSAAy2jA0G2A0PPBDSlA0s"
+    },
+    "ch11-long.opus": {
+     "s": "ship_hold",
+     "g": "ADnQAQrhAUBZA5wBRrIDQdYERscEMJEEL9ECSw"
+    },
+    "ch12-core.opus": {
+     "s": "forest",
+     "g": "AKABqwM8oQEF1AErWQVsIFkKpAI02QVKqgI8_wMrjQU0uAZLgwQ69gQ8kQNLjQM03AUr1gY62AJLqAQ36AMrtQQ6xwJLoRI-vAJG8QcyoBIwiwI_vglGoRJL"
+    },
+    "ch12-medium.opus": {
+     "s": "forest",
+     "g": "ADmwAjCgBT6NA0bgAkPwBUs"
+    },
+    "ch12-long.opus": {
+     "s": "forest",
+     "g": "ADnOAQK9ATKAAy2BBEG4AkTVBTSLBC3PAks"
+    },
+    "ch13-core.opus": {
+     "s": "island_shore",
+     "g": "AKABxgM8WAW2ASpZAo4CNe0ETLAEPJYCK7oENKgES4UDOrIDL88HL-EFRv8BQcEELZoDMvoFRoADP1kCwAIwsAIyqRAq5gI3kAhLqRA6rAIqvgk3qRBL"
+    },
+    "ch13-medium.opus": {
+     "s": "island_shore",
+     "g": "ADmRAzqAAyrRBDXvAyimBEs"
+    },
+    "ch13-long.opus": {
+     "s": "island_shore",
+     "g": "ADnEAQPxAUj1Az7-AiigAjfnBEn3Az6xAks"
+    },
+    "ch14-core.opus": {
+     "s": "cabin",
+     "g": "AKAB1gI8WQLOAiqBAQebATXMA0uWBDyhAyrKAjf2B0vQAjqLAz6kA0beBTLoBi-wBkG9A0aZBTK8BS-7Aj69E0bIAjqJCEu9EzapAiq7CTq8E0s"
+    },
+    "ch14-medium.opus": {
+     "s": "cabin",
+     "g": "ADn6AjeIAyr3AzyFA0unBks"
+    },
+    "ch14-long.opus": {
+     "s": "cabin",
+     "g": "ADm9AQLoAUjwATi7BCjdAz-kBEm9AzexAks"
+    },
+    "ch15-core.opus": {
+     "s": "workshop",
+     "g": "AKABkQM8WQfCAipZCJMBNeAES_4CPKsEK7EDN_IDS6wDOoYDKrwDNYUES5wDPM4EKuoCNK4ES-oDPMQCKvUEN8gCL9ISMoYDRpAHPtISL4UCMpMJRtISSw"
+    },
+    "ch15-medium.opus": {
+     "s": "workshop",
+     "g": "ADmGAzCbBTCrAyrIAzW5A0SzBEs"
+    },
+    "ch15-long.opus": {
+     "s": "workshop",
+     "g": "ADnNAQLuAS3vAzKZBkTpA0SHAy3nAzXMAks"
+    },
+    "ch16-core.opus": {
+     "s": "cave",
+     "g": "AKAB1AI8jQMqWQjoATXWBUvyAzyUAirdBDWfA0uDBTrMAyj1BDq1BEipAjy7AyiTBDehAkmoBD78BCijAzq6Ai2eDzXlAkTWCEGeDy3fAjWgCUSeD0s"
+    },
+    "ch16-medium.opus": {
+     "s": "cave",
+     "g": "ADmbAy2pBDLTAy_oBDLLBEbFBEG4A0s"
+    },
+    "ch16-long.opus": {
+     "s": "cave",
+     "g": "ADnRAQORAjDuBEbiBEHzAzDJAzKVAznxAko"
+    },
+    "ch17-core.opus": {
+     "s": "open_sea",
+     "g": "AKAB-QI8oQEKvAIrqAQ02gNLxAQ8sQMrxAQ18ANL9AM66wJBwgRH6QQ1uwQtowNE6AREpgMywwMtvgZBwgJEjhQ88wJI8wg5jhQo_gE82AhJjhRL"
+    },
+    "ch17-medium.opus": {
+     "s": "open_sea",
+     "g": "ADnrAiiTBD_OA0iQAzy9BUufAzXKA0s"
+    },
+    "ch17-long.opus": {
+     "s": "open_sea",
+     "g": "ADnJAQLqATzBA0vQBDTJAyumBDnABEvyAks"
+    },
+    "ch18-core.opus": {
+     "s": "workshop",
+     "g": "AKAB5wM6WQeWAyqpAzfaA0uEBDnvBCvgAzetA0uHBDyMA0ijBDzKAyiUAjmBBUjvAzz3AyiaBDq8BEnZAjy3AkT_FEHGAi36CjL-FETHAkHrCC3_FEs"
+    },
+    "ch18-medium.opus": {
+     "s": "workshop",
+     "g": "ADmWA0SMA0HwBEbCAz7yAi-SAzKZBEadAks"
+    },
+    "ch18-long.opus": {
+     "s": "workshop",
+     "g": "ADnKAQO9ATCMBDKpA0aXBEG-Az-iA0iZAks"
+    },
+    "ch19-core.opus": {
+     "s": "forest",
+     "g": "AKABtgM6zgEFpAMqtQM3hQVLhAQ54wIr-wI3ogVLggQ54gQ1-gMt8gFBngVD0wM1zwQtuAJBxQREuwQ0wAQthAU39wIouwI-sBVJsgI36gcosBU-_wFIqAg6sBVL"
+    },
+    "ch19-medium.opus": {
+     "s": "forest",
+     "g": "ADnLAjaNBCrmBDnzA0vxAze0BUw"
+    },
+    "ch19-long.opus": {
+     "s": "forest",
+     "g": "ADnWAQOuATm2A0vNBDXPAyrvAy2kAzLWAks"
+    },
+    "ch20-core.opus": {
+     "s": "ship_hold",
+     "g": "AKAB5wI-xgEI_QIogwM3nQVJ8wM_sQMo1QM31gNJxgM87wM18gMqpAM8igRLlwM0rQMq0QQ8kwJL3AM3rwQr0QUyswQvuwI-9BVG3gIypQkw8xU-twJGtwky9BVL"
+    },
+    "ch20-medium.opus": {
+     "s": "ship_hold",
+     "g": "ADnDAjLLAy3wA0SeA0TiAzTZAir_A0w"
+    },
+    "ch20-long.opus": {
+     "s": "ship_hold",
+     "g": "ADnFAQPUAUS7BDTWBC3DAyuiBDeCBEyFAjr-Aks"
+    },
+    "ch21-core.opus": {
+     "s": "night_sky",
+     "g": "AKAB6gI_fwPfAiiTAzfuA0jHAz7HAyjQATfTBEjEAzzhA0bjA0K4Ay_-AzKxBEbRAz-gAzDYBDLnBEa4Aj-jA0vTAzn8Ayq7AjfhFUvXAjmRCSvhFTfoAUrPCDrhFUs"
+    },
+    "ch21-medium.opus": {
+     "s": "night_sky",
+     "g": "ADmGAz_YAyjIAzfOA0jpAzzoAyiwBEs"
+    },
+    "ch21-long.opus": {
+     "s": "night_sky",
+     "g": "ADm9AQK9AUiJBTzRAz67BUbJAzLlBDCmAks"
+    },
+    "ch22-core.opus": {
+     "s": "deck",
+     "g": "AKAB3gI83AIItwEp5wI3qANJ1AM-mQUopwQ3sQNI8gQ8kgND2AREmQQtWzKYAkaABUHUAi3eAzXZAkSbA0HpA0iHBDy2ASi3Ajm1E0mOAzyHCii1EznqAUm5CD-1E0s"
+    },
+    "ch22-medium.opus": {
+     "s": "deck",
+     "g": "ADnfAjy1BCu-AzSOBUy8AjyJBCvgAks"
+    },
+    "ch22-long.opus": {
+     "s": "deck",
+     "g": "ADnGAQOoAUvNBDqBBEGzA0OxBTX-Ay3PA0HtAko"
+    },
+    "ch23-core.opus": {
+     "s": "cliff",
+     "g": "AKABhgQ8kwEHlAMo5AM6zgNI7QI_oAQojgQ3rQJJywM83AM20gMokgQ_gARJ2AU6gQUowAI8lANJ2QQ62gMonAQ0wgIttQRBqQREqAM1twItgxVB-gJE0gg1gxUtsQIw1ggvhBVL"
+    },
+    "ch23-medium.opus": {
+     "s": "cliff",
+     "g": "ADmbA0agAzKUBC_5BEGTA0bsAzLDAks"
+    },
+    "ch23-long.opus": {
+     "s": "cliff",
+     "g": "ADnGAQO8ASj3AjmiA0i-AzzuBCjJBDnoAkn2Aks"
+    },
+    "ch24-core.opus": {
+     "s": "cabin",
+     "g": "AKAB2wM_owEC1AIo9gM3yARJqQQ-2gMouwM34gJIhgQ85ANJtQQ_lgIohwM3_QNJ0QM_4wMopAI38wRJzAM8yQREygJBxwIt5xY05gJD_QdB5xYtlAI02AlD5xZL"
+    },
+    "ch24-medium.opus": {
+     "s": "cabin",
+     "g": "ADnmAkaxBD6EBC3NBDKLA0aZBUHfAks"
+    },
+    "ch24-long.opus": {
+     "s": "cabin",
+     "g": "ADmTAQLKAS-vBUbGBD6tBDyRBEm1AznmAks"
+    },
+    "ch25-core.opus": {
+     "s": "workshop",
+     "g": "AKAB6wM-WQXyAij_AzenBEjUAz_EAyjhBDaZBEj8AzylBTSpAi3sBEGHBEPSBDLXBC3HBEOYBkTtAzXfBS2dBDq3AiiNFDyWAkjMCTqMFCjnAjzbCkiNFEs"
+    },
+    "ch25-medium.opus": {
+     "s": "workshop",
+     "g": "ADnPAyjJBDfYBCvFAzysBEv-AzT0BEs"
+    },
+    "ch25-long.opus": {
+     "s": "workshop",
+     "g": "ADnfAQLeATzBA0v9Azf_AyraAy38BDXSAks"
+    },
+    "ch26-core.opus": {
+     "s": "open_sea",
+     "g": "AKAB9AI-iAEFmwEo8gM3iwNIlgQ8-wIohgQ3jANIogQ8kAQygQYtzQI-kgVGuwMv_gMwywNB1ANGiwMy6gQvgAM37wQrzwQ6twJLlBc34AIr3Ag5lBdL4gE1xAgqlBdL"
+    },
+    "ch26-medium.opus": {
+     "s": "open_sea",
+     "g": "ADnhAii7Az-qA0iKBDesBCjKAz_2BEs"
+    },
+    "ch26-long.opus": {
+     "s": "open_sea",
+     "g": "ADnEAQOvATmEBCimAy_XBDKMBEaJBT_CAy-4Aks"
+    },
+    "ch27-core.opus": {
+     "s": "workshop",
+     "g": "AKAByAM-WQjHAiiOAzerA0j4AzzZAyivAznpA0itBDyOBEuQAjr_AyrsAzeYBEumAzyKAyrCAzWaA0vmBDqPA0bKBT_zAi_IAjLrF0b5Aj_HCDDrFzLgAkbjCEHsF0s"
+    },
+    "ch27-medium.opus": {
+     "s": "workshop",
+     "g": "ADmVA0GZAy2RBTStBEPQA0OpAy3-A0s"
+    },
+    "ch27-long.opus": {
+     "s": "workshop",
+     "g": "ADnPAQLQAUT5A0HxAjrNA0vOBDf7AiveBDnEAks"
+    },
+    "ch28-core.opus": {
+     "s": "harbour_day",
+     "g": "AKABxAM8qgECpQIouAM62gNItQM8xAQovgM6-gJIigQ_vAM-5ARG2QQyhQQwmAI-uwRGngMyrAMvwAM-lwNGkAM7jARLqQQ09QMqtgU8swJL1BQ02gIqzAg51BRLqgI8jwlI1BRL"
+    },
+    "ch28-medium.opus": {
+     "s": "harbour_day",
+     "g": "ADn_Aij6AzygBEmDBDn7AiifBD65BEjbBEs"
+    },
+    "ch28-long.opus": {
+     "s": "harbour_day",
+     "g": "ADm9AQKBAkHTAy-zBDKlBEb0Az_rBC_ZATLVAks"
+    },
+    "ch29-core.opus": {
+     "s": "deck",
+     "g": "AKABzwI8WQeZAiiaAzq-AkiVAzzsAyiYAznoAUiCBD6yBSvtBTf3A0ryAjr5AyqEBDfRA0uzAjmMBCrUAzfBAy-IAzLFBUa6AkGTGjDeAjLMCEaTGj-wAjDQCDKTGks"
+    },
+    "ch29-medium.opus": {
+     "s": "deck",
+     "g": "ADnLAzTMA0TYAkGYAy2UAzWFA0PRA0s"
+    },
+    "ch29-long.opus": {
+     "s": "deck",
+     "g": "ADmUAQOwAi3PBDS_AzT5AyvhAzzPA0uHBDSBA0s"
+    },
+    "ch30-core.opus": {
+     "s": "cave",
+     "g": "AKABsQItowEFsQJBywNEpgIyrQMu_ANEuAJDzQM19QItrwM0hwMtygJB-QJEmQQ1_wMtsQNBwgJD6AIyowQt_gM3zQUoygU8ugJJjxI3rQIorAg_kBJI2gI5sggokBJL"
+    },
+    "ch30-medium.opus": {
+     "s": "cave",
+     "g": "ADnvAiriAzqwA0vpAjfDAyvdAjqFBEs"
+    },
+    "ch30-long.opus": {
+     "s": "cave",
+     "g": "ADm_AQO7ATTeAiqvAy2cAzS4A0TwAkHCAy3BAks"
+    },
+    "ch31-core.opus": {
+     "s": "island_shore",
+     "g": "AKAB4wIt7wIFoQFBhwNE2QMy5gMt4ANBiQNE1wQ0lgMt1QRJnQI8xQMohwM6owRIhgM8sgQqqwQ5-AJIkwQ-7wJE6wNBigQt6wI1zwREpARB7AMt3AQygQREswJBrRpGgwM-rwkwrRoytwJGggo_rRpL"
+    },
+    "ch31-medium.opus": {
+     "s": "island_shore",
+     "g": "ADnDAzL_Akb1A0HiAz_5A0jkAzfhA0s"
+    },
+    "ch31-long.opus": {
+     "s": "island_shore",
+     "g": "ADm2AQK-AT6hA0i5AzezAiiIBTzKBUijAzrgAks"
+    },
+    "ch32-core.opus": {
+     "s": "harbour_night",
+     "g": "AKABlwQtigRBWQjGAUXcAzKuBC2GA0PBA0OaAzSUAi3IAkvoAzqaAyueAzepBEubAjn2AyuTBDfJBEuLBDzVA0bjAT6VBC2qBDL8BEarBEGGBDDAAjD8H0ayAj70B0P8H0GlAi3DCDT8H0s"
+    },
+    "ch32-medium.opus": {
+     "s": "harbour_night",
+     "g": "ADmxA0FYA_YBLZUDNbMEQ6MFQ-wDOrkDSw"
+    },
+    "ch32-long.opus": {
+     "s": "harbour_night",
+     "g": "ADmOAQOIATfzASrSAzy4A0vFAjW9AiqTAzroBEvAAks"
+    },
+    "outro.opus": {
+     "s": "harbour_night",
+     "g": ""
+    }
+   }
+  }
+ },
+ "bed": {
+  "dir": "../DSA_tool/data/bedtime/bed/",
+  "layers": [
+   "waves",
+   "foam",
+   "wind",
+   "leaves",
+   "water",
+   "creak",
+   "gulls"
+  ]
+ }
+}

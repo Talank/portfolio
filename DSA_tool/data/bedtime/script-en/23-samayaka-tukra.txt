@@ -19,7 +19,7 @@ A small but important question hides here. If two pieces meet exactly at the edg
 The problem itself decides the answer to that. If it is about a watch, joining is right, because the watch is continuous. If it is about a meeting room, not joining is right, because the room was empty for a moment. Ask this in an interview, and asking is itself a good sign.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule for joining pieces.
+You can check the joined pieces in a single look. The pieces in the answer must be in order, and no two neighbours may so much as touch. If the end of one lies past the start of the next, a joining step has been missed somewhere.
 
 @recall tukra
 
@@ -38,7 +38,7 @@ In the third problem you have to insert a new piece. If the list is already in o
 Nami stuck the clean rota on the wall. Now there is no overlap. The watch is continuous all night, and nobody has to do double duty.
 
 @read hush
-One last time before you sleep, very slowly, listen to that same rule.
+There is a small decision to make right at the start. If the end of one piece and the start of another are exactly the same, are they joined or not? If the question does not say, take them as joined, but keep your own decision clear in your mind, because this one boundary changes the answer.
 
 @recall tukra
 

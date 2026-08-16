@@ -1,0 +1,81 @@
+# 4 — The road down the slope: derivatives and gradient descent
+
+Fog came in the morning. Nothing can be seen on the downhill side of the island. The shore is somewhere below, and that is where we have to get to.
+
+Zoro went ahead. He said — [zoro]"I do not need to see the whole road. It is enough if I know which way the ground falls under my feet."[/]
+
+Today's lesson sits inside that one sentence. Even without seeing the whole map, if the slope can be measured at every footstep, you arrive at the bottom.
+
+@read teach
+The tool that measures the slope under your feet is called the derivative. The derivative says how much the height changes when you move one step to the right from here.
+
+Understand it exactly like this. Stand at a point. Move a little to the right, and see how much the height changed. Divide the change in height by the distance you moved. What is left as the distance you move goes towards zero is the derivative.
+
+If the derivative is positive, the ground rises ahead. If it is negative, the ground falls ahead. If it is zero, that place is level, and it can be a peak or a hollow.
+
+Now go to a place that has more than one direction. On a mountain you can go east and west, and north and south as well. Every direction has its own slope, and all those slopes are put into one list.
+
+That list is called the gradient. The gradient is a vector, and it shows which way the steepest climb lies.
+
+@read teach
+Now the trick is easy. We do not want the climb. We want the fall. So take one step in the direction exactly opposite to the one the gradient shows.
+
+How large that one step should be is something we choose, and it is called the learning rate. If the step is too small it takes a long time to arrive. If the step is too large you go over the hollow and end up on the far side.
+
+This repeating work is gradient descent, and it is the engine of the whole of deep learning.
+
+Now one last tool is left, and it is the chain rule. The question comes of how to measure the slope in a place where many pieces of work happen one after another.
+
+The chain rule gives an easy answer. Work out the slope of the outer piece, and work out the slope of the inner piece, and multiply the two. However many layers there are, go on multiplying the slope of each layer.
+
+Nami put it in one sentence. [nami]"There are many knots on the rope. Pull one and they are all pulled."[/]
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo orala-bato
+The road to the bottom is found like this. In the first step the slope is measured in every direction from where I am standing, and the list of all those slopes is called the gradient. In the second step the gradient shows the steepest climb, so the direction exactly opposite to it is taken. In the third step one small step is taken in that opposite direction, and the size of that step is called the learning rate. In the fourth step all of this is repeated, and it goes on repeating until the slope is nearly zero. In work with many layers the slope of each layer is multiplied together, and that is called the chain rule.
+@end
+
+That is all of it. Inside the large word training this small cycle is what is hidden.
+
+Here is how to check that a step went the right way. After every step the loss must be smaller than it was before. If the loss rises instead, the sign has been lost somewhere and you are walking uphill — and walking uphill confidently for an hour is the most expensive mistake in this whole course.
+
+@recall orala-bato
+
+The fog is thinning. The sound of the waves can be heard below.
+
+@read hush
+There is one thing this method can never tell you. The slope under your feet says nothing about how deep the valley is, or whether a deeper one lies beyond the next ridge. It knows only the ground you are standing on, and that is both why it is so cheap and why it can settle for the wrong place.
+
+@recall orala-bato
+
+@tier medium
+
+The night is long. Zoro told another thing, and it was about the places where you get stuck.
+
+There is not only one hollow on a mountain. There are many small hollows, and water gathers in them.
+
+Gradient descent can settle in a small hollow like that. The slope is zero there, but it is not the lowest place.
+
+In practice this is not as frightening as it sounds. In a place with many dimensions a truly closed hollow is rare, and usually some slope is still left in one direction or another.
+
+There is one more sort of place where the slope is zero but it is not a hollow. It is shaped like a horse's saddle, falling away on one side and rising on the other. This is called a saddle.
+
+The trick for escaping all of these is small. A little speed is added to the step, and that is called momentum. Once there is speed it becomes easy to be thrown clear of a small hollow.
+
+@tier long
+
+Usopp got lost in the fog. He asked, [usopp]"How do you know how large to make the step?"[/]
+
+Zoro said it straight, [zoro]"Make it small first. Make it larger only if nothing breaks."[/]
+
+In practice choosing the learning rate is done by experience. A small number is put in at the start, and it is watched to see whether the loss is falling.
+
+If the loss starts jumping upwards the step is too large. If the loss barely moves at all the step is too small.
+
+These days this work happens by itself. It starts from a small step, is raised slowly, and is then lowered again later. This is called a schedule.
+
+And listen to one name, because it comes up again and again afterwards. The optimizer called Adam keeps a separate step for every weight. Some weights learn quickly, and some slowly.
+
+@read hush
+Now sleep. The fog is lifting, and the slope is under your feet.

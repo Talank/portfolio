@@ -1,0 +1,101 @@
+# 21 — The place of meaning: word2vec and the geometry of meaning
+
+The sky is open. There are many stars, and some of them look near to one another.
+
+Nami looked up and said — [nami]"Those stars are not really near. But they fall together in one picture."[/]
+
+@read teach
+Today's matter is that same nearness. On the last island every token was given a number.
+
+But that number has no meaning. A thousand and seven and a thousand and eight may sit side by side and their words be unrelated.
+
+The old remedy was this. Make a row as long as the whole list, put a one in your own place, and leave all the rest zero.
+
+This is called one hot. It has one fatal weakness, because the distance between any two words at all is the same.
+
+So it never tells you that a king and a queen are near.
+
+@read teach
+The solution came out of an old observation, and it is a matter of linguistics. The meaning of a word is shown by the words that come around it.
+
+Palace, order and crown come around a king and a queen. Water, wave and shore come around a ship and a boat.
+
+So if the company agrees, the meaning agrees too. The whole of modern language technology stands on this one idea.
+
+Now listen to the trick for putting it to work. Give every word a short row of random numbers at the start, and call it a vector.
+
+Now play a small game. Pick a word out of the text, and make it guess its neighbouring words from its own vector.
+
+If the guess goes wrong the gradient moves the vector a little. Repeat this over millions of sentences, and this is called word2vec.
+
+@read teach
+What is made once the training is over is the beautiful part. The vectors of words that come together have been pulled towards the same direction.
+
+Now the cosine from the first island comes back here. How much two words agree is said by the angle between their vectors.
+
+Something stranger still was seen. Subtracting and adding these vectors moves the meaning along with them.
+
+Subtract the vector of man from the vector of king, then add the vector of woman, and the result arrives beside queen. This is called analogy.
+
+The meaning of this is that the directions themselves carry meaning. One direction can be the direction of gender, and another the direction of plurality.
+
+@read teach
+But it has one large limit, and this limit gave birth to the next invention.
+
+Here every word has one single vector. But the meaning of a word changes according to the sentence.
+
+The word bank is a place for money, and it is also the side of a river. One vector cannot carry both meanings.
+
+So later a trick was needed that would make the vector only after reading the sentence. We will meet that trick on the next two islands.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo arthako-thau
+The meaning of a word sits in numbers like this. The first thing is that giving a word one number brings no meaning, and neither does a long row with a one in its own place, because in it all words stand equally far apart. The second thing is that the meaning of a word is shown by the words around it, so words whose company agrees have meanings that agree. The third thing is that every word is given a short random vector and is made to guess its neighbouring words from that vector, and the vector is moved a little according to the mistake, and this repeats over millions of sentences, and it is called word2vec. The fourth thing is that after training the vectors of agreeing meanings sit near each other and their nearness is measured by the cosine, but because every word has one single vector it does not catch a meaning that changes with the sentence.
+@end
+
+That is all of it. Company makes meaning, and meaning turns into place.
+
+Here is how to check that this space came out well. Take a few words whose relations you already know, and ask for their nearest neighbours. The neighbours should be words you would have named yourself. If a word's neighbours are simply the words that are commonest in the text, the training has not gone far enough.
+
+@recall arthako-thau
+
+The stars are where they were. The sky is quiet.
+
+@read hush
+There is one thing this nearness will not separate. Words that stand opposite each other keep almost the same company — hot and cold arrive in the same sentences — so their vectors come out close together. Nearness here means used alike, and it has never meant the same.
+
+@recall arthako-thau
+
+@tier medium
+
+The night is long. Nami told the two forms of the game, and these names come up in interviews.
+
+In the first form the neighbours are guessed from the middle word, and this is called skip gram. It works well on rare words.
+
+In the second form the middle word is guessed from the neighbours, and it runs fast. Both make much the same space.
+
+A thrifty trick is needed in the training as well. Comparing against the whole list every time costs a great deal.
+
+So along with the true neighbour a few random words are picked as well, and they are pushed away. This is called negative sampling.
+
+Another matter is the way of measuring. Whether the vectors are good is judged against a list of agreeing words made by people.
+
+There is a warning here too. Whatever leaning was in the data comes out in the vectors exactly as it was, and this matter comes back on the thirty-first island.
+
+@tier long
+
+Robin came onto the deck. She asked — [robin]"Are today's embeddings made this way too?"[/]
+
+The idea is the same, but the way of making them has changed. Today the vector is made after the sentence has been read, so the vector of the same word differs according to its place.
+
+This is called a contextual embedding. The bank meaning a riverside and the bank meaning money now sit in different places.
+
+Going further still, today one single vector is made for a whole sentence or a whole paragraph. So searching by meaning becomes possible, and we will use that on the twenty-ninth island.
+
+But the old trick has not died either. It is small, it is fast, and it runs even on a machine with no internet.
+
+And for learning it is better still. Here the geometry is visible to the naked eye, and that same geometry is hidden inside every model that came after.
+
+@read hush
+Now sleep. The stars look near, and the sky is wide.

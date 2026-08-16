@@ -1,0 +1,99 @@
+# 24 — The layers of the transformer: one layer at a time
+
+It is not cold inside the room. A long map is hung on the wall, and the same shape is drawn on it again and again.
+
+Robin pointed at the map and said — [robin]"There is only one new thing here. All the rest is a repeat of it."[/]
+
+@read teach
+This is today's main matter. The transformer sounds tangled, and inside it one small block is stacked over and over.
+
+Only two pieces of work happen inside one block. The first is the self attention from the last island, and it lets the words talk to each other.
+
+The second is thinking apart. Put each word's own vector into the small network from the fifteenth island, and this is called feed forward.
+
+Notice one difference here. In the first piece of work the words mix, and in the second every word works separately.
+
+One shares the information, and the other digests it. A model becomes deep by these two running by turns.
+
+@read teach
+Two protections are put around each piece of work. We have already met both of them.
+
+The first protection is the short road. The input of the work is added straight onto its result, and this is called a residual connection.
+
+This takes away the fear from the sixteenth island. The gradient finds a road straight back down without having to come down the stairs.
+
+The second protection is evening out the scale. The average and spread of the numbers inside each word's vector are evened out, and this is called layer norm.
+
+Without these two, a model of a hundred layers would never have trained.
+
+@read teach
+Now a hole has to be filled, and this hole is serious. Attention does not see order.
+
+Shuffle the words and run the attention again, and the same weights come out. To it, all the words are as though they were in one bag.
+
+But in language the order changes the meaning. So add into every word's vector the information of its place as well.
+
+This is called positional encoding. It either comes from a ready made pattern of waves, or is learned in the training itself.
+
+@read teach
+Now join the whole road, and this road is straight from beginning to end.
+
+First break the text into tokens by the trick from the twentieth island. Each token's number picks up its vector from a large table, and that table is called the embedding.
+
+Add the information of place to it. Now pass that same stack through block after block, dozens of times over.
+
+At the end make the final vector as wide as the whole list, and run a softmax. Now the probability of every possible next token comes out.
+
+This is it, and all today's large models are large forms of this one same pattern.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo transformer-tah
+A transformer is built like this. The first thing is that it is a stack of one block, and inside every block there are two pieces of work — self attention mixes the words, and feed forward digests each word separately. The second thing is that two protections are put around each piece of work, and in the first the input is added straight onto the result and it is called a residual connection, and in the second the scale of the numbers is evened out and it is called layer norm. The third thing is that attention does not see order, so the information of its place is added into every word's vector, and that is called positional encoding. The fourth thing is that the whole road runs like this — the text breaks into tokens, each token picks up a vector from the embedding table, place is added to it, it passes through dozens of blocks, and at the end a softmax gives the probability of the next token.
+@end
+
+That is all of it. All this was made by stacking one small part many times over.
+
+Here is how to check that the place information is really being used. Shuffle the words of a sentence and ask again. The answer must change. If it stays the same, the place was never reaching the model, and however many layers you have you are holding a bag of words.
+
+@recall transformer-tah
+
+The same shape is repeated on the map. The lamp is steady.
+
+@read hush
+There is one thing worth knowing about this stack. The blocks are identical in shape, but they do not end up doing identical work — the early ones settle on the shapes of the language, and the later ones on its meaning. Nobody assigns them that division, and it appears in the training on its own.
+
+@recall transformer-tah
+
+@tier medium
+
+The night is long. Robin showed the rest of the map, and three forms were drawn there.
+
+In the first form the blocks may look at all the words on both sides, and this is called an encoder. It is used for the work of understanding.
+
+In the second form every word may look only at the ones before it, and this is called a decoder. It is used for the work of writing.
+
+In the third form both are joined together, and this is what is used in translation. The difference between these three will be opened up again on the next island.
+
+Listen to one count as well. The question of where most of a model's weight sits is an interesting one.
+
+It may come as a surprise, but the large part of the weight sits not in the attention but in the feed forward. There the vector is first made four times as wide and then squeezed again.
+
+A great deal of research says that the work of remembering facts happens in that same wide part.
+
+@tier long
+
+Robin asked herself a question — [robin]"Why has this pattern lasted so long?"[/]
+
+The root of the answer is not in the mathematics, and it is in the machine. Here the arithmetic of the whole sentence happens at once, because no word has to wait for another.
+
+So thousands of calculations can run together, and a GPU is built for exactly that work. In the old trick of reading order this was impossible.
+
+The second reason is scaling. Making this pattern larger improves the result regularly, and this rule will be opened up on the twenty-sixth island.
+
+The third reason is commonness. The same block runs text, pictures, sound and code alike, because all it asks for is an order of pieces.
+
+So it did not remain the tool of any one subject. One build covered many fields, and that is its victory.
+
+@read hush
+Now sleep. The map is still on the wall, and the layers need not be counted.

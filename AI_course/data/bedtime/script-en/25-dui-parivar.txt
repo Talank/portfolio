@@ -1,0 +1,97 @@
+# 25 — Two families: BERT, GPT and a small model of your own
+
+Two chairs are set facing each other in the workshop. Books are piled on one, and there is an empty notebook on the other.
+
+Franky said, [franky]"One reads. The other writes. The foundation of both is the same."[/]
+
+@read teach
+This is today's first matter. The block from the last island is one block, and how it was trained is what separates the families.
+
+The first family is allowed to look at the whole sentence on both sides. During training some words are hidden, and it is made to guess those.
+
+Because there is context both ahead and behind, the guess is a deep one. The main name of this family is BERT.
+
+But it cannot write an answer. It looks at all the words at once, and writing has to go forward one at a time.
+
+@read teach
+A mask is put on the second family. Every place may look only at the words before it, and that same masking from the twenty-third island is used here.
+
+The training work is one thing, and it is guessing the next token. This one piece of work is repeated over hundreds of billions of words.
+
+The main name of this family is GPT. It can write, because the token it guessed can be put back on the end and the question asked again.
+
+One astonishing thing happened right here. This ordinary work of guessing the next word, once made large, brought translation, summary and reasoning along with it by itself.
+
+@read teach
+Now listen to which to use when, because this is what is asked in interviews.
+
+If text has to be sorted into classes, or a feeling recognised, or a name picked out, the first family suits. It is small, it is fast, and it costs little.
+
+If a vector has to be made for searching, this same family is used too. It is what is used in the search on the twenty-ninth island.
+
+If an answer has to be written, or a conversation held, or code made, the second family is needed. All today's assistants in common use are of this family.
+
+There is a practical rule as well. On a small and definite job a small reading model usually beats a large writing model, and it costs hundreds of times less.
+
+@read teach
+Now the last matter is one for your own hands, and this is the real work of this island. Building a small writing model yourself is not hard.
+
+Count the parts needed, and there are only five. The first is the token embedding table, the second is the information of place, the third is a few blocks, the fourth is a final layer norm, and the fifth is a last row as wide as the list.
+
+Small data is enough as well. Take the text of one book, break it into letters, and run the loop from the eighteenth island.
+
+Within a few minutes the astonishing thing shows. First it pours out random letters, then it makes pieces that look like words, then it starts putting the blank spaces and the commas in the right places.
+
+Seeing this takes the mystery away. The difference in the large models is only this — the same parts, more blocks, and unimaginably more data.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo dui-parivar
+The two families are separated like this. The first thing is that the block of both is the same, and the difference comes from the way of training. The second thing is that the first family is allowed to look at the whole sentence on both sides and is made to guess hidden words, and it is called BERT, and it is used for the work of understanding and for making vectors for search. The third thing is that the second family is masked and allowed to look only at the words before it and is made to guess the next token, and it is called GPT, and it can write and hold a conversation. The fourth thing is that only five parts are needed to build a small writing model of your own, and there you need an embedding table, the information of place, a few blocks, a final layer norm, and a last row as wide as the list.
+@end
+
+That is all of it. One learned to read, and the other learned to write.
+
+Here is how to check a small model of your own as it trains. Do not read what it writes at the start — measure instead whether the loss is falling below what pure guessing would give. Writing that looks like nonsense while the loss falls steadily is a model that is working, and writing that looks fine while the loss sits still is a model that has copied its data.
+
+@recall dui-parivar
+
+The first page of the notebook filled up in the workshop. Franky is sitting and watching.
+
+@read hush
+There is one thing about the second family worth holding onto. It was only ever taught to guess the next token, and everything else it appears to do came along as a side effect of that. Nobody added translation, or summary, or reasoning. They arrived because doing that one job well over enough text turns out to require them.
+
+@recall dui-parivar
+
+@tier medium
+
+The night is long. Franky told of the difficulties met while building a small model, and everybody meets these.
+
+The first difficulty is the loss not falling at all. Usually the learning rate is too large, or adding the information of place has been forgotten.
+
+The second difficulty is not putting the mask on. Without the mask the model sees the answer in advance, and the loss falls unnaturally towards zero.
+
+This sign is easy to recognise. It looks excellent in training, and comes out wholly useless on new text.
+
+The third difficulty is in the writing. If you pick only the most likely token every time, the model starts repeating the same sentence.
+
+So pick according to the probabilities, and mix a little chance in there. This matter comes in detail after the twenty-eighth island.
+
+The fourth difficulty is memory. Making the context longer finishes the memory faster than adding blocks does, because the cost of attention is squared.
+
+@tier long
+
+Robin came into the workshop. She asked — [robin]"So has the reading family gone out of use?"[/]
+
+It has not gone, and its place is secure. Today that same family sits at the heart of most search systems.
+
+The reason is cost. When vectors have to be made for hundreds of millions of papers, a small fast model is the practical one.
+
+The second reason is dependability. On the work of separating classes its answer is definite, and it does not make anything new.
+
+The third reason is rules. A small model can be run on your own machine, and the data does not have to be sent outside.
+
+So the choice is not one of subject, and it is one of work. When you have to write, take the writing family, and when you have to separate or to search, take the reading family.
+
+@read hush
+Now sleep. Both chairs are empty, and the lamp is about to go out.

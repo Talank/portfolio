@@ -31,14 +31,14 @@ The third problem is whether any number repeats in this array. Write down every 
 Robin gave the summary very slowly — [robin]"Whenever you feel 'have I seen this before', remember the hash map at that very moment. Memory removes searching. And when searching goes away, O(n²) drops to O(n)."[/]
 
 @read hush
-Now keep your eyes closed and listen to that same rule once again.
+How do you know your answer is right? Check just one thing — that you looked before you wrote in the notebook. If the order is right then nothing can become its own partner, and that is the single fragile place in this approach.
 
 @recall notebook
 
 The market lights are going out one by one. Nami put the notebook in her bag, and took the road back to the ship.
 
 @read hush
-One last time before you sleep, very slowly, listen to the rule of the notebook.
+Now think about two hard cases. The first is an array where the same number appears twice and those two are the pair you want, and only the right order saves you there. The second is an array with no pair at all, and there the right thing is to finish the loop and return an empty answer.
 
 @recall notebook
 

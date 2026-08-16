@@ -1,0 +1,113 @@
+# 32 — The map of a system: system design and the last night
+
+The ship arrived back at that same harbour. The night is quiet, and the lines of lamplight are swaying on the water just as they were.
+
+Everybody is on the deck. The same stone is in Robin's lap, and tonight she is not the only one reading the marks cut into it.
+
+Luffy asked, [luffy]"Now if somebody tests us, what will they ask?"[/]
+
+@read teach
+The answer is this last island. In an interview no single rule is asked, and you are made to build a whole system.
+
+The difference between the person who knows and the person who does not shows itself at the very start. The one who does not starts naming models at once.
+
+The one who knows asks a question first. This is the first step, and it alone gives half the marks.
+
+Make clear what is to be built. Ask who it is for, how many users there are, and how fast the answer has to come.
+
+Then ask how success will be measured. A system built without fixing the measure never improves.
+
+@read teach
+The second step is about data, and this is usually the hardest part.
+
+Ask where the data comes from. Ask also who says what the true answer is.
+
+Sometimes the answer comes from the users themselves. Whether somebody bought a thing or not, or clicked or not, is itself a label.
+
+If you find a cycle like that, join it in from the start. The system begins to learn from its own use.
+
+The third step is a small beginning. First make an easy answer based on rules, and call it the baseline.
+
+This can feel embarrassing, and it is the wise thing. Without comparing against that line it cannot be said at all how good a tangled model is.
+
+@read teach
+The fourth step is the two levels of measurement, and many people fail here.
+
+Take the measure taken on your own computer as one level. The precision and recall from the fourteenth island fall here.
+
+But the true measure is the behaviour of the users. Run two forms together and compare them, and that is called an A B test.
+
+These two levels usually do not agree. The behaviour outside may not change even though the measure inside improved, and this has to be said honestly.
+
+The fifth step is about where it runs. Ask whether the answer is needed at once or whether making it all together at night is enough.
+
+Keep the answer to a question that is asked again and again. And decide beforehand what to give when the model fails.
+
+@read teach
+The sixth step is watching, and this is usually forgotten.
+
+The world changes, and the data changes too. A model that ran well yesterday slowly falls off today, and this is called drift.
+
+So go on measuring the result. Go on watching the shape of the questions coming in as well, because that is the first sign that it has changed.
+
+Now three further questions are asked in a system with an LLM in it. In the first it is decided whether to use RAG or fine tuning when facts are needed.
+
+In the second it is decided how to measure whether an answer is good. In the third it is decided how to stop a wrong or harmful answer.
+
+And always keep one count ready. Be able to say how many tokens a question takes, how much money it costs, and how many seconds it takes.
+
+Now listen to what this last island comes to, and it will come back three times tonight.
+
+@algo pranali-ko-naksa
+A system is designed like this. In the first step a question is asked rather than a model named, and it is made clear what is to be built, who it is for, how many users there are, how fast the answer has to come and how success will be measured. In the second step it is asked where the data comes from and who says what the true answer is, and if a cycle is found where the label comes from the users' own behaviour it is joined in from the start. In the third step an easy answer based on rules is made first and it is called the baseline, because without that line it cannot be said how good a tangled model is. In the fourth step the measure is taken at two levels, and the measure on your own computer is one level while the behaviour of the users is another, and for that two forms are run together and compared. In the fifth step it is decided whether the answer is needed at once or can be made later, the repeated answer is kept, and the choice for when the model fails is fixed beforehand. In the sixth step both the result and the shape of the questions must go on being measured because a model falls off as the world changes, and in a system with an LLM three questions are added — RAG or fine tuning, how to measure the answer, and how to stop a harmful answer.
+@end
+
+That is all of it. The tools are many, and the order of asking is one.
+
+Here is how to check that a design is finished. Say out loud what you would do when each part of it fails — when the search finds nothing, when the model is slow, when the answer is wrong. If you can answer for every part, the design is done, and if you cannot, that part was never designed.
+
+@recall pranali-ko-naksa
+
+The water is calm at the harbour. The ship's rope is swaying slowly.
+
+@read hush
+There is one thing worth saying at the end about all this measuring. Every measure here can be satisfied by a system that nobody wants to use, and no measure can tell you that. That is the one judgement that stays yours, and it is why the first step is a question and not a model.
+
+@recall pranali-ko-naksa
+
+@tier medium
+
+The night is long, and tonight is the last night of the voyage. Robin set the stone down on the deck.
+
+She said — [robin]"On the first night I said that the meaning is not in the stone."[/]
+
+That sentence opens fully now. There is no meaning in numbers, and the meaning is in the relations.
+
+On the first island we measured direction. That same measure became search on the eleventh island, and became attention on the twenty-second.
+
+On the fourth island we came down a slope. That same slope turned backwards on the sixteenth island, and spread across hundreds of billions of tokens on the twenty-sixth.
+
+On the sixth island we understood why a loss is needed. That same loss has stayed the heart of every model to this day.
+
+So there were not thirty-six different things here. There were a few ideas, and they came again and again in new clothes.
+
+@tier long
+
+Luffy asked the last question — [luffy]"So what do we do now?"[/]
+
+The answer is short, and it sounds ordinary. Now build.
+
+This skill does not come by reading alone. Build a small thing yourself, and when it breaks, find out why it broke.
+
+Let the first job be a small one. Build a small system that can be asked questions about your own papers.
+
+Once that runs, add one tool to it. Then make a list for measuring it.
+
+If you do those three things you will have used seven parts of this course in one place.
+
+And keep remembering one thing. This field changes fast, and the names change fast as well.
+
+But the foundation does not change. Direction, slope, probability and loss stay the same, and when a new name comes you will be able to recognise them in it.
+
+@read hush
+Now sleep. The voyage is over, and the stone can be read now.

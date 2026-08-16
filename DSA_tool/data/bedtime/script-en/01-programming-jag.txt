@@ -29,14 +29,14 @@ These are the four tools of programming, and this is what they do. The first too
 
 Even very large software is only millions of layers of these. There is no new magic in any of it.
 
-With your eyes already closed, listen once more, lightly, to those same four tools.
+Here is how you check that the tools are doing what you think. Once the code is written, try to say it out loud in one sentence. If it fits in one sentence the work is clean, and if it does not, the problem is not in the code but in your understanding.
 
 @recall char-aujar
 
 The ship put out again. The array is moving slowly. On the next island we will learn to measure time.
 
 @read hush
-One last time before you sleep, very slowly, listen to those four tools.
+There is one thing to check every time you write a loop. Somewhere inside it there must be a step that brings the ending one pace closer. If you can point at that step the loop can never run forever, and if you cannot, that loop will one day stop you.
 
 @recall char-aujar
 

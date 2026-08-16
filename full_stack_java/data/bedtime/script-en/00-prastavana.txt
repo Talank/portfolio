@@ -1,0 +1,83 @@
+# 0 — Introduction: the log pose of sleep
+
+Good evening. You will have put the light out by now. Straighten the pillow a little, and let the bed be warm. There is nothing to do now.
+
+@read hush
+Tonight you do not have to read. You do not have to take notes either. Trying hard to remember is the last thing you need to do. Just go on listening. If you fall asleep while listening, that is exactly right, because this story was made for that.
+
+Take a long breath. One... two... three. Now let it out slowly. Do that once more. In... and out. Let your shoulders melt into the bed. Let your tongue go loose from the roof of your mouth. Let your eyelids grow heavy.
+
+@read hush
+Now imagine that you are lying on the deck of a wooden ship. Night has fallen. The sea is calm. The waves knock slowly against the ship's belt. Above there are stars beyond counting. The wind is warm, and the ship is moving forward at its own pace.
+
+The name of this ship is the Going Merry. There is a crew on it. Rubbery Luffy, Zoro who carries three swords, Nami who draws the maps, Usopp who builds the tools, Sanji who keeps the kitchen, and Robin who reads the books are all on it. Tonight they have a new piece of work.
+
+There is a small glass ball in Nami's hand. A needle turns inside it, and it always points one way. Its name is the log pose. An ordinary compass is no use on the Grand Line, so sailors rely on this ball.
+
+Tonight we are building a log pose like that. But ours is not made of glass. Ours is a program made of Java, and it shows not the direction of the sea but the direction of your own thinking.
+
+That program remembers the articles you have read. It remembers the experiments you have run. It remembers even the half-formed thought that came to you with the morning tea. And one day you ask it — [aside]"What was it I thought about flaky tests?"[/] — and that ball turns its needle and shows you the way.
+
+There are many islands in between before we get there, and we will visit them all one by one. On the first island is the language itself. After that comes the engine room, where Java actually runs. After that comes the store room, where the data is kept. After that come tests, the build, the database, the server, the screen, and at the end the search.
+
+The road may sound long. But the truth is that Java is not a hard language. Java is a large language, and being large and being hard are different things. A large thing looked at piece by piece is small, and we have the whole night.
+
+I will read you code as well. But it is not code that appears on a screen. It is code that can be heard by the ear. For instance, I say — [aside]"Make an empty list. Look at every paper once. Whichever one you need, add it to the list."[/] Hearing that much, your mind begins drawing the shape by itself. In the morning it is easy for your fingers to type that same thing on a keyboard.
+
+@read hush
+Now listen to what the whole night comes to, and it is a very small thing. This will come back three times tonight, so there is no need to try to remember it now.
+
+@algo tin-prashna
+Whenever anything in Java feels confusing, ask it three questions. The first question is this — where does this thing live? Everything lives either on the stack or on the heap, and once you know that much you also know when it disappears. The second question is this — what has it promised? Every thing has a promise, and Java calls that promise its type. The third question is this — when is it checked? Some things are checked while compiling, and some things are checked only once the program is running. Place, promise, and time — once you have those three answers the rest opens by itself.
+@end
+
+The ship is moving. A small light is burning on the shore, and that is our first island.
+
+Here is how to check that you have those three answers. Say them out loud about one thing you already know well — a plain number, say. If you can say where it lives, what it has promised, and when that promise is checked, you have the habit. If any of the three sticks, that is the one worth reading about tomorrow, and it will be the same one that catches you on every island tonight.
+
+@recall tin-prashna
+
+I will speak slowly. There is no hurry. The whole night is ours.
+
+@read hush
+There is one thing these three questions will not settle for you. They tell you how a thing behaves, and never whether you should have used it. A program can be correct in all three answers and still be the wrong program, and no amount of asking will show that up — only reading it again in the morning will.
+
+@recall tin-prashna
+
+@tier medium
+
+You chose a slightly longer voyage tonight, and that is a good thing. There will be even less hurry now, and the silences will be longer. Do not be afraid of missing something, because this story is meant to be heard and forgotten, not learned by heart.
+
+Let me tell you a small thing. What a person hears while falling asleep is not wholly lost. All night the mind sorts through the day, and separates what to keep from what to throw away. If these words are sounding quietly nearby at that time, their shape comes back easily later. So do not press, because pressing is waking.
+
+Now listen slowly to the map of the voyage. First comes the language itself. Names, shapes, roads, and objects — these four sit on the first few islands. After that come promises and storms, and there you meet interfaces and exceptions.
+
+Halfway along comes the engine room. There it opens up how Java actually runs, and the store of memory is there too. After that comes the store room, where lists, maps and sets live.
+
+After that comes the new Java. Lambdas, streams and records are there. And then many hands begin working at once on the deck, and that is the island of threads.
+
+Towards the end come the islands of joining work and sending it out. The build, tests, the database, the server and the screen are there. Furthest back is the cave of search, and coming out of there the log pose is made.
+
+Hearing this much you will already know that the road is long, but that nowhere is it uphill. Every island sits on top of the one before. You have only to follow the order, and the order moves forward by itself.
+
+@tier long
+
+Still awake? That is all right. Then let us go a little more slowly still. There is no hurry.
+
+First remind the body once that today's work is over. Think about the soles of your feet, and they are growing heavy. The calves are going loose. The knees are going loose as well.
+
+Now let the attention go to the belly and the chest. The breath comes in by itself, and goes out by itself. You do not have to pull it.
+
+Now think of the arms and the fingers. All day they will have struck a keyboard. Now let them rest. Let the jaw go, and let the forehead go loose.
+
+There is one thing left to say. People say that learning programming means memorising a great many things. That is not true. Learning programming means recognising a few shapes, and those shapes are met again and again.
+
+However many islands you visit tonight, those same three questions come back on all of them. Where a thing lives, what it has promised, and when it is checked. String or thread, map or server, the questions stay the same.
+
+Now let us come back to the ship's deck. Nami took the log pose in her hand, and its needle is still not steady. She said it takes a few hours for the needle to settle, and that until then one may sleep.
+
+Zoro has already fallen asleep leaning against the wall nearby. Sanji put out the kitchen light. Luffy began to snore, nodding his head as he went. Robin closed her book.
+
+Only Usopp is still working. He is joining something together in a small light, and tomorrow that will be our first lesson. We will begin the voyage from beside his table.
+
+Now there is nothing to remember. The ship moves by itself. The first island comes by itself. You just breathe, and leave the rest to me.

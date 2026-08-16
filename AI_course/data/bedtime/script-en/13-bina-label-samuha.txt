@@ -1,0 +1,88 @@
+# 13 — Groups without labels: k-means and PCA
+
+Shells and stones are scattered on the shore. Nami knelt down, and began separating them out by hand.
+
+Luffy asked, [luffy]"Who told you which groups to put them in?"[/]
+
+Nami said — [nami]"Nobody told me. I am looking for myself."[/]
+
+@read teach
+This is today's difference. Until now every example had a true answer with it, and that is called a label. Learning like that is called supervised.
+
+Now there is no label. There is only data, and the structure inside it has to be found by itself. This is called unsupervised.
+
+The first trick is making groups. Suppose you want three groups.
+
+The rule is this. First put three points down anywhere at all, and call them centres. Now stick every shell to the centre nearest to it.
+
+Now work out the average of all the shells in each group, and move the centre there. Then stick every shell to its nearest centre again.
+
+Go on repeating this. Stop when the centres no longer move. This is k-means.
+
+@read teach
+Two questions rise naturally here. The first is how many groups to make, and that you have to say yourself.
+
+There is an easy trick for it. Go on raising the groups from one, and measure the spread inside the groups each time. At first it falls quickly, and after one place it falls slowly. Where the bend comes is the right place, and this is called the elbow.
+
+The second question is about the starting places. If the centres put down at random fall badly, the result comes out badly too. So this is run many times over and the best one is taken.
+
+Now the second trick comes, and it is not grouping but pressing.
+
+@read teach
+Suppose a hundred measurements have been taken of every shell. Many of those hundred agree with each other, because a long shell is usually a heavy one too.
+
+So a hundred dimensions are not really needed. The SVD learned on the third island comes back here.
+
+Find the direction in which the data spreads out the most, and make that the first axis. Now, staying at a right angle to it, find the direction with the most spread, and make that the second axis.
+
+Take out a few axes like this, and write the data down again along them. This is PCA.
+
+Nami said — [nami]"Now a hundred measurements have become two, and the picture can be drawn on paper."[/]
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo bina-label
+Data without labels is looked at like this. In the first trick it is fixed how many groups are wanted and that many centres are put down anywhere. In the second trick every example is stuck to its nearest centre, then the average of each group is worked out and the centre is moved there, and this repeats until the centres no longer move, and this is called k-means. In the third trick the direction with the most spread in the data is found and made an axis, then another direction is found at a right angle to it, and this is called PCA. PCA lowers the dimensions and makes the data something a picture can be drawn of.
+@end
+
+That is all of it. Both tricks show the shape inside the data without any labels at all.
+
+Here is how to check whether the groups mean anything. Run the whole thing again from different starting centres. If the same groups come back, there is real structure in the data. If wholly different groups come back each time, the method has drawn lines through something that had no lines in it.
+
+@recall bina-label
+
+The waves are coming in at the shore. The shells are sitting in groups.
+
+@read hush
+There is one thing that must be said plainly about this. The method will always give you groups, even when the data has none — ask for three and you will get three. So the elbow, and the repeating above, are not refinements. They are the only things standing between you and a pattern you invented.
+
+@recall bina-label
+
+@tier medium
+
+The night is long. Nami told the limits of k-means, and these limits are worth remembering.
+
+k-means always makes round groups. If a group is long and bent in shape it gets confused.
+
+The second limit is that every example must fall into some group or other. A lone and peculiar example pulls the nearest centre over to itself.
+
+The third limit is scale. Distance is the foundation here too, so bringing the features onto one scale is unavoidable.
+
+Even with these limits k-means is used, because it is fast and easy to understand. In many places it is the first thing tried.
+
+@tier long
+
+Robin came to the shore. She asked — [robin]"Are PCA and embeddings different things?"[/]
+
+This is a deep question. The purpose of both is the same, and that is turning many numbers into a few meaningful ones.
+
+But the way differs. PCA looks only for straight directions, because it is a linear trick.
+
+An embedding can learn a bent shape as well, because a neural network makes it.
+
+So an embedding is better for holding the meaning of a picture or a text. But PCA has not died yet, because it is fast and its answer can be understood.
+
+In practice both are used together as well. The embedding gives a thousand numbers, and PCA brings them down to fifty.
+
+@read hush
+Now sleep. The shape showed itself without anyone saying a word.

@@ -35,7 +35,7 @@ Do you have to count how many lamps are lit? There is a famous move for it, and 
 And there is a check that asks whether a number is a power of two. In a power of two exactly one lamp is lit. So if the AND of the number and one less than it is zero, it is a power of two.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of XOR.
+The proof that this approach is right is very short. Order makes no difference to XOR, so numbers that come in pairs cancel each other wherever they happen to sit. That is why the array can be in any order at all and still leave only the lonely number at the end.
 
 @recall xor
 
@@ -44,7 +44,7 @@ An honest thing has to be said here. These moves are beautiful, but they also ma
 Small lamps are burning on the island, and some are lit and some are out. They sway slowly in the air. Such a large world has been built out of something this small.
 
 @read hush
-One last time before you sleep, very slowly, listen to that same rule.
+But this approach works under one condition only. Exactly one number must be alone, and every other must appear exactly twice. If some number turns up three times this rule falls apart, and there you need a different approach.
 
 @recall xor
 

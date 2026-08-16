@@ -1,0 +1,81 @@
+# 6 — Guessing from a sample: statistics and MLE
+
+After night fell Nami went to her room. The map is spread on the table there, and a small lamp is burning at the edge.
+
+She said — [nami]"I have not measured the whole sea. I have measured only a few places."[/]
+
+Today's lesson sits inside that one sentence. We never have the whole world. We have only one piece of it, and that piece is called a sample.
+
+@read teach
+Statistics has one job. It looks at a little and speaks about a great deal, and it also says how much that speaking can be trusted.
+
+Here is the first trap, and it is the way the sample is chosen. If the sample was chosen the wrong way, the answer stays wrong however large it is.
+
+Nami gave an example. [nami]"You cannot speak for the whole island by asking only at the harbour."[/] The same thing applies to data, and it is called bias.
+
+Now come to the main question. The data has been seen. Now the rule that made that data has to be guessed.
+
+@read teach
+The answer to this is a beautiful idea, and it is called maximum likelihood. It says to choose, among all the possible rules, the one that makes the data you saw most likely.
+
+Listen to an example. A coin was tossed a hundred times, and it came up heads seventy times. Now what is the chance of that coin coming up heads?
+
+Most people say seventy percent at once, and that is right. But why it is right is the important part. If seventy percent is assumed, the outcome that was seen is the most likely one, and that is why it is chosen.
+
+Now one large thing comes out of here, and this is the main matter of this island. The loss function did not come down from the sky. The loss function came out of this same likelihood.
+
+The arithmetic goes like this. A likelihood is a product of many small numbers, and that product can become zero on a computer. So its log is taken, and the multiplying turns into adding.
+
+And there is a custom of making things small rather than large, so a minus sign is put in front. What is left is the negative log likelihood, and that is exactly what cross-entropy loss is.
+
+Robin nodded. [robin]"So the loss was not chosen by anyone."[/]
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo laikalihud-chunau
+A rule is chosen like this. In the first step it is taken that we have data and do not know the rule that made it. In the second step it is asked, for every possible rule, how likely the data we saw would have been if this rule were true, and that measure is called the likelihood. In the third step the rule that makes the data we saw most likely is the one chosen. In the fourth step, because there is a great deal of multiplying, its log is taken and a minus sign is put in front, and what is left is the loss. So the loss was not chosen by anyone, and it came straight out of the likelihood.
+@end
+
+Once you understand this, the loss function is not frightening any more. It is only the same question turned around.
+
+Here is how to check that a loss is behaving. Feed the model an answer it is completely certain about and completely right about, and the loss must fall to nearly zero. Feed it one it is completely certain about and completely wrong about, and the loss must climb without limit. A loss that does neither is not measuring what you think it is.
+
+@recall laikalihud-chunau
+
+The lamp is dim. The map is still on the table.
+
+@read hush
+There is one thing worth knowing about this choice. It trusts the sample completely, so if a thing was never seen at all it is given a chance of exactly zero — and zero is a hard word. This is why a small amount is added everywhere in practice, so that the unseen stays merely unlikely rather than impossible.
+
+@recall laikalihud-chunau
+
+@tier medium
+
+The night is long. Nami told another thing, and it was about trust.
+
+The average taken out of a sample is not the true average. It is close, but it is not exactly the same.
+
+If the sample is larger it comes closer. This rule is old, and it is called the law of large numbers.
+
+There is one stranger thing still. Whatever shape the data has, the averages of many samples together make a bell shape.
+
+This is why the bell shape is seen everywhere. It is not a fondness of nature, and it is the nature of adding.
+
+In practice this lets one thing be done. A range can be put around a result, and that is called a confidence interval.
+
+@tier long
+
+Usopp came to the door. He asked, [usopp]"How do you know which of two models is better?"[/]
+
+Nami said — [nami]"One test is not enough."[/]
+
+If the results of two models look different, the first question is whether that difference is real or a coincidence.
+
+For this same reason, deciding by testing once on a single test set is weak. If the sample had been different the result could have been different too.
+
+There is an easy remedy for this, and it is to test again and again. The data is divided into many pieces and tested by turns, and that is called cross-validation.
+
+This matter comes back on the fourteenth island. There we will make the ways of measuring the main subject itself.
+
+@read hush
+Now sleep. The map is unfinished, and that is all right.

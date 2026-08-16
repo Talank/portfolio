@@ -31,14 +31,14 @@ If you have to join two groups, find the leader of both, and put one leader unde
 Two small moves make the speed remarkable. The first move is that while you are looking for the leader, join everybody you meet on the way straight to the leader, and the road is shorter next time. The second move is that when joining, put the small group under the large one and not the other way round. With those two moves every operation happens in almost O(1).
 
 @read hush
-Now keep your eyes closed and listen once again to the rule for putting things in order.
+The way to check the order is beautifully clean. At the end, the count of jobs you wrote down must match the count of all the jobs. If it does not, the jobs left over are caught in a ring with each other, and that ring is telling you this order cannot be made at all.
 
 @recall kram
 
 Franky stuck the list on the wall. The work is in order, and there is no confusion. The tools were put down slowly on the floor.
 
 @read hush
-One last time before you sleep, very slowly, listen to that same rule.
+That failure is the most useful property this approach has. You never need to go looking for a ring separately, because the very same count tells you. So the question of whether the work is possible at all is answered by this one approach too.
 
 @recall kram
 

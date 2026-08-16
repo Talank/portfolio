@@ -26,7 +26,7 @@ Now listen to another shape of the same move. The temperature of every day is gi
 That is exactly the same move. Put the indexes of the days on the stack. If the new day is warmer, the answers for all the waiting cold days are settled today, and you work out the difference in days.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of the falling stack.
+You can check this approach's arithmetic in your head. Every pillar climbs onto the stack exactly once and comes off exactly once. So even though there is a loop inside a loop, the total work stays O(n), and that is the whole beauty of this approach.
 
 @recall ghatdo-thupro
 
@@ -37,7 +37,7 @@ Now remember the signals, lightly. If you hear the words [aside]"the next larger
 Wind is coming across the wall. The posts stand quietly, and some are tall and some are short. There is no hurry, and all of them are waiting their turn.
 
 @read hush
-One last time before you sleep, very slowly, listen to the rule of the falling stack.
+When the array runs out, what about the ones still on the stack? The taller pillar they were waiting for never came, so their answer is 'none'. Miss that last step and only half the answer gets filled in.
 
 @recall ghatdo-thupro
 

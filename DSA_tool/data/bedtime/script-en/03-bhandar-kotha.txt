@@ -29,7 +29,7 @@ And there is a question that gets asked a lot, which is whether a word reads the
 A small trap is hiding here, and many people fall into it. The last index of an array is not n, it is n minus one, because the count started from zero. There is no counting how much code this one-digit slip has ruined. It is called off by one, and it means a difference of one.
 
 @read hush
-Now keep your eyes closed and listen once again to that same rule of the two hands.
+Here is how you check the answer once the work is done. Wherever the writing hand stopped, that number is the count of things that are left. Read only the part up to that count and forget everything after it, because old things are still lying there.
 
 @recall dui-hat
 
@@ -38,7 +38,7 @@ Closing her book, Robin said — [robin]"The array is straightforward, and there
 Outside, the evening had come down. The door of the store room closed slowly.
 
 @read hush
-One last time before you sleep, very slowly, listen to the rule of the two hands.
+Check this approach on two cases. The first case is where nothing at all is worth keeping, and there the writing hand stays at the start, which is correct. The second case is where everything is worth keeping, and there both hands walk together and the array is left exactly as it was.
 
 @recall dui-hat
 

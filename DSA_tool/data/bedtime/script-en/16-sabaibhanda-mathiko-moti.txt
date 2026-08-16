@@ -28,7 +28,7 @@ In another use you have to merge K sorted linked lists into one. Put the first n
 In one more use you need the middle value of numbers that are flowing past. For this, two heaps are placed facing each other. Keep a large-topped heap for the lower half, and a small-topped heap for the upper half. Keep the two roughly equal in size, and the middle value is found right at the two tops.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule for taking out the largest K.
+Why keep the smallest at the top when you want the largest K? This is why — with the smallest at the top, the thing you need to throw away is always right there in your hand. To check the answer, count the final size of the heap, and it must be exactly K.
 
 @recall top-k
 
@@ -37,7 +37,7 @@ Remember the signals, lightly. If the question says [aside]"the largest K"[/], r
 The trader put the pearls into the bag in no order at all. Only the one on top is shining, and that is enough.
 
 @read hush
-One last time before you sleep, very slowly, listen to that same rule.
+Watch two cases here. If the array holds fewer than K numbers then all of them are the answer. If K is zero the answer is empty, and if you ship the code without checking these two you will ask for the top of an empty heap.
 
 @recall top-k
 

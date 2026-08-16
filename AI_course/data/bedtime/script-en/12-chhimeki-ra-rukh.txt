@@ -1,0 +1,88 @@
+# 12 — Neighbours and trees: k-NN, decision trees and random forests
+
+There is a forest inside the island. The trees are tall, and light has come through onto the ground.
+
+Chopper walked ahead. He said, [chopper]"I know which mushrooms are good to eat."[/]
+
+Luffy asked, [luffy]"How do you know?"[/] Chopper said, [chopper]"I have seen other mushrooms that look like this one before."[/]
+
+@read teach
+This is today's first trick, and it is astonishingly easy. When a new thing comes, look among the things you have seen before for the few that agree with it most, and look at their answer.
+
+This is called k-NN. Here k means how many neighbours to look at.
+
+How near a thing is is said by that same measure from the first island. Whichever of distance and cosine suits is the one that is used.
+
+There is a strange thing in this. There is no training at all here, because the model learns nothing. It remembers all the data, and does its work only once a question arrives.
+
+If k is small the model shakes, because the mistake of a single neighbour changes the answer. If k is large the model goes dull, because far off neighbours get counted too. That same tension from the eighth island has come back here.
+
+@read teach
+Now listen to the second trick, and it is the trick of asking questions. Chopper asks himself questions to recognise a mushroom.
+
+The first question might be this — is its cap red or not? The road divides in two according to the answer. And then in each part another question is asked.
+
+This is a decision tree. It is a tree of questions, and one answer sits at every leaf.
+
+Now the main question is which question should be asked first. The answer comes from the seventh island.
+
+Whichever question reduces the uncertainty the most is the one asked first. Take the difference between the entropy before asking and the average entropy after asking, and that is called information gain.
+
+A decision tree is easy, and easy to understand as well. But it has one large weakness, and that is the habit of memorising. If the tree goes on getting deeper it gives every single example its own separate leaf.
+
+@read teach
+The remedy for this is beautiful. Do not trust one tree, and make many trees.
+
+Give each tree a different sample of the data, and let it choose from only some of the features at each question. Now every tree is a little different.
+
+At the end let all the trees vote, and whichever has the majority is the answer. This is called a random forest.
+
+There is one piece of magic here. The mistakes of each tree lie in different directions, and in the voting those mistakes cut each other away.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo chhimeki-rukh
+These three tricks sit like this. In the first trick the few old examples that agree most with the new thing are found and their majority is taken, and that is called k-NN. In the second trick the road is narrowed by asking one question after another, and whichever question reduces the uncertainty the most is asked first, and that is called a decision tree. In the third trick one tree is not trusted and many trees are made, each given a different sample and different features, and at the end their majority is taken, and that is called a random forest. The mistakes of many trees lie in different directions, and in the voting those mistakes cut each other away.
+@end
+
+That is all of it. These tricks still work well on table data to this day.
+
+Here is how to check a tree that looks too good. Look at how many examples ended up at each leaf. If most leaves hold one example each, the tree has not learned a rule at all — it has written the training data down in the shape of a tree, and it will fail on the first new mushroom.
+
+@recall chhimeki-rukh
+
+The wind is blowing in the forest. The leaves are moving.
+
+@read hush
+There is one thing the voting cannot fix. If every tree is wrong in the same direction, the majority is wrong too, and the forest will be confidently wrong. This is why each tree is deliberately given different data and different features — the whole strength of the method rests on the trees disagreeing.
+
+@recall chhimeki-rukh
+
+@tier medium
+
+The night is long. Chopper told another thing, and it was about cost.
+
+In k-NN the training is fast, because there is no training at all. But the answer to a question comes slowly, because everything has to be compared against all the data every time.
+
+This is exactly the other way round. In other models the training is slow and the answer comes fast.
+
+For this reason k-NN is called a lazy learner. It puts its work off until later.
+
+There is one more trap. If features on different scales are mixed together the distance is spoiled, because the feature with the large scale crushes all the others. So scaling is unavoidable here as well.
+
+@tier long
+
+Robin came into the forest. She asked — [robin]"How do you stop a tree from memorising?"[/]
+
+The first way is to limit the depth. Do not let the tree go below a set number of levels.
+
+The second way is to fix how many examples a leaf must hold at the least. Do not let a leaf be made for a single example.
+
+The third way is to cut branches after the tree is built, and that is called pruning.
+
+Listen to one more name, because it comes up in interviews. There is also a trick of building many trees one after another rather than together, where each new tree corrects the mistake of the one before it.
+
+This is called gradient boosting. On table data it is still one of the strongest tricks there is, and deep learning has not managed to beat it there.
+
+@read hush
+Now sleep. The forest is quiet, and the trees are standing together.

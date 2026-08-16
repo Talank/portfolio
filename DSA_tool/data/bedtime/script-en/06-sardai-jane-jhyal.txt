@@ -22,7 +22,7 @@ In the second problem you need the largest total of exactly K consecutive number
 Work out the total of the first K. Now move the window one step to the right, add the number arriving and subtract the number leaving. You do not have to add the whole total again. One addition and one subtraction is enough. This small move alone turns O(n·m) into O(n).
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of the window.
+Here is how you check the window's answer. The step that measures the length must come only after the window has become valid again. Put the measuring step in the wrong place and the answer is always one too many or one too few, and that single mistake has spoiled more answers than any other.
 
 @recall jhyal
 
@@ -37,7 +37,7 @@ At the end, remember one distinction. The two fingers on the fifth island came i
 @read hush
 The lights on the bus are dim. Luffy has fallen asleep with his head against the window. Outside, the lights are sliding backwards one by one.
 
-One last time before you sleep, very slowly, listen to the rule of the window.
+Now think about the boundary cases. If the input is empty the answer must be zero, and if the whole array is already valid the answer must be the length of the array. Both are easy to check by hand, and between them they catch most of the bugs in window code.
 
 @recall jhyal
 
@@ -81,7 +81,7 @@ At a time like that you have to leave the window behind and use the running tota
 
 Robin added — [robin]"If the question says 'consecutive', think of the window. If it does not say 'consecutive', forget the window. If it is about choosing things or skipping over things, that belongs to another island."[/]
 
-Now let us put it all together into a small list, and close your eyes while you listen to it. If the size is given to you, use a fixed window. If the size is what you are looking for, use a growing window.
+Now let us put it all together into a small list, and that list separates every shape the window takes. If the size is given to you, use a fixed window. If the size is what you are looking for, use a growing window.
 
 If you are looking for the longest, pull the right edge, pull the left edge when it becomes invalid, and measure when it is valid. If you are looking for the shortest, pull the right edge, measure as soon as it becomes valid, and then pull the left edge to try to make it shorter still.
 

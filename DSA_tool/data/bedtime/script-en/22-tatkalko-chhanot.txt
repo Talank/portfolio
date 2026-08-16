@@ -24,7 +24,7 @@ Measure that limit afresh at every place. But first check whether the place I am
 This finishes in a single pass, and no table is needed.
 
 @read hush
-Now keep your eyes closed and listen once again to the greedy rule.
+There is only one way to check whether a greedy approach is right, and that is to go looking for an example. Try to build a small input that defeats your own approach. If you try and cannot build one, the approach is probably safe, and if you can, that same input shows you the way.
 
 @recall lobhi
 
@@ -45,7 +45,7 @@ So sort by the end time, then keep choosing without overlapping. This is O(n log
 The racing track emptied. Luffy is lying in the grass, laughing. He did not think, and today he was right.
 
 @read hush
-One last time before you sleep, very slowly, listen to the greedy rule.
+What do you do where the greedy path does not work? There you need the approach of memory, because there the effect of every choice has to be carried forward. Knowing the border between those two is the real lesson of this island.
 
 @recall lobhi
 

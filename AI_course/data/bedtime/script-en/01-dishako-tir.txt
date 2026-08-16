@@ -1,0 +1,73 @@
+# 1 — The arrow of direction: vectors, dot product and cosine
+
+On the first night the ship stood out on the open sea. The sky above is clear, and the stars are quiet.
+
+Nami came up. There is no paper in her hand. She pointed a finger at the sky and said — [nami]"Tonight's lesson is up there."[/]
+
+Imagine an arrow from one star to another. That arrow has two things about it. The first is which way it is pointing. The second is how long it is. This arrow is what a vector is.
+
+@read teach
+A vector can also be written as a list of numbers. With two numbers it is an arrow you can draw on paper. With three it is an arrow inside a room. With three hundred the arithmetic stays the same, but it cannot be drawn. Remember one thing here, because it makes half of the course ahead easy. Anything that can be written as a list of numbers is a vector. A picture is a vector. A word is a vector. Even one person's habits are a vector.
+
+Now the relation between two arrows has to be measured. One tool is needed for that, and it is the dot product.
+
+The way to work out a dot product is easy. Multiply the first number of both vectors. Multiply the second number of both. Go on multiplying each pair like that, and at the end add all the products up. What is left is a single number.
+
+What that single number says is the important part. If the two arrows point the same way the number is large and positive. If they are exactly opposite it is negative. If they stand at a right angle it is exactly zero.
+
+@read teach
+But there is a trap here, and many people fall into it. The dot product grows with length as well. If one arrow gets longer the number grows even though the direction never changed. So the dot product tells you direction and length mixed together.
+
+Nami explained it with an example. [nami]"Two people are looking the same way. One has stretched an arm out long, the other short. The place they are looking at is the same."[/]
+
+So the length has to be taken out. Divide each vector by its own length, and after that every arrow is one unit long. Now take the dot product, and what comes out is the cosine similarity.
+
+Cosine similarity always sits between minus one and plus one. Plus one means exactly the same direction. Zero means there is no relation at all. Minus one means exactly the reverse.
+
+This small piece of arithmetic comes back everywhere afterwards. Search is this. Recommendation is this. Which piece to pull out in RAG is this as well. And the first step inside attention is this same dot product.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo bhektar-nap
+The closeness between two vectors is measured like this. In the first step the matching numbers of both are paired and multiplied, and all the products are added, and that is called the dot product. In the second step that dot product is divided by the lengths of both vectors, and this takes away the effect of length. In the third step what is left is a number between minus one and plus one, and that is called the cosine similarity. If plus one comes out, both arrows are looking the same way, and if zero comes out, they have no kinship at all.
+@end
+
+That is all of it. There is no magic here, and it is only multiplying and adding.
+
+Here is how to check that you worked it out correctly. Take the cosine of a vector with itself, and it must come out at exactly plus one, because nothing is closer to an arrow than the arrow. If it does not, the dividing step is wrong, and you have almost certainly divided by the length once instead of twice.
+
+@recall bhektar-nap
+
+The stars are where they were. The ship is rocking slowly.
+
+@read hush
+There is one place this measure quietly fails. A vector of all zeros has no length, and dividing by its length divides by zero. There is no direction in such an arrow to compare, so it has to be caught before the division and not after it.
+
+@recall bhektar-nap
+
+@tier medium
+
+There is still night left. Nami added another thing, and it was about length itself.
+
+The length of a vector is called its norm. To work it out, multiply every number by itself, add them all, and take the square root at the end. This is the rule of Pythagoras, and it stays the same however many dimensions there are.
+
+Now the distance between two arrows can be worked out as well. Subtract one from the other, and take the norm of the arrow that is left. That is the distance.
+
+A question rises naturally here. Which of distance and cosine should be used?
+
+The answer is this. If the length carries meaning, use distance. If the length is only size and the direction carries the meaning, use cosine. In searching text a long article and a short one can mean the same thing, so cosine is the right one there.
+
+@tier long
+
+Usopp came up too. He asked, [usopp]"What does an arrow in three hundred dimensions look like?"[/]
+
+Nami laughed. [nami]"It does not look like anything. But it can be measured."[/]
+
+There is a humble thing here, and it is about the limits of people. We cannot picture more than three dimensions. But the arithmetic does not stop where the picture does. Adding, multiplying and the square root stay the same in any number of dimensions.
+
+So build one habit through this whole course. When something happens in many dimensions, hold a two dimensional picture in mind, and trust the arithmetic. The picture makes you understand, and the arithmetic does the work.
+
+One more thing is left, and it is the strange nature of high dimensions. Once there are many dimensions, nearly every pair of arrows starts standing at a right angle to each other. This is called the curse of dimensionality, and it is why a model with many features needs more data.
+
+@read hush
+Now sleep. There are many arrows in the sky, and you know how they are measured.

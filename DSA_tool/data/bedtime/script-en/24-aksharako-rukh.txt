@@ -25,7 +25,7 @@ The trie does know. Walk as far as "ca", then go round all the branches below it
 That is why suggestions come up when you type on a phone. That is why the list drops down while you are halfway through the search box.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule of the tree of letters.
+One check tells you whether the tree of letters is built right. Search for every word you put in, and all of them must be found. Then search for a word you never put in. Even if branches for all of its letters exist in the tree, that word must not be found.
 
 @recall trie
 
@@ -42,7 +42,7 @@ This is the place where the island of the maze and this island are joined, becau
 Wind is moving through the tree of the dictionary. Letters are hanging on every branch. Those with a shared beginning are standing together, and then slowly go their own ways.
 
 @read hush
-One last time before you sleep, very slowly, listen to that same rule.
+This is exactly why the mark on the last node is not optional. Having the branches does not make a word complete, and if you search without the mark then half a word counts as a whole one. Always look at that mark before you say a word was found.
 
 @recall trie
 

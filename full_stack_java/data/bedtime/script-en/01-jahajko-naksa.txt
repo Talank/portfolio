@@ -1,0 +1,76 @@
+# 1 — The ship's map: JDK, JRE and JVM
+
+The morning light has not come yet. A small lamp is burning on Usopp's table. He is rubbing down a piece of wood, and its dust is flying in the air.
+
+Sit down beside him. There is nothing to ask. He starts talking by himself.
+
+[usopp]"People say that Java is a language,"[/] said Usopp. [usopp]"That is only half true. Java is the name of three things, and until you separate them everything feels confusing."[/]
+
+He put three things on the table. They were a hammer, a box, and a small engine.
+
+[aside]"The hammer is the JDK,"[/] he said. "This is the tool for building. This is what a person writing code needs. Inside it is the compiler, and its name is javac."
+
+"The box is the JRE. This is the place for running. If somebody only wants to run your program, this much is enough for them, and the hammer is not needed."
+
+"And the engine inside is the JVM. This is the thing that actually runs your program. It is a pretend computer, and it sits on top of your real computer."
+
+Now a question comes. Why was a pretend computer needed?
+
+The answer is easy. There are many kinds of computer in the world. Some work on a Mac, some on Windows, some on a small server. If your program talks straight to the machine, then it has to be built separately for every machine.
+
+So Java puts a layer in between. Your code talks to that layer, and that layer is built differently on every machine. This is what people mean when they say — write once, run anywhere.
+
+Now let us look at what happens between your writing and its running. This is today's rule.
+
+@algo tin-tah
+In the first step you write a file, and its name ends in dot java. That is the thing a person reads. In the second step the compiler called javac reads that file and makes another file, whose name ends in dot class. What is inside it is called bytecode, and it is not for a person but for a machine. In the third step the JVM picks that bytecode up, checks it, and runs it. So your code never speaks straight to the computer, and always speaks to the engine in between.
+@end
+
+Usopp pushed the wood in his hand aside. [usopp]"Now let us do a small thing,"[/] he said. [usopp]"Now let us write the first program."[/]
+
+The first program is always the same. A class is made, a method called main is put inside it, and inside that a line is written that shows something on the screen. People all over the world have started from this same thing.
+
+But these days even that much is not needed. A tool called jshell comes with it, and there you can write a single line. The answer comes at once. No file has to be made, and no class has to be written.
+
+Here is how to check that you understand which of the three you are holding. Ask what is missing if you have only the box. You could run somebody's finished program, and you could not build your own — because the compiler lives in the hammer. If that answer comes to you without thinking, the three are separated in your mind.
+
+@recall tin-tah
+
+The lamp is still burning. Outside the waves are coming in at the same pace.
+
+@read hush
+There is one thing about this arrangement that catches people out. The promise is write once and run anywhere, and it holds for the bytecode and not for everything around it. A file path, a line ending, or the count of processors is different on every machine, and the engine in the middle does not hide any of that.
+
+@recall tin-tah
+
+@tier medium
+
+Now let us add one thing that stays useful a long way ahead. What is bytecode?
+
+Bytecode is a small and simple language. It does not have many instructions. [aside]"Pick this number up"[/], [aside]"add these two"[/], [aside]"call this method"[/] — short instructions like that. The JVM reads them one by one.
+
+This is why Java's code stays the same on any machine at all. The bytecode of a Mac and the bytecode of Windows are not different. The only thing that differs is the engine that runs them.
+
+There is another thing as well. Java is not the only thing that runs on the JVM. Kotlin runs, Scala runs, Groovy runs. All of them make the same bytecode, and run on the same engine. So the knowledge of the engine you learn today stays useful even if you change language.
+
+@read teach
+Now let us talk about versions. A new version of Java comes every six months. But every two years one comes that is supported for a long time, and it is called an LTS. That is usually what is used at work.
+
+Old code usually runs on new Java exactly as it is. This is Java's greatest strength. Programs twenty years old are still running today, and this is why large banks and hospitals choose Java.
+
+@tier long
+
+Usopp made tea, and drank a mouthful. [usopp:amused]"Now I will tell you a secret,"[/] he said. [usopp]"This engine does not turn your code into the machine's language on the first pass."[/]
+
+@read teach
+The first time, the JVM reads the bytecode line by line and runs it directly. That is called the interpreter, and it is a little slow. But it starts quickly.
+
+And the engine goes on watching. Which method was called many times? Which loop turned thousands of times? When it finds a place like that, it turns only that much into the machine's language. Its name is the JIT.
+
+This explains one of Java's odd habits. A program is slow at the start, and warms up after a while. For a server that runs a long time this is very good indeed.
+
+But for a small and short program it is a disadvantage. So these days a tool called GraalVM arrived, and it can turn Java into the machine's language beforehand. We will meet it again on the last island.
+
+Now it is time to sleep. Usopp turned the lamp down. [usopp]"Tomorrow let us talk about names and shapes,"[/] he said. [usopp:gentle]"This much is enough for today."[/]
+
+Outside the wind blew, and the sail made a small sound. The ship is going in the same direction. There is nothing for you to do now.

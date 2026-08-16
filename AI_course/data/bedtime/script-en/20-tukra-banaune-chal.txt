@@ -1,0 +1,101 @@
+# 20 — The trick of making pieces: from words to BPE subwords
+
+Boxes are piled up in the ship's hold. Some are large, and some are the size of a fist.
+
+Sanji went down into the hold. He said, [sanji]"A large box does not fit through the door. It has to be opened and made small."[/]
+
+@read teach
+This is today's work. A model does not read letters, and a model reads only numbers.
+
+So text has to be cut into pieces first, and every piece has to be given a number. Those pieces are called tokens, and the part that does this work is called a tokenizer.
+
+The first easy idea is to make the words themselves the pieces. Cut at the blank spaces, and give every word a number.
+
+But there are two dangers here. The first danger is counting, because the words of the world never come to an end.
+
+The second danger is worse still. If a new word arrives that is not in the list, the model has nothing at all for it.
+
+@read teach
+The next idea is to make the letters themselves the pieces. Now the list is small, and no word falls outside it.
+
+But there are two troubles here as well. First, one sentence becomes a very long run and the arithmetic costs a great deal.
+
+Second, a single letter has no meaning of its own. The model has to begin the work of joining meaning from nothing.
+
+So a middle road was needed. Let a thing that comes often stay one piece, and let a rare thing break into small pieces.
+
+@read teach
+This middle road is made by an astonishingly easy trick, and this trick is like the rule of the whole hold.
+
+At the start break everything into letters. Now count, across the whole text, which two neighbouring pieces come together most often.
+
+Whichever pair came most often, join it into one new piece. Now count again, and join again.
+
+Repeat this thousands of times. This is called byte pair encoding, and in short it is called BPE.
+
+The result comes out fitting by itself. A word in heavy use becomes one token, and a strange word breaks into pieces that are recognised.
+
+@read teach
+Now listen to some of its effects, because these are met in daily work.
+
+The first effect is about price. An API counts tokens and not words, so the cost is measured in tokens.
+
+The second effect is about limits. How much a model can read at once is also measured in tokens, and that is called the context window.
+
+The third effect is about language, and it is unjust. Languages other than English usually break into more pieces, so saying the same thing takes more tokens and costs more money.
+
+The fourth effect is an amusing one. Ask a model how many letters are in a word and it usually fails, because it sees pieces and not letters.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo tukra-banaune
+Text is cut into pieces like this. The first thing is that a model reads numbers and not letters, so the text is cut into pieces and every piece is given a number, and those pieces are called tokens. The second thing is that making the words themselves the pieces means the list never ends and a strange word falls outside, while making the letters the pieces means the run gets very long and the meaning is lost. The third thing is that a middle road is therefore taken, and after breaking everything into letters the two neighbouring pieces that come together most often are joined into a new piece, and this repeats thousands of times, and it is called byte pair encoding. The fourth thing is that this makes a much used word one token and breaks a strange word into recognised pieces, and both the cost and the context window are measured in tokens.
+@end
+
+That is all of it. Whichever piece comes again and again becomes a name of its own.
+
+Here is how to check what this is costing you. Put one sentence of your own language into the tokenizer and count the pieces it came out as, then do the same with the English of it. The ratio between those two counts is what you will pay above an English speaker for the same sentence, every time, and it is better to know that number than to guess it.
+
+@recall tukra-banaune
+
+The boxes are sitting in order in the hold. The ship is rocking lightly.
+
+@read hush
+There is one thing about this that catches people out. Nothing in this trick knows the meaning of a word — it counts only what sits beside what. So the pieces it chooses are the pieces that were common in its own training text, and a field with its own vocabulary will always be broken up more than it deserves.
+
+@recall tukra-banaune
+
+@tier medium
+
+The night is long. Sanji told some small things, and these are met while working.
+
+The first thing is about the blank space. Many tokenizers make the blank space before a word part of the token as well.
+
+So the first word of a sentence and the same word in the middle can be different tokens. This is why a strange result comes out now and then.
+
+The second thing is about digits. Numbers break into pieces too, and the way they break is not even.
+
+This is why long adding and subtracting is hard for a model. Giving it a separate tool for arithmetic is the wise thing.
+
+The third thing is about matching. The tokenizer and the model are always a pair.
+
+If you use another model's tokenizer the numbers do not agree, and the answer comes out useless. So take both together.
+
+@tier long
+
+Robin came into the hold. She asked — [robin]"How large should the list of pieces be kept?"[/]
+
+This is a question of trade, and there is a price on both sides. If the list is large a sentence becomes a short run and the arithmetic is cheap.
+
+But every token has to hold its own vector, so a large list raises the weight of the model. And a rare token is met by only a few examples in training.
+
+If the list is small the reverse happens. The weight falls, but the sentence gets long and the arithmetic costs more.
+
+In practice it is kept between tens of thousands and a few hundred thousand. A model that has to cover many languages keeps a large list.
+
+There is an easy check here as well. Put one sentence of your own language into a tokenizer and count how many tokens it became.
+
+That one count teaches you to guess both your cost and your limit.
+
+@read hush
+Now sleep. The hold is quiet, and the boxes are in their own places.

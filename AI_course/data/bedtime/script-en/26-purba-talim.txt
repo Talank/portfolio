@@ -1,0 +1,103 @@
+# 26 — Pretraining: data, scaling laws and training spread out
+
+The sea is on every side. No shore can be seen anywhere, and there is only water.
+
+Luffy looked around and asked, [luffy]"Where did all this water come from?"[/]
+
+@read teach
+Today's matter is that same quantity. On the last island we learned the build, and today we will learn about feeding it.
+
+The first training is called pretraining. Here the work is one thing, and it is guessing the next token.
+
+This one piece of work repeats over hundreds of billions of tokens. Nobody has to put a label on it, because the next word is itself the answer.
+
+This is why so much data could be used. Data checked over by people would never have been this much.
+
+@read teach
+The question of where the data comes from is a natural one. It comes from the text of the internet, from books, and from code.
+
+But raw text is not useful as it is. Here the work of cleaning is the largest work of all.
+
+The first cleaning is removing what is doubled. The same paragraph is found a thousand times, and that makes the model learn it by heart.
+
+The second cleaning is pushing the rubbish aside. Removing advertisements and useless text improves the result noticeably.
+
+The third cleaning is about testing, and it is the most important. If the questions that will be asked in the examination get mixed into the training data the result looks false, and this is called contamination.
+
+@read teach
+Now listen to an astonishing rule, and this rule gave birth to today's race.
+
+It was measured how much the loss falls as the model is made larger, the data is raised, and the arithmetic is raised. The result turned out to be something that could be predicted.
+
+This is not a shaking line, and it is a line coming down at an even slope. This is called a scaling law.
+
+This is where the courage to build large came from. Even before starting the training it could be guessed how much the result would improve.
+
+An improvement came later as well. Before, people used to make only the model larger, and kept the data small.
+
+But on measuring it, it was seen that both have to be raised together. A large model on a little data stays hungry.
+
+@read teach
+The last matter is where the training runs. A model this size does not fit on one machine.
+
+The first trick is to make copies. Keep one copy of the model on every machine, give each a different batch, then add all their gradients and take the average.
+
+This is called data parallel. It raises the speed, but the model has to fit on one machine.
+
+If the model itself will not fit, a second trick is needed. Break the model itself into pieces and put them on different machines, and let them talk to each other.
+
+There is one cheaper trick as well. Rather than holding the numbers at full precision, hold them at half precision, and this both saves memory and raises the speed.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo purba-talim
+A large model is built like this. The first thing is that in the first training the work is one thing and it is guessing the next token, and this is called pretraining, and nobody has to put a label on it because the next word is itself the answer. The second thing is that the data comes from the internet, from books and from code, and there the largest work is removing what is doubled, pushing the rubbish aside, and keeping the examination questions out of the training. The third thing is that as the model, the data and the arithmetic are raised the loss falls evenly in a way that can be predicted, and this is called a scaling law, and the model and the data must both be raised together. The fourth thing is that the training is spread across many machines, and a copy of the model is kept on each and the average of the gradients is taken, and if the model itself will not fit it is broken into pieces and put on different machines.
+@end
+
+That is all of it. The new tricks are few, and the quantity is beyond measure.
+
+Here is how to check that a reported result is honest. Ask whether the questions it was tested on could have been anywhere in what it was trained on. A model that has already read the answers will score beautifully and teach you nothing, and no amount of care in the rest of the work will show up that one mistake.
+
+@recall purba-talim
+
+The sea is wide. The ship has gone forward slowly.
+
+@read hush
+There is one thing this even line does not promise. It says the loss will fall, and the loss is only the guessing of the next token. Whether the thing you actually want improves along with it is a separate question, and it is the question that all the measuring on the fourteenth island exists to answer.
+
+@recall purba-talim
+
+@tier medium
+
+The night is long. Luffy asked about the cost, and the answer is worth remembering.
+
+One training of a large model costs tens of millions. So the places in the world that do this work are few.
+
+But there is a good side here. That cost is spent once, and after that everybody can use that same model.
+
+You do not have to do the pretraining. Your work is to make a small improvement on top of it, and that is the matter of the next island.
+
+A real difficulty is met in the middle of the training too. In work that runs for weeks a machine breaks, and the loss suddenly jumps.
+
+So the state is saved from time to time, and that is called a checkpoint. After a breakage it is started again from there.
+
+Listen to one more name as well. There is also a build that does not run every part all the time and runs only some parts for each token, and it is called mixture of experts.
+
+@tier long
+
+Robin came onto the deck. She asked — [robin]"What happens when the data runs out?"[/]
+
+This is today's real question. Good quality human writing is not without limit, and the point where it runs out is not far off.
+
+The first remedy is quality. Choosing the same data carefully gives a great deal even from a little.
+
+The second remedy is to use text the model has written itself. There is danger here, because learning its own mistakes makes a model slowly decline.
+
+So such data needs a hard sorting. It is dependable only in work that can be checked, and mathematics and code are work like that.
+
+The third remedy is to change direction altogether. Rather than adding to the training, the trick of letting it think more at answering time is being used more these days.
+
+So the race is no longer only about data. Now it is a race of choosing, of method, and of thinking time.
+
+@read hush
+Now sleep. The water is calm, and the shore will come tomorrow.

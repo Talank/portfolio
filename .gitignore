@@ -3,18 +3,17 @@
 
 # build_bedtime.py's per-clip TTS cache. Regenerated from script/*.txt; kept
 # at full quality on disk so rebuilds don't re-stitch from lossy input.
-# One line per course: full_stack_java drives the same script as its engine.
-DSA_tool/data/bedtime/parts/
-full_stack_java/data/bedtime/parts/
-AI_course/data/bedtime/parts/
-ACLS_tool/data/bedtime/parts/
+# Globbed rather than listed per course: the per-course list silently missed
+# every parts-en/ when the English editions arrived, and 483 MB of clip cache
+# — 38% of the whole deployed site — rode along to Pages before anyone noticed.
+*/data/bedtime/parts/
+*/data/bedtime/parts-en/
 
 # The ~400MB PCM intermediate build_bedtime.py mixes from and then deletes.
 _narration.wav
 
 # Render logs. Useful while a build is in flight, nothing but weight on Pages.
-# (AI_course's and full_stack_java's were committed before this line existed;
-# they stay tracked until somebody removes them deliberately.)
+# The ones committed before this line existed have now been untracked too.
 */data/bedtime/*.log
 
 # fetch_ambience.py's downloaded field recordings and the loops cut from them.

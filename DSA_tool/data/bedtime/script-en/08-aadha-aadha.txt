@@ -28,7 +28,7 @@ The first trap arrives when you work out the middle. Many people add the left an
 The second trap is in forgetting the plus one and the minus one. You have already looked at the middle book, so it must not go back into the range. If you put it back, the loop goes round forever.
 
 @read hush
-Now keep your eyes closed and listen once again to the rule for throwing away half.
+Here is the best way to check code that throws away half. Watch whether the searching part is really getting smaller on every turn. If even one turn leaves it the same size the code never stops, and that is the single danger in this approach.
 
 @recall aadha
 
@@ -42,7 +42,7 @@ There is one deeper thing, and it usually gets missed. Binary search is not alwa
 @read hush
 The keeper turned the lights down. The library is silent. Robin closed her eyes with the book held against her chest.
 
-One last time before you sleep, very slowly, listen to the rule for throwing away half.
+Now check three cases by hand. The first case is where the value you want sits at the very beginning. The second case is where it sits at the very end. The third case is where it is not in the array at all. When those three are right, everything between them is right on its own.
 
 @recall aadha
 

@@ -1,0 +1,103 @@
+# 27 — A small improvement: SFT, LoRA and alignment
+
+A large engine has been set down in the workshop. It was built already, and Franky has not touched it.
+
+Franky said, [franky]"Building the engine again is foolishness. I only add a small part."[/]
+
+@read teach
+This is today's idea. After the training on the last island the model learns to finish text.
+
+But it does not obey an instruction. If you ask it a question it may write not an answer but another question.
+
+The reason is plain. It learned to copy the text of the internet, and on the internet another question usually comes after a question.
+
+So a second training is needed. Show it pairs of an instruction and a good answer to it, and run the ordinary training.
+
+This is called supervised fine tuning. No new knowledge is added here, and only the behaviour changes.
+
+@read teach
+But changing the whole model costs a great deal. Billions of weights have to be moved, and a large machine is needed for that.
+
+A beautiful observation is useful here. However much the training moves the weights, that change usually lies along only a few directions.
+
+So do not touch the old matrix, and leave it frozen. Put two thin matrices beside it, and add their product as the change.
+
+Now train only those two thin matrices. This is called LoRA.
+
+The benefit is large. The weights that have to be trained fall by hundreds of times, and the result comes out as though everything had been changed.
+
+There is one more benefit. The small file that is made is a few megabytes, so many jobs can be hung on one large model by turns.
+
+@read teach
+One more thrift is added on top of this. Once the old weights are being kept frozen, they do not have to be held at full precision.
+
+Squeeze them into few bits, and train the thin matrices on top of that. This is called QLoRA.
+
+Its effect is a practical one. A large model can be improved even on a machine at home.
+
+@read teach
+Now the last stage comes, and it is the most delicate. What a good answer is cannot be written down as a rule.
+
+So a person is shown two answers and asked which they liked. This is easy to compare, and hard to write.
+
+Out of those choices a small model is trained that gives an answer a score, and it is called a reward model. Then the main model is taught so as to raise that score.
+
+This is called RLHF. This stage is what turns a raw model into a useful assistant.
+
+An easier road was found later as well. Without building the scoring model in between, the training can be done directly so as to raise the probability of the liked answer and lower the disliked one.
+
+This is called DPO. It is simple, it is steady, and it is much used these days.
+
+Now listen to what this island comes to, and it will come back three times tonight.
+
+@algo sano-sudhar
+A ready model is made your own like this. The first thing is that after pretraining the model only knows how to finish text, so it is trained again by showing pairs of an instruction and a good answer, and this is called supervised fine tuning. The second thing is that changing all the weights costs a great deal, so the old matrix is kept frozen and two thin matrices are added beside it and their product is added as the change, and only those two are trained, and this is called LoRA. The third thing is that squeezing the frozen weights into few bits and training the thin matrices on top works even on a small machine, and this is called QLoRA. The fourth thing is that because a good answer cannot be written as a rule a person is shown two answers and asked to choose, and from that choice a scoring model is built and the main model is taught, and that is called RLHF, or the teaching is done straight from the choice without the model in between, and that is called DPO.
+@end
+
+That is all of it. The engine stayed the same, and the parts around it changed the behaviour.
+
+Here is how to check whether you need this at all. Ask first whether what is missing is knowledge or manner. If the model does not know a fact, give it the paper and not more training. Training is for teaching it how to answer, and almost never for teaching it what is true.
+
+@recall sano-sudhar
+
+The engine is turning slowly in the workshop. The new part has been joined onto it.
+
+@read hush
+There is one thing worth watching after this second training. The model may become better at the shape of your examples and worse at everything else, and the loss on your own small data will not show it. So keep a set of ordinary questions from before, and ask them again afterwards.
+
+@recall sano-sudhar
+
+@tier medium
+
+The night is long. Franky answered a practical question, and everybody asks this question.
+
+The question of whether fine tuning is needed to add new knowledge comes up often. Mostly it is not.
+
+If facts have to be added, give the paper along with the question, and that trick belongs to the twenty-ninth island. It is cheap, and when it is wrong it is easy to correct.
+
+The place where fine tuning is needed is a different one. If a format, or a style, or the habit of a short answer has to be taught, it is right for that.
+
+There is one more use. The answers of a large model can be gathered up to teach a small model, and this is called distillation.
+
+This lowers the cost a great deal. On limited work a small model can give a result near that of the large one.
+
+Remember one danger as well. While learning something new the model can forget an old skill, and this is called catastrophic forgetting.
+
+@tier long
+
+Robin came into the workshop. She asked — [robin]"Is it true that alignment makes a model weaker?"[/]
+
+It is true up to a point. After alignment a model becomes cautious, and it sometimes refuses in places where it need not.
+
+This price is called the alignment tax. As safety rises, usefulness falls a little.
+
+The second danger is subtler still. The scoring model is itself a model, and it has weaknesses of its own.
+
+The main model can find those very weaknesses and find a road to raising its score. A long and sweet sounding but hollow answer usually gets a higher score.
+
+This is called reward hacking. When the thing being measured becomes the goal, the measure is spoiled.
+
+So alignment is not a one time piece of work. It is work that has to be measured and corrected again and again, and that matter comes back on the thirty-first island.
+
+@read hush
+Now sleep. The engine is quiet, and the part is sitting in its place.
