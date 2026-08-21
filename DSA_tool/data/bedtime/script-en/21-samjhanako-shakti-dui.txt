@@ -14,7 +14,13 @@ Think about it this way. The coins are one, three and four, and you have to make
 The rule for memory in two dimensions is this. First write down your case, that is, work out which numbers together name one sub-question completely. Those numbers become the rows and columns of the table. Write the answer to the smallest case first, and that is the base. Now fill the squares of the table in order, and in every square try each of the choices you have, one at a time. Every choice takes you to a smaller square that has already been filled, so read the answer there directly and add your own cost. Write the best answer among all the choices into that square. Whatever is written in the last square is the answer to the whole question.
 @end
 
-In the coin problem that same rule applies like this. Making zero takes zero coins, and that is the base. Now climb from one up to the target, and at every amount try every coin. If I take this coin, the answer for the remaining amount is already on the wall, and you add one to it. Whichever comes out smallest across all the coins is the answer for this amount.
+[nami]"In the coin problem that same rule applies like this."[/] Nami said. [nami]"Making zero takes zero coins, and that is the base."[/]
+
+[chopper]"And after that?"[/] Chopper asked.
+
+[nami]"Climb from one up to the target, and at every amount try every coin."[/] Nami said. [nami]"If I take this coin, the answer for the remaining amount is already on the wall, and you add one to it."[/]
+
+[robin]"Whichever comes out smallest across all the coins is the answer for this amount."[/] Robin said.
 
 @read teach
 The second problem is the longest rising run, and it is called [..]LIS[..]. You have to pick some numbers out of the array, without breaking their order, and make the longest rising sequence.
@@ -101,6 +107,22 @@ Then listen to one last idea, which is the deepest one. For DP to work, two qual
 The first quality is that the best answer to the large problem has to be built out of the best answers to the small problems. The second quality is that the same small problem has to come back many times, or there is no benefit in remembering it.
 
 Where those two are missing, trying to apply DP is wasted effort. And where those two are present, DP looks almost like magic.
+
+Now listen to something beautiful, and it makes two of tonight's questions into one.
+
+The question is this. What is the longest subsequence inside a string that reads the same backwards? You may skip letters, but you may not change their order.
+
+Luffy said — [luffy]"That is a new problem."[/] Robin shook her head and said — [robin]"It is not. It is that same longest common subsequence, and you already have the second string."[/]
+
+The move is one sentence long. Reverse that same string, and take the longest common subsequence of the original and the reversed one. That is the answer.
+
+Why it is true becomes plain when you hear it. The part that stays the same read backwards is the part that is found in the same order whether you read from the front or from the back. Reading from the back is reading the reversed string from the front. So the longest part common to both is exactly the answer you were looking for.
+
+And now another answer comes out of it for free. How few letters must be added to a string to make it a palindrome? As many letters as did not get into that long subsequence. Which is to say, subtract that answer from the length of the string.
+
+The time is O(n²), and the room is O(n²) as well, though remembering two rows at a time is enough.
+
+Robin said — [robin]"Remember only this much tonight. When a new problem arrives, first ask whether it is some old problem in new clothes."[/]
 
 Robin put down the chalk. The table was full. Numbers sat quietly all across the wall, and each one carried the answer to its own small question.
 

@@ -46,11 +46,34 @@ PHRASES = {
     "Prefix Sum": "प्रिफिक्स सम",
     "Monotonic Stack": "मोनोटोनिक स्ट्याक",
     "Topological Sort": "टोपोलोजिकल सर्ट",
+    # Added with the conversational rewrite: the crew now argue about cost out
+    # loud, so the phrases they argue in have to be sayable.
+    "Least Recently Used": "लिस्ट रिसेन्ट्ली युज्ड",
+    "Divide and Conquer": "डिभाइड एन्ड कन्कर",
+    "Time Complexity": "टाइम कम्प्लेक्सिटी",
+    "Space Complexity": "स्पेस कम्प्लेक्सिटी",
+    "Priority Queue": "प्रायोरिटी क्यू",
+    "Adjacency List": "एड्जासेन्सी लिस्ट",
+    "Level Order": "लेभल अर्डर",
+    "Brute Force": "ब्रुट फोर्स",
+    "Call Stack": "कल स्ट्याक",
+    "Base Case": "बेस केस",
+    "Edge Case": "एज केस",
+    "In Place": "इन प्लेस",
+    "Min Heap": "मिन हिप",
+    "Max Heap": "म्याक्स हिप",
 }
 
 # Single words. Matched case-insensitively — the scripts capitalise the same
 # term inconsistently ("array"/"Array", "heap"/"Heap") and both must sound alike.
 WORDS = {
+    # The listener asked for these three by name: a direction, a shape and its
+    # adjective are all easier in English than in Nepali even inside Nepali
+    # narration. Same rule as left/right, which were already here.
+    "arrow": "एरो",
+    "arrows": "एरोहरू",
+    "circle": "सर्कल",
+    "circular": "सर्कुलर",
     "array": "एरे",
     "subarray": "सब एरे",
     "string": "स्ट्रिङ",
@@ -89,6 +112,59 @@ WORDS = {
     "intervals": "इन्टरभल",
     "merge": "मर्ज",
     "window": "विन्डो",
+    # Technical nouns the rewritten chapters lean on. Deliberately nouns only:
+    # ordinary words the story uses as story ("half", "back", "step") stay
+    # Nepali, or the narration turns into a word list. See the note at the top
+    # about transliteration rather than translation.
+    "input": "इनपुट",
+    "output": "आउटपुट",
+    "cache": "क्यास",
+    "reverse": "रिभर्स",
+    "reversed": "रिभर्स्ड",
+    "data": "डाटा",
+    "size": "साइज",
+    "level": "लेभल",
+    "levels": "लेभलहरू",
+    "path": "पाथ",
+    "paths": "पाथहरू",
+    "cycle": "साइकल",
+    "cycles": "साइकलहरू",
+    "visit": "भिजिट",
+    "visited": "भिजिटेड",
+    "edge": "एज",
+    "edges": "एजहरू",
+    "vertex": "भर्टेक्स",
+    "vertices": "भर्टिसेज",
+    "leaf": "लिफ",
+    "leaves": "लिभ्स",
+    "parent": "प्यारेन्ट",
+    "child": "चाइल्ड",
+    "children": "चिल्ड्रेन",
+    "swap": "स्वाप",
+    "insert": "इन्सर्ट",
+    "delete": "डिलिट",
+    "update": "अपडेट",
+    "loop": "लुप",
+    "loops": "लुपहरू",
+    "offset": "अफसेट",
+    "boundary": "बाउन्ड्री",
+    "capacity": "क्यापासिटी",
+    "mask": "मास्क",
+    "bucket": "बकेट",
+    "buckets": "बकेटहरू",
+    "target": "टार्गेट",
+    "matrix": "म्याट्रिक्स",
+    "grid": "ग्रिड",
+    "cell": "सेल",
+    "cells": "सेलहरू",
+    "pop": "पप",
+    "push": "पुस",
+    "peek": "पिक",
+    "null": "नल",
+    "flag": "फ्ल्याग",
+    "range": "रेन्ज",
+    "example": "एक्जाम्पल",
+    "morris": "मोरिस",
     "sliding": "स्लाइडिङ",
     "knapsack": "न्यापस्याक",
     "inorder": "इन अर्डर",
@@ -145,6 +221,30 @@ WORDS = {
     # will meet, and the Nepali sentence around it stays Nepali.
     "left": "लेफ्ट",
     "right": "राइट",
+    # Same argument, carried further. These were the Sanskritised Nepali words
+    # the scripts reached for -- ऋणात्मक, उपसमूह, क्रमचय, उत्तराधिकारी,
+    # सन्तुलित, विकर्ण, अद्वितीय, आयत -- and every one of them is a word the
+    # listener will never meet again outside a Nepali maths textbook. The
+    # English is what is written in the book they will study from and spoken in
+    # the interview they will sit, and it is the shorter word besides. The
+    # sentence around it still runs in Nepali, and the suffix still attaches:
+    # "subsetको", "diagonalमा".
+    "negative": "नेगेटिभ",
+    "positive": "पोजिटिभ",
+    "subset": "सबसेट",
+    "subsets": "सबसेट",
+    "permutation": "पर्मुटेसन",
+    "permutations": "पर्मुटेसन",
+    "successor": "सक्सेसर",
+    "diagonal": "डायगोनल",
+    "diagonals": "डायगोनल",
+    "balanced": "ब्यालेन्स्ड",
+    "unique": "युनिक",
+    "rectangle": "रेक्ट्याङ्गल",
+    "rectangles": "रेक्ट्याङ्गल",
+    "expression": "एक्सप्रेसन",
+    "square": "स्क्वायर",
+    "root": "रुट",
     "bottom": "बटम",
     "problem": "प्रोब्लम",
     "problems": "प्रोब्लम",
@@ -222,6 +322,14 @@ def _compile(mapping, flags=0):
                      + r")(?![A-Za-z])", flags)
     return pat
 
+
+# WORDS is matched case-insensitively and looked up with .lower(), so a key
+# with a capital in it compiles into the pattern, matches, and then raises
+# KeyError on the lookup. That is a crash at the first chapter that happens to
+# use the word — forty minutes into a render, if the word is rare. Checked at
+# import instead.
+_bad = sorted(k for k in WORDS if k != k.lower())
+assert not _bad, f"WORDS keys must be lowercase: {_bad}"
 
 _PHRASE_RE = _compile(PHRASES)
 _WORD_RE = _compile(WORDS, re.IGNORECASE)

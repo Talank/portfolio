@@ -108,6 +108,9 @@ CHAPTERS_HEADING = "अध्याय सूची"
 # is deliberately slower, lower and quieter — it is competing with sleep, not
 # with a lecture hall.
 VOICE = "ne-NP-HemkalaNeural"
+# The second Nepali voice, and the whole reason the crew can be cast at all.
+# Every male crew member is this one; see STYLES.
+MALE = "ne-NP-SagarNeural"
 RATE = "-22%"
 PITCH = "-6Hz"
 VOLUME = "-12%"
@@ -243,9 +246,25 @@ SLOW_DELTA = -8.0
 #
 # `rate` is in percentage points off the mode's rate, `pitch` in Hz off the
 # mode's pitch, `gain` in dB of post-compressor level. `voice` swaps the engine
-# voice outright and is deliberately left unset: a narrator reading a novel does
-# the crew in their own voice, and cutting to a second speaker mid-paragraph
-# sounds like a radio play, not a bedtime story.
+# voice outright.
+#
+# That last one used to be deliberately unset here, on the argument that a
+# narrator reading a novel does the crew in their own voice. The argument was
+# sound; the premise was wrong. It assumed one usable Nepali voice, and there
+# are two — ne-NP-SagarNeural had simply never been tried. Measured on one line
+# of this script, Hemkala sits at 208 Hz and Sagar at 123 Hz. That is not a
+# shading, that is a second person in the room, and it is the difference
+# between a story that is read aloud and a story that is acted.
+#
+# Which is also why the pitch offsets below got *smaller* when Sagar arrived.
+# When one voice had to carry nine characters, +-16 Hz was doing all the work
+# of telling them apart and was audibly an effect. Now the timbre does that
+# work and the offsets only have to say how fast someone talks and how much
+# room they take up.
+#
+# Sagar reads about 7% quicker than Hemkala at the same rate setting, so the
+# male crew carry a small negative rate offset purely to hold the narrator's
+# pace; anything above that is character.
 STYLES = {
     "narrator": {},
     # The method blocks. No offsets and, crucially, no drift: `steady` is the
@@ -271,20 +290,98 @@ STYLES = {
     "warm":    {"rate": -4.0, "pitch": -2.0, "gain": -1.0},
     "lift":    {"rate": +5.0, "pitch": +3.0, "gain": +2.0},   # the reveal
     "wonder":  {"rate": -5.0, "pitch": +5.0, "gain": +0.5},
-    # The crew. Kept inside ±16Hz on purpose: this is a story read at bedtime,
-    # so a character is a shading of the narrator's voice, not an impression.
-    # Chopper at +20Hz was tried and is funny, which is the wrong thing to be
-    # at two in the morning.
-    "luffy":   {"rate": +6.0, "pitch": +11.0, "gain": +1.5},
-    "zoro":    {"rate": -4.0, "pitch": -13.0, "gain": +0.0},
-    "nami":    {"rate": +4.0, "pitch": +6.0, "gain": +0.5},
-    "usopp":   {"rate": +7.0, "pitch": +13.0, "gain": +1.0},
-    "sanji":   {"rate": +1.0, "pitch": +2.0, "gain": +0.5},
-    "chopper": {"rate": +8.0, "pitch": +16.0, "gain": -0.5},
+    # The crew. Seven of them are Sagar and two are Hemkala, so the first thing
+    # the ear gets is male-or-female, before any offset is applied at all.
+    #
+    # Loud, quick, uncomplicated. The one crew member allowed above the
+    # narrator in level.
+    "luffy":   {"voice": MALE, "rate": +3.0, "pitch": +8.0, "gain": +1.5},
+    # The lowest and slowest on the ship. Zoro's lines are short and flat and
+    # the pauses are the character, so he gets the biggest negative rate.
+    "zoro":    {"voice": MALE, "rate": -8.0, "pitch": -6.0, "gain": +0.0},
+    # Animated, always slightly over-selling it.
+    "usopp":   {"voice": MALE, "rate": +4.0, "pitch": +10.0, "gain": +1.0},
+    # Smooth and unhurried; the one who is never in a rush.
+    "sanji":   {"voice": MALE, "rate": -4.0, "pitch": +2.0, "gain": +0.5},
+    # Big and boxy — a mid voice pushed well down and up in level, which is the
+    # shape of somebody built out of scrap metal.
+    "franky":  {"voice": MALE, "rate": -2.0, "pitch": -8.0, "gain": +2.0},
+    # Old, high and slow. High pitch on a low voice reads as age, not as youth.
+    "brook":   {"voice": MALE, "rate": -9.0, "pitch": +11.0, "gain": -1.0},
+    # Calm, low, and the most-heard character in the voyage. Hemkala pushed
+    # under the narrator, which is where Robin lives.
     "robin":   {"rate": -6.0, "pitch": -5.0, "gain": -1.5},
-    "franky":  {"rate": +3.0, "pitch": -11.0, "gain": +2.0},
-    "brook":   {"rate": -5.0, "pitch": +14.0, "gain": -1.0},
+    # Brisk and bright, and clearly the narrator's own voice in a good mood —
+    # which is right: Nami is the one who explains things.
+    "nami":    {"rate": +4.0, "pitch": +6.0, "gain": +0.5},
+    # A child. Sagar at +16Hz is still an adult man, so Chopper is the high end
+    # of Hemkala instead, quick and quiet. Damped on purpose: funny is the
+    # wrong thing to be at two in the morning.
+    "chopper": {"rate": +6.0, "pitch": +14.0, "gain": -1.0},
+    # Not one of the crew: the islands' one-off elders — the mapmaker who
+    # measures time, the keeper of the library, the pearl merchant. There are
+    # four of them across the voyage and they were being read either by the
+    # narrator or, in the mapmaker's case, by Nami, which is how a line of his
+    # ended up in her voice. Slow, low and quiet, and further from the crew
+    # than any of them are from each other, because an elder should not sound
+    # like somebody's shipmate.
+    # Slower than anyone and pitched *up*, not down. The first attempt put the
+    # elder at -32%/-8Hz, which is two per cent and two hertz from Zoro — the
+    # same man, and the whole reason for casting him separately was that he
+    # should not be somebody's shipmate. Age thins a voice rather than
+    # deepening it, so the fix is the slowest rate in the cast against a small
+    # positive pitch.
+    "sage":    {"voice": MALE, "rate": -12.0, "pitch": +8.0, "gain": -1.5},
 }
+
+# Which of the crew are cast on MALE. Named rather than inferred, because
+# uncasting them is something an importing course has to be able to do — see
+# unset_crew_voices().
+CREW_MALE = ("luffy", "zoro", "usopp", "sanji", "franky", "brook")
+
+
+def check_cast_language():
+    """Fail loudly if any cast voice is in a different language to the narrator.
+
+    The crew are cast in this file, and an importing course keeps that cast
+    unless it overrides it. So an edition that swaps only the narrator inherits
+    nine Nepali voices, and the failure is silent: the render succeeds and one
+    paragraph in fifty is in the wrong language, which is not something a
+    duration check or a join check can see. Cheap to test, so it is tested.
+    """
+    want = VOICE.split("-")[0]
+    bad = sorted({(n, st["voice"]) for n, st in STYLES.items()
+                  if st.get("voice") and st["voice"].split("-")[0] != want})
+    if bad:
+        rows = ", ".join(f"{n}={v}" for n, v in bad)
+        raise SystemExit(
+            f"cast language mismatch: narrator is {VOICE} but {rows}.\n"
+            "Override those styles in this edition's profile, or call "
+            "unset_crew_voices() to fall back to shading the narrator.")
+
+
+def unset_crew_voices():
+    """Drop every voice this module assigns, keeping the offsets.
+
+    Two kinds of importer need this.
+
+    A course that narrates in Sagar: there are two Nepali voices, and if the
+    narrator is already the male one then casting the male crew on it makes
+    each of them the narrator in a slightly different mood. full_stack_java is
+    that course.
+
+    A course that narrates in another language and does not use this cast at
+    all: ACLS_tool has its own characters entirely, so the crew styles sit
+    unused — but they still carry Nepali voices, and check_cast_language()
+    quite correctly refuses to start an English render that has them defined.
+
+    AI_course narrates in Hemkala and must *not* call this: there the male
+    crew on Sagar is exactly the improvement.
+    """
+    for name in CREW_MALE + ("sage",):
+        STYLES[name] = {k: v for k, v in STYLES[name].items() if k != "voice"}
+    _RESOLVED.clear()
+
 
 # `slow` was the original spelling of the teaching register, and 68 paragraphs
 # across the two voyages are marked with it. Kept as an alias so those scripts
@@ -528,7 +625,11 @@ _ACRO = {
     "BFS": "बी एफ एस", "DFS": "डी एफ एस", "BST": "बी एस टी", "DP": "डी पी",
     "XOR": "एक्स ओ आर", "AND": "एण्ड", "OR": "ओ आर", "NOT": "नट",
     "LRU": "एल आर यू", "AVL": "ए भी एल", "DAG": "ड्याग", "LIS": "एल आई एस",
-    "FIFO": "फिफो", "LIFO": "लाइफो", "API": "ए पी आई",
+    # Said as words, not spelled out — but said the way the field says them,
+    # which is "FY-foh" and "LY-foh". LIFO was already right; FIFO was written
+    # फिफो and came out "FIH-foh", the one of the pair that was wrong.
+    "FIFO": "फाइफो", "LIFO": "लाइफो", "API": "ए पी आई",
+    "LFU": "एल एफ यू", "GCD": "जी सी डी", "ASCII": "आस्की",
 }
 _LETTER_SOUND = {
     "a": "ए", "b": "बी", "c": "सी", "d": "डी", "e": "ई", "f": "एफ", "g": "जी",
@@ -1396,6 +1497,20 @@ def plan_segments(chapters, mode="bedtime"):
                 before = prev_scene
             else:
                 lead, before = prof["gap_para"], scene
+            # The player starts this file OVERLAP seconds before the previous
+            # one ends and equal-power crossfades between them, so the opening
+            # OVERLAP seconds of every segment but the very first are heard
+            # underneath the outgoing file, ramped up from zero. That is
+            # inaudible only while nothing is being said yet. Driving mode's
+            # paragraph pause is 1.15s against a 1.5s crossfade, so on all 81
+            # of its continuation segments the first words arrived 0.35s early,
+            # under the previous chapter and at a fraction of their level. An
+            # opening silence is therefore never shorter than the crossfade it
+            # has to cover. It costs nothing rhythmically: drive's in-segment
+            # paragraph pauses already jitter across 0.78-1.52s, so 1.5s is a
+            # pause this mode already makes.
+            if segs:
+                lead = max(lead, OVERLAP)
             segs.append({
                 "name": f"ch{ch['num']}-{tier}",
                 "num": ch["num"], "title": ch["title"], "tier": tier,
@@ -1951,6 +2066,7 @@ def main():
                     help="keep the mp3 master instead of dropping it once the "
                          "opus is verified (the site only ever plays the opus)")
     args = ap.parse_args()
+    check_cast_language()
     _take_lock()
 
     only = set(x.strip() for x in args.only.split(",") if x.strip())

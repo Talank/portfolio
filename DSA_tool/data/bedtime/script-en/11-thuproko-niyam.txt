@@ -5,7 +5,7 @@ In the kitchen on the eleventh island Sanji is washing dishes. He piles the wash
 Luffy came in and tried to pull a plate out from the bottom. Sanji smacked his hand and said — [sanji]"You do not pull the bottom plate out of a stack. Whatever was put down last comes up first."[/]
 
 @read teach
-That is the one rule of a [..]stack[..]. The last thing in is the first thing out, and this is called LIFO.
+That is the one rule of a [..]stack[..]. The last thing in is the first thing out, and this is called [..]LIFO[..].
 
 It sounds ordinary when you hear it. But this rule does one remarkable thing, because it remembers work that is waiting and gives it back in exactly the reverse order. Wherever something is opened and has to be closed later, a stack is needed.
 
@@ -52,7 +52,13 @@ The kitchen light had already gone out, but Sanji was still there. He did not li
 
 The first thing is building a queue out of two stacks. In a queue whatever came first goes first, but in a stack it is exactly the reverse. So how does a stack build a queue?
 
-The move is this. Keep two stacks, and their names are the in one and the out one. Always put new things into the first. When you have to take something out, if the second is empty, move all the plates from the first into the second one at a time. In the moving, the order reverses by itself, and the reverse of a reverse is straight.
+[franky]"The move is this. Keep two stacks."[/] Franky said. [franky]"Their names are the in one and the out one. Always put new things into the first."[/]
+
+[chopper]"And when you have to take something out?"[/] Chopper asked.
+
+[franky]"If the second is empty, move all the plates from the first into the second, one at a time."[/] Franky said.
+
+[robin]"In the moving, the order reverses by itself."[/] Robin said. [robin]"And the reverse of a reverse is straight."[/]
 
 The amortised arithmetic turns up again here. Sometimes the moving is expensive, but each plate is moved at most twice in its whole life. So on average this is O(1).
 
@@ -89,6 +95,22 @@ That sounds crooked, and it really is crooked. But remember the shape, because p
 Now listen to the boundary questions, because all the mistakes with stacks live there. Did anyone try to take something off an empty stack? Was the stack checked for emptiness before looking at the top? Was the stack empty at the end?
 
 Those three questions catch ninety per cent of stack mistakes. Once you have written the code, get into the habit of asking those three questions once.
+
+Now listen to tonight's hardest problem, and it needs two of tonight's moves together.
+
+At the start we checked whether the brackets matched. After that we worked out the value of an expression written back to front. Now put the two together. You have to find the value of an ordinary expression, written the usual way, with brackets in it and with plus and minus.
+
+Sanji said — [sanji]"What is inside the bracket is a separate sauce. But sometimes that sauce turns sour."[/]
+
+Turning sour means this. If there is a minus sign in front of a bracket, every sign inside it flips. If it is five minus, bracket, three minus two, then the minus inside really becomes a plus.
+
+The move is like this, and it is small when you hear it. Carry one number, and that is the total so far. Then carry the sign that is running right now, and that is either one or minus one.
+
+When you meet an open bracket, put both the total so far and the current sign onto the stack, then make the total zero and the sign one, and step inside. When you meet a close bracket, take the sign and the old total back off the stack, multiply the inside total by that sign, and add it to the old total.
+
+Here the stack is not remembering values. It is remembering context. It is remembering where you were before you stepped inside the bracket.
+
+That is why this problem is the best example of tonight's lesson. A stack is a promise that says [aside]"I will come back here later"[/].
 
 At the end, listen to one small practical thing. You do not have to learn anything new to build a stack, because an ordinary array is enough. Add at the back, and remove from the back. Do that and you have a stack.
 

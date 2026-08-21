@@ -27,7 +27,13 @@ There is one sign that tells you the web code is right. Every island must be rea
 
 @recall jal
 
-Now listen to the special power of BFS. If every road in the graph is the same length, the road BFS gives is the shortest road, and this is always true. The reason is that BFS spreads out level by level, because it looks at everything one step away first, and then everything two steps away. So the moment the destination is found, that is the shortest.
+[usopp]"How can you say the road BFS gives is the shortest one?"[/] Usopp asked.
+
+[robin]"Because BFS spreads out level by level."[/] Robin said. [robin]"It looks at everything one step away first, and then everything two steps away."[/]
+
+[usopp]"And?"[/]
+
+[robin]"So the moment the destination is found, that is the shortest."[/] Robin said. [robin]"But there is one condition, and it is that every road must be the same length."[/]
 
 DFS gives no such guarantee. DFS finds a road, but it does not find the short road.
 
@@ -94,9 +100,33 @@ At the end, listen to one small thing, which is the place where the most mistake
 If you mark it when you take it out, the same node goes into the queue many times. On a small graph you never notice, but on a large one the ship goes down.
 
 @read hush
+Now listen to a hard problem, and it takes tonight's biggest idea all the way to its last point.
+
+Tonight we said that a map of squares is a graph too, and that the roads are not drawn there but they exist. Now a problem arrives where there is no map at all.
+
+Two words are given, and a dictionary is given. You may change only one letter at a time, and the word you make must be in the dictionary. How few steps does it take to get from the first word to the second?
+
+Nami lifted her finger off the map and said — [nami]"Here the words are the islands. Words you can reach by changing one letter are the neighbours. Nobody has drawn this map, but the map is there."[/]
+
+Now the question has become tonight's old question. Every road is the same length, which is to say every step is one letter changed, and you want the shortest road. So run BFS, and never run DFS.
+
+[usopp]"To find a word's neighbours I would compare it against every word in the dictionary."[/] Usopp said.
+
+[nami]"That is expensive."[/] Nami said. [nami]"Break the word yourself instead. At every position in the word, put each of the twenty-six letters in turn."[/]
+
+[usopp]"And how do I know whether the word I made is real?"[/]
+
+[nami]"Ask the notebook."[/] Nami said.
+
+That way a word's neighbours are found in length times twenty-six tries, and the notebook's work is O(1).
+
+And that old rule about marking is just as strict here. The moment a word goes into the queue, take it out of the dictionary, or that same word will enter the queue dozens of times.
+
+Here you can see tonight's heart. A graph is not a picture of dots and threads. A graph is a rule that says [aside]"from here, where can you get to"[/]. Once there is a rule there is a graph, and nobody has to draw it.
+
 Nami folded the map and looked up. There were invisible threads between the stars as well, and those threads were part of some web too.
 
-She said quietly — "My father used to say that a person who gets lost at sea does not get lost from not knowing the road. They get lost from not noting the road they walked."
+She said quietly — [robin]"My father used to say that a person who gets lost at sea does not get lost from not knowing the road. They get lost from not noting the road they walked."[/]
 
 That is tonight's lesson, and it is the simplest and the most forgotten one. Note where you have been. If you do not, the web takes you round forever, and you do not even know you are going round.
 

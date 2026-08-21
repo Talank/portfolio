@@ -20,7 +20,7 @@ The fourth is called the status code. If it is somewhere about two hundred the w
 Now listen to today's rule.
 
 @algo sandeshko-aakar
-When writing a server remember three things. First — let the address show a thing and not a piece of work, that is, put a name in the address and leave the action to the method, and so "all the notes" is a right address and "make a note" is a wrong address. Second — keep the controller thin, that is, let it only read the slip, check it and hand back the reply, and give the true work to the service. Third — never make a thing yourself, and ask for what you need, because whoever asks for a thing can be given a pretend one in a test.
+When writing a server remember three things. First, let the address show a thing and not a piece of work. Put a name in the address, and leave the action to the method. So "all the notes" is a right address, and "make a note" is a wrong address. Second — keep the controller thin, that is, let it only read the slip, check it and hand back the reply, and give the true work to the service. Third — never make a thing yourself, and ask for what you need, because whoever asks for a thing can be given a pretend one in a test.
 @end
 
 Luffy asked, [luffy]"What does asking for it mean?"[/]

@@ -71,7 +71,7 @@ The worst thing this rhythm does is not to the heart. It is to the brain.
 @read teach
 One last thing before the ending, about the rate.
 
-You will hear the phrase rate-controlled atrial fibrillation, and it means what it says — the rhythm is still irregular and there are still no P waves, but the AV node is being persuaded to let fewer impulses through, so the ventricular rate sits somewhere reasonable.
+You will hear the phrase rate-controlled atrial fibrillation, and it means what it says. The rhythm is still irregular, and there are still no P waves. But the AV node is being persuaded to let fewer impulses through, so the ventricular rate sits somewhere reasonable.
 
 That is the usual goal in a stable patient. Not to abolish the fibrillation, which is often impossible, but to slow the door.
 

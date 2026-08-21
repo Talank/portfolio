@@ -176,6 +176,13 @@ E.TIER_LABELS = dict(E.TIER_LABELS_EN)
 # three different people, measured 60 Hz apart — and not by being pitched and
 # stretched away from each other, which is what makes a cast sound like one
 # person doing voices.
+# This voyage has its own characters and never uses the engine's One Piece
+# crew — but those styles still carry the Nepali voices the engine assigns
+# them, and an English render must not have a Nepali voice defined anywhere in
+# its cast. Dropping them is what makes check_cast_language() pass honestly
+# rather than by exception.
+E.unset_crew_voices()
+
 E.STYLES.update({
     # Nurse Maya. Two percentage points quicker than the narrator because she is
     # answering a question rather than telling a story, and half a decibel up
@@ -189,6 +196,12 @@ E.STYLES.update({
     # has done this before and is not going to raise their voice about it.
     "ellis": {"voice": ELLIS_VOICE, "rate": -1.0, "pitch": -2.0, "gain": +0.5},
 })
+# resolve() memoises per style name, and this file rewrites styles the engine
+# has already defined. Nothing resolves at import time today, so the stale
+# entry never surfaced -- but a cached 'sage' from the engine's Nepali cast is
+# exactly the kind of thing that reaches a render as one paragraph in the
+# wrong language. Cheap to drop.
+E._RESOLVED.clear()
 # There is deliberately no `patient` register. The first edition defined one and
 # no chapter ever used it, which the linter now reports as a cast member who
 # never speaks. The patient in bed four sleeps through all twenty-six nights;

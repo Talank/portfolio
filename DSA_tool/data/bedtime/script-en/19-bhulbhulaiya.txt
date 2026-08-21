@@ -34,7 +34,13 @@ One check tells you whether the art of turning back is working. After you finish
 
 @recall backtrack
 
-The fourth problem is finding a word in a grid of letters. Start from some square and look in all four directions. If the letter does not match, turn back. If it matches, mark that square and move on, or the same letter gets counted twice. And do not forget to erase the mark when you come back, because that is the taking-back step.
+[usopp]"The fourth problem is mine."[/] Usopp said. [usopp]"Find a word in a grid of letters. Start from some square and look in all four directions. If the letter does not match, turn back."[/]
+
+[chopper]"And if it matches?"[/] Chopper asked.
+
+[usopp]"Mark that square and move on, or the same letter gets counted twice."[/] Usopp said.
+
+[robin]"And do not forget to erase the mark when you come back."[/] Robin said. [robin]"That is the taking-back step."[/]
 
 Now listen to the signals. If the question says [aside]"all the possibilities"[/], "all the ways", or "all the roads", this is the island. But if the question only asks "how many" or [aside]"the best one"[/], look towards the next island, which is where we are going now.
 
@@ -96,6 +102,24 @@ There we remember not the road but the fruit of the road. And that memory drops 
 At the end, listen to one piece of practical advice. When writing backtracking, always write three things separately, and they are where it stops, what may be chosen, and what has to be taken back after choosing.
 
 If you think about those three separately, the code falls into place by itself. If you think about them together, you get tangled.
+
+Now listen to tonight's hardest problem, and it is that same problem of finding a word in a grid of letters, except that you have to find not one word but a thousand.
+
+The straightforward road looks easy. For every word, repeat that same search over the whole grid. But with a thousand words you have to scour the whole grid a thousand times, and that is impossible.
+
+Drawing on the stone with her finger, Robin said — [robin]"Walk the grid only once. But carry every word with you as you walk."[/]
+
+How do you carry every word at once? Put the words into one tree, where words starting with the same letter share their opening road. A tree like that is called a trie, and that is the name of the twenty-fourth island. Tonight, just remember its shape.
+
+Now the search runs like this. Start from every square of the grid, but instead of carrying a list of words in your hand, carry the root of that tree. When you take a step in the grid, take a step down the branch of the same letter in the tree.
+
+Now the pruning comes by itself, and that is the whole power of this move. If the tree has no branch for that letter at all, then there is no word whatsoever beginning that way. So turn back right there. One single check has cut off thousands of roads at once.
+
+If you find a mark on some node of the tree saying [aside]"a word ends here"[/], put that word into the answer. After you put it in, take that mark away, or the same word will keep arriving again and again.
+
+And tonight's third step is just as compulsory here. Mark the square and go down, and take the mark back when you return. If you do not take it back, the neighbouring road will think the road you walked is its own.
+
+Here tonight's real lesson is complete. A weak search walks every road. A strong search can say [aside]"there is nothing this way"[/] before it walks at all. And the power to say that is usually given to it by some other structure.
 
 The water was still dripping. Luffy was asleep in the middle of the path, and he really did not remember about coming back. But the maze was patient.
 

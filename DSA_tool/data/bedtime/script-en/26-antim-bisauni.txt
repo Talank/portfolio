@@ -8,7 +8,13 @@ Robin said quietly — [robin:gentle]"There is nothing new to learn now. Let us 
 
 We began with the tools. The box gives a thing a name. The wheel repeats the same work. The string ties many steps into one name. The question splits the road in two. Every program in the world is made out of those four.
 
-After that we learned the map of time. If you only have to look at one, that is O(1). If you have to look at all of them once, that is O(n). If you have to check every one against every other, that is O(n²). If you get to throw away half every time, that is O(log n).
+[nami]"After that we learned the map of time."[/] Nami said. [nami]"If you only have to look at one, that is O(1)."[/]
+
+[luffy]"If you look at all of them once, O(n)."[/] Luffy said.
+
+[usopp]"If you check every one against every other, that is O(n²)."[/] Usopp added.
+
+[zoro]"And if you get to throw away half every time, that is O(log n)."[/] Zoro said without opening his eyes.
 
 After that came Nami's notebook. It asks one question, and that question is [nami]"have I seen this before or not"[/]. That one question removed the searching, and O(n²) fell to O(n).
 
@@ -140,7 +146,13 @@ Robin put the book in her lap. She said very slowly — [robin:gentle]"One thing
 
 Nami sat beside her. She said nothing, and only nodded.
 
-That is tonight's last lesson, and it is not a lesson only about code. New problems arrive in the world every day. It is not possible for you to know the answer to all of them. But the questions you ask are your own, and they are always with you.
+[chopper]"But you can never know the answer to every problem."[/] Chopper said quietly.
+
+[robin]"You cannot."[/] Robin said. [robin]"New problems arrive in the world every day, and it is not possible to know the answer to all of them."[/]
+
+[robin]"But the questions you ask are your own."[/] she added. [robin]"And they are always with you."[/]
+
+That is tonight's last lesson, and it is not a lesson only about code.
 
 @read hush
 Now really sleep. Learning needs sleep to put its roots down, and tonight you planted a great deal.

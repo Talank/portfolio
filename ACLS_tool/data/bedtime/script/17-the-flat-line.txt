@@ -57,7 +57,7 @@ And one more thing, which is not on any algorithm and is the hardest part of the
 
 Asystole after a prolonged arrest, with no reversible cause found, in a patient who was not witnessed to collapse, is where resuscitation stops. Somebody in the room has to say so, and say it clearly, and note the time.
 
-That is a decision made by the person leading, with the team's agreement, and it is a medical decision rather than a technical one. But it is worth knowing tonight, quietly, that it exists — because the first time you are in that room, the silence when it happens is very loud, and it helps to have known in advance that it is a normal part of the work rather than a failure of it.
+That is a decision made by the person leading, with the team's agreement, and it is a medical decision rather than a technical one. But it is worth knowing tonight, quietly, that it exists. The first time you are in that room, the silence when it happens is very loud. It helps to have known in advance that it is a normal part of the work, rather than a failure of it.
 
 [maya]"We are not failing when we stop,"[/] Nurse Maya says. [maya]"We failed if we never started, or if we stopped early, or if we did not look for the cause. Stopping at the right time is part of doing it properly."[/]
 
@@ -86,7 +86,7 @@ They matter for two reasons.
 
 The first is that people see the complex, call it a rhythm, and stop compressions to check a pulse, which wastes the one thing that is helping.
 
-The second is happier. In a patient who has just collapsed, agonal complexes appearing during compressions can mean the heart is being perfused and is beginning to respond, and in that setting they are worth a brief look at the end of the cycle rather than an interruption in the middle of it.
+The second is happier. In a patient who has just collapsed, agonal complexes appearing during compressions can mean the heart is being perfused and is beginning to respond. In that setting they are worth a brief look at the end of the cycle, rather than an interruption in the middle of it.
 
 @read teach
 There is also an agonal appearance that is not electrical at all, and it is more important than the strip.

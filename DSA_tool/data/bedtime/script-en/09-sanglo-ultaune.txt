@@ -36,7 +36,13 @@ Now let us go to the second problem, which is a gentle one. Two sorted linked li
 
 After that, keep comparing the heads of the two linked lists. Whichever is smaller, join it onto the new linked list and move that linked list forward one step. Once one linked list is finished, join on whatever is left of the other one directly.
 
-The third problem is beautiful as well. You have to remove the Kth node from the end. First send one finger K steps ahead. After that, move both fingers forward together. When the front finger reaches the end, the finger behind is standing in exactly the right place. This also finished in a single pass, because you never had to count the length first.
+[chopper]"To remove the Kth node from the end you must have to count the length first."[/] Chopper said.
+
+[zoro]"You do not."[/] Zoro said. [zoro]"Send one finger K steps ahead first. After that, move both fingers forward together."[/]
+
+[chopper]"And then?"[/] Chopper asked.
+
+[zoro]"When the front finger reaches the end, the finger behind is standing in exactly the right place."[/] Zoro said. [zoro]"It finished in a single pass."[/]
 
 @read hush
 The chain is sinking slowly into the water.[..]The links are going down one by one,[..]and the sound grew fainter.
@@ -84,6 +90,24 @@ At every step add the two digits and the one being carried. If the total goes pa
 Now listen to the two-way linked list. Every node in it has two fingers — one points forward, and the other points backward. You can walk both ways in it, and to remove any node you do not have to go looking for the previous one.
 
 It has a price too. Every node costs the space of one extra finger, and every change needs the care of getting two fingers right. This is what the memory-box called LRU is built out of, in which a two-way linked list and a hash map work together. The map says where each thing is, and the linked list says how old each thing is.
+
+Now listen to a hard problem, and it is tonight's second move grown large.
+
+We learned to make one sorted linked list out of two. Now there are not two but K of them, and all of them have to become a single sorted linked list.
+
+Luffy said — [luffy]"Easy. Merge the first and the second. Merge the third into that. Then the fourth."[/]
+
+It works, but it costs. Think about why. Merging the first time, you touched two lists. Merging the second time, three. The third time, four. So the last list gets touched once, but the first list gets touched K times. Added up, that is O(K times N).
+
+Franky said — [franky]"Make pairs. Do not pile everything onto one."[/]
+
+That is the whole move. Merge the K lists in pairs, and now half of K is left. Pair them again, and a quarter is left. Keep going until only one remains.
+
+Now look at the arithmetic. In each round every node is touched exactly once, so a round is O(N). And how many rounds does it take to bring K down to one? The eighth island's answer comes back here, and it is log K. Together that is O(N times log K).
+
+There is another road as well, and it is found on the sixteenth island. Put the head of every list into one heap, and keep taking the smallest out. The arithmetic comes out the same, O(N times log K).
+
+Here is tonight's real lesson. Repeating one job over and over makes it pile up. Splitting the same job into pairs brings it down to a log.
 
 Franky let the linked list slip slowly into the water and said — [franky:firm]"Listen to the last thing. In linked list problems the mistake is usually not in the reasoning, it is at the boundary."[/]
 

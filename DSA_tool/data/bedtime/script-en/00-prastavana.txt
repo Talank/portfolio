@@ -1,29 +1,34 @@
 # 0 — Setting Out: The Grand Line of Sleep
 
-Hello. You have probably turned the light off already. Move the pillow until it sits right. There is nothing left to do now.
+The sea is calm. The waves knock gently against the side of the ship. Above you there are more stars than anyone could count, and the air is warm. The ship is finding its own way forward.
 
 @read hush
-Tonight you do not have to read. You do not have to write anything down. You do not have to try hard to remember, either. Just keep listening. If you fall asleep while you listen, that is exactly right. The story keeps going at its own pace, and your mind keeps picking things up quietly, even while you sleep.
+The ship is called the Going Merry. There is nowhere it has to be, and there is no hurry anywhere. If you fall asleep on one island, another night can start again from that same place.
 
-Take a long breath in. One... two... three. Now let it out slowly. Do that once more. In... and out. Let your shoulders sink into the bed. Let your tongue go loose from the roof of your mouth. Let your eyelids get heavy.
+The crew have gathered on the deck. Nami has spread the map out, and its corners are lifting slowly in the wind.
 
-@read hush
-Now imagine you are lying on the deck of a small ship. Night has already fallen. The sea is calm. The waves knock gently against the side of the ship. Above you there are more stars than anyone could count. The air is warm. The ship is finding its own way forward.
+Luffy leaned over the map and asked — [luffy]"Nami, where are we going tonight?"[/]
 
-The ship is called the Going Merry. There is a crew on it, and the crew is Luffy, who is made of rubber, Zoro, who carries three swords, Nami, who draws the maps, Usopp, who tells lies, Sanji, who is in the kitchen, and Robin, who reads books. They are travelling from island to island along the Grand Line.
+[nami]"Tonight the road is a little different."[/] Nami touched the map with one finger. [nami]"These islands are not ordinary islands. Each island is one approach to solving a problem."[/]
 
 @read teach
-But tonight's voyage is a little different. The islands on this map are not ordinary islands. Each island is one way of solving a problem. Each island is a shape that problems come in, and the word for that is [..]pattern[..].
+Each island is a shape that problems come in, and the word for that shape is [..]pattern[..]. The art of teaching a computer to solve problems is called data structures and algorithms.
 
-The art of teaching a computer to solve problems is called data structures and algorithms. It sounds hard when you say it out loud. But the truth is that it is only a collection of about twenty methods. Learn twenty methods and you are done, and that really is all of it. Almost every question the big companies ask fits inside those same twenty islands.
+[chopper]"That already sounds hard."[/] Chopper hid behind his hat.
+
+Robin closed her book and said — [robin]"The name is hard. The thing is not. It is a collection of about twenty approaches, and twenty is enough."[/]
+
+[usopp]"Only twenty?"[/] Usopp did not believe her.
+
+[robin]"Only twenty."[/] Robin nodded. [robin]"Almost every question the big companies ask fits inside those same twenty islands. The questions look new. The islands are not."[/]
 
 @read hush
-Tonight we are going to visit all of them. We will go one at a time. We will not hurry anywhere. If you fall asleep on one island, another night can start again from that same place.
+Tonight we are going to visit all of them, and we will go one at a time.
 
-I am also going to say code to you. Not the kind of code you see on a screen — the kind you can listen to with your ears. For example, I say — [aside]"Make one empty bag. Look once at every item in the list. Whatever you need, put it in the bag."[/] While you listen to that, your mind starts drawing the code by itself. In the morning your fingers find it easy to type the same thing on a keyboard.
+I am also going to say code to you. Not the kind of code you see on a screen — the kind you can listen to with your ears. For example, I say — [aside]"Make one empty bag. Look once at every item in the list. Whatever you need, put it in the bag."[/] While you listen to that, your mind starts drawing the code by itself.
 
 @read hush
-Now listen to what the whole night comes down to, and it is very small. This will come back three times tonight, so you do not need to try to hold on to it.
+Sanji put his head out of the kitchen and said — [sanji]"Remember one thing before you go. Whatever problem arrives, ask it two questions."[/]
 
 @algo dui-prashna
 Whatever the problem is, ask it two questions. The first question is this — have I already done this piece of work once before? If I have, then that answer should be written down somewhere, and I should not count it again. The second question is this — can I throw away half of the remaining work right now? If I can, then even a very large problem finishes in a few steps. These two questions carry you half the way there on their own.
@@ -31,24 +36,26 @@ Whatever the problem is, ask it two questions. The first question is this — ha
 
 The ship is moving. The first island is coming up on the horizon, and it is small, and green, and half covered in fog.
 
-When can you trust that an answer is right? There is an easy check for it. Take an example small enough that you can count the answer on your fingers, and hold it up against what your approach gave you. If both agree on the small case they usually agree on the large one, and if they disagree, that same small example shows you where the mistake is.
+[zoro]"How do you know an answer is right?"[/] Zoro asked without opening his eyes.
+
+[nami]"Take an example small enough to count on your fingers."[/] Nami said. [nami]"Run your approach on that same example. If the two agree on the small case they usually agree on the large one. If they disagree, that same small example shows you where the mistake is."[/]
 
 @recall dui-prashna
 
-I will speak slowly. There is no hurry. The whole night belongs to us.
-
 @read hush
-Now listen to those two questions again, but this time hold two hard cases in mind. The first case is empty input, where there is nothing at all. The second case is input with exactly one thing in it. When an approach survives both of those, it is usually finished.
+[robin]"Listen to those two questions again, but this time hold two hard cases in mind."[/] Robin said. [robin]"The first case is empty input, where there is nothing at all. The second case is input with exactly one thing in it. When an approach survives both of those, it is usually finished."[/]
 
 @recall dui-prashna
 
 @tier medium
 
-You chose the longer voyage tonight, and that is a good thing. There will be even less hurry now, and the quiet parts will be longer. Do not worry about missing something, because this story is meant to be heard the way you forget things, not the way you memorise them.
+You chose the longer voyage tonight, and that is a good thing. There will be even less hurry now, and the quiet parts will be longer.
 
-Let me tell you one small thing. What a person hears while falling asleep does not disappear completely. All night the mind sorts through the day, and decides what to keep and what to throw away. If these words are playing quietly beside you at that time, their shape comes back to you more easily later. So do not try hard, because trying hard is the same as waking up.
+[usopp]"Will I remember any of this in the morning?"[/] Usopp asked.
 
-Now listen slowly to the map of the voyage. First come the tools, and they are the box, the ring, and the string. After that comes the foggy island where time is measured. After that come the drawers of the store room, where the array and the letters live.
+[robin]"What a person hears while falling asleep does not disappear."[/] Robin said. [robin]"All night the mind sorts through the day and decides what to keep and what to throw away. If these words are playing quietly beside you at that time, their shape comes back to you more easily later."[/]
+
+Now listen slowly to the map of the voyage. First come the tools, and they are the box, the ring, and the [..]string[..]. After that comes the foggy island where time is measured. After that come the drawers of the store room, where the array and the letters live.
 
 After that comes Nami's notebook, which remembers everything at once. After that two hands start moving on the deck. After that comes the window that slides along. After that comes the running total, which you write once and then use forever.
 
@@ -57,37 +64,44 @@ Later comes the shore where half is thrown away, and then the linked list, the s
 
 Near the end comes the power of memory, and that is the largest idea in the whole voyage. After that come the market, the pieces of time, the tree of letters, and the quiet sky of zero and one.
 
-Hearing that, you already know the road is long, but there is no climb anywhere on it. Every island sits on top of the one before it. All you have to do is follow the order, and the order moves forward by itself.
+Hearing that, you already know the road is long, but there is no climb anywhere on it. Every island sits on top of the one before it.
 
 @tier long
 
-Still awake? That is all right. Then let us go even more slowly. There is no hurry.
+Franky put his tools down and said — [franky]"There is one thing I always want to ask. Why learn any of this?"[/]
 
-First remind your body once that today's work is finished. Think about the soles of your feet, and they are getting heavy. Your calves are going loose. Your knees are going loose too.
+[robin]"Because it is not for an exam."[/] Robin said. [robin]"These are ways of thinking."[/]
 
-Now your hips and your back are sinking into the bed. Your fingers are opening by themselves. There is nothing left for anyone to hold on to.
+However large the problems in your life get, they are usually one of two kinds. Either they can be broken into smaller pieces, or there is a repeating shape hidden somewhere inside them. These twenty islands teach you to see those same two things.
 
-Let your jaw go loose. Many people grind their teeth all night without knowing it. Do not do that tonight. Let your forehead go smooth. Let the small muscles around your eyes go smooth too.
+Listen to one word now, because it comes back many times later. The word is [..]input size[..], and it means how big the work is. Cooking rice for one person and cooking rice for a hundred people is the same work, but the size is different.
 
-Now let me answer a question, one that a lot of people ask. Why should anyone learn these things? Because they are not for an exam. They are ways of thinking.
+[franky]"And the second word?"[/] Franky asked.
 
-However large the problems in your life get, they are usually one of two kinds. Either they can be broken into smaller pieces. Or there is a repeating shape hidden somewhere inside them. These twenty islands teach you to see those same two things.
+[nami]"Trade."[/] Nami said. [nami]"Usually you have to spend space to save time, or spend time to save space. Only sometimes is there a road that saves both, and when you find it, it feels very sweet."[/]
 
-Listen to one word now, because it comes back many times later. The word is input size, and it means how big the work is. Cooking rice for one person and cooking rice for a hundred people is the same work, but the size is different. Everything in algorithms turns around that size.
+When a problem comes, do not try to solve it straight away, just look at its shape. Say to yourself — [aside]"Ah, there are two hands moving here."[/] Or say — [aside]"Ah, half of it is being thrown away here."[/] Recognising that much is enough, and in the morning your fingers do the rest.
 
-Another word is trade. Usually you have to spend space to save time, or spend time to save space. Only sometimes is there a road that saves both, and when you find it, it feels very sweet.
+The word interview makes many people tense. But the truth is that the questions asked in an interview are these same twenty shapes wearing different clothes.
 
-Listen to it like this. When a problem comes, do not try to solve it straight away, just look at its shape. Say to yourself — [aside]"Ah, there are two hands moving here."[/] Or say — [aside]"Ah, half of it is being thrown away here."[/] Recognising that much is enough, and in the morning your fingers do the rest.
+@read teach
+Get to know your crewmates too, because they will be with you all night.
 
-Let us also talk slowly about interviews, because that word makes many people tense. The truth is that the questions asked in an interview are these same twenty shapes wearing different clothes. Once you know the shape, the question does not feel new.
+[luffy]"I always look for the easy road."[/] Luffy said. [luffy]"Whatever is biggest right now, I take that one."[/] That is [..]greedy[..] thinking.
 
-Get to know your crewmates too, because they will be with you all night. Luffy always looks for the simple road, and takes whatever is biggest right now. That is greedy thinking.
+[zoro]"I work from both ends, with two hands."[/] Zoro said.
 
-Zoro works from both ends with two hands. Nami remembers by writing it down, and whatever has been counted once she does not count again. When Usopp loses the road he goes back and looks for another one. Robin goes down into the depth and looks, and then comes back up. Sanji puts things in order.
+[nami]"I remember by writing it down."[/] Nami said. [nami]"Whatever has been counted once, I do not count again."[/]
+
+[usopp]"When I lose the road I go back and look for another one."[/] Usopp said.
+
+[robin]"I go down into the depth and look, and then I come back up."[/] Robin said.
+
+[sanji]"And I put things in order."[/] Sanji said from the kitchen.
 
 Now look outside, in your imagination. The sea is black, but it is not frightening. The wood of the ship creaks slowly. The sail is full of wind, but there is no storm anywhere.
 
-Nothing will be loud all night. There will be no jolt. There will be no sound that wakes you. I will keep talking, and you are free to fall asleep at any moment.
+Nothing will be loud all night. There will be no jolt. I will keep talking, and you are free to fall asleep at any moment.
 
 @read hush
 This is why those two questions are so large. The first question removes work you have already done, and the second question shrinks the work that is left. Every island tonight is only one of those two, stretched out.

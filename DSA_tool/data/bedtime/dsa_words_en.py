@@ -37,6 +37,13 @@ BIG_O = [
 SPELL_OUT = {
     "BFS": "B F S", "DFS": "D F S", "BST": "B S T", "DP": "D P",
     "XOR": "ex or", "LRU": "L R U", "AVL": "A V L", "LIS": "L I S",
+    "LFU": "L F U", "GCD": "G C D",
+    # FIFO and LIFO *are* words, and the note above used to conclude from that
+    # they could be left alone. They cannot: left alone the voice says
+    # "FIH-foh" and "LIFF-oh", and the field says "FY-foh" and "LY-foh".
+    # Respelled into two real English words each, so the vowels are not a
+    # guess — "fie" is /faɪ/ and "foe" is /foʊ/, which is exactly FIFO.
+    "FIFO": "fie-foe", "LIFO": "lie-foe",
 }
 
 _ACRO = re.compile(r"\b(" + "|".join(sorted(SPELL_OUT, key=len, reverse=True))

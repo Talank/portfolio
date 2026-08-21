@@ -11,7 +11,11 @@ The first example is the easiest, and it is Fibonacci. In it every number is the
 
 If you write it straight out with recursion, the answer for n is the total of n-1 and n-2. That is correct, but it is terribly slow.
 
-Draw it on paper and see why it is slow. To work out the answer for five you need four and three. To work out four you need three and two. Now three has been counted twice. Going further down, two gets counted four times, and one gets counted eight times. The tree keeps spreading, and this is O(2ⁿ).
+[nami]"I will draw on paper why it is slow."[/] Nami said. [nami]"To work out the answer for five you need four and three. To work out four you need three and two."[/]
+
+[chopper]"So three got counted twice."[/] Chopper said.
+
+[nami]"You are right."[/] Nami said. [nami]"Going further down, two gets counted four times, and one gets counted eight times. The tree keeps spreading, and this is O(2ⁿ)."[/]
 
 But think about how many genuinely different questions there are. From one to n there are only n of them. We are working out the answers to n questions two to the power n times.
 
@@ -32,7 +36,13 @@ There is something odd here, because this turns out to be Fibonacci again. Many 
 
 The third problem is the thief's. There are houses in an array, and each one holds some money. But you cannot rob two neighbouring houses. So what is the most you can get?
 
-At every house there are two options. If you take this house you had to skip the previous one, so the answer is its money plus the answer from two houses back. If you skip this house, the answer up to the previous house stays as it was. Whichever of the two is larger is this house's answer.
+[luffy]"I will take the house with the most money in it."[/] Luffy said.
+
+[robin]"Do that and you lose the house next door."[/] Robin said. [robin]"So at every house there are two options. If you take this house you had to skip the previous one, so the answer is its money plus the answer from two houses back."[/]
+
+[luffy]"And if I do not take it?"[/] Luffy asked.
+
+[robin]"Then the answer up to the previous house stays as it was."[/] Robin said. [robin]"Whichever of the two is larger is this house's answer."[/]
 
 Here you can see the true shape of DP, and it is this that you should remember. Ask at every place — [aside]"How many options do I have?"[/] Build the answer for each option out of smaller answers, then pick the best one.
 
@@ -104,6 +114,24 @@ If I am taken, the children cannot be taken. If I am not taken, the children may
 At the end, listen to something that is the biggest thing tonight. DP is not magic. It is only recursion, in which the answers are not allowed to be forgotten.
 
 So when a problem feels far too large, write the straight recursion first, and write it however slow it is. Once that works, now add the wall. That is all of it.
+
+Now listen to a hard problem, and it is tonight's staircase, except that some of the steps are broken.
+
+A long string of digits is given. One digit stands for a letter, and two digits also stand for a letter, but the two-digit number has to fall between one and twenty-six. In how many different ways can this string be read as letters?
+
+On the staircase you asked — did I come to this step from one below, or from two below? Ask exactly the same thing here. Did I arrive at this place having read one digit, or having read two?
+
+So the answer has the same shape. The answer up to this place is the answer one digit back, plus the answer two digits back.
+
+But something the staircase did not have is added here, and that is the whole difficulty of this problem. Not every step can be stepped on.
+
+Add the answer one digit back only when the current digit is not a zero, because a zero on its own stands for no letter. Add the answer two digits back only when the number made by the previous digit and this one falls between ten and twenty-six.
+
+Remember the business with zeros properly. If a three and a zero arrive, that cannot be read at all, so the answer is zero. If a one and a zero, or a two and a zero arrive, that is read only as two digits, and it has no separate road of its own.
+
+The time is O(n), and for room it is enough to remember the last two answers.
+
+The owner said in his sleep — [aside]"The shape is the same. The rule has changed. That is usually what happens in DP."[/]
 
 The owner leaned his head back in the chair. The papers on the wall had stopped moving. Inside the house, no answer had been worked out twice.
 

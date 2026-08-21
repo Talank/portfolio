@@ -3,17 +3,23 @@
 The third island is small, but there is an old store room here. Inside, the drawers stand in one long line, and all of them are in one row and all of them are the same size.
 
 @read teach
-Sanji went inside and said — "Do you know what the beauty of this room is? To open the drawer in the middle I do not have to count from the beginning. I go straight there." That is the power of an [..]array[..]. If you know the index, reaching it takes no time at all, and so its time is O(1).
+Sanji went inside and said — [sanji]"Do you know what the beauty of this room is? To open the drawer in the middle I do not have to count from the beginning. I go straight there."[/] That is the power of an [..]array[..]. If you know the index, reaching it takes no time at all, and so its time is O(1).
 
-But an array has a weakness too. Suppose you have to add a new drawer in the middle. Then every drawer behind it has to shift over by one place, and that is O(n) work. So an array is a king at reading, and weak at adding and removing in the middle.
+Franky put his hand on one of the drawers. [franky]"But it has a weakness, and I found it out while building them."[/] he said. [franky]"If you have to add a new drawer in the middle, every drawer behind it has to shift over by one place."[/]
+
+[chopper]"All of them?"[/] Chopper asked.
+
+[franky]"All of them."[/] Franky nodded. [franky]"That is O(n) work. So an array is a king at reading, and weak at adding and removing in the middle."[/]
 
 A string is an array too, and the only difference is that letters live inside it. The word "Luffy" has five letters, and they are kept in five drawers. So whatever move works on an array usually works on a string as well.
 
-Now let us look slowly at a small problem. Suppose there are numbers in an array and you have to find the largest one. What do you do?
+[chopper]"How do you find the largest number in an array?"[/] Chopper asked. [chopper]"I think you would have to compare every one against every other one."[/]
+
+[zoro]"You would not."[/] Zoro said without opening his eyes.
 
 Zoro said — [zoro]"I carry a flag in my hand. I make the first number the flag. Then I keep moving forward. If I meet anyone bigger than me, I give the flag to them. Whoever has the flag at the end is the biggest."[/]
 
-That is a single pass, and its time is O(n). In the kind of code you can listen to, it sounds like this — "Put the first thing into a box called largest. Now look at every remaining thing, and if this thing is bigger than what is in the box, put this one in the box instead." That was finished in three lines.
+That is a single pass, and its time is O(n). In the kind of code you can listen to, it sounds like this — [aside]"Put the first thing into a box called largest. Now look at every remaining thing, and if this thing is bigger than what is in the box, put this one in the box instead."[/] That was finished in three lines.
 
 Now listen to the main move of this island, and it will come back three times tonight.
 
@@ -24,7 +30,11 @@ Many jobs on an array can be finished with two hands, and the rule is this. One 
 @read teach
 Nami used those same two hands to show how to reverse an array as well. She put her left hand at the start and her right hand at the end. She swapped whatever the two of them were holding. Then she moved her left hand one step to the right, and her right hand one step to the left. Once the two hands met in the middle the job was done. This is called in place, and it means doing the work where it already is.
 
-And there is a question that gets asked a lot, which is whether a word reads the same backwards as it does forwards. That is called a palindrome, and "level" is an example of one. The same two hands work here as well. Look at whether the letter on the left and the letter on the right are equal. If they are equal, move both hands inward. If they are not equal, say no immediately. If they stayed equal until they met in the middle, it is a palindrome.
+[usopp]"I was once asked a question."[/] Usopp said. [usopp]"Does this word read the same backwards as it does forwards? That is called a palindrome, and level is an example of one."[/]
+
+[nami]"The same two hands work there as well."[/] Nami said. [nami]"Look at whether the letter on the left and the letter on the right are equal. If they are equal, move both hands inward. If they are not equal, say no immediately."[/]
+
+If they stayed equal until they met in the middle, it is a palindrome.
 
 A small trap is hiding here, and many people fall into it. The last index of an array is not n, it is n minus one, because the count started from zero. There is no counting how much code this one-digit slip has ruined. It is called off by one, and it means a difference of one.
 
@@ -56,7 +66,7 @@ Nami remarked — [nami]"Notice that both of these moves have the same shape. On
 
 @tier long
 
-The ship rocked gently. Robin opened her book again and said — [robin]"If you are getting sleepy, stop here. But if you are awake, there are three more stories, and all three of them are good."[/]
+The ship rocked gently. Robin opened her book again and said — [robin]"If you are getting sleepy, stop here. But if you are awake, there are four more stories, and all four of them are good."[/]
 
 The first story is about rotating an array. Suppose the drawers have to move three places to the right, and the last three have to come back around to the front. The straightforward road is to build a new array. But there is a very sweet move here, and it sounds like magic when you hear it.
 
@@ -68,12 +78,26 @@ Luffy gave the easy answer — [luffy]"As long as the total keeps going up, I ke
 
 The third story is a little crooked, and it is the product of everything except yourself. For every drawer you have to work out the product of all the other drawers' numbers, but you are not allowed to divide. Her eyes lighting up, Nami said — [nami]"You have to walk twice. The first time, walk from left to right, and at every place remember the product of everything ahead of it. The second time, walk from right to left, and remember the product of everything behind it. Then multiply the two together and the answer arrives."[/]
 
+Robin turned a page and said — [robin]"The fourth story is the second one. I am changing a single word, and that word is product instead of sum."[/]
+
+Luffy had just found the piece with the largest sum. Now ask this — which run of neighbours has the largest product?
+
+The first thought is to repeat the same trick. But it breaks here, and it breaks for one reason. That reason is negative numbers. Two negatives multiplied make a positive, so the piece that looks smallest today can be made the largest tomorrow by a single negative number.
+
+Nami said — [nami]"So carry two boxes. Keep the largest product so far in one, and the smallest in the other. When you meet a negative number, swap the two boxes, because the largest becomes the smallest and the smallest becomes the largest."[/]
+
+At every place compare three things, and they are this number by itself, this number times the previous largest, and this number times the previous smallest. The largest of the three becomes the new largest, and the smallest becomes the new smallest.
+
+This finishes in a single pass too, and the time stays O(n). The story is the same, and the difference is only that now you have to remember two things instead of one. With sums, the smallest was never any use. With products, that same smallest is what the answer can be made of.
+
+Closing her book, Robin added — [robin]"If you meet a zero, start both boxes again from one. A zero wipes out all the history."[/]
+
 @read hush
 The light went out. The store room really was closed now. Outside, the sea was calm, and the ship moved slowly on.
 
 Even after the light went out, Sanji stood in the doorway for a while. From inside you could still make out the line of the drawers, because they were straight, they were equal, and there was nothing strange about them.
 
-He said quietly — "People think this room is ordinary. But in the kitchen I have learned that one wrong pot placed at the bottom brings down the whole stack above it."
+He said quietly — [sanji]"People think this room is ordinary. But in the kitchen I have learned that one wrong pot placed at the bottom brings down the whole stack above it."[/]
 
 That is tonight's lesson. The array is the simplest structure there is, and that is exactly why the most mistakes happen there. The count starts from zero. The last index is not n, it is n minus one. Whoever knows those two sentences suffers less for the rest of their life.
 

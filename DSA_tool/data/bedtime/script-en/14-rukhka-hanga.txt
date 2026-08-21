@@ -1,4 +1,4 @@
-# 14 — The Branches of the Tree: Tree DFS and BFS
+# 14 — The Branches of the Tree: Tree [..]DFS[..] and BFS
 
 There is forest all over the fourteenth island, and in the middle of it stands one enormous tree. Its branches spread out two at a time.
 
@@ -12,7 +12,7 @@ That is what [..]recursion[..] is, and it means calling yourself again on a smal
 The first problem is how tall the tree is. Its answer comes in one sentence. The height of this tree is one added to whichever is taller, the left branch or the right branch. And if there is no branch at all, the height is zero.
 
 @read teach
-That last sentence is the most important one. It is called the base, and in English it is called the [..]base case[..]. Recursion without a base never stops. Wherever you call yourself, ask first — "Where does this stop?"
+That last sentence is the most important one. It is called the base, and in English it is called the [..]base case[..]. Recursion without a base never stops. Wherever you call yourself, ask first — [aside]"Where does this stop?"[/]
 
 Now there are two ways of walking, and remember both of them.
 
@@ -20,7 +20,15 @@ Now there are two ways of walking, and remember both of them.
 These are the two ways of walking a tree. The first way is going into the depth, and it is called DFS. In it you take hold of one branch and go all the way to the tip, then come back and take hold of another branch, and this is the nature of a stack. The second way is walking level by level, and it is called BFS. In it you look at the root first, then the root's children, then the grandchildren, and this is the nature of a queue. Run BFS like this — put the root in the queue, then until the queue is empty, take the front node out and add both of its branches to the back of the queue. If the question is about depth, run DFS, and if the question is about what is near or about levels, run BFS.
 @end
 
-DFS has three orders. Looking at the root first is called preorder, and that is what you need to copy a tree. Looking at left, then root, then right is called inorder, and that gives the fruit in sorted order. Looking at the root last is called postorder, and that is what you need when deleting something, because it is only safe to delete the root after the branches are gone.
+[chopper]"Why look at the same tree three different ways?"[/] Chopper asked.
+
+[robin]"Because there are three different jobs to do."[/] Robin said. [robin]"Looking at the root first is called preorder, and that is what you need to copy a tree."[/]
+
+[robin]"Looking at left, then root, then right is called inorder."[/] She touched a branch. [robin]"That gives the fruit in sorted order."[/]
+
+[chopper]"And the third?"[/]
+
+[robin]"Looking at the root last is called postorder, and that is what you need when deleting something."[/] Robin said. [robin]"It is only safe to delete the root after the branches are gone."[/]
 
 If you need to separate the levels there is a small move. At the start of the loop, count how many members are in the queue. That many are the members of this level, and you collect them into one group.
 
@@ -85,6 +93,22 @@ And there is the question of rebuilding a tree from the fruit of two walks. The 
 At the end, listen to an honest warning. Recursion is beautiful, but on a deep tree the stack fills up. If a tree arrives that is like a chain ten thousand levels deep, the code breaks.
 
 At a time like that you have to keep the stack yourself and walk, or use a queue. This trade between beauty and safety usually has to fall on the side of safety, because the code actually has to run.
+
+Now listen to tonight's hardest problem, and it is the longest-path problem you just heard. I am changing a single word, and putting sum where length was.
+
+Numbers are written on the nodes of the tree, and some of them are negative. You may take a path that starts at any node and ends at any node, but the path can only climb up and come back down within the one tree. Which path gives the largest total?
+
+In the longest-path problem you kept two accounts side by side. One was the account you handed upwards, and the other was the account that ended right where you stood. Here you need exactly those same two.
+
+The account you hand upwards is this. I can give my mother one straight path only, so I may add just the better one of my two branches to my own number. If I add both, the path spreads out from me in two directions, and a path like that is one my mother cannot use.
+
+The account that ends here is this. The best path passing through me is my own number, plus the best total from the left branch, plus the best total from the right branch. Never hand that number upwards, and only compare it against the largest found so far.
+
+Now the negative numbers add one new thing. If the total a branch hands back is less than zero, do not take that branch, and take zero in its place. It is better not to carry a branch that makes a loss than to carry it.
+
+Robin said — [robin]"Every node says two things. It says one thing to its mother, and it says the other thing to itself. Never mix those two up."[/]
+
+The time is O(n), because every node is touched only once.
 
 The leaf reached the ground. Chopper closed his eyes. Above him the branches were still spreading out in the dark.
 

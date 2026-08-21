@@ -1,4 +1,4 @@
-# 8 — Half and Half: Binary Search
+# 8 — Half and Half: [..]Binary Search[..]
 
 The eighth island is large, but there is only one library on it, and it is grand, and silent, and endlessly long. The books are in order from the first letter to the last.
 
@@ -6,7 +6,13 @@ Robin went inside. The keeper of the library said — [robin]"There are a millio
 
 Usopp would have looked one at a time, a million times. Robin found it in twenty.
 
-What did she do? She went straight to the middle. She looked at the middle book. If the book she needed came after this one, she threw away the front half, which is five hundred thousand books, in a single stroke. If the book she needed came before, she threw away the back half.
+[usopp]"You have to find one book in a million. How long will that take?"[/] Usopp asked.
+
+[robin]"Twenty steps."[/] Robin said.
+
+Usopp did not believe her. [usopp]"Twenty?"[/]
+
+Robin went straight to the middle and looked at the middle book. [robin]"If the book I need comes after this one, I throw away the front half."[/] she said. [robin]"That is five hundred thousand books gone in a single stroke. If it comes before, I throw away the back half."[/]
 
 Now five hundred thousand were left. She looked in the middle again, and threw away half again. Now two hundred and fifty thousand were left. Then a hundred and twenty-five thousand. Then sixty-two thousand. At every step the world halves.
 
@@ -52,7 +58,13 @@ The library light had not gone out completely. Robin opened her eyes and said �
 
 The first face asks where a value should have been, if it was not found. This is called finding the boundary. Here, instead of returning "not found", return the place where the left finger stopped, because that is exactly where the value should be inserted.
 
-The second face asks, when there are repeated values, where the first one is and where the last one is. Here you must not stop the moment you find the value. Even when you find the value, throw away the right half and keep searching, and doing that finds the first one. Do the reverse and you find the last one.
+[nami]"The second face asks, when there are repeated values, where the first one is and where the last one is."[/] Nami said.
+
+[chopper]"Don't you stop the moment you find the value?"[/] Chopper asked.
+
+[nami]"You must not stop."[/] Nami said. [nami]"Even when you find it, throw away the right half and keep searching, and that finds the first one."[/]
+
+[robin]"Do the reverse and you find the last one."[/] Robin added.
 
 That small difference changes the whole answer, and this is the place where many people slip. Give up the habit of stopping as soon as you find it, and ask [aside]"is there still one further left?"[/]
 
@@ -66,7 +78,7 @@ The fourth face asks where the smallest number is in a rotated array. Compare th
 
 The keeper had gone into the back room. The library became quieter still. Robin turned a page of her book slowly.
 
-She said — "Now I will tell you the most powerful form. It is called searching in the answer. Many people feel their own thinking change after they learn it."
+She said — [robin]"Now I will tell you the most powerful form. It is called searching in the answer. Many people feel their own thinking change after they learn it."[/]
 
 Imagine it this way. You do not know the answer, but you know the range the answer could be in. And if you are given any number, you can check whether that number works or not.
 
@@ -93,6 +105,22 @@ Now listen to finding the midpoint of two sorted arrays. This is considered the 
 Imagine a cutting line in the smaller array. However much of the left you take in the smaller array, the rest is decided for you in the larger one. Now ask — [aside]"Is every number on the left of both smaller than every number on the right of both?"[/] If it is, the line is in the right place.
 
 If it is not, move the line, and do the moving by halving. The search happens only across the length of the smaller array, so the total time is O(log n).
+
+Now listen to a question that breaks tonight's own condition, and that is why it is worth remembering.
+
+All night we have said that throwing away half needs order. Now an array arrives with no order in it at all. The numbers go up and down as they please. You have to find any peak, which means a number that is bigger than both of its neighbours.
+
+The keeper said — [aside]"There is no order. So you have to look at them one by one."[/] Robin shook her head.
+
+She said — [robin]"I do not need the whole order. It is enough for me to know, in one single place, which way is uphill."[/]
+
+Stand in the middle and look at your neighbour on the right. If he is taller than you, then the ground rises to the right. A slope that rises has to stop somewhere, because the array is not endless. So there is certainly a peak to the right, and the left half can be thrown away.
+
+If the neighbour on the right is shorter, the opposite holds. You are yourself on the upper side of a slope, so throw away the right half.
+
+Half disappears every time, so the time is O(log n), and the array was never sorted at all.
+
+This makes tonight's rule cleaner. Throwing away half does not need order. Throwing away half needs only this — you must be certain that the answer is not in the half you are throwing. Order is one way of being certain, and here the slope did the same job.
 
 Robin closed the book and said — [robin]"Remember only this much tonight. Where there is order, there is the right to throw away half. And the order does not always have to be in the array, because sometimes the order is in the answer."[/]
 

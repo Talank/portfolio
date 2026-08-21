@@ -1,11 +1,11 @@
-# 13 — The Discipline of the Line: Queue and Deque
+# 13 — The Discipline of the Line: Queue and [..]Deque[..]
 
 On the thirteenth island there is a queue at the bread shop early in the morning. But here you do not get your hand smacked, because the rule here is a fair one.
 
 Chopper asked — [chopper]"Does the last one in go first here as well?"[/] The baker laughed and said — [chopper]"No, child. Here the first one in goes first. This is a line, not a stack."[/]
 
 @read teach
-That is what a [..]queue[..] is. The first thing in is the first thing out, and this is called FIFO. Things are added at the back and removed from the front.
+That is what a [..]queue[..] is. The first thing in is the first thing out, and this is called [..]FIFO[..]. Things are added at the back and removed from the front.
 
 A stack looks for depth, because it follows one road all the way to the end. A queue looks for breadth, because it looks at everything nearby first and only then goes further away. That difference will mean a great deal later, in trees and in graphs.
 
@@ -51,7 +51,7 @@ In the second shape two queues build a stack, which is the reverse of the last i
 
 The third shape is the queue with priority. Here the order of turns is decided not by arrival time but by importance. This is not a true queue, because it is built out of a heap, and the heap belongs to the sixteenth island.
 
-The baker added — "A line is justice. But sometimes the sick person has to be sent through first. At a time like that the shape of the queue stays the same, and only the rule changes."
+The baker added — [sage]"A line is justice. But sometimes the sick person has to be sent through first. At a time like that the shape of the queue stays the same, and only the rule changes."[/]
 
 @tier long
 
@@ -83,9 +83,31 @@ At the end, listen to one small piece of advice, which is very useful when writi
 
 If you mark it when you take it out, the same thing can go into the queue many times, and the work quietly doubles or triples. It is a small thing, and that same small thing has made many solutions slow.
 
+Now listen to one last problem, and it is tonight's very first move, with one turn added.
+
+At the start we looked for the largest number inside the window, and there the array had already been written. Now a question arrives where the array gets written as you walk it.
+
+It goes like this. You are crossing a stream on stepping stones. A number is written on every stone, and it is a number you gain or lose. You can jump at most K stones at a time. By the time you reach the last stone, what is the most you can have earned altogether?
+
+The answer at each stone is easy. This stone's own number, plus the best answer among the K stones behind it. Because you could only have arrived here from one of those.
+
+On the straightforward road you look at all K behind you at every stone, and that is O(n times K).
+
+Rubbing his eyes, Chopper said — [chopper]"But the best of the K behind you — is that not just the largest in a sliding window?"[/]
+
+[nami]"That is exactly it."[/] Nami said. [nami]"The deque's same rule applies here unchanged. When a new answer arrives, throw out everything smaller than it from the back."[/]
+
+[chopper]"Why throw those out?"[/] Chopper asked.
+
+[nami]"Because they have no future any more."[/] Nami said. [nami]"Take off the front anything that has fallen further behind than K. Then the answer at the front is the best of the K behind you."[/]
+
+The time falls to O(n). The only difference is that here the deque carries not the numbers of an array, but answers you worked out yourself a moment ago.
+
+This is tonight's most useful thought. A window does not only run over yesterday's data. It runs over your own recent answers too.
+
 The baker pulled the shutter half down. There was nobody in the line now. The warmth of the oven was still in the air, and the morning was slowly getting light.
 
-Wiping his hands, the baker said — "I sold bread for thirty years. One rule saved me, and it is that the first one in goes first. The day that rule is broken, there is a fight."
+Wiping his hands, the baker said — [sage]"I sold bread for thirty years. One rule saved me, and it is that the first one in goes first. The day that rule is broken, there is a fight."[/]
 
 That is tonight's lesson. A line is justice, and justice is order. A stack looks for depth, and a queue treats everybody as equal. That is why the queue finds the shortest road, because it does not leave out anybody who is nearby.
 

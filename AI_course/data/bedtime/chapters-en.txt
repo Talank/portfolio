@@ -2,7 +2,7 @@ The Poneglyph of Sleep — Chapter list
 
 === Bedtime ===
 
-— Short: 05:17:34.24, 34.5 MB —
+— Short: 05:25:09.03, 35.1 MB —
 00:00:00.00  00  0 — Introduction: the map of the Poneglyph
 00:09:34.66  01  1 — The arrow of direction: vectors, dot product and cosine
 00:18:39.06  02  2 — The machine that changes shape: the matrix
@@ -22,22 +22,22 @@ The Poneglyph of Sleep — Chapter list
 02:19:56.66  16  16 — The voice that comes back: backpropagation
 02:28:39.16  17  17 — The moves of training: optimizers, batches, dropout and batch norm
 02:38:06.21  18  18 — The tensor loop: the three tools of PyTorch
-02:47:50.81  19  19 — Pictures and order: CNNs and RNNs
-02:58:02.92  20  20 — The trick of making pieces: from words to BPE subwords
-03:08:18.79  21  21 — The place of meaning: word2vec and the geometry of meaning
-03:18:32.86  22  22 — The birth of attention: seq2seq and attention
-03:28:15.08  23  23 — The arithmetic of attention: query, key and value
-03:39:04.59  24  24 — The layers of the transformer: one layer at a time
-03:49:19.03  25  25 — Two families: BERT, GPT and a small model of your own
-03:59:40.93  26  26 — Pretraining: data, scaling laws and training spread out
-04:10:18.20  27  27 — A small improvement: SFT, LoRA and alignment
-04:20:56.51  28  28 — The trick of answering: sampling, the KV cache and serving
-04:31:43.07  29  29 — Searching before speaking: vector databases and RAG
-04:42:29.29  30  30 — Using tools: tool calls, ReAct and frameworks
-04:51:56.78  31  31 — Memory and limits: an agent's memory, testing and railings
-05:04:28.67  32  32 — The map of a system: system design and the last night
+02:48:30.59  19  19 — Pictures and order: CNNs and RNNs
+02:58:55.11  20  20 — The trick of making pieces: from words to BPE subwords
+03:09:31.66  21  21 — The place of meaning: word2vec and the geometry of meaning
+03:20:05.80  22  22 — The birth of attention: seq2seq and attention
+03:30:08.20  23  23 — The arithmetic of attention: query, key and value
+03:41:14.10  24  24 — The layers of the transformer: one layer at a time
+03:52:10.60  25  25 — Two families: BERT, GPT and a small model of your own
+04:03:02.74  26  26 — Pretraining: data, scaling laws and training spread out
+04:13:55.32  27  27 — A small improvement: SFT, LoRA and alignment
+04:25:22.11  28  28 — The trick of answering: sampling, the KV cache and serving
+04:36:47.21  29  29 — Searching before speaking: vector databases and RAG
+04:48:01.38  30  30 — Using tools: tool calls, ReAct and frameworks
+04:57:44.45  31  31 — Memory and limits: an agent's memory, testing and railings
+05:11:25.81  32  32 — The map of a system: system design and the last night
 
-— Medium: 06:08:28.71, 39.9 MB —
+— Medium: 06:16:03.50, 40.4 MB —
 00:00:00.00  00  0 — Introduction: the map of the Poneglyph
 00:12:21.66  01  1 — The arrow of direction: vectors, dot product and cosine
 00:22:59.41  02  2 — The machine that changes shape: the matrix
@@ -57,22 +57,22 @@ The Poneglyph of Sleep — Chapter list
 02:42:28.31  16  16 — The voice that comes back: backpropagation
 02:52:58.32  17  17 — The moves of training: optimizers, batches, dropout and batch norm
 03:04:06.02  18  18 — The tensor loop: the three tools of PyTorch
-03:15:36.00  19  19 — Pictures and order: CNNs and RNNs
-03:27:19.78  20  20 — The trick of making pieces: from words to BPE subwords
-03:39:08.09  21  21 — The place of meaning: word2vec and the geometry of meaning
-03:51:01.63  22  22 — The birth of attention: seq2seq and attention
-04:02:20.26  23  23 — The arithmetic of attention: query, key and value
-04:14:44.28  24  24 — The layers of the transformer: one layer at a time
-04:26:40.30  25  25 — Two families: BERT, GPT and a small model of your own
-04:38:52.04  26  26 — Pretraining: data, scaling laws and training spread out
-04:51:10.30  27  27 — A small improvement: SFT, LoRA and alignment
-05:03:31.44  28  28 — The trick of answering: sampling, the KV cache and serving
-05:16:17.50  29  29 — Searching before speaking: vector databases and RAG
-05:28:33.93  30  30 — Using tools: tool calls, ReAct and frameworks
-05:39:32.28  31  31 — Memory and limits: an agent's memory, testing and railings
-05:53:43.43  32  32 — The map of a system: system design and the last night
+03:16:15.78  19  19 — Pictures and order: CNNs and RNNs
+03:28:11.97  20  20 — The trick of making pieces: from words to BPE subwords
+03:40:20.96  21  21 — The place of meaning: word2vec and the geometry of meaning
+03:52:34.57  22  22 — The birth of attention: seq2seq and attention
+04:04:13.38  23  23 — The arithmetic of attention: query, key and value
+04:16:53.79  24  24 — The layers of the transformer: one layer at a time
+04:29:31.87  25  25 — Two families: BERT, GPT and a small model of your own
+04:42:13.85  26  26 — Pretraining: data, scaling laws and training spread out
+04:54:47.42  27  27 — A small improvement: SFT, LoRA and alignment
+05:07:57.04  28  28 — The trick of answering: sampling, the KV cache and serving
+05:21:21.64  29  29 — Searching before speaking: vector databases and RAG
+05:34:06.02  30  30 — Using tools: tool calls, ReAct and frameworks
+05:45:19.95  31  31 — Memory and limits: an agent's memory, testing and railings
+06:00:40.57  32  32 — The map of a system: system design and the last night
 
-— Long: 07:03:53.15, 45.6 MB —
+— Long: 07:11:27.94, 46.2 MB —
 00:00:00.00  00  0 — Introduction: the map of the Poneglyph
 00:14:11.53  01  1 — The arrow of direction: vectors, dot product and cosine
 00:26:48.29  02  2 — The machine that changes shape: the matrix
@@ -92,24 +92,24 @@ The Poneglyph of Sleep — Chapter list
 03:07:59.18  16  16 — The voice that comes back: backpropagation
 03:20:09.35  17  17 — The moves of training: optimizers, batches, dropout and batch norm
 03:32:58.30  18  18 — The tensor loop: the three tools of PyTorch
-03:46:00.00  19  19 — Pictures and order: CNNs and RNNs
-03:59:17.78  20  20 — The trick of making pieces: from words to BPE subwords
-04:12:56.05  21  21 — The place of meaning: word2vec and the geometry of meaning
-04:26:35.38  22  22 — The birth of attention: seq2seq and attention
-04:39:51.39  23  23 — The arithmetic of attention: query, key and value
-04:54:02.54  24  24 — The layers of the transformer: one layer at a time
-05:07:42.16  25  25 — Two families: BERT, GPT and a small model of your own
-05:21:33.31  26  26 — Pretraining: data, scaling laws and training spread out
-05:35:44.88  27  27 — A small improvement: SFT, LoRA and alignment
-05:49:56.32  28  28 — The trick of answering: sampling, the KV cache and serving
-06:04:33.56  29  29 — Searching before speaking: vector databases and RAG
-06:18:42.84  30  30 — Using tools: tool calls, ReAct and frameworks
-06:31:19.30  31  31 — Memory and limits: an agent's memory, testing and railings
-06:47:21.41  32  32 — The map of a system: system design and the last night
+03:46:39.78  19  19 — Pictures and order: CNNs and RNNs
+04:00:09.97  20  20 — The trick of making pieces: from words to BPE subwords
+04:14:08.92  21  21 — The place of meaning: word2vec and the geometry of meaning
+04:28:08.32  22  22 — The birth of attention: seq2seq and attention
+04:41:44.51  23  23 — The arithmetic of attention: query, key and value
+04:56:12.05  24  24 — The layers of the transformer: one layer at a time
+05:10:33.73  25  25 — Two families: BERT, GPT and a small model of your own
+05:24:55.12  26  26 — Pretraining: data, scaling laws and training spread out
+05:39:22.00  27  27 — A small improvement: SFT, LoRA and alignment
+05:54:21.92  28  28 — The trick of answering: sampling, the KV cache and serving
+06:09:37.70  29  29 — Searching before speaking: vector databases and RAG
+06:24:14.93  30  30 — Using tools: tool calls, ReAct and frameworks
+06:37:06.97  31  31 — Memory and limits: an agent's memory, testing and railings
+06:54:18.55  32  32 — The map of a system: system design and the last night
 
 === Driving ===
 
-— Short: 04:03:05.43, 28.1 MB —
+— Short: 04:07:30.53, 28.5 MB —
 00:00:00.00  00  0 — Introduction: the map of the Poneglyph
 00:07:15.59  01  1 — The arrow of direction: vectors, dot product and cosine
 00:14:04.81  02  2 — The machine that changes shape: the matrix
@@ -129,88 +129,88 @@ The Poneglyph of Sleep — Chapter list
 01:46:33.78  16  16 — The voice that comes back: backpropagation
 01:53:10.75  17  17 — The moves of training: optimizers, batches, dropout and batch norm
 02:00:28.84  18  18 — The tensor loop: the three tools of PyTorch
-02:07:58.05  19  19 — Pictures and order: CNNs and RNNs
-02:15:50.77  20  20 — The trick of making pieces: from words to BPE subwords
-02:23:47.06  21  21 — The place of meaning: word2vec and the geometry of meaning
-02:31:38.38  22  22 — The birth of attention: seq2seq and attention
-02:39:05.66  23  23 — The arithmetic of attention: query, key and value
-02:47:24.67  24  24 — The layers of the transformer: one layer at a time
-02:55:17.81  25  25 — Two families: BERT, GPT and a small model of your own
-03:03:17.83  26  26 — Pretraining: data, scaling laws and training spread out
-03:11:27.59  27  27 — A small improvement: SFT, LoRA and alignment
-03:19:38.91  28  28 — The trick of answering: sampling, the KV cache and serving
-03:27:53.57  29  29 — Searching before speaking: vector databases and RAG
-03:36:16.54  30  30 — Using tools: tool calls, ReAct and frameworks
-03:43:29.20  31  31 — Memory and limits: an agent's memory, testing and railings
-03:53:11.46  32  32 — The map of a system: system design and the last night
+02:08:19.22  19  19 — Pictures and order: CNNs and RNNs
+02:16:18.49  20  20 — The trick of making pieces: from words to BPE subwords
+02:24:26.09  21  21 — The place of meaning: word2vec and the geometry of meaning
+02:32:28.50  22  22 — The birth of attention: seq2seq and attention
+02:40:06.50  23  23 — The arithmetic of attention: query, key and value
+02:48:35.59  24  24 — The layers of the transformer: one layer at a time
+02:56:52.20  25  25 — Two families: BERT, GPT and a small model of your own
+03:05:09.79  26  26 — Pretraining: data, scaling laws and training spread out
+03:13:28.26  27  27 — A small improvement: SFT, LoRA and alignment
+03:22:08.88  28  28 — The trick of answering: sampling, the KV cache and serving
+03:30:46.22  29  29 — Searching before speaking: vector databases and RAG
+03:39:26.83  30  30 — Using tools: tool calls, ReAct and frameworks
+03:46:48.92  31  31 — Memory and limits: an agent's memory, testing and railings
+03:57:12.37  32  32 — The map of a system: system design and the last night
 
-— Medium: 04:41:11.43, 32.5 MB —
+— Medium: 04:45:48.08, 32.9 MB —
 00:00:00.00  00  0 — Introduction: the map of the Poneglyph
-00:09:22.39  01  1 — The arrow of direction: vectors, dot product and cosine
-00:17:20.89  02  2 — The machine that changes shape: the matrix
-00:24:51.45  03  3 — The direction that does not change: eigenvectors and SVD
-00:33:01.70  04  4 — The road down the slope: derivatives and gradient descent
-00:41:01.03  05  5 — Guessing the weather: probability and Bayes
-00:48:00.56  06  6 — Guessing from a sample: statistics and MLE
-00:55:30.65  07  7 — The measure of surprise: entropy and cross-entropy
-01:03:04.93  08  8 — Learning and memorising: overfitting and bias
-01:10:36.30  09  9 — The straight line: linear regression
-01:17:14.63  10  10 — Yes or no: logistic regression
-01:24:37.39  11  11 — Words into numbers: bag of words and TF-IDF
-01:31:38.78  12  12 — Neighbours and trees: k-NN, decision trees and random forests
-01:39:48.39  13  13 — Groups without labels: k-means and PCA
-01:47:22.83  14  14 — The honesty of testing: precision, recall and ROC
-01:55:26.36  15  15 — The foundation of the network: from the perceptron to the MLP
-02:03:22.27  16  16 — The voice that comes back: backpropagation
-02:11:20.02  17  17 — The moves of training: optimizers, batches, dropout and batch norm
-02:19:53.11  18  18 — The tensor loop: the three tools of PyTorch
-02:28:41.50  19  19 — Pictures and order: CNNs and RNNs
-02:37:44.19  20  20 — The trick of making pieces: from words to BPE subwords
-02:46:48.73  21  21 — The place of meaning: word2vec and the geometry of meaning
-02:55:54.14  22  22 — The birth of attention: seq2seq and attention
-03:04:33.35  23  23 — The arithmetic of attention: query, key and value
-03:14:04.74  24  24 — The layers of the transformer: one layer at a time
-03:23:14.97  25  25 — Two families: BERT, GPT and a small model of your own
-03:32:38.53  26  26 — Pretraining: data, scaling laws and training spread out
-03:42:03.84  27  27 — A small improvement: SFT, LoRA and alignment
-03:51:31.66  28  28 — The trick of answering: sampling, the KV cache and serving
-04:01:16.38  29  29 — Searching before speaking: vector databases and RAG
-04:10:46.06  30  30 — Using tools: tool calls, ReAct and frameworks
-04:19:05.65  31  31 — Memory and limits: an agent's memory, testing and railings
-04:30:02.30  32  32 — The map of a system: system design and the last night
+00:09:22.74  01  1 — The arrow of direction: vectors, dot product and cosine
+00:17:21.59  02  2 — The machine that changes shape: the matrix
+00:24:52.50  03  3 — The direction that does not change: eigenvectors and SVD
+00:33:03.10  04  4 — The road down the slope: derivatives and gradient descent
+00:41:02.78  05  5 — Guessing the weather: probability and Bayes
+00:48:02.66  06  6 — Guessing from a sample: statistics and MLE
+00:55:33.10  07  7 — The measure of surprise: entropy and cross-entropy
+01:03:07.73  08  8 — Learning and memorising: overfitting and bias
+01:10:39.45  09  9 — The straight line: linear regression
+01:17:18.13  10  10 — Yes or no: logistic regression
+01:24:41.24  11  11 — Words into numbers: bag of words and TF-IDF
+01:31:42.98  12  12 — Neighbours and trees: k-NN, decision trees and random forests
+01:39:52.94  13  13 — Groups without labels: k-means and PCA
+01:47:27.73  14  14 — The honesty of testing: precision, recall and ROC
+01:55:31.61  15  15 — The foundation of the network: from the perceptron to the MLP
+02:03:27.87  16  16 — The voice that comes back: backpropagation
+02:11:25.97  17  17 — The moves of training: optimizers, batches, dropout and batch norm
+02:19:59.41  18  18 — The tensor loop: the three tools of PyTorch
+02:29:09.32  19  19 — Pictures and order: CNNs and RNNs
+02:38:18.91  20  20 — The trick of making pieces: from words to BPE subwords
+02:47:35.11  21  21 — The place of meaning: word2vec and the geometry of meaning
+02:56:51.96  22  22 — The birth of attention: seq2seq and attention
+03:05:42.24  23  23 — The arithmetic of attention: query, key and value
+03:15:24.06  24  24 — The layers of the transformer: one layer at a time
+03:24:58.11  25  25 — Two families: BERT, GPT and a small model of your own
+03:34:39.59  26  26 — Pretraining: data, scaling laws and training spread out
+03:44:13.96  27  27 — A small improvement: SFT, LoRA and alignment
+03:54:11.43  28  28 — The trick of answering: sampling, the KV cache and serving
+04:04:19.18  29  29 — Searching before speaking: vector databases and RAG
+04:14:06.85  30  30 — Using tools: tool calls, ReAct and frameworks
+04:22:36.22  31  31 — Memory and limits: an agent's memory, testing and railings
+04:34:14.41  32  32 — The map of a system: system design and the last night
 
-— Long: 05:22:47.07, 37.1 MB —
+— Long: 05:27:35.27, 37.6 MB —
 00:00:00.00  00  0 — Introduction: the map of the Poneglyph
-00:10:43.89  01  1 — The arrow of direction: vectors, dot product and cosine
-00:20:12.81  02  2 — The machine that changes shape: the matrix
-00:28:57.99  03  3 — The direction that does not change: eigenvectors and SVD
-00:38:09.55  04  4 — The road down the slope: derivatives and gradient descent
-00:47:30.70  05  5 — Guessing the weather: probability and Bayes
-00:55:27.10  06  6 — Guessing from a sample: statistics and MLE
-01:04:02.52  07  7 — The measure of surprise: entropy and cross-entropy
-01:12:45.57  08  8 — Learning and memorising: overfitting and bias
-01:21:23.13  09  9 — The straight line: linear regression
-01:29:13.41  10  10 — Yes or no: logistic regression
-01:37:46.99  11  11 — Words into numbers: bag of words and TF-IDF
-01:46:00.25  12  12 — Neighbours and trees: k-NN, decision trees and random forests
-01:55:21.28  13  13 — Groups without labels: k-means and PCA
-02:04:04.82  14  14 — The honesty of testing: precision, recall and ROC
-02:13:16.84  15  15 — The foundation of the network: from the perceptron to the MLP
-02:22:29.12  16  16 — The voice that comes back: backpropagation
-02:31:43.70  17  17 — The moves of training: optimizers, batches, dropout and batch norm
-02:41:33.78  18  18 — The tensor loop: the three tools of PyTorch
-02:51:31.13  19  19 — Pictures and order: CNNs and RNNs
-03:01:44.16  20  20 — The trick of making pieces: from words to BPE subwords
-03:12:12.49  21  21 — The place of meaning: word2vec and the geometry of meaning
-03:22:37.41  22  22 — The birth of attention: seq2seq and attention
-03:32:44.97  23  23 — The arithmetic of attention: query, key and value
-03:43:36.86  24  24 — The layers of the transformer: one layer at a time
-03:54:05.63  25  25 — Two families: BERT, GPT and a small model of your own
-04:04:44.21  26  26 — Pretraining: data, scaling laws and training spread out
-04:15:35.07  27  27 — A small improvement: SFT, LoRA and alignment
-04:26:25.47  28  28 — The trick of answering: sampling, the KV cache and serving
-04:37:33.26  29  29 — Searching before speaking: vector databases and RAG
-04:48:28.59  30  30 — Using tools: tool calls, ReAct and frameworks
-04:57:59.76  31  31 — Memory and limits: an agent's memory, testing and railings
-05:10:19.38  32  32 — The map of a system: system design and the last night
+00:10:44.59  01  1 — The arrow of direction: vectors, dot product and cosine
+00:20:14.21  02  2 — The machine that changes shape: the matrix
+00:29:00.09  03  3 — The direction that does not change: eigenvectors and SVD
+00:38:12.35  04  4 — The road down the slope: derivatives and gradient descent
+00:47:34.20  05  5 — Guessing the weather: probability and Bayes
+00:55:31.30  06  6 — Guessing from a sample: statistics and MLE
+01:04:07.42  07  7 — The measure of surprise: entropy and cross-entropy
+01:12:51.17  08  8 — Learning and memorising: overfitting and bias
+01:21:29.43  09  9 — The straight line: linear regression
+01:29:20.41  10  10 — Yes or no: logistic regression
+01:37:54.69  11  11 — Words into numbers: bag of words and TF-IDF
+01:46:08.65  12  12 — Neighbours and trees: k-NN, decision trees and random forests
+01:55:30.38  13  13 — Groups without labels: k-means and PCA
+02:04:14.62  14  14 — The honesty of testing: precision, recall and ROC
+02:13:27.34  15  15 — The foundation of the network: from the perceptron to the MLP
+02:22:40.32  16  16 — The voice that comes back: backpropagation
+02:31:55.60  17  17 — The moves of training: optimizers, batches, dropout and batch norm
+02:41:46.38  18  18 — The tensor loop: the three tools of PyTorch
+02:52:05.60  19  19 — Pictures and order: CNNs and RNNs
+03:02:25.88  20  20 — The trick of making pieces: from words to BPE subwords
+03:13:06.22  21  21 — The place of meaning: word2vec and the geometry of meaning
+03:23:42.93  22  22 — The birth of attention: seq2seq and attention
+03:34:01.91  23  23 — The arithmetic of attention: query, key and value
+03:45:04.58  24  24 — The layers of the transformer: one layer at a time
+03:55:57.52  25  25 — Two families: BERT, GPT and a small model of your own
+04:06:54.37  26  26 — Pretraining: data, scaling laws and training spread out
+04:17:54.64  27  27 — A small improvement: SFT, LoRA and alignment
+04:29:15.04  28  28 — The trick of answering: sampling, the KV cache and serving
+04:40:46.21  29  29 — Searching before speaking: vector databases and RAG
+04:51:59.88  30  30 — Using tools: tool calls, ReAct and frameworks
+05:01:41.18  31  31 — Memory and limits: an agent's memory, testing and railings
+05:14:42.69  32  32 — The map of a system: system design and the last night
 

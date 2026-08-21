@@ -154,6 +154,13 @@ SUBORDINATORS = {
 }
 
 
+# An attribution verb, a dash, then a quote with no performance mark on it.
+_SPOKEN_UNMARKED = re.compile(
+    r"\b(?:said|says|asked|asks|added|adds|replied|answered|murmured|"
+    r"whispered|called|shouted)\s*[—-]\s*(?!\[)[\"“]"
+)
+
+
 def _has_verb(sent):
     words = {w.lower().replace("’", "'") for w in _WORD.findall(sent)}
     return bool(words & VERBS)
@@ -173,10 +180,14 @@ FRAGMENT_BUDGET = 0.14
 # The crew who actually speak in this edition, plus the engine's delivery
 # registers. A span naming anything else is a typo that would be read in the
 # narrator's voice without any warning.
-CAST = {"luffy", "zoro", "nami", "usopp", "sanji", "chopper", "robin", "franky",
-        "brook"}
-REGISTERS = {"narrator", "steady", "teach", "hush", "whisper", "aside", "warm",
-             "lift", "wonder", "slow"}
+# Derived from the profile rather than listed here. These two used to be
+# hardcoded, and they drifted the moment a voice was added: `sage` was cast in
+# build_bedtime_en.py and still failed fourteen times as an uncast voice,
+# because this file had never heard of it. A style with a `voice` is a
+# character and must be cast; a style without one is a register the narrator
+# reads in. That is the actual rule, so it is the one written down.
+CAST = {n for n, st in B.STYLES.items() if st.get("voice")}
+REGISTERS = {n for n, st in B.STYLES.items() if not st.get("voice")}
 
 
 def main():
@@ -201,6 +212,12 @@ def main():
                     problems.append(("dropped-clause", sent))
             if (para.count('"') % 2) or (para.count("“") != para.count("”")):
                 problems.append(("open-quote", para[:120]))
+            # A spoken line nobody was cast to speak — see the Nepali linter's
+            # note. Twenty-one per edition, read by the narrator, invisible to
+            # every other check here because every other check is about the
+            # words rather than about who says them.
+            for m in _SPOKEN_UNMARKED.finditer(raw):
+                problems.append(("uncast-line", m.group(0)[:80]))
 
         for spans in ch["spans"]:
             for _, style in spans:

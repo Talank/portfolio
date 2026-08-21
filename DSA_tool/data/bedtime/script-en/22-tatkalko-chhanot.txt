@@ -7,7 +7,7 @@ Luffy was delighted and said — [luffy:excited]"This is my island! I always cho
 Robin said — [robin]"Yes, and that is sometimes right. But it is not always right. Knowing when it is right is the lesson of this island."[/]
 
 @algo lobhi
-The greedy rule is this. At every step choose whatever looks best right now, and once you have chosen, never turn back. But before choosing you have to be able to answer one question, and the question is this — "Can this choice of mine ever make the future worse?" If there is a proof that it can never make it worse, the greedy road is safe, and it finishes in a single pass. If you cannot give that proof, leave the greedy road and turn back towards the wall of memory. And greedy solutions usually begin with sorting by some one thing, so always ask first what it is that I should sort by.
+The greedy rule is this. At every step choose whatever looks best right now, and once you have chosen, never turn back. But before choosing you have to be able to answer one question, and the question is this — [aside]"Can this choice of mine ever make the future worse?"[/] If there is a proof that it can never make it worse, the greedy road is safe, and it finishes in a single pass. If you cannot give that proof, leave the greedy road and turn back towards the wall of memory. And greedy solutions usually begin with sorting by some one thing, so always ask first what it is that I should sort by.
 @end
 
 @read teach
@@ -61,7 +61,13 @@ The second road is handing out sweets to children, where among children standing
 
 This move of walking from two directions comes back in many places. If one pass only covers the condition on one side, run two passes.
 
-The third road is finding the fewest notes for giving change, where the notes are like Nepali notes. Start from the largest. This works, but the reason it works is in the make-up of the notes, because every larger note is greater than or equal to the total of all the smaller ones.
+[luffy]"If I need the fewest notes for giving change, I start from the largest."[/] Luffy said.
+
+[nami]"This time you are right."[/] Nami said. [nami]"But the reason it works is not you, it is the make-up of the notes."[/]
+
+[luffy]"What about them?"[/]
+
+[nami]"Every larger note is greater than or equal to the total of all the smaller ones."[/] Nami said. [nami]"Change the make-up and the same move becomes wrong."[/]
 
 Robin gave a warning — [robin]"Before you write a greedy solution, go looking for a counter-example. Only trust it if you cannot find one. If you find one, turn back to the wall."[/]
 
@@ -103,6 +109,24 @@ At the end, one thing is worth remembering. A greedy solution is easy to write, 
 
 So if you are in doubt in an interview, write DP. A slow solution is correct, and a correct solution being slow is always better than a wrong solution being fast.
 
+Now listen to one last problem, and it answers tonight's biggest question in a strange way.
+
+All night we kept asking — what should I sort by? For the meetings it was the finishing time. For the ropes it was the length. Now a problem arrives where there is no sorting to do at all, and yet the idea of a [aside]"finishing time"[/] is still needed.
+
+The problem is this. A string is given. Cut it into as many pieces as you can, but no single letter may fall into two pieces. Every letter, together with every place it appears, has to sit inside one piece.
+
+Robin said — [robin]"Every letter has a finishing time of its own. That is the last place where that letter appears."[/]
+
+So first, in one pass, write down in the notebook where every letter appears for the last time.
+
+Now walk, and carry a single number in your hand, which is the furthest of the finishing times of all the letters met so far. Measure that number afresh at every letter.
+
+Now here is the magic. As you walk, if at some place your current index and that furthest finishing time are equal, then none of the letters met up to here appear any further on. So cut right there.
+
+This finishes in a single pass, and nothing had to be sorted.
+
+Here tonight's rule is proved once more. This choice of where to cut is greedy, because you cut as early as you possibly can. And it is safe, because cutting here never narrows the future. The letters that come later have no relation to anything back here.
+
 The horse went quiet again. The dust had settled on the road, and in the east the sky was going a little pale.
 
 Luffy was asleep in the grass, laughing. Robin looked at him and said — [robin:amused]"This one never thinks twice. And the strange thing is that he is usually right."[/]
@@ -112,6 +136,10 @@ That is tonight's lesson, and it has two edges. The choice of the moment is some
 
 But the condition is a hard one. You have to be able to say that your current choice can never make the future worse. If you can say it, run. If you cannot say it, turn back towards the wall.
 
-And that second lesson is the real lesson. A greedy solution is easy to write and hard to prove correct. The solution on the wall is hard to write and easy to be sure is correct. When in doubt, choose the hard road, because a slow correct answer is always better than a fast wrong one.
+[luffy]"I always choose the easy road."[/] Luffy said.
+
+[robin]"And that is where the second lesson comes in, and it is the real one."[/] Robin said. [robin]"A greedy solution is easy to write and hard to prove correct. The solution on the wall is hard to write and easy to be sure is correct."[/]
+
+[robin]"When in doubt, choose the hard road."[/] she added. [robin]"A slow correct answer is always better than a fast wrong one."[/]
 
 The first bird of the morning called. Luffy did not get up. The racing track was empty, and it was not waiting for anybody.

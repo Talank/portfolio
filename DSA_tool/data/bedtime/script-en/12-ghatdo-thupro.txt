@@ -1,4 +1,4 @@
-# 12 — The Falling Stack: Monotonic Stack
+# 12 — The Falling Stack: [..]Monotonic Stack[..]
 
 On the twelfth island there is a long wall, and posts of different heights stand along it.
 
@@ -30,7 +30,11 @@ You can check this approach's arithmetic in your head. Every pillar climbs onto 
 
 @recall ghatdo-thupro
 
-There is a deeper problem, and it is finding the largest rectangle among the posts of the wall. This is hard, but the idea is the same. Keep the stack in rising order. When a shorter post arrives, the rectangles of the taller posts on the stack end right here, because they cannot spread any further forward.
+[franky]"There is a deeper problem."[/] Franky put his hand on the wall. [franky]"Find the largest rectangle among these posts."[/]
+
+[chopper]"That looks hard."[/] Chopper said.
+
+[franky]"It is hard, but the idea is the same."[/] Franky said. [franky]"Keep the stack in rising order. When a shorter post arrives, the rectangles of the taller posts on the stack end right here, because they cannot spread any further forward."[/]
 
 Now remember the signals, lightly. If you hear the words [aside]"the next larger"[/], remember this island. If you hear [aside]"the next smaller"[/], remember it too. If you hear [aside]"the first taller"[/] or [aside]"how long must it wait"[/], remember this island as well.
 
@@ -60,7 +64,7 @@ That sounds like a different problem, but the shape is the same. A large digit s
 @read hush
 The posts were quiet. Robin sat down at the foot of the wall, and made her voice softer.
 
-She said — "Now let us hear the story of the water again, but tonight let us hear it from another road. Zoro collected the water with two fingers. A stack does the same work, and the stack's reasoning is clearer when you hear it."
+She said — [robin]"Now let us hear the story of the water again, but tonight let us hear it from another road. Zoro collected the water with two fingers. A stack does the same work, and the stack's reasoning is clearer when you hear it."[/]
 
 Put the indexes of the posts on a falling stack. If the new post is taller than the post at the top, then the post at the top is the floor of a hollow.
 
@@ -70,11 +74,17 @@ The same thing happens in the rectangle problem, but there the search is inverte
 
 Keep a rising stack. If the new post is shorter than the top, the post at the top can no longer spread to the right, so its rectangle ends right here.
 
-The height is that post's own. The right limit is the current index. The left limit is the index of whoever is underneath it on the stack. The width is between the two limits. In this arithmetic the off-by-one mistake happens a great deal, so draw a small picture of three posts on paper and check it once.
+[franky]"The height is that post's own."[/] Franky said. [franky]"The right limit is the current index, and the left limit is the index of whoever is underneath it on the stack."[/]
+
+[usopp]"And the width?"[/] Usopp asked.
+
+[franky]"The width is between the two limits."[/] Franky said. [franky]"But in this arithmetic the off-by-one mistake happens a great deal."[/]
+
+[nami]"So draw a small picture of three posts on paper and check it once."[/] Nami said.
 
 At the end, do not forget to work out the rectangle for everyone left on the stack. The easy move for this is to add one fake post of zero height at the end of the array. That forces everybody out, and you never have to write separate code.
 
-This move of putting in a fake boundary is useful in many places. The fake head of a linked list, the zero at the end of an array, and the imaginary root of a graph are all the same idea. A special case should be removed by a fake object, not by special code.
+This move of putting in a fake boundary is useful in many places. The fake head of a linked list, the zero at the end of an array, and the imaginary root of a [..]graph[..] are all the same idea. A special case should be removed by a fake object, not by special code.
 
 Now listen to a different family. A rising stack also solves the question [aside]"how many people can see me"[/]. Among people standing on a hill, how many pairs can see each other? They can see each other only if there is nobody taller in between.
 
@@ -83,6 +93,24 @@ And one thing is the most important of all, and it is what teaches you to recogn
 So whenever you feel [aside]"I do not know the answer for this thing now, but I will know once something arrives later"[/], remember this stack.
 
 And when the answer arrives, it arrives for many at once. One tall post ends the waiting of all ten waiting posts in a single instant. That is the beauty of this move.
+
+Now listen to a hard problem, and it asks for two of tonight's faces at once.
+
+The question is this. Take the smallest number in every run of neighbours in the array, and add all of those together. There are a great many runs, so walking them one at a time is O(n²).
+
+Robin said — [robin]"Do not count the runs. Count the posts."[/]
+
+What that means is this. Instead of looking at every run, stand on every number and ask — how many runs am I the smallest of? That many times, my value goes into the total.
+
+Now work out that count. How many runs I am the smallest of is settled by two things. How far I can reach to the left before meeting somebody smaller than me, and how far I can reach to the right before meeting somebody smaller than me.
+
+Multiply those two distances together, and that is the number of runs in which I am the smallest.
+
+Now notice that you already have both of these. The next smaller to the left and the next smaller to the right — those are two of tonight's own four faces. A rising stack gives you both in O(n).
+
+Watch one thing, or you will count twice. When you meet equal numbers, say [aside]"strictly smaller"[/] on one side and [aside]"smaller or equal"[/] on the other. Use the same rule on both sides and equal numbers will each claim the same run.
+
+The time is O(n). Here you can see tonight's real power. When counting [aside]"every run"[/] is expensive, ask instead how much [aside]"every single thing contributes to"[/].
 
 Robin took her hand off the wall. The wind was still moving, but it was not cold now. The posts stood in their places.
 

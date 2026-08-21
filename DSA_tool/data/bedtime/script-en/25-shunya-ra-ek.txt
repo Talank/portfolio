@@ -1,4 +1,4 @@
-# 25 — Zero and One: Bit Manipulation
+# 25 — Zero and One: [..]Bit Manipulation[..]
 
 The twenty-fifth island is the smallest, but the foundation of everything is here. There are only two signs here, and they are zero and one.
 
@@ -103,13 +103,37 @@ At the end, listen to a philosophy. This island is small, but it is at the very 
 
 You will rarely write these moves in daily work. But knowing what is underneath makes everything above a little clearer.
 
+Now listen to tonight's hardest problem, and it is the twin of the first one. I am changing a single digit.
+
+Before, every number in the array was there twice, and only one stood alone. XOR pulled that lonely one out. Now every number is there three times, and only one stands alone.
+
+Taking hold of the wire, Franky said — [franky]"XOR cancels pairs. It does not cancel threes."[/]
+
+So another road is needed, and that road is easy when you hear it.
+
+Look at every lamp's position separately. At the third lamp's position, count that lamp across all the numbers of the array. Every number that comes three times leaves that count at a multiple of three. So whatever is left over when you divide the count by three is the lonely number's lamp at that position.
+
+Do that at every lamp position, and the lonely number builds itself. There are only thirty or thirty-two lamps, so the time stays O(n).
+
+That warning about negative numbers applies again here. The topmost lamp is the sign lamp, so it has to be handled separately when you put the number back together.
+
+There is a cleverer road as well, and it is to carry two boxes. In one box keep the [aside]"lamps seen once"[/], and in the other keep the [aside]"lamps seen twice"[/]. The moment a lamp is seen a third time, wipe it out of both boxes. At the end, whatever is left in the first box is the answer.
+
+You need not learn that one by heart tonight. Remember the first move, of counting each lamp position separately, because that one always works and it can always be remembered.
+
+Franky added — [franky:firm]"The move changes, but the question stays the same. Which lamp is left over?"[/]
+
 Franky let go of the wire. The lamps swayed at their own pace, and some were lit and some were out, and that had been enough.
 
-He looked up and said — "This island is the smallest, but every island stands on top of it. The notebook, the tree, the stack and the wall are in the end all made out of these two signs."
+He looked up and said — [franky]"This island is the smallest, but every island stands on top of it. The notebook, the tree, the stack and the wall are in the end all made out of these two signs."[/]
 
 That is tonight's lesson. Knowing what is in the foundation makes every floor above a little clearer, and that stays true even if you never have to work in the foundation yourself.
 
-Now listen to the second lesson, which is the most beautiful thing tonight. Pairs cancel themselves. Whatever came twice is erased, and what is left is the thing with no partner. No notebook was needed here, and no count was needed. There was only one property here, and that property made the whole problem disappear.
+[robin]"Now listen to the second lesson, which is the most beautiful thing tonight."[/] Robin said. [robin]"Pairs cancel themselves."[/]
+
+[chopper]"What does that mean?"[/] Chopper asked.
+
+[robin]"Whatever came twice is erased, and what is left is the thing with no partner."[/] Robin said. [robin]"No notebook was needed here, and no count was needed. There was only one property here, and that property made the whole problem disappear."[/]
 
 That is the true shape of cleverness. The problem vanishes not by adding force, but by finding one property of nature.
 

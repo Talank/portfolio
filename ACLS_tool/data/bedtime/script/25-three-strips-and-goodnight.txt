@@ -65,7 +65,7 @@ Say it. The rate is about a hundred and thirty. Irregularly irregular. There are
 
 Irregularly irregular with no P waves is atrial fibrillation, and nothing else is.
 
-And the patient is a woman of seventy-eight who was admitted this evening feeling faint, and her pulse at the wrist is a hundred and ten, which is slower than the complexes on the strip — because some of those beats are too weak to reach the wrist at all.
+And the patient is a woman of seventy-eight who was admitted this evening feeling faint. Her pulse at the wrist is a hundred and ten, which is slower than the complexes on the strip. Some of those beats are too weak to reach the wrist at all.
 
 @read warm
 The monitor says one hundred and thirty. The wrist gives back one hundred and ten. Some of those beats are too weak to reach that far.
@@ -114,7 +114,7 @@ It began with two sentences and it ends with the same two. Time is measured acro
 @read teach
 There is one last thing to say, and Nurse Maya says it, and it is not about strips.
 
-[maya]"You will be wrong sometimes,"[/] she says. [maya]"Everybody is. I have called flutter an SVT in front of a consultant and I have called artifact a rhythm and stopped compressions for it, and I have been in the room when it went badly and could not tell you afterwards what the monitor had been showing."[/]
+[maya]"You will be wrong sometimes,"[/] she says. [maya]"Everybody is. I have called flutter an SVT in front of a consultant. I have called artifact a rhythm and stopped compressions for it. And I have been in the room when it went badly, and could not tell you afterwards what the monitor had been showing."[/]
 
 [maya]"What matters is that you have a method, and that you use it when you are frightened, because that is the only time it is actually worth anything. Anybody can read a strip in the daylight with a cup of tea."[/]
 

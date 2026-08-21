@@ -2,7 +2,7 @@
 
 Everything so far has been one view of the heart. Tonight there are twelve, and they are twelve windows into the same room.
 
-Nurse Maya brings a full twelve-lead out of the folder and unfolds it, and it is much bigger than the rhythm strips — a wide sheet with twelve little tracings arranged in a grid of four columns and three rows, and one long strip along the bottom.
+Nurse Maya brings a full twelve-lead out of the folder and unfolds it, and it is much bigger than the rhythm strips. It is a wide sheet with twelve little tracings, arranged in a grid of four columns and three rows. One long strip runs along the bottom.
 
 @read hush
 Tonight you look at one single heart from twelve different directions at once.
@@ -66,7 +66,7 @@ In a normal heart, the QRS complex in V1 is mostly downward, because the main ma
 
 Somewhere in the middle, usually around V3 or V4, the complex is half up and half down. That is called the transition, and where it sits tells you something about how the heart is rotated in the chest.
 
-Walking from V1 to V6 and watching the complex turn over from downward to upward is one of the quickest ways to see whether a chest lead has been placed in the wrong spot, because a lead in the wrong place breaks the smooth progression.
+Walk from V1 to V6 and watch the complex turn over from downward to upward. That is one of the quickest ways to see whether a chest lead has been placed in the wrong spot, because a lead in the wrong place breaks the smooth progression.
 
 @read hush
 The groups, one last time.
@@ -101,7 +101,7 @@ The last piece tonight is about electrode placement, and it is the least glamoro
 @read teach
 The chest leads have exact positions, defined by ribs, and getting them wrong changes the tracing in ways that look like disease.
 
-V1 and V2 go in the fourth intercostal space, either side of the breastbone. The commonest single error in the world is placing them too high, in the second or third space, which makes the complexes look different, can produce a false pattern that mimics an old infarct, and can create an appearance that resembles a rare inherited condition.
+V1 and V2 go in the fourth intercostal space, either side of the breastbone. The commonest single error in the world is placing them too high, in the second or third space. That makes the complexes look different. It can produce a false pattern that mimics an old infarct, and an appearance that resembles a rare inherited condition.
 
 V4 goes in the fifth space in the line of the middle of the collarbone. V5 and V6 go along the same horizontal level as V4, not following the ribs downward, which is the second commonest error.
 

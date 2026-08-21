@@ -2,18 +2,40 @@
 
 There is fog on the second island. An old mapmaker lives here. He does not show you the road, he only tells you how long the road will be.
 
-Nami sat down in front of him. He asked — [nami]"How many people are there in your crew?"[/] Nami said — [nami]"There are n of us."[/] The old man smiled and said — [nami]"Now I will teach you the language of time."[/]
+Nami sat down in front of him. The old man asked — [sage]"How many people are there in your crew?"[/]
 
-Now imagine there are n boxes on the ship. Someone says to you — [aside]"Open the first box."[/] You open one box only. If there are ten boxes you still open one. If there are a million boxes you still open one. This is called O(1), and it means constant time. Here the effort does not grow when the number grows, and this is the happiest case there is.
+[nami]"There are n of us."[/] Nami said.
 
-Now someone says — [aside]"Open every box and look inside."[/] Now your effort grows along with the number of boxes. If there are ten boxes you open them ten times. If there are a million boxes you open them a million times. This is called O(n), and it means straight-line time. This is also good, and most good solutions end up right here.
+The old man smiled, and said — [sage]"Now I will teach you the language of time."[/]
 
-Now listen to something a little sadder. Someone says — [aside]"Compare every box against every other box."[/] You have to match the first box against all of them. You have to match the second box against all of them too. With ten boxes that is a hundred comparisons. With a thousand boxes that is a million comparisons. This is called O(n²), and it means squared time. On small numbers it is fine, but on large numbers the ship goes down.
+[sage]"Suppose there are n boxes on the ship."[/] the old man said. [sage]"I say — open the first box. How many did you open?"[/]
+
+[luffy]"One."[/] Luffy said at once.
+
+[sage]"And if there were a million boxes?"[/]
+
+[luffy]"Still one."[/] Luffy said.
+
+The old man nodded. [sage]"That is called O(1), and it means constant time. The effort does not grow when the number grows, and this is the happiest case there is."[/]
+
+[sage]"Now I say — open every box and look inside."[/] the old man said.
+
+[nami]"Ten boxes, ten times. A million boxes, a million times."[/] Nami worked it out.
+
+[sage]"That is O(n), and it means straight-line time."[/] the old man said. [sage]"This is also good, and most good solutions end up right here."[/]
+
+[sage]"Now listen to something a little sadder. Compare every box against every other box."[/]
+
+Nami went quiet for a moment and counted. [nami]"Ten boxes is a hundred comparisons."[/] she said. [nami]"A thousand boxes is a million comparisons."[/]
+
+[usopp]"A million?"[/] Usopp sat straight up.
+
+[sage]"That is why it is called O(n²), and it means squared time."[/] the old man said quietly. [sage]"On small numbers it is fine, but on large numbers the ship goes down."[/]
 
 @read teach
 And then there is something really beautiful. Suppose the boxes are arranged in order, from small to large. Now you open the middle box. If it is too big, throw away the right half. If it is too small, throw away the left half. Every time, half of it disappears. Even among a million boxes you find it in about twenty steps. This is called O(log n), and it truly is magic. We will meet it properly on the eighth island.
 
-The old mapmaker said the last thing slowly — "Do not panic looking at small numbers. This map does not talk about small numbers at all. It asks only one question — if the number grows ten times, how many times does your suffering grow?"
+The old mapmaker said the last thing slowly — [sage]"Do not panic looking at small numbers. This map does not talk about small numbers at all. It asks only one question — if the number grows ten times, how many times does your suffering grow?"[/]
 
 That is why we throw away the hundred that was attached to the O(n²). Two n and three n are both just O(n). We look at the shape, not at the size.
 
@@ -62,7 +84,7 @@ The first rule is to count the loops. If one loop in the code touches everything
 
 But there is a trap here. The inner loop does not always touch everything. Sometimes the inner loop is like a second hand, and as the outer one moves forward the inner one never goes back. In a case like that the two of them together are still only O(n), and not O(n²).
 
-Robin put it well — [robin]"If two people walk the same road, and neither of them turns back, then however much both of them walk, the road is still one road long."[/] This idea comes back on the island of the sliding window.
+Robin put it well — [robin]"If two people walk the same road, and neither of them turns back, then however much both of them walk, the road is still one road long."[/] This idea comes back on the island of the [..]sliding window[..].
 
 The second rule is to look for the work that halves. Anywhere you see [aside]"half was thrown away"[/], a log is hiding there. A log is also hiding in the height of a tree, because at every level the branches double.
 
@@ -76,7 +98,7 @@ But how many times does she have to move? The bag doubles every time, so the mov
 
 This idea comes up in many places. Sometimes one step is expensive, but that step happens rarely. So do not panic at one step, and look at the average over the whole voyage.
 
-The sixth rule is about measuring space, which many people forget. If you build a new array, that is O(n) space. If you worked in place without building anything, that is O(1).
+The sixth rule is about measuring space, which many people forget. If you build a new array, that is O(n) space. If you worked [..]in place[..] without building anything, that is O(1).
 
 But there is a hidden space too. When a function calls itself, the memory of every call piles up somewhere. The deeper the tree, the taller the stack. So the space of recursion is equal to the height of the tree, and it has to be counted in the total.
 
@@ -86,7 +108,7 @@ Putting into a hash map and looking up in one are O(1) on average. Sorting is O(
 
 The eighth rule is the most important one, and it is that the measure is not a goal, it is a signal. Sometimes O(n²) is exactly right, because n is always under twenty. Sometimes even O(n) is bad, because the work inside is very expensive.
 
-The old mapmaker closed his eyes and said — "I am not giving you a number, I am giving you a question. When you write code, ask yourself — if the amount of stuff grows ten times, does my suffering grow ten times or a hundred times?"
+The old mapmaker closed his eyes and said — [sage]"I am not giving you a number, I am giving you a question. When you write code, ask yourself — if the amount of stuff grows ten times, does my suffering grow ten times or a hundred times?"[/]
 
 Nami folded the map. Outside, the fog was thinning. The ship raised its anchor, and the sea opened again.
 

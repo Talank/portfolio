@@ -101,7 +101,7 @@ And there is a refinement for when the answer falls between two of the six numbe
 
 If the next R wave lands between the four-square mark and the five-square mark, the rate is between seventy-five and sixty. You can interpolate roughly, and roughly is almost always enough, because the reason you are counting is to decide which of three worlds you are in.
 
-The exception is the border. When the answer is close to sixty, or close to a hundred, or close to a hundred and fifty, it is worth doing the fifteen-hundred method properly — because those three numbers are the ones that decide which algorithm gets opened, and a rate of a hundred and two is a different conversation from a rate of ninety-eight.
+The exception is the border. When the answer is close to sixty, or close to a hundred, or close to a hundred and fifty, it is worth doing the fifteen-hundred method properly. Those three numbers are the ones that decide which algorithm gets opened. A rate of a hundred and two is a different conversation from a rate of ninety-eight.
 
 @tier long
 

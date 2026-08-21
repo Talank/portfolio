@@ -1,4 +1,4 @@
-# 23 — Pieces of Time: Merge Intervals
+# 23 — Pieces of Time: [..]Merge Intervals[..]
 
 On the twenty-third island the watch rota is being drawn up. Everybody has written down their own hours, that is, from when until when.
 
@@ -16,7 +16,13 @@ Its time is O(n log n), and that is spent on the sorting. The single pass after 
 
 A small but important question hides here. If two pieces meet exactly at the edge, that is, one finishes at ten o'clock and another starts at ten o'clock, do you join them or not?
 
-The problem itself decides the answer to that. If it is about a watch, joining is right, because the watch is continuous. If it is about a meeting room, not joining is right, because the room was empty for a moment. Ask this in an interview, and asking is itself a good sign.
+[chopper]"If two pieces just touch, do you join them or not?"[/] Chopper asked.
+
+[robin]"The problem itself decides that."[/] Robin said. [robin]"If it is about a watch, joining is right, because the watch is continuous."[/]
+
+[chopper]"And if it is about a meeting room?"[/]
+
+[robin]"Then not joining is right, because the room was empty for a moment."[/] Robin said. [robin]"Ask this in an interview, and asking is itself a good sign."[/]
 
 @read hush
 You can check the joined pieces in a single look. The pieces in the answer must be in order, and no two neighbours may so much as touch. If the end of one lies past the start of the next, a joining step has been missed somewhere.
@@ -95,13 +101,37 @@ At the end, listen to one piece of advice. Before writing a problem about pieces
 
 The third case is the one most often missed. If a small piece fits entirely inside a large one, then when joining, the end has to stay the large one's, and must not become the small one's.
 
+Now listen to a hard problem, and it is tonight's very problem of fitting two people's free time together. I am changing one word, and putting K where two was.
+
+There are K watchmen on the ship. Each has a list of their own busy times, and each list is in order with no overlap inside it. Now you have to find the times when all of them are free at once.
+
+With two people you ran two fingers. With K people you would need K fingers, and that is hard to hold.
+
+Nami lifted the lantern a little higher and said — [nami]"Do not look for the free time. Join up the busy time. Whatever is left over is free."[/]
+
+That turns the problem into tonight's first problem. Pour all the busy pieces of all the people into one pile. Now sort them by their start, and go along joining the ones that overlap.
+
+Once the joining is done, the empty space between the joined pieces that remain is the time when everyone is free. From the end of one joined piece to the start of the next.
+
+The time is O(N log N), where N is the total number of pieces, and that is what the sorting costs.
+
+If you like, you need not sort at all. Put the first piece of every list into a heap, keep taking out the one that starts earliest, and put that same list's next piece in. That is the sixteenth island's move of merging K lists.
+
+Here is tonight's most useful thought. Counting empty space directly is hard. Join up the filled space, and the empty space shows itself.
+
 The lantern was swaying slowly. The watch was continuous, nowhere was empty, and nobody was doing double duty.
 
 Nami looked at the clean rota once more. At the start that paper had been full of mess, because there were overlapping times on it, there was double duty, and there were empty nights in the middle.
 
 That is tonight's lesson. The first step in turning disorder into order is usually not effort, it is sorting. The moment it is sorted, it is enough for every piece to look only at its neighbour, and the whole problem becomes narrow.
 
-Now listen to the second lesson, which comes back in many places. In the joining work, sort by the start, and in the choosing work, sort by the end. Two different orders on the same list give two different answers. The question of what to sort by is itself half the solution.
+[sanji]"Now listen to the second lesson, which comes back in many places."[/] Sanji said. [sanji]"In the joining work, sort by the start."[/]
+
+[chopper]"And in the choosing work?"[/] Chopper asked.
+
+[sanji]"Sort by the end."[/] Sanji said. [sanji]"Two different orders on the same list give two different answers."[/]
+
+[robin]"The question of what to sort by is itself half the solution."[/] Robin said.
 
 And the third lesson is the most human. The question of whether to join two pieces that meet exactly at the edge is not answered by mathematics. The problem itself answers it, and when you do not know, asking is not something to be ashamed of. Asking is itself a good sign.
 

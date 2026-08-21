@@ -4,7 +4,11 @@ The ship came slowly in to the first island. The sand is soft. There is no probl
 
 Usopp opened his bag. There are only three tools inside it. He said — [usopp:firm]"However big the job is, I do it with these three."[/] The three tools are the box that holds a name, the wheel that repeats, and the string that ties work together.
 
-The first tool is the box, and in programming it is called a variable. You put something in the box, and you write a name on the box. For example, you write "age" on a box and you put twenty-five inside it. In code you only write this — age equals twenty-five. Now wherever you say "age", twenty-five arrives.
+Usopp took out the first tool, and it was a small box. [usopp]"The first tool is the box."[/] he said. [usopp]"In programming it is called a variable. Put something inside, and write a name on the outside."[/]
+
+[chopper]"Why write a name on it?"[/] Chopper asked.
+
+[usopp]"Because tomorrow you will not recognise it yourself."[/] Usopp wrote "age" on the box and put twenty-five inside. [usopp]"Now wherever you say age, twenty-five arrives. In code you only write this — age equals twenty-five."[/]
 
 @read teach
 A box does not have to hold only one thing. There are long boxes too, and a long box is called a list, and in English it is called an [..]array[..]. Many things live inside one array. It is like a basket of fruit, where the apple, the banana and the mango all sit together. They are known by their index number. But there is one strange thing here, because in programming the count starts from zero. The first thing has index zero. The second has index one. The third has index two. At the start this feels odd, but in a few days it becomes natural.
@@ -15,7 +19,11 @@ Think about how much that one sentence just saved you. If there are three fruits
 
 The third tool is the string, and it is called a function. If you do some piece of work again and again, tie it into one bundle and give it a name. Then whenever you need it, just call the name.
 
-Sanji explains this well. In the kitchen he cooks rice hundreds of times. He does not think from the beginning every time about washing the rice, adding the water and lighting the fire. He keeps one word in his mind, and the word is rice. All the steps are hidden inside that word. That is what a function is.
+Sanji put his head out of the kitchen. [sanji]"I will explain this one."[/] he said. [sanji]"I cook rice hundreds of times. But I do not think from the beginning every time about washing the rice, adding the water and lighting the fire."[/]
+
+[luffy]"Then what do you think about?"[/] Luffy asked.
+
+[sanji]"One word."[/] Sanji said. [sanji]"Rice. All the steps are hidden inside that word. That is what a function is."[/]
 
 In code a function sounds like this — [aside]"Make a piece of work with this name. Give it these things. It gives back this much."[/] The more you hide inside, the cleaner it looks from outside.
 
@@ -67,7 +75,7 @@ The sixth thing is what a function gives back. There are two kinds of string. On
 As much as you can, make functions of the asking kind. An asking function is easy to test, because you can put this much in, and check that this much came out. An ordering function changes the world, and changing the world is always a little risky.
 
 @read teach
-The seventh thing is that a function can also call itself. That sounds strange when you hear it. Robin said — "If you put two mirrors facing each other, what do you see? You see another mirror inside, and inside that one, another mirror." That is what [..]recursion[..] is. We will meet it properly in the branches of the tree, and in the maze.
+The seventh thing is that a function can also call itself. That sounds strange when you hear it. Robin said — [robin]"If you put two mirrors facing each other, what do you see? You see another mirror inside, and inside that one, another mirror."[/] That is what [..]recursion[..] is. We will meet it properly in the branches of the tree, and in the maze.
 
 But listen to one rule right now. Every function that calls itself must have a place where it stops. Without that place the mirrors go deeper forever, and the ship sinks.
 

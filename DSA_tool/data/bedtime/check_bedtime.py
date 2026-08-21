@@ -42,6 +42,17 @@ _VERB_END = re.compile(
     r"न्छ|न्छन्|ँछ|ँछन्|्छ|्छन्|दैन|दैनन्|ँदैन|ँदैनन्|्दैन|"
     # past tense …यो …ए …ई …इन्, and its negative …एन / …ेन (परेन, भएन)
     r"यो|ए|ई|इन्|एन|एनन्|ेन|ेनन्|हे|"
+    # Feminine past written with the *dependent* vowel sign: भनिन्, गरिन्,
+    # हेरिन्, सोधिन्. Only the independent-vowel spellings (गइन, भइन) were
+    # listed, in _FEM_PAST, so "रोबिनले भनिन्" — the single most common way
+    # this story attributes a line, since its two most talkative characters
+    # are women — was being read as a fragment.
+    r"िन्|िइन्|"
+    # Second person past: तिमीले खोल्यौ, भन्यौ, गर्‍यौ — and the first person
+    # plural गयौं, which ends the same way. Rare in narration, constant in
+    # dialogue, because that is the form one character uses to another. It
+    # only became worth having when the crew started talking to each other.
+    r"यौ|यौं|"
     # first person past and past habitual: सिकें, सक्थें, गरेँ.
     # ेँ and ें are the same sound written two ways — candrabindu and anusvara.
     # Only the anusvara spelling was listed here, so देखेँ / सुनेँ / चिनेँ, which
@@ -93,6 +104,15 @@ _IMPERATIVE = {
     "हाल", "निकाल", "जोड", "गनी", "उठ", "बस", "थप", "नाप", "बिर्स",
     "मिला", "साट", "तान", "घटा", "बढा", "छान", "पछ्या", "सोच", "दे",
     "खोज", "पर्ख", "टेक", "काट", "छुट्टया", "गन्",
+    # Added with the conversational rewrite. One character telling another what
+    # to do is the bare stem, and the crew now do that constantly — these are
+    # the stems the rewritten chapters actually use.
+    "सार", "फ्याँक", "पढ", "रोक", "देखा", "भेट", "छाम", "समात", "उठा",
+    "झार", "पल्टा", "फर्का", "बोक", "चिन", "सुना", "बुझा", "जोड्", "मिल",
+    "बिगार", "बना", "बढा", "सक", "ला", "पुर्‍या", "अड्या", "नाप्",
+    "खुम्च्या", "फैला", "तन्का", "ओर्ल", "चढ", "गाड", "ठोक", "जाँच",
+    "हटा", "ल्या", "पुछ", "बाँध", "फुका", "गन्ती", "मेट", "टाँस",
+    "पुग", "चला", "रोज", "भर", "झिक", "बाँड", "दौड", "अड", "छुट्टा",
 }
 
 # Particles that sit *after* the verb without changing that there is one:
@@ -109,6 +129,15 @@ def _tail_is_verb(chunk):
     last = words[-1]
     return (last in _FEM_PAST or last in _IMPERATIVE
             or bool(_VERB_END.search(last)))
+
+
+# An attribution verb, a dash, and then a quote that carries no performance
+# mark. The verbs are the ones these scripts actually attribute with: 71 भनी,
+# 43 भन्यो, 22 सोध्यो and their relatives.
+_SPOKEN_UNMARKED = re.compile(
+    r"(?:भन्यो|भनी|भनिन्|भने|सोध्यो|सोधी|सोधिन्|थप्यो|थपी|थपिन्|"
+    r"कराए|कराइन्|बोल्यो|बोली)\s*[—-]\s*(?!\[)[\"“]"
+)
 
 
 def is_finite(sent):
@@ -198,6 +227,17 @@ def main():
             # *paragraph* is a typo.
             if (para.count('"') % 2) or (para.count("“") != para.count("”")):
                 problems.append(("open-quote", para[:120]))
+            # A line the story says somebody spoke, that nobody was cast to
+            # speak. `raw` rather than `para` on purpose — the mark is exactly
+            # what is being looked for, and strip_marks() removes it.
+            #
+            # Twenty-one of these were found in each edition when the voyage
+            # was made conversational: "सान्जी भित्र पस्यो र भन्यो — ..." is
+            # read by the narrator, in the narrator's voice, and nothing
+            # complained. Nothing could: every other check here is about the
+            # words, and this is about who says them.
+            for m in _SPOKEN_UNMARKED.finditer(raw):
+                problems.append(("uncast-line", m.group(0)[:80]))
 
         counts = recitals_by_tier(ch["path"])
         if not counts:

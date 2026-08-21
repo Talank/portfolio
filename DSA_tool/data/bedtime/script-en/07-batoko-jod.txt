@@ -1,4 +1,4 @@
-# 7 — The Running Total: Prefix Sum
+# 7 — The Running Total: [..]Prefix Sum[..]
 
 On the seventh island there is a long road, and all along it there are stones set into the ground with distances written on them.
 
@@ -48,10 +48,16 @@ The first shape is the place of balance. In an array you have to find the place 
 
 Work out the grand total once. Now walk from the left, piling up the left-hand total as you go. At every place the right-hand total is known for free, because subtracting the left-hand total and your own value from the grand total is enough. If the two are equal, that place is the answer. This finishes in a single pass.
 
-The second shape is the running product. Instead of a total you can pile up a product. But there is a trap here, because if a zero arrives in the middle every product becomes zero, and then instead of subtracting you have to divide, and division does not work with zero. So for products, the move of walking in from both directions is usually used instead.
+[usopp]"Instead of a total you could pile up a product."[/] Usopp said.
+
+[nami]"You could, but there is a trap here."[/] Nami said. [nami]"If a zero arrives in the middle, every product becomes zero."[/]
+
+[usopp]"And then instead of subtracting you have to divide."[/] Usopp said.
+
+[nami]"And division does not work with zero."[/] Nami said. [nami]"So for products, the move of walking in from both directions is usually used instead."[/]
 
 @read teach
-The third shape is a beautiful move in the opposite direction, and it is called the difference [..]array[..]. Suppose you are told again and again — "add five to everything from the third to the seventh." If you touch five places every time, that is a lot of work.
+The third shape is a beautiful move in the opposite direction, and it is called the difference [..]array[..]. Suppose you are told again and again — [aside]"add five to everything from the third to the seventh."[/] If you touch five places every time, that is a lot of work.
 
 Instead, keep an empty array. Write five at the third place, and write minus five at the eighth place. Do only that. Once all the instructions are finished, work out the running total of that array, and at every place the amount that should have been added appears by itself.
 
@@ -88,13 +94,27 @@ That takes four numbers and three operations, and the time is O(1). Robin said �
 
 At the end, listen to a different kind of total, and that is the running form of XOR. In XOR, if a number appears twice it cancels itself out. So instead of subtracting, XOR again is enough, and the same shape works in the same way. This idea comes back on later islands.
 
+Now listen to one last problem, and it is tonight's very first move, except that the road has changed.
+
+At the start we counted the runs whose total is K, and that needed the running total and the notebook. Now the same question is asked not on a road but in a tree. Coming down from the root towards the leaves, how many paths add up to K? The path does not have to start at the root — it may start anywhere and run downwards.
+
+Robin put her hand on the bench and said — [robin]"There was only one road, so the total was easy to keep. A tree has many roads. But while you are walking one of them, that one is a road too."[/]
+
+The move is exactly the same. Carry the total from the root down to where you stand. At every place, ask the notebook — [aside]"the total right now minus K — have I seen that total somewhere above me on this road?"[/] However many times you have seen it, that many paths end right here.
+
+But one new thing is added, and that is the heart of this problem. When you finish with a branch and climb back up, the total you wrote for that branch has to be rubbed out of the notebook. If you do not rub it out, the neighbouring branch will count the total of a road you never walked as if it were its own.
+
+Write, go down, come back, rub out. Those four words are called backtracking, and that is the name of the nineteenth island. Tonight, just hear the name.
+
+The time is O(n), because every node is touched once and the notebook's work at each place is O(1). On the straightforward road you would look at every path below every node, and that would be O(n²).
+
 Robin leaned back on the bench and said — [robin]"If the heart of this island has to be said in one sentence, it is that the answer to a question that gets asked again and again should be prepared in advance. And that preparation usually takes a single pass."[/]
 
 The stones on the road were still glinting. The air was warm. The ship's light was visible in the distance, and we walked slowly towards it.
 
 Robin got up from the bench. The stones on the road were still glinting in the moonlight, and on every stone the distance from the start was carved.
 
-She touched one stone and said — "The person who carved this died many years ago. They walked once, and that walk has been saving everybody ever since."
+She touched one stone and said — [robin]"The person who carved this died many years ago. They walked once, and that walk has been saving everybody ever since."[/]
 
 That is tonight's lesson. Sometimes the best investment is a single pass. Walk once, and note things down at every place, and after that a thousand questions are answered by one subtraction.
 

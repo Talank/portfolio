@@ -104,7 +104,7 @@ At the end, the widened QRS runs into the T wave and the whole thing becomes a s
 @read teach
 Which gives you a wide complex with no rhythm disturbance in sight, and it is the reason that a wide rhythm in a patient with kidney failure gets a potassium checked before anybody argues about ventricular tachycardia.
 
-The other common causes of an unexpectedly wide complex are drugs that block the heart's sodium channels — certain antidepressants in overdose, some antiarrhythmics — and a ventricular paced beat, which is wide by design because the pacing wire is planted in the muscle and bypasses the wiring completely.
+There are two other common causes of an unexpectedly wide complex. The first is drugs that block the heart's sodium channels, such as certain antidepressants in overdose, or some antiarrhythmics. The second is a ventricular paced beat, which is wide by design, because the pacing wire is planted in the muscle and bypasses the wiring completely.
 
 So wide has four explanations and only one of them is a fast dangerous rhythm. Born below. Wiring broken. Poisoned. Or paced.
 

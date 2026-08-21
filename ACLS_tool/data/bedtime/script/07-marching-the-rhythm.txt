@@ -95,7 +95,7 @@ A strip is usually six or ten seconds long, and a heart can do more than one thi
 
 So march the whole strip, not the first three beats. If the first half is regular and the second half is not, the honest answer is that the rhythm changed, and the interesting question is what happened at the join.
 
-The commonest version of this is a normal rhythm that runs into a short burst of something fast and then comes back. Three or four wide beats in a row and then normal sinus rhythm again is a run of ventricular tachycardia, and if it stops on its own within thirty seconds it is called non-sustained, and it is a finding that needs explaining rather than an emergency.
+The commonest version of this is a normal rhythm that runs into a short burst of something fast and then comes back. Three or four wide beats in a row, and then normal sinus rhythm again, is a run of ventricular tachycardia. If it stops on its own within thirty seconds it is called non-sustained. It is a finding that needs explaining rather than an emergency.
 
 @read teach
 The other version is the one that matters at four in the morning. A rhythm that is fine at the start of the strip and is not fine at the end of it is a rhythm that is deteriorating, and the direction of travel is more useful information than either snapshot.

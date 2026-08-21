@@ -2,179 +2,179 @@ The Grand Line of Sleep — Chapter list
 
 === Bedtime ===
 
-— Short: 04:07:30.50, 26.6 MB —
+— Short: 04:15:41.55, 26.9 MB —
 00:00:00.00  00  0 — Setting Out: The Grand Line of Sleep
-00:08:41.24  01  1 — The Ground Under Programming: Variables, Loops and Functions
-00:18:07.05  02  2 — The Map of Time: Big-O
-00:27:11.42  03  3 — The Store Room: Arrays and Strings
-00:36:49.14  04  4 — Nami's Notebook: The Hash Map
-00:46:13.16  05  5 — Zoro's Two Swords: Two Pointers
-00:55:39.00  06  6 — The Window That Slides Along: The Sliding Window
-01:04:53.17  07  7 — The Running Total: Prefix Sum
-01:13:32.34  08  8 — Half and Half: Binary Search
-01:23:48.12  09  9 — Turning the Chain Around: The Linked List
-01:33:15.88  10  10 — The Tortoise and the Hare: Fast and Slow Pointers
-01:41:47.98  11  11 — The Rule of the Stack: Stack
-01:50:30.20  12  12 — The Falling Stack: Monotonic Stack
-01:58:43.56  13  13 — The Discipline of the Line: Queue and Deque
-02:06:33.64  14  14 — The Branches of the Tree: Tree DFS and BFS
-02:14:52.62  15  15 — The Tree of Order: Binary Search Tree
-02:23:52.03  16  16 — The Pearl at the Very Top: Heap and Top-K
-02:32:38.15  17  17 — The Web of Islands: Graphs, BFS and DFS
-02:41:29.89  18  18 — Putting Things in Order: Topological Sort and Union-Find
-02:50:17.54  19  19 — Turning Back in the Maze: Backtracking
-02:59:12.73  20  20 — The Power of Memory: Dynamic Programming, Part One
-03:08:44.34  21  21 — The Power of Memory: Dynamic Programming, Part Two
-03:19:23.56  22  22 — The Choice of the Moment: Greedy
-03:28:44.88  23  23 — Pieces of Time: Merge Intervals
-03:37:12.56  24  24 — The Tree of Letters: Trie
-03:46:30.73  25  25 — Zero and One: Bit Manipulation
-03:55:08.52  26  26 — The Last Anchorage: Summary and Sleep
+00:07:45.59  01  1 — The Ground Under Programming: Variables, Loops and Functions
+00:18:03.56  02  2 — The Map of Time: Big-O
+00:27:48.22  03  3 — The Store Room: Arrays and Strings
+00:38:23.52  04  4 — Nami's Notebook: The Hash Map
+00:48:04.98  05  5 — Zoro's Two Swords: [..]Two Pointers[..]
+00:57:46.62  06  6 — The Window That Slides Along: The Sliding Window
+01:07:40.35  07  7 — The Running Total: [..]Prefix Sum[..]
+01:16:19.52  08  8 — Half and Half: [..]Binary Search[..]
+01:27:06.57  09  9 — Turning the Chain Around: The Linked List
+01:36:56.47  10  10 — The Tortoise and the Hare: Fast and Slow Pointers
+01:45:50.41  11  11 — The Rule of the Stack: Stack
+01:54:32.87  12  12 — The Falling Stack: [..]Monotonic Stack[..]
+02:03:07.32  13  13 — The Discipline of the Line: Queue and [..]Deque[..]
+02:10:57.72  14  14 — The Branches of the Tree: Tree [..]DFS[..] and BFS
+02:19:53.20  15  15 — The Tree of Order: Binary Search Tree
+02:28:52.61  16  16 — The Pearl at the Very Top: Heap and Top-K
+02:37:38.73  17  17 — The Web of Islands: Graphs, BFS and DFS
+02:46:49.51  18  18 — Putting Things in Order: [..]Topological Sort[..] and [..]Union-Find[..]
+02:55:56.18  19  19 — Turning Back in the Maze: Backtracking
+03:05:18.53  20  20 — The Power of Memory: Dynamic Programming, Part One
+03:15:40.88  21  21 — The Power of Memory: Dynamic Programming, Part Two
+03:26:42.63  22  22 — The Choice of the Moment: Greedy
+03:36:07.13  23  23 — Pieces of Time: [..]Merge Intervals[..]
+03:45:01.86  24  24 — The Tree of Letters: Trie
+03:54:20.03  25  25 — Zero and One: [..]Bit Manipulation[..]
+04:02:57.82  26  26 — The Last Anchorage: Summary and Sleep
 
-— Medium: 05:18:01.40, 34.1 MB —
+— Medium: 05:27:56.66, 34.4 MB —
 00:00:00.00  00  0 — Setting Out: The Grand Line of Sleep
-00:11:52.62  01  1 — The Ground Under Programming: Variables, Loops and Functions
-00:24:50.73  02  2 — The Map of Time: Big-O
-00:36:54.51  03  3 — The Store Room: Arrays and Strings
-00:49:20.37  04  4 — Nami's Notebook: The Hash Map
-01:01:37.15  05  5 — Zoro's Two Swords: Two Pointers
-01:13:54.73  06  6 — The Window That Slides Along: The Sliding Window
-01:26:03.01  07  7 — The Running Total: Prefix Sum
-01:37:48.52  08  8 — Half and Half: Binary Search
-01:50:55.74  09  9 — Turning the Chain Around: The Linked List
-02:02:40.71  10  10 — The Tortoise and the Hare: Fast and Slow Pointers
-02:13:39.36  11  11 — The Rule of the Stack: Stack
-02:25:13.82  12  12 — The Falling Stack: Monotonic Stack
-02:35:44.28  13  13 — The Discipline of the Line: Queue and Deque
-02:45:45.94  14  14 — The Branches of the Tree: Tree DFS and BFS
-02:56:32.49  15  15 — The Tree of Order: Binary Search Tree
-03:08:13.50  16  16 — The Pearl at the Very Top: Heap and Top-K
-03:19:17.33  17  17 — The Web of Islands: Graphs, BFS and DFS
-03:30:37.31  18  18 — Putting Things in Order: Topological Sort and Union-Find
-03:41:44.03  19  19 — Turning Back in the Maze: Backtracking
-03:53:03.71  20  20 — The Power of Memory: Dynamic Programming, Part One
-04:04:59.41  21  21 — The Power of Memory: Dynamic Programming, Part Two
-04:18:28.35  22  22 — The Choice of the Moment: Greedy
-04:30:14.04  23  23 — Pieces of Time: Merge Intervals
-04:40:53.02  24  24 — The Tree of Letters: Trie
-04:52:34.14  25  25 — Zero and One: Bit Manipulation
-05:03:15.91  26  26 — The Last Anchorage: Summary and Sleep
+00:10:41.85  01  1 — The Ground Under Programming: Variables, Loops and Functions
+00:24:31.49  02  2 — The Map of Time: Big-O
+00:37:14.24  03  3 — The Store Room: Arrays and Strings
+00:50:39.60  04  4 — Nami's Notebook: The Hash Map
+01:03:16.43  05  5 — Zoro's Two Swords: [..]Two Pointers[..]
+01:15:48.59  06  6 — The Window That Slides Along: The Sliding Window
+01:28:35.45  07  7 — The Running Total: [..]Prefix Sum[..]
+01:40:43.42  08  8 — Half and Half: [..]Binary Search[..]
+01:54:43.97  09  9 — Turning the Chain Around: The Linked List
+02:06:50.11  10  10 — The Tortoise and the Hare: Fast and Slow Pointers
+02:18:11.76  11  11 — The Rule of the Stack: Stack
+02:30:14.55  12  12 — The Falling Stack: [..]Monotonic Stack[..]
+02:41:06.58  13  13 — The Discipline of the Line: Queue and [..]Deque[..]
+02:51:10.34  14  14 — The Branches of the Tree: Tree [..]DFS[..] and BFS
+03:02:32.21  15  15 — The Tree of Order: Binary Search Tree
+03:14:36.25  16  16 — The Pearl at the Very Top: Heap and Top-K
+03:25:40.08  17  17 — The Web of Islands: Graphs, BFS and DFS
+03:37:17.38  18  18 — Putting Things in Order: [..]Topological Sort[..] and [..]Union-Find[..]
+03:48:44.36  19  19 — Turning Back in the Maze: Backtracking
+04:00:31.38  20  20 — The Power of Memory: Dynamic Programming, Part One
+04:13:16.73  21  21 — The Power of Memory: Dynamic Programming, Part Two
+04:27:07.99  22  22 — The Choice of the Moment: Greedy
+04:39:20.86  23  23 — Pieces of Time: [..]Merge Intervals[..]
+04:50:25.97  24  24 — The Tree of Letters: Trie
+05:02:07.09  25  25 — Zero and One: [..]Bit Manipulation[..]
+05:12:48.86  26  26 — The Last Anchorage: Summary and Sleep
 
-— Long: 08:48:03.01, 56.5 MB —
+— Long: 10:08:24.26, 63.4 MB —
 00:00:00.00  00  0 — Setting Out: The Grand Line of Sleep
-00:18:49.87  01  1 — The Ground Under Programming: Variables, Loops and Functions
-00:41:03.47  02  2 — The Map of Time: Big-O
-01:02:36.20  03  3 — The Store Room: Arrays and Strings
-01:21:12.02  04  4 — Nami's Notebook: The Hash Map
-01:41:52.88  05  5 — Zoro's Two Swords: Two Pointers
-02:02:40.80  06  6 — The Window That Slides Along: The Sliding Window
-02:22:18.73  07  7 — The Running Total: Prefix Sum
-02:41:52.24  08  8 — Half and Half: Binary Search
-03:03:41.40  09  9 — Turning the Chain Around: The Linked List
-03:22:53.90  10  10 — The Tortoise and the Hare: Fast and Slow Pointers
-03:41:37.23  11  11 — The Rule of the Stack: Stack
-04:00:39.25  12  12 — The Falling Stack: Monotonic Stack
-04:18:11.22  13  13 — The Discipline of the Line: Queue and Deque
-04:35:04.27  14  14 — The Branches of the Tree: Tree DFS and BFS
-04:53:53.65  15  15 — The Tree of Order: Binary Search Tree
-05:13:51.18  16  16 — The Pearl at the Very Top: Heap and Top-K
-05:33:22.26  17  17 — The Web of Islands: Graphs, BFS and DFS
-05:52:14.84  18  18 — Putting Things in Order: Topological Sort and Union-Find
-06:11:03.22  19  19 — Turning Back in the Maze: Backtracking
-06:30:19.48  20  20 — The Power of Memory: Dynamic Programming, Part One
-06:50:12.19  21  21 — The Power of Memory: Dynamic Programming, Part Two
-07:11:08.07  22  22 — The Choice of the Moment: Greedy
-07:30:26.98  23  23 — Pieces of Time: Merge Intervals
-07:48:34.98  24  24 — The Tree of Letters: Trie
-08:07:51.71  25  25 — Zero and One: Bit Manipulation
-08:26:15.94  26  26 — The Last Anchorage: Summary and Sleep
+00:16:55.02  01  1 — The Ground Under Programming: Variables, Loops and Functions
+00:39:57.65  02  2 — The Map of Time: Big-O
+01:02:12.38  03  3 — The Store Room: Arrays and Strings
+01:24:26.00  04  4 — Nami's Notebook: The Hash Map
+01:48:45.91  05  5 — Zoro's Two Swords: [..]Two Pointers[..]
+02:12:59.87  06  6 — The Window That Slides Along: The Sliding Window
+02:35:49.74  07  7 — The Running Total: [..]Prefix Sum[..]
+02:58:37.50  08  8 — Half and Half: [..]Binary Search[..]
+03:23:54.50  09  9 — Turning the Chain Around: The Linked List
+03:46:37.19  10  10 — The Tortoise and the Hare: Fast and Slow Pointers
+04:08:02.37  11  11 — The Rule of the Stack: Stack
+04:30:10.36  12  12 — The Falling Stack: [..]Monotonic Stack[..]
+04:51:23.45  13  13 — The Discipline of the Line: Queue and [..]Deque[..]
+05:11:30.03  14  14 — The Branches of the Tree: Tree [..]DFS[..] and BFS
+05:33:48.35  15  15 — The Tree of Order: Binary Search Tree
+05:57:21.45  16  16 — The Pearl at the Very Top: Heap and Top-K
+06:20:31.90  17  17 — The Web of Islands: Graphs, BFS and DFS
+06:43:09.64  18  18 — Putting Things in Order: [..]Topological Sort[..] and [..]Union-Find[..]
+07:05:32.03  19  19 — Turning Back in the Maze: Backtracking
+07:28:48.20  20  20 — The Power of Memory: Dynamic Programming, Part One
+07:52:14.75  21  21 — The Power of Memory: Dynamic Programming, Part Two
+08:16:13.38  22  22 — The Choice of the Moment: Greedy
+08:39:13.89  23  23 — Pieces of Time: [..]Merge Intervals[..]
+09:00:56.23  24  24 — The Tree of Letters: Trie
+09:23:51.22  25  25 — Zero and One: [..]Bit Manipulation[..]
+09:45:47.82  26  26 — The Last Anchorage: Summary and Sleep
 
 === Driving ===
 
-— Short: 03:07:21.84, 21.7 MB —
+— Short: 03:13:52.50, 22.0 MB —
 00:00:00.00  00  0 — Setting Out: The Grand Line of Sleep
-00:06:24.82  01  1 — The Ground Under Programming: Variables, Loops and Functions
-00:13:30.82  02  2 — The Map of Time: Big-O
-00:20:21.83  03  3 — The Store Room: Arrays and Strings
-00:27:37.52  04  4 — Nami's Notebook: The Hash Map
-00:34:44.36  05  5 — Zoro's Two Swords: Two Pointers
-00:41:56.88  06  6 — The Window That Slides Along: The Sliding Window
-00:48:56.95  07  7 — The Running Total: Prefix Sum
-00:55:34.10  08  8 — Half and Half: Binary Search
-01:03:18.35  09  9 — Turning the Chain Around: The Linked List
-01:10:27.23  10  10 — The Tortoise and the Hare: Fast and Slow Pointers
-01:16:57.08  11  11 — The Rule of the Stack: Stack
-01:23:33.10  12  12 — The Falling Stack: Monotonic Stack
-01:29:46.08  13  13 — The Discipline of the Line: Queue and Deque
-01:35:46.08  14  14 — The Branches of the Tree: Tree DFS and BFS
-01:42:09.84  15  15 — The Tree of Order: Binary Search Tree
-01:48:56.44  16  16 — The Pearl at the Very Top: Heap and Top-K
-01:55:39.49  17  17 — The Web of Islands: Graphs, BFS and DFS
-02:02:25.36  18  18 — Putting Things in Order: Topological Sort and Union-Find
-02:09:02.36  19  19 — Turning Back in the Maze: Backtracking
-02:15:53.39  20  20 — The Power of Memory: Dynamic Programming, Part One
-02:23:05.72  21  21 — The Power of Memory: Dynamic Programming, Part Two
-02:31:11.89  22  22 — The Choice of the Moment: Greedy
-02:38:14.61  23  23 — Pieces of Time: Merge Intervals
-02:44:44.63  24  24 — The Tree of Letters: Trie
-02:51:48.37  25  25 — Zero and One: Bit Manipulation
-02:58:17.26  26  26 — The Last Anchorage: Summary and Sleep
+00:05:49.21  01  1 — The Ground Under Programming: Variables, Loops and Functions
+00:13:35.81  02  2 — The Map of Time: Big-O
+00:20:55.68  03  3 — The Store Room: Arrays and Strings
+00:28:59.02  04  4 — Nami's Notebook: The Hash Map
+00:36:19.44  05  5 — Zoro's Two Swords: [..]Two Pointers[..]
+00:43:43.12  06  6 — The Window That Slides Along: The Sliding Window
+00:51:15.63  07  7 — The Running Total: [..]Prefix Sum[..]
+00:57:52.78  08  8 — Half and Half: [..]Binary Search[..]
+01:06:00.52  09  9 — Turning the Chain Around: The Linked List
+01:13:26.22  10  10 — The Tortoise and the Hare: Fast and Slow Pointers
+01:20:12.61  11  11 — The Rule of the Stack: Stack
+01:26:48.85  12  12 — The Falling Stack: [..]Monotonic Stack[..]
+01:33:19.54  13  13 — The Discipline of the Line: Queue and [..]Deque[..]
+01:39:19.80  14  14 — The Branches of the Tree: Tree [..]DFS[..] and BFS
+01:46:11.54  15  15 — The Tree of Order: Binary Search Tree
+01:52:58.14  16  16 — The Pearl at the Very Top: Heap and Top-K
+01:59:41.19  17  17 — The Web of Islands: Graphs, BFS and DFS
+02:06:41.01  18  18 — Putting Things in Order: [..]Topological Sort[..] and [..]Union-Find[..]
+02:13:32.62  19  19 — Turning Back in the Maze: Backtracking
+02:20:43.87  20  20 — The Power of Memory: Dynamic Programming, Part One
+02:28:34.78  21  21 — The Power of Memory: Dynamic Programming, Part Two
+02:36:59.73  22  22 — The Choice of the Moment: Greedy
+02:44:06.40  23  23 — Pieces of Time: [..]Merge Intervals[..]
+02:50:57.56  24  24 — The Tree of Letters: Trie
+02:58:01.30  25  25 — Zero and One: [..]Bit Manipulation[..]
+03:04:30.19  26  26 — The Last Anchorage: Summary and Sleep
 
-— Medium: 04:01:08.44, 27.9 MB —
+— Medium: 04:09:10.99, 28.2 MB —
 00:00:00.00  00  0 — Setting Out: The Grand Line of Sleep
-00:08:51.74  01  1 — The Ground Under Programming: Variables, Loops and Functions
-00:18:41.79  02  2 — The Map of Time: Big-O
-00:27:48.54  03  3 — The Store Room: Arrays and Strings
-00:37:12.47  04  4 — Nami's Notebook: The Hash Map
-00:46:26.82  05  5 — Zoro's Two Swords: Two Pointers
-00:55:49.70  06  6 — The Window That Slides Along: The Sliding Window
-01:05:04.40  07  7 — The Running Total: Prefix Sum
-01:14:04.91  08  8 — Half and Half: Binary Search
-01:23:58.53  09  9 — Turning the Chain Around: The Linked List
-01:32:53.62  10  10 — The Tortoise and the Hare: Fast and Slow Pointers
-01:41:14.42  11  11 — The Rule of the Stack: Stack
-01:50:00.36  12  12 — The Falling Stack: Monotonic Stack
-01:57:58.25  13  13 — The Discipline of the Line: Queue and Deque
-02:05:38.98  14  14 — The Branches of the Tree: Tree DFS and BFS
-02:13:55.29  15  15 — The Tree of Order: Binary Search Tree
-02:22:44.99  16  16 — The Pearl at the Very Top: Heap and Top-K
-02:31:12.94  17  17 — The Web of Islands: Graphs, BFS and DFS
-02:39:51.83  18  18 — Putting Things in Order: Topological Sort and Union-Find
-02:48:16.80  19  19 — Turning Back in the Maze: Backtracking
-02:56:58.28  20  20 — The Power of Memory: Dynamic Programming, Part One
-03:05:59.02  21  21 — The Power of Memory: Dynamic Programming, Part Two
-03:16:15.52  22  22 — The Choice of the Moment: Greedy
-03:25:10.15  23  23 — Pieces of Time: Merge Intervals
-03:33:20.83  24  24 — The Tree of Letters: Trie
-03:42:15.91  25  25 — Zero and One: Bit Manipulation
-03:50:17.73  26  26 — The Last Anchorage: Summary and Sleep
+00:08:04.59  01  1 — The Ground Under Programming: Variables, Loops and Functions
+00:18:35.13  02  2 — The Map of Time: Big-O
+00:28:10.47  03  3 — The Store Room: Arrays and Strings
+00:38:23.82  04  4 — Nami's Notebook: The Hash Map
+00:47:55.21  05  5 — Zoro's Two Swords: [..]Two Pointers[..]
+00:57:28.77  06  6 — The Window That Slides Along: The Sliding Window
+01:07:14.59  07  7 — The Running Total: [..]Prefix Sum[..]
+01:16:33.70  08  8 — Half and Half: [..]Binary Search[..]
+01:27:09.36  09  9 — Turning the Chain Around: The Linked List
+01:36:20.68  10  10 — The Tortoise and the Hare: Fast and Slow Pointers
+01:45:00.05  11  11 — The Rule of the Stack: Stack
+01:54:07.37  12  12 — The Falling Stack: [..]Monotonic Stack[..]
+02:02:23.53  13  13 — The Discipline of the Line: Queue and [..]Deque[..]
+02:10:06.31  14  14 — The Branches of the Tree: Tree [..]DFS[..] and BFS
+02:18:49.88  15  15 — The Tree of Order: Binary Search Tree
+02:27:57.62  16  16 — The Pearl at the Very Top: Heap and Top-K
+02:36:25.92  17  17 — The Web of Islands: Graphs, BFS and DFS
+02:45:17.83  18  18 — Putting Things in Order: [..]Topological Sort[..] and [..]Union-Find[..]
+02:53:59.51  19  19 — Turning Back in the Maze: Backtracking
+03:03:02.66  20  20 — The Power of Memory: Dynamic Programming, Part One
+03:12:41.65  21  21 — The Power of Memory: Dynamic Programming, Part Two
+03:23:16.15  22  22 — The Choice of the Moment: Greedy
+03:32:34.05  23  23 — Pieces of Time: [..]Merge Intervals[..]
+03:41:04.51  24  24 — The Tree of Letters: Trie
+03:49:59.94  25  25 — Zero and One: [..]Bit Manipulation[..]
+03:58:02.11  26  26 — The Last Anchorage: Summary and Sleep
 
-— Long: 06:40:28.25, 46.2 MB —
+— Long: 07:42:35.58, 51.9 MB —
 00:00:00.00  00  0 — Setting Out: The Grand Line of Sleep
-00:14:00.72  01  1 — The Ground Under Programming: Variables, Loops and Functions
-00:30:40.94  02  2 — The Map of Time: Big-O
-00:47:00.42  03  3 — The Store Room: Arrays and Strings
-01:01:03.95  04  4 — Nami's Notebook: The Hash Map
-01:16:40.42  05  5 — Zoro's Two Swords: Two Pointers
-01:32:28.96  06  6 — The Window That Slides Along: The Sliding Window
-01:47:26.67  07  7 — The Running Total: Prefix Sum
-02:02:25.83  08  8 — Half and Half: Binary Search
-02:18:54.59  09  9 — Turning the Chain Around: The Linked List
-02:33:28.78  10  10 — The Tortoise and the Hare: Fast and Slow Pointers
-02:47:46.53  11  11 — The Rule of the Stack: Stack
-03:02:07.60  12  12 — The Falling Stack: Monotonic Stack
-03:15:27.01  13  13 — The Discipline of the Line: Queue and Deque
-03:28:24.07  14  14 — The Branches of the Tree: Tree DFS and BFS
-03:42:46.85  15  15 — The Tree of Order: Binary Search Tree
-03:57:52.56  16  16 — The Pearl at the Very Top: Heap and Top-K
-04:12:43.83  17  17 — The Web of Islands: Graphs, BFS and DFS
-04:27:10.61  18  18 — Putting Things in Order: Topological Sort and Union-Find
-04:41:28.43  19  19 — Turning Back in the Maze: Backtracking
-04:56:13.22  20  20 — The Power of Memory: Dynamic Programming, Part One
-05:11:18.38  21  21 — The Power of Memory: Dynamic Programming, Part Two
-05:27:14.66  22  22 — The Choice of the Moment: Greedy
-05:41:51.00  23  23 — Pieces of Time: Merge Intervals
-05:55:48.09  24  24 — The Tree of Letters: Trie
-06:10:31.65  25  25 — Zero and One: Bit Manipulation
-06:24:25.02  26  26 — The Last Anchorage: Summary and Sleep
+00:12:47.94  01  1 — The Ground Under Programming: Variables, Loops and Functions
+00:30:16.75  02  2 — The Map of Time: Big-O
+00:47:06.03  03  3 — The Store Room: Arrays and Strings
+01:03:59.79  04  4 — Nami's Notebook: The Hash Map
+01:22:24.33  05  5 — Zoro's Two Swords: [..]Two Pointers[..]
+01:40:48.50  06  6 — The Window That Slides Along: The Sliding Window
+01:58:17.32  07  7 — The Running Total: [..]Prefix Sum[..]
+02:15:47.47  08  8 — Half and Half: [..]Binary Search[..]
+02:34:55.60  09  9 — Turning the Chain Around: The Linked List
+02:52:06.96  10  10 — The Tortoise and the Hare: Fast and Slow Pointers
+03:08:30.02  11  11 — The Rule of the Stack: Stack
+03:25:12.58  12  12 — The Falling Stack: [..]Monotonic Stack[..]
+03:41:23.17  13  13 — The Discipline of the Line: Queue and [..]Deque[..]
+03:56:46.45  14  14 — The Branches of the Tree: Tree [..]DFS[..] and BFS
+04:13:51.08  15  15 — The Tree of Order: Binary Search Tree
+04:31:41.55  16  16 — The Pearl at the Very Top: Heap and Top-K
+04:49:22.66  17  17 — The Web of Islands: Graphs, BFS and DFS
+05:06:40.44  18  18 — Putting Things in Order: [..]Topological Sort[..] and [..]Union-Find[..]
+05:23:42.77  19  19 — Turning Back in the Maze: Backtracking
+05:41:32.73  20  20 — The Power of Memory: Dynamic Programming, Part One
+05:59:20.90  21  21 — The Power of Memory: Dynamic Programming, Part Two
+06:17:35.49  22  22 — The Choice of the Moment: Greedy
+06:35:03.81  23  23 — Pieces of Time: [..]Merge Intervals[..]
+06:51:44.23  24  24 — The Tree of Letters: Trie
+07:09:16.79  25  25 — Zero and One: [..]Bit Manipulation[..]
+07:25:52.39  26  26 — The Last Anchorage: Summary and Sleep
 

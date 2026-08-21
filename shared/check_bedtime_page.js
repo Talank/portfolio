@@ -302,11 +302,26 @@ function run(course, lang) {
 
   const store = new Map();
   if (lang) store.set(prefixFor(course) + 'lang', lang);
+  const msHandlers = {}, msPositions = [];
   const timers = [];
   const sandbox = {
     console,
     document: doc,
-    navigator: { mediaSession: {}, userAgent: 'node', language: 'en' },
+    // A recording mock, not an empty object. The players register lock-screen
+    // controls here, and an empty {} makes every setActionHandler call throw
+    // into the page's own try/catch -- so the whole media-session path would
+    // "pass" while doing nothing at all.
+    navigator: {
+      mediaSession: {
+        metadata: null,
+        playbackState: 'none',
+        handlers: msHandlers,
+        positions: msPositions,
+        setActionHandler(a, f) { msHandlers[a] = f; },
+        setPositionState(st) { msPositions.push(st); },
+      },
+      userAgent: 'node', language: 'en',
+    },
     MediaMetadata: function (o) { Object.assign(this, o); },
     localStorage: {
       getItem: (k) => (store.has(k) ? store.get(k) : null),
@@ -390,6 +405,26 @@ function run(course, lang) {
   const urls = Array.from(new Set(requested));
   check(urls.length > 0, 'pressing play loaded a segment');
 
+  // A sleep story runs with the screen off, so for most of its life the only
+  // controls the listener can reach are the ones the OS draws. A page that
+  // does not register these still gets a notification on Android -- one whose
+  // pause button stops the sound while the page goes on believing it plays.
+  const wantActs = ['play', 'pause', 'previoustrack', 'nexttrack',
+                    'seekbackward', 'seekforward', 'seekto'];
+  const missingActs = wantActs.filter((a) => typeof msHandlers[a] !== 'function');
+  check(missingActs.length === 0,
+        'lock-screen controls are registered'
+        + (missingActs.length ? ' — missing: ' + missingActs.join(', ') : ''));
+  check(sandbox.navigator.mediaSession.playbackState === 'playing',
+        'playback state is reported to the OS (got "'
+        + sandbox.navigator.mediaSession.playbackState + '")');
+  // The OS scrubber has to be on the virtual timeline -- the whole voyage --
+  // not on whichever chapter file happens to be loaded.
+  const pos = msPositions[msPositions.length - 1];
+  check(!!pos && pos.duration > 3600,
+        'the OS scrubber spans the whole voyage'
+        + (pos ? ' (' + Math.round(pos.duration) + 's)' : ' — never reported'));
+
   const manPath = path.join(dir, 'data', 'bedtime', manFile);
   if (!fs.existsSync(manPath)) {
     check(false, manFile + ' — the toggle offers this edition but it was never built');
@@ -428,6 +463,36 @@ function run(course, lang) {
   });
   check(byteProblems.length === 0,
         'tier download sizes match the files' + (byteProblems.length ? ' — ' + byteProblems.join('; ') : ''));
+
+  /* The crossfade, driven the way a backgrounded tab drives it.
+     This harness *collects* timers instead of running them (see the sandbox
+     below), which is precisely what a hidden tab and mobile Safari do to
+     setInterval -- so a fade that depends on a timer can never finish here.
+     That is the bug the user heard as two chapters overlapping: the outgoing
+     file played on past its own end underneath the incoming one. Driving the
+     element's own `timeupdate` instead must carry the handover all the way
+     through, ending with exactly one element sounding and the next segment
+     loaded. Reinstating the setInterval-only fade makes this fail. */
+  const a0 = doc.byId['bt-a0'], a1 = doc.byId['bt-a1'];
+  const sounding = () => [a0, a1].filter((e) => e && !e.paused).length;
+  const firstTier = man.modes[man.defaultMode || Object.keys(man.modes)[0]].tiers.core;
+  const d0 = firstTier.playlist[0].d;
+  const before = new Set(requested);
+  if (a0 && a0.dispatch && d0) {
+    // Walk the last two seconds of the segment in the steps a real timeupdate
+    // arrives in, about four a second.
+    [1.9, 1.4, 1.0, 0.7, 0.4, 0.2, 0.0].forEach((left) => {
+      a0.currentTime = d0 - left;
+      a0.dispatch('timeupdate');
+    });
+    const after = Array.from(requested).filter((u) => !before.has(u));
+    check(sounding() === 1,
+          'the crossfade hands over without a timer (' + sounding()
+          + ' element(s) still sounding)');
+    check(after.length > 0,
+          'the handover loaded the next chapter'
+          + (after.length ? ' (' + after[after.length - 1] + ')' : ' — nothing new was requested'));
+  }
 
   const rows = doc.byId['bt-chlist'].children.length;
   const reachable = Object.keys(

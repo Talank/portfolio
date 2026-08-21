@@ -1,8 +1,8 @@
-# 18 — Putting Things in Order: Topological Sort and Union-Find
+# 18 — Putting Things in Order: [..]Topological Sort[..] and [..]Union-Find[..]
 
 On the eighteenth island the ship is being repaired. Franky has made a list, but the work cannot be done in any old order.
 
-He said — "Before you paint, the wood has to be fitted. Before the wood is fitted, the old wood has to come out. Which job comes first and which comes later — working out that order is tonight's problem."
+He said — [franky]"Before you paint, the wood has to be fitted. Before the wood is fitted, the old wood has to come out. Which job comes first and which comes later — working out that order is tonight's problem."[/]
 
 @read teach
 This is called [..]topological sort[..]. It is only possible in a graph where the arrows point one way and there is no cycle. Such a graph is called a DAG.
@@ -28,7 +28,11 @@ The idea of Union-Find is simple. Every group has a leader. Every member knows o
 
 If you have to join two groups, find the leader of both, and put one leader underneath the other. If you have to ask whether two things are in the same group, look at whether both have the same leader.
 
-Two small moves make the speed remarkable. The first move is that while you are looking for the leader, join everybody you meet on the way straight to the leader, and the road is shorter next time. The second move is that when joining, put the small group under the large one and not the other way round. With those two moves every operation happens in almost O(1).
+[franky]"There are two small moves, and they make the speed remarkable."[/] Franky said. [franky]"While you are looking for the leader, join everybody you meet on the way straight to the leader. The road is shorter next time."[/]
+
+[nami]"And the second move?"[/] Nami asked.
+
+[franky]"When joining, put the small group under the large one, not the other way round."[/] Franky said. [franky]"With those two moves every operation happens in almost O(1)."[/]
 
 @read hush
 The way to check the order is beautifully clean. At the end, the count of jobs you wrote down must match the count of all the jobs. If it does not, the jobs left over are caught in a ring with each other, and that ring is telling you this order cannot be made at all.
@@ -89,6 +93,30 @@ So in practice you can treat it as O(1). This is a rare case where the theory an
 At the end, listen to one piece of advice. These two tools, ordering and joining groups, usually arrive together. [aside]"This job has to be done first"[/] is a matter of order. [aside]"All of these are in one group"[/] is a matter of joining.
 
 When you read a question, look for two words, and they are "before" and "together". The first asks for an order, and the second asks for groups.
+
+Now listen to a hard problem, and in it tonight's first move runs in the opposite direction.
+
+In Kahn's approach you kept a count of [aside]"how many jobs are still waiting ahead of me"[/], and put the ones whose count was zero into the queue. Now take that same machine, but run it on a tree.
+
+The problem is this. An undirected tree is given, with no cycle in it. Make some one node of it the root. Which node, made the root, gives the tree the smallest height?
+
+Franky said — [franky]"You could measure from every node, but that is n times n."[/]
+
+The move is like this, and it is easy when you hear it. Peel inwards from the leaves.
+
+[franky]"Work out the neighbour count of every node."[/] Franky said. [franky]"The ones whose count is one are the leaves, and put all of those into the queue at once."[/]
+
+[usopp]"And then take them off one at a time?"[/] Usopp asked.
+
+[franky]"No, take the whole layer off at once."[/] Franky said. [franky]"As you remove it, take one off the count of each of their neighbours."[/]
+
+[robin]"If somebody's count becomes one, that is a new leaf now."[/] Robin said. [robin]"And it belongs to the next layer."[/]
+
+Keep peeling layer by layer like that. At the end one or two nodes are left, and those are the nodes to make the root.
+
+Why can two be left? Because if the length of the tree's longest path is odd there is exactly one node in the middle, and if it is even there are two. Three are never left, and keep that in mind.
+
+The time is O(V + E). Here tonight's lesson shows again. That one machine of counting down settles the order, catches the cycle, and finds the centre of a tree as well.
 
 Franky put out the lamp. The list was still stuck on the wall in order, and all of tomorrow morning's work was going to fall into place by itself.
 

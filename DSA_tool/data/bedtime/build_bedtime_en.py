@@ -150,7 +150,25 @@ E.STYLES.update({
     # voyage. This is the one casting choice to check by ear.
     "chopper": {"voice": "en-US-AnaNeural",
                 "rate": -2.0, "pitch": -25.0, "gain": -4.0},
+    # Cast but barely used. He exists here because the engine's Nepali cast now
+    # names a voice for him, and check_cast_language() will not let a Nepali
+    # voice into an English render — which is the point of that check. Ryan is
+    # the courtly one and the widest-ranging of the candidates measured
+    # (spread 1.77), so he is slowed and quietened hard.
+    "brook":   {"voice": "en-GB-RyanNeural",
+                "rate": -8.0, "pitch": +2.0, "gain": -2.0},
+    # The islands' one-off elders. Measured at 112 Hz with a spread of 1.59 —
+    # about as wide as Usopp's Roger, so it is slowed and quietened rather than
+    # used as found.
+    "sage":    {"voice": "en-US-AndrewMultilingualNeural",
+                "rate": -6.0, "pitch": -4.0, "gain": -1.0},
 })
+# resolve() memoises per style name, and this file rewrites styles the engine
+# has already defined. Nothing resolves at import time today, so the stale
+# entry never surfaced -- but a cached 'sage' from the engine's Nepali cast is
+# exactly the kind of thing that reaches a render as one paragraph in the
+# wrong language. Cheap to drop.
+E._RESOLVED.clear()
 
 # ---------------------------------------------------------------------------
 # Sentences

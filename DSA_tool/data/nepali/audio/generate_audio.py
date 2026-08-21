@@ -254,7 +254,7 @@ def build_opus_siblings(out_dir):
         os.path.join(os.path.dirname(os.path.abspath(__file__)), *[".."] * 4))
     sys.path.insert(0, os.path.join(repo_root, "shared"))
     import shrink_audio
-    shrink_audio.process_dir(out_dir, opus_bitrate=24)
+    shrink_audio.process_dir(out_dir, opus_bitrate=16)
 
 
 if __name__ == "__main__":

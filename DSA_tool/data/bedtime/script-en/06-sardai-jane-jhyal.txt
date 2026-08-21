@@ -17,7 +17,9 @@ Nami explained — [nami]"The same rule applies to the repeated-letter problem l
 Pay attention to one thing here, because this is what makes the move fast. Both edges only move forward, and neither ever turns back. So each letter is touched at most twice, once when it enters and once when it leaves. Twice is still O(n).
 
 @read teach
-In the second problem you need the largest total of exactly K consecutive numbers. Here the size of the window does not change, and it stays K throughout. This is called a fixed window, and it is even easier.
+[usopp]"I have heard the second problem before."[/] Usopp said. [usopp]"You need the largest total of exactly K consecutive numbers."[/]
+
+[nami]"That one is easier."[/] Nami said. [nami]"Here the size of the window does not change, and it stays K throughout. This is called a fixed window."[/]
 
 Work out the total of the first K. Now move the window one step to the right, add the number arriving and subtract the number leaving. You do not have to add the whole total again. One addition and one subtraction is enough. This small move alone turns O(n·m) into O(n).
 
@@ -28,7 +30,13 @@ Here is how you check the window's answer. The step that measures the length mus
 
 The third problem is a little harder and beautiful. Inside a long word you have to find the shortest stretch that contains all the letters of another, smaller word.
 
-Here the window works in two stages. First keep pulling the right edge along, and pull until all the letters you need are inside. Once they are all in, the window is valid. Now pull the left edge, and shrink it as far as it will shrink without breaking the validity. Once it cannot shrink any further, note the length. Then pull the right edge again. This way the widening and the shrinking take turns, on and on.
+[nami]"Here the window works in two stages."[/] Nami said. [nami]"First keep pulling the right edge along, until all the letters you need are inside. Once they are all in, the window is valid."[/]
+
+[chopper]"And then you stop?"[/] Chopper asked.
+
+[nami]"You must not stop."[/] Nami said. [nami]"Now pull the left edge, and shrink it as far as it will shrink without breaking the validity. Once it cannot shrink any further, note the length."[/]
+
+[nami]"Then pull the right edge again."[/] she added. [nami]"This way the widening and the shrinking take turns, on and on."[/]
 
 Sanji said from the kitchen — [sanji]"This is like getting the salt right in a soup. If there is too little, add some. If there is too much, add water. Slowly it comes right."[/]
 
@@ -80,6 +88,18 @@ If all the numbers are positive this is true, because adding to a total makes it
 At a time like that you have to leave the window behind and use the running total and the notebook, which is the move on the seventh island. Being able to recognise the choice between these two is the real skill.
 
 Robin added — [robin]"If the question says 'consecutive', think of the window. If it does not say 'consecutive', forget the window. If it is about choosing things or skipping over things, that belongs to another island."[/]
+
+Now listen to tonight's hardest question, and it is the twin of the one you just heard. You have learned to measure the piece with at most K different letters. Now — how many pieces have exactly K different letters?
+
+It sounds like one word has changed, but the window breaks here. The reason is this. With [aside]"at most K"[/], widening the window spoils the condition and narrowing it repairs the condition, so you know where to stop each edge. With [aside]"exactly K"[/], the condition is spoiled from both sides, and nothing tells you how far to pull the left edge.
+
+Luffy smiled in his sleep. Robin said — [robin]"Then do not look for exactly. Look for at most, twice, and subtract."[/]
+
+That is the whole trick, and it fits on one line. Exactly K equals at most K, minus at most K minus one. Because at most K holds everything from zero up to K, and at most K minus one holds everything from zero up to K minus one. Subtract, and only exactly K is left standing.
+
+So run the same window function twice, once with K and once with K minus one, and take the difference. Both are O(n), so together it is still O(n).
+
+Remember this move, because it travels a great deal further than the window. When [aside]"exactly"[/] is hard to count, count [aside]"at most"[/] twice. That thought opens a road in many places later on.
 
 Now let us put it all together into a small list, and that list separates every shape the window takes. If the size is given to you, use a fixed window. If the size is what you are looking for, use a growing window.
 

@@ -51,7 +51,7 @@ Some make a team by dividing roles among many agents. And a common rule has been
 Now listen to what this island comes to, and it will come back three times tonight.
 
 @algo aujar-chalaune
-An agent is built like this. The first thing is that a model has no hands and only writes text, so a list of tools and what each tool needs is written out in words and given to it. The second thing is that the model writes which tool to run with what material, your program runs it, and the result is given back to the model, and this cycle is what an agent is. The third thing is that this cycle has three steps of thinking, doing and looking, and it is called ReAct. The fourth thing is that limits of steps and of time must be put on the loop, the error message must be given back to the model exactly as it is because it usually corrects itself, and which model to run must be kept in one small place.
+An agent is built like this. The first thing is that a model has no hands and only writes text, so a list of tools and what each tool needs is written out in words and given to it. The second thing is that the model writes which tool to run with what material, your program runs it, and the result is given back to the model, and this cycle is what an agent is. The third thing is that this cycle has three steps of thinking, doing and looking, and it is called ReAct. The fourth thing is that limits of steps and of time must be put on the loop. The error message must be given back to the model exactly as it is, because it usually corrects itself. And which model to run must be kept in one small place.
 @end
 
 That is all of it. The model says it, and your program does the work.

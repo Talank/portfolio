@@ -21,7 +21,7 @@ But that much is not enough. "Running" and "run" are forms of the same word, and
 So some work is done before the words go into the store, and that work is in today's rule.
 
 @algo dui-khoji
-Searching is of two kinds, and both are needed in a good system. The first kind is the search for a word, and there the text is broken into words, those words are turned into small letters, their forms are brought back to the root, and an inverted index is made, and then the word that is in few papers is given more weight. The second kind is the search for meaning, and there every text is turned into one long list of numbers, and if the meaning of two texts agrees their lists are near each other too, and when searching, the texts whose lists are near are drawn out. The search for a word finds exactly that word, and the search for meaning finds the same thing written in different words.
+Searching is of two kinds, and both are needed in a good system. The first kind is the search for a word. The text is broken into words, and those words are turned into small letters. Their forms are brought back to the root, and an inverted index is made. Then the word that is in few papers is given more weight. The second kind is the search for meaning. There every text is turned into one long list of numbers. If the meaning of two texts agrees, their lists are near each other too. When searching, the texts whose lists are near are drawn out. The search for a word finds exactly that word, and the search for meaning finds the same thing written in different words.
 @end
 
 Luffy asked, [luffy]"How does a list of numbers carry meaning?"[/]

@@ -86,6 +86,17 @@ E.MONOLITH_NAME = "java-nidra-full"
 # The voice
 # ---------------------------------------------------------------------------
 E.VOICE = "ne-NP-SagarNeural"
+# This voyage narrates in the male Nepali voice, so it gives back the engine's
+# crew casting: casting the male crew on the voice already reading the
+# narration would make Luffy, Zoro, Usopp and Sanji into the narrator at a
+# different pitch. Without this they are shaded off Sagar, which is what this
+# voyage has always sounded like — every character here has always fallen back
+# to E.VOICE.
+#
+# Worth revisiting: Nami and Robin could be cast on Hemkala, which would give
+# this voyage a genuine second speaker the way the DSA one now has. That is a
+# re-render, so it is not done here.
+E.unset_crew_voices()
 E.RATE = "-20%"
 E.PITCH = "-3Hz"
 E.VOLUME = "-12%"

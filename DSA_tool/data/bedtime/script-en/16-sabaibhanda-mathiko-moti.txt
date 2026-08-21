@@ -59,7 +59,7 @@ And then you have to arrange some letters so that the same letter never lands ne
 
 The pearls were quiet inside the bag. The trader sat down by the lamp.
 
-He said — "Now ask a different question. Why was a heap needed? Nami's notebook already exists, and Robin's tree exists too. Why was this third thing built?"
+He said — [sage]"Now ask a different question. Why was a heap needed? Nami's notebook already exists, and Robin's tree exists too. Why was this third thing built?"[/]
 
 The answer is in the size of the need. The notebook says "is it there or not". The tree keeps the full order. The heap neither keeps the full order nor ignores it, because it answers one question cheaply, and that question is [aside]"who is at the front right now"[/].
 
@@ -87,13 +87,41 @@ Half the nodes are leaves, and nothing has to be done to them. The quarter above
 
 And one way of sorting comes from here too. Turn the whole array into a heap, then keep taking the top out and putting it at the back. Its time is O(n log n), and it costs no new space at all.
 
-At the end, let us remember the two-heap move for the middle value in a little more detail. Keep a large-topped heap for the lower half, and a small-topped heap for the upper half. When a new number arrives, put it into one of them, then move one value across so that the two heaps never differ in size by more than one.
+[nami]"Let us remember the two-heap move for the middle value again."[/] Nami said. [nami]"Keep a large-topped heap for the lower half, and a small-topped heap for the upper half."[/]
+
+[chopper]"And when a new number arrives?"[/] Chopper asked.
+
+[nami]"Put it into one of them."[/] Nami said. [nami]"Then move one value across so that the two heaps never differ in size by more than one."[/]
 
 If the sizes are equal, the middle value is the average of the two tops. If the sizes are different, the top of the larger heap is the middle value. This move is very useful on flowing data, where you never have all the numbers in your hand at once.
 
+Now listen to a hard problem, and it is tonight's merging of K linked lists, except that here no lists can be seen.
+
+There are two sorted arrays. You take one number from the first and one from the second to make a pair. Out of all such pairs, you need the K pairs with the smallest sums.
+
+There is a road where you build all the pairs and sort them, but the number of pairs is the length of the first times the length of the second, and that is very large.
+
+Turning a pearl over, the trader said — [nami]"A list you cannot see is a list all the same."[/]
+
+Look at it this way. Every number in the first array makes a list of its own. The list of the first number is that number joined to everything in the second array. Since the second array is sorted, that list comes out sorted too.
+
+So here there are as many lists as the first array is long, all of them sorted, and you want the smallest K out of them. That is exactly the problem of merging K sorted lists.
+
+[nami]"So make the same move."[/] Nami said. [nami]"Put the first pair of every list into the heap, and that is every number of the first array joined with the zeroth number of the second."[/]
+
+[chopper]"And what do you take out of the heap?"[/] Chopper asked.
+
+[nami]"Take the smallest out, and put it into the answer."[/] Nami said.
+
+[robin]"Whichever list the pair you took came from, put that list's next pair into the heap."[/] Robin added.
+
+Do that K times and the work is done. The heap never holds more than the number of lists, so the time is O(K times log n).
+
+Here is tonight's deepest thing. The heap's power is not that the lists are short, it is that the lists are sorted. Once they are sorted, the first of every list is that list's smallest, and the heap knows the smallest among those firsts. Whether the list was ever actually built makes no difference at all.
+
 The trader put out the lamp. Inside the bag the pearls were in no order, but the one on top was still shining.
 
-Tying the mouth of the bag, the trader said — "My neighbour puts all his pearls in order every evening. In the morning the customer buys one. It has been thirty years, and he has not had a single day of rest."
+Tying the mouth of the bag, the trader said — [sage]"My neighbour puts all his pearls in order every evening. In the morning the customer buys one. It has been thirty years, and he has not had a single day of rest."[/]
 
 That is tonight's lesson. Doing more work than the need is not effort, it is only waste. If the question asks for [aside]"the single largest"[/], you do not have to sort the whole lot, and having only the top be certain is enough.
 

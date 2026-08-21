@@ -1,4 +1,4 @@
-# 5 — Zoro's Two Swords: Two Pointers
+# 5 — Zoro's Two Swords: [..]Two Pointers[..]
 
 On the fifth island there is a long bridge stretched out over the sea. Zoro is standing in the middle of that bridge, and there is a sword in each of his hands.
 
@@ -16,7 +16,11 @@ The beauty of it is here. At every step one finger moves, and the moment it move
 
 The second problem is prettier. Posts of different heights are driven into the shore. You have to put a wall between some two posts and hold water. Now, what is the most water that will fit?
 
-The amount of water is decided by two things, and they are the distance between the two posts and the height of the shorter of the two. The shorter one decides, because the water spills over the shorter one.
+[franky]"How much water fits is decided by two things."[/] Franky said. [franky]"The distance between the two posts, and the height of the shorter of the two."[/]
+
+[chopper]"Why doesn't the tall one decide?"[/] Chopper asked.
+
+[franky]"Because the water spills over the shorter one."[/] Franky said.
 
 Here again, put two fingers at the start and the end. Here the distance is at its largest. Now one of the fingers has to move, but which one?
 
@@ -61,7 +65,21 @@ Zoro added — [zoro]"Before you raise a sword you have to set your feet. Sortin
 
 The water was turning under the bridge. Zoro was still there, and now he began speaking slowly himself.
 
-He said — "People ask when the two fingers work. I give one answer. When there is some order in the array, and that order tells you 'if you go this way it grows, if you go that way it shrinks', that is where the two fingers work."
+He said — [zoro]"People ask when the two fingers work. I give one answer. When there is some order in the array, and that order tells you 'if you go this way it grows, if you go that way it shrinks', that is where the two fingers work."[/]
+
+Zoro said — [zoro]"Now pick that same 3Sum back up. I am changing one word."[/]
+
+Before, you looked for three numbers whose sum is exactly zero. Now the question changes. Count how many groups of three numbers have a sum smaller than the target. The answer is not a list. The answer is a number.
+
+The straight road looks easy. Drive the nail, run the two fingers inside it, and add one every time you meet a third number that fits. But the trap is right here. If you start counting them one at a time, the inside is no longer O(n), and it climbs to O(n²). Together that is O(n³), which is no better than brute force.
+
+The trick fits in one sentence, and that sentence is tonight's new idea. When the two fingers find a sum smaller than the target, then every number sitting between the left finger and the right finger satisfies it too, because all of them are smaller than the number on the right. So do not count them one by one. Add right minus left all at once, and then move the left finger one step right.
+
+If the sum is greater than or equal to the target, add nothing, and move the right finger one step left.
+
+That finishes in O(n²), and it is the same old two fingers. The difference is only this. Before, you were finding an answer, and now you are counting answers. When you are counting, do not forget that one step can gather many answers at once.
+
+Zoro added — [zoro]"One cut, many enemies. That is the real saving."[/]
 
 Now a big problem arrives, one that gets asked in many interviews, and it is the problem of rainwater collecting. The heights of the posts are given. Rain fell. Now, how much water stands in the hollows?
 
@@ -71,7 +89,13 @@ On the straightforward road you have to look both ways for every post, and that 
 
 The move is this. Put two fingers at the two ends. Keep remembering the tallest post seen so far on each side. Now move whichever side has the shorter post inward.
 
-The reason for moving the shorter side is this. The water level is set by the shorter one. When you are standing on the shorter side, it is certain that there is somebody taller on the other side, so the account for that side can be settled right now. This reasoning takes a while to understand. If you do not follow it while falling asleep, that is fine, because if you remember the shape the reasoning comes back on its own in the morning.
+[chopper]"Why move the shorter side at all?"[/] Chopper asked.
+
+[franky]"Because the water level is set by the shorter one."[/] Franky said. [franky]"When you are standing on the shorter side, it is certain that there is somebody taller on the other side."[/]
+
+[robin]"So the account for that side can be settled right now."[/] Robin said.
+
+This reasoning takes a while to understand. If you do not follow it while falling asleep, that is fine, because if you remember the shape the reasoning comes back on its own in the morning.
 
 In the next problem there are stones of three colours, and they have to be arranged in order by colour. Red at the front, white in the middle, and blue at the back. This has to be done in a single pass and in place.
 
@@ -93,7 +117,7 @@ The wood of the bridge creaked again. The sea was calm. Only one of the three sw
 
 Zoro was still sitting propped against the bridge. The moon was showing in the water in two pieces.
 
-Without opening his eyes he said — "People think two swords means double the strength. It does not. Two swords means double the discipline."
+Without opening his eyes he said — [zoro]"People think two swords means double the strength. It does not. Two swords means double the discipline."[/]
 
 That is tonight's lesson. Working with two hands is not easy. Working with two hands in one direction and never turning back is even less easy. One moment of turning back throws away the whole saving.
 

@@ -451,6 +451,7 @@
     if (bed) { bed.enable(); bed.resume(); bedMode(); bedSegment(); }
     playing = true;
     start();
+    mediaState();
   }
   function pause() {
     playing = false;
@@ -459,6 +460,7 @@
     els.forEach(function (el) { el.volume = masterVol; });
     if (bed) bed.suspend();
     $('bt-play').textContent = '▶';
+    mediaState();
     lightsOn();
   }
 
@@ -466,30 +468,52 @@
      gains hold a constant level, where a linear fade would dip in the middle
      and read as a hole. The window always lands in the silence between
      chapters or paragraphs, never over a word. */
+  /* The crossfade is a pure function of the outgoing element's own clock, and
+     three things call it: a fast timer, for a smooth ramp while the page is
+     visible, and *both* elements' `timeupdate`, for when it is not. A hidden
+     tab clamps setInterval to a second or more, and mobile Safari stops it
+     outright -- which is precisely how a sleep story is listened to, with the
+     screen off. Driven by the timer alone the ramp froze there: the incoming
+     chapter sat at volume 0 while the outgoing one played on past its own end,
+     so its closing words were still sounding underneath the new chapter
+     instead of having handed over to it. `timeupdate` is a media event; it
+     keeps firing for as long as audio is actually playing, backgrounded or
+     not. Because fadeStep() only reads a clock and writes two volumes, calling
+     it from all three places is free and cannot double-apply. */
+  function fadeStep() {
+    if (!fading) return;
+    var from = cur(), to = other();
+    var left = pl[seg].d - from.currentTime;
+    var p = clamp((OVERLAP - left) / OVERLAP, 0, 1);
+    from.volume = masterVol * Math.sqrt(1 - p);
+    to.volume = masterVol * Math.sqrt(p);
+    if (p >= 1 || from.ended) handover();
+  }
+
   function beginFade() {
     if (fading || seg + 1 >= pl.length) return;
     fading = true;
-    var from = cur(), to = other();
+    var to = other();
     armNext();
     to.playbackRate = playRate;
     try { to.currentTime = 0; } catch (e) {}
     to.volume = 0;
     if (playing) start(to);
-    fadeTick = setInterval(function () {
-      var left = pl[seg].d - from.currentTime;
-      var p = clamp((OVERLAP - left) / OVERLAP, 0, 1);
-      from.volume = masterVol * Math.sqrt(1 - p);
-      to.volume = masterVol * Math.sqrt(p);
-      if (p >= 1 || from.ended) handover();
-    }, 50);
+    fadeStep();
+    fadeTick = setInterval(fadeStep, 50);
   }
 
   function handover() {
     stopFade();
     var done = cur();
-    done.pause();
+    // Flip first, pause second. The 'pause' listener below has to be able to
+    // tell an interruption from the outside apart from our own handover, and
+    // the test it uses is whether the element that stopped is still the one
+    // being heard. Pausing before the flip makes a normal chapter change look
+    // exactly like the operating system taking the audio away.
     ai = 1 - ai;
     seg = Math.min(seg + 1, pl.length - 1);
+    done.pause();
     cur().volume = masterVol;
     // After the handover, not during it: the bed's scene crossfade is 20s and
     // belongs to the new chapter, not to the 1.5s window where two narration
@@ -513,8 +537,12 @@
 
   els.forEach(function (el) {
     el.addEventListener('timeupdate', function () {
+      // Either element may drive a fade already in progress; see fadeStep().
+      // It can complete the handover, after which `cur()` is the other one, so
+      // nothing below may assume this element is still the one being heard.
+      if (fading) { fadeStep(); render(); return; }
       if (el !== cur()) return;
-      if (!fading && playing && pl[seg].d - el.currentTime <= OVERLAP) beginFade();
+      if (playing && pl[seg].d - el.currentTime <= OVERLAP) beginFade();
       render();
     });
     el.addEventListener('ended', function () {
@@ -524,6 +552,22 @@
       else { playing = false; $('bt-play').textContent = '▶'; }
     });
     el.addEventListener('play', function () { if (playing) $('bt-play').textContent = '⏸'; });
+    // Something outside the page can stop us: a phone call, another app taking
+    // audio focus, a headset button, a notification control on a browser that
+    // does not route it through an action handler. Believe it. Otherwise the
+    // page goes on thinking it is playing, keeps saving positions that are not
+    // advancing, and starts the next crossfade against an element that stopped
+    // minutes ago. Our own pause() clears `playing` before it touches any
+    // element, and handover() flips `ai` before it pauses the outgoing one, so
+    // neither of those reaches this.
+    el.addEventListener('pause', function () {
+      if (el !== cur() || fading || !playing || el.ended) return;
+      playing = false;
+      $('bt-play').textContent = '▶';
+      if (bed) bed.suspend();
+      mediaState();
+      lightsOn();
+    });
     // A segment that will not load is almost always a manifest that shipped
     // ahead of its audio. Retreat to the single-file edition once, rather than
     // sit silent behind a play button that does nothing.
@@ -621,6 +665,7 @@
     $('bt-cur').textContent = hms(t);
     $('bt-dur').textContent = hms(total);
     setChapter(chapterAt(t));
+    mediaPosition();
   }
 
   /* ---------- language ----------
@@ -778,6 +823,63 @@
     $('bt-ratev').textContent = playRate.toFixed(2) + 'x';
     localStorage.setItem(RATE_KEY, rate.value);
   });
+
+  /* ---------- lock screen and notification controls ----------
+     A sleep story is listened to with the screen off, so for most of its run
+     the page is not what the listener is looking at -- the notification is.
+     Declaring a media session is what makes a mobile browser willing to keep
+     the audio running there at all, and the action handlers are what make the
+     controls it draws actually work. Without them Android still shows a
+     notification, but its pause button stops the sound while the page goes on
+     believing it is playing.
+
+     Everything here is wrapped, because the set of actions a browser knows
+     differs between browsers and an unknown one throws rather than being
+     ignored. */
+  var msOK = 'mediaSession' in navigator;
+
+  function mediaSetup() {
+    if (!msOK) return;
+    var ms = navigator.mediaSession;
+    [['play',          function () { if (!playing) play(); }],
+     ['pause',         function () { if (playing) pause(); }],
+     ['stop',          function () { pause(); }],
+     ['previoustrack', function () { jumpChapter(-1); }],
+     ['nexttrack',     function () { jumpChapter(1); }],
+     ['seekbackward',  function (d) { seek(virtualTime() - ((d && d.seekOffset) || 30)); }],
+     ['seekforward',   function (d) { seek(virtualTime() + ((d && d.seekOffset) || 30)); }],
+     ['seekto',        function (d) { if (d && d.seekTime != null) seek(d.seekTime); }]
+    ].forEach(function (a) {
+      try { ms.setActionHandler(a[0], a[1]); } catch (e) {}
+    });
+  }
+
+  function mediaState() {
+    if (!msOK) return;
+    try { navigator.mediaSession.playbackState = playing ? 'playing' : 'paused'; }
+    catch (e) {}
+  }
+
+  /* The scrubber the OS draws belongs to the whole voyage, not to whichever
+     chapter file happens to be loaded, so it is fed from the virtual timeline.
+     Throttled to about once a second: render() runs on every timeupdate, and
+     the notification's clock has no use for four updates a second. */
+  var lastPos = 0;
+  function mediaPosition() {
+    if (!msOK || !navigator.mediaSession.setPositionState) return;
+    var now = Date.now();
+    if (now - lastPos < 900) return;
+    lastPos = now;
+    try {
+      navigator.mediaSession.setPositionState({
+        duration: total,
+        position: clamp(virtualTime(), 0, total),
+        playbackRate: playRate
+      });
+    } catch (e) {}
+  }
+
+  mediaSetup();
 
   /* ---------- start up ---------- */
   var saved = null;

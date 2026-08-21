@@ -5,7 +5,7 @@ Night has fallen over the market on the fourth island. There are hundreds of sta
 @read teach
 This notebook is not an ordinary one. Whatever is written in it, you do not have to turn pages to find. The moment you say the name, the page opens by itself. That is what a [..]hash map[..] is. You give it a key, and you get the value immediately, and it comes in O(1) time.
 
-Now listen to the first problem. A trader said — "I will take exactly six hundred thousand, not one coin more and not one coin less. And I will accept only two purses at a time." There are many purses on the ship, and each one holds a different amount. So which two purses should you hand over?
+Now listen to the first problem. A trader said — [sage]"I will take exactly six hundred thousand, not one coin more and not one coin less. And I will accept only two purses at a time."[/] There are many purses on the ship, and each one holds a different amount. So which two purses should you hand over?
 
 Usopp said — [usopp]"That is easy. I compare every purse against every other purse."[/] Shaking her head, Robin said — [robin]"That is O(n²). With a hundred purses that is ten thousand comparisons. With a thousand purses that is a million."[/]
 
@@ -24,7 +24,13 @@ The rule of the notebook is this, and its order must not be broken. Walk once, a
 
 That last sentence is the biggest trap here. Suppose the target is six and a purse holds three. Three plus three is six, but that was counting one purse twice. If you write first, you make something its own partner.
 
-Now the second problem is gentler. Are two words made of the same letters or not? For example "listen" and "silent" are made of the same letters. Nami counts every letter, and writes down how many l's and how many i's are in the first word. Then she goes along subtracting the letters of the second word. If every count in the notebook is zero at the end, they are made of the same letters.
+[chopper]"How do you tell whether two words are made of the same letters?"[/] Chopper asked.
+
+[nami]"By counting."[/] Nami showed him the notebook. [nami]"I write down how many l's and how many i's are in the first word. Then I go along subtracting the letters of the second word. If every count is zero at the end, they are made of the same letters."[/]
+
+[usopp]"And if even one is left over?"[/] Usopp asked.
+
+[nami]"Then they are different words."[/] Nami said.
 
 The third problem is whether any number repeats in this array. Write down every number you see in the notebook. If you find a number that has already been written, that one is a repeat. This is called a set, and it is a notebook that keeps only keys and no values.
 
@@ -81,6 +87,22 @@ A good hash scatters the names evenly across all hundred pages. A bad hash piles
 Now listen to an honest limit. The notebook does not remember order. The notebook has no answer to the question [aside]"which one is the smallest"[/]. For that you need a heap or a sorted tree, which are found on later islands.
 
 The other limit is that the notebook eats space. N things need the space of n pages. So this is not pure magic, it is a trade. You bought time, and space paid the price.
+
+Now pick that first limit back up, because tonight's best problem is born out of it. We said the notebook does not remember order. So then — can the notebook be taught order?
+
+Nami opened her eyes and said — [nami]"Only a hundred things fit in my bag. If I have to put a new thing in and there is no room, which one do I throw out? The one I have not touched for the longest time."[/]
+
+This is the LRU cache, and its full name is least recently used. Two jobs are needed, and both of them are needed in O(1). First, find the value the moment the key is given. Second, know which thing was touched longest ago.
+
+The notebook alone is not enough, because it does the first job and not the second. So tie two things together. One notebook, and one chain.
+
+In the chain the things stand in the order they were touched. Just touched at the front, and the oldest at the back. In the notebook's value, do not keep the value itself — keep which link of the chain that thing sits in.
+
+Now both jobs are O(1). When you look up the key, the notebook hands you the link directly. Pull that link out of the chain and move it to the front, and that is O(1) work in a chain, because the link is already in your hand and there is nothing to search for. When the room fills up, throw away the link at the tail of the chain, and delete its key from the notebook as well.
+
+Do not forget this. Reading changes the order too. If somebody looks at a thing, it is not old any more, so the moment it is looked at it has to move to the front. Forget that one sentence and the whole accounting goes wrong.
+
+Robin said quietly — [robin]"Do you know why this problem is famous? Because it teaches you that one structure is not always enough. Join two of them and each one's weakness disappears, and both of their strengths remain."[/]
 
 Now listen to one last story, and it is a light one. Suppose you have two piles of letters, and you have to find which letters are in both piles.
 

@@ -97,6 +97,30 @@ Now listen to one last practical thing. When you build a trie, make the root an 
 
 We have already met this move of putting in a fake root in the linked list and in the stack. A special case should be removed by an empty node, not by special code, and this is the small but often-repeated lesson of the whole voyage.
 
+Now listen to a hard problem, and it takes one of tonight's claims all the way to its last point.
+
+Tonight we said that a hash map knows only whole words, while a trie knows prefixes as well. Now measure that.
+
+[robin]"A list of words is given."[/] Robin said. [robin]"For each word, take all of its prefixes — the first letter, the first two letters, and so on up to the whole word."[/]
+
+[chopper]"How do you score them?"[/] Chopper asked.
+
+[robin]"The score of a prefix is how many words in the list begin with that prefix."[/] Robin said. [robin]"Add up all of those scores."[/]
+
+On the straightforward road you go around the whole list for every prefix, and that is the number of words times the square of the length.
+
+Feeling along a branch, Robin said — [robin]"Do not count. Count as you walk."[/]
+
+The move is one sentence long. While building the trie, keep a count on every node, and when you put a word in, add one to the count of every node that word passes through.
+
+Now look at what that count has become. The road that reaches a node is itself a prefix, and that node's count is the number of words that walked carrying that prefix. Which is to say the prefix's score is already written on the node.
+
+So once every word has gone in, walk each word through the trie once more, and add up the count of every node you meet on the way. That is that word's answer.
+
+The time is the number of words times the length of a word, and it cannot be less than that, because merely reading the words costs that much.
+
+Robin added — [robin]"The question of what to keep on a node is what separates most trie problems. Sometimes it is a mark, sometimes a count, and sometimes the whole word itself."[/]
+
 The wind moved again. The branches of letters swayed slowly, and then went still again.
 
 Robin put her hand at the foot of the tree and said — [robin:awed]"The beauty of this tree is that those whose beginning is shared have a shared road too. Only where they differ do they split."[/]
@@ -105,6 +129,10 @@ That is tonight's lesson. One way of removing double work is memory, and we lear
 
 Now listen to the second lesson. The choice is decided by the question, not by the name of the structure. On the question [aside]"does this word exist"[/], the notebook wins. On the question [aside]"what are the things beginning with this"[/], the notebook falls silent. No structure is better than another, and it is only better for some question.
 
-And one small thing has repeated through the whole voyage. The empty root, the fake node, and the zero post at the end are all the same idea. A special case should be removed by an empty beginning, not by special code. It is a small move, and one of the most frequently useful there is.
+[robin]"One small thing has repeated through the whole voyage."[/] Robin said. [robin]"The empty root, the fake node, and the zero post at the end are all the same idea."[/]
+
+[franky]"All three the same?"[/] Franky asked.
+
+[robin]"All three the same."[/] Robin said. [robin]"A special case should be removed by an empty beginning, not by special code. It is a small move, and one of the most frequently useful there is."[/]
 
 A leaf fell, and the letters hung quietly in the dark.

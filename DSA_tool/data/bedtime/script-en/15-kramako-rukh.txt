@@ -52,7 +52,13 @@ The first fruit is the job of putting in a new value. Start from the root. If th
 
 The second fruit is the job of removing a value, and this one is a little crooked. There are three cases in it. If it is a leaf, remove it directly. If it has only one branch, lift that branch up into its place.
 
-What do you do if it has both branches? Somebody has to be called in to fill the empty place, and that somebody has to be one who will not break the order. The smallest value in the right branch is exactly the right successor. Bring them in and put them in the place, then remove them from their old place.
+[chopper]"What do you do if it has both branches?"[/] Chopper asked.
+
+[robin]"Somebody has to be called in to fill the empty place."[/] Robin said. [robin]"And that somebody has to be one who will not break the order."[/]
+
+[chopper]"Who is that?"[/]
+
+[robin]"The smallest value in the right branch is exactly the right successor."[/] Robin said. [robin]"Bring them in and put them in the place, then remove them from their old place."[/]
 
 The third fruit asks which value comes immediately after some value. This is called the successor. If there is a right branch, the leftmost value in it is the successor. If there is no right branch, look upwards, and whichever ancestor's left branch you are in is the successor.
 
@@ -62,7 +68,7 @@ In the fourth fruit you have to build a balanced BST out of a sorted array. Make
 
 The moonlight was scattered under the tree. Robin sat at the foot of it.
 
-She said — "Now let me ask a question, whose answer explains why the BST was built at all. We already had Nami's notebook, and it was O(1). So why was this O(log n) tree needed?"
+She said — [robin]"Now let me ask a question, whose answer explains why the BST was built at all. We already had Nami's notebook, and it was O(1). So why was this O(log n) tree needed?"[/]
 
 The answer is in one word, and the word is order. The notebook says [aside]"is this here or not"[/], but it cannot say [aside]"which is the smallest one larger than this"[/]. The tree can.
 
@@ -92,6 +98,22 @@ At the end, listen to one small but deep thing. The rule of the BST is not about
 
 Remember that one sentence, and half the BST questions unlock themselves. Carry the range when checking. The range narrows as you insert. The range shows you the road when searching.
 
+Now listen to a hard and beautiful problem, and it stands on one of tonight's own sentences.
+
+Tonight we said that walking a BST in order brings the values out in sorted order. Now a tree arrives in which exactly two nodes have had their values swapped with each other. Everything else is correct. You have to find those two and swap them back, and you may not change the shape of the tree.
+
+Robin said — [robin]"Do not look at the tree. Look at the in-order walk. That should have been a sorted array, and two things in it are sitting in each other's places."[/]
+
+Now the question has become easy. What does it look like when two things in a sorted array are swapped? Walking along, somewhere you find a previous value larger than the current one, and let us call that a break.
+
+Watch here, because this is where many people slip. There may be one break, and there may be two. If the two swapped nodes were next to each other, only one break shows. If they were far apart, it breaks in two places.
+
+So make the rule this way. At the first break, take the previous value as the first culprit. At every break, take the current value as the second culprit, and keep updating that one every time. When the walk is finished, swap the values of those two.
+
+A wrong second culprit is always corrected by the later break, and that is exactly why this one rule works in both cases.
+
+The time is O(n). The room it takes is the depth of the recursion, and if you like, a Morris walk brings that down to O(1) as well, but you need not hear that tonight.
+
 The wind stopped. The tree went still, and the moonlight was coming down to the ground between the branches.
 
 Sitting at the foot of the tree, Robin said — [robin:gentle]"This tree is beautiful because it is disciplined. The small ones are on the left, and the large ones are on the right. But discipline does not hold by itself, because somebody has to keep holding it."[/]
@@ -100,7 +122,11 @@ That is tonight's lesson, and it is a little serious. Order is a gift, but order
 
 That is why balanced trees are used in the real world, ones that rotate themselves back straight. This is worth remembering, because a good structure is not only a good rule, it is also the machine that keeps the rule.
 
-Now listen to the second lesson, which is the subtlest thing tonight. The rule of the BST is not about neighbours, it is about ranges. The whole thing is not right just because the parts beside each other are. That one sentence saves a great many wrong solutions. In life too, the whole road is not right just because you agree with the person nearest you.
+[robin]"Now listen to the second lesson, which is the subtlest thing tonight."[/] Robin said. [robin]"The rule of the BST is not about neighbours, it is about ranges."[/]
+
+[chopper]"What does that mean?"[/] Chopper asked.
+
+[robin]"The whole thing is not right just because the parts beside each other are."[/] Robin said. [robin]"That one sentence saves a great many wrong solutions. In life too, the whole road is not right just because you agree with the person nearest you."[/]
 
 @read hush
 A star appeared between the leaves. The tree was in its place, and there was no confusion anywhere.
