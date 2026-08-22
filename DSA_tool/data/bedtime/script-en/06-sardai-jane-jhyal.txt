@@ -6,7 +6,7 @@ Luffy sat by the window. Looking out, he said — [luffy]"Whatever I can see out
 
 The signal for this island is easy. If the word "consecutive" appears in the question, a bell should ring. And if [aside]"the longest"[/] or [aside]"the shortest"[/] appears, a bell should ring as well. That is the window's work.
 
-Now listen to the first problem. In a word you have to find the longest stretch in which no letter repeats.
+Next comes the first problem. In a word you have to find the longest stretch in which no letter repeats.
 
 @algo jhyal
 The rule of the sliding window is this, and it has two edges. Move the right edge forward one step, and add the newly arriving thing into the window's count. Now ask whether the window is still valid. If the window has become invalid, move the left edge along one at a time, subtracting each departing thing from the count as it goes. Once the window is valid again, measure its length, and keep remembering the best length so far. Both edges always move forward only, and neither ever turns back.
@@ -81,7 +81,7 @@ The move is this. Remember the count of the most common letter inside the window
 
 Then comes the question of finding the average of every stretch of length K in an array. This is the most direct use of the fixed window. The total slides along, and dividing by K each time gives the average.
 
-Now listen to an honest limit, because not knowing it makes many people write a wrong solution. The window only works when widening it makes the measure grow steadily and shrinking it makes the measure fall steadily.
+There is an honest limit, because not knowing it makes many people write a wrong solution. The window only works when widening it makes the measure grow steadily and shrinking it makes the measure fall steadily.
 
 If all the numbers are positive this is true, because adding to a total makes it grow and removing makes it shrink. But if negative numbers are mixed in, that truth breaks. Adding a new number can make the total fall, so the very rule of when to pull the window disappears.
 
@@ -89,7 +89,7 @@ At a time like that you have to leave the window behind and use the running tota
 
 Robin added — [robin]"If the question says 'consecutive', think of the window. If it does not say 'consecutive', forget the window. If it is about choosing things or skipping over things, that belongs to another island."[/]
 
-Now listen to tonight's hardest question, and it is the twin of the one you just heard. You have learned to measure the piece with at most K different letters. Now — how many pieces have exactly K different letters?
+Then comes tonight's hardest question, and it is the twin of the one you just heard. You have learned to measure the piece with at most K different letters. Now — how many pieces have exactly K different letters?
 
 It sounds like one word has changed, but the window breaks here. The reason is this. With [aside]"at most K"[/], widening the window spoils the condition and narrowing it repairs the condition, so you know where to stop each edge. With [aside]"exactly K"[/], the condition is spoiled from both sides, and nothing tells you how far to pull the left edge.
 
@@ -108,6 +108,24 @@ If you are looking for the longest, pull the right edge, pull the left edge when
 The question of what to remember inside is answered by the problem itself. Sometimes you have to remember a total, sometimes a count, sometimes the number of different letters, and sometimes the most common letter.
 
 But the outer shape always stays the same, and that shape is the thing to remember. There are two edges, both go in the same direction, and neither ever turns back.
+
+The bus had not reached the bend yet. Nami said — [nami]"One more, and it is tonight's shrinking window with one word changed. Before, the window had to stay good. Now the window has to be made good."[/]
+
+There is a long string, and a small handful of letters that must all appear inside it. Find the shortest piece of the long string that holds every one of them, counting repeats.
+
+[chopper]"How would I even know the window is good?"[/] Chopper asked.
+
+[nami]"Count."[/] Nami said. [nami]"Write down how many of each letter you still owe. When a letter you owe comes in, the debt drops by one. When the debt reaches nought, the window is good."[/]
+
+So the right edge moves forward taking letters in, until the debt is cleared. The moment it clears, stop growing and start shrinking from the left — because every step in from the left that keeps the debt at nought gives a shorter answer.
+
+[usopp]"And when it breaks?"[/] Usopp asked.
+
+[nami]"Then you owe again, and the right edge goes back to work."[/] Nami said. [nami]"Neither edge ever turns back. Every letter comes in once and goes out once."[/]
+
+The time is O(n) even though the window grows and shrinks over and over, and that is the same amortised counting the old mapmaker taught on the second island. Watch one thing or the answer comes out wrong — take in every letter, but only count the debt down for letters you actually owe.
+
+Robin said — [robin]"The window earlier tonight only ever had to stay good. This one has to be made good first. That is the whole difference, and it is one word."[/]
 
 The bus reached the next bend. Outside the window the lights were still sliding slowly backwards, one by one.
 

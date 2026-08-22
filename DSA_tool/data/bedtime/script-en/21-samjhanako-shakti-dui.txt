@@ -84,13 +84,13 @@ Put yourself in that place. If you reach the end of the array, the length goes u
 
 There is an honest thing here. That array is not the real sequence. It is only the memory of [aside]"to make a sequence of this length, what is the smallest number that can be at the end"[/]. But the length comes out right, and that was what was wanted.
 
-Now listen to the other shapes of the bag problem. If the items are unlimited, the table is one-dimensional, and the walk goes in the forward direction.
+There are the other shapes of the bag problem. If the items are unlimited, the table is one-dimensional, and the walk goes in the forward direction.
 
 If every item may be taken only once, the walk goes in the reverse direction, or the same item gets counted again. That one difference makes two different worlds.
 
 And what do you do if the items are limited in number? That can be broken up in powers of two and turned into the take-only-once problem. It is a clever move, and tonight you do not need its details.
 
-Now listen to a different family, and that is DP that divides into pieces. For example, the question of which order to join the pearls in to make a necklace most cheaply is in this family.
+Then comes a different family, and that is DP that divides into pieces. For example, the question of which order to join the pearls in to make a necklace most cheaply is in this family.
 
 Here the case is two indexes, that is, from where to where. And inside there is a loop that tries every place to cut in the middle.
 
@@ -98,17 +98,17 @@ So its time reaches O(n³). It sounds expensive, but in this family that is the 
 
 The best way of bracketing falls in this same family. So does the cheapest order of multiplying. So does the question of how few cuts are needed to make palindromes.
 
-Now listen to something practical. What do you do if you need not only the answer but also the road? For example, you need not only how long the longest shared run is, but what it actually is.
+Here is something practical. What do you do if you need not only the answer but also the road? For example, you need not only how long the longest shared run is, but what it actually is.
 
 Once the table is filled, walk it backwards. Ask at every square — [aside]"Where did this answer come from?"[/] Follow that road, noting things down as you go. Turn what you noted around at the end.
 
-Then listen to one last idea, which is the deepest one. For DP to work, two qualities are needed.
+Then comes one last idea, which is the deepest one. For DP to work, two qualities are needed.
 
 The first quality is that the best answer to the large problem has to be built out of the best answers to the small problems. The second quality is that the same small problem has to come back many times, or there is no benefit in remembering it.
 
 Where those two are missing, trying to apply DP is wasted effort. And where those two are present, DP looks almost like magic.
 
-Now listen to something beautiful, and it makes two of tonight's questions into one.
+That brings us to something beautiful, and it makes two of tonight's questions into one.
 
 The question is this. What is the longest subsequence inside a string that reads the same backwards? You may skip letters, but you may not change their order.
 
@@ -122,6 +122,24 @@ And now another answer comes out of it for free. How few letters must be added t
 
 The time is O(n²), and the room is O(n²) as well, though remembering two rows at a time is enough.
 
+Robin had not picked the chalk back up. She said — [robin]"One more, and it is tonight's table with one word changed. You asked how much two words have in common. Now ask how far apart they are."[/]
+
+Two words are given, and three moves are allowed — put a letter in, take a letter out, or change one letter into another. What is the fewest moves that turn the first word into the second?
+
+[chopper]"That sounds like a completely different question."[/] Chopper said.
+
+[nami]"It is the same table."[/] Nami said. [nami]"Rows for one word and columns for the other. In each square, the fewest moves that turn the first so-many letters into the second so-many."[/]
+
+The rule inside a square has two cases. If the two letters standing at that row and column are the same, nothing has to be done at all, and the answer is the square up and to the left, unchanged. If they differ, it costs one move, and you take the best of three neighbours.
+
+[usopp]"Why three?"[/] Usopp asked.
+
+[robin]"Because there are three moves."[/] Robin said. [robin]"Up-and-left is changing a letter. Left is putting one in. Up is taking one out. The table is not a trick. Every arrow in it is one of the moves you were allowed in the first place."[/]
+
+The edges matter as much as the middle. Turning any word into nothing costs one move for each letter, so the first row and the first column count straight up from nought.
+
+The time is the two lengths multiplied, and so is the room, though two rows at a time are enough if you only want the number. Putting the chalk down, Robin said — [robin]"Every square in it is a small question, and the whole wall is only that same question asked in every size."[/]
+
 Robin said — [robin]"Remember only this much tonight. When a new problem arrives, first ask whether it is some old problem in new clothes."[/]
 
 Robin put down the chalk. The table was full. Numbers sat quietly all across the wall, and each one carried the answer to its own small question.
@@ -130,9 +148,9 @@ She stepped back and looked at the whole table. There were hundreds of squares t
 
 That is tonight's lesson. Large answers are built out of small answers, and small answers are built out of smaller answers still. Nobody has to work a miracle at any level, and all you have to do is get the order right.
 
-Now listen to the second lesson, which sets a lot of people free. The reason DP feels hard is not that the thinking is hard. The reason is that people forget to write down the case. Once you have written the one sentence saying which things together name your sub-question completely, the rest of the code arrives by itself.
+Next comes the second lesson, which sets a lot of people free. The reason DP feels hard is not that the thinking is hard. The reason is that people forget to write down the case. Once you have written the one sentence saying which things together name your sub-question completely, the rest of the code arrives by itself.
 
-Then listen to the third lesson, which is the most practical. When a new question arrives, ask — [aside]"Which question that I already know is this the clothing of?"[/] There are few new questions in the world, and a great many new sets of clothes.
+Then there is the third lesson, which is the most practical. When a new question arrives, ask — [aside]"Which question that I already know is this the clothing of?"[/] There are few new questions in the world, and a great many new sets of clothes.
 
 @read hush
 The lamp went out. The table on the wall was still there in the dark, and tomorrow somebody was going to read it again.

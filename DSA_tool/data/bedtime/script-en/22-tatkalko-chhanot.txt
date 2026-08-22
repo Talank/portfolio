@@ -32,7 +32,7 @@ The second problem is the fuel one. There are pumps around a circular road. At e
 
 The first thing is that if the total fuel on the whole road is less than the total cost, it is impossible from anywhere. Do that check first.
 
-Now listen to the move. Walk from the start counting the tank. If the tank ever empties, you cannot start from any of the pumps up to that point. Throw all of those away, and start again from zero at the next pump. Wherever you were starting from at the end is the answer.
+There is the move. Walk from the start counting the tank. If the tank ever empties, you cannot start from any of the pumps up to that point. Throw all of those away, and start again from zero at the next pump. Wherever you were starting from at the end is the answer.
 
 The third problem is the meeting room. There are many meetings, and each has a start and an end time. What is the greatest number of meetings that fit in one room?
 
@@ -93,13 +93,13 @@ In the meetings, taking the one that finishes earliest never narrows the future,
 
 So let the question be this — [aside]"Can my current choice ever make the future worse?"[/] If it never can, greedy is safe.
 
-Now listen to the business of sorting. Many greedy solutions begin with sorting, and what you sort by is the whole solution.
+Then comes the business of sorting. Many greedy solutions begin with sorting, and what you sort by is the whole solution.
 
 Meetings are sorted by end time. In the rope-joining problem they are sorted by length. In dividing up work they are sorted by deadline. In arranging letters they are sorted by count.
 
 So when you meet a greedy problem, ask this question first — [aside]"What should I sort by?"[/] That answer is usually the solution.
 
-Then listen to a beautiful use, and it is jobs and deadlines. Every job has a profit and a final date, and one job can be done in a day. So what is the greatest profit?
+Then comes a beautiful use, and it is jobs and deadlines. Every job has a profit and a final date, and one job can be done in a day. So what is the greatest profit?
 
 Sort by profit, from largest down. Put every job on the latest free day before its deadline. If no free day is found, drop that job.
 
@@ -109,7 +109,7 @@ At the end, one thing is worth remembering. A greedy solution is easy to write, 
 
 So if you are in doubt in an interview, write DP. A slow solution is correct, and a correct solution being slow is always better than a wrong solution being fast.
 
-Now listen to one last problem, and it answers tonight's biggest question in a strange way.
+Here is one last problem, and it answers tonight's biggest question in a strange way.
 
 All night we kept asking — what should I sort by? For the meetings it was the finishing time. For the ropes it was the length. Now a problem arrives where there is no sorting to do at all, and yet the idea of a [aside]"finishing time"[/] is still needed.
 
@@ -126,6 +126,26 @@ Now here is the magic. As you walk, if at some place your current index and that
 This finishes in a single pass, and nothing had to be sorted.
 
 Here tonight's rule is proved once more. This choice of where to cut is greedy, because you cut as early as you possibly can. And it is safe, because cutting here never narrows the future. The letters that come later have no relation to anything back here.
+
+The horse had not moved. Robin said — [robin]"One more, and it is tonight's choosing with one word changed. Before, we chose what to do next. Now we choose who has to wait."[/]
+
+There is a list of jobs, and each job has a kind. Two jobs of the same kind cannot run closer together than n slots apart. Empty slots are allowed. What is the shortest total time?
+
+[luffy]"Just do whatever is allowed next."[/] Luffy said.
+
+[robin]"Nearly, and the missing word is which."[/] Robin said. [robin]"At every slot, out of the jobs that are allowed, do the one with the most left. That is greedy, and here it is the right greed."[/]
+
+[usopp]"Why the most left?"[/] Usopp asked.
+
+[nami]"Because the commonest kind is what forces the waiting."[/] Nami said. [nami]"Leave it until late and it has to sit out its own gaps at the end with nothing left to fill them. Spend it early and the other jobs drop into those gaps by themselves."[/]
+
+So keep a heap of the counts, take the commonest allowed job at each slot, and put it into a short waiting line until its n slots have passed.
+
+And there is a way to see the answer without running it at all. Take the commonest kind. It makes as many gaps as its count less one, and each gap is n long. Everything else falls into those gaps. And if several kinds are tied at that highest count, each of them takes one more slot on the end. So the answer is either that frame, or the number of jobs itself when the kinds are so many that no gap is ever left empty, and you take whichever is larger.
+
+[chopper]"Two roads to the same number."[/] Chopper said sleepily.
+
+[robin]"Which is usually the sign that the greed was right."[/] Robin said.
 
 The horse went quiet again. The dust had settled on the road, and in the east the sky was going a little pale.
 

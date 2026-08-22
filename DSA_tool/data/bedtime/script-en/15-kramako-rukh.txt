@@ -74,19 +74,19 @@ The answer is in one word, and the word is order. The notebook says [aside]"is t
 
 So where a range is needed, where [aside]"everything between this and this"[/] is needed, and where "the previous" and "the next" are needed, a tree is needed. The notebook is fast, and the tree is orderly.
 
-Now listen to a question about a range. What is the total of all the values falling between two given limits? Keep walking, but walk wisely.
+Then comes a question about a range. What is the total of all the values falling between two given limits? Keep walking, but walk wisely.
 
 If the current value is smaller than the lower limit, you do not have to go into the left branch at all, because everything there is smaller still. If the current value is larger than the upper limit, leave the right branch alone. That pruning is what makes the search fast.
 
-Now listen to the business of balance in a little more detail. There is one reason a tree goes bad, and it is the values arriving in order. Unfortunately, in the real world data usually does arrive in order, like dates, addresses, and counts.
+Here is the business of balance in a little more detail. There is one reason a tree goes bad, and it is the values arriving in order. Unfortunately, in the real world data usually does arrive in order, like dates, addresses, and counts.
 
 So in real use a balanced tree is always used. The AVL tree does not let the difference in height between two branches at any node be more than one. The red-black tree keeps a looser rule, so putting things into it is faster but searching it is a little slower.
 
-Listen lightly to what a rotation is as well. Imagine three nodes all leaning in the same direction. Lift the middle one up, and make the two on the ends its children. That way a chain of three nodes has become a small balanced tree.
+A rotation is worth a light look as well. Imagine three nodes all leaning in the same direction. Lift the middle one up, and make the two on the ends its children. That way a chain of three nodes has become a small balanced tree.
 
 Tonight that is enough. You never have to learn the details of rotation by heart, and it is enough to know that a machine for keeping the balance is running inside.
 
-Now listen to a beautiful use, and it is merging two BSTs into one. Walk both in inorder to make two sorted arrays. Merge the two arrays, and that is the work of two fingers. Then build a balanced tree from the merged array.
+That brings us to a beautiful use, and it is merging two BSTs into one. Walk both in inorder to make two sorted arrays. Merge the two arrays, and that is the work of two fingers. Then build a balanced tree from the merged array.
 
 Here the tools of three islands were joined in one place, and they are walking a tree, two fingers, and half and half. Large solutions are usually built exactly this way.
 
@@ -94,11 +94,11 @@ And there is a question that is liked in interviews. What do you do if the Kth s
 
 The move is to keep a count at every node of [aside]"how many are in my left branch"[/]. Now you can go straight down from the root, because the count on the left tells you whether K falls to the left or the right. That way the search is O(log n).
 
-At the end, listen to one small but deep thing. The rule of the BST is not about neighbours, it is about ranges. Every node has to sit inside the range it was given from above.
+At the end, there is one small but deep thing. The rule of the BST is not about neighbours, it is about ranges. Every node has to sit inside the range it was given from above.
 
 Remember that one sentence, and half the BST questions unlock themselves. Carry the range when checking. The range narrows as you insert. The range shows you the road when searching.
 
-Now listen to a hard and beautiful problem, and it stands on one of tonight's own sentences.
+Next comes a hard and beautiful problem, and it stands on one of tonight's own sentences.
 
 Tonight we said that walking a BST in order brings the values out in sorted order. Now a tree arrives in which exactly two nodes have had their values swapped with each other. Everything else is correct. You have to find those two and swap them back, and you may not change the shape of the tree.
 
@@ -114,6 +114,22 @@ A wrong second culprit is always corrected by the later break, and that is exact
 
 The time is O(n). The room it takes is the depth of the recursion, and if you like, a Morris walk brings that down to O(1) as well, but you need not hear that tonight.
 
+The wind had not stopped yet. Robin said — [robin]"One more, and it is tonight's inorder walk with one word changed. That walk handed you everything in order. Now I want only the Kth of them, and I do not want to wait for the rest."[/]
+
+[nami]"Walk in order and count."[/] Nami said. [nami]"Stop at the Kth."[/]
+
+[robin]"That is the whole answer, and it is right."[/] Robin said. [robin]"The only thing worth adding is that you must be able to stop. A walk that gathers everything into an array first has already done the work you were trying to avoid."[/]
+
+So keep the walk but carry a counter with you. Go left as far as you can, remembering the way back on a stack. Then take one node, count it, and turn right. The moment the count reaches K, stop where you are standing.
+
+The time is the height of the tree plus K, which on a balanced tree is small, and the room is the height.
+
+[chopper]"And if the question is asked again and again?"[/] Chopper asked.
+
+[robin]"Then stop answering it by walking."[/] Robin said. [robin]"Keep in every node the count of how many nodes lie beneath it on the left. Then at each step you know whether the Kth is on the left, or is you, or is on the right, and you go down once in O(log n) with no walk at all."[/]
+
+That extra count has a price, and the price is that inserting and removing have to keep it true. Which is tonight's lesson once more. Order is only a gift for as long as somebody keeps paying for it.
+
 The wind stopped. The tree went still, and the moonlight was coming down to the ground between the branches.
 
 Sitting at the foot of the tree, Robin said — [robin:gentle]"This tree is beautiful because it is disciplined. The small ones are on the left, and the large ones are on the right. But discipline does not hold by itself, because somebody has to keep holding it."[/]
@@ -122,7 +138,7 @@ That is tonight's lesson, and it is a little serious. Order is a gift, but order
 
 That is why balanced trees are used in the real world, ones that rotate themselves back straight. This is worth remembering, because a good structure is not only a good rule, it is also the machine that keeps the rule.
 
-[robin]"Now listen to the second lesson, which is the subtlest thing tonight."[/] Robin said. [robin]"The rule of the BST is not about neighbours, it is about ranges."[/]
+[robin]"There is the second lesson, which is the subtlest thing tonight."[/] Robin said. [robin]"The rule of the BST is not about neighbours, it is about ranges."[/]
 
 [chopper]"What does that mean?"[/] Chopper asked.
 

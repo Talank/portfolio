@@ -67,7 +67,7 @@ Nami added — [nami]"This question is really the question 'is there a cycle of 
 
 The sea was still. On the map the islands looked like small dots.
 
-Nami said — [nami]"Now listen to two uses of the walk of depth. Both of these are a little crooked, and both are very useful."[/]
+Nami said — [nami]"Here are two uses of the walk of depth. Both of these are a little crooked, and both are very useful."[/]
 
 The first use asks whether there is a cycle in a one-way graph. Here the "already been there" notebook is not enough on its own, because a place reached again by another road is not a cycle.
 
@@ -87,7 +87,7 @@ Now let us come back to the map of squares, because a graph is hiding there and 
 
 So [aside]"counting islands"[/], [aside]"the largest island"[/], [aside]"filling with water"[/], and [aside]"is there a road"[/] are all graph questions, and they arrive dressed as a map.
 
-Listen to something practical. When you look in four directions, do not write four ifs every time. Make a small list of the directions, holding up, down, left and right, and run a loop over it. The code gets shorter, and the mistakes drop a great deal.
+Here is something practical. When you look in four directions, do not write four ifs every time. Make a small list of the directions, holding up, down, left and right, and run a loop over it. The code gets shorter, and the mistakes drop a great deal.
 
 And do not forget to check the boundary. Did you go off the map or not? A great deal of code has broken for want of that one check.
 
@@ -95,12 +95,12 @@ Now let us remember the choice between depth and breadth in practical terms agai
 
 But BFS gives the short road, and DFS does not. So the rule is easy. On the question [aside]"is there a road"[/], run DFS. On the question [aside]"how short is the road"[/], run BFS.
 
-At the end, listen to one small thing, which is the place where the most mistakes happen. Mark it when you put it into the queue, and not when you take it out.
+At the end comes one small thing, which is the place where the most mistakes happen. Mark it when you put it into the queue, and not when you take it out.
 
 If you mark it when you take it out, the same node goes into the queue many times. On a small graph you never notice, but on a large one the ship goes down.
 
 @read hush
-Now listen to a hard problem, and it takes tonight's biggest idea all the way to its last point.
+That brings us to a hard problem, and it takes tonight's biggest idea all the way to its last point.
 
 Tonight we said that a map of squares is a graph too, and that the roads are not drawn there but they exist. Now a problem arrives where there is no map at all.
 
@@ -122,6 +122,26 @@ That way a word's neighbours are found in length times twenty-six tries, and the
 
 And that old rule about marking is just as strict here. The moment a word goes into the queue, take it out of the dictionary, or that same word will enter the queue dozens of times.
 
+Nami had not folded the map away yet. She said — [nami]"One more, and it is tonight's shortest road with one word changed. Before, the walk started from one island. Now it starts from all of them at once."[/]
+
+There is a grid of fruit. Some are fresh, some are already rotten, and some cells are empty. Every minute a rotten fruit spoils the fresh ones directly beside it. How many minutes until nothing fresh is left?
+
+[usopp]"Then walk out from each rotten one and take the smallest time."[/] Usopp said.
+
+[robin]"That works, and it is slow."[/] Robin said. [robin]"There is a better idea hiding inside the question. All the rot spreads at the same speed in the same moment, so which rotten fruit reached a cell does not matter. Only when it was reached matters."[/]
+
+[franky]"So put every rotten one into the queue before you start."[/] Franky said. [franky]"All of them at distance nought. Then run the ordinary walk once."[/]
+
+That is the whole change, and it is one line. A queue that begins from many starting points still comes out in order of distance, because everything at distance one is still ahead of everything at distance two. The walk neither knows nor cares how many places it began from.
+
+Count the minutes by finishing the queue one whole layer at a time, because each layer is one minute.
+
+[chopper]"And if a fresh one is walled in?"[/] Chopper asked.
+
+[nami]"Then it is never reached, and the answer is that it cannot be done."[/] Nami said. [nami]"So count the fresh ones at the start and count them again at the end. That check is the whole difference between a right answer and a confident wrong one."[/]
+
+Every cell enters the queue at most once, so the time is the size of the grid.
+
 Here you can see tonight's heart. A graph is not a picture of dots and threads. A graph is a rule that says [aside]"from here, where can you get to"[/]. Once there is a rule there is a graph, and nobody has to draw it.
 
 Nami folded the map and looked up. There were invisible threads between the stars as well, and those threads were part of some web too.
@@ -132,6 +152,6 @@ That is tonight's lesson, and it is the simplest and the most forgotten one. Not
 
 There was no such problem in a tree, because a tree has no road back. A web has that road. That is the price of freedom, because where any road is possible, going round in a circle is possible too.
 
-Now listen to the second lesson. Sometimes it is easier to look for [aside]"what is not surrounded"[/] than for [aside]"what is surrounded"[/]. Turning a question around is itself a solution, and this move is useful in many places later.
+Next comes the second lesson. Sometimes it is easier to look for [aside]"what is not surrounded"[/] than for [aside]"what is surrounded"[/]. Turning a question around is itself a solution, and this move is useful in many places later.
 
 The moon had climbed high. The islands looked like small dots, and every dot was joined to somebody.

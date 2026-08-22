@@ -5,7 +5,7 @@ Night has fallen over the market on the fourth island. There are hundreds of sta
 @read teach
 This notebook is not an ordinary one. Whatever is written in it, you do not have to turn pages to find. The moment you say the name, the page opens by itself. That is what a [..]hash map[..] is. You give it a key, and you get the value immediately, and it comes in O(1) time.
 
-Now listen to the first problem. A trader said — [sage]"I will take exactly six hundred thousand, not one coin more and not one coin less. And I will accept only two purses at a time."[/] There are many purses on the ship, and each one holds a different amount. So which two purses should you hand over?
+Then comes the first problem. A trader said — [sage]"I will take exactly six hundred thousand, not one coin more and not one coin less. And I will accept only two purses at a time."[/] There are many purses on the ship, and each one holds a different amount. So which two purses should you hand over?
 
 Usopp said — [usopp]"That is easy. I compare every purse against every other purse."[/] Shaking her head, Robin said — [robin]"That is O(n²). With a hundred purses that is ten thousand comparisons. With a thousand purses that is a million."[/]
 
@@ -16,7 +16,7 @@ The first purse holds three hundred thousand, so three hundred thousand more is 
 @read teach
 That finished in a single pass, and its time is O(n). That is what [..]Two Sum[..] is, and it is the most asked question in the world.
 
-Now listen to the rule of this island, and it will come back three times tonight.
+Here is the rule of this island, and it will come back three times tonight.
 
 @algo notebook
 The rule of the notebook is this, and its order must not be broken. Walk once, and only once, over every item in the array. The first job is to look, so look at whether the partner you need is already in the notebook. If the partner is found, the answer has arrived right there, and the work is done. Only if the partner is not found do you write the current item into the notebook. Always look first and only then write, because if you do it the other way round an item makes itself its own partner.
@@ -60,7 +60,7 @@ Then a sweet problem arrives, in which words made of the same letters have to be
 
 There is a lesson hiding here. The key does not always have to be the thing you were given. The key is something you make. If you learn to make a good key, half the problem solves itself.
 
-Now listen to an honest thing as well. Saying the notebook is O(1) means on average, not always. Sometimes two different names land on the same page, and that is called a collision. When that happens you have to do a small search within that page. In a good notebook this is rare, so we take the average.
+That brings us to an honest thing as well. Saying the notebook is O(1) means on average, not always. Sometimes two different names land on the same page, and that is called a collision. When that happens you have to do a small search within that page. In a good notebook this is rare, so we take the average.
 
 @tier long
 
@@ -84,7 +84,7 @@ Robin made it easy. She said — [robin]"Suppose there are a hundred pages in yo
 
 A good hash scatters the names evenly across all hundred pages. A bad hash piles them all onto one page, and when that happens the notebook becomes an array again, and O(1) becomes O(n) again.
 
-Now listen to an honest limit. The notebook does not remember order. The notebook has no answer to the question [aside]"which one is the smallest"[/]. For that you need a heap or a sorted tree, which are found on later islands.
+Next comes an honest limit. The notebook does not remember order. The notebook has no answer to the question [aside]"which one is the smallest"[/]. For that you need a heap or a sorted tree, which are found on later islands.
 
 The other limit is that the notebook eats space. N things need the space of n pages. So this is not pure magic, it is a trade. You bought time, and space paid the price.
 
@@ -104,11 +104,29 @@ Do not forget this. Reading changes the order too. If somebody looks at a thing,
 
 Robin said quietly — [robin]"Do you know why this problem is famous? Because it teaches you that one structure is not always enough. Join two of them and each one's weakness disappears, and both of their strengths remain."[/]
 
-Now listen to one last story, and it is a light one. Suppose you have two piles of letters, and you have to find which letters are in both piles.
+There is one last story, and it is a light one. Suppose you have two piles of letters, and you have to find which letters are in both piles.
 
 Put one pile into the notebook. Then ask of every letter in the second pile — [aside]"Is this in the notebook or not?"[/] However many are found, those are the shared ones. This finishes in two passes.
 
 The same shape also solves the question [aside]"is in one but not in the other"[/]. This is called set arithmetic, and later it is quietly at work inside graphs and inside the trie as well.
+
+Nami had not shut the notebook yet. She said — [nami]"There is one more, and it is tonight's first problem with a single word changed. Instead of two purses that add up to a number, I want the longest run of numbers that follow one another."[/]
+
+The purses are scattered, in no order at all. Five, then a hundred, then three, then four, then six. The answer here is three, four, five, six, and that run is four long.
+
+[sanji]"Sort them."[/] Sanji said. [sanji]"Then the run is lying there in front of you."[/]
+
+[nami]"That works, and it costs O(n log n)."[/] Nami said. [nami]"But the notebook does it in O(n), and the reason is small enough to be pretty."[/]
+
+Put every number into the notebook first. Then walk the numbers again, and at each one ask a single question — is the number one below me also in the notebook? If it is, then I am standing in the middle of a run and somebody else will count it, so I do nothing at all.
+
+Only when the number below me is missing am I the start of a run. And then I climb, asking whether the next one is there, and the next, and the next, counting as I go.
+
+[usopp]"But that climb is a loop inside a loop."[/] Usopp said. [usopp]"You told me that was O(n²)."[/]
+
+[robin]"Look again at who climbs."[/] Robin said. [robin]"Only the start of a run ever climbs, and every number belongs to exactly one run. So across the whole walk each number is climbed over once. Two loops, and the time is still O(n)."[/]
+
+That is tonight's rule wearing a different coat. The notebook did not make the searching clever. The notebook made the searching unnecessary.
 
 Nami closed the notebook and shut her eyes. She said — [nami]"To put it in one sentence, before you start searching, ask — could I have written this down beforehand?"[/]
 

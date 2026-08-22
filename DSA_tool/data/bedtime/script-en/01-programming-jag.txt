@@ -29,7 +29,7 @@ In code a function sounds like this — [aside]"Make a piece of work with this n
 
 Now the fourth thing arrives, and it is not a tool, it is a question. It is called a condition, and in code it is called if. It says — [zoro]"If it is like this, do this. Otherwise, do the other thing."[/] When Zoro is choosing a road he asks exactly this — [zoro]"Is this road the right one? If it is, I go right. If it is not, then it makes no difference where I go."[/]
 
-That is all of it. Now listen to what the whole island comes down to, and this will come back three times tonight.
+That is all of it. Here is what the whole island comes down to, and this will come back three times tonight.
 
 @algo char-aujar
 These are the four tools of programming, and this is what they do. The first tool is the box, and the box gives a thing a name. The second tool is the wheel, and the wheel repeats the same work. The third tool is the string, and the string ties many steps into one name. The fourth tool is the question, and the question splits the road in two. Every program in the world is only these four tools joined together in different ways.
@@ -56,11 +56,11 @@ A loop has two faces. One of them says — [aside]"Go around once through all of
 
 There is a trap in the while loop, and it sounds funny but it happens to everybody once. If the condition never becomes false, the loop never stops. Zoro was once lost in a forest exactly this way, because he kept saying [zoro]"I keep walking until I find the road"[/] while he was walking in a circle. Whenever you write a loop, always ask this — [zoro]"Which step is taking me towards the end?"[/]
 
-Now listen to something about two boxes. Say you have to swap what is in two boxes. If you try to do it directly, one of them disappears, because the moment you put the second one's contents into the first, the first one's contents are gone. So you need a third, empty box. Put the first box's contents there, put the second box's contents into the first, and then put the third box's contents into the second. This small three-step move turns out to be useful in many places later.
+That brings us to something about two boxes. Say you have to swap what is in two boxes. If you try to do it directly, one of them disappears, because the moment you put the second one's contents into the first, the first one's contents are gone. So you need a third, empty box. Put the first box's contents there, put the second box's contents into the first, and then put the third box's contents into the second. This small three-step move turns out to be useful in many places later.
 
 There are also loops inside loops. When the outer wheel goes around once, the inner wheel goes all the way around. Nami said — [nami]"This is the place where time grows quietly."[/] Ten outside and ten inside makes a hundred. That is the thing we are going to measure on the next island.
 
-Listen to something about naming as well, because it looks small and it is large. If you name a box "a", tomorrow you will not recognise it yourself. If you name a box "seats_left", the code tells its own story. A good name is a letter written to the person you will be later.
+Here is something about naming as well, because it looks small and it is large. If you name a box "a", tomorrow you will not recognise it yourself. If you name a box "seats_left", the code tells its own story. A good name is a letter written to the person you will be later.
 
 @tier long
 
@@ -77,7 +77,7 @@ As much as you can, make functions of the asking kind. An asking function is eas
 @read teach
 The seventh thing is that a function can also call itself. That sounds strange when you hear it. Robin said — [robin]"If you put two mirrors facing each other, what do you see? You see another mirror inside, and inside that one, another mirror."[/] That is what [..]recursion[..] is. We will meet it properly in the branches of the tree, and in the maze.
 
-But listen to one rule right now. Every function that calls itself must have a place where it stops. Without that place the mirrors go deeper forever, and the ship sinks.
+But there is one rule to take right now. Every function that calls itself must have a place where it stops. Without that place the mirrors go deeper forever, and the ship sinks.
 
 The eighth thing is about mistakes, which happen to everyone. The first mistake is going past the last index of an array. The second mistake is looking for the first thing in an empty array. The third mistake is using a box before you have put anything in it.
 
@@ -104,6 +104,6 @@ Robin asked — [robin]"Have you never needed a new tool?"[/] Usopp shook his he
 
 That is tonight's lesson, and it stays true on every island after this. Power is not in the number of tools, it is in the imagination of the joining. A person who knows four tools can easily beat a person who knows forty, if they know how to join four of them in hundreds of ways.
 
-Now listen to one small thing, which also applies outside code. If you give something a good name today, the person you are tomorrow thanks you. Naming is sharing a memory between two people, the one today and the one tomorrow.
+Next comes one small thing, which also applies outside code. If you give something a good name today, the person you are tomorrow thanks you. Naming is sharing a memory between two people, the one today and the one tomorrow.
 
 The sound of the sea was coming in slowly. Usopp put the bag under his head, and slept. The sand was warm, and the tools were safe.

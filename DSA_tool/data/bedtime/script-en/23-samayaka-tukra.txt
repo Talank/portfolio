@@ -85,23 +85,23 @@ Write plus one at the starting index, and minus one at the ending index, then wo
 
 This move works on problems like hotel rooms, car parking, and traffic on a road, wherever the time is in small numbers like days or hours.
 
-Now listen to a question that looks hard. Pieces keep arriving, and in between you are asked [aside]"how many are there at this moment"[/], and both jobs have to be fast.
+That brings us to a question that looks hard. Pieces keep arriving, and in between you are asked [aside]"how many are there at this moment"[/], and both jobs have to be fast.
 
 Here you need a sorted tree or a segment tree. Tonight you do not need those details, and it is enough to know that if you need [aside]"both adding and asking to be fast"[/], a tree is the answer.
 
 And there is searching among pieces too, which asks which piece some point falls inside. If the pieces are separate and in order, this is the throwing-away-half work of the eighth island. Do a binary search on the starts, then check the end of the piece you found.
 
-Now listen to a boundary matter that always goes wrong. What does "overlap" mean?
+Next comes a boundary matter that always goes wrong. What does "overlap" mean?
 
 Two pieces overlap when the first one's start is before the second one's end and the second one's start is before the first one's end. Remember that one sentence, and you do not have to think about it from two or three directions.
 
 Thinking about it backwards is easier still. [aside]"They do not overlap"[/] means that either the first finishes entirely before the second, or the second finishes entirely before the first. Everything except those two cases is an overlap.
 
-At the end, listen to one piece of advice. Before writing a problem about pieces, always draw three small examples on paper, and they are completely separate, partly overlapping, and one fitting entirely inside another.
+At the end comes one piece of advice. Before writing a problem about pieces, always draw three small examples on paper, and they are completely separate, partly overlapping, and one fitting entirely inside another.
 
 The third case is the one most often missed. If a small piece fits entirely inside a large one, then when joining, the end has to stay the large one's, and must not become the small one's.
 
-Now listen to a hard problem, and it is tonight's very problem of fitting two people's free time together. I am changing one word, and putting K where two was.
+There is a hard problem, and it is tonight's very problem of fitting two people's free time together. I am changing one word, and putting K where two was.
 
 There are K watchmen on the ship. Each has a list of their own busy times, and each list is in order with no overlap inside it. Now you have to find the times when all of them are free at once.
 
@@ -121,11 +121,29 @@ Here is tonight's most useful thought. Counting empty space directly is hard. Jo
 
 The lantern was swaying slowly. The watch was continuous, nowhere was empty, and nobody was doing double duty.
 
+Nami had not looked away from the rota. She said — [nami]"One more, and it is tonight's joining with one word changed. Before, we asked which pieces overlap. Now we ask how many overlap at once."[/]
+
+There is a list of meetings, each with a start and an end. How many rooms are needed so that no two meetings that overlap are ever put in the same room?
+
+[sanji]"Sort by the start."[/] Sanji said. [sanji]"That much is always first."[/]
+
+[nami]"It is, and then keep a heap of the ends."[/] Nami said. [nami]"Take the meetings in order of start. Look at the room whose meeting ends soonest. If it has already finished, that room is free, so use it again. If it has not, you need a new room."[/]
+
+The heap is holding one thing only, and that is the earliest ending time among the rooms in use. The largest the heap ever grows is the answer.
+
+[chopper]"Is there a way without rooms at all?"[/] Chopper asked.
+
+[robin]"There is, and it is prettier."[/] Robin said. [robin]"Forget the meetings and keep only the moments. Every start is a plus one and every end is a minus one. Sort all of those moments together and walk them, adding as you go. The highest the running count ever reaches is the number of rooms."[/]
+
+And here the boundary rule from earlier tonight decides the answer. When an end and a start fall on the very same moment, the end has to be counted first, because a room emptied at three can take a meeting starting at three.
+
+The first way costs O(n log n) and tells you which room. The second costs the same and tells you only the number, which is usually all that was asked for.
+
 Nami looked at the clean rota once more. At the start that paper had been full of mess, because there were overlapping times on it, there was double duty, and there were empty nights in the middle.
 
 That is tonight's lesson. The first step in turning disorder into order is usually not effort, it is sorting. The moment it is sorted, it is enough for every piece to look only at its neighbour, and the whole problem becomes narrow.
 
-[sanji]"Now listen to the second lesson, which comes back in many places."[/] Sanji said. [sanji]"In the joining work, sort by the start."[/]
+[sanji]"Here is the second lesson, which comes back in many places."[/] Sanji said. [sanji]"In the joining work, sort by the start."[/]
 
 [chopper]"And in the choosing work?"[/] Chopper asked.
 

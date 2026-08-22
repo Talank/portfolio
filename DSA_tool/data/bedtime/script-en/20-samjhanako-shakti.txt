@@ -95,13 +95,13 @@ Going bottom up is faster, because there is no cost of calling functions. But yo
 
 The advice is this. Write it top down first, because it is easier to think about. If that works and you need to, change it to bottom up.
 
-Now listen to saving space. In many DP problems you do not need the whole table, because you only need the previous row. So keep two rows, and swap them turn by turn.
+Here is saving space. In many DP problems you do not need the whole table, because you only need the previous row. So keep two rows, and swap them turn by turn.
 
 Sometimes even one row is enough, but if you do that you have to pay attention to the direction of the walk. In the knapsack problem you have to fill from the reverse direction, or the same item gets counted twice.
 
 It is a small thing, and that same small thing has made many solutions wrong. Changing the direction changes the meaning, so always ask — [aside]"The answer I am reading while filling this square, is it the old one or the new one?"[/]
 
-Now listen to a new problem, and it is the coins. How many different ways are there to make some amount, where the order does not matter?
+That brings us to a new problem, and it is the coins. How many different ways are there to make some amount, where the order does not matter?
 
 Here the order of the loops changes everything. If you put the coins outside and the amount inside, combinations are counted, that is, [aside]"two plus three"[/] and [aside]"three plus two"[/] are treated as the same.
 
@@ -111,11 +111,11 @@ Then a beautiful problem in the same family arrives. What do you do if the house
 
 If I am taken, the children cannot be taken. If I am not taken, the children may be taken or not taken. This move of returning two numbers upwards comes up in many tree DP problems.
 
-At the end, listen to something that is the biggest thing tonight. DP is not magic. It is only recursion, in which the answers are not allowed to be forgotten.
+At the end, there is something that is the biggest thing tonight. DP is not magic. It is only recursion, in which the answers are not allowed to be forgotten.
 
 So when a problem feels far too large, write the straight recursion first, and write it however slow it is. Once that works, now add the wall. That is all of it.
 
-Now listen to a hard problem, and it is tonight's staircase, except that some of the steps are broken.
+Next comes a hard problem, and it is tonight's staircase, except that some of the steps are broken.
 
 A long string of digits is given. One digit stands for a letter, and two digits also stand for a letter, but the two-digit number has to fall between one and twenty-six. In how many different ways can this string be read as letters?
 
@@ -130,6 +130,24 @@ Add the answer one digit back only when the current digit is not a zero, because
 Remember the business with zeros properly. If a three and a zero arrive, that cannot be read at all, so the answer is zero. If a one and a zero, or a two and a zero arrive, that is read only as two digits, and it has no separate road of its own.
 
 The time is O(n), and for room it is enough to remember the last two answers.
+
+The owner had not opened his eyes. Robin said quietly — [robin]"One more, and it is the problem you just heard with one word changed. There you cut a line of digits into letters. Here you cut a line of letters into words."[/]
+
+A long string is given, and a list of words that are allowed. Can the string be cut into a sequence of those words, using each of them as often as you like?
+
+[usopp]"Try every place to cut."[/] Usopp said.
+
+[nami]"That is two to the power of the length."[/] Nami said. [nami]"And most of those cuts are the same tail being asked about over and over."[/]
+
+[robin]"Which is tonight's whole sentence."[/] Robin said. [robin]"So write down, for each place in the string, whether the string can be cut cleanly up to that place."[/]
+
+The first place is true, because an empty string needs no words at all. Then for every place after it, look back at each earlier place that is already true, and ask whether the piece lying between them is an allowed word. If any one of them works, this place is true as well.
+
+[chopper]"So a place is true if some earlier true place can reach it."[/] Chopper said.
+
+[robin]"That is the whole of it."[/] Robin said. [robin]"And the answer is simply whether the very last place is true."[/]
+
+Keep the allowed words in the notebook so that asking costs O(1), and the time is the length squared times the cost of matching a piece. If the words are kept in a tree of letters instead, you walk forward from each true place and stop the moment there is no branch, which is the island of the letter tree doing this island's work.
 
 The owner said in his sleep — [aside]"The shape is the same. The rule has changed. That is usually what happens in DP."[/]
 

@@ -9,9 +9,9 @@ That is what a [..]queue[..] is. The first thing in is the first thing out, and 
 
 A stack looks for depth, because it follows one road all the way to the end. A queue looks for breadth, because it looks at everything nearby first and only then goes further away. That difference will mean a great deal later, in trees and in graphs.
 
-Listen to one small but important thing. If you build a queue out of an ordinary array and remove from the front, everything behind has to shift over one place, and that is O(n). So a real queue is built out of a structure open at both ends, where both jobs are done in O(1).
+Next comes one small but important thing. If you build a queue out of an ordinary array and remove from the front, everything behind has to shift over one place, and that is O(n). So a real queue is built out of a structure open at both ends, where both jobs are done in O(1).
 
-Now listen to the deque. Its full name is the double ended queue, and it is a queue open at both ends. You can add at the front and you can add at the back. You can remove from the front and you can remove from the back.
+Next comes the deque. Its full name is the double ended queue, and it is a queue open at both ends. You can add at the front and you can add at the back. You can remove from the front and you can remove from the back.
 
 That flexibility unlocks one beautiful problem, and this question gets asked a lot. A window of size K slides along an array, and at every position you have to say the largest number inside the window.
 
@@ -58,7 +58,7 @@ The baker added — [sage]"A line is justice. But sometimes the sick person has 
 @read hush
 The fire in the oven was low. The queue was almost finished, and the morning air was cold.
 
-Now listen to another use of the deque, and it is even more beautiful than the last one. You have to find the shortest stretch in an array whose total is at least K, and the array has negative numbers in it as well.
+There is another use of the deque, and it is even more beautiful than the last one. You have to find the shortest stretch in an array whose total is at least K, and the array has negative numbers in it as well.
 
 The ordinary window move does not work here, because once there are negative numbers, adding to a total can make it fall. So first build the array of running totals, then keep the indexes of those totals on the deque in rising order.
 
@@ -74,16 +74,16 @@ Imagine it this way. You threw a stone into a lake. The ripple spreads out in a 
 
 So if all the steps are the same length, the road the queue finds is the shortest one. This comes back on the seventeenth island, and there it unlocks the whole map.
 
-Now listen to something practical. Sometimes you have to start not from one place in the queue but from many, as when fog is spreading out from several places at once. The move is easy, because you put all the starting places into the queue at once, and then run it as usual.
+Then comes something practical. Sometimes you have to start not from one place in the queue but from many, as when fog is spreading out from several places at once. The move is easy, because you put all the starting places into the queue at once, and then run it as usual.
 
 @read teach
 And you can walk from the opposite direction as well. Running the queue from both ends at once makes the meeting happen sooner, and the work becomes about half. This is called two-way searching.
 
-At the end, listen to one small piece of advice, which is very useful when writing code. Mark something as [aside]"already seen"[/] the moment you put it into the queue, and not at the moment you take it out.
+At the end, there is one small piece of advice, which is very useful when writing code. Mark something as [aside]"already seen"[/] the moment you put it into the queue, and not at the moment you take it out.
 
 If you mark it when you take it out, the same thing can go into the queue many times, and the work quietly doubles or triples. It is a small thing, and that same small thing has made many solutions slow.
 
-Now listen to one last problem, and it is tonight's very first move, with one turn added.
+Here is one last problem, and it is tonight's very first move, with one turn added.
 
 At the start we looked for the largest number inside the window, and there the array had already been written. Now a question arrives where the array gets written as you walk it.
 
@@ -103,6 +103,22 @@ Rubbing his eyes, Chopper said — [chopper]"But the best of the K behind you �
 
 The time falls to O(n). The only difference is that here the deque carries not the numbers of an array, but answers you worked out yourself a moment ago.
 
+The baker had not pulled the shutter all the way down. He said — [sage]"One more, and it is tonight's line with one word changed. Before, the window had a fixed width. Now the window may be any width at all, and it is the shortest one you want."[/]
+
+There is a row of numbers, and some of them are losses. Find the shortest piece whose total is at least K.
+
+[usopp]"That is the sliding window from a few islands back."[/] Usopp said.
+
+[nami]"It is not, and the reason is the losses."[/] Nami said. [nami]"A window only slides when growing it always helps and shrinking it always hurts. With a loss in the row, adding one more number can make the total smaller instead. The window loses its footing."[/]
+
+So go back to running totals. The total of the piece from i to j is the running total at j minus the running total at i. What you want, for each j, is the furthest place behind it whose running total is at least K below.
+
+[franky]"And that is a line with two doors."[/] Franky said. [franky]"Keep the places in a deque and keep their running totals rising. When the front of the line is already good enough, take it off the front and write the answer down, because no later j will ever want it again."[/]
+
+The back door does the other job. Before a new place goes in, throw away any place at the back whose running total is not smaller than the new one, because that older place is further away and no better, so it can never win.
+
+Each place enters once and leaves once, so the time is O(n). Wiping his hands, the baker said — [sage]"A line of people who are all worse than the one behind them is not a line. It is a crowd."[/]
+
 This is tonight's most useful thought. A window does not only run over yesterday's data. It runs over your own recent answers too.
 
 The baker pulled the shutter half down. There was nobody in the line now. The warmth of the oven was still in the air, and the morning was slowly getting light.
@@ -111,7 +127,7 @@ Wiping his hands, the baker said — [sage]"I sold bread for thirty years. One r
 
 That is tonight's lesson. A line is justice, and justice is order. A stack looks for depth, and a queue treats everybody as equal. That is why the queue finds the shortest road, because it does not leave out anybody who is nearby.
 
-Now listen to the second lesson, which joins on to the last island. The deque does one hard but useful thing, because it takes out in advance whoever has no future. Justice and hardness can live inside one machine, and the question of which to run when decides your solution.
+That brings us to the second lesson, which joins on to the last island. The deque does one hard but useful thing, because it takes out in advance whoever has no future. Justice and hardness can live inside one machine, and the question of which to run when decides your solution.
 
 And there is one small practical lesson, which saves hundreds of hours. Mark it the moment you put it into the queue, and not when you take it out. Otherwise the same person goes into the queue ten times, and you never find out.
 

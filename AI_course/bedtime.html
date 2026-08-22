@@ -150,7 +150,7 @@
         <input type="range" id="bt-vol" min="0" max="1" step="0.02">
       </label>
       <label class="bt-opt">गति
-        <input type="range" id="bt-rate" min="0.7" max="1.2" step="0.05">
+        <input type="range" id="bt-rate" min="0.7" max="2" step="0.05">
         <span id="bt-ratev">1.00x</span>
       </label>
       <label class="bt-opt">निद्रा टाइमर
@@ -212,6 +212,19 @@
   var POS_KEY = 'ai-bedtime-pos';
   var VOL_KEY = 'ai-bedtime-vol';
   var RATE_KEY = 'ai-bedtime-rate';
+
+  /* Speeding the -22% bedtime read back up is how the driving read is reached
+     now that it is not rendered separately: 1.2x lands almost exactly on the
+     old drive profile's -6%. Pitch therefore has to be preserved or the crew
+     turn into chipmunks. Every current browser defaults this to true, but the
+     default is not guaranteed and a silent regression here ruins the voice. */
+  function setRate(el, r) {
+    el.preservesPitch = true;
+    el.mozPreservesPitch = true;
+    el.webkitPreservesPitch = true;
+    el.playbackRate = r;
+  }
+
   var TIER_KEY = 'ai-bedtime-tier';
   var MODE_KEY = 'ai-bedtime-mode';
   var LANG_KEY = 'ai-bedtime-lang';
@@ -424,7 +437,7 @@
     var url = DIR + pl[seg].f;
     if (a.getAttribute('src') !== url) { a.src = url; }
     a.volume = masterVol;
-    a.playbackRate = playRate;
+    setRate(a, playRate);
     var at = clamp(offset || 0, 0, Math.max(0, pl[seg].d - 0.1));
     var apply = function () { try { a.currentTime = at; } catch (e) {} render(); };
     if (a.readyState >= 1) apply();
@@ -500,7 +513,7 @@
     fading = true;
     var to = other();
     armNext();
-    to.playbackRate = playRate;
+    setRate(to, playRate);
     try { to.currentTime = 0; } catch (e) {}
     to.volume = 0;
     if (playing) start(to);
@@ -803,7 +816,7 @@
   var r0 = parseFloat(localStorage.getItem(RATE_KEY)); if (isNaN(r0)) r0 = 1.0;
   masterVol = v0; playRate = r0;
   vol.value = v0; rate.value = r0;
-  els.forEach(function (el) { el.volume = v0; el.playbackRate = r0; });
+  els.forEach(function (el) { el.volume = v0; setRate(el, r0); });
   $('bt-ratev').textContent = r0.toFixed(2) + 'x';
   vol.addEventListener('input', function () {
     masterVol = +vol.value;
@@ -827,7 +840,7 @@
   }, 100);
   rate.addEventListener('input', function () {
     playRate = +rate.value;
-    els.forEach(function (el) { el.playbackRate = playRate; });
+    els.forEach(function (el) { setRate(el, playRate); });
     $('bt-ratev').textContent = playRate.toFixed(2) + 'x';
     localStorage.setItem(RATE_KEY, rate.value);
   });

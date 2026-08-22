@@ -9,12 +9,12 @@ That is what a [..]linked list[..] is. Every node in it has two things — one v
 
 Its trade with the array is exactly the reverse. In an array you find the middle thing immediately, but adding a new thing in the middle is very hard. In a linked list you have to walk to find something, but adding or removing takes only a moment, because changing two fingers finishes the job.
 
-Now listen to the main problem of this island.[..][lift]The whole linked list has to be turned around.[/]
+Here is the main problem of this island.[..][lift]The whole linked list has to be turned around.[/]
 
 Luffy said — [luffy]"That is easy. I pull it and flip it over."[/] Zoro stopped him and said — [zoro]"It is not flipping it over. It is changing the direction of every finger."[/]
 
 @read hush
-[wonder]Let us call it the dance of the three fingers.[/] Now listen to its rule, slowly.
+[wonder]Let us call it the dance of the three fingers.[/] That brings us to its rule, slowly.
 
 @algo reverse
 The rule for turning a linked list around is this. You have three fingers in your hand, and their names are behind, now, and tomorrow. At the start, behind is empty, and now sits on the first node. In the first step, put tomorrow on the node after now. In the second step, turn now's finger back towards behind. In the third step, move behind to where now is. In the fourth step, move now to where tomorrow is. Keep repeating these four steps until now is empty. Whichever node is at behind at the end is the new head of the turned-around linked list.
@@ -69,7 +69,7 @@ Laughing, Franky said — [franky]"There is one chant for working with linked li
 
 The water was calm. The anchor chain was swaying slowly.
 
-[franky:firm]"Now listen to another form of turning around,"[/] Franky said. [franky]"What do you do if only one piece in the middle has to be turned around?"[/]
+[franky:firm]"Next comes another form of turning around,"[/] Franky said. [franky]"What do you do if only one piece in the middle has to be turned around?"[/]
 
 The move stays the same, but you have to pay attention at the boundaries. Hold on to the node just before the piece begins, and hold on to the first node of the piece as well. Once the piece is turned around, turn the previous one's finger towards the new head, and turn the old head's finger towards the node after the piece.
 
@@ -87,11 +87,11 @@ In the next problem you have to add the numbers written in two linked lists, whe
 
 At every step add the two digits and the one being carried. If the total goes past ten, carry one. If there is still a carry left after both linked lists are finished, add one more node at the end, and many people forget this small thing.
 
-Now listen to the two-way linked list. Every node in it has two fingers — one points forward, and the other points backward. You can walk both ways in it, and to remove any node you do not have to go looking for the previous one.
+There is the two-way linked list. Every node in it has two fingers — one points forward, and the other points backward. You can walk both ways in it, and to remove any node you do not have to go looking for the previous one.
 
 It has a price too. Every node costs the space of one extra finger, and every change needs the care of getting two fingers right. This is what the memory-box called LRU is built out of, in which a two-way linked list and a hash map work together. The map says where each thing is, and the linked list says how old each thing is.
 
-Now listen to a hard problem, and it is tonight's second move grown large.
+Then comes a hard problem, and it is tonight's second move grown large.
 
 We learned to make one sorted linked list out of two. Now there are not two but K of them, and all of them have to become a single sorted linked list.
 
@@ -109,9 +109,25 @@ There is another road as well, and it is found on the sixteenth island. Put the 
 
 Here is tonight's real lesson. Repeating one job over and over makes it pile up. Splitting the same job into pairs brings it down to a log.
 
-Franky let the linked list slip slowly into the water and said — [franky:firm]"Listen to the last thing. In linked list problems the mistake is usually not in the reasoning, it is at the boundary."[/]
+Franky let the linked list slip slowly into the water and said — [franky:firm]"Next comes the last thing. In linked list problems the mistake is usually not in the reasoning, it is at the boundary."[/]
 
 "What happens if an empty linked list arrives? What happens if a single node arrives? What happens if two nodes arrive? If you ask those three questions, the rest works itself out."
+
+Franky was not finished. He said — [franky]"One more, and it is tonight's second move with one word changed. You turned a piece in the middle around. Now turn every piece around, k at a time, the whole way down the chain."[/]
+
+So the first k links reverse, then the next k, then the k after that. And if fewer than k are left at the end, those stay exactly as they were.
+
+[usopp]"That last rule is a trap."[/] Usopp said. [usopp]"I would only find out there were not enough left after I had already turned them."[/]
+
+[franky]"Then count before you cut."[/] Franky said. [franky]"Walk k steps ahead first. If you run off the end, stop and leave the rest alone. Only once the k links are known to be there do you turn them."[/]
+
+The turning itself is tonight's dance of three fingers, unchanged. What is new is the sewing. Each turned piece has to be joined to the piece before it, and its own new tail has to point at whatever comes next.
+
+[chopper]"That is a lot of ends to hold at once."[/] Chopper said.
+
+[robin]"Which is why the fake node is here."[/] Robin said. [robin]"Put an empty box in front of the chain. Then the first group has a previous one just like every other group, and the special case at the head disappears."[/]
+
+Every link is touched twice at most, once to count it and once to turn it, so the time is O(n) and no new room is needed. Franky wiped his hands and said — [franky:firm]"Same dance. Danced in groups."[/]
 
 @read hush
 The last link went under the water. The swell smoothed the surface over slowly, and everything around was quiet again.

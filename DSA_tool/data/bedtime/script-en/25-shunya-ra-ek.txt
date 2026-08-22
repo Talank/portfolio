@@ -18,13 +18,13 @@ The third sign is XOR, and this one is the most interesting. In it a lamp is lit
 The rule of XOR is this, and its foundation sits on two properties. The first property is that if you XOR any number with itself, you get zero. The second property is that if you XOR any number with zero, that same number comes back. So keep XORing all the numbers of the array together. The ones that have partners cancel each other out and become zero. Whatever is left at the end is the lonely number that had no partner. No notebook is needed for this, so the time is O(n) and the space is O(1).
 @end
 
-Now listen to how beautiful this is. In an array every number appears twice, except one that appears once. You have to find that one.
+That brings us to how beautiful this is. In an array every number appears twice, except one that appears once. You have to find that one.
 
 Nami started to take out her notebook. Franky stopped her and said — [franky:excited]"You do not need the notebook. XOR them all together."[/]
 
 Seeing this the first time, people are astonished.
 
-Now listen to some small moves, which are useful to keep in mind.
+Next come some small moves, which are useful to keep in mind.
 
 Is a number even or odd? Look at the rightmost lamp, and AND it with one. If you get zero, it is even.
 
@@ -81,7 +81,7 @@ And this same idea joins on to DP. Here the case is [aside]"which ones have I ta
 
 This is called bitmask DP, and it solves problems like dividing up work, touring roads, and matching pairs, where n is small but the possibilities are many.
 
-Now listen to a small but sweet question. How many lamps are lit in every number from zero to n, and you need it separately for each one.
+There is a small but sweet question. How many lamps are lit in every number from zero to n, and you need it separately for each one.
 
 The direct way is to count the lamps of every number. But there is a relationship here, because the lamp count of any number is the count of that number shifted right, plus the rightmost lamp.
 
@@ -93,17 +93,17 @@ That is why the [aside]"running XOR"[/] works, exactly like the running total. I
 
 That move fits exactly into the shape of the seventh island, and the only difference is that instead of subtracting you XOR again. That is why I said there that it would come back.
 
-Now listen to an honest warning, and it is a practical one. When you shift lamps on negative numbers, the behaviour differs between languages. Whether a zero or a one arrives at the top when shifting right is decided by the language.
+Then comes an honest warning, and it is a practical one. When you shift lamps on negative numbers, the behaviour differs between languages. Whether a zero or a one arrives at the top when shifting right is decided by the language.
 
 So think twice before running lamp moves on negative numbers, and check with a small example.
 
 And remember the limit of a number as well. The row of lamps is not endless, and it is usually thirty-two or sixty-four. When the limit is passed the number quietly wraps around, and that is the least detectable kind of mistake there is.
 
-At the end, listen to a philosophy. This island is small, but it is at the very bottom. All the islands above, that is, the notebook, the tree, the stack and the wall, are in the end sitting on these lamps.
+At the end, there is a philosophy. This island is small, but it is at the very bottom. All the islands above, that is, the notebook, the tree, the stack and the wall, are in the end sitting on these lamps.
 
 You will rarely write these moves in daily work. But knowing what is underneath makes everything above a little clearer.
 
-Now listen to tonight's hardest problem, and it is the twin of the first one. I am changing a single digit.
+Here is tonight's hardest problem, and it is the twin of the first one. I am changing a single digit.
 
 Before, every number in the array was there twice, and only one stood alone. XOR pulled that lonely one out. Now every number is there three times, and only one stands alone.
 
@@ -125,11 +125,31 @@ Franky added — [franky:firm]"The move changes, but the question stays the same
 
 Franky let go of the wire. The lamps swayed at their own pace, and some were lit and some were out, and that had been enough.
 
+The lamps were still swaying. Robin said — [robin]"One last one, and it is the whole voyage in a single question. Take tonight's zeros and ones, and take the tree of letters from the island before, and put the two together."[/]
+
+There is a list of numbers. Find the largest value that the XOR of any two of them can give.
+
+[usopp]"Try every pair."[/] Usopp said. [usopp]"And I already know what you are going to say about that."[/]
+
+[nami]"O(n²)."[/] Nami said.
+
+[robin]"So build the tree."[/] Robin said. [robin]"Not a tree of letters. A tree of bits. Every number is a word thirty-two letters long, and its alphabet holds only two letters."[/]
+
+Then the search is greed, and it is greed that can be proved. Start at the highest bit and walk down. At each level you would like the answer's bit to be a one, and to get a one out of XOR the other number must carry the opposite bit to yours. So look for the opposite branch. If it is there, take it and the bit is a one. If it is not, take the branch that is there and the bit is a nought.
+
+[chopper]"Why is taking the highest bit first safe?"[/] Chopper asked.
+
+[robin]"Because one bit high up is worth more than every bit below it added together."[/] Robin said. [robin]"That is what makes this greed correct rather than lucky, and it is the very proof the racing track asked for."[/]
+
+Put in n numbers at thirty-two steps each, then ask n questions at thirty-two steps each. The time is n, and the constant is the number of bits.
+
+Robin looked up at the swaying lamps and said — [robin]"Three islands stood inside one answer. The trie held them, the bits measured them, and the greed chose between them. That is what the whole voyage was for."[/]
+
 He looked up and said — [franky]"This island is the smallest, but every island stands on top of it. The notebook, the tree, the stack and the wall are in the end all made out of these two signs."[/]
 
 That is tonight's lesson. Knowing what is in the foundation makes every floor above a little clearer, and that stays true even if you never have to work in the foundation yourself.
 
-[robin]"Now listen to the second lesson, which is the most beautiful thing tonight."[/] Robin said. [robin]"Pairs cancel themselves."[/]
+[robin]"That brings us to the second lesson, which is the most beautiful thing tonight."[/] Robin said. [robin]"Pairs cancel themselves."[/]
 
 [chopper]"What does that mean?"[/] Chopper asked.
 

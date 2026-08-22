@@ -42,7 +42,7 @@ One check tells you whether the art of turning back is working. After you finish
 
 [robin]"And do not forget to erase the mark when you come back."[/] Robin said. [robin]"That is the taking-back step."[/]
 
-Now listen to the signals. If the question says [aside]"all the possibilities"[/], "all the ways", or "all the roads", this is the island. But if the question only asks "how many" or [aside]"the best one"[/], look towards the next island, which is where we are going now.
+Next come the signals. If the question says [aside]"all the possibilities"[/], "all the ways", or "all the roads", this is the island. But if the question only asks "how many" or [aside]"the best one"[/], look towards the next island, which is where we are going now.
 
 Inside the maze Luffy is asleep in the middle of the path. He does not remember about coming back, but tonight that is all right.
 
@@ -85,7 +85,7 @@ In the queens problem you do not have to look at the whole board to check whethe
 
 The move for recognising a diagonal is beautiful. On one diagonal the row plus the column is always the same. On the other diagonal the row minus the column is always the same. That way two numbers recognise a whole diagonal.
 
-And listen to sudoku. The same move works here too, because in every empty square you have to try one to nine and turn back when it does not fit. But without cutting back this never finishes.
+And then comes sudoku. The same move works here too, because in every empty square you have to try one to nine and turn back when it does not fit. But without cutting back this never finishes.
 
 One good cut is to fill first the square with the fewest options. Where there is little choice, a mistake is found quickly, and the whole branch is cut off quickly.
 
@@ -99,11 +99,11 @@ And that is why the next island comes. If the question has not asked for all the
 
 There we remember not the road but the fruit of the road. And that memory drops O(2ⁿ) to O(n²). That is the magic of the next island, and it is the greatest idea of this whole voyage.
 
-At the end, listen to one piece of practical advice. When writing backtracking, always write three things separately, and they are where it stops, what may be chosen, and what has to be taken back after choosing.
+At the end comes one piece of practical advice. When writing backtracking, always write three things separately, and they are where it stops, what may be chosen, and what has to be taken back after choosing.
 
 If you think about those three separately, the code falls into place by itself. If you think about them together, you get tangled.
 
-Now listen to tonight's hardest problem, and it is that same problem of finding a word in a grid of letters, except that you have to find not one word but a thousand.
+There is tonight's hardest problem, and it is that same problem of finding a word in a grid of letters, except that you have to find not one word but a thousand.
 
 The straightforward road looks easy. For every word, repeat that same search over the whole grid. But with a thousand words you have to scour the whole grid a thousand times, and that is impossible.
 
@@ -119,6 +119,26 @@ If you find a mark on some node of the tree saying [aside]"a word ends here"[/],
 
 And tonight's third step is just as compulsory here. Mark the square and go down, and take the mark back when you return. If you do not take it back, the neighbouring road will think the road you walked is its own.
 
+The water was still dripping. Robin said — [robin]"One last one, and it is tonight's maze with one word changed. In the maze you were looking for a way out. Here there is no way out to find, and instead you have to place a thing that fights everything else you place."[/]
+
+On a board of n squares by n, put n queens so that no two of them can reach each other. A queen reaches along her row, along her column, and along both diagonals.
+
+[usopp]"That is a very large number of arrangements."[/] Usopp said.
+
+[nami]"Not once you notice the first thing."[/] Nami said. [nami]"Every row holds exactly one queen. So you are not choosing where to put n queens on a board. You are choosing, for each row in turn, one column."[/]
+
+That single observation is most of the work, and it is tonight's lesson exactly. Do not search the whole world. Search only the choices the rules allow.
+
+So go down the rows. In each row try every column, and if the square is safe, put a queen there, go down to the next row, and afterwards lift her away again.
+
+[chopper]"How do I check whether a square is safe?"[/] Chopper asked.
+
+[robin]"Not by looking at the board."[/] Robin said. [robin]"Keep three notebooks — one of the columns used, one of the diagonals going one way, and one of the diagonals going the other. On any square one diagonal is row plus column and the other is row minus column, and both of those are the same for every square along their line. So the check is three questions and no walking at all."[/]
+
+Take off whatever you put on. That is tonight's rule again, because the queen goes into all three notebooks when she is placed and has to come out of all three when she is lifted. Forget the taking off, and every later row is poisoned by a queen who is not there.
+
+The number of arrangements is still large, but nearly all of them are cut off before they are ever built, and that is the whole art.
+
 Here tonight's real lesson is complete. A weak search walks every road. A strong search can say [aside]"there is nothing this way"[/] before it walks at all. And the power to say that is usually given to it by some other structure.
 
 The water was still dripping. Luffy was asleep in the middle of the path, and he really did not remember about coming back. But the maze was patient.
@@ -129,7 +149,7 @@ That is tonight's lesson, and it sounds backwards. The name of the art of going 
 
 Take off whatever you put on. Put down whatever you picked up. If you do not, the dirt from the previous road runs into the next road, and the answer quietly goes wrong.
 
-Now listen to the second lesson, which is the real skill. A weak search walks every road, and a strong search knows how to give up early. If a bad road is cut off at the start, you never have to look at the entire forest underneath it.
+Then comes the second lesson, which is the real skill. A weak search walks every road, and a strong search knows how to give up early. If a bad road is cut off at the start, you never have to look at the entire forest underneath it.
 
 The same rule works in life. On a road you already know does not go anywhere, there is no need to be polite. Turning back early is not defeat, it is respect for time.
 

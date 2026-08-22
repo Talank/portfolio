@@ -14,7 +14,7 @@ There is magic in it. If the road is straight the fast one reaches the end first
 
 Think for a moment about how beautiful that is. If they meet, the road is a circle. If they do not meet, the road is straight. No notebook was needed, and nothing had to be written down.
 
-Now listen to another use of these same two fingers, which is even simpler. You have to find which node is exactly in the middle of a linked list. Run the same move again, and move one of them one step and the other two steps. When the fast one reaches the end, the slow one is exactly in the middle. You never had to count the length, and it finished in a single pass.
+Here is another use of these same two fingers, which is even simpler. You have to find which node is exactly in the middle of a linked list. Run the same move again, and move one of them one step and the other two steps. When the fast one reaches the end, the slow one is exactly in the middle. You never had to count the length, and it finished in a single pass.
 
 Now a deeper question arrives, which confuses a lot of people. We know there is a cycle, but where does the cycle begin?
 
@@ -68,7 +68,7 @@ Chopper shook his head. Robin answered it herself — [robin]"Because if the dif
 
 She added — [aside]"So one and two is safe. It is a small thing, but it is what gives the move its proof."[/]
 
-Now let us also listen slowly to that magical reasoning for finding the mouth of the cycle. Listen while falling asleep, because you do not have to do the arithmetic and hearing the shape is enough.
+Now let us also walk slowly through that magical reasoning for finding the mouth of the cycle. This one is fine to drift through, because you do not have to do the arithmetic and hearing the shape is enough.
 
 Suppose there are A steps from the start to the mouth of the cycle. There are B steps from the mouth to the meeting place. And there are C steps from the meeting place back round to the mouth. So the length of the cycle is B plus C.
 
@@ -88,7 +88,7 @@ Then there is one last use, and it is an easy one, and that is counting from the
 
 The only difference is that there the speed was the same and the distance was different, and here the distance is the same and the speed is different. Both moves are two faces of one idea.
 
-Now listen to one last problem, and it needs tools from both tonight's island and last night's.
+That brings us to one last problem, and it needs tools from both tonight's island and last night's.
 
 The linked list has to be put into this order — the first node, then the last node, then the second node, then the one before last, then the third. You come inwards from the two ends by turns.
 
@@ -104,6 +104,22 @@ In the third step, join the two halves by turns — one from the front, one from
 
 The time is O(n) and it needs no new room. Watch one thing. After you cut at the middle, make the tail of the first half empty, or the two halves stay joined together and the loop never stops.
 
+Chopper was nearly gone. Robin said quietly — [robin]"One last one, and it is tonight's circular road with one word changed. There is no chain here, and no road either. There is only an array."[/]
+
+There are n plus one numbers, and every one of them lies between one and n. So at least one number must appear twice. Find it, without changing the array, and without a notebook.
+
+[nami]"With a notebook this is nothing."[/] Nami said. [nami]"Write down what you have seen. The first one you meet twice is the answer."[/]
+
+[robin]"That is O(n) room, and tonight's condition will not give it."[/] Robin said. [robin]"So look at the array with a different eye. Stand at a place, read the number written there, and walk to the place with that number. Read again, and walk again."[/]
+
+[usopp]"That is just a road."[/] Usopp said, sitting up.
+
+[robin]"It is a road. And because some number appears twice, two different places send you to the same place. A road where two arrows arrive at one point has to fold back on itself."[/] Robin said. [robin]"So there is a cycle in this road, and the mouth of the cycle is the repeated number."[/]
+
+After that it is tonight's move exactly as it stands. One walker moves a step at a time and the other two at a time until they meet. Then one goes back to the start, both move one step at a time, and where they meet again is the mouth.
+
+The time is O(n), the room is O(1), and the array is never written to. Half asleep, Chopper said — [chopper]"It was a road the whole time, and nobody had drawn it."[/]
+
 Chopper said in his sleep — [chopper]"Three easy things joined up and made a hard thing."[/] Robin nodded. Hard problems are usually like that, and there is no new move in them — the old moves have simply been set down in order.
 
 Chopper really has fallen asleep now. Dew had started coming down on the grass. The circular road was still there, and it was turning quietly.
@@ -114,6 +130,6 @@ That is tonight's lesson, and it is a little hard. Whether you are going round i
 
 So when some piece of work feels like it is moving forward but is not, change the speed. Go faster, or go slower. A different speed shows a different thing, and if they meet, the truth comes out.
 
-Now listen to the second lesson, which is the most beautiful thing tonight. We turned a problem about numbers into a problem about a road. Being able to change the form of a problem is the highest floor of the skill. When the answer does not come, try changing the shape of the question.
+Next comes the second lesson, which is the most beautiful thing tonight. We turned a problem about numbers into a problem about a road. Being able to change the form of a problem is the highest floor of the skill. When the answer does not come, try changing the shape of the question.
 
 Chopper's breathing was slowing down. The dew was settling on the grass, and the circular road was not frightening any more.

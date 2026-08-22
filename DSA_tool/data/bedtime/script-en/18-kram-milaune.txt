@@ -18,7 +18,7 @@ The rule for putting things in order is this. First, for every job, count how ma
 The second way is done with DFS. Go into the depth, and note things down as you come back. Turn the list around at the end. Why does it have to be turned around? Because whichever job is finished last is the one that has to be done first.
 
 @read teach
-Now listen to the second tool of this island, and it is called Union-Find. Let us call it the joining-and-finding structure.
+There is the second tool of this island, and it is called Union-Find. Let us call it the joining-and-finding structure.
 
 The problem is this. There are many islands. From time to time somebody says that these two islands are now joined by a bridge. And then somebody asks whether these two islands are in the same group or not.
 
@@ -72,7 +72,7 @@ But start from the end. Walk backwards from the case where everything is broken,
 
 This move of running time backwards is useful in many places. Where removing is hard and adding is easy, walk from the back.
 
-Now listen to a deeper use of topological sort, and it is finding the longest road in a DAG. In an ordinary graph that is a very hard question, but in a graph with no cycle it is easy.
+Then comes a deeper use of topological sort, and it is finding the longest road in a DAG. In an ordinary graph that is a very hard question, but in a graph with no cycle it is easy.
 
 First put things in order, then walk in that order noting at every node [aside]"the longest road that reaches me"[/]. The order guarantees that by the time you reach any node, the arithmetic for all of its predecessors is already finished.
 
@@ -90,11 +90,11 @@ Using both together, the average price of every operation is almost constant. Pu
 
 So in practice you can treat it as O(1). This is a rare case where the theory and the practice are both on your side.
 
-At the end, listen to one piece of advice. These two tools, ordering and joining groups, usually arrive together. [aside]"This job has to be done first"[/] is a matter of order. [aside]"All of these are in one group"[/] is a matter of joining.
+At the end, there is one piece of advice. These two tools, ordering and joining groups, usually arrive together. [aside]"This job has to be done first"[/] is a matter of order. [aside]"All of these are in one group"[/] is a matter of joining.
 
 When you read a question, look for two words, and they are "before" and "together". The first asks for an order, and the second asks for groups.
 
-Now listen to a hard problem, and in it tonight's first move runs in the opposite direction.
+Here is a hard problem, and in it tonight's first move runs in the opposite direction.
 
 In Kahn's approach you kept a count of [aside]"how many jobs are still waiting ahead of me"[/], and put the ones whose count was zero into the queue. Now take that same machine, but run it on a tree.
 
@@ -118,16 +118,34 @@ Why can two be left? Because if the length of the tree's longest path is odd the
 
 The time is O(V + E). Here tonight's lesson shows again. That one machine of counting down settles the order, catches the cycle, and finds the centre of a tree as well.
 
+Franky had not put the lamp out yet. He said — [franky]"One more, and it is tonight's joining machine with one word changed. Before, we joined islands. Now we join people."[/]
+
+There is a list of accounts. Each has a name and some addresses. Two accounts belong to the same person if they share even one address — and the same name is not enough, because two people can be called the same thing.
+
+[chopper]"So compare every account against every other one."[/] Chopper said.
+
+[nami]"That is O(n²), and it is also wrong."[/] Nami said. [nami]"Wrong because it does not carry. If the first shares with the second, and the second shares with the third, then the first belongs with the third even though those two share nothing at all."[/]
+
+[franky]"Carrying is exactly what my machine does."[/] Franky said. [franky]"So do not join accounts. Join addresses. Every address remembers which account it first arrived with, and when an address turns up again, the two accounts are joined."[/]
+
+So walk each account once, and for each of its addresses either write it down as new or join. When the walk finishes every group has already formed, and no comparison was ever made between two whole accounts.
+
+Then gather. Ask each address which group it belongs to, and drop it into that group's basket. Sort each basket and put the name back on the front.
+
+[robin]"Notice what the machine is really for."[/] Robin said. [robin]"It does not tell you who is joined to whom. It only ever answers whether two things have ended up in the same place, and tonight that turned out to be the only question worth asking."[/]
+
+The joining costs very nearly O(1) each time, so the whole job costs about what it costs to read the accounts and sort the addresses.
+
 Franky put out the lamp. The list was still stuck on the wall in order, and all of tomorrow morning's work was going to fall into place by itself.
 
 Franky was sitting on the floor wiping his tools. He said — [franky:firm]"Building ships taught me that doing first what has to be done first is not effort, it is the whole of the skill."[/]
 
 That is tonight's lesson. Knowing that some job has to come first, and working out that order, is usually harder than doing the job itself.
 
-Now listen to the second lesson, which is hard but true. Where there is a cycle, an order does not exist at all. In a place where [aside]"A is needed first, but A needs B, and B needs A"[/], effort does not work. What is needed there is a decision to break the cycle.
+That brings us to the second lesson, which is hard but true. Where there is a cycle, an order does not exist at all. In a place where [aside]"A is needed first, but A needs B, and B needs A"[/], effort does not work. What is needed there is a decision to break the cycle.
 
 Some problems in life are like that too. Recognising that they are tangled is half the solution, because after that you stop pulling harder and start undoing the knot.
 
-And listen to the last lesson. The joining structure only knows how to join, and does not know how to separate. But in many problems you do not have to separate. And if you really do have to separate, run time backwards, because walking from the back turns a breaking into a joining.
+And there is the last lesson. The joining structure only knows how to join, and does not know how to separate. But in many problems you do not have to separate. And if you really do have to separate, run time backwards, because walking from the back turns a breaking into a joining.
 
 Franky put the last tool in the box. The ship had been repaired, and the night was still long.

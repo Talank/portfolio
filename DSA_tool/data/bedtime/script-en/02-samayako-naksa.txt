@@ -24,7 +24,7 @@ The old man nodded. [sage]"That is called O(1), and it means constant time. The 
 
 [sage]"That is O(n), and it means straight-line time."[/] the old man said. [sage]"This is also good, and most good solutions end up right here."[/]
 
-[sage]"Now listen to something a little sadder. Compare every box against every other box."[/]
+[sage]"There is something a little sadder. Compare every box against every other box."[/]
 
 Nami went quiet for a moment and counted. [nami]"Ten boxes is a hundred comparisons."[/] she said. [nami]"A thousand boxes is a million comparisons."[/]
 
@@ -41,7 +41,7 @@ That is why we throw away the hundred that was attached to the O(n²). Two n and
 
 One thing is still left, and that is space. It is not only time that is counted, but also how much you had to remember. If you write n things in a notebook, that is O(n) space. If you managed without writing anything down, that is O(1) space. Usually there is a trade between these two, because you have to spend space to save time, or spend time to save space.
 
-Now listen to tonight's summary, and it is four lines long.
+Then comes tonight's summary, and it is four lines long.
 
 @algo chaar-naap
 These are the four measures of time, and if you remember them most of the arithmetic does itself. If you only have to look at one, that is O(1). If you have to look at all of them once, that is O(n). If you have to match every one against every other one, that is O(n²). If you get to throw away half every time, that is O(log n). These four measures tell the story of almost all code.
@@ -70,11 +70,11 @@ There is a measure in the middle, which falls a little above O(n) and a long way
 Almost all the good ways of putting things in order live here. If you have to sort a million things, O(n²) asks for a trillion steps, but O(n log n) asks for only about twenty million. That difference is the difference between the ship crossing and the ship sinking.
 
 @read hush
-Now listen slowly to the numbers. Suppose n is a million. Then log n is about twenty. n log n is about twenty million. n squared is a trillion. And two to the power n is so large that the number cannot be spoken, and counting every star in the universe would not get you there.
+The numbers go like this. Suppose n is a million. Then log n is about twenty. n log n is about twenty million. n squared is a trillion. And two to the power n is so large that the number cannot be spoken, and counting every star in the universe would not get you there.
 
 So keep one small rule in mind. If n is within a hundred, anything you do will work. If n is a thousand, even O(n²) will work. If n is a million, only O(n) or O(n log n) will work. If n is very large, you have to look for O(log n) or O(1).
 
-Now listen to the three faces, and they are the best case, the worst case, and the ordinary case. Suppose you are looking for a name in an array. If you find it in the first place, that is the best case. If you find it at the end, or do not find it at all, that is the worst case. We always talk about the worst case, because a ship is built for the biggest storm, not for the calmest day.
+Here are the three faces, and they are the best case, the worst case, and the ordinary case. Suppose you are looking for a name in an array. If you find it in the first place, that is the best case. If you find it at the end, or do not find it at all, that is the worst case. We always talk about the worst case, because a ship is built for the biggest storm, not for the calmest day.
 
 @tier long
 
@@ -92,7 +92,7 @@ The third rule is that the question of which base the log is in does not matter.
 
 The fourth rule is the difference between adding and multiplying. If you finish one piece of work and then do another, they add, and the larger one swallows the smaller one. If you do O(n) and then O(n²), the total is O(n²). But if one piece of work is inside another, they multiply.
 
-The fifth rule is about averages, and it is called amortised. Listen to this story. When Nami's bag is full, she buys a bag twice the size and moves everything across. That costs a lot, once.
+The fifth rule is about averages, and it is called amortised. The story goes like this. When Nami's bag is full, she buys a bag twice the size and moves everything across. That costs a lot, once.
 
 But how many times does she have to move? The bag doubles every time, so the moving happens rarely. Putting in hundreds of things means only a few moves in total. Adding it all up, putting in each thing costs only O(1) on average.
 

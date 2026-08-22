@@ -6,7 +6,7 @@ He said — [aside]"People search with one hand, and so it takes them twice as l
 
 This island has one rule, and it is that two fingers come in from the two ends to meet in the middle. But this move only works under one condition, and remember that condition. The array has to be in order, from small to large. That order is the staircase that both hands walk on.
 
-Now listen to the first problem. In a sorted array you have to find two numbers whose total is exactly equal to a target.
+Then comes the first problem. In a sorted array you have to find two numbers whose total is exactly equal to a target.
 
 @algo dui-aunla
 The rule of the two fingers is this, and it only works on a sorted array. Put the left finger at the start of the array, and put the right finger at the end of the array. Now look at the total of the two numbers they are holding. If the total is smaller than the target, move the left finger one step to the right, because the larger numbers are to the right. If the total is larger than the target, move the right finger one step to the left, because the smaller numbers are to the left. If the total is exactly equal to the target, the answer has been found. Stop once the two fingers meet, and never send either finger backwards.
@@ -32,7 +32,7 @@ In the third problem you have to make three numbers add up to zero, and this is 
 Do not forget to skip repeated numbers here, or the same answer comes back again and again.
 
 @read hush
-The proof that this approach is right is a small one, so listen to it. When you moved the left finger, every pair you threw away was smaller than the one you were holding, so the answer could never have been among them. If you can show that each step throws away only what could never have helped, the approach is correct.
+The proof that this approach is right is a small one, and here it is. When you moved the left finger, every pair you threw away was smaller than the one you were holding, so the answer could never have been among them. If you can show that each step throws away only what could never have helped, the approach is correct.
 
 @recall dui-aunla
 
@@ -107,9 +107,25 @@ Then comes the question of which pair in a sorted array has the total closest to
 
 The question of making four numbers add up to a target is in this same family. Drive in two pegs, then run two fingers inside, and that is O(n³). The shape stays the same, and there is one more layer.
 
-Now listen to a distinction that many people miss. The name "two pointers" refers to three different moves. In the first, two fingers come inward from the two ends. In the second, both walk in the same direction but at different speeds. In the third, one reads and the other writes.
+Here is a distinction that many people miss. The name "two pointers" refers to three different moves. In the first, two fingers come inward from the two ends. In the second, both walk in the same direction but at different speeds. In the third, one reads and the other writes.
 
 The first one needs order. The second is used when looking for a cycle or a midpoint, and that is a matter for the tenth island. The third we already met in the store room when we moved the zeros to the back.
+
+Zoro had not got up yet. He said — [zoro]"One more, and it is tonight's two hands again. Only this time what sits between them is not a pair. It is rain."[/]
+
+The wall has posts of different heights, and the rain has fallen. Water stands in the dips between the posts. How much water does the whole wall hold?
+
+[chopper]"How much does one place hold?"[/] Chopper asked.
+
+[robin]"Look up, not down."[/] Robin said. [robin]"Above any one place the water stands as high as the shorter of two things — the tallest post to its left, and the tallest post to its right. Take the smaller of those two, and take away the height of the post you are standing on."[/]
+
+The straightforward road is to look both ways from every post, and that is O(n²). Nami's notebook would mend it by writing down the tallest-so-far from each side, and that costs two passes and O(n) space.
+
+[zoro]"Two hands need no notebook at all."[/] Zoro said. [zoro]"One hand at each end. Remember the tallest seen on the left, and the tallest seen on the right. Then move whichever hand is standing on the shorter side."[/]
+
+The reason that is safe fits in one sentence. If the left tallest is the smaller of the two, then whatever waits far away on the right cannot lower the water above the left hand, because the left tallest already caps it. So it can be counted now, and the hand can move.
+
+The water is counted in a single pass, the space is O(1), and neither hand ever turns back. Almost asleep, Zoro said the last part — [zoro]"Two swords, and one direction."[/]
 
 Almost whispering, Zoro said the last thing — [zoro]"When the two fingers meet, the work is finished. Until they meet, neither of them may turn back. The moment one turns back, the time doubles."[/]
 
@@ -121,7 +137,7 @@ Without opening his eyes he said — [zoro]"People think two swords means double
 
 That is tonight's lesson. Working with two hands is not easy. Working with two hands in one direction and never turning back is even less easy. One moment of turning back throws away the whole saving.
 
-Now listen to the second lesson, which is deeper than that one. This move only works on a sorted array. What that means is that preparation is needed before the work begins. Zoro sets his feet before he raises a sword, and the time spent setting them is not wasted, because that time is what makes all the work afterwards possible.
+That brings us to the second lesson, which is deeper than that one. This move only works on a sorted array. What that means is that preparation is needed before the work begins. Zoro sets his feet before he raises a sword, and the time spent setting them is not wasted, because that time is what makes all the work afterwards possible.
 
 Many people think preparation is delay. But preparation is not delay. Preparation is the ground you stand on in order to move fast.
 

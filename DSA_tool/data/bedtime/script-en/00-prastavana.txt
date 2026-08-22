@@ -1,5 +1,7 @@
 # 0 — Setting Out: The Grand Line of Sleep
 
+This story is made for the night, and it is meant to be listened to while you fall asleep. You will learn data structures and algorithms on the way down. Now relax, and come along with the Straw Hat crew.
+
 The sea is calm. The waves knock gently against the side of the ship. Above you there are more stars than anyone could count, and the air is warm. The ship is finding its own way forward.
 
 @read hush
@@ -43,7 +45,7 @@ The ship is moving. The first island is coming up on the horizon, and it is smal
 @recall dui-prashna
 
 @read hush
-[robin]"Listen to those two questions again, but this time hold two hard cases in mind."[/] Robin said. [robin]"The first case is empty input, where there is nothing at all. The second case is input with exactly one thing in it. When an approach survives both of those, it is usually finished."[/]
+[robin]"Let us look at those two questions again, but this time hold two hard cases in mind."[/] Robin said. [robin]"The first case is empty input, where there is nothing at all. The second case is input with exactly one thing in it. When an approach survives both of those, it is usually finished."[/]
 
 @recall dui-prashna
 
@@ -55,7 +57,7 @@ You chose the longer voyage tonight, and that is a good thing. There will be eve
 
 [robin]"What a person hears while falling asleep does not disappear."[/] Robin said. [robin]"All night the mind sorts through the day and decides what to keep and what to throw away. If these words are playing quietly beside you at that time, their shape comes back to you more easily later."[/]
 
-Now listen slowly to the map of the voyage. First come the tools, and they are the box, the ring, and the [..]string[..]. After that comes the foggy island where time is measured. After that come the drawers of the store room, where the array and the letters live.
+The map of the voyage goes like this. First come the tools, and they are the box, the ring, and the [..]string[..]. After that comes the foggy island where time is measured. After that come the drawers of the store room, where the array and the letters live.
 
 After that comes Nami's notebook, which remembers everything at once. After that two hands start moving on the deck. After that comes the window that slides along. After that comes the running total, which you write once and then use forever.
 
@@ -74,7 +76,7 @@ Franky put his tools down and said — [franky]"There is one thing I always want
 
 However large the problems in your life get, they are usually one of two kinds. Either they can be broken into smaller pieces, or there is a repeating shape hidden somewhere inside them. These twenty islands teach you to see those same two things.
 
-Listen to one word now, because it comes back many times later. The word is [..]input size[..], and it means how big the work is. Cooking rice for one person and cooking rice for a hundred people is the same work, but the size is different.
+There is one word to take now, because it comes back many times later. The word is [..]input size[..], and it means how big the work is. Cooking rice for one person and cooking rice for a hundred people is the same work, but the size is different.
 
 [franky]"And the second word?"[/] Franky asked.
 

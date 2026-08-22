@@ -82,7 +82,7 @@ The next question asks which is the nearest shared ancestor of two nodes. Start 
 
 In a BST this is easier still, because the order shows you the road. If both values are smaller than the current one, go left, if both are larger, go right, and otherwise this node is the answer.
 
-Now listen to some uses of the level-by-level walk. Sometimes you need the average of each level. Sometimes you need the rightmost node of each level, and that is called [aside]"what you see when you look at the tree from the right"[/].
+Next come some uses of the level-by-level walk. Sometimes you need the average of each level. Sometimes you need the rightmost node of each level, and that is called [aside]"what you see when you look at the tree from the right"[/].
 
 And there is the use that walks like a snake, in which one level goes from left to right and the next goes from right to left. The move is easy, because once you have collected a level you reverse it every other time.
 
@@ -90,11 +90,11 @@ And there is the work of writing a tree out as letters and building the tree bac
 
 And there is the question of rebuilding a tree from the fruit of two walks. The preorder tells you who the root is. The inorder tells you how much of that root is on the left and how much on the right. The two together build the whole tree.
 
-At the end, listen to an honest warning. Recursion is beautiful, but on a deep tree the stack fills up. If a tree arrives that is like a chain ten thousand levels deep, the code breaks.
+At the end comes an honest warning. Recursion is beautiful, but on a deep tree the stack fills up. If a tree arrives that is like a chain ten thousand levels deep, the code breaks.
 
 At a time like that you have to keep the stack yourself and walk, or use a queue. This trade between beauty and safety usually has to fall on the side of safety, because the code actually has to run.
 
-Now listen to tonight's hardest problem, and it is the longest-path problem you just heard. I am changing a single word, and putting sum where length was.
+There is tonight's hardest problem, and it is the longest-path problem you just heard. I am changing a single word, and putting sum where length was.
 
 Numbers are written on the nodes of the tree, and some of them are negative. You may take a path that starts at any node and ends at any node, but the path can only climb up and come back down within the one tree. Which path gives the largest total?
 
@@ -109,6 +109,22 @@ Now the negative numbers add one new thing. If the total a branch hands back is 
 Robin said — [robin]"Every node says two things. It says one thing to its mother, and it says the other thing to itself. Never mix those two up."[/]
 
 The time is O(n), because every node is touched only once.
+
+The leaf had not reached the ground yet. Robin said — [robin]"One more, and it is tonight's walk with one word changed. You walked the tree in order to read it. Now walk it to write it down, so that somebody far away can build the same tree back."[/]
+
+[chopper]"Just write down the inorder walk."[/] Chopper said.
+
+[robin]"That is not enough, and this is the important part."[/] Robin said. [robin]"Two different trees can give exactly the same inorder walk. What is missing is the shape, and the shape lives in the empty places."[/]
+
+So walk in preorder and write down every node, and wherever a child is missing, write a mark that means nothing at all. Those marks are the shape. With them, a single line of writing holds the whole tree.
+
+Reading it back is the same walk again. Take the next thing from the line. If it is the mark for nothing, this branch ends. Otherwise make a node of it, then build its left side, then build its right side, and both of those are the very same job one size smaller.
+
+[usopp]"How does the reader know where the left side stops and the right one starts?"[/] Usopp asked.
+
+[franky]"It does not have to know."[/] Franky said. [franky]"Building the left side takes exactly as much of the line as it needs and then stops itself. Whatever it leaves behind is the right side. The recursion keeps that boundary without anybody drawing it."[/]
+
+Every node is written once and read once, so both directions are O(n). Robin closed her book and said — [robin]"A tree is not the picture. A tree is the order you visited it in, together with the places where you found nothing."[/]
 
 The leaf reached the ground. Chopper closed his eyes. Above him the branches were still spreading out in the dark.
 

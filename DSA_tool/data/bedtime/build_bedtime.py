@@ -138,7 +138,14 @@ VOLUME = "-12%"
 # given, so <prosody> and <emphasis> arrive at the engine as literal characters.
 # Everything here is done with the three per-clip parameters, the clip
 # boundaries, and punctuation.
-MODES = ("bedtime", "drive")
+# Only the bedtime read is rendered. The driving read was the same script
+# synthesised at -6% instead of -22%, which cost ~260 MB across the four
+# voyages — 45% of all bedtime audio — to ship a second copy of every word.
+# The player's speed slider now runs to 2x with pitch preserved, and 1.2x
+# lands almost exactly on the old drive rate, so the mode is reachable without
+# storing it. MODE_PROFILE keeps the "drive" entry: putting this back is a
+# one-word edit here plus a re-render.
+MODES = ("bedtime",)
 
 MODE_PROFILE = {
     "bedtime": {

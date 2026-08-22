@@ -37,7 +37,11 @@ _VERB_END = re.compile(
     r"छ|छन्|छु|छौं|छौ|छस्|छे|छिन्|छैन|छैनन्|छैनौ|छैनौं|"
     r"हो|हौं|होस्|होऊन्|होइन|होइनन्|हुन्|हुँ|"
     # past copula
-    r"थियो|थिए|थिएन|थिएनन्|थिइन्|थिइन|"
+    # थिइनन् is the feminine-honorific negative past ("she had not ..."), the
+    # exact counterpart of थिएनन्. It was the one member of this family left
+    # out, and it turns up the moment a woman in the crew is the subject of a
+    # negative — which, with Nami and Robin doing most of the talking, is often.
+    r"थियो|थिए|थिएन|थिएनन्|थिइन्|थिइन|थिइनन्|"
     # simple present / habitual …न्छ …ँछ …्छ, and the negative …दैन
     r"न्छ|न्छन्|ँछ|ँछन्|्छ|्छन्|दैन|दैनन्|ँदैन|ँदैनन्|्दैन|"
     # past tense …यो …ए …ई …इन्, and its negative …एन / …ेन (परेन, भएन)
@@ -59,11 +63,17 @@ _VERB_END = re.compile(
     # the scripts actually use, were read as fragments.
     r"ें|ेँ|एँ|थें|थेँ|"
     # negative of the -हुन्छ family: हुन्न, गन्दिन, सक्दिनँ, बिर्सनुहुन्न
-    r"हुन्न|न्न|दिनँ|न्दिन|दिनन्|"
+    # First person negative past: मैले मिलाइनँ, गरिनँ, भनिनँ, देखिनँ — "I never
+    # ...". The counterpart of the feminine िन् already listed above, and just
+    # as much a dialogue form: it is what a character says about their own past.
+    r"हुन्न|न्न|दिनँ|न्दिन|दिनन्|िनँ|इनँ|"
     # imperative and polite request
     r"नुहोस्|नुहुन्छ|नुभयो|नुहुन्थ्यो|नुस्|"
     # hortative, optative
-    r"ौं|औं|ूँ|उँ|ाऊँ|ाऊन्|ऊन्|ोस्|ओस्|"
+    # ून् is the dependent-vowel spelling of ऊन् (नबाँडून्, गरून्, भनून्) —
+    # the same independent-vs-dependent split that hid िन् and ेँ from this
+    # table. Listing only the independent form catches half the language.
+    r"ौं|औं|ूँ|उँ|ाऊँ|ाऊन्|ऊन्|ून्|ोस्|ओस्|"
     # habitual past, future, presumptive
     r"न्थ्यो|न्थे|न्थिन्|थे|नेछ|नेछन्|नेछौं|होला|लान्|ला|"
     # low imperative in -ऊ (बनाऊ, देऊ), and the -नू optative (हेर्नू)

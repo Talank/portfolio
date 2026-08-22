@@ -58,7 +58,7 @@ And on the island of zero and one, pairs cancel themselves, and one is left over
 
 That is enough now. You do not have to remember it all. It is enough if one or two stay in your mind, and the rest come round again another night.
 
-Now listen to one last thing, and this is the truest thing of all. Learning these twenty islands does not mean memorising twenty moves. It means forming one habit.
+Next comes one last thing, and this is the truest thing of all. Learning these twenty islands does not mean memorising twenty moves. It means forming one habit.
 
 @algo saat-prashna
 Whenever you see any new problem, ask these seven questions. The first question is this — have I already done this piece of work before? The second question is this — is there some order hiding here? The third question is this — is something consecutive being looked for here? The fourth question is this — is there a choice at every step here? The fifth question is this — is some piece of work repeating here? The sixth question is this — can I throw away half of the remaining work? The seventh question is this — do I know how to turn back? Whoever knows how to ask these seven questions finds the move by themselves, and whoever memorises the moves without knowing the questions has to be afraid all over again at every new problem.
@@ -118,12 +118,12 @@ The fourth thing is to speak before you write code. Whatever cannot be said in w
 
 The fifth thing is not to go silent during an interview. Your thinking is the valuable thing, not the answer. Saying [aside]"I will think about the brute force first, then look for an improvement"[/] is itself a good start.
 
-Now listen to something that hardly anybody says. Nobody invented all these moves in one night. They are the fruit of decades of work, and you are learning them in a few months.
+There is something that hardly anybody says. Nobody invented all these moves in one night. They are the fruit of decades of work, and you are learning them in a few months.
 
 So do not scold yourself when it feels hard. Finding it hard is natural. Beginning to find it easy is the progress, and that comes slowly.
 
 @read hush
-And listen to something about sleep, because half of tonight's learning is that. Sleeping after learning something new is how the thing gets stuck down.
+And there is something about sleep, because half of tonight's learning is that. Sleeping after learning something new is how the thing gets stuck down.
 
 Practising for two hours and then sleeping properly is much better than staying awake for a third hour of practice. Effort plants the seed, and sleep puts the roots down.
 

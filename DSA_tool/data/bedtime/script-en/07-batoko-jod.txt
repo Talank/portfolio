@@ -8,7 +8,7 @@ The idea on this island is so small that it sounds trivial, but it unlocks a gre
 
 Suppose you have a long array of numbers. Somebody asks — [aside]"What is the total from the third to the seventh?"[/] You added five numbers. They ask again — [aside]"What is the total from the second to the ninth?"[/] You added again. What happens if they ask a hundred times? You sit there adding every time, and that costs O(n) per question.
 
-Now listen to Robin's move.
+Here is Robin's move.
 
 @algo agadiko-jod
 The rule of the running total is this. At the beginning, walk through the array once and only once, and at every place note down the total from the start up to here. This is called the running total, and in English it is called a prefix sum. Now, when you need the total of some stretch, take the total up to the last place of that stretch. From it, subtract the total up to the place just before the stretch begins. Whatever is left is the total of that stretch. The preparation costs O(n) once, and after that every question is answered by a single subtraction, in O(1) time.
@@ -86,15 +86,15 @@ If the same total is met again, the total of the stretch in between is zero. Sub
 
 There is a small but important thing here. Keep only the place of the first sighting, and do not keep the later ones. The reason is that we are looking for the longest, and to get the longest the start has to be as far forward as possible.
 
-Now listen to the two-dimensional case in a little more detail. There is a table with rows and columns. The total inside some rectangle in it is asked for again and again.
+That brings us to the two-dimensional case in a little more detail. There is a table with rows and columns. The total inside some rectangle in it is asked for again and again.
 
 First, at every place, note the total of the whole rectangle from the top-left corner up to here. Now, when you need the total of some rectangle, subtract the strip above it from the large rectangle, then subtract the strip to the left, and then add back once the corner that was subtracted twice.
 
 That takes four numbers and three operations, and the time is O(1). Robin said — [robin]"This is called inclusion and exclusion. It sounds like a big name, but the work is the same thing a child understands by drawing it on paper."[/]
 
-At the end, listen to a different kind of total, and that is the running form of XOR. In XOR, if a number appears twice it cancels itself out. So instead of subtracting, XOR again is enough, and the same shape works in the same way. This idea comes back on later islands.
+At the end, there is a different kind of total, and that is the running form of XOR. In XOR, if a number appears twice it cancels itself out. So instead of subtracting, XOR again is enough, and the same shape works in the same way. This idea comes back on later islands.
 
-Now listen to one last problem, and it is tonight's very first move, except that the road has changed.
+Next comes one last problem, and it is tonight's very first move, except that the road has changed.
 
 At the start we counted the runs whose total is K, and that needed the running total and the notebook. Now the same question is asked not on a road but in a tree. Coming down from the root towards the leaves, how many paths add up to K? The path does not have to start at the root — it may start anywhere and run downwards.
 
@@ -108,6 +108,24 @@ Write, go down, come back, rub out. Those four words are called backtracking, an
 
 The time is O(n), because every node is touched once and the notebook's work at each place is O(1). On the straightforward road you would look at every path below every node, and that would be O(n²).
 
+Robin had not put the notebook away. She said — [robin]"One more, and it is tonight's very first move with one word changed. Before, we asked which piece adds up to a given number. Now the array holds only zeros and ones, and I want the longest piece holding exactly as many zeros as ones."[/]
+
+[chopper]"But zeros and ones are not a total."[/] Chopper said.
+
+[nami]"Make them one."[/] Nami said. [nami]"Count every zero as minus one. Then a piece with as many zeros as ones is a piece whose total is nought, and finding those we already know how to do."[/]
+
+That is the whole trick, and everything after it is tonight's machine unchanged. Keep the running total as you walk. Whenever the running total is a number you have seen before, the stretch between the two places where you saw it adds up to nothing.
+
+So the notebook holds, for each running total, the earliest place it appeared. Meet that total again and the distance back to that first place is a candidate answer, and you keep the longest one.
+
+One thing has to be set before the walk begins. A running total of nought must count as having been seen just before the array started, or a piece beginning at the very first drawer is missed.
+
+[usopp]"Why the earliest place, and not the nearest?"[/] Usopp asked.
+
+[robin]"Because you want the longest piece, not any piece."[/] Robin said. [robin]"Write a total down the first time only, and never write over it. Overwriting would shorten every answer that came after."[/]
+
+One pass, O(n) time, and the notebook is the only extra room. Robin closed the cover and added — [robin]"Notice what actually happened. We did not find a new move tonight. We changed the question until the old move fitted it."[/]
+
 Robin leaned back on the bench and said — [robin]"If the heart of this island has to be said in one sentence, it is that the answer to a question that gets asked again and again should be prepared in advance. And that preparation usually takes a single pass."[/]
 
 The stones on the road were still glinting. The air was warm. The ship's light was visible in the distance, and we walked slowly towards it.
@@ -118,7 +136,7 @@ She touched one stone and said — [robin]"The person who carved this died many 
 
 That is tonight's lesson. Sometimes the best investment is a single pass. Walk once, and note things down at every place, and after that a thousand questions are answered by one subtraction.
 
-Now listen to the opposite lesson as well, and it is even more important. Preparation has a price. If the question is only going to be asked once, the preparation is wasted. If the question is going to be asked many times, the preparation is everything.
+There is the opposite lesson as well, and it is even more important. Preparation has a price. If the question is only going to be asked once, the preparation is wasted. If the question is going to be asked many times, the preparation is everything.
 
 So before you write code, ask — [aside]"Is this question asked once, or is it asked hundreds of times?"[/] The answer changes your whole approach.
 

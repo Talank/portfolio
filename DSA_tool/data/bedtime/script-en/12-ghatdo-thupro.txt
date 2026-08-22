@@ -17,11 +17,11 @@ Nami took out a stack and said — [nami]"I do not keep the posts, I keep the li
 The rule of the falling stack is this. Walk from left to right. When you reach each new post, look at the top of the stack. If the post at the top is shorter than the new post, that post's waiting is over today, because the taller post it was looking for is this one. So note its answer, and remove the top. Keep repeating this until the top is no longer shorter than the new one. After that, put the new post on the stack and move on, and now it waits for its own turn. Whoever is left on the stack at the end has no answer, because nobody taller than them ever came.
 @end
 
-Now listen to the arithmetic of the time, and it is beautiful. There is a loop inside, so at first glance this looks like O(n²). But it is not. The reason is that every post goes onto the stack exactly once and comes off exactly once. That is two n of work in total, so this is O(n).
+That brings us to the arithmetic of the time, and it is beautiful. There is a loop inside, so at first glance this looks like O(n²). But it is not. The reason is that every post goes onto the stack exactly once and comes off exactly once. That is two n of work in total, so this is O(n).
 
 That reasoning is called amortised analysis. Do not panic the moment you see a loop inside, and count how many times each thing is touched.
 
-Now listen to another shape of the same move. The temperature of every day is given. For each day you have to say how many days you must wait for a warmer day.
+Next comes another shape of the same move. The temperature of every day is given. For each day you have to say how many days you must wait for a warmer day.
 
 That is exactly the same move. Put the indexes of the days on the stack. If the new day is warmer, the answers for all the waiting cold days are settled today, and you work out the difference in days.
 
@@ -53,7 +53,7 @@ The first face is the next larger to the right. The second is the next larger to
 
 If you need to change direction, change the direction of the walk, and walk from right to left. If you need smaller instead of larger, change the comparison sign. Everything else stays the same.
 
-Now listen to one application, and it is finding the next larger in a circular array. Saying the array is circular means that after the last one the first one comes round again. The move is simple, because you walk the array twice, but you write the answer at the index from the first lap.
+There is one application, and it is finding the next larger in a circular array. Saying the array is circular means that after the last one the first one comes round again. The move is simple, because you walk the array twice, but you write the answer at the index from the first lap.
 
 In another application you have to remove some digits from a number to make the smallest number possible. Keep a rising stack. If the new digit is smaller than the top of the stack and you are still allowed to remove, remove the top.
 
@@ -86,7 +86,7 @@ At the end, do not forget to work out the rectangle for everyone left on the sta
 
 This move of putting in a fake boundary is useful in many places. The fake head of a linked list, the zero at the end of an array, and the imaginary root of a [..]graph[..] are all the same idea. A special case should be removed by a fake object, not by special code.
 
-Now listen to a different family. A rising stack also solves the question [aside]"how many people can see me"[/]. Among people standing on a hill, how many pairs can see each other? They can see each other only if there is nobody taller in between.
+Then comes a different family. A rising stack also solves the question [aside]"how many people can see me"[/]. Among people standing on a hill, how many pairs can see each other? They can see each other only if there is nobody taller in between.
 
 And one thing is the most important of all, and it is what teaches you to recognise this island. On the stack we do not keep values, we keep the things that do not have an answer yet.
 
@@ -94,7 +94,7 @@ So whenever you feel [aside]"I do not know the answer for this thing now, but I 
 
 And when the answer arrives, it arrives for many at once. One tall post ends the waiting of all ten waiting posts in a single instant. That is the beauty of this move.
 
-Now listen to a hard problem, and it asks for two of tonight's faces at once.
+Here is a hard problem, and it asks for two of tonight's faces at once.
 
 The question is this. Take the smallest number in every run of neighbours in the array, and add all of those together. There are a great many runs, so walking them one at a time is O(n²).
 
@@ -112,6 +112,22 @@ Watch one thing, or you will count twice. When you meet equal numbers, say [asid
 
 The time is O(n). Here you can see tonight's real power. When counting [aside]"every run"[/] is expensive, ask instead how much [aside]"every single thing contributes to"[/].
 
+Robin had not taken her hand off the wall yet. She said — [robin]"One more, and it is tonight's own move asked a second time. You found, for every post, the next post shorter than it. Now use that to find the largest rectangle that fits inside the whole wall."[/]
+
+Any rectangle is decided by its shortest post. So for each post ask how far the rectangle stretches if that post is the shortest one in it. It stretches to the left until something shorter appears, and to the right until something shorter appears.
+
+[nami]"Those are the two answers we worked out earlier tonight."[/] Nami said.
+
+[robin]"They are. And the stack gives both of them in one pass."[/] Robin said.
+
+Keep the stack rising. While the post arriving is shorter than the top of the stack, that top has just met its right boundary, and the boundary is the arriving post. Take it off. Its left boundary is whatever now sits below it on the stack. So its width is the distance between those two, and its area is that width times its own height.
+
+[chopper]"What about the posts still standing on the stack at the end?"[/] Chopper asked.
+
+[franky]"Nothing shorter ever came for them."[/] Franky said. [franky]"So their right boundary is the end of the wall. Put an imaginary post of height nought after the last one, and the whole stack empties by itself."[/]
+
+Every post goes up once and comes down once, so the time is O(n), and the largest area seen along the way is the answer. The wall did not need measuring a second time. It only needed the same question asked twice, once to each side.
+
 Robin took her hand off the wall. The wind was still moving, but it was not cold now. The posts stood in their places.
 
 Robin said — [robin:gentle]"The story of this island is a story about waiting. Every post is waiting for somebody, and nobody can end their own waiting themselves."[/]
@@ -119,7 +135,7 @@ Robin said — [robin:gentle]"The story of this island is a story about waiting.
 @read teach
 That is tonight's lesson, and it is a little unkind. Making something wait when it has no future is not a kindness, and it is only spending space. The falling stack takes out whatever is small and whatever is old immediately, because it is never going to win now.
 
-Now listen to the beautiful lesson. When the answer arrives, it arrives for many at once. The moment one tall post arrives, the waiting of ten of them ends in a single instant. Life is usually like that too, because many days of waiting bear fruit on one single day.
+That brings us to the beautiful lesson. When the answer arrives, it arrives for many at once. The moment one tall post arrives, the waiting of ten of them ends in a single instant. Life is usually like that too, because many days of waiting bear fruit on one single day.
 
 So do not panic when you see a loop inside. The thing to count is not [aside]"how many times did it go round"[/], it is [aside]"how many times was each thing touched"[/]. Being able to tell that difference is a skill in itself.
 

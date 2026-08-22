@@ -11,7 +11,7 @@ Franky put his hand on one of the drawers. [franky]"But it has a weakness, and I
 
 [franky]"All of them."[/] Franky nodded. [franky]"That is O(n) work. So an array is a king at reading, and weak at adding and removing in the middle."[/]
 
-A string is an array too, and the only difference is that letters live inside it. The word "Luffy" has five letters, and they are kept in five drawers. So whatever move works on an array usually works on a string as well.
+A string is an array too, and the only difference is that characters live inside it. The word "Luffy" has five characters, and they are kept in five drawers. So whatever move works on an array usually works on a string as well.
 
 [chopper]"How do you find the largest number in an array?"[/] Chopper asked. [chopper]"I think you would have to compare every one against every other one."[/]
 
@@ -21,7 +21,7 @@ Zoro said — [zoro]"I carry a flag in my hand. I make the first number the flag
 
 That is a single pass, and its time is O(n). In the kind of code you can listen to, it sounds like this — [aside]"Put the first thing into a box called largest. Now look at every remaining thing, and if this thing is bigger than what is in the box, put this one in the box instead."[/] That was finished in three lines.
 
-Now listen to the main move of this island, and it will come back three times tonight.
+That brings us to the main move of this island, and it will come back three times tonight.
 
 @algo dui-hat
 Many jobs on an array can be finished with two hands, and the rule is this. One hand is the reading hand, and it always moves forward. The other hand is the writing hand, and it waits behind. When the reading hand finds something worth keeping, it gives that thing to the writing hand. Only after it receives something does the writing hand step forward. Wherever the writing hand stops at the end, everything up to that point is the clean answer. You do not have to build a new array for this at all, so the time is O(n) and the space is O(1).
@@ -92,6 +92,22 @@ This finishes in a single pass too, and the time stays O(n). The story is the sa
 
 Closing her book, Robin added — [robin]"If you meet a zero, start both boxes again from one. A zero wipes out all the history."[/]
 
+Robin was not finished. She said — [robin]"The fifth story is the second one again. This time I am not changing the question, I am changing the shape of the room."[/]
+
+The piece with the largest total, once more. But now the drawers are joined end to end, so the last drawer sits beside the first, and it is a [..]circular[..] array. A winning run is allowed to fall off the right edge and come back in at the left.
+
+[usopp]"Then I have to try every starting place."[/] Usopp said. [usopp]"That is O(n²), and you told me that sinks the ship."[/]
+
+[nami]"You do not have to."[/] Nami said. [nami]"There are only two kinds of answer here. Either the best run never crosses the join, and that is exactly what Luffy already found. Or it does cross — and if it does, the drawers it leaves behind are one ordinary run sitting in the middle."[/]
+
+So walk the same way twice. Once for the largest total, in the ordinary manner. Once for the smallest total, which is the very same walk with the comparison turned around. The crossing answer is then the total of everything minus that smallest run, and you take whichever of the two is larger.
+
+[chopper]"And if every drawer is a loss?"[/] Chopper asked.
+
+[robin]"Then the smallest run is the whole array, and the subtraction leaves you nothing at all."[/] Robin said. [robin]"So when every number is negative, keep the ordinary answer and throw the clever one away. That single line is where almost everybody gets this wrong."[/]
+
+It is still one pass, or two of them, and the time is still O(n). The question did not get harder tonight. The room got round.
+
 @read hush
 The light went out. The store room really was closed now. Outside, the sea was calm, and the ship moved slowly on.
 
@@ -101,7 +117,7 @@ He said quietly — [sanji]"People think this room is ordinary. But in the kitch
 
 That is tonight's lesson. The array is the simplest structure there is, and that is exactly why the most mistakes happen there. The count starts from zero. The last index is not n, it is n minus one. Whoever knows those two sentences suffers less for the rest of their life.
 
-Now listen to the second lesson, which came twice tonight and will come again. One hand reads, and the other writes. The shape sounds ordinary when you hear it, but it teaches you to clean an array without spending any new space at all.
+There is the second lesson, which came twice tonight and will come again. One hand reads, and the other writes. The shape sounds ordinary when you hear it, but it teaches you to clean an array without spending any new space at all.
 
 The same rule works in life, because you do not have to carry everything you find. Whatever is worth keeping, keep moving that forward. The rest is left behind, and that is fine.
 

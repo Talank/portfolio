@@ -37,7 +37,7 @@ The move is to keep two stacks. Put the real values in one, and in the other put
 Now, when the smallest is asked for, looking at the top of the second stack is enough, and it comes in O(1) time. Here we spent space and bought time, and that is the same trade from the second island.
 
 @read teach
-Listen to one more thing. When you write recursion, the computer is running this same stack quietly underneath. Every call adds a plate, and every return lifts one off. So very deep recursion fills the stack up, and that is called a [..]stack overflow[..].
+Here is one more thing. When you write recursion, the computer is running this same stack quietly underneath. Every call adds a plate, and every return lifts one off. So very deep recursion fills the stack up, and that is called a [..]stack overflow[..].
 
 The kitchen is clean. The plates are sitting one on top of another. Sanji put out the light.
 
@@ -74,7 +74,7 @@ The plates were quiet. Outside, the waves were patting against the hull.
 
 Sanji said — [sanji:amused]"Now let me say my favourite thing. What does a stack really do? It remembers what you have to come back to."[/]
 
-Listen to an example. Suppose you are running three jobs at once in the kitchen. The rice is on the fire. In the middle of that you started cutting vegetables. In the middle of that the door knocked.
+There is an example. Suppose you are running three jobs at once in the kitchen. The rice is on the fire. In the middle of that you started cutting vegetables. In the middle of that the door knocked.
 
 You go to open the door. When you come back, what do you do? You go back to the vegetables. Once the vegetables are done, you go back to the rice. Whichever job was abandoned last is the one you return to first. Your mind is running a stack.
 
@@ -92,11 +92,11 @@ If the stack is empty after removing, it broke right here, so put the current in
 
 That sounds crooked, and it really is crooked. But remember the shape, because putting indexes rather than values on the stack makes many problems easy. This idea comes back on the next island, and there it really flowers.
 
-Now listen to the boundary questions, because all the mistakes with stacks live there. Did anyone try to take something off an empty stack? Was the stack checked for emptiness before looking at the top? Was the stack empty at the end?
+There are the boundary questions, because all the mistakes with stacks live there. Did anyone try to take something off an empty stack? Was the stack checked for emptiness before looking at the top? Was the stack empty at the end?
 
 Those three questions catch ninety per cent of stack mistakes. Once you have written the code, get into the habit of asking those three questions once.
 
-Now listen to tonight's hardest problem, and it needs two of tonight's moves together.
+Then comes tonight's hardest problem, and it needs two of tonight's moves together.
 
 At the start we checked whether the brackets matched. After that we worked out the value of an expression written back to front. Now put the two together. You have to find the value of an ordinary expression, written the usual way, with brackets in it and with plus and minus.
 
@@ -112,7 +112,25 @@ Here the stack is not remembering values. It is remembering context. It is remem
 
 That is why this problem is the best example of tonight's lesson. A stack is a promise that says [aside]"I will come back here later"[/].
 
-At the end, listen to one small practical thing. You do not have to learn anything new to build a stack, because an ordinary array is enough. Add at the back, and remove from the back. Do that and you have a stack.
+At the end comes one small practical thing. You do not have to learn anything new to build a stack, because an ordinary array is enough. Add at the back, and remove from the back. Do that and you have a stack.
+
+Sanji was not done. He said — [sanji]"One more, and it is tonight's stack with one word changed. Before, what came off the top was a bracket waiting to be closed. Now what comes off the top is a plate about to break."[/]
+
+A row of stones is flying. Each has a size, and each is going either right or left. Two stones that meet destroy the smaller one, and if they are the same size both are gone. Stones going the same way never meet. What is left at the end?
+
+[chopper]"How do I know which two meet?"[/] Chopper asked.
+
+[sanji]"Only one kind of pair ever meets."[/] Sanji said. [sanji]"A stone going right, with a stone going left arriving after it. Everything else passes by."[/]
+
+So walk the row once. A stone going right is simply put on the stack, because its fate is not decided yet. A stone going left has to fight everything on the stack that is going right.
+
+While the top is going right and is smaller, take it off, because that one is destroyed. If the top is the same size, take it off and the new stone dies as well. If the top is larger, the new stone dies and nothing is taken off.
+
+[usopp]"And if the stack empties while it is still fighting?"[/] Usopp asked.
+
+[sanji]"Then there was nothing left to stop it, and it survives."[/] Sanji said. [sanji]"That is the same emptiness check as always. Ask whether anybody is there before you reach for the top."[/]
+
+Every stone goes on the stack once and comes off at most once, so however many collisions happen the time is O(n). What is left on the stack, from the bottom to the top, is the answer in order.
 
 Sanji said — [sanji]"The name is big, but the work is small. Almost every data structure is like that."[/]
 
@@ -124,6 +142,6 @@ That is tonight's lesson. A stack remembers what you have to come back to, and w
 
 That discipline looks small. But large software in the world has fallen over because that discipline broke. Somebody does not close the file they opened, somebody does not release the lock they took, and somebody leaves work they started half done.
 
-Now listen to the second lesson. You must not try to pull a plate off an empty stack. What that means is that you must not rely on something that is not there. In writing code and in running a life, ask first — [aside]"Is there really anybody there?"[/]
+Here is the second lesson. You must not try to pull a plate off an empty stack. What that means is that you must not rely on something that is not there. In writing code and in running a life, ask first — [aside]"Is there really anybody there?"[/]
 
 Sanji breathed out slowly. Inside, the plates stood in order, and in the morning they were going to be lifted off one at a time from the top.

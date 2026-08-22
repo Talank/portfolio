@@ -43,7 +43,7 @@ Watch two cases here. If the array holds fewer than K numbers then all of them a
 
 @tier medium
 
-The trader had not tied the bag shut. He turned a pearl over in his hand and said — [aside]"Listen to what this machine does inside as well."[/]
+The trader had not tied the bag shut. He turned a pearl over in his hand and said — [aside]"Here is what this machine does inside as well."[/]
 
 Although a heap is called a tree, inside it is an ordinary array. The root sits in the first place. The children of any index sit at twice the index plus one, and twice the index plus two. The parent sits at the index of one less, divided by two.
 
@@ -51,7 +51,7 @@ When you put a new value in, add it at the back, then compare it with its parent
 
 Taking the top out is exactly the reverse. Move the last value to the root, then compare it with the children and sink it downwards. Both of these take at most as many steps as the height of the tree, so this is O(log n).
 
-Now listen to a use that comes up in daily work, and it is finding the K nearest places to some point. Measure the distance, keep a heap of size K, and keep the furthest at the top and keep throwing it away.
+Here is a use that comes up in daily work, and it is finding the K nearest places to some point. Measure the distance, keep a heap of size K, and keep the furthest at the top and keep throwing it away.
 
 And then you have to arrange some letters so that the same letter never lands next to itself. Keep placing the letter you have most of first. Whichever letter was just placed, make it wait one turn. Here the heap answers the question [aside]"who has the most left right now"[/].
 
@@ -65,7 +65,7 @@ The answer is in the size of the need. The notebook says "is it there or not". T
 
 And a great share of real work is that one question. Which patient should be sent through first? Which job should be done first? Which road should be looked at first? The full order is never needed.
 
-Now listen to the largest use of this idea, and it is finding the short road where the roads have different lengths. On the seventeenth island a queue finds the short road, but that only works if all the roads are equal.
+That brings us to the largest use of this idea, and it is finding the short road where the roads have different lengths. On the seventeenth island a queue finds the short road, but that only works if all the roads are equal.
 
 Now the roads are different. One road takes an hour, and another takes ten. Now the queue is not enough, because a road with fewer steps can also be a long one.
 
@@ -81,7 +81,7 @@ In another use you have to find the cheapest group of bridges that joins all the
 
 Or use a heap. Start from one island, and keep taking, turn by turn, the cheapest bridge leading out of the islands joined so far. Both ways give the same result.
 
-Now listen to something small but beautiful. Building a heap out of an array happens in O(n), and does not cost O(n log n). The reason is that the leaves are already correct, and the higher you climb the fewer nodes there are.
+Next comes something small but beautiful. Building a heap out of an array happens in O(n), and does not cost O(n log n). The reason is that the leaves are already correct, and the higher you climb the fewer nodes there are.
 
 Half the nodes are leaves, and nothing has to be done to them. The quarter above them only have to be sunk one step. Adding that arithmetic up gives n in total. It sounds strange when you hear it, but it is right.
 
@@ -95,7 +95,7 @@ And one way of sorting comes from here too. Turn the whole array into a heap, th
 
 If the sizes are equal, the middle value is the average of the two tops. If the sizes are different, the top of the larger heap is the middle value. This move is very useful on flowing data, where you never have all the numbers in your hand at once.
 
-Now listen to a hard problem, and it is tonight's merging of K linked lists, except that here no lists can be seen.
+There is a hard problem, and it is tonight's merging of K linked lists, except that here no lists can be seen.
 
 There are two sorted arrays. You take one number from the first and one from the second to make a pair. Out of all such pairs, you need the K pairs with the smallest sums.
 
@@ -117,6 +117,22 @@ So here there are as many lists as the first array is long, all of them sorted, 
 
 Do that K times and the work is done. The heap never holds more than the number of lists, so the time is O(K times log n).
 
+The trader had not put the lamp out yet. He said — [sage]"One more, and it is tonight's heap with one word changed. You kept the largest K. Now keep the middle."[/]
+
+The numbers arrive one at a time and there is no end to them. At any moment you may be asked for the middle one, and if the count is even, for the average of the two in the middle.
+
+[nami]"Sort every time and take the middle."[/] Nami said. [nami]"And that is O(n log n) for every single question, which is hopeless."[/]
+
+[franky]"Then build it out of two."[/] Franky said. [franky]"One heap for the smaller half with the largest of them on top. One heap for the larger half with the smallest of them on top. The middle is always sitting on one of those two tops."[/]
+
+The rule for keeping them is short. Every new number goes into the smaller half first, and then the largest of that half is moved across into the larger half. That keeps the two sorted against each other. Then, if the larger half has grown bigger than the smaller, its smallest is moved back.
+
+[usopp]"Why push it through the other side instead of just choosing?"[/] Usopp asked.
+
+[robin]"Because choosing needs a comparison, and a comparison can be got wrong."[/] Robin said. [robin]"Pushing it through and taking it back cannot be got wrong. Two moves instead of one, and no special case to remember."[/]
+
+Every arrival costs O(log n) and every question costs O(1), because the answer is always sitting on the two tops. Tying the bag, the trader said — [sage]"I never sorted the pearls. I only ever kept my hand on the middle of them."[/]
+
 Here is tonight's deepest thing. The heap's power is not that the lists are short, it is that the lists are sorted. Once they are sorted, the first of every list is that list's smallest, and the heap knows the smallest among those firsts. Whether the list was ever actually built makes no difference at all.
 
 The trader put out the lamp. Inside the bag the pearls were in no order, but the one on top was still shining.
@@ -125,7 +141,7 @@ Tying the mouth of the bag, the trader said — [sage]"My neighbour puts all his
 
 That is tonight's lesson. Doing more work than the need is not effort, it is only waste. If the question asks for [aside]"the single largest"[/], you do not have to sort the whole lot, and having only the top be certain is enough.
 
-Now listen to the second lesson, which feels backwards and is worth remembering. When you want the largest K, keep a small heap, because the thing you have to throw away is what has to be in your hand, not the thing you have to keep.
+Then comes the second lesson, which feels backwards and is worth remembering. When you want the largest K, keep a small heap, because the thing you have to throw away is what has to be in your hand, not the thing you have to keep.
 
 The same rule works in life, because whatever you have to let go of is what has to be kept at the very front. Otherwise, when the time comes to let go, you have to go looking for it.
 

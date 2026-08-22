@@ -29,7 +29,7 @@ One check tells you whether the tree of letters is built right. Search for every
 
 @recall trie
 
-Now listen to its cost. Every node has to keep a list of its children. So a trie eats a lot of space, and that is its honest weakness. Space was spent to save time, and this is that same old trade again.
+That brings us to its cost. Every node has to keep a list of its children. So a trie eats a lot of space, and that is its honest weakness. Space was spent to save time, and this is that same old trade again.
 
 A good problem is finding many words at once in a grid of letters.
 
@@ -76,7 +76,7 @@ If the opposite branch is there, go that way. If it is not, go down the same bra
 
 You could call this greedy thinking, and here the greed is right, because the value of the top lamp is greater than the total of all the lamps below it.
 
-Now listen to an honest thing about the trie's cost in space. If you keep an empty list of twenty-six branches at every node, the space fills up quickly.
+Next comes an honest thing about the trie's cost in space. If you keep an empty list of twenty-six branches at every node, the space fills up quickly.
 
 So in practice the children are kept in a notebook, and only as many branches as really exist are kept. It is a small change, but it makes a large saving.
 
@@ -93,11 +93,11 @@ But on the questions [aside]"how many begin with this"[/], [aside]"how long is t
 
 So the choice is decided by the question, and not by the name of the structure. That has been true through the whole voyage, and it is true on this island too.
 
-Now listen to one last practical thing. When you build a trie, make the root an empty node, and put no letter in it. That way every word starts from the same place, and the case of the empty word works itself out too.
+There is one last practical thing. When you build a trie, make the root an empty node, and put no letter in it. That way every word starts from the same place, and the case of the empty word works itself out too.
 
 We have already met this move of putting in a fake root in the linked list and in the stack. A special case should be removed by an empty node, not by special code, and this is the small but often-repeated lesson of the whole voyage.
 
-Now listen to a hard problem, and it takes one of tonight's claims all the way to its last point.
+Then comes a hard problem, and it takes one of tonight's claims all the way to its last point.
 
 Tonight we said that a hash map knows only whole words, while a trie knows prefixes as well. Now measure that.
 
@@ -121,13 +121,31 @@ The time is the number of words times the length of a word, and it cannot be les
 
 Robin added — [robin]"The question of what to keep on a node is what separates most trie problems. Sometimes it is a mark, sometimes a count, and sometimes the whole word itself."[/]
 
+The wind had not moved again yet. Robin said — [robin]"One more, and it is tonight's tree with one word changed. Before, every letter you asked for was a letter. Now one of them may be a dot, and a dot means any letter at all."[/]
+
+Words go in exactly as before, one branch for each letter. It is the searching that changes.
+
+[franky]"A dot means I do not know which way to go."[/] Franky said.
+
+[robin]"Then go every way."[/] Robin said. [robin]"On an ordinary letter take that one branch, and if it is not there the answer is no. On a dot try every branch that exists, and if any one of them says yes, the answer is yes."[/]
+
+So the search stops being a walk and becomes a small backtracking, which is the island of the maze arriving inside the island of the tree. Try a road, and if it fails, come back and try the next one.
+
+[usopp]"Then a word of nothing but dots reads the whole tree."[/] Usopp said.
+
+[nami]"It does, and that is honest."[/] Nami said. [nami]"With dots the cost is no longer the length of the word. It is the number of branches the dots let you into. A word with no dots is still O(length), which is the ordinary case, and that is why this is still worth building."[/]
+
+Watch one thing, and it is the same thing as ever. A branch existing is not the same as a word ending there. Only the mark at the end of a word may answer yes, or the tree will happily accept every beginning of every word it holds.
+
+Robin put her hand on the trunk and said — [robin]"Two islands met inside one structure tonight. The tree held the words, and the maze walked them."[/]
+
 The wind moved again. The branches of letters swayed slowly, and then went still again.
 
 Robin put her hand at the foot of the tree and said — [robin:awed]"The beauty of this tree is that those whose beginning is shared have a shared road too. Only where they differ do they split."[/]
 
 That is tonight's lesson. One way of removing double work is memory, and we learned that on the island of the wall. The other way is sharing, and that is here. Whatever is the same only has to be kept once.
 
-Now listen to the second lesson. The choice is decided by the question, not by the name of the structure. On the question [aside]"does this word exist"[/], the notebook wins. On the question [aside]"what are the things beginning with this"[/], the notebook falls silent. No structure is better than another, and it is only better for some question.
+Here is the second lesson. The choice is decided by the question, not by the name of the structure. On the question [aside]"does this word exist"[/], the notebook wins. On the question [aside]"what are the things beginning with this"[/], the notebook falls silent. No structure is better than another, and it is only better for some question.
 
 [robin]"One small thing has repeated through the whole voyage."[/] Robin said. [robin]"The empty root, the fake node, and the zero post at the end are all the same idea."[/]
 

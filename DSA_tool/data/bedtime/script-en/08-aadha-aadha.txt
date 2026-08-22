@@ -21,7 +21,7 @@ How many times do you have to halve a million to get to one? Twenty times. That 
 
 But there is a condition, and if you forget this condition everything falls apart. The books have to be in order. The order is the ground that lets you say "not that way". Without order, you do not have the right to throw away half.
 
-Now listen to the rule, and it will come back three times tonight.
+Here is the rule, and it will come back three times tonight.
 
 @algo aadha
 The rule for throwing away half is this, and it only works where there is order. Put the left finger at the start, and the right finger at the end. As long as the left has not gone past the right, repeat this work. First work out the middle position, and look at the value in the middle. If the middle value matches the value you need, that is the answer, and the work is done. If the middle value is smaller than the one you need, make the left finger the middle plus one. If the middle value is larger than the one you need, make the right finger the middle minus one. Once you have looked at the middle book, you must not put it back inside the range again, or the range never narrows.
@@ -84,7 +84,7 @@ Imagine it this way. You do not know the answer, but you know the range the answ
 
 And then one thing is true. It does not work at small numbers, and it works at large ones. Or exactly the reverse. In a case like that the answer sits at precisely the limit where "does not work" touches "works". And that limit is found by halving.
 
-Listen to an example slowly. There are some crates on the ship, and each one has a different weight. You have to carry all of them across in D days without breaking their order, and only one trip a day is allowed. So, what is the smallest maximum weight you could carry in one trip?
+Here is an example, slowly. There are some crates on the ship, and each one has a different weight. You have to carry all of them across in D days without breaking their order, and only one trip a day is allowed. So, what is the smallest maximum weight you could carry in one trip?
 
 If you think about it directly, no road appears. But ask it backwards — [aside]"If the capacity were this much, could it be finished in D days or not?"[/] That is easy to check, because you keep loading the crates in order, and count a new day when the load is full.
 
@@ -92,21 +92,21 @@ Now pay attention. If the capacity is large, fewer days are needed. If the capac
 
 What is the range of the capacity, from where to where? It is from the weight of the heaviest single crate up to the total weight of all the crates. Within that range, twenty or thirty halvings give the answer.
 
-Listen to other questions of the same shape, so that you can recognise the form. In how much time will all the flowers bloom? How slowly can you walk and still arrive on time? If you cut something into so many pieces, how short can the longest piece be?
+There is other questions of the same shape, so that you can recognise the form. In how much time will all the flowers bloom? How slowly can you walk and still arrive on time? If you cut something into so many pieces, how short can the longest piece be?
 
 All of these have the same shape. The answer has a range, the check is easy, and the answer to the check changes in one direction only. If you find those three things, start throwing away half.
 
-Now listen to one small technical thing, which is fine to hear while falling asleep. In this kind of search there is usually no case of [aside]"found it exactly"[/]. So the shape of the loop is a little different. Go around until the left and the right meet, and if the middle "works" keep the right at the middle itself, and if it "does not work" make the left the middle plus one.
+That brings us to one small technical thing, which is fine to hear while falling asleep. In this kind of search there is usually no case of [aside]"found it exactly"[/]. So the shape of the loop is a little different. Go around until the left and the right meet, and if the middle "works" keep the right at the middle itself, and if it "does not work" make the left the middle plus one.
 
 At the end the left and the right come to the same place, and that is the answer. Once you know this shape by heart, dozens of questions pour into the same mould.
 
-Now listen to finding the midpoint of two sorted arrays. This is considered the hardest one, and tonight we will only touch its shape.
+Next comes finding the midpoint of two sorted arrays. This is considered the hardest one, and tonight we will only touch its shape.
 
 Imagine a cutting line in the smaller array. However much of the left you take in the smaller array, the rest is decided for you in the larger one. Now ask — [aside]"Is every number on the left of both smaller than every number on the right of both?"[/] If it is, the line is in the right place.
 
 If it is not, move the line, and do the moving by halving. The search happens only across the length of the smaller array, so the total time is O(log n).
 
-Now listen to a question that breaks tonight's own condition, and that is why it is worth remembering.
+There is a question that breaks tonight's own condition, and that is why it is worth remembering.
 
 All night we have said that throwing away half needs order. Now an array arrives with no order in it at all. The numbers go up and down as they please. You have to find any peak, which means a number that is bigger than both of its neighbours.
 
@@ -122,6 +122,26 @@ Half disappears every time, so the time is O(log n), and the array was never sor
 
 This makes tonight's rule cleaner. Throwing away half does not need order. Throwing away half needs only this — you must be certain that the answer is not in the half you are throwing. Order is one way of being certain, and here the slope did the same job.
 
+Robin had one more. She said — [robin]"This one takes tonight's own sentence at its word. I said the order is sometimes in the answer and not in the array. Here there is no array to search at all."[/]
+
+There is a row of numbers, and they have to be cut into K pieces without changing their order. Each piece has a total. Make the largest of those totals as small as it can be made.
+
+[luffy]"Try every way of cutting."[/] Luffy said.
+
+[nami]"There are far too many ways."[/] Nami said.
+
+[robin]"Then stop asking where to cut."[/] Robin said. [robin]"Ask instead whether a given ceiling is possible. If I say no piece may total more than a hundred, can that be done in K pieces or not?"[/]
+
+That question is easy. Walk the row once, adding as you go, and start a new piece whenever the total would pass the ceiling. Count the pieces at the end, and if the count is K or fewer, the ceiling works.
+
+And now tonight's shape appears. A ceiling that works means every larger ceiling works too, and a ceiling that fails means every smaller one fails as well. That is order, and order gives the right to throw away half.
+
+So search the ceiling itself. The lowest it could ever be is the largest single number, because no cut can split a number in two. The highest it could ever be is the total of everything, which is one piece. Between those two, halve.
+
+[chopper]"We are searching numbers that are not written anywhere."[/] Chopper said, half asleep.
+
+[robin]"That is exactly it."[/] Robin said. [robin]"The array was never the thing with order in it. The answer was."[/]
+
 Robin closed the book and said — [robin]"Remember only this much tonight. Where there is order, there is the right to throw away half. And the order does not always have to be in the array, because sometimes the order is in the answer."[/]
 
 @read hush
@@ -133,6 +153,6 @@ Robin did not answer. The keeper said it himself — [robin]"The difference is c
 
 That is tonight's lesson. Order gives you the right to throw away half, but the courage to throw away half you have to give yourself. Where you are certain it is not that way, looking back over your shoulder is an insult to time.
 
-Now listen to the second lesson, which is wider. Order is not always in the array. Sometimes the order is in the answer. The moment you see [aside]"this much works, and less than this does not"[/], start throwing away half.
+Then comes the second lesson, which is wider. Order is not always in the array. Sometimes the order is in the answer. The moment you see [aside]"this much works, and less than this does not"[/], start throwing away half.
 
 The keeper put out the light. Outside, from very far away, you could hear the sea, and the library went completely silent.

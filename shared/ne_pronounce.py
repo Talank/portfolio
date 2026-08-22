@@ -165,6 +165,17 @@ WORDS = {
     "range": "रेन्ज",
     "example": "एक्जाम्पल",
     "morris": "मोरिस",
+    # Found by running this module's own coverage check over the scripts:
+    # these three reached the Nepali voice as raw Latin and it guessed at them.
+    # "character" is the term the string chapter teaches, so it has to be the
+    # English word said cleanly rather than अक्षर, which in Devanagari means a
+    # syllable and made "Luffy" look like two characters instead of five.
+    "character": "क्यारेक्टर", "characters": "क्यारेक्टर्स",
+    "notebook": "नोटबुक", "interview": "इन्टरभ्यू",
+    # Second round of linked examples: these reached the voice as raw Latin.
+    "post": "पोस्ट", "posts": "पोस्ट्स", "space": "स्पेस",
+    "link": "लिङ्क", "links": "लिङ्क्स", "board": "बोर्ड",
+    "backtrack": "ब्याकट्र्याक",
     "sliding": "स्लाइडिङ",
     "knapsack": "न्यापस्याक",
     "inorder": "इन अर्डर",
