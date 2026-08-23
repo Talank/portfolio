@@ -23,6 +23,7 @@ Usage:  python3 shared/check_audio_refs.py        # from the repo root
 import glob
 import json
 import os
+import re
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -64,10 +65,20 @@ def _refs_other(d, man, dojo):
 def main():
     total = missing_total = 0
     bad = False
-    pattern = os.path.join(REPO, "*", "data", "**", "manifest*.json")
+    # Both extensions, and the .js one is not optional: bedtime.html loads
+    # `<script src="data/bedtime/manifest.js">` and reads window.BEDTIME_MANIFEST,
+    # so the .js is what actually plays and the .json is the readable copy. They
+    # are written together by build_bedtime.py and can drift when a manifest is
+    # edited by hand — which happened when the drive mode was removed, leaving
+    # three courses with a dead toggle that every .json-only check called clean.
+    pattern = os.path.join(REPO, "*", "data", "**", "manifest*.js*")
     for man in sorted(glob.glob(pattern, recursive=True)):
         with open(man, encoding="utf-8") as fh:
-            d = json.load(fh)
+            raw = fh.read()
+        if man.endswith(".js"):
+            raw = re.sub(r"^.*?window\.[A-Z_]+\s*=\s*", "", raw, flags=re.S)
+            raw = raw.rstrip().rstrip(";")
+        d = json.loads(raw)
         if "modes" in d and "dir" in d:
             refs = _refs_bedtime(d, man)
         else:

@@ -172,6 +172,12 @@ WORDS = {
     # syllable and made "Luffy" look like two characters instead of five.
     "character": "क्यारेक्टर", "characters": "क्यारेक्टर्स",
     "notebook": "नोटबुक", "interview": "इन्टरभ्यू",
+    # Python vocabulary, for the "how would you actually write this" passages.
+    # Compound identifiers are split into the two words a speaker would say
+    # rather than spelled out — डिफल्ट-डिक्ट, not डी ई एफ ए यू एल टी.
+    "python": "पाइथन", "defaultdict": "डिफल्ट डिक्ट", "popleft": "पप लेफ्ट",
+    "dictionary": "डिक्सनरी", "function": "फङ्सन", "compression": "कम्प्रेसन",
+    "import": "इम्पोर्ट",
     # Second round of linked examples: these reached the voice as raw Latin.
     "post": "पोस्ट", "posts": "पोस्ट्स", "space": "स्पेस",
     "link": "लिङ्क", "links": "लिङ्क्स", "board": "बोर्ड",

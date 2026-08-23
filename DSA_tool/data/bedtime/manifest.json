@@ -301,8 +301,8 @@
     "medium": {
      "label": "मध्यम",
      "label_en": "Medium",
-     "duration": 19680.53,
-     "bytes": 33098129,
+     "duration": 20022.77,
+     "bytes": 33666774,
      "starts": {
       "00": 0.0,
       "01": 665.25,
@@ -323,14 +323,14 @@
       "16": 11554.23,
       "17": 12226.9,
       "18": 12946.7,
-      "19": 13624.73,
-      "20": 14337.69,
-      "21": 15102.72,
-      "22": 15944.92,
-      "23": 16719.58,
-      "24": 17411.39,
-      "25": 18125.68,
-      "26": 18783.0
+      "19": 13966.97,
+      "20": 14679.93,
+      "21": 15444.96,
+      "22": 16287.16,
+      "23": 17061.82,
+      "24": 17753.63,
+      "25": 18467.92,
+      "26": 19125.24
      },
      "playlist": [
       {
@@ -520,7 +520,7 @@
       },
       {
        "f": "ch18-medium.opus",
-       "d": 139.59,
+       "d": 481.83,
        "c": "18"
       },
       {
@@ -613,8 +613,8 @@
     "long": {
      "label": "लामो",
      "label_en": "Long",
-     "duration": 41261.5,
-     "bytes": 69125071,
+     "duration": 41608.13,
+     "bytes": 69703694,
      "starts": {
       "00": 0.0,
       "01": 1044.63,
@@ -635,14 +635,14 @@
       "16": 23841.08,
       "17": 25451.45,
       "18": 27071.6,
-      "19": 28612.97,
-      "20": 30254.92,
-      "21": 31878.07,
-      "22": 33539.51,
-      "23": 35192.43,
-      "24": 36736.64,
-      "25": 38345.59,
-      "26": 39915.78
+      "19": 28959.6,
+      "20": 30601.55,
+      "21": 32224.7,
+      "22": 33886.14,
+      "23": 35539.06,
+      "24": 37083.27,
+      "25": 38692.22,
+      "26": 40262.41
      },
      "playlist": [
       {
@@ -922,12 +922,12 @@
       },
       {
        "f": "ch18-medium.opus",
-       "d": 139.59,
+       "d": 481.83,
        "c": "18"
       },
       {
        "f": "ch18-long.opus",
-       "d": 864.84,
+       "d": 869.23,
        "c": "18"
       },
       {
@@ -1285,11 +1285,11 @@
     },
     "ch18-medium.opus": {
      "s": "open_sea",
-     "g": "AHiXASvhAQW5AYcBigIr_gMl-gFx-wMrvAILtwEKsgFrowMr6AEmiQIhrwKAAdUBDf8BCsMBILsChAHEAQWAAyXbAUs"
+     "g": "AHiXASvhAQW5AYcBigIr_gMl-gFx-wMrvAILtwEKsgFrowMr6AEmiQIhrwKAAdUBDf8BCsMBILsChAHEAQWAAyXbAW60AQXHAS_JAm6vASuiBSatAn_jBIcBmwFGfoIBfS2KATLRASi1ASDlA4UBtQQjzAUogQJx1gE6gwFpkwEthwEy2AIo4AEhjQKCAaoBI6QFKK8CDbsBCoIBhAGgASOsBCjUAXCgATl5abYBLXgyhwMohAIhwQGCAboBI6sCKoMCKMsEggGAAi2hATLDAijfAYwBjwIo4QIj9AFM"
     },
     "ch18-long.opus": {
      "s": "open_sea",
-     "g": "AHiSASumAm6KAQWUAiXHAiC-AX-sAyqgAYcBsgErkQMlxAGCAZECJNoChQHKAyOZA3GuAgrcAQyBASjjA2nHAgqLAQz2AYIB5wIj4AOFAcwBI94CKI8CcZwBI8kDKM4BaZ0CI8ECKKwCggHHAiPjA4IBngIj-wKMAbEBKMwDK7IBCpYBL68BDZsBeNICKOYBZ4cDdqIBDMcBCsoCIf4BjAGCASiHAiPVASGXAniOAQW-AmbQASrIAXPCATWLASqzAowBpAFDgwF6wAE1igEq8AGMAYoCL4IBMrMBfdUBJu8CYbEBL4AFKpgCdcgBJb0BKugEiQHPAgX1AiurASaSAX2sASXcASrSBWTgATB_dfwBMHg0qwEl0gSKAdsBLYUBNYECKKMEffoDJuIDhQGTASa3AyvAAn_vAS2BATTxASbNBGmlBXOkASbIA4QB2wIC2AOCAYgBJeMDae0BJt4BNMsDDMYBId8BcNYBJboEhQGTASOrAi3WASWoA4IB4gEjkQJL"
+     "g": "AHiRASijAmaKAQWUAiPGAiG-AXWmAyieAYwBsgEokQMjxAF4kQIo2wJn0AMrngNztQIN4QEKgwEh8AOMAdQCDZEBCv8Be_QCKvIDjAHSASboAiqXAn2fASbVAyvTAWGkAiXJAiu0AnbKAiXqA4kBpQIlhQN9swEm0gM1tAEMmAElsgEKnAFk1wIl6gF2hwOKAZ8BCsQBDMcCKPwBfX4lgAIq0QEokgKEAYoBA7UCgAHIASa_AWi9AS2HATWrAnOfATyAAYQBuwEthwE06gGCAYICLX41rgFp0QEl5gJwqwEv6AQqjQKEAcMBI7cBLdgEggHKAgPwAi2pASaRAYcBrAEq2wEj0QV_5gE0gwFrggI1eyuvASPhBG7hATWHASuIAiOxBIcBiAQq7wN_lgErvQMjxAJs9gE0gwEq-QEj3QRutQWHAakBK9QDfekCBesDcI4BJvUDafUBJeMBJtYDCssBLeUBggHYASbBBIQBlAElqwIh1QEjqANz3AEljAJL"
     },
     "ch19-core.opus": {
      "s": "cave",

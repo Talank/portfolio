@@ -301,8 +301,8 @@
     "medium": {
      "label": "Medium",
      "label_en": "Medium",
-     "duration": 19690.78,
-     "bytes": 34434107,
+     "duration": 20012.53,
+     "bytes": 34971159,
      "starts": {
       "00": 0.0,
       "01": 662.06,
@@ -323,14 +323,14 @@
       "16": 11691.5,
       "17": 12355.93,
       "18": 13053.23,
-      "19": 13739.68,
-      "20": 14446.34,
-      "21": 15211.69,
-      "22": 16042.95,
-      "23": 16775.19,
-      "24": 17440.3,
-      "25": 18141.63,
-      "26": 18783.49
+      "19": 14061.43,
+      "20": 14768.09,
+      "21": 15533.44,
+      "22": 16364.7,
+      "23": 17096.94,
+      "24": 17762.05,
+      "25": 18463.38,
+      "26": 19105.24
      },
      "playlist": [
       {
@@ -520,7 +520,7 @@
       },
       {
        "f": "ch18-medium.opus",
-       "d": 141.81,
+       "d": 463.56,
        "c": "18"
       },
       {
@@ -613,8 +613,8 @@
     "long": {
      "label": "Long",
      "label_en": "Long",
-     "duration": 40797.25,
-     "bytes": 70514090,
+     "duration": 41124.65,
+     "bytes": 71061896,
      "starts": {
       "00": 0.0,
       "01": 1035.17,
@@ -635,14 +635,14 @@
       "16": 23824.94,
       "17": 25393.36,
       "18": 26947.22,
-      "19": 28481.99,
-      "20": 30085.78,
-      "21": 31669.1,
-      "22": 33299.65,
-      "23": 34874.18,
-      "24": 36363.27,
-      "25": 37922.44,
-      "26": 39442.6
+      "19": 28809.39,
+      "20": 30413.18,
+      "21": 31996.5,
+      "22": 33627.05,
+      "23": 35201.58,
+      "24": 36690.67,
+      "25": 38249.84,
+      "26": 39770.0
      },
      "playlist": [
       {
@@ -922,12 +922,12 @@
       },
       {
        "f": "ch18-medium.opus",
-       "d": 141.81,
+       "d": 463.56,
        "c": "18"
       },
       {
        "f": "ch18-long.opus",
-       "d": 849.82,
+       "d": 855.47,
        "c": "18"
       },
       {
@@ -1285,11 +1285,11 @@
     },
     "ch18-medium.opus": {
      "s": "open_sea",
-     "g": "AHiRASvPAQXpAYcBhAIruQQlpQJxsAQrqAMKqgFrmAMqsQImxgIhjQJ_vgIN5AElpAKEAb0BBLsDJoECSw"
+     "g": "AHiRASvPAQXpAYcBhAIruQQlpQJxsAQrqAMKqgFrmAMqsQImxgIhjQJ_vgIN5AElpAKEAb0BBLsDJoECbrsBBdkBL4sDbn8rtQQm4gJ_ogSHAZQBRlqCAZIBLV0yxgEoqQEgrgSFAfkDI7QEKI4CcKIBOltpjwEtWjLbAiiVAiD-AYIBlwEjnwQoqQIMqwGEAZABI-MDKM0BcM8BOVtp2gEtWDL2AijXAiDYAYIBlAEj-wEqywWCAYsCLYQBMs8CKOwBjAG6BCiBAks"
     },
     "ch18-long.opus": {
      "s": "open_sea",
-     "g": "AHiPASqLAm5bBa0CJr4DIdkBf94DKpwBhwF-K9ADJsABggG2AiO8AoUB0QMjtANw1AIKwAEolgRp8wEjaw2GAQ3xAYIB-QIj4AOEAdMBI_QCKO4BcIcBI-YDKPwBafMCI4MDKK8CggGBAyPrA4IB7AEjwgKMAecBKLwCKrwBCnswsQENfnj6AiiPAmaFA3a_AQzbAQn3ASDjAYwBeyiCAiOsASC5AndeBagCZ5ACK6EBc9sBNV0rmAOMAcwBQ2J64QE0XCu9AowBwAIwWjLOAX24ASXdAmJ3L4kEKuoBdrABJrUBK_wDigGJAgXtAiq4ASWVAX2TASW_ASrLBGS5AjBZdYkCMFk0wAEmxQSJAfEBLVk1rAEoigEemwR9qgMm5wOEAVkmhAMr8AF_7AEtWDXlASbCBGmUBHOUASb5A4UBpgIC8AOCAYUBJdMDaYkCJv8BK2YKigIKgQEl-QFwvgEl-QOFAZQBI-QCLesBJtcDggHGASOeAks"
+     "g": "AHiMASiHAmdbBa0CI74DIdkBdtYDKJsBjAF-KNADI8ABeLcCKLwCZtkDKrsDc90CDcYBI6cEjAH_AStvCo0BCvwBeooDKvYDjAHZASb_Air0AX2KASX1AyqDAmL9AiaPAyu4AnWIAyXzA4oB8wEmywJ96wEmwAI1vwEMfSW0AQqBAWSAAyWTAnaEA4oBvAEK2AEN8gEo3wF9eCb7ASqnASiwAoQBWwOgAn-FAiWbAWnWAS1bNIwDc8gBPF2FAdoBLVo1swKCAbcCLFk1yAFpsgEl0wJwcjDzAyrgAYQBrAEjsAEt7gOCAYYCA-gCLbUBJZQBhwGSASu_ASPKBIABxAI0WWyQAjVYK8UBI9UEbvkBNFsrsQEjjwEoqwSHAbYDKvYDf1krigMj8wFr9AE0XCrsASPWBG6kBIcBmQEqiQR9swIFhwRwiwEm5wNpkQIlhwIgagqTAgyEASb_AYIBwAEmgASFAZMBJuQCIesBI9gDc8ABJZUCSw"
     },
     "ch19-core.opus": {
      "s": "cave",

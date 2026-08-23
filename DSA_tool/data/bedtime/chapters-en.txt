@@ -31,7 +31,7 @@ The Grand Line of Sleep — Chapter list
 03:54:36.62  25  25 — Zero and One: [..]Bit Manipulation[..]
 04:03:14.50  26  26 — The Last Anchorage: Summary and Sleep
 
-— Medium: 05:28:10.78, 34.4 MB —
+— Medium: 05:33:32.53, 35.0 MB —
 00:00:00.00  00  0 — Setting Out: The Grand Line of Sleep
 00:11:02.06  01  1 — The Ground Under Programming: Variables, Loops and Functions
 00:24:51.61  02  2 — The Map of Time: Big-O
@@ -51,16 +51,16 @@ The Grand Line of Sleep — Chapter list
 03:14:51.50  16  16 — The Pearl at the Very Top: Heap and Top-K
 03:25:55.93  17  17 — The Web of Islands: Graphs, BFS and DFS
 03:37:33.23  18  18 — Putting Things in Order: [..]Topological Sort[..] and [..]Union-Find[..]
-03:48:59.68  19  19 — Turning Back in the Maze: Backtracking
-04:00:46.34  20  20 — The Power of Memory: Dynamic Programming, Part One
-04:13:31.69  21  21 — The Power of Memory: Dynamic Programming, Part Two
-04:27:22.95  22  22 — The Choice of the Moment: Greedy
-04:39:35.19  23  23 — Pieces of Time: [..]Merge Intervals[..]
-04:50:40.30  24  24 — The Tree of Letters: Trie
-05:02:21.63  25  25 — Zero and One: [..]Bit Manipulation[..]
-05:13:03.49  26  26 — The Last Anchorage: Summary and Sleep
+03:54:21.43  19  19 — Turning Back in the Maze: Backtracking
+04:06:08.09  20  20 — The Power of Memory: Dynamic Programming, Part One
+04:18:53.44  21  21 — The Power of Memory: Dynamic Programming, Part Two
+04:32:44.70  22  22 — The Choice of the Moment: Greedy
+04:44:56.94  23  23 — Pieces of Time: [..]Merge Intervals[..]
+04:56:02.05  24  24 — The Tree of Letters: Trie
+05:07:43.38  25  25 — Zero and One: [..]Bit Manipulation[..]
+05:18:25.24  26  26 — The Last Anchorage: Summary and Sleep
 
-— Long: 11:19:57.25, 70.5 MB —
+— Long: 11:25:24.65, 71.1 MB —
 00:00:00.00  00  0 — Setting Out: The Grand Line of Sleep
 00:17:15.17  01  1 — The Ground Under Programming: Variables, Loops and Functions
 00:40:18.05  02  2 — The Map of Time: Big-O
@@ -80,12 +80,12 @@ The Grand Line of Sleep — Chapter list
 06:37:04.94  16  16 — The Pearl at the Very Top: Heap and Top-K
 07:03:13.36  17  17 — The Web of Islands: Graphs, BFS and DFS
 07:29:07.22  18  18 — Putting Things in Order: [..]Topological Sort[..] and [..]Union-Find[..]
-07:54:41.99  19  19 — Turning Back in the Maze: Backtracking
-08:21:25.78  20  20 — The Power of Memory: Dynamic Programming, Part One
-08:47:49.10  21  21 — The Power of Memory: Dynamic Programming, Part Two
-09:14:59.65  22  22 — The Choice of the Moment: Greedy
-09:41:14.18  23  23 — Pieces of Time: [..]Merge Intervals[..]
-10:06:03.27  24  24 — The Tree of Letters: Trie
-10:32:02.44  25  25 — Zero and One: [..]Bit Manipulation[..]
-10:57:22.60  26  26 — The Last Anchorage: Summary and Sleep
+08:00:09.39  19  19 — Turning Back in the Maze: Backtracking
+08:26:53.18  20  20 — The Power of Memory: Dynamic Programming, Part One
+08:53:16.50  21  21 — The Power of Memory: Dynamic Programming, Part Two
+09:20:27.05  22  22 — The Choice of the Moment: Greedy
+09:46:41.58  23  23 — Pieces of Time: [..]Merge Intervals[..]
+10:11:30.67  24  24 — The Tree of Letters: Trie
+10:37:29.84  25  25 — Zero and One: [..]Bit Manipulation[..]
+11:02:50.00  26  26 — The Last Anchorage: Summary and Sleep
 

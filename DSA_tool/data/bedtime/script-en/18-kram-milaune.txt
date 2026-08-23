@@ -60,6 +60,38 @@ The fourth thing is that this same structure also answers the question [aside]"d
 
 Putting down his hammer, Franky said — [franky]"The beauty of this structure is that it only knows how to join, and does not know how to separate. But in many problems you do not have to separate."[/]
 
+Franky wiped his hands and said — [franky]"Now, how would you actually write these two? In Python both of them are shorter than they sound, and one of them has a trap in it."[/]
+
+Start with the ordering. The jobs and their arrows go into a [..]defaultdict[..] of lists, and the whole point of that word is that you never have to ask whether a key is there yet. You say that this job unlocks that one, and the empty list makes itself.
+
+The incoming count is a dictionary too, one number against each job, and it rises by one every time an arrow lands.
+
+[nami]"And the queue itself?"[/] Nami asked.
+
+[franky]"Here is the trap."[/] Franky said. [franky]"A Python list looks like a queue. You can take from the front of it. But taking from the front of a list makes everything behind it shuffle up one place, and that is O(n) every single time."[/]
+
+@read teach
+So a queue made out of a plain list quietly turns tonight's O of V plus E into something nearer O of V squared. What you want is a [..]deque[..], which comes out of collections, and its popleft is O(1) because it is a line with two open ends. That is the island of the line, sitting inside this one.
+
+[robin]"And finding the cycle?"[/] Robin asked.
+
+[franky]"That is one line."[/] Franky said. [franky]"At the end, ask whether the length of the order equals the number of jobs. If it comes up short, the missing ones are the cycle. No extra flag, and no second walk."[/]
+
+@read teach
+Now the joining structure. The parent list is made by taking a list of range n, and that single line says every island begins as its own parent. It is worth stopping on, because range is exactly the sentence [aside]"each thing points at itself"[/].
+
+Finding is a small climb. While a node is not its own parent, step up; and on the way back down, point everything you passed straight at the top. That last part is the [..]path compression[..].
+
+[usopp]"Could I not just write that with recursion?"[/] Usopp asked.
+
+[nami]"You could, and Python will stop you."[/] Nami said. [nami]"There is a limit on how deep a function may call itself, and it is about a thousand. On a long chain of islands the code does not get slow, it falls over. So the climbing form is the safer one."[/]
+
+And joining is two lines. Find both tops, and if they are the same, do nothing. If they differ, hang the smaller tree under the larger — and to be sure it is the smaller one that moves, Python lets you swap the two names on a single line, with no third box at all.
+
+[robin]"Which is the first island answering the eighteenth."[/] Robin said quietly. [robin]"On the first night we needed an empty box to swap two things. Python hands that back to you for nothing."[/]
+
+The last touch is counting the groups, and that is one line as well — how many different tops there are across all the nodes, gathered into a set. A set, because it throws the repeats away by itself.
+
 @tier long
 
 The night was getting deeper. Only one lamp was still burning in the ship's inner room.
