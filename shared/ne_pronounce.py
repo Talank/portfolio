@@ -178,6 +178,14 @@ WORDS = {
     "python": "पाइथन", "defaultdict": "डिफल्ट डिक्ट", "popleft": "पप लेफ्ट",
     "dictionary": "डिक्सनरी", "function": "फङ्सन", "compression": "कम्प्रेसन",
     "import": "इम्पोर्ट",
+    # Rolled out to every pattern chapter: each island now says how it would
+    # actually be written. "class", "join" and "block", "program" are spelled
+    # here exactly as java_words.py and ai_words.py already spell them, so the
+    # shared table can never disagree with a course-local one that wins over it.
+    "slice": "स्लाइस", "tuple": "टपल", "argument": "आर्गुमेन्ट",
+    "class": "क्लास", "block": "ब्लक", "enumerate": "इन्युमरेट",
+    "while": "वाइल", "counter": "काउन्टर", "program": "प्रोग्राम",
+    "sentinel": "सेन्टिनल", "join": "जोइन",
     # Second round of linked examples: these reached the voice as raw Latin.
     "post": "पोस्ट", "posts": "पोस्ट्स", "space": "स्पेस",
     "link": "लिङ्क", "links": "लिङ्क्स", "board": "बोर्ड",

@@ -55,6 +55,25 @@ Here is a use that comes up in daily work, and it is finding the K nearest place
 
 And then you have to arrange some letters so that the same letter never lands next to itself. Keep placing the letter you have most of first. Whichever letter was just placed, make it wait one turn. Here the heap answers the question [aside]"who has the most left right now"[/].
 
+Nami weighed the pearl in her palm and said — [nami]"The heap is in the language already, and it is the most misused ready-made thing in Python. Three sentences will keep you out of all of it."[/]
+
+The first sentence. It is a smallest-first heap, and only that. There is no largest-first one anywhere. When you want the largest at the top, you store every number with its sign turned around, and you turn the sign back when you take it out. It feels like a trick the first time and like ordinary grammar by the tenth.
+
+[usopp]"That is going to bite somebody at two in the morning."[/] Usopp said.
+
+[nami]"It bites everybody once."[/] Nami said. [nami]"After that you write the minus sign without thinking, the way you close a door behind you."[/]
+
+The second sentence. If you already hold all the things, do not put them in one at a time. There is a word that turns a whole row into a heap where it lies, and it costs a single walk. Adding them one by one costs a walk with a log on top of it. Same answer, cheaper, and one line instead of a loop.
+
+@read teach
+The third sentence is the one that produces a crash rather than a wrong answer. You will often put pairs on the heap — a distance and the place it belongs to, a count and the word it belongs to. Python compares pairs by looking at the first parts, and only if those are equal does it look at the second parts. So the day two distances tie, it will try to decide which place is smaller than which other place. If places cannot be compared at all, the program stops right there. The cure is to put a plain increasing number in the middle. Ties are then settled by arrival order, and the thing at the end is never asked to compete.
+
+[franky]"So the middle number is a referee."[/] Franky said.
+
+[robin]"A referee who never has an opinion."[/] Robin said. [robin]"Which is precisely why the argument ends."[/]
+
+And a closing note about when not to use it at all. If you want the biggest K out of n, the language will hand you those directly. And when K is a decent share of n, it is honestly no worse to sort the whole thing and take a slice. The heap earns its keep when K is small and n is enormous, or when the things are still arriving and there is no whole row to sort.
+
 @tier long
 
 The pearls were quiet inside the bag. The trader sat down by the lamp.

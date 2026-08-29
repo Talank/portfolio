@@ -301,36 +301,36 @@
     "medium": {
      "label": "Medium",
      "label_en": "Medium",
-     "duration": 20012.53,
-     "bytes": 34971159,
+     "duration": 26206.36,
+     "bytes": 45621241,
      "starts": {
       "00": 0.0,
       "01": 662.06,
-      "02": 1491.61,
-      "03": 2252.05,
-      "04": 3058.29,
-      "05": 3814.6,
-      "06": 4566.56,
-      "07": 5333.22,
-      "08": 6060.81,
-      "09": 6900.55,
-      "10": 7626.55,
-      "11": 8307.81,
-      "12": 9030.5,
-      "13": 9681.98,
-      "14": 10285.59,
-      "15": 10967.46,
-      "16": 11691.5,
-      "17": 12355.93,
-      "18": 13053.23,
-      "19": 14061.43,
-      "20": 14768.09,
-      "21": 15533.44,
-      "22": 16364.7,
-      "23": 17096.94,
-      "24": 17762.05,
-      "25": 18463.38,
-      "26": 19105.24
+      "02": 1750.97,
+      "03": 2786.89,
+      "04": 3843.86,
+      "05": 4835.83,
+      "06": 5840.4,
+      "07": 6826.86,
+      "08": 7784.97,
+      "09": 8864.54,
+      "10": 9841.78,
+      "11": 10750.15,
+      "12": 11702.36,
+      "13": 12590.1,
+      "14": 13440.68,
+      "15": 14368.43,
+      "16": 15353.95,
+      "17": 16259.47,
+      "18": 17191.33,
+      "19": 18199.53,
+      "20": 19181.1,
+      "21": 20199.92,
+      "22": 21293.16,
+      "23": 22276.28,
+      "24": 23190.28,
+      "25": 24149.66,
+      "26": 25075.43
      },
      "playlist": [
       {
@@ -350,7 +350,7 @@
       },
       {
        "f": "ch01-medium.opus",
-       "d": 213.39,
+       "d": 472.75,
        "c": "01"
       },
       {
@@ -360,7 +360,7 @@
       },
       {
        "f": "ch02-medium.opus",
-       "d": 178.46,
+       "d": 453.94,
        "c": "02"
       },
       {
@@ -370,7 +370,7 @@
       },
       {
        "f": "ch03-medium.opus",
-       "d": 171.56,
+       "d": 422.29,
        "c": "03"
       },
       {
@@ -380,7 +380,7 @@
       },
       {
        "f": "ch04-medium.opus",
-       "d": 177.19,
+       "d": 412.85,
        "c": "04"
       },
       {
@@ -390,7 +390,7 @@
       },
       {
        "f": "ch05-medium.opus",
-       "d": 172.02,
+       "d": 424.63,
        "c": "05"
       },
       {
@@ -400,7 +400,7 @@
       },
       {
        "f": "ch06-medium.opus",
-       "d": 174.63,
+       "d": 394.43,
        "c": "06"
       },
       {
@@ -410,7 +410,7 @@
       },
       {
        "f": "ch07-medium.opus",
-       "d": 210.3,
+       "d": 440.82,
        "c": "07"
       },
       {
@@ -420,7 +420,7 @@
       },
       {
        "f": "ch08-medium.opus",
-       "d": 195.0,
+       "d": 434.83,
        "c": "08"
       },
       {
@@ -430,7 +430,7 @@
       },
       {
        "f": "ch09-medium.opus",
-       "d": 137.74,
+       "d": 388.98,
        "c": "09"
       },
       {
@@ -440,7 +440,7 @@
       },
       {
        "f": "ch10-medium.opus",
-       "d": 149.21,
+       "d": 376.32,
        "c": "10"
       },
       {
@@ -450,7 +450,7 @@
       },
       {
        "f": "ch11-medium.opus",
-       "d": 201.83,
+       "d": 431.35,
        "c": "11"
       },
       {
@@ -460,7 +460,7 @@
       },
       {
        "f": "ch12-medium.opus",
-       "d": 138.43,
+       "d": 374.69,
        "c": "12"
       },
       {
@@ -470,7 +470,7 @@
       },
       {
        "f": "ch13-medium.opus",
-       "d": 134.86,
+       "d": 381.83,
        "c": "13"
       },
       {
@@ -480,7 +480,7 @@
       },
       {
        "f": "ch14-medium.opus",
-       "d": 147.89,
+       "d": 393.77,
        "c": "14"
       },
       {
@@ -490,7 +490,7 @@
       },
       {
        "f": "ch15-medium.opus",
-       "d": 186.13,
+       "d": 447.61,
        "c": "15"
       },
       {
@@ -500,7 +500,7 @@
       },
       {
        "f": "ch16-medium.opus",
-       "d": 139.81,
+       "d": 380.9,
        "c": "16"
       },
       {
@@ -510,7 +510,7 @@
       },
       {
        "f": "ch17-medium.opus",
-       "d": 148.02,
+       "d": 382.58,
        "c": "17"
       },
       {
@@ -530,7 +530,7 @@
       },
       {
        "f": "ch19-medium.opus",
-       "d": 146.17,
+       "d": 421.08,
        "c": "19"
       },
       {
@@ -540,7 +540,7 @@
       },
       {
        "f": "ch20-medium.opus",
-       "d": 144.5,
+       "d": 397.97,
        "c": "20"
       },
       {
@@ -550,7 +550,7 @@
       },
       {
        "f": "ch21-medium.opus",
-       "d": 171.01,
+       "d": 432.99,
        "c": "21"
       },
       {
@@ -560,7 +560,7 @@
       },
       {
        "f": "ch22-medium.opus",
-       "d": 169.87,
+       "d": 420.75,
        "c": "22"
       },
       {
@@ -570,7 +570,7 @@
       },
       {
        "f": "ch23-medium.opus",
-       "d": 131.88,
+       "d": 380.77,
        "c": "23"
       },
       {
@@ -580,7 +580,7 @@
       },
       {
        "f": "ch24-medium.opus",
-       "d": 144.45,
+       "d": 402.5,
        "c": "24"
       },
       {
@@ -590,7 +590,7 @@
       },
       {
        "f": "ch25-medium.opus",
-       "d": 125.48,
+       "d": 409.39,
        "c": "25"
       },
       {
@@ -600,7 +600,7 @@
       },
       {
        "f": "ch26-medium.opus",
-       "d": 145.57,
+       "d": 369.21,
        "c": "26"
       },
       {
@@ -613,36 +613,36 @@
     "long": {
      "label": "Long",
      "label_en": "Long",
-     "duration": 41124.65,
-     "bytes": 71061896,
+     "duration": 47303.7,
+     "bytes": 81636886,
      "starts": {
       "00": 0.0,
       "01": 1035.17,
-      "02": 2418.05,
-      "03": 3750.78,
-      "04": 5266.67,
-      "05": 6913.24,
-      "06": 8551.78,
-      "07": 10095.89,
-      "08": 11662.66,
-      "09": 13372.1,
-      "10": 14901.3,
-      "11": 16376.07,
-      "12": 17891.61,
-      "13": 19340.59,
-      "14": 20725.16,
-      "15": 22245.14,
-      "16": 23824.94,
-      "17": 25393.36,
-      "18": 26947.22,
-      "19": 28809.39,
-      "20": 30413.18,
-      "21": 31996.5,
-      "22": 33627.05,
-      "23": 35201.58,
-      "24": 36690.67,
-      "25": 38249.84,
-      "26": 39770.0
+      "02": 2678.34,
+      "03": 4286.24,
+      "04": 6056.13,
+      "05": 7933.72,
+      "06": 9825.38,
+      "07": 11594.96,
+      "08": 13389.6,
+      "09": 15334.11,
+      "10": 17117.04,
+      "11": 18812.77,
+      "12": 20557.48,
+      "13": 22241.16,
+      "14": 23870.13,
+      "15": 25639.44,
+      "16": 27483.31,
+      "17": 29285.94,
+      "18": 31072.15,
+      "19": 32934.32,
+      "20": 34809.67,
+      "21": 36644.35,
+      "22": 38541.85,
+      "23": 40363.97,
+      "24": 42101.81,
+      "25": 43921.31,
+      "26": 45723.87
      },
      "playlist": [
       {
@@ -667,12 +667,12 @@
       },
       {
        "f": "ch01-medium.opus",
-       "d": 213.39,
+       "d": 472.75,
        "c": "01"
       },
       {
        "f": "ch01-long.opus",
-       "d": 554.83,
+       "d": 555.76,
        "c": "01"
       },
       {
@@ -682,12 +682,12 @@
       },
       {
        "f": "ch02-medium.opus",
-       "d": 178.46,
+       "d": 453.94,
        "c": "02"
       },
       {
        "f": "ch02-long.opus",
-       "d": 573.79,
+       "d": 573.48,
        "c": "02"
       },
       {
@@ -697,12 +697,12 @@
       },
       {
        "f": "ch03-medium.opus",
-       "d": 171.56,
+       "d": 422.29,
        "c": "03"
       },
       {
        "f": "ch03-long.opus",
-       "d": 711.15,
+       "d": 714.42,
        "c": "03"
       },
       {
@@ -712,12 +712,12 @@
       },
       {
        "f": "ch04-medium.opus",
-       "d": 177.19,
+       "d": 412.85,
        "c": "04"
       },
       {
        "f": "ch04-long.opus",
-       "d": 891.76,
+       "d": 887.12,
        "c": "04"
       },
       {
@@ -727,12 +727,12 @@
       },
       {
        "f": "ch05-medium.opus",
-       "d": 172.02,
+       "d": 424.63,
        "c": "05"
       },
       {
        "f": "ch05-long.opus",
-       "d": 888.08,
+       "d": 888.59,
        "c": "05"
       },
       {
@@ -742,12 +742,12 @@
       },
       {
        "f": "ch06-medium.opus",
-       "d": 174.63,
+       "d": 394.43,
        "c": "06"
       },
       {
        "f": "ch06-long.opus",
-       "d": 778.95,
+       "d": 784.62,
        "c": "06"
       },
       {
@@ -757,12 +757,12 @@
       },
       {
        "f": "ch07-medium.opus",
-       "d": 210.3,
+       "d": 440.82,
        "c": "07"
       },
       {
        "f": "ch07-long.opus",
-       "d": 840.68,
+       "d": 838.03,
        "c": "07"
       },
       {
@@ -772,12 +772,12 @@
       },
       {
        "f": "ch08-medium.opus",
-       "d": 195.0,
+       "d": 434.83,
        "c": "08"
       },
       {
        "f": "ch08-long.opus",
-       "d": 871.2,
+       "d": 866.44,
        "c": "08"
       },
       {
@@ -787,12 +787,12 @@
       },
       {
        "f": "ch09-medium.opus",
-       "d": 137.74,
+       "d": 388.98,
        "c": "09"
       },
       {
        "f": "ch09-long.opus",
-       "d": 804.7,
+       "d": 807.19,
        "c": "09"
       },
       {
@@ -802,12 +802,12 @@
       },
       {
        "f": "ch10-medium.opus",
-       "d": 149.21,
+       "d": 376.32,
        "c": "10"
       },
       {
        "f": "ch10-long.opus",
-       "d": 795.01,
+       "d": 788.86,
        "c": "10"
       },
       {
@@ -817,12 +817,12 @@
       },
       {
        "f": "ch11-medium.opus",
-       "d": 201.83,
+       "d": 431.35,
        "c": "11"
       },
       {
        "f": "ch11-long.opus",
-       "d": 794.35,
+       "d": 794.0,
        "c": "11"
       },
       {
@@ -832,12 +832,12 @@
       },
       {
        "f": "ch12-medium.opus",
-       "d": 138.43,
+       "d": 374.69,
        "c": "12"
       },
       {
        "f": "ch12-long.opus",
-       "d": 799.0,
+       "d": 797.44,
        "c": "12"
       },
       {
@@ -847,12 +847,12 @@
       },
       {
        "f": "ch13-medium.opus",
-       "d": 134.86,
+       "d": 381.83,
        "c": "13"
       },
       {
        "f": "ch13-long.opus",
-       "d": 782.46,
+       "d": 779.89,
        "c": "13"
       },
       {
@@ -862,12 +862,12 @@
       },
       {
        "f": "ch14-medium.opus",
-       "d": 147.89,
+       "d": 393.77,
        "c": "14"
       },
       {
        "f": "ch14-long.opus",
-       "d": 839.61,
+       "d": 843.06,
        "c": "14"
       },
       {
@@ -877,12 +877,12 @@
       },
       {
        "f": "ch15-medium.opus",
-       "d": 186.13,
+       "d": 447.61,
        "c": "15"
       },
       {
        "f": "ch15-long.opus",
-       "d": 857.26,
+       "d": 859.85,
        "c": "15"
       },
       {
@@ -892,12 +892,12 @@
       },
       {
        "f": "ch16-medium.opus",
-       "d": 139.81,
+       "d": 380.9,
        "c": "16"
       },
       {
        "f": "ch16-long.opus",
-       "d": 905.49,
+       "d": 898.61,
        "c": "16"
       },
       {
@@ -907,12 +907,12 @@
       },
       {
        "f": "ch17-medium.opus",
-       "d": 148.02,
+       "d": 382.58,
        "c": "17"
       },
       {
        "f": "ch17-long.opus",
-       "d": 858.06,
+       "d": 855.85,
        "c": "17"
       },
       {
@@ -937,12 +937,12 @@
       },
       {
        "f": "ch19-medium.opus",
-       "d": 146.17,
+       "d": 421.08,
        "c": "19"
       },
       {
        "f": "ch19-long.opus",
-       "d": 898.63,
+       "d": 895.28,
        "c": "19"
       },
       {
@@ -952,12 +952,12 @@
       },
       {
        "f": "ch20-medium.opus",
-       "d": 144.5,
+       "d": 397.97,
        "c": "20"
       },
       {
        "f": "ch20-long.opus",
-       "d": 819.47,
+       "d": 817.36,
        "c": "20"
       },
       {
@@ -967,12 +967,12 @@
       },
       {
        "f": "ch21-medium.opus",
-       "d": 171.01,
+       "d": 432.99,
        "c": "21"
       },
       {
        "f": "ch21-long.opus",
-       "d": 800.79,
+       "d": 805.76,
        "c": "21"
       },
       {
@@ -982,12 +982,12 @@
       },
       {
        "f": "ch22-medium.opus",
-       "d": 169.87,
+       "d": 420.75,
        "c": "22"
       },
       {
        "f": "ch22-long.opus",
-       "d": 843.79,
+       "d": 840.5,
        "c": "22"
       },
       {
@@ -997,12 +997,12 @@
       },
       {
        "f": "ch23-medium.opus",
-       "d": 131.88,
+       "d": 380.77,
        "c": "23"
       },
       {
        "f": "ch23-long.opus",
-       "d": 825.48,
+       "d": 825.34,
        "c": "23"
       },
       {
@@ -1012,12 +1012,12 @@
       },
       {
        "f": "ch24-medium.opus",
-       "d": 144.45,
+       "d": 402.5,
        "c": "24"
       },
       {
        "f": "ch24-long.opus",
-       "d": 859.34,
+       "d": 861.62,
        "c": "24"
       },
       {
@@ -1027,12 +1027,12 @@
       },
       {
        "f": "ch25-medium.opus",
-       "d": 125.48,
+       "d": 409.39,
        "c": "25"
       },
       {
        "f": "ch25-long.opus",
-       "d": 879.8,
+       "d": 878.29,
        "c": "25"
       },
       {
@@ -1042,12 +1042,12 @@
       },
       {
        "f": "ch26-medium.opus",
-       "d": 145.57,
+       "d": 369.21,
        "c": "26"
       },
       {
        "f": "ch26-long.opus",
-       "d": 448.86,
+       "d": 450.4,
        "c": "26"
       },
       {
@@ -1081,11 +1081,11 @@
     },
     "ch01-medium.opus": {
      "s": "workshop",
-     "g": "AHj1AgOzAS3VAXiHASJvBdEBL1oD6gEtlwItigIlhQOJAe0CI5cCLcwCCuwBCqIBI7wBBO4Be9oBI84BLcMEJacBIdIEI80CZLgBI5oDBeoBMO0BIZACeOICI9oCLd0CJp4CSw"
+     "g": "AHj1AgOzAS3VAXiHASJvBdEBL1oD6gEtlwItigIlhQOJAe0CI5cCLcwCCuwBCqIBI7wBBO4Be9oBI84BLcMEJacBIdIEI80CZLgBI5oDBeoBMO0BIZACeOICI9oCLd0CJp4CigGbAgP1An3kASWBBCrcAiaeAowB8QIqqQMjhgN76gFGXmesATReKvwDc88BK_EBI-UDIOkBKMsEjgFZBbACetsCK7kCI-EDIcICZMgBNFsoyAJzciqjAyOXAYwBqQIqggIjtAQj3QJL"
     },
     "ch01-long.opus": {
      "s": "workshop",
-     "g": "AHihASXxAn3DASaGAyqcA4wBwQIypQIrugID0gEokQIrkAJ71AErhQEjuwIhlgIoqQJmhQIqtAMjhwNznAIrhwICpgIriQMynwEq4wKPAbwBK6gCI88CeoQCKqICI6wCIbcCZO8CKvMBAqoBN1gNyAFz6QEr3QIj9wEg-AEo4gGNAYsCK6ADI3YCeih1KqUCeOQBK-YCI44CI6wCggGsASOSAyvWAShxA8UCKt0BggHfASPGASvBAijEA3CuAQN4KoEDbLgBInIrvgKAAbICI88BBcEBKO0ChQFaAr0BRqwBBbQBIbYBc9sCI_gCKoUEaaQCI8kCKoADggHJASP2ASrfAUs"
+     "g": "AHiXASvcAoIBuAEj8AIqhAOCAbMCKJgCMqwCBcgBIYUCI4UCcNIBI4QBKrcCKJMCIaMCbIQCI7QDKocDgAGcAiOHAgWmAjWJAyueASPjAoUBvAEjqQIqzwJz-wEjmgIqpAIorgJp5QIj6wEFpAFBWQrCAYIB5gEj2AIr8wEo9AEj4AGFAYsCI6EDKnYFeiN0I6UCgAHrAS3yAiOWAiC1AocBtgEtqgMj5AEheAXYAjfqAW7uAS3SASPXAiDiA2u3AQV8I5EDgAG6AS1zI8MChwGyAi3PAQPBASDtAm5aBb0BPKwBA7QBJbcBa-ACLfwCI40Efa0CKtMCJYsDhwHSASuAAibpAUs"
     },
     "ch02-core.opus": {
      "s": "open_sea",
@@ -1093,11 +1093,11 @@
     },
     "ch02-medium.opus": {
      "s": "open_sea",
-     "g": "AHi4ASqEAQNYHscCerwDK8ABJagDiQGOAiO9BCi6An2UASOeASibBCjYBGSyASOiAiiiAijUAiHXAnWFAyPlASiLAijFAiC7A0s"
+     "g": "AHi4ASqEAQNYHscCerwDK8ABJagDiQGOAiO9BCi6An2UASOeASibBCjYBGSyASOiAiiiAijUAiHXAnWFAyPlASiLAijFAiC7A4oBwAEC2wIqhQN9vAIj0wIotQMohQIg0QFk3AEtWHbFAS1YMtgCKMABIKMCiQGfAiPmAyr_AnvWAiP4AiviAijkA33IASjQBCOYASCcBIcBigJDYW6FAjRZK5UCILICKNsDKKgBI5kCbv8BKPACI_cBIesBSw"
     },
     "ch02-long.opus": {
      "s": "open_sea",
-     "g": "AHieASPFAQVxKLMCfcUBI6gCKLQDKIwCIM4BZIYBI94BKPQDKMUDdXQDtgU0mQKJAesBI2oNhAEMhQEhmgN71gIjhAQqngJ9pgIozwMjigMgygKHAacCKJABI6gDIJQBbsEBNZQCI60CIOcCbsQBKLQCI-gCfbcCKPUBI7kChwGbASjDAiPGASClA3GDAyjnASO5ASCNAmvOAii0ASOJAiGbAn-kAyuSAyOLA4cB4QEFlwIjiQaCAYUBJq0BKpcChAGEAyWIAivrAXBpBZ0Dae4CJY0CKo0FggGFASbTASv5ASb_AoQBswImwAEqwgMm-wJwmAEl_QFL"
+     "g": "AHiaASi-AQNtIaoChwG9ASicAiOiAyCAAijGAXCBASjUASPfAyGxA2twBZYFLY0CgAHnAStnCoEBCoQBKJUDhwHWAiqEBCOfAoIBogImyAMqhQMmxQKFAZ0CJowBKpwDJo4BcbkBL4gCK6ACJdcCabwBJacCK9gCggGvAiXuASqxAoQBmQElvgIrwwEmnwNxiAMm6AEruwEmkAJp3AIlvQEqlAIoqAJ_sAMmngMqlgOEAeUBA4cCKoUGfYYBJq8BLZoCigGDAyaIAirrAXhqA6IDZPkCJpUCKqAFe4sBJtwBK4QCJo8DigHGAibKASvcAyaSA3ieASaIAks"
     },
     "ch03-core.opus": {
      "s": "ship_hold",
@@ -1105,11 +1105,11 @@
     },
     "ch03-medium.opus": {
      "s": "ship_hold",
-     "g": "AHjIASG6AQVgKOABLYMCIWxx0QIgogRsXQOpASjZASitASPqBCrCAyjbAn3RASH8AiivASjxAyPnAiCvAocBaAP4ASjvASikAyODAks"
+     "g": "AHjIASG6AQVgKOABLYMCIWxx0QIgogRsXQOpASjZASitASPqBCrCAyjbAn3RASH8AiivASjxAyPnAiCvAocBaAP4ASjvASikAyODAm6TAgKvAiiDA2zHAiG3AijBAyq7A3CEAj5eabIBMFklqQIltwEqogQmjgKCAekCJckBHpICJqMBhQH4ASacAyHFA3HEAQWOASjQAWnWASXIAyHqAiXwAYIB0gEwWSWnAiaeAoQB6QEliAIh8QElowNL"
     },
     "ch03-long.opus": {
      "s": "ship_hold",
-     "g": "AHiDASDEAQXzASucA2vYASHCAyjeASrWAnFvJqgBIKIBJpkBK4UBJe4CIa8BBYYDRmtpjQIluQMguwKCAaABBYUCHuUCMG4rsQEm3AIomwElowIq0AGEAY0DJuADINEBBaIBK9ADKJcDIJQCcZ4BBdkBIecCaekBJZACggHQASbVASGsASaUBIQBWQWvASHFAiWnBHODBSihA2nRAii3Ax7nASWyAmfIAQLKAibrAXbSAQL0ASiBA4wB2QEhiwQl2AJ44AEoWi_VAmeYAShZLdoBK6oDJeoDdZoBIPQBJv0CK4UEjAHSATJgeK0DKF0txQMrwAJn1QIewgEodnN7HtEBKPoCZNQCKJkEdmwF0gEgvAOKAYcBKLADIZMBI5ACKMQCfakCKLkBIecDZNcCKIICINYBdmYo6AJL"
+     "g": "AHiDASjDAQPzASacA2neASjPAx7kASXgAmZ0IK0BJacBK54BJogBHvkCJrQBBZIDPG52lAIgxgMowwKMAaMBAogCJuoCNXAmtAEg4gIyngEqpgIm0gF4jAMg4AMm0AEFogEm0AMhlwMllAJnoAED3QEl7QJ27gEhmQKMAdkBIOABJbQBK6sEeFkCuQEm2AIrxgRmoAUetANz3AIexQMo7gEqvAJkyAEFygIh6wF2zwEF7wEh-wKJAdIBKP0DIcwCfd4BMlko0AJklwEyWSjXASOkAyjiA3WaASj0ASD-AiOFBIkBzwFBX32gAzJaKLcDI7YCZMUCKLoBIXB4dSjDASHjAmnEAiiDBHBpBcwBI68DggGHASiwAyOUASOPAirEAoIBrwIouwEj7gNp3gIohQIj2AFzZyjtAks"
     },
     "ch04-core.opus": {
      "s": "cabin",
@@ -1117,11 +1117,11 @@
     },
     "ch04-medium.opus": {
      "s": "cabin",
-     "g": "AHjMASG2AgXkAWzhAiDcAijXAiuUAiO3AXHXAiGTATWNATfcAS2RAoUBpAMomwIocyvVASP0ASHkAn-YASD5ASiTASukAm7GASGxAij0AiqXAiP5AUs"
+     "g": "AHjMASG2AgXkAWzhAiDcAijXAiuUAiO3AXHXAiGTATWNATfcAS2RAoUBpAMomwIocyvVASP0ASHkAn-YASD5ASiTASukAm7GASGxAij0AiqXAiP5AW63AQKZASjJA4cBmAEjmwSAAesCIekCKLUCK4oBhAGuAj5hggGvAi9ZJdoEI9YCaYgEJqEBIJ0DcegCJeUBIeYBI8UBLd0CJqMEhAGqAi9aJvUCI88BLZ0BggGuASWeAyHxAiOgAks"
     },
     "ch04-long.opus": {
      "s": "cabin",
-     "g": "AHh5IbMCKJ0BhwHoASOmAzLJA4ABzQMCngEoiAGFAXQlwAEh3AEC9QFIrAKCAbIBJtcDIdsBI9MDaaUDJt8EcN0BJuwCIc0BI-UChAHMASaYASjaAYIBugEFiwIglgUjnwE36gFpuwIl6QRwoQEmugEgzQEKrAEtxQKCAeMBJcUBIesBJcMBggH1AibaASC_AXi3AQLUASbdAjrxAYwB0AIgvgImlQIt9AF1zgIgjwEmmQFnhQIh6wEloQN4qwEhhgIl2AQt4wOMAXIgoAElqQMtggJzhQED2gEyugItuQNm4wEhkwN6swEh3wEFqQFG8AElpgGMAcgBC8ABJcADffYBBeMCIMcDjAH2ASiCAiHLAnV8Ml0o7AFhjAIyWSjwAn3ZASiWBCvFA4oBuAIoxQN25gEyXij-AWTKATJbKMADI8gCK7ECetcBKNYBI9gBiQGaAgXHA4IBlQEoywKEAbYCKIgEc40BBfMBII0BI4EBae8CKJkBIIMBI8wCggHKASiFASG8ASOvA4QBsQEohQEDmQEjswEqjgNwkQEo9wJL"
+     "g": "AHh3Ja8CIJsBcOgBJqYDKsoDggHGAwacASCGAYIBcSa7ASDVAQLuAUajAnmsASHJAybUAS3EA4wBlAMgxQR11AEg3QImwwEt1QJnxgEglQEy1AF4uAEChwImigUtnQEt5wGMAboCIegEc6EBIboBJc0BDawBI8UCZucBIMkBJe8BLcUBevUCIdoBJr8BjAG2AQLVASXeAjnxAX3QAii-AiGVAiP0AYwB0gIokQEhmgF2jQIo8gEhrANitAEokAIg9AQj-AN9eCinASC8AyOOAooBiQEF4QErxAIjxwN15gEomgNktQEo4QEDrAE38wErqAF6yQEMwAEjwAOJAfoBBegCI80DggH5ASiGAiDQAoUBfTJeKO8Bc4wCMlko8AJp1gEojgQrvwOCAa8CKLgDhQHdATJYKPUBccABMlgorAMjuQIqowJp0AEo0AEh0gGCAZECBbsDhAGTASjGAoABsQIe_wOHAYsBA-4BKIoBK4ABbukCHpYBKIEBKsgCa8gBHoIBKLoBK6kDf64BHoQBBZkBKrEBJYcDhwGUAR78Aks"
     },
     "ch05-core.opus": {
      "s": "deck",
@@ -1129,11 +1129,11 @@
     },
     "ch05-medium.opus": {
      "s": "deck",
-     "g": "AHiqAS3HAgLKAWalAS2yAyOaBHhxLcUCI4wEIbQBjAHeAy6VAiOWA3PJAi2BAiOwAyGcAWagAi3uASO8AyCsAnhdBf8BI74BSw"
+     "g": "AHiqAS3HAgLKAWalAS2yAyOaBHhxLcUCI4wEIbQBjAHeAy6VAiOWA3PJAi2BAiOwAyGcAWagAi3uASO8AyCsAnhdBf8BI74BjAGaAgXvASP6AnOrASukAyXvAWbuASvsBCWUBCGCA3XCATdjYooBKloy1gIoxAIhjQMj7gJ9hgQjtQKMAboBI-MCK7IDddcBN19kqQErWzKvAyjuAyGWAn3FASOkBCu3AiiqA0s"
     },
     "ch05-long.opus": {
      "s": "deck",
-     "g": "AHjAAS3LAnNZBegBJasBIMYFZ1kF9AEmxgF2rwIjkAEr0wIonQEhiQFhkwEj2gMqjwEo-gMh_QJ91AIj_AUrqAEo7AKMAdgDdvACI5sBKp8CKIcDZGAD5QEruwF95QMjgQIqzAGKAZACI4kEKoQDeLcDI-kBZHMjrgEqogIojwJr1QFDX3HxATRbKK8DhwGdAjRafc0BK6EEbq0DK4gCI_sBbpkDKusCI4gCIPMChAGXAyvvAiPRAX-QAyrKAyPDAWzLAircAyPnAW7jASqEAiONAiDKAijRAWmHASOdAy3RAnHTAQOeAi2kA4UBrwIj3AEtuQGCAdEBOV9pwAEtWjSfBSabA3GgAyOsBIQB7QEtWTS4ASXsAiClAoIB1wEjmwUt2AFs5gMl6QEF8wFx8gEDmwItoQImqQJkpgElayuFAnjyASXrAYoBwAECrgMqgQJ7iwElvQEq7wIoigJknQIm0wEqvQIopwV41QElrgErrgKKAaMBJeYCSw"
+     "g": "AHjIASPaAnhZAu8BK68BKN0FZFkC-QEqyQFrsAIqkAEj1AIgnQEoiQFxkgEr2gMjjgEh-gMo_gKHAdgCK4cGI6oBIfICfeYDbvUCKp0BI6QCIY0DbmAF5QEjuwGFAd0DK_0BI8gBgAGEAivyAyPzAmueAyvbAW5vKqcBI5QCIIQCac4BOV1w7gEtWjSpA4UBnQItWoIBywEjmQRppwMjgwIt-AFwjQMj4AIt_wEm6AKEAYUDI-ACLccBggGKAyPCAy3BAWvQAibiAy3rAXHqASWLAi2VAibTAiHYAWSNASavAyrgAnjcAQOsAiq5A4kBugIl4wEqvwF71AE8YGTAAS1aNZ4FKJwDeKYDJrQEiQH0AS9aNb4BKPcCHq8CeuABJrgFKuIBZPwDJfMBBf8BdvkBBaUCK6oCJrMCZ6UBK2ojhgJz6wEr5AGMAbcBBZsDI_YBeoUBK7UBI-ACIP8BZpkCKtABI7gCIZ0Fc9IBK6sBI6sCjAGjASvlAks"
     },
     "ch06-core.opus": {
      "s": "open_sea",
@@ -1141,11 +1141,11 @@
     },
     "ch06-medium.opus": {
      "s": "open_sea",
-     "g": "AHiLASbJASurAQXIAYkB5gIlsgJ45QIlsgQqlgRktQUlrgErwgIm7wF68wEl8wIqjgKKAZIDJYUDK5UDdq0BAowCKrcCL48BSw"
+     "g": "AHiLASbJASurAQXIAYkB5gIlsgJ45QIlsgQqlgRktQUlrgErwgIm7wF68wEl8wIqjgKKAZIDJYUDK5UDdq0BAowCKrcCL48BZL0BAqMBK_YBc48BKMIDI_EBZoYCKNYEer0BKNYDI-wBIbEDjAGMAURbc6kCNFkqqgEg0AIopgRmmgIogQIj6gN6sQJDX4wBlwI0WSq3AiHaAnbSASqxBCPBA0s"
     },
     "ch06-long.opus": {
      "s": "open_sea",
-     "g": "AHizASVqKq8Cc60BKMUDZ9kCKLoDI8YBerkBKIwDI80DjAGnBHNvKJ0CI4EDIP8BZvgCKOgBI9MCe_ICKN0DjAHgAyqFAiOPA3b3Ayq8AmZZBa0CI7ECIZoDaeoCI6ACKPsBc7ICI6sBDGsM-wMKcwqWA4QB9wED1AEoqQJ_6AEj5AIowQQoiQJpgQQjogJz9wIKYg2QAQxbClkjhwKCAcIDI_IBKJgCggHrAyPUBGnUAiOXBHDqAiP9AmyLAgXVAibhAR7XAW6YAyqqA4cB-gFGYYABbDRZLfUBIJQCJvEBbMECK98EboMBRluHAZACNVktwAEg8gGAAYAFKvMDbFkFrAIl3gEejwJunQErhgNm-wEr7wElpAMhxwJ2hwErzwIlzgKMAe0BK8UCJakCIHx4wgEt3gIl7gNnmgEqwAJL"
+     "g": "AHiuASpmI6YCaa0BI8YDc-QCI8cDKMwBhQHBASOeAyjhA3_IBGl0I6oCKJMDKIkCc_wCI-wBKNgCggH5AiPjA4IB6AMjiAIolQNp_gMjwQJwXQK8AirBAiiuA2z7AiusAiWGAm66AiuvAQptCooECncMogOHAfsBBdgBJa0CgAHkASrgAia4BCGFAmzrAyqVAm7nAg1dCooBClkNWCv8AYcBrwMq6QEljAKAAeMDK8wEa9QCKpcEbuUCKvgCZoQCBcsCJdwBINEBdocDKpgDjAHsAUZceGg3WS3rASGIAiXnAWa9AivWBHOEAUZdjAGZAjdYK8YBIPkBepIFKoIEZ1oFsAIj4gEglAJzoAEtjANi-gEj7wErpAMoxwJ2iQEj0wIr0gKKAfMBI84CKrICKH99ywEj7QIrhARkogEj0wJL"
     },
     "ch07-core.opus": {
      "s": "open_sea",
@@ -1153,11 +1153,11 @@
     },
     "ch07-medium.opus": {
      "s": "open_sea",
-     "g": "AHizASjXAQKZAn3FASiRA4QBqQEowQIgwAQj3gEosgF_6QEyWWnDATJZKKoCc_MBMlmCAdEBMlkomwOCAbgDKMQBA4kCLbECadEBKL8DIfIEc9UBBf4BN8ABA7kCKL8CSw"
+     "g": "AHizASjXAQKZAn3FASiRA4QBqQEowQIgwAQj3gEosgF_6QEyWWnDATJZKKoCc_MBMlmCAdEBMlkomwOCAbgDKMQBA4kCLbECadEBKL8DIfIEc9UBBf4BN8ABA7kCKL8ChAHmAQWfBIIB7wEo3wMg5AGHAfUDHsoDMtcDKqIEgAGRAShZLfUCa40DIbUDJfUCbt0BMmOHAdYCKFww3wQqgAMmyQEe-AF_6wNrzAEhlwQmqwErwwEm6gJL"
     },
     "ch07-long.opus": {
      "s": "open_sea",
-     "g": "AHjkASjDAoIBWQXfASDuAYcBfR7fAjLCA4ABcx71BWynAiB4BZgCRqEBbpcBIakCJuEDhwGGAyDDAoABpAEh7gMy2gNr8AIg_QIlvwFuugEg0AIm7wOHAaICHscBKLgCf7IDHvEFe64DBewBIN8DiQHmAiauAiCYAybMAXjSA2SuAyaJAiDMAi_5AnrVAQW0AiHGASW4AooBoQEl7wEgpQEFlQNGpgJ4qgIlzQMezwNkzwEl5AIemAF94AMoxwOJAf4BBf4CHtACJtMEe4oCKlmMAYUBK1kv1wEoiARz6AIgtAEoiwRn3wIh3wN67gEg0QSMAYECNGBzrgIoXC_eAiioAmfsAiHBAQXQASreASOaAnjSAQOoBSiwAowB1QEhbCj1An2cASP_A4cBswEChQIo9AJwiAEj8QEo_QNrqgIjlQEo2QIrwwJ_owED1AI-ugGFAWwgnQNL"
+     "g": "AHjdASC5AogBWAPYASjnAYABeh7aAjK7A3pwJeAFiQGjAiV2ApQCPJ8BeJIBJqECINMDZPUCJrQCe50BJdoDKMYDigHkAibxAiG4AXi4ASbLAh7oA2SlAiXKAR69An23Ayj8BYoBvAMF8gEe7wN66wIgsgIongMozwGMAdgDc7UDIYwCKNACNf8CZtsBAr8CKMwBKMICeqYBIfYBKKkBBaMDOa4CjAG3AiHhAyjkA3PWASHzAiifAWfuAyHUA3iAAgOFAyjWAirdBIwBigIoWX2EAStYMNMBK4AEhwHjAiOyASiEBHDbAiPZA2ztASPRBH_-ATddhQGoAitbL9gCKqQCbuICI7sBBcgBK9gBI5ECbsoBAooFKKECf8wBIWco5gKHAZcBIPEDggGxAQX_ASHuAoQBhQEm7QEh9gNwqgIllQEg2gImwgJppAEF0wI1ugGCAWkmlwNL"
     },
     "ch08-core.opus": {
      "s": "island_shore",
@@ -1165,11 +1165,11 @@
     },
     "ch08-medium.opus": {
      "s": "island_shore",
-     "g": "AHjiASO7AQWDA33HAiOvASrzBIkB1wMqWXb6ATdeZJYBKlkymAN74AErWokBhwMjowIMsQF4-wEslgEk-AIhmwOMAeQCLWMj-wF2xQIt7AEj7wEghQNL"
+     "g": "AHjiASO7AQWDA33HAiOvASrzBIkB1wMqWXb6ATdeZJYBKlkymAN74AErWokBhwMjowIMsQF4-wEslgEk-AIhmwOMAeQCLWMj-wF2xQIt7AEj7wEghQNnxQEF3AMjxwF4iQIt3AMi5QMh6AOMAYwCSF92ogI3WiuwBCCCA2auAS3hBSPzAiCdAyaBA3qXAUZcjAGCATddLaYCIOQDJaADKskEhAGcASP7Ai2DAibyAyC8AUs"
     },
     "ch08-long.opus": {
      "s": "island_shore",
-     "g": "AHi7AS24ASPOAXhZBYACI9YBIbMCjAF9LacCI84CdY0BLZoCI44BIdoDJbMBZ6UBLZoCI-MDIKwCe-kBKoIBAu8CNcIDjAFzLZwCJukBINcCJq8BhQH9AS_5Ai2aAoIB2gIjzQE56gEy-AJppgEjugMtiAJx6gIj8gEMhgEmygEgmwWFAcsCI_cCggGGAiPnAmniASKHBAXnAj7GAXGLAiPSA4QBqAN_hwIm_wEryQEm9gKHAV0FcSOuASp2f1kFvwEjggNs6gEqsQIj6gIhuwJulwIq0gKHAcADfaUBKsYBI6gDINICa74BBZ0CI8MCIeUBcJMDK4UBI6wChwGjATVZf7cBNFmMAdUBNVkqmAIgqQN7ggErygMj-gJnpAErmAQjlQJzrAEqwgMj2QIgjgGOAbUCNK4Be7QBNF0q_AEhpQFktgEF1QEjuQIhwgNz_AEqiAKMAcsBBY0BI9gBII8BeIYBKJUBA7EBIfIBKO4CK9QDhwGLASW3AyuaA33bASXAASvHAShwCo4CCpgBZI4BJfcDSw"
+     "g": "AHi-ASO6AS3SAWlYA4MCLdsBJbgCcXwjqAIszgKFAYoBI5UCLYwBJtIDIbABggGkASOVAi3bAyanAmnlASN_BekCP7wDcHEjmQIt5QEm0gIgrQGFAfkBMPMCKpcCf9ACJscBOeMBMu0ChwGhASquAyOBAn_hAirqAQqDASHDASiIBWzGAivyAm6CAiviAocB3gEqgAQC4QI3xAF9hgIrygNsoQNxhwIqgAIjyQEh9gKHAV4FcyOwASt4f1kFwQEjiQOMAe0BK7YCI-8CIMECep8CK9oCZ84Dc6kBK8wBIrUDIdwCjgHEAQWmAiPOAiDsAXufAyuKASO1AmSmATRZc7kBNFmMAdkBMlornAIhsAN4gwEoygMj-gKHAaQBJpgEK5UCfakBJrwDKtMCKIsBZK8CLasBeK4BLVo09QEooAGJAbEBAtABKrACKLMDe_UBJYACZMUBAokBKtIBKIwBeIIBJpABBa0BKOsBHuMCJsUDigGHASaqAyqQA33YASW9ASrEASVuCooCCpYBc4sBIe4DSw"
     },
     "ch09-core.opus": {
      "s": "deck",
@@ -1177,11 +1177,11 @@
     },
     "ch09-medium.opus": {
      "s": "deck",
-     "g": "AHiJAianAgLxAoIBwAElhQMhpgNpgwImoQMhzAFwsgMlqAEh8gOEAaECMpMBIIACI5cDggGGAQXsASGoAks"
+     "g": "AHiJAianAgLxAoIBwAElhQMhpgNpgwImoQMhzAFwsgMlqAEh8gOEAaECMpMBIIACI5cDggGGAQXsASGoAmm7AQWuASGuAnPrAiWrAyF9JYUBbJwCK1lu_QEqWzC2BCurA4cByQIglAUohAQr0QQjqAKAAesBKllskQIhvgQoswMqxgFxfipZhwGSAipZMP8BK_gEI9sBfJQBIcoDKLcCKtABSw"
     },
     "ch09-long.opus": {
      "s": "deck",
-     "g": "AHh0JrABc_cBDVsmvwJrsgIhuwMoigVu0wEh-wOHAa4CIL0CKNMBK4ADI_cBf6sBIPsBNasDa6sCIfEBKP8BK6UCcOECIIoChwHOAyCxAijQAn2MAiDUASi-BGymASP8AiizA25xI-EDKPsDKugCdssCZPsBKJYDfVkFcSC8ASOpASqHAYkBigEoZSHOASOnASp2KIEDIYoCdV4FgAEhxgFkfyigAiHEASPOAX2gASiYAyH7AS2rAiqKAooB2AIo-QIhywJ4pwEo_QEjoQJkxgIFsAEgmwN16AEqxQEyqgE6kwJm0AEC0wIlxQEt5wJ4iAMh6AKMAbwBKFst4gJ2rQEoXC3FAS2ZAiOVAmblAiCUASX-A3iIAihZjAHZAShZLd4BLfQDc_ADILYBBYQBKosBZ8cBIbwDbtIBArADKLICbIgBHqcDKI8Ef7MBHooCKIgCK4MChwHrAR6HAyjxAm6AAR6kAks"
+     "g": "AHh0I7EBbvcBClswvwJ1rwIoswMhgQVkzwEo9QN9rQIovQIg0wEjgAMr9wGKAbABKIMCK7gDdrgCKPwBIIwCI7ICZPYCKJkCfeQDKL4CIOACiQGUAijcASDPBHipASiBAyO6A2RyKOEDIPsDI-gCdcsCZ_4BIZ0DeFgDdCbAAS2uASOKAYwBjAEhZiXRAS2pASN3IIYDJo8Cdl0DgQEmxgFmfSGcAibCAS3LAXicASCMAybzATqiAiODAowBxAIh4wImuAJzoAEh8gEmlQJnvAIDqgEmjgNu5AEowwEyqAE3jgJr0AEC0wIoxAEr5wJ_gwMe4gKHAboBKFov3QJuqAEmWi_AASuQAiaOAmvWAh6OASjoA4AB_wEmWYcB3AEmWS_hASr9A3CABCC7AQWJASuQAWvRASDSA3HbAQXFAyDAAmyOASizAyGfBIIBtQEojgIhiwIkhgKCAewBKIcDIPECc4IBKKgCSw"
     },
     "ch10-core.opus": {
      "s": "open_sea",
@@ -1189,11 +1189,11 @@
     },
     "ch10-medium.opus": {
      "s": "open_sea",
-     "g": "AHhyIMwBJoMBBdECc84DIMoCJq0CZ4QCIaYDJZ4BKvwBe7QBHukCJZoCK5UDjAGMAh7nAyavAnNaA_YBJdoESw"
+     "g": "AHhyIMwBJoMBBdECc84DIMoCJq0CZ4QCIaYDJZ4BKvwBe7QBHukCJZoCK5UDjAGMAh7nAyavAnNaA_YBJdoEZsQBAqsCJuUCe_gBIfoDJZcCjAHPASHrAyX3AyvLAyaVAh54dZECMmJnngIoXS_IASrvAniVAiiABCDOAiP5ASjpAWTcAjJZKNgCe4ECKN0CiQF9KOkCIdkDI-EBSw"
     },
     "ch10-long.opus": {
      "s": "open_sea",
-     "g": "AHigAiCKAnpZA6wBJoQCN7sBjAF-IacBBdkEKvECJbQDdVkDpAEovQJmowMesQN4pAIo6gEgpAIj2QFk0AEojgQgngR7cjSVAyC5A4kBnQMo8gIg1wF4uQEoiQMhvARk9wMo9gEhpwN76gEouQIg7AOKAbwDKPYCIeYDdbcEKNQBZKoDa7cEIOABblgD8QEo0wGHAZQCgAG9AiCJAWvJAiH-AW74A4cB6wEhYCiBBIABiQEggwEF8gIojwIjqQFr3gIg1QEokAJurwEoWS-qASrYAWnbAi9aJugBJZ0DKtoBc5oBMI8BhAGXASawAyChAy9dNKQDggGXAiXzAiDYA2mgAybAAQLNAnCUAQWvAihgJs8DhQHAASXRASCvAoIB6AIFoAMhugJp5QEorwMeggJxogMopQEe-QJhvQIlvgIh5gIlvQJ1twElqgNL"
+     "g": "AHikAiiMAmRaBbABIIgCLb4Ben4opwED2QQj8AIotAOJAVkFogEguAJ2lwMopANklgIo4QEgmAIjzwFsxwEg9wMoiARubiuJAyitA4cBkQMg6AIo0QF_twEghAMotARr8AMh8gEoogNu5wEhtAIo5QOHAa8DIOwCKNkDf64EIdIBa6QDbr8EIOIBaVkF-QEh2gFzoAKFAcsCJY8BggHTAiWGAmn_A3DvASZhHokEhAGKASaFAQL4AiaTAiusAYIB5gIm3AEgmAJptAEvWSWuASbfAXHlAjBcJu4BJqoDKuEBYZwBMJEBdpcBJbADIaADLV00pAOMAZMCJe0CIdADfZQDJroBAsICZJEBBasCKF8lyAN2vQEmzgEhqwKJAeMCBZoDILYCfeEBJqcDIf4BZJcDJaABIewCdrMCJrQCINsCI7QCZq4BI5cDSw"
     },
     "ch11-core.opus": {
      "s": "ship_hold",
@@ -1201,11 +1201,11 @@
     },
     "ch11-medium.opus": {
      "s": "ship_hold",
-     "g": "AHixAijDAgKKAoAB5QEohwMjngFrjAEoigEuWCjJASjSAW7RAUNchwGgAzRZf5oCNVkq4QFr7wEokQMjvQFuoQMo6wEj-gOHAYYEKuQBfccBK48BCWkKogEoiwIr1gEjjgJL"
+     "g": "AHixAijDAgKKAoAB5QEohwMjngFrjAEoigEuWCjJASjSAW7RAUNchwGgAzRZf5oCNVkq4QFr7wEokQMjvQFuoQMo6wEj-gOHAYYEKuQBfccBK48BCWkKogEoiwIr1gEjjgKEAc0BA5YCK6YBJpUBf4kBJvQDK4sCJuACaeABJYcEKq8DJfcDIZwBc4ABPGSEAagBMF414gMmwwKCAYQEJb8Eac0BPGFx6wEwWIUB4QQmwwKCAbQCJpUDK_gBKNMCHu4BSw"
     },
     "ch11-long.opus": {
      "s": "ship_hold",
-     "g": "AHh0JoACf1oDwAEqqAEyygFpeCWCAiuRASXhASCpAXOAASWMATeSASXwASG2AiaiAYQBpQImwgOCAYMCJbICK9QDadICJtUDcc8DJYAChAHhAia1AiuDAoIBkgMl2gMrvwF67QEq3QMlxQKMAcUCK_UBL5oCKKEBc54CKpEDZoADe-gBKs8CJYoBIfoDjAFeBYcCJe8Bc5IBK-UCJsMDZ-0BK-0BJvMCeOUEKugEjAHXASqaASWjAnq0AiOvAQyVAYoB2gEjmAMozQEokAF4vQECwAIo3AIokAJknQEjggIqlgMotAEgfHu4ATpcigHjAS1ZMsYCKLgBeIEBI5IDKMkCZNkCI-UCKNkCfe0BOV-JAagCLV4y_wEooQKCAZwEI-AChAFeAvkBKuUBca4BI7ICac8CAtsBKqEBKKEDggGMASPuAyvwAoQBmAEj6wIrnwRxmwEj_wEr1QIo-gEDpwFpnAEj8gNL"
+     "g": "AHh5K4sCjAFfBckBJa8BKNMBc30rjAImlwEe6wEmsgFmgwEqkgEvlgEe9wEmwAIrpgF7pQIqwgOMAfwBK6kCJscDc8QCKsEDZsIDK_gBeNwCK7ICJf8BjAGSAyraAya-AXvpASPVAyjAAooBwAIj8QE1lQI1ngF4kgIjgANk6gJ73gEjwAIohAEo5QOJAVoD_gEo6AF4kgEj5gIowgNk8QEj8QEo-QJ99wQj-gSJAdkBJJwBKqcCggG4AiOyAQyYAYQB2gEjmAMrzQEokAFxwAECxQIr4QIolAJpoAEjiwIqogMouQEjf4IBwQE6YIQB8QErYDLYAijFAXGGASOkAyrZAmnjAiPwAivjAoIB7wE3YYIBowIqXjL6ASidAn2TBCvbAocBXAX1ASXiAXCvASqyAmzOAgXbASWhASGhA4ABiwEq7wMj8AKFAZMBK-ECJZAEbpQBKvUBJcYCIPABBaABbpMBK9UDSw"
     },
     "ch12-core.opus": {
      "s": "ship_hold",
@@ -1213,11 +1213,11 @@
     },
     "ch12-medium.opus": {
      "s": "ship_hold",
-     "g": "AHjLASOfAQXiAoIB5wEj3gEqyQEozQEgrAJpmAMjzwIrmgFxggMjkgMrzgOEAcEDI4IBKq0DggGYAiPeAks"
+     "g": "AHjLASOfAQXiAoIB5wEj3gEqyQEozQEgrAJpmAMjzwIrmgFxggMjkgMrzgOEAcEDI4IBKq0DggGYAiPeAmnwAQLHAyt8cd8BI6kBK4gDKMEDILkBI5kBKrkBggHoAyPJAyuSBCiYBIIB-gErWTLMAYcBmgJIWn3oATdaKsoBIIwDJugCa_gBLc8DI7UEcHotgwWHAaIEN1oqvgJL"
     },
     "ch12-long.opus": {
      "s": "ship_hold",
-     "g": "AHiEASP_AnBZA6UDKoYCKIIDggH3ASSuA4IBcSOpAyriAijvASP6AYcB0QR9ey37A2uwAThbKtsDcXRJXYcBxgE3XCrGAoABygI3WW72Ai3lAiOWAm6zAi2JBCPuAocBjgEq0wEKmQEguAIymgKAAZYDK9sCfXkKmgMNdYoBmAIj3wItqwF16AJifCOkAy3ZAn1ZArYBLZ8BiQGNASPoAzryAXaIASOoAi3SBGTKA33fASa8Ayr2AYcBxQElsQEMhwEMeQqOAQpZKuwCeJQBKpwCCl4K2AEN1gGMAbACBdQCI-UCIYADdYICK5wDI84DZ4oCNVl6fyuNAipajAF-K4QFI6oCIKsDc7wCRmBmxAE1XCrnASDFA3qtBCvhASOlAowBpwEq9wEjogGAAVkFlQIjsAOHAZICKsYDI-gDbrkBKv8BI44DIYIDbM8BK5MBCqcBClkMywEriAJ_ZSqQA0s"
+     "g": "AHh-Le0CblkFmAMj_QEg9wJu8wEtqQOHAXAqowMm3QIg6wEm9gF_0QR9fSOCBIkBswEtXDXiA3Z1OmBhxgEtXDTGAn3OAi1ZiQGCAyPvAi2dAna9AiOYBC35AmSTASPdAQ2eASbGAiqoAn2qAyXsAocBfQqmAwx4eJwCKuUCI6wBjAHoAnZ9KqQDI9kCZlkFtAEjnAF6jQEq6QMt8gGMAYkBKqgCI9IEc8oDZtwBK7YDI_IBesABK6wBCoIBCnYMigENWSPhAowBjQErkAIKWgrOAQ3NAYABogIFxAIj1QIg8AKHAfoBK5EDI8ADbocCNVlrfSqKAi1YgAF-KoUFI6kCIasDhwG3AkNfbsABNVsq4wEhvgNspAQq3gEjoAKAAacBKPcBI6IBhwFZBZoCI7cDf5ICJsUDK-gDhQHAASWKAiufAyiTA3PaASWaAQyvAQ1ZCtQBJpQCaWglnANL"
     },
     "ch13-core.opus": {
      "s": "deck",
@@ -1225,11 +1225,11 @@
     },
     "ch13-medium.opus": {
      "s": "deck",
-     "g": "AHiyASiCAgLWAXC0ASbHAyDlA2nfAyXjAnbZAiaCBCDFAWHKASXrAiC7A31kBYEBIbECI6wDSw"
+     "g": "AHiyASiCAgLWAXC0ASbHAyDlA2nfAyXjAnbZAiaCBCDFAWHKASXrAiC7A31kBYEBIbECI6wDigHtAQX9A3WRAiW-AiGyBWSpBCb5ASHwAiO0BX2WAT9fiQHLATBbJaEBI5oBLaICeMUCJoMCINwDJdcDZNIBPl911wErWDDlASvcBSPOAWf6ASGDASibAninASCdAyinAivmAks"
     },
     "ch13-long.opus": {
      "s": "deck",
-     "g": "AHi5ASXGAnXvAiaQBGTqAybsA327ASbpAyGnA4oBzwMm_AJ4YQqAAgqJASXCAmTdASXOA3aAASCuASi-ASvKAyOXAWeGAyDnAnieASGlBCjeA4wB7AEh3wMonwFziwMhdA1kDc0CZ-4DIdkCe4ADjAG2AyCjAnNsI98BKO0CKuABI_UCZrQBI48DKPcBacgDcMABBcgDhQGeATJZKOwBI9UCggGbAUFcac4BMlgosAIjjgJxpgEojQSEAaYCBcICIM8BI-sCggH7ASj8AWyVAjJacOoBMlko8wIj-QIqswFslgEglAMmpANwxgEoWi2ZAi3KBIcBnAEg1gV92wIhsgEF6gItWG7AASGIAiXeAW68ASCgASWGA4UBtQECuQEm3QIt9wGAAYsBIOUBJsACLcEDbL4CILkDJeQDbrsCIccCJvkCZqMBHu0CSw"
+     "g": "AHi5ASDFAnTpAiCIBGbdAyDeA3q5ASHiAyiiA4wBzwMg_QJzYwqFAgyKASvGAmfeASPOA2l8KKoBILgBI7wDKpQBcPYCKNcChAGWASiHBCDCA4IB7QEo3gMhnwFpgAMocQphCsQCce4DKNoChAGFA4IBtgMoowJrayjbASToAiLcASvwAnGxASiJAyL0AWzAA3HAAQLIA4cBoAEoWS3vAS3ZAn2hATVgbtkBKFkswgItnQJtrwEgowSFAa4CA_wCJdsBLfQCf4ACIIACbJUCKFpu6gEoWS3yAiv5AiWzAWaZAR6aAyiqA3PMASZcMKACKtsEjAGgAR7sBXrgAh61AQXxAipeZr4BHoMCKNsBcrYBHpoBKPwCjAGsAQO5ASjNAivvAXqFAR7cASizAiutA2e1AiGsAybWA3a2AiHDAiX0AmSjASjtAks"
     },
     "ch14-core.opus": {
      "s": "forest",
@@ -1237,11 +1237,11 @@
     },
     "ch14-medium.opus": {
      "s": "forest",
-     "g": "AHiQASXlAQKwASbeAX33ASaKAyGzASWDAmS6AiXgBCHmAXbQAyafAiC2AokBsQEl6AEgogN9lQMoiwMhtgNL"
+     "g": "AHiQASXlAQKwASbeAX33ASaKAyGzASWDAmS6AiXgBCHmAXbQAyafAiC2AokBsQEl6AEgogN9lQMoiwMhtgNk7QEF1wN1tAQmhwQhrwGJAYoDKMQCHrcDJoEEK-kFe9MCP16MAYQBKFsvkAMqiQN41gEhqgMopAMo3QNn7QEoWna4AitYMM4DKIoEjAGTASGqBCi2AiiiAks"
     },
     "ch14-long.opus": {
      "s": "forest",
-     "g": "AHiAASbkAXVZBfEBIcoDigFvKH0erwIlnQIqxQJ7lwIotwIe7wIm1gKMAfsBIMgBNfQCeH4C_wFBmQIooAFnjAIK3wEoxwEohwN20QIgwAIooQKMAcUCIXIojAIo9AF42gIg9ANnhwIg3wEotgIN6wF15AMgkAOMAYoDIJIEe8MCIMQBKNcCK7IBggG2ASjNAiH4AoUBvgIo8QNw9QIowAJp3AIorgQgswGCAZwCKLQDIMQBhQHDASjyAyH-A3C0ASi1BCGVA2nUASiwAyCvAn9ZBdcBIOYCI7sBhAHHAn-HAgPCAibTASuaA4cB3AEoWG6TAihZML8CKt8Ca5MEII4BJYsCfLwBIKEBJeQBK8UEhwHQAjJccaABKFktnQMr4gEmlAJr-AIgrgEFvQEqkgOAAYcBHogBKJgChwGCAgL3ASjOA3uLASHlASWMA4wB8AED0wE-hAJz4gIguAImlgNnngEh7gJ69QEhuwJL"
+     "g": "AHiEASDsAWZaA_0BKOADdXUgggEovAInqgIj1AKMAaACIMECKPoCKuECeoICIc4BNf8CggGAAQWCAjecAiOkAYQBjwIN4wEgywEjjQNx1gIoxAIgpgJpygIocyGQAiP3AYIB3wIo-wOFAYsCKOMBIboCCu8BcdwDKIoDaf0CKIMEf7UCKLsBIcgCI6sBhAGuASi_AiHpAoABtAIh4gOHAfACIboCbtcCIacEJbEBa5gCIK4DJcIBfL4BIeMDJu4DhwGvASGlBCaKA3DNAR6jAyakAmxZAtMBJuECKrgBf8cChwGKAgLIAijWASqiA3rjAShZjAGgAihcLc8CK-8Cc6MEIJIBJZICZr4BIKQBJegBKs8EetUCNF6OAaYBKFstqQMt6gEmnAJzggMhswEFwgErnwNkjQEhjQEmpQJ4jQIChAIm5wOMAY4BIOkBJpIDffABBdMBN4MCiQHeAiizAiORA3idASjpAmTxASi3Aks"
     },
     "ch15-core.opus": {
      "s": "forest",
@@ -1249,11 +1249,11 @@
     },
     "ch15-medium.opus": {
      "s": "forest",
-     "g": "AHiuASPQAQWVAnCFAiN2KL0CKMABIcYCaYYDI48BKMQBKMECggH7ATpghAGkAi1aMqICcYIBadwCLVoy-wKCAb4CI5gBKsECKMgDhAHUAiPmAyi_A0s"
+     "g": "AHiuASPQAQWVAnCFAiN2KL0CKMABIcYCaYYDI48BKMQBKMECggH7ATpghAGkAi1aMqICcYIBadwCLVoy-wKCAb4CI5gBKsECKMgDhAHUAiPmAyi_A3PjAQOKAyuLA2mQAiOVBCqlBG7ZAiubAybsAiCEBGz0AUZdf9wBNFkt-gEglwKHAawCKo8FJs8BbmVGWWzEAzRaLcIEIIICJpECfawBKpcCJY8BHvMDJuoBhwGzASqYAyarAyDoAks"
     },
     "ch15-long.opus": {
      "s": "forest",
-     "g": "AHjKASOoAWlYA7IDK9ICKKACbpMCK2oKkwEKbQrqAQxkbKwBDbwBCowDIfsBf7IBKrECL6YBhwH_AyvuAiXLAW6NAirmAiWtA2v5ASq1AyW-A33UASuEAiaiAh65AocBjwEqsgRu9AIq6QEmiQIe4wFr6QMqjgJk4gEl6QI3tgF16gEKuwEruAMmyQGKAfsBJdACK74CfYEDJZsBK7QBJcsBZL0DdoUDJY4DK5oBKPgCigFaBasBK7UBJqwDfa0BJZ4CN9MDZOcBJsMBK64CKOwBeIgBJrsCK9kDKJsCZqgEdpQBKNkEjAH4AQXzAiPsASGHA3ioATVYK6oBZ_wBMloqrwIgvQN2zAEouQIj3QEgoAKMAaMDeIUCQ15m4QE0WivcAiDmBXOzAyuwASO5AmxmKowDbtABBZYCI98CI50DhwHwASr4ASPdA3-nAyrbA2yxAjRZK_gCbpMBQ12HAdwCNForuAIjsQN_ywEr0QJL"
+     "g": "AHjAASqhAWxZBZ4DJcMCHpMCZIoCJmgMjgENaQrjAQphdq8BCsABDJIDJv4BigG3ASa6AjerAX2WBCX-AirVAWSaAiX3AirAA3X8ASa8AyrFA4kB2AEmiAIqpwImvgJ9jwElsgRk-AIm7AErjgIo5gF4_gMmmgJm7wEr_gIwwAF19QENwwEjzAMg0gGMAYQCKNkCI8gCeIEDKJsBI7QBIMsBZ7ADdfoCKIQDI5UBIO4CjAFZBaUBI7ABIJ8DeKsBKJoCL8wDZugBKsQBI64CIesBc4cBKrcCI9EDIZYCbJgEbo4BKr8EhwHqAQXcAiPeASHvAn-iATVZKqMBbPUBNFkqpgIjrwNuygEqtQIj2QEjmwKHAakDf40CRGBr5AE1WyjiAiDyBXC6Ayu0ASO-AmtmJowDcNABApcCKt4CJp0DggH3ASWAAi3rA4IBuQMm8ANpxQItXDWSA3OaATxjhAHoAi1dNMICJcADf88BJdgCSw"
     },
     "ch16-core.opus": {
      "s": "cliff",
@@ -1261,11 +1261,11 @@
     },
     "ch16-medium.opus": {
      "s": "cliff",
-     "g": "AHi4ASjtAQOoAme0AiiqASOwAyGyAm7IBCunAWvcASqAAyORA4ABrQMruAOHAe4CKuEBI5YCIa4BDK8BSw"
+     "g": "AHi4ASjtAQOoAme0AiiqASOwAyGyAm7IBCunAWvcASqAAyORA4ABrQMruAOHAe4CKuEBI5YCIa4BDK8BbuABBZUDI-4Ba2wr3QEjygEhkgQowgJ_-QE0XocBtgE1WSiIA3F5KsQCI78DI6MCKIkCbOACKvkDI_cDI8YDKK8CK58CI6oDcMIBLVxr7QEtWjSAAoIB9gEj6QItuQMmwQRL"
     },
     "ch16-long.opus": {
      "s": "cliff",
-     "g": "AHi6ASqsAWxYBYwBI20q4wIojwGAAcsBKukBI5wBIIgEDLIBhwH7ASrAAS2kAS2vATSuAXHyAyrVA2yMASuKAiPhAnFyI8cBDLcBDIkBIIkDa8gBI4YCDf8BJtcCggGlASPFA4IBvgEj5wEtuwNz_gIjmwMtrwNpZiPtAy2xAX_MASPCAy2jA4UBqgIj_gEt5wEm-gFxywEljQMr0AJplAItWTT6AmfIAUldc5cBN1krkQOMAcUCLcMCI7QDe-4DZ4UBLbcCI6sCc-oEjgG9AQTiAXttLYUCI9MCIJ0CZuwDLZ0CdaQBN1ktlgRk0AE3YHiBAipZiQGQAytdfcEBI7gDZIMCAusCKo8BKH14mgIj2QOJAcsBKlky7AJ6oQErXTKnAiiiAiCKAmKyASOSBCraASiOA3aWAjliafcCLVsypgIo1QJxrgQjpAEFiAEo3QGEAaEBI-oCK_cDKLICggGYASP-AmniAQOWAiuoASj8AnGLASOpAiuQAQyNAQreAoUB0QIjugSCAbEDI60CaY4BI6oCSw"
+     "g": "AHjAASOwAXNZA4oBLWgy6AIhjAFpywEj6QEtnAEliAQKsQGAAfcBI74BOaABMqsBKKwBhAHkAyPHA3CMASWGAircAmlwJcUBDbQBDIYBIYIDZ8MBLYQCCvwBINMCc6IBLb8DjAG4AS3gASOuA3rzAi2QAyOiA2diLdgDI6kBc8QBLa8DIpEDjwGmAi35ASPkASH3AXvIAS2HAyPLAmeUAjdZLfoCdcwBRl9kmgEqWTKXA3jKAiPHAiu8A4kB7wN9hwEjuwIqrwJk_AR4wQEC6AGJAXIjkgIr4gIoqQJ7ggQjqgJhqgEqWTKmBHXTATphaYECLVlwkAMtXYUBvwEjsQOCAYMCAusCKo8BKH1pmgIj2QNwywEtWTLrAoUBngEtXTKjAiidAiCGAoIBqwEjgwQr0wEoggNpjAI5XXPlAi1ZMpgCKMUCbp4EK6ABAoIBHtIBbp4BK-UCJu8DHq0ChwGYASr5An3jAQX4ASapAR70AmuJASukAiaOAQqKAQzaAnDNAiqyBIcBqwMqqQJ9jQErqQJL"
     },
     "ch17-core.opus": {
      "s": "island_shore",
@@ -1273,11 +1273,11 @@
     },
     "ch17-medium.opus": {
      "s": "island_shore",
-     "g": "AHh5Ib0BBcYBZ6gBILwDJuQBc4YDIN4BJskDjgHOAiGkAibDAXugASCQAQqPAQxZCnkhuAJmmgIh5AElugIt8QJzWwOzAibOAUs"
+     "g": "AHh5Ib0BBcYBZ6gBILwDJuQBc4YDIN4BJskDjgHOAiGkAibDAXugASCQAQqPAQxZCnkhuAJmmgIh5AElugIt8QJzWwOzAibOAYwB5AED9gN4owMhqAQllQSJAZQCKIUFINIBfdgDKNEEILcEI40DKsUBZPECMlt1_AEyWyisAiOEAokBogQoiAQgpwJ7vAFBZGSOATJYKPsDI6YCKt4BSw"
     },
     "ch17-long.opus": {
      "s": "island_shore",
-     "g": "AHhqINwBeFkCzQEmmgKJAaoCKJ4EfYUBDewBIfQCZPACKN8CdYYCKP4CigH4AijZAnt2KKYBCpwBClkF_wJBuwFkgQIo4wN4vwMojAEh2wGMAVkNhwEKkQEKgQEMWQ1qCpgCfZsBKMMCI6ADI4sCgAG4ASCfATScAocB-gIh6wIoswNuuwIhggEoYw1qCoYBIGQMjgEMggFr2AIgrwJ_0AIh2gKHAeIDbskDIPQBa5ICIKwDKKoCfewBArUBKJ8CK4YChwHwASPYAyiyAoIB7gIwWIIBmQEvWSa4ASPYAnDmAWmNAS9ZgAGBBIUB-wElnARzjAIFxgIh8QEj1wFpgQEmpgIg0AIj4gGCAboCMFqEAdMBMFklkgIl8wMrxwF9iAIwWiW3ASXAAYoB0gEo8QQesgJ1qQNk3gE_Yn25AjJZJrQCJfACiQH-AnWgASjvAR6jAQrOASuiAmS5ASigA3tyBcoDIYkCiQHcAiZ8IP8CeLECIIIBKMQDjAGoASHBAQyTAQxZCn0gwgN2igEg8gJL"
+     "g": "AHhtKOMBjAFZBdUBIaYCfbcCKLcEgAGKAQrzASj_AocB9wIg4wJuhgIg_wJs9wIh2QKAAXcgpgEMnAENWQL_Aje7AYcBhQIg6wNuvgMhjAEo3AFrWQqIAQyRAQ2AAQpZCmsMmQJ9mQEjvgIomgMqiAKHAbIBI5oBMpQCggHqAibbAiGfA4IBrwIlfSBgCmYNfyZgCocBCnxwzgIlpgJpxwIl0QKAAdoDhAHKAyX0AXOOAiWkAyGnAmnoAQWyASGaAiODAoIB8AEm1wMhsgKEAe4CMFh9mgEwWCa7ASbcAokB6gF2kAEvWWSYBH2CAiitBIoBlAIF0AIe-AEm3AF2hAEoqwIe1AIm5AFkugIyWnvXAS9aJpYCJvsDK8oBigGNAi9bJrkBJcQBeNkBIYQFKLwCjAG0A3beATRiZrQCKFkwrwIr6gJ48gKMAZsBIOgBKJ4BDcgBI5oCdrQBIJQDZ3ACvAMogQJ61wIheSj5AowBrQIhfyi9A2SjASa8AQ2OAQ1ZCnkltQN2hQEl5wJL"
     },
     "ch18-core.opus": {
      "s": "open_sea",
@@ -1297,11 +1297,11 @@
     },
     "ch19-medium.opus": {
      "s": "cave",
-     "g": "AHimASD0AQX_AWmtASGwAyicAnPYAyC0AQ1yDFkKdwpljAHFAiCqAijzASiqAniWBGboAiHEAii4AnNeAtUBKPUCSw"
+     "g": "AHimASD0AQX_AWmtASGwAyicAnPYAyC0AQ1yDFkKdwpljAHFAiCqAijzASiqAniWBGboAiHEAii4AnNeAtUBKPUCYYgCBcQCIYUDdXElvAIglwIlvQKMAdsDJrcBIfwCfawBPl5kqQEwXCb2AibsAyq0ASbiAiCFAyXfAnXWAS9ZigHVATBYJqcBJc4DfaIDJeACZIsEKP8DHqcBJtQBK90DdrsBL1om8wMmrQIqiwMo_wJL"
     },
     "ch19-long.opus": {
      "s": "cave",
-     "g": "AHizASWZAnZaBcYDjAHvASaCAQp3ClkNfA3vAR6HAX1yJpoCIJ0DZI8BBa0CKO8Bda8DigGGAyWcBB7FAX2VAiavAh6-AiaEAmSEASj4Ax7cAXWwAiijA3COAgP5ATCTAmu0AR61ATK9ASqcA31ZCnIMiAEqtwEl6QGHAcgBIdwCCmUM0gFu_gEhugImoANu8AEh1wR_5wIg4QGEAegEbqoBHrACKJ4Da4sCAsEBKPQBcbEBNZkDIO0CI7kBaZwBKJYEIIUDggHKAii_AyCFASOfAoUB8gENgQEKqAEjvwNwgwIovAIg3AJp6gEF4AIg6QEj5AOCAaEDKPMChQHkATJacMwBMlko4AEjmAIrnQJpnAMonAEg2AF4fyi2BGT5AUFhe7wBMlwo6gQjqgUrtwKJAZYBKJsEI_kCeP8DZMYBKKkBI4oBCpMBDIkBKMkCepABKJkDI4oBigHjAQXoASP-AiP0AXXpASiOAyHpAmSWASibASDQA3PuASH5AiX_AmaZASDyAiWuAnp_IboCSw"
+     "g": "AHisAR6MAmxZArMDfegBIX8Kcw1ZCnkK5wEmhAGHAXAglQImlwNujgEDrQIv7wFuqQOAAfsCII0EJb8BhQGKAiCjAiWwAir6AW5-HuIDKNIBbKcCHpcDcI4CBfoBKJMCabkBKLoBKsIBI6gDggFZDHgKjgEjvwEo8gGFAdIBKOsCCmoK2gFxgwIovwIhpgNp9AEo3wSCAecCKOABhQHwBHCzASi9AiCwA2maAgXPASCDAni6ATKsAyP9AiPAAWShASimBCOQA3vLAii-AyGFASOfAokB7AEMfQqjASOxA3j8ASizAiTRAmTkAQXUAiThASPUA3ubAyjuAooB5AEyWnXKATJZKN4BI5QCKpkCZI8DKJkBINIBc3ognARn7AE0XXq0AShZLc0ELYwFJakCjAGSASGLBCXwAnP4A2bJASCtASWNAQyUAQqKASDOAnqSASCfAyaMAYwB5wEC7QElhQMq-AF16QEgjwMl6QJnlgEgmwEmzwOJAe8BI_kCK_4Ce50BI_wCK7YCZIIBI8MCSw"
     },
     "ch20-core.opus": {
      "s": "cabin",
@@ -1309,11 +1309,11 @@
     },
     "ch20-medium.opus": {
      "s": "cabin",
-     "g": "AHjmAiO6AQWqAWnuAyF8Ba0CRqYCc4IDIXM03gEr_AIjswFsbDLWAiCQAm6yBCbXAiD6AYcBhQIy7QIhxwFL"
+     "g": "AHjmAiO6AQWqAWnuAyF8Ba0CRqYCc4IDIXM03gEr_AIjswFsbDLWAiCQAm6yBCbXAiD6AYcBhQIy7QIhxwF9iwEFuwIg9gQmyQFs0AMmmQMgjgEl0QNuxgE-W4cBjQEvWSi3AiWeAS2CAn_lAiW2AyGeBCWeA2ypAT9ebooBMFoluQMjkAItpQElxAEglwN2sgIglgMlsANkgQIgkgIlnAQr9wEmkQNK"
     },
     "ch20-long.opus": {
      "s": "cabin",
-     "g": "AHh2JZECa1oF9wNutAEluwOHAbYCJaQCIJkCgAHSAiWCA2vZAm7qAiXCAXXBAiChA2R6IJECJfIBfYwBIIwDJuYBigHTAyDCA3boAiCTAgWMA2SCAiDVAn3oASD_AgpzDVkKeAqIAYoBugQg4QIm1AF4hAIhmgIy7AEN_wEKWQqoAWTjASGsAiX5AnWrAiiOASPiAmbVAyizASNveJ4DjAG6ASjXBCKNAnb5AjKkASDEAmenASiSA3iqAyirAYwBhAQo9wNz3QEo3QIhogRmigNusQEohwEC6wIj-AEo-AFsrAIorAOAAacBMliHAcoBMlkoxgJuzQEyWijrA2zKAiiJBSCAAoAB8QIyWYcBpwEyXCjHAm7SBCjvBW6WAQWFASB9I9sBc8ABINABJfsBacICAqcCgAHtAiCxASXkAoUBiQIh_QEoswEqgQNxngEhkwEmnwErsgJreiCbBUs"
+     "g": "AHh6IZ8CiQFbA_4DdbgBIMEDZLYCIKQCJZkCfc4CIPwCiQHUAnjlAiG_AWTAAiGgA3V6KIsCI-4BZokBKIEDI-ABeMQDKLUDjAHYAiiHAgL8AnX3ASjIAmbiASj0AgpxClkMdQyFAXiyBCjcAiPRAYwBhAIomgIt7AEK_wEMWQ2oAXPiASisAiH5AmavAiiOASHoAm7cAyi2ASBxa54DgAG6ASjXBCCNAocB_gI0pgEgyQJurQEonQNrvQMotAGAAZsEKI0EhwHkASjnAiCyBG6QA26xASiHAQLqAiT4ASr5AXOsAiCtA2mpAShaf8wBKFkwywKEAc4BKFov6wNwygIhiQUm_wFs6wIoWYIBogEoWi28AoIBuAQhzwVwkAEDfyh3KtEBaboBHssBKPUBhwG4AgKfAn_nAiOuASveAmyJAiP9ASuyASiCA26cASORASqdASiuAocBdiORBUs"
     },
     "ch21-core.opus": {
      "s": "cabin",
@@ -1321,11 +1321,11 @@
     },
     "ch21-medium.opus": {
      "s": "cabin",
-     "g": "AHiKAS2EAgP8AYkBjgItqAN2oAEr4gIl5AIgcmTkAiucBHrkAy2oAYoB1QMtugEjygN4sAMjswIr4QEo7wGMAVkD6wEqrQNL"
+     "g": "AHiKAS2EAgP8AYkBjgItqAN2oAEr4gIl5AIgcmTkAiucBHrkAy2oAYoB1QMtugEjygN4sAMjswIr4QEo7wGMAVkD6wEqrQN14QEC0gIrxAIowAFm4wEj1QIr3wEokAJ46QEjuwMq3AIokwQjpgEjowKMAakBK1h2uQEqWTLNASi4BCOdAWaYAyOjAnraATdcjAHBAStYMtQEKIQEhAGIAivEAiP3ASP-ASjWBIIBggI0WSumAyOoAks"
     },
     "ch21-long.opus": {
      "s": "cabin",
-     "g": "AHitASOKAmdZAtUDeHYjxQSMAZMBI5UCdoQBI7wBK5gBDYIDI_cBZ8kBI7ADe-4DI88BjAHmAS3rAiqoAoUB2AIr1gOCAaACK7kCaakCK6MDcIECK9YBI6oChAGWASuSAi2rA4IB1QErgQEDpgE36AEoxQFp_wEq9wFxhQQrjASCAbwCKskCggGaA4cBgQEl3AI6_wF9WQOcATeqAQWMASGzA2yoASXHAy13cd8BJfwDLZsCJtEChwHmASasAjmrAiXNAn-PBGyLAgPVAiqGAiXqAW6JBCW1AocBowItWYABmQEtWTXnASatA48BywEl3AQqvgJ7dzxbZMcBL1k1xwElrgEhrAEltgErzgJzwQElmQSMAd4DJrQBBYkEelkD0wEqqwNnkgEmcyrWA3O9ASajAivVAowBhwEmtwMrgwN4lwIlnwIq7gEooQSJAYMCK6UBA6ACNNwCe4ABKMoDSw"
+     "g": "AHivASuPAnBZBdUDhQF1K8UEggGTASuVAmmJASrDASOcAQqOAyj_AXDSASvDA4IBjAQr2wGCAfABN_sCI7YChwHiAibkA32lAia-AmumAiacA3GBAiXYAS2qAocBlgElkgI5rQN_2gElgwEFqAE-7QEgyQFrggIm-gFuhgQljQSHAbYCI8QCgAGOA48BeSbHAjfxAXtZBZMBNaEBBYQBIJkDZKMBJroDKnNz3QEm9AMqmAImzAKMAeYBJqwCN6sCJc0Ceo8EZocCBdACK4ACJuYBc_sDJawCjAGbAi1ZeJcBLVk15QEoqAOJAc4BK-UEI8MCenpDXmTRATRbK9EBILYBKLQBKMABI98CeMkBKLIEigHtAyi5AQKaBH1aBdUBI7MDZJIBKHMj1QN4wAEoqAIj2QKKAYkBKr0DI4oDfZ8CKqcCI_UBIbEEc48CKK4BA60CPOwCZoQBKNgDSw"
     },
     "ch22-core.opus": {
      "s": "harbour_day",
@@ -1333,11 +1333,11 @@
     },
     "ch22-medium.opus": {
      "s": "harbour_day",
-     "g": "AHiXASbWAQXyAmeGAibpA3ukBCa4AYsBzwQlqANzvQIl8wJnuAItWHibATBZMq0CjAF5eu4CNVkqgQKJAYIBBfECIu0BIIQCSw"
+     "g": "AHiXASbWAQXyAmeGAibpA3ukBCa4AYsBzwQlqANzvQIl8wJnuAItWHibATBZMq0CjAF5eu4CNVkqgQKJAYIBBfECIu0BIIQCePIBBc8CI4MEZIACK6sDI4gDIfsBfaYCKvQCI_UEIeABDLsCDPgBiQH1AUNadvwBNFkr2AEg-QNkhgMrwgIjvgEhjQR9_QIyWyvIAiH7AYkBywIo1gIjjAQgoAMowwIo7wJL"
     },
     "ch22-long.opus": {
      "s": "harbour_day",
-     "g": "AHiLASuqAmRcBdQDfawBK5sEiQGHBCrPAXXcASrcAiPFAmTAAyq-ASOtAn3IAyirA4oBmAIo4wIjfocBkAQjgQOAAZMBA_YBQ7gBa60BI44DbqwBI-oBKtwBKNQBhwGmAgN_RMMBgAGFAiPsAiqfAWu9ASOIAirSAW6LBCOiAYUBzAEjrgIooAKAAfMBI_YDhQGAA3_oATfPASaiAR6AAwpxDGZpeStzJaADHoYDc1gF_gElhwKCAaoDggGnBCrkAWmUASqeBSZycKUChAHRASuNAyWYAiCvAoIB2gEF1AIl_AEh0wGKAe4BLesCI48BIJ0BfccBN1lk-wE3WyuZAyCYAnWUAUlhiQGHAjdZKqYDINECfegEZIgCLYUBI94CIcABJZgDLfYEdtIBN36KAf0BN1h7jAErhwOMAfUBI58BBsEBKIICeOgBI6wFZ6EBI8wCK4ABKOUBdroBKlmMAcsCK1kyxAIo4AJ46AEqWTLCAmanASOEASu1Aks"
+     "g": "AHiJASOmAn9ZA8QDa6gBI4wEbvgDI8gBhwHWASPSAiu7AoABswMjuQErpAJsuwMjngNukwIj3QIqfYUBiAQj_AJ_lAEC9wFEtwGFAa4BKpADgAGuASruASXfAR7YAWmrAgWCATzHAXONAir1AiajAYIBwgErkAIm2AGCAZsEKqcBadIBK7gCJagCcfsBKoQEhQGMA4IB6wE30wEmpAEhhgMKcwxnigF8LXUjpQMhjAN9WgWBAiOLAmSqA3anBC3kAYkBlAEtnQUjcn2hAmTLAS2DAyOPAiCmAnbUAQXJAiP1ASDNAYoB6AEt4AImiwEhmAF6wwE3WYwB8wErWTKNAyiPAniQATdeZoACKlkymQMoyAJ11wSMAYQCI4QBK9oCKLwBIJIDI-4EeNIBK35m_QErWXWMASOIA4wB-AEjogEFxQEohQJ76QEjrAV1owEh0QImggEt6QFkwAEoWX3WAihaLc4CKuwCiQHvAShZLcsCdqwBIYkBJb4CSw"
     },
     "ch23-core.opus": {
      "s": "open_sea",
@@ -1345,11 +1345,11 @@
     },
     "ch23-medium.opus": {
      "s": "open_sea",
-     "g": "AHi_ASjMAQLcAX-EAiiWA2yqASikAyGjAm7_ASjxAYcB5wIo5gEhzgN_mAIonQEhswJuWQShAyDaAks"
+     "g": "AHi_ASjMAQLcAX-EAiiWA2yqASikAyGjAm7_ASjxAYcB5wIo5gEhzgN_mAIonQEhswJuWQShAyDaAm6TAgWrA2maAh6AASinAyqRA3PDBB7PA4QB3QIezwEouQMrnAQlpAWAAbIBMl5rhwImXDDUASupAnHyAh6WBCjeAirhA4IBswEmWDDLAiv2ASWLAR7eAYIB_wElXS_lASvUASbxAks"
     },
     "ch23-long.opus": {
      "s": "open_sea",
-     "g": "AHjBASj1AWlZApsEc8gCHpADhQG5Ah7nAX-FAR6pAjKKAivkAWulA3HQAx6qAoIB5gMezgOCAdUEadQBIP4BCrwBDLUBceUBId4CCt8BDYoBc4YDKKIDHusCZv8BKH16mgQo9AKOAdgBMIwBCpYEJvkBc8MBKOsFZ-gBKI0Fe68DKKECjAGkASjBAx6eAnOwASWXAmb0AQWvASGjASW-AXj0ASCaAijbAmTvAyGDAnvkA4oBrAEgrQQokwJ1wAEhzgEosQJkpQEhgQN9ggIDrAIo7gEr4gGJAYkCIfUCdZsBK1ovuQFk7gEqWS_HASfdASO8AiDPAXCyAyDrAWniATdgggHYASpbMIcCKscCI-ECIMwChQGzAiHgBHGkAiGVA2nIASCpBIIBiQEh-wIolwSEAb4CK18v_QFxtQE3Y2mkAStfML8CccACMFxrygEm0QMhuQMjsgF9zgEmxAJL"
+     "g": "AHjHASH9AXBZA6oEc8wCKJcDZ74CKOoBeogBKKwCKI4CJegBjgGsA3PdAyiyAmf0AyjbA3vVBIwB0QEo-wEKuAEKsgFz4AEl1AIK2QEKhQFn-gIllwMg4AJ49wEheWSKBCDqAnrWASiKAQyOBCr2AYoBwAEg4QV24gEh-gRkogMhmQJ9nwEhswMolgKJAaoBIY4CdfIBAq0BKKEBKLsBZPcBIZ0CKOACcP4DIYoCafMDggGuASG1BCiYAoQBwwEg0QEotgJwqAEhhwNphQIDsQIo8gEr5QGCAZACIYADhAGiASteMMEBcfcBKlkwzgEr5gEjyQIj2AFpvgMj8wFw5QE_YWvcATBcJYsCI8wCLecCJtECfa4CJtgEhwGcAiaJA27FASagBG6IASX2AiCQBH26AjBeJfoBhwGvAT5fbqABL14ltgJstgIwWoQBvwErtwMjoAMjpwGCAcgBK7kCSw"
     },
     "ch24-core.opus": {
      "s": "forest",
@@ -1357,11 +1357,11 @@
     },
     "ch24-medium.opus": {
      "s": "forest",
-     "g": "AHj7ASjHAQPIAW63AQ2nAiPiASOVAyukAQ1jClls9gIongIj2wGAAfMCKK4BCqABI5UDhwGDAyiTAgpjCnpugAIM-gEj9AEj0QFL"
+     "g": "AHj7ASjHAQPIAW63AQ2nAiPiASOVAyukAQ1jClls9gIongIj2wGAAfMCKK4BCqABI5UDhwGDAyiTAgpjCnpugAIM-gEj9AEj0QFs2AEFtgEjrQIjlQR9lgMo4gKHAbcBKLIEIO4DI9cDK4kDggHsATRfhAHWAShZLfYBLeMBJeUEIbsEcK4CIJcCJZAEacYBKFl_9gEoWS24BCr6AiaaAoQB5AEh9wQltAIq_gJL"
     },
     "ch24-long.opus": {
      "s": "forest",
-     "g": "AHh5KIQBfVsFjwMg9AGHAX8orwMgtAOCAYADhAGBASCeASXWBXHOASGMAiaJAmmkBIABjgIgrQOEAdgDIP4Bc8UDIZ0DaYYEII0BCsABDHyCAbUBIa4BCnsNWQpsCbgBhQHoASGYA4wBdwqoAQraAQr7ASqlAXriAibLAmerASbYAiGzA3P7Aib_BIwBnQN7kAMma2bBATBbJt8Ec54BPF-MAfkCL1omzQF4nQSKAdIBApMBKJ4Be6wBI94EZNABI54EKLYCeKAEI5gBiQHFBHtbA_YCKLwDZIICAskCKI0CKskCeLECIaQBiQHqAStbfa4BK1ovnAMqggSEAaYEINMCggGFAitaacEBK1gwkAIo9QEj9wNw5AEhmAIoigSEAdYBAo8CKJECggF7IcQCafsBAq8DKNkBcYgBIZYDKMMBKPABhQGYASHXAihjDZMBCnIhZAzFAQyQASPqAn-nAihbMNkDhAGNAT5kf6kBMFklkAMl3wJuoAJL"
+     "g": "AHh2IIABalgDggMm7AGCAXwgowMmpwOFAfUCjAF-JZsBIcwFes8BJY0CIYkCZq0Ec5UCJrgDjAHfAyaAAnvGAyWdA2aOBCWOAQrCAQp9c7gBJbEBCn0KWA1tDLoBjAHvASakA3h6Cq0BCuABCoICLagBigHyAiPZAnuyASPoAijHA2SBAyOKBXiiA4oBkQMjanu_ASpaMNUEZJ4BN1148wIqWTDLAYkBnQR90AECkAEonAGFAagBIM4EggHJASGOBCiuAmmHBCGSAXGrBIUBWQLqAiivA4IB_wECwwIoiQIrxAJpsAIhpAFx6gEqXIQBsAEoXC-jAyqKBIABrgQg2AKEAYYCL1qAAcEBL1kmkAIm9AEr9wNu5wEmmwIhkQRu2wEFmAIgmQKHAYIBJdMCfYcCBcUDHuUBbI0BJqIDIMoBJfcBcZsBJd0CIWYKlgEMdCVmCscBCpMBKu8ChwGoAi9bJtkDf4wBP2RwrAE0WiuVAyHjAmmlAks"
     },
     "ch25-core.opus": {
      "s": "night_sky",
@@ -1369,11 +1369,11 @@
     },
     "ch25-medium.opus": {
      "s": "night_sky",
-     "g": "AHinASPLAQXKAXv_ASb8ASqQAmazASXLASuvASXpAXO-AibDASvBAYwB-gN7hwMmqwEtlwNnogMjxQFL"
+     "g": "AHinASPLAQXKAXv_ASb8ASqQAmazASXLASuvASXpAXO-AibDASvBAYwB-gN7hwMmqwEtlwNnogMjxQF2zQECxAEtvQMmrwFkrgEq1AEjwAEjtAMouQF4tAErrQUjzASJAXZDYHuZAjRdKqwCI9ACKOYFKvcCZLEBNV0rkwIj3QMo7AMrlQF4ywIqlgQjjwMjvASKAakCNVl60QE0WivjASDFAyjpAyufASP3Aks"
     },
     "ch25-long.opus": {
      "s": "night_sky",
-     "g": "AHipASPfAWRdBccBI7wCeHwriAIjxwKKAe8BKsoCI-kBe9ACKu0CZNQBK3QKxgEKogEovwF4ywWKAa4BKqsDe4ACKpUEYcUDKt0BdaMDK7kCbmQKdg3JASitA2u3BCPaAYABkQIj_gIqnQOHAasDbtoBI_0CK9wDbLABI_IBK7QDf-ABI6kChwHGAiOjAXHeAiO2ASq4AmzIAQKrASq9AXDBAmnZAS2GAyXXAiG7A4IB5QIrugKFAYUCK58Dc5kCKoEBCoEBCoQBCooBK8YCJpcCacsBK5kEggFlBaECJrQBhAGmASrOA3HsAQXiAiObBGmXAS3IAnWZATReLfsBZKIBNFl9qgE1Wi23AR6mASbGA4oBpwIrwQElsQQepAEm7QErpwJ1igJGXmL5AjRbLfEDfcMDK6ACjAHzAQWGAiaJAyHtAXhzBeACJqEDZIUBK8AEc-UCLVkyvQFpkgE6XHiCAy1ZMrECKIQDjAG-ASOPA3XAASOLAijQASi2Amd1I90BSw"
+     "g": "AHinASrcAXVcBcMBI7cCbnwjhAIqwwJs6wEjxQIr5QF_0AIj7QKHAc8BI3ANwAEMngEjuAFurAVspwEjmQN_-QEjhQSHAb4DI9oBcJ0DI7QCbGUKeAzMASiyA3G2BCvaAWmVAi2EAyaiA4IBrAOEAdkBK_0CJtwDc7MBK_YBJbsDaegBKrICggHVAiqrAYQB9AIrwAElywJxzgEFsAEjwQFpygJ13AEqjAMm3AIgwQNk6wIqvgJ9iQIrpQOJAZ4CK4EBCoQBCocBCosBKssCJpsCdsoBK5oEYWUFoQImtAF9owEqyAOMAekBBdwCJpIEeJIBK74CZJABN1kt7QFznAEtWWmkAS1ZMrIBKKEBILgDeKQCI78BKKgEKKIBIOoBI6QCjAGGAjledfMCLVoy6gNmvAMjmwJ47QEC_QEo_gIo5QGMAXID2gIonANzhQEjwARn6wItWTLAAYwBlgEyX32OAyhcL7oCK5EDYccBHqEDdcUBHpMCKNcBKr8CigF4HuABSw"
     },
     "ch26-core.opus": {
      "s": "harbour_night",
@@ -1381,11 +1381,11 @@
     },
     "ch26-medium.opus": {
      "s": "harbour_night",
-     "g": "AHjgAQOMA3CuAirPASKSASqhATSOAWn2ASvzAS1tK2CCAa4CK7cDhQHaAiutAiOyA3HaASupAS2tASqtATXKAWmQAyqyAks"
+     "g": "AHjgAQOMA3CuAirPASKSASqhATSOAWn2ASvzAS1tK2CCAa4CK7cDhQHaAiutAiOyA3HaASupAS2tASqtATXKAWmQAyqyAoIBlwIF5gOEAccDc60CKJUBI2whqgEo7wQo-AJowwIr7QIjpgIgkgIo9wFuuwEtWTSsAijoBG7-AS1ZNcABKJIBHoQBgAHAAS1YNa0BKP0CHuYDJroChQHPASaLAyqcASiQA0s"
     },
     "ch26-long.opus": {
      "s": "harbour_night",
-     "g": "AHitASqdAoQBWQWUAiOnAnPFAyieASOXASHXAWigAiuzAiO0A279ASagATehATKpAW6MAyajAoAB2wEmpQIqswKFAfQBJZ4CDMkCDIYBcM8BJeYBK9sCa9IBJpgBK6MCfdACJswChwHPAyanAm7xASa_AWvrAQXvASuyAXObASO3AmaKAiNqe48CI_kBjAGqASPOAnOuASOFAQXjAiWmAiHVA2eMASO5AXq6Ai2GAYwBiQEtWzXYA3bhAS1ZNbcBZ94CeHkrkwNkjgIrzwEjbXu2AokBnQFL"
+     "g": "AHioASaUAmtZAowCKp8Cfb0DJpwBKpUBKNMBhwGdAiWvAiquA279ASagATehATKpAWyMAyWkAnPbASOlAi2zAmf3ASOhAg3NAg2IAXrUASPtAS3lAowB2AEjngEtrAJz2gIj2AJm3QMjsAJ78QEjvwGMAfIBA_cBLbkBdaABJcECZo0CJmx4lAIq_AFkrAEqzgJ6rgErhQED4wIgpgIo1QOKAYwBK7kBeLQCNYUBZIYBNVoq0gN63gE1WSq1AYoB1QJ1diqGA2SLAirMASNsjAGsAnuYAUs"
     },
     "outro.opus": {
      "s": "harbour_night",

@@ -74,6 +74,23 @@ That is what shows, and remember this, that binary search does not need an array
 
 The fourth face asks where the smallest number is in a rotated array. Compare the middle value against the last value. If the middle is larger, the break is to the right. If the middle is smaller, the break is to the left, and the middle itself is a candidate.
 
+Robin folded her hands and said — [robin]"Tonight's halving, written in Python, comes with a gift and a small piece of sharp glass. Let me give you the gift first."[/]
+
+The gift is that the language already owns this search. There is a small set of tools whose whole purpose is finding where a thing belongs in a row that is already in order. One of them gives you the first place the thing could go, and the other gives you the place just after the last one like it. Between those two you have how many copies there are, where they begin and where they end — and you did not write the halving at all.
+
+[chopper]"Then why did we spend the whole night learning it?"[/] Chopper asked.
+
+[robin]"Because half of these questions are not searching a row."[/] Robin said. [robin]"They are searching an answer — is this speed enough, is this size enough — and there is no row to hand anybody. For those you write the halving yourself, and then knowing it is the whole of the skill."[/]
+
+@read teach
+Now the gift inside the gift. In most languages, adding the two ends together to find the middle is a famous mistake, because two large numbers added together can overflow and come back as something negative. The usual repair is to take the distance between the ends and halve that instead. In Python a whole number has no ceiling at all — it simply grows — so that bug cannot happen here. The most famous mistake in the history of this island is one you are not able to make.
+
+[nami]"And the sharp glass?"[/] Nami asked.
+
+[robin]"Division."[/] Robin said. [robin]"The halving must be the kind that throws the fraction away. And the way Python throws it away is downwards, toward the smaller number, not toward zero. On an ordinary search of a row every number is positive and you never notice. Search an answer that can be below zero and the middle lands one place lower than you expected, and the loop stops moving."[/]
+
+So the two habits are these. Let the ready-made tools do the searching whenever the thing you are searching is really a row. Write it by hand whenever you are searching an answer. And when you do, say out loud what the two ends mean, because it is never the arithmetic that goes wrong on this island. It is always the meaning of the ends.
+
 @tier long
 
 The keeper had gone into the back room. The library became quieter still. Robin turned a page of her book slowly.

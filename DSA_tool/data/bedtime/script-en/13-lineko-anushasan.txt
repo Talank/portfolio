@@ -53,6 +53,27 @@ The third shape is the queue with priority. Here the order of turns is decided n
 
 The baker added — [sage]"A line is justice. But sometimes the sick person has to be sent through first. At a time like that the shape of the queue stays the same, and only the rule changes."[/]
 
+Nami looked down the length of the line and said — [nami]"This is the island where the row finally lets you down, and where the language quietly hands you the thing that does not."[/]
+
+A row is generous at its back and mean at its front. A line needs both ends — you join at one end and you leave from the other. So a row used as a line is wrong by construction: every departure shuffles everybody up one place, and what should cost nothing costs the whole length.
+
+@read teach
+The tool that fixes it is a two-ended line, and it comes out of the same collection of ready-made structures as the counting notebook. Adding and removing cost nothing at either end. That is the entire difference, and it is the whole reason the structure exists. On the eighteenth island a sorting job will collapse from one shape to a far worse one for want of this one word, so it is worth putting the word somewhere you will find it again.
+
+[chopper]"How much worse?"[/] Chopper asked.
+
+[franky]"A walk becomes a walk of walks."[/] Franky said. [franky]"And nothing announces it. The answer stays right. Only the time goes wrong, and only when the day gets big."[/]
+
+There is a second gift in the same tool, and it is smaller but lovely. You can tell it, when you make it, how long it is allowed to be. After that it keeps only the newest that many, and anything older falls off the far end by itself. The last hundred readings, the last five moves — a window that maintains itself, with no arithmetic anywhere.
+
+[usopp]"And the sliding maximum from earlier?"[/] Usopp asked.
+
+[nami]"That is this structure's finest hour."[/] Nami said. [nami]"You hold positions, not values. You throw away from the front anybody who has fallen out of the window, and you throw away from the back anybody smaller than what has just arrived, because they can never win again. The front is then always the answer."[/]
+
+Both ends, doing different work, in the same loop. A row could not do it. That is the whole argument for the island in one sentence.
+
+And one honest note to finish. If you only ever add to one end and take from the same end, do not reach for this at all. That is a stack, and a plain row is already perfect for it. The right structure is the one whose free ends match the ends you actually touch.
+
 @tier long
 
 @read hush

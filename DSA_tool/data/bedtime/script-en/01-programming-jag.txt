@@ -62,6 +62,29 @@ There are also loops inside loops. When the outer wheel goes around once, the in
 
 Here is something about naming as well, because it looks small and it is large. If you name a box "a", tomorrow you will not recognise it yourself. If you name a box "seats_left", the code tells its own story. A good name is a letter written to the person you will be later.
 
+Sanji was drying his hands on a cloth. He said — [sanji]"And if you had to write tonight's three things in Python, what would they look like?"[/]
+
+The first answer is that there are no braces. Where other languages put a curly bracket around a block, Python puts only the empty space at the start of the line. The shape of the code on the page is the shape of the code inside the machine. That is a large part of why Python is easy to read at night.
+
+The second answer is about loops, and it is the thing people get wrong for years. If you want each thing in a list, you do not count from zero up to the length and then reach in with the number. You hand the list itself to the loop, and Python gives you the things one at a time.
+
+[chopper]"But what if I need the position as well?"[/] Chopper asked.
+
+[sanji]"Then you ask for both."[/] Sanji said. [sanji]"There is a word called enumerate, and it gives you the position and the thing together, so your hand never has to count."[/]
+
+@read teach
+Now those two boxes from a moment ago. In Python the third box is not needed at all. Two names go on the left of the equals sign and two values on the right, and they cross over in a single line. The reason it works is quiet and worth keeping. The whole right side is worked out first, and only then is anything put down, so nothing has been overwritten by the time the new values arrive.
+
+Zoro said — [zoro]"One line instead of three. Good."[/]
+
+Then there is a trap, and it catches careful people rather than careless ones. When you write a function you may give an argument something to fall back on. If that fallback is an empty list, the list is made once, when the function is born — not once each time it is called. So the second call walks in and finds what the first call left behind.
+
+[usopp]"That sounds like a haunted room."[/] Usopp said. [usopp]"You go in, and yesterday's things are still lying on the table."[/]
+
+The cure is small. Let the fallback be nothing at all, and make the empty list on the first line inside the function. Then every call gets its own.
+
+And the last thing tonight is how you ask whether something is empty. You do not have to measure a length and compare it to zero. An empty list, an empty piece of text and the number zero all count as false by themselves, so asking whether there is anything there is enough. The code then says what you meant, which is the same lesson as the one about good names.
+
 @tier long
 
 The ship is still at the shore. Luffy is lying in the sand, and Usopp still has not closed his bag.

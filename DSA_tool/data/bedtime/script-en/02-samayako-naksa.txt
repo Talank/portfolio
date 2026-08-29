@@ -76,6 +76,27 @@ So keep one small rule in mind. If n is within a hundred, anything you do will w
 
 Here are the three faces, and they are the best case, the worst case, and the ordinary case. Suppose you are looking for a name in an array. If you find it in the first place, that is the best case. If you find it at the end, or do not find it at all, that is the worst case. We always talk about the worst case, because a ship is built for the biggest storm, not for the calmest day.
 
+Nami turned the map over and said — [nami]"There is one more thing about time, and it is about the language you write in. Python has prices of its own, and if you do not know them the map will lie to you."[/]
+
+The first price is asking whether a thing is inside a collection. If it is a list, that question walks the whole list, and it is O(n). If it is a set or a dictionary, the same question is answered at once, and it is O(1). On the page the two lines look almost identical. On the map they are nowhere near each other.
+
+[luffy]"So a loop can be hiding inside a loop."[/] Luffy said.
+
+[nami]"That is exactly where it hides."[/] Nami said. [nami]"You write one loop, and inside it you ask whether something is in a list. You believe you wrote O(n). You wrote O(n²), and it does not look like it."[/]
+
+The second price is building a piece of text a bit at a time. Text in Python cannot be changed once it is made, so adding to it makes a fresh copy of everything so far. Do that inside a loop over n pieces and you have quietly paid O(n²).
+
+@read teach
+The cure is to gather the pieces in a list and join them once at the end. The join walks everything exactly once, so the cost falls back to O(n). Hold on to the shape rather than the rule, because this is not really about text. Wherever a thing that looks like adding is secretly copying, a loop around it lifts you one whole line up the map.
+
+The third price is the front of a list. Putting something at the front, or taking something from the front, makes everything behind it shift one place along, and both are O(n). The back of the list is free. On the eleventh island that free end becomes a structure of its own, and on the eighteenth the expensive end becomes a trap.
+
+[usopp]"Is there a price that Big-O does not show at all?"[/] Usopp asked.
+
+[nami]"There is, and it is only honest to say so."[/] Nami said. [nami]"Python's own steps are slow next to the machine's. Big-O throws the constant away, but the constant is real. That is why a job handed to one of the language's ready-made words beats the same job written out as a loop. Both are O(n). Only one of them does its walking down inside the machine."[/]
+
+So there are two questions, and they are not the same question. Which line of the map am I on, and how heavy is a single step on that line. The first decides whether the work finishes at all. The second decides whether it finishes tonight.
+
 @tier long
 
 Nami was starting to get up. The old man raised a hand and said — [nami:firm]"Wait. I taught you to read a map, but I have not taught you to draw one."[/]

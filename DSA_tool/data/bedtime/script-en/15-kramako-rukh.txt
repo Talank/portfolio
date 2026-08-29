@@ -64,6 +64,27 @@ The third fruit asks which value comes immediately after some value. This is cal
 
 In the fourth fruit you have to build a balanced BST out of a sorted array. Make the middle value the root, then build the left branch out of the left half, and the right branch out of the right half. That is the same move of throwing away half, except that this time it is being run in order to build.
 
+Robin traced the tree of order and said — [robin]"In Python this island has one idea that changes how the code is shaped. It also has one mistake that has cost more interviews than any other on the tree."[/]
+
+The idea is that the middle walk does not have to finish. Python lets a function hand back its answers one at a time and then stop where it stands, waiting, until somebody asks for the next. So the walk that visits this tree in order can be written to give up its nodes one by one, smallest first, as they are wanted.
+
+@read teach
+And that is exactly the shape of the question about the K-th smallest. You ask the walk for a value, and again, and again, K times, and then you simply stop asking. Everything to the right of that node is never visited, because it was never demanded. The code looks like the ordinary middle walk with one word changed, and the cost falls from the whole tree to the height plus K.
+
+[chopper]"The tree does not know it was interrupted?"[/] Chopper asked.
+
+[robin]"It is standing exactly where you left it."[/] Robin said. [robin]"Which is the most restful thing in this language. Work that has not been asked for is work that does not happen."[/]
+
+Now the mistake, and it is worth saying slowly because it looks correct. To check whether a tree really is a tree of order, people compare each node with its two children, find every pair in the right relation, and declare it sound. That test passes on trees that are broken.
+
+[nami]"How?"[/] Nami asked.
+
+[robin]"Because a grandchild can be in the right relation to its parent and the wrong relation to its grandparent."[/] Robin said. [robin]"A small number hiding on the right-hand side of a left-hand branch satisfies everybody it can see, and breaks the whole order. The rule was never about parent and child. It was about the window a node is allowed to live in."[/]
+
+So you carry the window down with you. Going left, the ceiling becomes the node you just left. Going right, the floor does. For the two ends at the very beginning, Python will give you a number below every number and a number above every number. So there is no special case to write at the top.
+
+And one practical word to close. Suppose what you really want is an ordered collection you can search, and not a tree exercise. Python's honest answer is then a row kept in order, with the halving tools from the eighth island. It is shorter, it is faster in practice, and it is what working code usually does.
+
 @tier long
 
 The moonlight was scattered under the tree. Robin sat at the foot of it.

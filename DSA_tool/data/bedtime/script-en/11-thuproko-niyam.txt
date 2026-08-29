@@ -68,6 +68,27 @@ Pay attention to the order for subtraction and division, because the number on t
 
 In the third thing you have to clean up a path. When you find the sign meaning [aside]"one level up"[/], remove a name from the stack. When you find the sign meaning "right here", do nothing. Keep putting the remaining names on the stack. Whatever is left on the stack at the end is the clean path.
 
+Sanji stacked the last plate and said — [sanji]"Here is the good news about tonight's structure in Python. You do not have to build it. You already have it."[/]
+
+A plain row is a stack. Putting a plate on top is adding at the back, and taking the top plate off is removing from the back, and both of those are free. There is no separate structure to import and no class to write. The row you have been using since the third island turns out to have been a stack all along.
+
+@read teach
+That is not luck, and it is worth knowing why. A row in Python keeps a little spare space at its back end, so adding there almost never has to move anything. The front is the expensive end, because everything behind a departing thing has to shift along. So the row is generous at one end and costly at the other — and a stack only ever touches the generous end. It is the perfect customer.
+
+[franky]"And the other end?"[/] Franky asked.
+
+[sanji]"Leave it alone tonight."[/] Sanji said. [sanji]"On the island of the line you will need the other end, and there you will use a different tool for exactly that reason. Whoever forgets which end is which pays for it on the eighteenth."[/]
+
+Looking at the top plate without taking it is done by asking for the last place in the row, which is written as minus one. And asking whether the stack is empty needs no counting: an empty row is false by itself, so you ask whether there is anything there at all.
+
+[usopp]"And if I take a plate when there are none?"[/] Usopp asked.
+
+[chopper]"Then it complains, loudly."[/] Chopper said.
+
+That complaint is the most common crash on this island, and it always happens in the same place — the closing bracket that has no opening bracket to meet. So the check comes first and the taking comes second, always in that order.
+
+One last habit, and it makes the bracket problem almost disappear. Keep a small notebook of pairs, with each closing shape written under its opening shape. Then you never write a chain of comparisons at all. You take the top plate, look up what should have closed it, and see whether it matches. Three shapes or thirty, the code is the same length.
+
 @tier long
 
 The plates were quiet. Outside, the waves were patting against the hull.

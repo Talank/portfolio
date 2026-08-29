@@ -74,6 +74,25 @@ In the third thing you have to find how many roads there are from the top-left c
 
 And what do you do if some squares in that same grid are blocked? Write zero in the blocked squares, and leave the rest of the arithmetic as it was. One small change solves a new question.
 
+Robin smiled and said — [robin]"Now I will tell you the shortest true thing in this whole voyage. In Python, the difference between the recursion that takes a lifetime and the one that finishes at once is a single line, written above the function. You change nothing else at all."[/]
+
+You write the honest slow version first — the one that asks the question of a smaller problem and adds the answers up. Then you put one line above it saying that its answers should be remembered. That is all. The body is untouched. The line you wrote at midnight, the one you were about to throw away for being too slow, becomes the fast one.
+
+[luffy]"You do not even change the inside?"[/] Luffy asked.
+
+[nami]"Not one word."[/] Nami said. [nami]"Which is why this island is where I stopped being afraid of recursion. Write what is true. Then ask the language to stop repeating itself."[/]
+
+@read teach
+And it is worth knowing what that line really does, because it is not magic. It keeps a notebook whose headings are the arguments you called with and whose pages are the answers you got. Before running the body it looks the arguments up; if they are there, it hands back the old answer without running anything. It is exactly the notebook from the fourth island, wearing a different coat and doing it for you.
+
+[chopper]"Then what is the catch?"[/] Chopper asked.
+
+[robin]"The headings."[/] Robin said. [robin]"A notebook heading must be something that cannot change, and we said so on the fourth island. So the things you pass in must be of that kind. Numbers are fine. Frozen rows are fine. A plain row is not — hand one in and the language refuses at once."[/]
+
+The cure is almost always to pass a position instead of a piece. Rather than handing down the part of the row still to be dealt with, hand down where in the row you are. It is cheaper anyway, since no piece has to be copied, and it makes every heading a small number.
+
+The second catch is the one from the island of the tree. Remembering answers does not make the recursion shallower. If the chain of questions is a hundred thousand long, the language stops you at about a thousand however clever the remembering is. When that happens the answer is not a better memory. It is to turn the whole thing around and walk up from the bottom instead, which is where we are going next.
+
 @tier long
 
 @read hush

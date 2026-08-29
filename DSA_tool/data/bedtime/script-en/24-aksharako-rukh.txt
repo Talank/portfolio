@@ -60,6 +60,25 @@ The fourth use asks whether some long word can be broken up into words from the 
 
 Add the wall here as well, and remember the answer to [aside]"can it be broken up from this index onwards"[/]. Otherwise the same work repeats again and again. Here the trie and memory run together.
 
+Robin drew the tree of letters and said — [robin]"Here is something lovely. In Python you do not need a tree at all for this. You need one notebook, and inside each of its pages, another notebook of exactly the same kind."[/]
+
+A node is a notebook whose headings are letters and whose pages are the next notebooks along. That is the whole structure, and there is no class to write and nothing to build.
+
+@read teach
+Adding a word is a single walk. For each letter you ask the current notebook for that letter's page, and if there is no such page, you make an empty one and put it there. Both of those, the asking and the making, are one word in this language, and it hands you back the page either way. So the line inside the loop is the same line whether the road already exists or is being laid down as you walk it. That is a rare thing in code: no difference at all between building and following.
+
+[chopper]"And how does it know where a word ends?"[/] Chopper asked.
+
+[robin]"It does not, unless you tell it."[/] Robin said. [robin]"Which is the one real mistake on this island. Suppose you only store the letters. Having walked to the end of the letters c, a and r, you cannot tell whether that is a word here or merely the beginning of a longer one. So you put one more heading in — a mark that is not a letter and could never be one — and that mark means a word finishes here."[/]
+
+Searching for a whole word walks the letters and then asks for the mark. Searching for a prefix walks the letters and does not ask. The two searches are the same code with one line's difference, and that one line is the whole distinction the structure exists to make.
+
+[franky]"You said there is a short way to write it."[/] Franky said.
+
+[robin]"There is, and it is a small delight."[/] Robin said. [robin]"You can describe a notebook whose missing pages make themselves — and say that what they make is another notebook of the same kind. One line, describing itself, and the entire trie exists. It is the most compact honest thing in this language."[/]
+
+One practical note before the lamp goes out. A notebook for every node is generous with memory, and when the letters can only be the twenty-six, a small fixed row of children is leaner. Choose the notebook while you are learning and while the alphabet is unknown. Choose the fixed row when the words number in the millions and the memory is what is hurting.
+
 @tier long
 
 The tree went still. Somewhere a leaf fell.

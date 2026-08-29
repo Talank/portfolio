@@ -72,6 +72,27 @@ In the third square is the question of whether an array can be divided into two 
 
 Robin said — [robin]"That is the true way to learn DP. When a new question arrives, ask which question you already know this is the clothing of."[/]
 
+Robin drew the row of squares and said — [robin]"Building the table from the bottom is where Python is at its shortest. It is also where it keeps the single worst trap in this language. Both live in the same line."[/]
+
+For one row of squares there is nothing to it. A zero repeated as many times as you need, and the row exists. No loop, no filling, one line. Then you walk it and each square asks the squares behind it.
+
+@read teach
+The square of squares is where the trap lives. You might think you can make one row and then repeat that row as many times as you need. You cannot. What you get is not many rows — it is one row with many names looking at it. Write into what you believe is the third row and the same value appears in every row at once, because there was only ever one. The program does not complain. It gives you an answer that is confidently, quietly wrong.
+
+[luffy]"They are all the same shelf."[/] Luffy said.
+
+[nami]"You did not build ten shelves."[/] Nami said. [nami]"You hung ten labels on one shelf. And this is the third night we have met this — the notebook that will not take a changeable heading, the maze that saved the same path over and over. A name is not a thing."[/]
+
+The right way is to say it once for each row, so that each time round a fresh row is genuinely made. It is barely longer to write and it is the only version that is true.
+
+[chopper]"How would I catch it if I did it wrong?"[/] Chopper asked.
+
+[robin]"By the shape of the wrongness."[/] Robin said. [robin]"A whole row identical to another row, when the numbers had no reason to agree — that is always this and never anything else. It is worth recognising by sight, because the day you meet it you will otherwise spend an hour blaming the arithmetic."[/]
+
+And there is a last move, which is where the table gets small. Very often a square only ever looks at the row directly above it. If that is true, you do not need the whole square at all. Keep two rows, the one above and the one you are filling. When the row is done, let them trade places — which in this language is a single line with no spare name, exactly as it was on the first night.
+
+[nami]"The cost goes from the whole grid down to one row."[/] Nami said. [nami]"For a table of a thousand by a thousand, that is a million squares becoming a thousand. And often it is the difference between fitting in memory and not."[/]
+
 @tier long
 
 Outside, the wind was still moving. The table on the wall was now almost completely full.

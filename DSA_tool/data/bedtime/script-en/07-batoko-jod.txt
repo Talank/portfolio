@@ -63,6 +63,25 @@ Instead, keep an empty array. Write five at the third place, and write minus fiv
 
 Usopp's eyes went wide and he asked — [usopp]"Writing in one place changes a whole stretch?"[/] Shaking her head, Robin said — [robin]"The adding only has to be noted at the beginning and the end. The arithmetic in the middle happens later, all at once."[/]
 
+Robin drew the running total again and said — [robin]"In Python this island is almost embarrassingly short, and the shortness hides the one mistake everybody makes."[/]
+
+The running total does not need a loop of its own. There is a word that takes a row and hands back its running totals, one for each step, walking the row once. It lives with the other tools for walking things.
+
+@read teach
+But whether you build it by hand or ask for it, there is a decision to make first, and it decides everything after. Does your row of totals begin with the empty total — a zero at the front, standing for having taken nothing yet? If it does, then the total between two places is one subtraction with no special case anywhere. If it does not, then the stretch that starts at the very beginning is different from all the others, and you will be patching it forever.
+
+[nami]"Put the zero in."[/] Nami said. [nami]"Every hour I have ever lost on this island was lost to not putting the zero in."[/]
+
+The same decision comes back in a second shape, and this is the one that catches people. When you are counting stretches that add up to some number, you keep a notebook of totals seen so far. Before the walk begins, that notebook must already contain the empty total once.
+
+[chopper]"Why once, and not none?"[/] Chopper asked.
+
+[robin]"Because a stretch that starts at the first drawer has nothing before it."[/] Robin said. [robin]"It needs to find an earlier total of zero in order to be counted, and the only zero it can find is the one you put there before you started. Leave it out and every answer that begins at the beginning is quietly lost. The program does not fail. It just gives a smaller number than the truth."[/]
+
+The notebook itself should be the kind that makes its own missing pages, so that raising a count never needs a check first.
+
+And there is one habit worth carrying away. A running total answers questions about a stretch, and a notebook of running totals answers questions about how many stretches. Those two sound alike and are not. The first walks forward and subtracts. The second walks forward and looks backward, asking what it has already seen.
+
 @tier long
 
 @read hush

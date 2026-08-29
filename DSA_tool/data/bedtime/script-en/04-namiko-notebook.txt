@@ -62,6 +62,25 @@ There is a lesson hiding here. The key does not always have to be the thing you 
 
 That brings us to an honest thing as well. Saying the notebook is O(1) means on average, not always. Sometimes two different names land on the same page, and that is called a collision. When that happens you have to do a small search within that page. In a good notebook this is rare, so we take the average.
 
+Nami closed the notebook and said — [nami]"This is my island. Let me tell you what the notebook is actually called in Python, and what it will do for you if you ask nicely."[/]
+
+The notebook is a dictionary. Ask whether a name is in it, put a page under a name, read the page back — all of it is O(1), and all of it is one short line.
+
+Counting things comes up so often that the language keeps a ready-made counter for it. Hand it a word and it hands back every letter with how many times it appeared. Hand it the whole list and it hands back every value with its count. That is a whole loop, gone.
+
+[usopp]"And if I ask for a name that was never written down?"[/] Usopp asked.
+
+[nami]"Then you get a complaint, unless you asked in the gentler way."[/] Nami said. [nami]"There is a form of the question that carries a fallback with it — give me this name's page, and if there is no such page, give me zero. Counting turns into a single line that way, with no checking first."[/]
+
+The other way is the one from the island of order, where the notebook makes the missing page by itself the moment you touch it. Choose whichever reads better. Both exist so that you never write the words "if this key is not there yet".
+
+@read teach
+Here is the trap, and it is worth understanding rather than memorising. A list cannot be a key. A tuple can. The reason is the whole idea of the notebook. A heading is filed by its own shape. If it could change after filing, the notebook would no longer know where it put it. A tuple is a row that has promised never to change, and that promise is exactly what buys it the right to be a heading.
+
+[robin]"Which explains the sorted-letters trick from a moment ago."[/] Robin said. [robin]"The letters of a word are sorted into order, and then frozen into a heading. The freezing is not a detail. It is the permission."[/]
+
+And there is a small gift at the end. Since a few versions ago, a Python dictionary remembers the order things were put into it. So when you walk the notebook at the end, the pages come back in the order you wrote them. Answers that used to need sorting sometimes need nothing at all.
+
 @tier long
 
 The stall closed too. Nami sat down at the side of the road with the notebook in her lap. There was only one light left.

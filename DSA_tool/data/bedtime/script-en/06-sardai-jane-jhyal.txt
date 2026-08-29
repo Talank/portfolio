@@ -65,6 +65,27 @@ In the third shape you have to find the shortest stretch whose total is at least
 
 Half-asleep, Luffy said — [luffy]"When you want the longest, make it valid and then measure. When you want the shortest, shrink it while it is still valid and measure."[/] Then he went back to sleep.
 
+Nami tapped the window frame and said — [nami]"The window in Python. Two words make it, and one of them will bite you."[/]
+
+The right edge is the loop. Walk the row once, and let the position and the thing come to you together rather than counting by hand. Everything the right edge touches goes into the window.
+
+The window itself is usually a small notebook of counts. Either of the two forms from my island will do — the one that answers with zero when a key is missing, or the one that makes the missing key by itself.
+
+The left edge is not a second loop. It is a while, sitting inside the first one, that shrinks the window only for as long as the window is illegal. That is the whole reason the cost stays O(n). Each edge moves forward and neither ever goes back, so between them they take at most two passes along the row.
+
+[usopp]"So where is the bite?"[/] Usopp asked.
+
+@read teach
+[nami]"When the left edge leaves, you take one off that letter's count."[/] Nami said. [nami]"And the count goes to zero. But the key is still sitting there in the notebook, with a zero written under it. So if your rule is about how many different letters are in the window, the notebook is now lying to you — it is counting a letter that left."[/]
+
+The cure is one line, and you must remember to write it. When a count falls to zero, remove the key altogether. Then the size of the notebook and the number of different things in the window are the same number again, and you can trust it.
+
+[chopper]"And if the rule is not about how many different letters?"[/] Chopper asked.
+
+[nami]"Then a zero sitting there is harmless, and you can leave it."[/] Nami said. [nami]"Which is the honest answer, but I would rather you always removed it. A habit that is right every time beats a judgement you have to make at midnight."[/]
+
+One more habit makes windows short to write. When the question is about two windows being the same kind of thing — the same letters in a different order — you do not have to compare them letter by letter. Two of these small notebooks can simply be asked whether they are equal, and the language compares them for you.
+
 @tier long
 
 The bus stopped at a small market. Nobody got off. The lights stayed on as they were, and the journey started again.

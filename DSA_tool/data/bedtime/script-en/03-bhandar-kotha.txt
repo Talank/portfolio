@@ -64,6 +64,27 @@ The next story is about a sorted array. Suppose the numbers are sitting in order
 
 Nami remarked — [nami]"Notice that both of these moves have the same shape. One hand reads, and the other hand writes. The reading hand is always in front, and the writing hand is always behind or beside it. You are going to meet this shape many more times later."[/]
 
+Robin ran a finger along the edge of a drawer and said — [robin]"Now the same store room, but written in Python. The language has strong opinions about drawers, and two of them will save you."[/]
+
+The first is that you can ask for a piece of a row without walking it yourself. Give the place to begin and the place to stop, and you get that stretch back. Counting from the end is done with a minus sign, so the last drawer is minus one and you never have to write the length. Turning a whole row around is a slice with a step of minus one, and it fits in a handful of characters.
+
+[chopper]"Then why would anyone ever write a loop again?"[/] Chopper asked.
+
+@read teach
+[nami]"Because a slice is a copy."[/] Nami said. [nami]"Asking for half of a row builds a whole new row that size. Do it once and it is nothing. Do it inside a loop and the cost you thought was O(n) is O(n²) — and there is no error, no warning, nothing. Only a program that gets slower the bigger the day gets."[/]
+
+The second opinion is about text, and it is the one that surprises people. A word in Python cannot be edited. You cannot reach into "Luffy" and change the third letter. Every change makes a new word.
+
+So the way to build text is not to keep adding to it. Collect the pieces in a list, where adding at the back is free, and join them once at the end. That is the same move Nami's map warned about on the second island, arriving here as a habit.
+
+Usopp held up both hands and said — [usopp]"And my two hands? The reading hand and the writing hand?"[/]
+
+They stay, and this is exactly where they belong. When a new row is allowed, Python will build it for you in one breath — you say what to keep and it hands back the kept things. But when the row must be repaired where it lies, the two hands are still the answer. A new row is precisely what you have been forbidden.
+
+[robin]"Which is a useful way to choose."[/] Robin said. [robin]"If a copy is allowed, let the language do the walking. If it is not, walk it yourself with two hands."[/]
+
+One last small thing, and it is a kindness. To make a row of n zeros you do not write a loop at all. You say zero, times n, and the row appears. Remember it, because on the twenty-first island that same move has a trap in it when the row becomes a square.
+
 @tier long
 
 The ship rocked gently. Robin opened her book again and said — [robin]"If you are getting sleepy, stop here. But if you are awake, there are four more stories, and all four of them are good."[/]

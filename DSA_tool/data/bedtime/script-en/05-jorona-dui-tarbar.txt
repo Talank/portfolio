@@ -61,6 +61,27 @@ Remember one thing, because it opens the road on many problems. If the array is 
 
 Zoro added — [zoro]"Before you raise a sword you have to set your feet. Sorting is setting your feet."[/]
 
+Zoro pushed both swords back into their sheaths and said — [zoro]"Two hands, written in Python. It is shorter than you think, and there is one place where people cut themselves."[/]
+
+The walk itself barely changes. One name for the left, one for the right, and a loop that runs while the left is still before the right. Move whichever hand the rule tells you to move.
+
+@read teach
+The swap is where the language gives you something. Two positions of the same row can trade places on a single line — the two places on the left of the equals sign, the two values on the right. No spare box, and no danger of losing one of them, because the right side is fully worked out before either place is written. That is the same gift as the first island, and here it is being used in anger.
+
+[franky]"And where do people cut themselves?"[/] Franky asked.
+
+[zoro]"On sorting."[/] Zoro said. [zoro]"Almost every two-hand problem begins by putting things in order. There are two ways to do that, and they are not interchangeable. One of them rearranges the row where it lies and hands you back nothing at all. The other leaves the row alone and hands you a new one, in order."[/]
+
+So if you write the first one and try to catch what it returns, you catch nothing — and everything after that line is working with nothing. It is not an error, it is worse than an error, because the program runs.
+
+The rule is easy once said out loud. If you want the row itself changed, sort it in place and do not catch anything. If you want a second row in order and the first one left alone, use the form that builds and returns.
+
+[chopper]"How do I remember which is which?"[/] Chopper asked.
+
+[robin]"By what they cost."[/] Robin said. [robin]"The one that hands you a new row had to build a new row, so it costs the space. The one that hands back nothing costs nothing extra, because it did the work where the row already was. The name tells you, and so does the price."[/]
+
+There is one more small thing worth having. When both hands are walking two different rows at once — comparing them, merging them — the language will hand you the pairs itself. One from each, side by side, until the shorter one runs out. And that last part is the trap in miniature: it stops at the shorter one, silently.
+
 @tier long
 
 The water was turning under the bridge. Zoro was still there, and now he began speaking slowly himself.

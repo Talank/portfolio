@@ -59,6 +59,25 @@ In another application you have to remove some digits from a number to make the 
 
 That sounds like a different problem, but the shape is the same. A large digit sitting behind is never going to help you now, so it has to come out.
 
+Franky set down the falling stack and said — [franky]"Two decisions turn tonight's idea into working Python, and both of them look like details. They are not."[/]
+
+The first decision is what goes on the stack. Put the position, not the number. The number is always one short reach away, since you can look it up wherever it sits. But the position tells you the distance, and half the questions on this island are asking for a distance. How many days until it gets warmer. How wide is the rectangle. Keep the position and you keep both.
+
+@read teach
+The second decision is the shape of the emptying loop, and it is the same guard rail as the island of the two runners. You keep taking from the stack while there is something on it and while the thing on top loses to what has just arrived. Those two questions must be joined in that order, because the second one reaches into the stack and would fail on an empty one. Python reads the pair from the left and stops the moment the first is false, so the second is never asked when it is dangerous.
+
+[nami]"Which means the empty check is not an extra line."[/] Nami said. [nami]"It is the first half of the same line."[/]
+
+[robin]"And what happens to whoever is left on the stack at the end?"[/] Robin asked.
+
+[franky]"They are the ones who never met anybody bigger."[/] Franky said. [franky]"Which is an answer, not a leftover. For those the answer is that there is nothing — no warmer day, no taller building. Many people forget them entirely and report a wrong answer for the last few."[/]
+
+There are two ways to deal with them, and both are worth knowing. Either fill the answer row with the not-found value before you start, so anyone never touched keeps it. Or push one impossible thing onto the end of the row — a number bigger than anything real — so the loop is forced to empty the stack completely.
+
+The first is safer. The second is shorter, and it has a name worth remembering: a sentinel, a false guard placed at the end so that the ordinary rule handles the special case.
+
+[robin]"So the whole island is one loop, one stack of positions, and one carefully ordered pair of questions."[/] Robin said. [robin]"That is a small amount of code holding a great deal of thinking."[/]
+
 @tier long
 
 @read hush

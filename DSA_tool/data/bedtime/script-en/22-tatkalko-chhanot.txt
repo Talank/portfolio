@@ -71,6 +71,23 @@ This move of walking from two directions comes back in many places. If one pass 
 
 Robin gave a warning — [robin]"Before you write a greedy solution, go looking for a counter-example. Only trust it if you cannot find one. If you find one, turn back to the wall."[/]
 
+Robin folded the list of choices and said — [robin]"Nearly every greedy answer begins by putting things in order. So in Python nearly every one of them begins with a single word — the word that says what to sort by."[/]
+
+You do not rearrange the things to make them comparable. You hand the sorting a small rule that says, for any one thing, which part of it to look at. Sort the meetings by when they end, the jobs by their deadline, the coins by their size. The row keeps its shape and only the order changes.
+
+@read teach
+When the rule has two parts, you give back two things instead of one. The sorting compares the first, and only when the first ties does it look at the second. And if one of the two should run the other way — largest first while the other stays smallest first — you turn that number's sign around inside the rule. That single line is how a sentence like [aside]"the heaviest first, and among equals the earliest"[/] becomes code, with no comparing written anywhere.
+
+[luffy]"And it only looks at each thing once to work that out?"[/] Luffy asked.
+
+[nami]"Once each, before any comparing starts."[/] Nami said. [nami]"Which matters if the rule is expensive. The old way of doing this asked the rule again at every comparison, and there are many more comparisons than things."[/]
+
+There is a promise inside the sorting that greedy answers lean on more than people realise. When two things tie under your rule, they come out in the order they went in. That is guaranteed, not a habit. So you can sort by one thing and then by another, and the second sorting will not disturb the work of the first among its ties.
+
+[robin]"Which means two simple sorts can do the work of one complicated rule."[/] Robin said. [robin]"Do the less important one first, then the more important one. The order that survives is the one you wanted."[/]
+
+And there is a rare kind of question where no rule of this shape exists at all. Arranging digits to make the largest possible number is the famous one. Whether this piece goes before that piece depends on both pieces together, and there is nothing you can measure about one alone. For those the language will take a genuine two-sided comparison and turn it into a rule for you. Reach for it rarely, and only after you have failed to find something simpler. A rule about one thing is always easier to be sure of than a rule about a pair.
+
 @tier long
 
 The road was deserted. Somewhere a horse whinnied, and then went quiet again.

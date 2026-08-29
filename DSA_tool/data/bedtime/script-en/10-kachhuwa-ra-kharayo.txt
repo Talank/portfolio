@@ -58,6 +58,25 @@ In the third place comes the question of how long the cycle is. After the meetin
 
 Robin added — [robin]"The heart of this move is not the linked list. The heart of it is that wherever there is a 'points at the next one', a cycle is possible, and a cycle is found by two speeds."[/]
 
+Robin watched the two runners and said — [robin]"The tortoise and the hare are three lines in Python. One of those lines is doing something clever that most people never notice."[/]
+
+The clever line is the one that keeps the loop alive. The fast runner takes two steps, so before it moves you must know both that it is standing somewhere and that there is somewhere after it. Two questions, joined by the word "and".
+
+@read teach
+Here is the part worth staying awake for. Python reads that pair from the left, and the moment the first half is false it stops and never looks at the second. So asking first whether the fast one exists, and only then whether the one after it exists, is safe. Turn the two around and the program crashes at the end of every chain, because you asked what comes after nobody. The order of those two questions is not a matter of taste. It is the guard rail.
+
+[chopper]"So the word 'and' is doing the checking?"[/] Chopper asked.
+
+[robin]"The word 'and' is refusing to do the checking."[/] Robin said. [robin]"That is what makes it safe. It is a door that closes before the dangerous question is ever asked."[/]
+
+And there is a second matter, which is what sameness means here. When the two runners meet, you are asking whether they are standing on the same thing — not whether the two things look alike. Python keeps those two questions apart, and gives them different words. One asks whether these are the very same object. The other asks whether they carry equal values.
+
+[nami]"And on a chain, two different links can easily carry the same number."[/] Nami said. [nami]"If you ask the looks-alike question you will announce a circle that is not there."[/]
+
+So on this island you ask the same-thing question, always. It is also cheaper, because it compares where they stand rather than what they hold.
+
+And the last small note. A chain that has ended is written as nothing, and nothing counts as false. So the whole safety check reads almost as plain speech: while the fast one is there, and the one after it is there. The code says the sentence you would have said out loud.
+
 @tier long
 
 The road was still a circle, but now it was not frightening. Once you know about it, even a circular road feels like home.

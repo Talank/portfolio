@@ -64,6 +64,25 @@ First XOR everything together, and that is the XOR of the two odd numbers out. P
 
 Now split the array into two groups by that same lamp, and XOR each group separately. The two answers come out by themselves.
 
+Franky held up two fingers and said — [franky]"Zero and one, in Python. And this island has the strangest gift in the whole language, which is also its sharpest edge. Same thing, both times."[/]
+
+The ordinary moves are ordinary. You ask whether the lowest place is a one. You slide everything one place along. You join two numbers so that a one anywhere survives, or so that only a one in both survives. All of it reads about as it sounds.
+
+Two small pieces are worth carrying. To pull out the very lowest one and leave everything above it behind, join the number with its own negative — and what falls out is exactly that lowest place, alone. And counting how many ones a number is carrying is a question you can now put to the number itself, in one word, rather than walking its places.
+
+[usopp]"And the gift?"[/] Usopp asked.
+
+@read teach
+[robin]"A whole number in Python has no width at all."[/] Robin said. [robin]"There are not thirty-two places, or sixty-four. There are as many as the number needs, and it simply grows. On the eighth island that generosity took away the most famous mistake in searching, because two large numbers added together can never come back as something negative. Nothing can overflow, because there is no edge to fall off."[/]
+
+[franky]"And that is also the edge."[/] Franky said. [franky]"Because a problem that says thirty-two places means it. And a negative number here behaves as though it had endlessly many ones stretching away to the left, for ever. So sliding a negative number to the right, waiting for it to become zero, waits for the rest of the night. It never arrives."[/]
+
+So when the question is about a fixed width, you have to draw the edge yourself. You keep the number joined to a mask of that many ones after every step, so that anything past the boundary is thrown away. And at the very end, if the result should be read as a negative one, you have to say so. Otherwise the language will happily hand you an enormous positive number, and it will be entirely correct and entirely useless.
+
+[chopper]"So the same thing helped once and hurt once."[/] Chopper said.
+
+[robin]"It did nothing different either time."[/] Robin said. [robin]"It simply refused to have an edge. On one island that removed a bug, and on this one it removed a boundary we actually wanted. That is worth taking to sleep, on this last island of patterns — a tool has no intentions. It has properties. The bug and the gift are the same property, meeting two different questions."[/]
+
 @tier long
 
 The lamps were swaying in the air. The island was small, but the sky was large.

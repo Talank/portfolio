@@ -67,6 +67,27 @@ The third shape is making all the letter combinations from the digits on a phone
 
 Robin added — [robin]"All of these have the same shape. A level is one decision, and a branch is one option of that decision."[/]
 
+Robin stopped at a turning in the maze and said — [robin]"Written in Python, tonight's shape is four lines. And one of those four lines is where almost every beginner loses a whole evening."[/]
+
+The four are these. Take a step, which is adding to the end of the path. Go deeper. Undo the step, which is removing from the end of the path. And somewhere at the bottom, when the path is long enough, write the answer down.
+
+Adding and removing at the end of a row are both free, which is why the row is the right thing to walk a maze with. The undo is genuinely one word. There is no unwinding to write, and nothing to remember about what you changed.
+
+[usopp]"So where does the evening go?"[/] Usopp asked.
+
+@read teach
+[robin]"Into the writing down."[/] Robin said. [robin]"When you reach the bottom and you save the path, you must save a copy of it. If you save the path itself, you have not saved anything — you have written down where the path is kept. And the walk keeps going. It removes a step, takes another, removes that one too. At the end you look at your answers and every single one of them is the same empty row. They were all the same row all along, and you watched it be emptied."[/]
+
+[chopper]"They all point at one thing."[/] Chopper said.
+
+[nami]"Which is the same lesson as the notebook."[/] Nami said. [nami]"A name is not a thing. Two names can be looking at one thing, and changing it through one name changes what the other name sees."[/]
+
+The fix is a slice with nothing in the brackets, which hands back a copy of the whole row. It is two characters, and they are the two most important characters on this island.
+
+There is one more habit that costs nothing and saves everything: cut the branch before you walk down it, not after. Sometimes you can already tell that an option leads nowhere — the number is too large, the letter is used, the queen would be attacked. Then do not take the step at all. Testing at the bottom is correct and slow. Testing at the branch is correct and fast, and the difference is often the difference between finishing and not.
+
+[robin]"And a last honest word."[/] Robin said. [robin]"The language already owns the plain arrangements — every order of a row, every choice of K from it. If the question is only asking for those, use them. But when the question has a rule inside it, that ready-made word cannot help you. The whole art tonight is refusing to walk down roads you know are closed."[/]
+
 @tier long
 
 The stones of the wall were cold. Somewhere the sound of water dripping was coming in slowly.

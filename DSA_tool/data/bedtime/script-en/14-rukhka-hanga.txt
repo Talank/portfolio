@@ -60,6 +60,25 @@ Remember properly what a leaf is. Whoever has both branches empty is a leaf. A n
 
 In the fourth story you have to say all the paths in the tree, and those run from the root to the leaves. As you walk, carry the path with you, and as you come back, remove what you added. This move of adding and removing is called backtracking, and it is the whole subject of the nineteenth island.
 
+Robin rested her hand on the trunk and said — [robin]"Tonight's two walks are both short in Python, and each one has a single line carrying all the weight."[/]
+
+For the deep walk, the whole of it is: if there is nobody here, come straight back; otherwise do your work and go down both sides. Because a missing branch is written as nothing, and nothing counts as false, the stopping test is just asking whether somebody is there. Three lines, and the tree is walked.
+
+@read teach
+For the wide walk, the weight is all in one line, and it is the line people leave out. You are holding a line of nodes and you want them delivered in levels. So before you begin a level, you ask how many are waiting right now, and you take exactly that many. That number is frozen the moment you ask, so the children you add during the level do not join the level they were born into. Without that one line the walk still visits everybody, in the right order — but the levels melt into one another and every question about depth quietly loses its answer.
+
+[chopper]"And the line of waiting nodes is the two-ended one from before?"[/] Chopper asked.
+
+[robin]"It is."[/] Robin said. [robin]"You join at the back and leave from the front, and a plain row is wrong at the front. Every wide walk you write for the rest of your life begins by reaching for that word."[/]
+
+Now the honest warning about the deep walk. Python puts a ceiling on how deep a thing may call itself, and it is around a thousand. A balanced tree of a million nodes is only twenty deep, so it never comes near the ceiling. But a tree that has grown as a straight line — every node with one child — is as deep as it is large.
+
+[franky]"So the shape decides whether the code lives."[/] Franky said.
+
+[robin]"And the shape is often the input's choice, not yours."[/] Robin said. [robin]"When that worries you, the same walk can be written with a stack of your own instead of the language's. It is longer to read, and it does not fall over, because your stack lives in the ordinary memory where there is room."[/]
+
+One last small kindness. Tonight's three orders — before, between, after — differ by exactly one line's position in Python, and by nothing else. Where the work sits among the two descents is the entire difference. Move that one line and the same walk becomes a different walk.
+
 @tier long
 
 The forest was quiet. A leaf came off a branch, and came down slowly.

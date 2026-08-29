@@ -65,6 +65,27 @@ The third move asks — are two linked lists joined together anywhere? Count the
 
 Laughing, Franky said — [franky]"There is one chant for working with linked lists. Never let go of one finger before you have taken hold of another."[/]
 
+Franky wiped his hands and said — [franky]"Now the chain in Python. And the first thing to say is that the language does not give you one."[/]
+
+There is no ready-made chain here the way there is a ready-made row or a ready-made notebook. You build it yourself, and it is tiny — a small thing that holds a value and holds the next one along. That is the whole of it. Nothing else is needed.
+
+[chopper]"That feels like the language forgot something."[/] Chopper said.
+
+[franky]"It did not forget. It decided."[/] Franky said. [franky]"A chain is worse than a row at almost everything, and the one thing it is good at, the language would rather you did with a different tool. So a chain in Python is nearly always a puzzle you were given, not a structure you chose."[/]
+
+@read teach
+And here is the reason tonight's turning is beautiful in this language. Reversing a chain means three moves that must happen in one instant — remember where the next one is, point this one backwards, and step everybody along. In most languages that is three lines and a spare name, and getting the order wrong loses the rest of the chain forever. Python lets you write all of it on one line, because everything on the right of the equals sign is worked out before anything on the left is written. The whole turn happens at once, so there is no wrong order to get.
+
+[zoro]"One line, and the danger is gone."[/] Zoro said.
+
+The other habit worth having on this island is the false head. Almost every chain problem has an ugly moment at the front — the first one is special, there is nothing before it, the answer might begin somewhere else. So you make one extra thing that is not part of the answer, hang the chain off it, and do all your work behind it. At the end you hand back what it points at.
+
+[usopp]"That is cheating."[/] Usopp said.
+
+[robin]"It is paying one thing to remove a special case."[/] Robin said. [robin]"You will make the same bargain on many islands. One extra square at the front, one zero at the front of the running totals, one empty answer in the notebook before the walk begins. Every one of them is the same trade."[/]
+
+And last, a small mercy. Nothing pointing anywhere is written as a single word in Python, and it counts as false all by itself. So walking until the chain ends does not need a comparison at all. You simply walk while there is somebody there.
+
 @tier long
 
 The water was calm. The anchor chain was swaying slowly.

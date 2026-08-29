@@ -63,6 +63,25 @@ The third story asks whether it can be painted in two colours. Here two joined n
 
 Nami added — [nami]"This question is really the question 'is there a cycle of odd length'. But asking it with colours is easier."[/]
 
+Nami spread the web of islands out and said — [nami]"Two lines make the map, one word makes the memory, and one habit decides whether your walk finishes before morning."[/]
+
+The map is a notebook whose pages make themselves, with a row of neighbours under each island. You walk the list of bridges once and write each one down, and if the sea can be crossed both ways you write it down twice, once from each end. Forgetting the second direction is the quietest bug on this island, because the walk still runs and simply never reaches half the world.
+
+The memory of where you have been is a set. Not a row. Asking a row whether it already holds an island is a walk of its own, and doing that inside a walk turns the whole night into the shape we measured on the second island. A set answers the same question at once.
+
+@read teach
+The habit is the last of the three, and it is the difference between a walk that works and a walk that swells. When you find a neighbour you have not seen, you must write it down as seen at the moment you put it in the queue — not later, when you take it out. If you wait, an island with six bridges into it gets added six times before anybody looks at it, and the queue fills with copies. On a small map it still gives the right answer, which is exactly why nobody notices. On a large one it runs out of room.
+
+[usopp]"So the mark goes on when it joins the line, not when it reaches the front."[/] Usopp said.
+
+[robin]"Put it another way and it sounds obvious."[/] Robin said. [robin]"Seen means somebody has taken responsibility for it. Once it is in the queue, somebody has."[/]
+
+For a grid — and half of these problems are grids wearing a disguise — do not write four separate blocks for up, down, left and right. Keep the four small moves in one little row, run one loop over them, and check the edges of the world once inside that loop. Four copies of a rule is four places for a rule to be wrong.
+
+[franky]"And the deep walk on a big map?"[/] Franky asked.
+
+[nami]"Watch the ceiling."[/] Nami said. [nami]"A long thin land of a hundred thousand cells is a hundred thousand deep, and the language stops you at about a thousand. On this island the wide walk is not merely an alternative. It is often the only one that survives."[/]
+
 @tier long
 
 The sea was still. On the map the islands looked like small dots.

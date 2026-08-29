@@ -35,7 +35,11 @@ _VERB_END = re.compile(
     r"("
     # copula, present, and its negatives
     r"छ|छन्|छु|छौं|छौ|छस्|छे|छिन्|छैन|छैनन्|छैनौ|छैनौं|"
-    r"हो|हौं|होस्|होऊन्|होइन|होइनन्|हुन्|हुँ|"
+    # हौ is the second-person familiar "you are". हौं (we are) was listed and
+    # हौ was not — the same one-of-a-pair omission as थिइनन् and ेँ above.
+    # It appears the moment a character tells another what they have done:
+    # "तिमीले एउटै दराजमा दस वटा नाम झुन्ड्याएका हौ।"
+    r"हो|हौ|हौं|होस्|होऊन्|होइन|होइनन्|हुन्|हुँ|"
     # past copula
     # थिइनन् is the feminine-honorific negative past ("she had not ..."), the
     # exact counterpart of थिएनन्. It was the one member of this family left
@@ -43,7 +47,11 @@ _VERB_END = re.compile(
     # negative — which, with Nami and Robin doing most of the talking, is often.
     r"थियो|थिए|थिएन|थिएनन्|थिइन्|थिइन|थिइनन्|"
     # simple present / habitual …न्छ …ँछ …्छ, and the negative …दैन
-    r"न्छ|न्छन्|ँछ|ँछन्|्छ|्छन्|दैन|दैनन्|ँदैन|ँदैनन्|्दैन|"
+    # दैनौ / दैनौं are the second-person and first-person-plural negatives of
+    # this same family — तिमीले सक्दैनौ, हामी गर्दैनौं. छैनौ and छैनौं were both
+    # listed for the copula but their -दैन twins were not, so a character
+    # telling another what they cannot do read as a fragment.
+    r"न्छ|न्छन्|ँछ|ँछन्|्छ|्छन्|दैन|दैनन्|दैनौ|दैनौं|ँदैन|ँदैनन्|्दैन|"
     # past tense …यो …ए …ई …इन्, and its negative …एन / …ेन (परेन, भएन)
     r"यो|ए|ई|इन्|एन|एनन्|ेन|ेनन्|हे|"
     # Feminine past written with the *dependent* vowel sign: भनिन्, गरिन्,

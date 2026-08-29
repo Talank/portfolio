@@ -64,6 +64,25 @@ The third shape asks how few arrows can pierce all the pieces. This is in the sa
 
 Nami said — [nami]"Notice that in the joining work you sort by the start, and in the choosing work you sort by the end. It is a small difference, and that difference is what makes or breaks the solution."[/]
 
+Sanji laid the pieces of time side by side and said — [sanji]"This island is four lines in Python, and I have watched good cooks ruin all four."[/]
+
+The first line puts the pieces in order by where they begin. Not by where they end. Sorting by the end is right on a different island, the one about how many meetings fit, and wrong here. The punishment for confusing them is an answer that looks entirely reasonable and is not.
+
+The second line walks the pieces, and it takes them apart as it goes: the start into one name and the end into another, in the same breath. Reaching into a piece by number all the way through the loop is how you end up asking for the wrong end at two in the morning.
+
+@read teach
+The third line is the one that does the joining, and it reaches backwards. You look at the last piece you have already kept. If the new piece starts before that one has finished, you do not add anything at all — you stretch the one you kept. And the stretching must take the larger of the two ends, because the new piece can be entirely swallowed by the one before it. Taking the new end without asking is the commonest wrong answer on this island, and it only shows itself when one piece sits completely inside another.
+
+[chopper]"And if it starts after?"[/] Chopper asked.
+
+[sanji]"Then it is a new piece, and it goes on the end."[/] Sanji said. [sanji]"Two cases, and no third. Once the row is in order there is no other thing that can happen."[/]
+
+Now the fourth line, which is not a line at all but a decision made before any of them. The pieces have to be the kind of thing you are allowed to change, because stretching means writing a new end into a piece you already kept. A frozen pair cannot be stretched, and the language will simply refuse. The repair is either to keep them as changeable rows, or to take the last one out, build a new one, and put it back.
+
+[nami]"Which is worth saying plainly."[/] Nami said. [nami]"On the fourth island we wanted things frozen, so they could be headings. Here we want them loose, so they can be stretched. Neither is better. You choose by what you are about to do to them."[/]
+
+[robin]"And that is really the lesson of the whole night."[/] Robin said. [robin]"Overlapping is not a hard idea. It is only ever hard to see. Put the pieces in order first, and the seeing becomes looking at your neighbour."[/]
+
 @tier long
 
 @read hush
