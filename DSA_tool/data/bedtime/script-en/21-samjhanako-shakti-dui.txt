@@ -161,6 +161,68 @@ The edges matter as much as the middle. Turning any word into nothing costs one 
 
 The time is the two lengths multiplied, and so is the room, though two rows at a time are enough if you only want the number. Putting the chalk down, Robin said — [robin]"Every square in it is a small question, and the whole wall is only that same question asked in every size."[/]
 
+The wall was full, and Robin left it full. She said — [robin]"There is a last one, and it does not go on the wall at all. It is the problem where the table turns out not to be needed."[/]
+
+A row of stones is laid out, and a number is painted on each. Some of those numbers are less than nothing. Two players take turns, and Luffy goes first.
+
+A turn works like this. Take some stones off the left end, and you must take at least two of them. Add up what you took, and that total goes into your own score. Then put one new stone back on the left end, with that same total painted on it. The row gets shorter every turn, and when a single stone is left the game stops.
+
+[usopp]"So who wins?"[/] Usopp asked.
+
+[robin]"Nobody wins."[/] Robin said. [robin]"Luffy is trying to make the gap between his score and yours as wide as he can. You are trying to make it as narrow as you can. The answer is that gap, on the day neither of you makes a mistake."[/]
+
+[chopper]"Then Luffy should take the whole row on his first turn."[/] Chopper said.
+
+[robin]"On some rows that is exactly right."[/] Robin said. [robin]"If every stone is worth having, take the lot and there is nothing left to decide. It is only a game because some stones are worth less than nothing."[/]
+
+@read teach
+Here is the small thing worth staying awake for. Lay down three stones, and paint minus four on every one of them. There is not a good stone anywhere in that row. Luffy takes the first two, and that costs him eight. What is left is a stone of minus eight and a stone of minus four. Usopp has two stones and no choice at all. He takes both, and that costs him twelve. So Luffy ends four ahead, on a row made of nothing but debts.
+
+He was never collecting treasure. He was collecting the gap. So he swallows the smaller poison himself, and leaves the larger one standing where somebody else has to pick it up.
+
+[robin]"Now write down the case."[/] Robin said. [robin]"That is the sentence this whole island has been about. Which things together name one sub-question completely?"[/]
+
+[chopper]"The whole row."[/] Chopper said. [chopper]"It could be in any shape at all."[/]
+
+[robin]"Look at it after two moves, then say that again."[/] Robin said.
+
+@read teach
+It cannot be in any shape at all. Whatever has happened, the right-hand part of the row has never been touched. It is still exactly the stones you began with. And in front of it stands one stone, and that stone is always the total of everything eaten so far. It has to be. Adding does not care what order you added in, so however the pieces were merged, the front stone comes out the same. The case is not a row. The case is one number, and that number is how far along you have got.
+
+[nami]"That is the seventh island."[/] Nami said. [nami]"The road with the stones, and the running total painted on each one. It never left. Tonight it turns out to be the whole state of the game."[/]
+
+Now say the move again in that smaller language. Taking some stones off the front is the same as jumping forward to a later place. And your score is not something you have to add up. Your score is the running total at the place where you land. That is the entire game. Choose a place further along, take the running total there, and hand the row over.
+
+[usopp]"Do I keep two scores, then, and a note of whose turn it is?"[/] Usopp asked.
+
+[robin]"You keep one number."[/] Robin said. [robin]"How far ahead the player who is about to move can get. Whatever the other one manages from where you leave them comes straight off you. Your total, minus their best. The turn flag disappears, because the minus sign is the turn."[/]
+
+The last saving is the sweetest one. Standing at some place, the jumps you may take are all the places further along. Stand one place later and it is that same list, with the nearest jump gone from it. So the two differ by a single entry.
+
+Which means no loop inside a loop, and no table either. At every place there are only two things to weigh. Take the jump to the very next place, or decline it and settle for whatever the next place was already worth. Keep the better of the two, and walk backwards down the row.
+
+[nami]"Earlier tonight two rows became one row."[/] Nami said. [nami]"Here one row becomes one number. Memory does not get smaller than that."[/]
+
+There is one place to be careful, and it is where the walk ends. The opening move is exactly the set of jumps available from place one, so place one is where the answer sits. Walk down as far as one and stop there. Let the walk run one step further and you have quietly allowed somebody to take a single stone. The rules never permitted that, and about one row in eight comes back with a different answer.
+
+There is a shorter version that keeps no second array at all. Instead of building the running totals beside the stones, you write them over the stones. It saves the room, and it takes something back that you might not notice.
+
+@read teach
+The array you were handed is gone. You did not work on a copy of it. You worked on the caller's own row, and where the numbers used to be there are now totals. If anybody else was holding that row, they are holding something else now. This is the fourth time tonight has come round to it. The heading that must not change, the path that was saved while it was still moving, the one row wearing ten names. A name is not a thing. Here the sharing is deliberate and worth having, which is fine, so long as you know that you did it.
+
+[chopper]"How would I ever know my answer was right?"[/] Chopper asked.
+
+[robin]"Write the stupid one first."[/] Robin said. [robin]"The one that keeps the whole row and tries every move, exactly as the rules describe it. It is far too slow to hand in, and that is not what it is for. It is the thing you check the fast one against."[/]
+
+Then make rows at random — short ones, two stones up to nine, a few hundred of them. Run both versions on every row. They have to agree every single time.
+
+@read hush
+This is worth doing even when you feel sure. The first two answers written for this problem got all three of the given examples right, and both of them were still wrong. Examples are not coverage. They were chosen to show you what the question means, and nobody ever promised they would find your mistake.
+
+[robin]"And there is one signal worth learning to hear."[/] Robin said. [robin]"If you catch yourself writing and then they take this, and then we take that, inside your own recursion, stop. A clean one never has to say that. The minus sign was supposed to be handling the other player. If you are handling them by hand, it is the case that is wrong, and not the code."[/]
+
+So the cost is one walk down the row and nothing else, which is O(n), and the room is one number. Robin did not reach for the chalk again. The wall stayed empty all the way to the end.
+
 Robin said — [robin]"Remember only this much tonight. When a new problem arrives, first ask whether it is some old problem in new clothes."[/]
 
 Robin put down the chalk. The table was full. Numbers sat quietly all across the wall, and each one carried the answer to its own small question.

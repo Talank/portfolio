@@ -27,6 +27,7 @@ import collections
 import functools
 import heapq
 import itertools
+import random
 import sys
 import timeit
 
@@ -244,6 +245,121 @@ def _rows_are_real():
     grid = [[0] * 2 for _ in range(3)]
     grid[0][0] = 9
     return grid[1][0] == 0
+
+
+# --- chapter 21: the stone game, where the table disappears ------------------
+#
+# The passage at the end of the twenty-first island claims things about a game,
+# not about the interpreter, and a linter can see the truth of those exactly as
+# well as it can see the truth of the rest of this file — not at all. A wrong
+# number read aloud at night is still a wrong number, so they are run too.
+
+
+def _stone_brute(row):
+    """Play it exactly as the rules say, on the literal row. The oracle."""
+    @functools.lru_cache(maxsize=None)
+    def go(arr):
+        if len(arr) == 1:
+            return 0
+        return max(sum(arr[:x]) - go((sum(arr[:x]),) + arr[x:])
+                   for x in range(2, len(arr) + 1))
+    return go(tuple(row))
+
+
+def _stone_fast(row):
+    """The one walk backwards down the row: O(n) time, one number of room."""
+    n = len(row)
+    pre = [0] * (n + 1)
+    for i, v in enumerate(row):
+        pre[i + 1] = pre[i] + v
+    f = pre[n]
+    for j in range(n - 2, 0, -1):
+        f = max(pre[j + 1] - f, f)
+    return f
+
+
+def _stone_rows(seed, n_lo, n_hi, v_lo, v_hi, count):
+    rng = random.Random(seed)
+    return [[rng.randint(v_lo, v_hi) for _ in range(rng.randint(n_lo, n_hi))]
+            for _ in range(count)]
+
+
+@claim("21", "the one walk backwards agrees with playing the game out in full")
+def _stone_matches_oracle():
+    return all(_stone_fast(r) == _stone_brute(r)
+               for r in _stone_rows(1872, 2, 8, -8, 8, 300))
+
+
+@claim("21", "three stones of minus four leave the first player four ahead")
+def _stone_all_debts():
+    return _stone_brute([-4, -4, -4]) == 4 and sum([-4, -4, -4]) == -12
+
+
+@claim("21", "if every stone is worth having, taking the lot is the whole answer")
+def _stone_all_positive():
+    return all(_stone_fast(r) == sum(r)
+               for r in _stone_rows(23, 2, 40, 1, 50, 400))
+
+
+@claim("21", "after any move the front stone is the running total, and the tail is untouched")
+def _stone_state_collapses():
+    for row in _stone_rows(7, 2, 8, -9, 9, 300):
+        pre = [0] * (len(row) + 1)
+        for i, v in enumerate(row):
+            pre[i + 1] = pre[i] + v
+        rng = random.Random(len(row))
+        board, j = list(row), 1
+        while len(board) > 1:
+            y = rng.randint(2, len(board))
+            board, j = [sum(board[:y])] + board[y:], j + y - 1
+            if board[0] != pre[j] or board[1:] != row[j:]:
+                return False
+    return True
+
+
+@claim("21", "the two-way weighing equals the full maximum over every later place")
+def _stone_telescopes():
+    def full(row):
+        n = len(row)
+        pre = [0] * (n + 1)
+        for i, v in enumerate(row):
+            pre[i + 1] = pre[i] + v
+        f = [0] * (n + 1)
+        for j in range(n - 1, 0, -1):
+            f[j] = max(pre[k] - f[k] for k in range(j + 1, n + 1))
+        return f[1]
+    return all(full(r) == _stone_fast(r) for r in _stone_rows(11, 2, 9, -9, 9, 300))
+
+
+@claim("21", "letting the walk run one step further changes about one row in eight")
+def _stone_off_by_one():
+    def too_far(row):
+        n = len(row)
+        pre = [0] * (n + 1)
+        for i, v in enumerate(row):
+            pre[i + 1] = pre[i] + v
+        f = pre[n]
+        for j in range(n - 2, -1, -1):
+            f = max(pre[j + 1] - f, f)
+        return f
+    rows = _stone_rows(13, 2, 9, -9, 9, 600)
+    wrong = sum(too_far(r) != _stone_fast(r) for r in rows)
+    return 0.05 < wrong / len(rows) < 0.25
+
+
+@claim("21", "writing the totals over the stones eats the caller's row")
+def _stone_in_place_mutates():
+    def in_place(stones):
+        n = len(stones)
+        for i in range(1, n):
+            stones[i] += stones[i - 1]
+        f = stones[n - 1]
+        for j in range(n - 2, 0, -1):
+            f = max(stones[j] - f, f)
+        return f
+    mine = [-1, 2, -3, 4, -5]
+    answer = in_place(mine)
+    return answer == 5 and mine == [-1, 1, -2, 2, -3]
 
 
 # --- chapter 22: greedy sorts ------------------------------------------------

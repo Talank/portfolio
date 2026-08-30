@@ -613,8 +613,8 @@
     "long": {
      "label": "लामो",
      "label_en": "Long",
-     "duration": 48082.75,
-     "bytes": 80798011,
+     "duration": 48905.22,
+     "bytes": 82175433,
      "starts": {
       "00": 0.0,
       "01": 1044.63,
@@ -638,11 +638,11 @@
       "19": 33296.69,
       "20": 35233.87,
       "21": 37118.79,
-      "22": 39060.71,
-      "23": 40976.6,
-      "24": 42762.63,
-      "25": 44634.39,
-      "26": 46493.16
+      "22": 39883.18,
+      "23": 41799.07,
+      "24": 43585.1,
+      "25": 45456.86,
+      "26": 47315.63
      },
      "playlist": [
       {
@@ -972,7 +972,7 @@
       },
       {
        "f": "ch21-long.opus",
-       "d": 824.68,
+       "d": 1647.15,
        "c": "21"
       },
       {
@@ -1325,7 +1325,7 @@
     },
     "ch21-long.opus": {
      "s": "cabin",
-     "g": "AHiyASryAXGDAQXnA4QBqAEryQWCAakBK_gBaa4BKpQCCoADCoMBKO4BcNoBKoYDggHwAyrqAYIBkgI35QIjngKHAcACJusDfeACJvcCbMYBJY0EcJoCJuwBLdwChwHFASahAjnGBIABzAElpwEFowE_hQIhwwFsmgIl0gFunwQl4gOHAZ4CI6sCgAH0Ao4BfCWvAzeEAnuCAQWSATWxAQVkIJUDZJQBJpUEKn5z6QEm6gMrqwIlygKMAe4BJcECN5YCJooCeooFZrcCBY4DK5wCJtcBc_0BJZMEKqcCjAHDAS1-eIkBLXg09gEonAOJAdYBKoIEI9kCe2ZDfWSvATWDASrVASDAASi_ASiwASPJAnjZASj_BIkB_wQosAEDzgR9hQEFpgEjnwNkgQIovAN4zwEomQIjpwKKAYsBK_gCI-ECfZcCKo0CI-8BINIDc5MCKLgBA-sBPLQCZ4MBKMkDSw"
+     "g": "AHiyASryAXGDAQXnA4QBqAEryQWCAakBK_gBaa4BKpQCCoADCoMBKO4BcNoBKoYDggHwAyrqAYIBkgI35QIjngKHAcACJusDfeACJvcCbMYBJY0EcJoCJuwBLdwChwHFASahAjnGBIABzAElpwEFowE_hQIhwwFsmgIl0gFunwQl4gOHAZ4CI6sCgAH0Ao4BfCWvAzeEAnuCAQWSATWxAQVkIJUDZJQBJpUEKn5z6QEm6gMrqwIlygKMAe4BJcECN5YCJooCeooFZrcCBY4DK5wCJtcBc_0BJZMEKqcCjAHDAS1-eIkBLXg09gEonAOJAdYBKoIEI9kCe2ZDfWSvATWDASrVASDAASi_ASiwASPJAnjZASj_BIkB_wQosAEDzgR9mQMFgAIj3AJk4QIo7AEjjQJ4mwEn5AIj4QIghQMo_QKKAYwBRH19jQE1ggErjQMhkgIo9wJzoAIygwFm0AEyhQEl2AMm5QJ75wEoswIe1QElnQIq3AIo9QEe_gEmmQKMAdkBKMABHq4Dc4IBMIABJo0CJagCZIgBMHsmpQF7oAIvfo8BxwEomAIepQEmywMrfiioBB6VASWBA3aiAS95JqsCJZQBKtsBZu8BJtECHpsBJbgCK4cBJsYDeJACNH1kjAEogQEy1QIq-QIj7AEhtAJ9sQEgwwIotwMr4gGKAZ0CIdQBKLgDKrICeM0BKHcwtAEqrQFkrgIhpAMovwEqzAMjnAN7vwIh4AIoowKJAawBIPUBKOwDK_cCI4ICIboFKJ0BK6gFdvMBNYQBYaQBKIIBMPsCKNMCI9QBhQGzASHJAybCASvIAYIB_gEh2gQmyAErygRp4QEogQEtlAQt3wEmpgIg4gJxigQguAEluAGFAYYBAqcBJqUDggGHAiDIA2nWASCgAiavAnGOASD-AiXlAoIBjwIghgIl6QEtxgOCAYgCILIBBeEBSagChwF-KLgDSw"
     },
     "ch22-core.opus": {
      "s": "harbour_day",

@@ -60,6 +60,12 @@ _VERB_END = re.compile(
     # this story attributes a line, since its two most talkative characters
     # are women — was being read as a fragment.
     r"िन्|िइन्|"
+    # ...and its negative, िनन् / इनन्: उठाइनन्, भनिनन्, पढिनन्, दिइनन्, आइनन्.
+    # Only the copula's थिइनन् was listed, three groups up, so "रोबिनले चक फेरि
+    # उठाइनन्" read as a fragment while "रोबिनले चक उठाएकी थिइनन्" did not — the
+    # same one-of-a-pair omission as हौ beside हौं and दैनौ beside छैनौ. This one
+    # subsumes दिनन् listed below, which is the same ending on one verb.
+    r"िनन्|इनन्|"
     # Second person past: तिमीले खोल्यौ, भन्यौ, गर्‍यौ — and the first person
     # plural गयौं, which ends the same way. Rare in narration, constant in
     # dialogue, because that is the form one character uses to another. It
