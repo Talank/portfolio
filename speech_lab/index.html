@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d1117">
 <title>Speech Lab — American English</title>
 <meta name="description" content="A local, static pronunciation and grammar trainer for American English, aimed at the specific sounds and grammar a Nepali first language makes hard.">
 <link rel="stylesheet" href="css/app.css">
@@ -19,9 +20,9 @@
 <main class="wrap">
 
   <div class="tabs" role="tablist">
-    <button id="tab-drill"    role="tab" aria-selected="true">Pronounce</button>
-    <button id="tab-grammar"  role="tab" aria-selected="false">Grammar</button>
-    <button id="tab-progress" role="tab" aria-selected="false">Progress</button>
+    <button id="tab-drill"    role="tab" aria-selected="true"><span class="ti">🎙</span><span>Pronounce</span></button>
+    <button id="tab-grammar"  role="tab" aria-selected="false"><span class="ti">✎</span><span>Grammar</span></button>
+    <button id="tab-progress" role="tab" aria-selected="false"><span class="ti">▤</span><span>Progress</span></button>
   </div>
 
   <!-- ============================= DRILL ============================== -->
@@ -30,21 +31,23 @@
     <div class="notice" id="asrBanner" hidden></div>
 
     <div class="card">
-      <div class="setup">
-        <div class="field">
-          <label for="levelSel">Level</label>
-          <select id="levelSel"></select>
-        </div>
-        <div class="field">
-          <label for="trackSel">Vocabulary</label>
-          <select id="trackSel"></select>
-        </div>
-        <div class="field" style="flex:1 1 14rem">
-          <label for="voiceSel">Model voice</label>
-          <select id="voiceSel" style="width:100%"></select>
-        </div>
+      <div class="chipset">
+        <span class="chiplabel">Level</span>
+        <div class="chips" id="levelChips" role="group" aria-label="Level"></div>
       </div>
-      <p class="tiny muted" id="levelBlurb" style="margin:.7rem 0 0"></p>
+      <div class="chipset">
+        <span class="chiplabel">Vocabulary</span>
+        <div class="chips" id="trackChips" role="group" aria-label="Vocabulary track"></div>
+      </div>
+      <p class="tiny muted" id="levelBlurb" style="margin:.75rem 0 0"></p>
+      <details class="voicebox">
+        <summary class="tiny muted">Model voice &amp; shortcuts</summary>
+        <div class="voicebody">
+          <label class="tiny muted" for="voiceSel">Reference voice (your browser's synthesiser, not a recording of a person)</label>
+          <select id="voiceSel"></select>
+          <p class="tiny muted" style="margin:.5rem 0 0">Keyboard: <kbd>Space</kbd> record · <kbd>L</kbd> listen · <kbd>N</kbd> next · <kbd>Y</kbd> hear yours</p>
+        </div>
+      </details>
     </div>
 
     <div class="card">
@@ -54,15 +57,27 @@
         <div class="meta" id="targetMeta"></div>
       </div>
 
-      <div class="controls">
-        <button class="btn" id="btnListen" title="L">Listen</button>
-        <button class="btn" id="btnSlow">Listen slowly</button>
-        <button class="btn primary" id="btnRec" title="Space">Record</button>
-        <button class="btn" id="btnAgain" hidden>Try again</button>
-        <button class="btn" id="btnNext" title="N">Next word</button>
+      <div class="recrow">
+        <button class="iconbtn" id="btnListen" title="Listen (L)">
+          <span class="ico">▶</span><span class="cap">Listen</span>
+        </button>
+        <button class="recbtn" id="btnRec" title="Record (Space)" aria-label="Record">
+          <span class="recring"></span><span class="recdot"></span>
+          <span class="reccap" id="recCap">Record</span>
+        </button>
+        <button class="iconbtn" id="btnNext" title="Next word (N)">
+          <span class="ico">⇥</span><span class="cap">Next</span>
+        </button>
       </div>
-      <div class="status" id="status"></div>
 
+      <div class="controls sub">
+        <button class="btn sm" id="btnSlow">🐢 Slow</button>
+        <button class="btn sm" id="btnHear" disabled>🔊 Hear yours</button>
+        <button class="btn sm" id="btnCompare" disabled>⇄ Compare</button>
+        <button class="btn sm primary" id="btnAgain" hidden>↻ Try again</button>
+      </div>
+
+      <div class="status" id="status"></div>
       <div class="trap-hint" id="trapHint"></div>
     </div>
 
@@ -81,10 +96,17 @@
           heard the word you were aiming at, and what it heard instead. What it heard
           instead is the useful part — “sink” and “tink” are different failures of the same
           sound and want different corrections.</p>
+          <p><b>How the colours are placed:</b> a letter turns red because the recogniser's
+          transcript, aligned to the spelling, lost or changed the sound there — and the
+          red widens to the whole digraph, so “th” colours together. A beat turns red
+          because its measured loudness, length and pitch missed the profile English wants
+          for that syllable. When neither source can be lined up, the row says so instead
+          of colouring a guess.</p>
           <p><b>Not measured:</b> per-phoneme accuracy scores. Tools like ELSA produce those
           with a purpose-trained neural model running on their servers. There is no honest
           way to compute one in a page like this, so this app does not print a number it
-          cannot stand behind.</p>
+          cannot stand behind — and the colour bands here are placed by position, never by
+          an invented per-sound percentage.</p>
           <p><b>Where your voice goes:</b> the acoustic analysis happens entirely in this tab
           and the audio is never uploaded or stored. The recogniser is the exception —
           Chrome implements the Web Speech API by sending the utterance to Google. If that
@@ -108,7 +130,9 @@
       <textarea id="gText" placeholder="e.g. I am having a car and I am knowing him since three years. He go to office in morning."></textarea>
       <div class="controls" style="justify-content:flex-start;margin-top:.7rem">
         <button class="btn primary" id="gCheck">Check</button>
-        <button class="btn" id="gSpeak">Speak it instead</button>
+        <button class="btn" id="gSpeak">🎙 Speak it instead</button>
+        <button class="btn sm" id="gSample">Try an example</button>
+        <button class="btn sm" id="gClear">Clear</button>
       </div>
       <div class="status" id="gStatus" style="text-align:left"></div>
       <p class="tiny muted" id="grammarMeta" style="margin-bottom:0"></p>
@@ -132,9 +156,18 @@
     </div>
 
     <div class="card">
-      <h3 style="margin-top:0;font-size:1.05rem">Where you keep slipping</h3>
+      <h3 class="cardh">Every word you have tried</h3>
+      <div class="wordgrid" id="wordGrid"></div>
+      <div class="band-legend" id="legendWords"></div>
+    </div>
+
+    <div class="card">
+      <h3 class="cardh">Where you keep slipping</h3>
       <div class="weak" id="weakList"></div>
       <div class="notice" id="weakNote" hidden style="margin-top:1rem"></div>
+      <div class="controls" style="justify-content:flex-start;margin-top:1rem">
+        <button class="btn primary" id="btnDrillWeak">Drill my weakest sound</button>
+      </div>
     </div>
 
     <div class="card">
@@ -146,6 +179,13 @@
   </section>
 
 </main>
+
+<!-- Thumb-reachable on a phone once the result has pushed the controls off screen. -->
+<div class="mobilebar" id="mobilebar">
+  <button class="btn sm" id="mListen">▶ Listen</button>
+  <button class="recbtn mini" id="mRec" aria-label="Record"><span class="recring"></span><span class="recdot"></span></button>
+  <button class="btn sm" id="mNext">Next ⇥</button>
+</div>
 
 <script type="module" src="js/app.js"></script>
 </body>

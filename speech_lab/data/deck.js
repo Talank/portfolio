@@ -211,6 +211,64 @@ const DECK = [
   { w: 'Is the airway clear?', ipa: '', stress: -1, traps: ['intonation'], near: [], lvl: 4, track: 'med' },
 ];
 
+/* Orthographic syllable splits, for showing the beats on the spelling the user
+ * is actually reading rather than only on the IPA. Hand-typed, because English
+ * spelling does not divide by rule — and therefore checked at runtime against
+ * the IPA in spellSyllables() below, which returns null on any disagreement.
+ * A word with a typo here simply loses the beat row; it never gets a beat
+ * boundary drawn in the wrong place. test.mjs asserts every word has a valid
+ * split, so the silent fallback should never actually fire in shipped data.
+ *
+ * The splits follow the pronunciation, not the dictionary's hyphenation:
+ * vegetable is veg·eta·ble because the middle "e" is not spoken. */
+const SPELLED = {
+  thirty: 'thir\u00b7ty', father: 'fa\u00b7ther', weather: 'wea\u00b7ther', very: 've\u00b7ry',
+  student: 'stu\u00b7dent', pencil: 'pen\u00b7cil', measure: 'mea\u00b7sure', language: 'lan\u00b7guage',
+
+  develop: 'de\u00b7ve\u00b7lop', photograph: 'pho\u00b7to\u00b7graph',
+  photography: 'pho\u00b7to\u00b7gra\u00b7phy', photographic: 'pho\u00b7to\u00b7gra\u00b7phic',
+  comfortable: 'com\u00b7fort\u00b7able', vegetable: 'veg\u00b7eta\u00b7ble',
+  opportunity: 'op\u00b7por\u00b7tu\u00b7ni\u00b7ty', available: 'a\u00b7vai\u00b7la\u00b7ble',
+  question: 'ques\u00b7tion', temperature: 'tem\u00b7per\u00b7a\u00b7ture',
+
+  algorithm: 'al\u00b7go\u00b7ri\u00b7thm', parameter: 'pa\u00b7ra\u00b7me\u00b7ter',
+  variable: 'va\u00b7ri\u00b7a\u00b7ble', iterate: 'i\u00b7te\u00b7rate', schema: 'sche\u00b7ma',
+  query: 'que\u00b7ry', tuple: 'tu\u00b7ple', boolean: 'boo\u00b7le\u00b7an',
+  integer: 'in\u00b7te\u00b7ger', recursion: 're\u00b7cur\u00b7sion', latency: 'la\u00b7ten\u00b7cy',
+  throughput: 'through\u00b7put', repository: 're\u00b7po\u00b7si\u00b7to\u00b7ry',
+  deployment: 'de\u00b7ploy\u00b7ment', asynchronous: 'a\u00b7syn\u00b7chro\u00b7nous',
+  authentication: 'au\u00b7then\u00b7ti\u00b7ca\u00b7tion', configuration: 'con\u00b7fi\u00b7gu\u00b7ra\u00b7tion',
+  idempotent: 'i\u00b7dem\u00b7po\u00b7tent', heuristic: 'heu\u00b7ris\u00b7tic',
+  polymorphism: 'po\u00b7ly\u00b7mor\u00b7phi\u00b7sm', concurrency: 'con\u00b7cur\u00b7ren\u00b7cy',
+  immutable: 'im\u00b7mu\u00b7ta\u00b7ble', serialize: 'se\u00b7ri\u00b7a\u00b7lize',
+  regression: 're\u00b7gre\u00b7ssion', virtualize: 'vir\u00b7tu\u00b7a\u00b7lize',
+  scalability: 'sca\u00b7la\u00b7bi\u00b7li\u00b7ty', kubernetes: 'ku\u00b7ber\u00b7ne\u00b7tes',
+
+  vesicle: 've\u00b7si\u00b7cle', ischemia: 'i\u00b7sche\u00b7mi\u00b7a', arrhythmia: 'a\u00b7rrhyth\u00b7mi\u00b7a',
+  tachycardia: 'ta\u00b7chy\u00b7car\u00b7di\u00b7a', bradycardia: 'bra\u00b7dy\u00b7car\u00b7di\u00b7a',
+  defibrillate: 'de\u00b7fi\u00b7bri\u00b7llate', epinephrine: 'e\u00b7pi\u00b7ne\u00b7phrine',
+  pulmonary: 'pul\u00b7mo\u00b7na\u00b7ry', thrombosis: 'throm\u00b7bo\u00b7sis',
+  anesthesia: 'a\u00b7nes\u00b7the\u00b7sia', diagnosis: 'di\u00b7ag\u00b7no\u00b7sis',
+  hypertension: 'hy\u00b7per\u00b7ten\u00b7sion', myocardial: 'my\u00b7o\u00b7car\u00b7di\u00b7al',
+  sepsis: 'sep\u00b7sis', catheter: 'ca\u00b7the\u00b7ter', sterile: 'ste\u00b7rile',
+  asystole: 'a\u00b7sys\u00b7to\u00b7le', auscultate: 'au\u00b7scul\u00b7tate', dyspnea: 'dysp\u00b7ne\u00b7a',
+  syncope: 'syn\u00b7co\u00b7pe', anaphylaxis: 'a\u00b7na\u00b7phy\u00b7la\u00b7xis', edema: 'e\u00b7de\u00b7ma',
+};
+
+/* The word split into as many chunks as it has syllables, or null if the split
+ * cannot be trusted. Null is a real answer: the UI says "the beats could not be
+ * lined up" rather than drawing a boundary it guessed. */
+function spellSyllables(item) {
+  const n = syllablesOf(item);
+  if (!n) return null;
+  const raw = SPELLED[item.w];
+  if (!raw) return n === 1 ? [item.w] : null;
+  const parts = raw.split('\u00b7');
+  if (parts.length !== n) return null;              // disagrees with the IPA
+  if (parts.join('') !== item.w) return null;       // disagrees with the spelling
+  return parts;
+}
+
 const LEVELS = [
   { n: 1, name: 'Foundation',       blurb: 'The consonants Nepali does not have. One syllable at a time.' },
   { n: 2, name: 'Building',         blurb: 'Two to four syllables, where stress starts to decide the word.' },
@@ -233,4 +291,4 @@ function syllablesOf(item) {
   return null;
 }
 
-export { DECK, TRAPS, LEVELS, TRACKS, syllablesOf };
+export { DECK, TRAPS, LEVELS, TRACKS, syllablesOf, spellSyllables };

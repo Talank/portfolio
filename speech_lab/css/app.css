@@ -1,6 +1,10 @@
 /* Speech Lab — same palette as the rest of the site so it does not read as a
    bolted-on tool. Tokens copied from DSA_tool/css/style.css deliberately
-   rather than re-picked, so a future theme change moves both together. */
+   rather than re-picked, so a future theme change moves both together.
+
+   Two layout rules run through the whole file: every control is at least 44px
+   on its shortest side, and nothing that matters sits in a hover state, because
+   the intended device is a phone held in one hand. */
 :root {
   --bg: #0d1117;
   --bg-panel: #151b23;
@@ -24,10 +28,15 @@ html, body {
   background: var(--bg); color: var(--text);
   font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
 }
 body { padding-bottom: 4rem; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
+kbd {
+  font: inherit; font-size: 0.75rem; background: var(--bg-panel-2);
+  border: 1px solid var(--border); border-radius: 4px; padding: 0 0.3rem;
+}
 
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
 
@@ -46,8 +55,10 @@ header.site .back:hover { color: var(--text); }
 .tabs button {
   background: none; border: none; border-bottom: 2px solid transparent;
   color: var(--text-dim); font: inherit; font-weight: 600;
-  padding: 0.6rem 0.9rem; cursor: pointer;
+  padding: 0.7rem 0.9rem; cursor: pointer; min-height: 46px;
+  display: flex; align-items: center; gap: 0.45rem;
 }
+.tabs button .ti { font-size: 1.05rem; line-height: 1; }
 .tabs button:hover { color: var(--text); }
 .tabs button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
 .panel[hidden] { display: none; }
@@ -57,42 +68,116 @@ header.site .back:hover { color: var(--text); }
   background: var(--bg-panel); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 1.1rem 1.25rem; margin-bottom: 1rem;
 }
+.cardh { margin: 0 0 0.8rem; font-size: 1.05rem; }
 .muted { color: var(--text-dim); }
 .small { font-size: 0.85rem; }
 .tiny { font-size: 0.78rem; }
 
 button.btn {
   font: inherit; font-weight: 600; cursor: pointer;
-  padding: 0.55rem 1rem; border-radius: 8px;
+  padding: 0.6rem 1rem; border-radius: 8px; min-height: 44px;
   background: var(--bg-panel-2); color: var(--text); border: 1px solid var(--border);
 }
+button.btn.sm { font-size: 0.85rem; padding: 0.45rem 0.8rem; min-height: 40px; }
 button.btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-button.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+button.btn:disabled { opacity: 0.4; cursor: not-allowed; }
 button.btn.primary { background: var(--accent); color: #0d1117; border-color: var(--accent); }
 button.btn.primary:hover:not(:disabled) { filter: brightness(1.1); color: #0d1117; }
-button.btn.rec { background: var(--danger); border-color: var(--danger); color: #fff; }
-button.btn.rec:hover:not(:disabled) { filter: brightness(1.1); color: #fff; }
 
 select, input[type="text"], textarea {
   font: inherit; background: var(--bg-panel-2); color: var(--text);
-  border: 1px solid var(--border); border-radius: 8px; padding: 0.45rem 0.6rem;
+  border: 1px solid var(--border); border-radius: 8px; padding: 0.55rem 0.6rem;
+  max-width: 100%;
 }
 textarea { width: 100%; min-height: 110px; resize: vertical; line-height: 1.6; }
 
-/* ---- setup row ---- */
-.setup { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; }
-.field { display: flex; flex-direction: column; gap: 0.25rem; }
-.field label { font-size: 0.78rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+/* ---- chips: level and track, as buttons rather than a dropdown -----------
+   A select hides the other options behind a tap; four levels fit on a phone
+   as buttons, and you can see which track you are in without opening it. */
+.chipset { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+.chiplabel {
+  font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase;
+  letter-spacing: 0.05em; flex: 0 0 5.2rem;
+}
+.chips { display: flex; gap: 0.4rem; flex-wrap: wrap; flex: 1 1 auto; }
+.chip {
+  font: inherit; font-weight: 600; cursor: pointer; min-height: 44px;
+  padding: 0.35rem 0.85rem; border-radius: 999px;
+  background: var(--bg-panel-2); color: var(--text-dim);
+  border: 1px solid var(--border);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.15;
+}
+.chip i { font-style: normal; font-size: 0.66rem; font-weight: 500; opacity: 0.75; }
+.chip:hover { color: var(--text); }
+.chip.on { background: var(--accent); border-color: var(--accent); color: #0d1117; }
+.chip.on i { opacity: 0.85; }
+
+.voicebox { margin-top: 0.9rem; border-top: 1px solid var(--border); padding-top: 0.7rem; }
+.voicebox summary { cursor: pointer; }
+.voicebody { margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.35rem; }
+.voicebody select { width: 100%; }
 
 /* ---- the drill card ---- */
-.target { text-align: center; padding: 1.6rem 1rem 1.2rem; }
-.target .word { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.01em; }
-.target .word.sentence { font-size: 1.5rem; line-height: 1.4; }
-.target .ipa { color: var(--accent); font-size: 1.05rem; margin-top: 0.3rem; font-family: "Segoe UI", system-ui, sans-serif; }
+.target { text-align: center; padding: 1.5rem 0.5rem 1.1rem; }
+.target .word { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.15; }
+.target .word.sentence { font-size: 1.45rem; line-height: 1.4; }
+/* The letters this word exists to test. Same positions the result colouring
+   uses, so the "watch this" and the "this went wrong" agree. */
+.target .word .tw {
+  color: var(--accent-2);
+  border-bottom: 3px solid rgba(246, 173, 85, 0.5);
+}
+.target .ipa { color: var(--accent); font-size: 1.05rem; margin-top: 0.45rem; }
 .target .ipa .stressed { color: var(--accent-2); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
 .target .meta { color: var(--text-dim); font-size: 0.82rem; margin-top: 0.5rem; }
 
-.controls { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin: 1rem 0 0.25rem; }
+/* ---- the record row ---- */
+.recrow { display: flex; align-items: center; justify-content: center; gap: 1.6rem; margin: 0.4rem 0 0.9rem; }
+.iconbtn {
+  font: inherit; cursor: pointer; background: none; border: none; color: var(--text-dim);
+  display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+  min-width: 62px; min-height: 56px; padding: 0.3rem;
+}
+.iconbtn .ico {
+  font-size: 1.1rem; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--bg-panel-2); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+}
+.iconbtn .cap { font-size: 0.72rem; }
+.iconbtn:hover:not(:disabled) { color: var(--accent); }
+.iconbtn:hover:not(:disabled) .ico { border-color: var(--accent); }
+.iconbtn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.recbtn {
+  position: relative; cursor: pointer; border: none; padding: 0;
+  width: 92px; height: 92px; border-radius: 50%;
+  background: var(--accent); color: #0d1117;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.15rem;
+  box-shadow: 0 6px 20px rgba(79, 209, 197, 0.22);
+}
+.recbtn .recdot { width: 17px; height: 17px; border-radius: 50%; background: #0d1117; }
+.recbtn .reccap { font: inherit; font-size: 0.78rem; font-weight: 700; }
+.recbtn.rec { background: var(--danger); color: #fff; box-shadow: 0 6px 20px rgba(245, 101, 101, 0.3); }
+.recbtn.rec .recdot { background: #fff; border-radius: 3px; }
+.recbtn .recring {
+  position: absolute; inset: -6px; border-radius: 50%;
+  border: 2px solid var(--danger); opacity: 0; pointer-events: none;
+}
+.recbtn.rec .recring { animation: ring 1.4s ease-out infinite; }
+@keyframes ring {
+  0%   { transform: scale(0.92); opacity: 0.85; }
+  100% { transform: scale(1.22); opacity: 0; }
+}
+.recbtn.mini { width: 58px; height: 58px; }
+.recbtn.mini .recdot { width: 14px; height: 14px; }
+
+/* The secondary row: listen slowly, play your own take, compare the two.
+   Sits tighter under the record row so the three primaries stay dominant. */
+.controls.sub { margin-top: 0; gap: 0.4rem; }
+/* The same three actions again at the foot of the result card, so the loop
+   does not cost a scroll once the findings have pushed the controls away. */
+.result-actions { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid var(--border); justify-content: flex-start; }
+.controls { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin: 0.4rem 0 0.25rem; }
 
 .status { text-align: center; min-height: 1.6rem; margin-top: 0.7rem; font-size: 0.9rem; color: var(--text-dim); }
 .status .dot {
@@ -106,16 +191,88 @@ textarea { width: 100%; min-height: 110px; resize: vertical; line-height: 1.6; }
 .trap-hint { border-left: 3px solid var(--accent-2); padding: 0.6rem 0.9rem; background: var(--bg-panel-2); border-radius: 0 8px 8px 0; margin-top: 0.9rem; }
 .trap-hint b { color: var(--accent-2); }
 
-/* ---- result ---- */
-.verdict { display: flex; align-items: baseline; gap: 0.8rem; flex-wrap: wrap; }
-.verdict .score { font-size: 2rem; font-weight: 700; }
-.verdict.pass .score { color: var(--good); }
-.verdict.close .score { color: var(--accent-2); }
-.verdict.retry .score { color: var(--danger); }
-.verdict .line { font-weight: 600; }
+/* ---- result header ---- */
+.verdict { display: flex; align-items: center; gap: 1rem; }
+.verdict .ring { flex: 0 0 64px; }
+.verdict .vtext { flex: 1 1 auto; }
+.verdict .line { font-weight: 600; font-size: 1.05rem; }
 
-ul.checks { list-style: none; padding: 0; margin: 0.9rem 0 0; }
-ul.checks li { display: flex; gap: 0.6rem; padding: 0.35rem 0; border-top: 1px solid var(--border); font-size: 0.9rem; }
+/* ---- where it went wrong ------------------------------------------------- */
+.where {
+  margin: 1.1rem 0 0.4rem; padding: 0.9rem 1rem 1rem;
+  background: var(--bg-panel-2); border: 1px solid var(--border); border-radius: 10px;
+}
+.where-title {
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--text-dim); margin-bottom: 0.8rem;
+}
+.where-block + .where-block { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.where-block h4 { margin: 0 0 0.6rem; font-size: 0.92rem; font-weight: 600; }
+
+.no-evidence {
+  font-size: 0.83rem; color: var(--text-dim);
+  border-left: 3px solid var(--border); padding: 0.4rem 0.75rem;
+}
+
+/* the colour band, as a legend the user can read the cells against */
+.band-legend { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.45rem; font-size: 0.7rem; color: var(--text-dim); }
+.band-legend i { display: block; width: 110px; height: 7px; border-radius: 999px; }
+
+/* sound by sound: the spelling, coloured by what the transcript kept */
+.segline { display: flex; flex-wrap: wrap; gap: 4px; align-items: stretch; }
+.seg {
+  font-size: 1.5rem; font-weight: 600; line-height: 1.1;
+  padding: 0.3rem 0.45rem 0.2rem; min-width: 1.5rem; text-align: center;
+  border-radius: 6px 6px 3px 3px;
+  color: var(--c); background: var(--cbg);
+  border-bottom: 3px solid var(--c);
+}
+.seg.inserted {
+  color: var(--danger); background: transparent;
+  border: 2px dashed var(--danger); border-radius: 6px;
+  font-style: italic;
+}
+.seg.inserted::before { content: '+'; font-size: 0.7rem; vertical-align: super; opacity: 0.8; }
+
+/* beat by beat: the syllables, coloured by the weight you gave them */
+.beats { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.beat {
+  flex: 1 1 6.5rem; min-width: 6.5rem; padding: 0.5rem 0.6rem 0.6rem;
+  background: var(--cbg); border: 1px solid var(--border);
+  border-bottom: 4px solid var(--c); border-radius: 8px;
+}
+.beat-role { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--text-dim); }
+.beat.strong .beat-role { color: var(--accent-2); font-weight: 700; }
+.beat-text { font-size: 1.2rem; font-weight: 700; color: var(--c); line-height: 1.2; }
+.beat-ipa { font-size: 0.76rem; color: var(--text-dim); }
+.beat-meter {
+  position: relative; height: 12px; margin: 0.45rem 0 0.35rem;
+  background: rgba(0, 0, 0, 0.28); border-radius: 999px;
+}
+.beat-meter .want {
+  position: absolute; top: -2px; width: 2px; height: 16px;
+  background: var(--text-dim); transform: translateX(-50%); border-radius: 1px;
+}
+.beat-meter .got {
+  position: absolute; top: 1px; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--c); transform: translateX(-50%);
+  box-shadow: 0 0 0 2px var(--bg-panel-2);
+}
+.beat-note { font-size: 0.7rem; color: var(--text-dim); line-height: 1.3; }
+
+/* word by word, for sentences */
+.wordline { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.wchip {
+  padding: 0.25rem 0.55rem; border-radius: 6px;
+  background: var(--cbg); border-bottom: 3px solid var(--c); color: var(--c);
+  font-weight: 600; font-size: 0.95rem;
+  display: flex; flex-direction: column; line-height: 1.25;
+}
+.wchip i { font-style: normal; font-size: 0.66rem; color: var(--text-dim); font-weight: 400; }
+
+/* ---- checks and findings ---- */
+ul.checks { list-style: none; padding: 0; margin: 1rem 0 0; }
+ul.checks li { display: flex; gap: 0.6rem; flex-wrap: wrap; padding: 0.4rem 0; border-top: 1px solid var(--border); font-size: 0.9rem; }
 ul.checks li:first-child { border-top: none; }
 ul.checks .mark { flex: 0 0 1.2rem; font-weight: 700; }
 ul.checks li.ok .mark { color: var(--good); }
@@ -131,17 +288,9 @@ ul.checks .det { color: var(--text-dim); flex: 1 1 100%; padding-left: 1.8rem; f
 .finding .fix { margin-top: 0.45rem; font-size: 0.9rem; }
 .finding .fix b { color: var(--good); }
 
-/* ---- syllable strip: where the beats actually landed ---- */
-.strip { display: flex; gap: 3px; height: 46px; align-items: flex-end; margin: 0.9rem 0 0.3rem; }
+/* ---- energy strip ---- */
+.strip { display: flex; gap: 3px; height: 46px; align-items: flex-end; margin: 1rem 0 0.3rem; }
 .strip .bar { flex: 1 1 auto; background: var(--bg-panel-2); border-radius: 2px 2px 0 0; min-height: 2px; }
-.strip .bar.nucleus { background: var(--accent); }
-.strip .bar.stress { background: var(--accent-2); }
-
-.syls { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
-.syl { padding: 0.2rem 0.6rem; border-radius: 999px; border: 1px solid var(--border); font-size: 0.85rem; color: var(--text-dim); }
-.syl.want { border-color: var(--accent-2); color: var(--accent-2); }
-.syl.got { border-color: var(--accent); color: var(--accent); }
-.syl.both { border-color: var(--good); color: var(--good); }
 
 /* ---- grammar ---- */
 .g-finding { border-left: 3px solid var(--accent-2); background: var(--bg-panel-2); border-radius: 0 8px 8px 0; padding: 0.7rem 0.95rem; margin-top: 0.7rem; }
@@ -154,15 +303,64 @@ ul.checks .det { color: var(--text-dim); flex: 1 1 100%; padding-left: 1.8rem; f
 .weak { display: flex; flex-direction: column; gap: 0.5rem; }
 .weak-row { display: grid; grid-template-columns: 13rem 1fr 2.5rem; gap: 0.7rem; align-items: center; font-size: 0.88rem; }
 .weak-bar { height: 8px; background: var(--bg-panel-2); border-radius: 999px; overflow: hidden; }
-.weak-bar i { display: block; height: 100%; background: var(--danger); }
-.stat-row { display: flex; gap: 1.6rem; flex-wrap: wrap; }
-.stat .n { font-size: 1.5rem; font-weight: 700; color: var(--accent); display: block; }
-.stat .l { font-size: 0.78rem; color: var(--text-dim); }
+.weak-bar i { display: block; height: 100%; }
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+.stat {
+  background: var(--bg-panel-2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.7rem 0.8rem;
+}
+.stat .n { font-size: 1.6rem; font-weight: 700; color: var(--accent); display: block; line-height: 1.1; }
+.stat .l { font-size: 0.74rem; color: var(--text-dim); }
+
+.wordgrid { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.wtile {
+  font: inherit; cursor: pointer; min-height: 44px;
+  display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2;
+  padding: 0.3rem 0.6rem; border-radius: 7px;
+  background: var(--cbg); border: 1px solid var(--border);
+  border-bottom: 3px solid var(--c); color: var(--text);
+}
+.wtile i { font-style: normal; font-size: 0.68rem; color: var(--c); font-weight: 700; }
+.wtile:hover { border-color: var(--accent); }
 
 .notice { border: 1px solid var(--border); border-left: 3px solid var(--accent); background: var(--bg-panel-2); border-radius: 0 8px 8px 0; padding: 0.7rem 0.95rem; font-size: 0.87rem; color: var(--text-dim); }
 .notice b { color: var(--text); }
 
-@media (max-width: 560px) {
-  .target .word { font-size: 1.8rem; }
-  .weak-row { grid-template-columns: 8rem 1fr 2.2rem; }
+/* ---- the phone action bar ------------------------------------------------
+   Once a result card is open the record button is well above the fold, and on
+   a phone that means scrolling up to say the word again. This keeps the three
+   things the loop needs under the thumb. Desktop never sees it. */
+.mobilebar { display: none; }
+
+@media (max-width: 640px) {
+  .wrap { padding: 1rem 0.9rem 2rem; }
+  .card { padding: 0.95rem 0.9rem; }
+  .tabs { gap: 0; }
+  .tabs button { flex: 1 1 0; justify-content: center; padding: 0.7rem 0.3rem; font-size: 0.88rem; }
+  .tabs button .ti { font-size: 1rem; }
+  .target { padding: 1.1rem 0.25rem 0.9rem; }
+  .target .word { font-size: 2.1rem; }
+  .target .word.sentence { font-size: 1.2rem; }
+  .chiplabel { flex: 1 1 100%; }
+  .chip { flex: 1 1 auto; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .weak-row { grid-template-columns: 1fr 4rem 2rem; font-size: 0.82rem; }
+  .seg { font-size: 1.3rem; }
+  .beat { flex: 1 1 5.5rem; min-width: 5.5rem; }
+
+  body { padding-bottom: 6.5rem; }
+  .mobilebar {
+    display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    align-items: center; justify-content: space-between; gap: 0.8rem;
+    padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
+    background: rgba(21, 27, 35, 0.94);
+    border-top: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+  .mobilebar.off { display: none; }
+  .mobilebar .btn { flex: 1 1 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recbtn.rec .recring, .status .dot { animation: none; }
 }

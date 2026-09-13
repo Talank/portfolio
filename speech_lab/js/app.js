@@ -5,11 +5,13 @@
  * tool that records your voice should not be quiet about where it goes.
  */
 
-import { DECK, TRAPS, LEVELS, TRACKS, syllablesOf } from '../data/deck.js';
+import { DECK, TRAPS, LEVELS, TRACKS, syllablesOf, spellSyllables } from '../data/deck.js';
 import { analyze, decodeBlob } from './analyze.js';
 import { listenOnce, judge, speak, americanVoices, asrAvailable } from './asr.js';
 import { evaluate, verdictLine } from './coach.js';
 import { check as grammarCheck, RULE_COUNT, RULE_CLASSES } from './grammar.js';
+import { localize, bandColor, bandLabel, bandGradient } from './localize.js';
+import { escapeHtml, focusMarkup, ipaHtml, whereHtml, stripHtml, ring, actionsHtml } from './render.js';
 
 const STORE_KEY = 'speechlab-v1';
 const $ = (id) => document.getElementById(id);
@@ -24,6 +26,7 @@ const state = {
   lastResult: null,
   recording: false,
   voiceName: null,
+  lastUrl: null,       // object URL of your own last take, for playback
 };
 
 function load() {
@@ -63,12 +66,12 @@ function candidates() {
 /* The personalisation, such as it is: an item whose traps you keep failing is
  * worth more than one you have already cleared. Randomness keeps it from
  * turning into the same three words forever. */
-function nextItem() {
-  const pool = candidates().filter((d) => d !== state.item);
-  if (!pool.length) return state.item;
+function nextItem(pool = candidates()) {
+  const avail = pool.filter((d) => d !== state.item);
+  if (!avail.length) return state.item || pool[0];
 
   const weak = store.weakness;
-  const scored = pool.map((d) => {
+  const scored = avail.map((d) => {
     let s = Math.random() * 0.9;
     for (const t of d.traps) s += Math.min(3, (weak[t] || 0)) * 0.55;
     const best = store.cleared[d.w];
@@ -84,21 +87,13 @@ function nextItem() {
 
 /* ------------------------------------------------------------- rendering -- */
 
-function ipaHtml(item) {
-  if (!item.ipa) return '';
-  const parts = item.ipa.split('.');
-  return '/' + parts
-    .map((p, i) => (i === item.stress ? `<span class="stressed">${p}</span>` : p))
-    .join('<span class="muted">·</span>') + '/';
-}
-
 function renderTarget() {
   const it = state.item;
   if (!it) return;
   const isSentence = it.stress < 0;
   const syl = syllablesOf(it);
 
-  $('targetWord').textContent = it.w;
+  $('targetWord').innerHTML = focusMarkup(it);
   $('targetWord').className = 'word' + (isSentence ? ' sentence' : '');
   $('targetIpa').innerHTML = ipaHtml(it);
 
@@ -124,37 +119,16 @@ function renderTarget() {
 
   $('result').innerHTML = '';
   $('btnAgain').hidden = true;
+  setOwnAudio(null);
   state.attempt = 0;
 }
 
-function strip(ac, stressIdx) {
-  const env = ac.envelope || [];
-  if (!env.length) return '';
-  const lo = ac.envFloor, hi = ac.envPeak;
-  const N = Math.min(64, env.length);
-  const step = env.length / N;
-  const nucleusFrames = new Set((ac.nucleiMs || []).map((ms) => Math.round(ms / 10)));
-  const stressFrame = stressIdx >= 0 && ac.nucleiMs && ac.nucleiMs[stressIdx] != null
-    ? Math.round(ac.nucleiMs[stressIdx] / 10) : -1;
-
-  let html = '<div class="strip">';
-  for (let i = 0; i < N; i++) {
-    const a = Math.floor(i * step), b = Math.floor((i + 1) * step);
-    let v = -Infinity, isNuc = false, isStress = false;
-    for (let j = a; j < Math.max(a + 1, b); j++) {
-      if (env[j] > v) v = env[j];
-      if (nucleusFrames.has(j)) isNuc = true;
-      if (j === stressFrame) isStress = true;
-    }
-    const h = Math.max(2, Math.round(((v - lo) / Math.max(1, hi - lo)) * 46));
-    const cls = isStress ? 'bar stress' : isNuc ? 'bar nucleus' : 'bar';
-    html += `<div class="${cls}" style="height:${h}px"></div>`;
-  }
-  return html + '</div><div class="tiny muted">Energy over time. Teal = a syllable beat the detector found; orange = the one it judged stressed.</div>';
-}
+/* ---- the result card ------------------------------------------------------- */
 
 function renderResult(res, ac, jd) {
   const it = state.item;
+  const loc = localize(it, ac, jd);
+
   const checks = res.checks.map((c) => `
     <li class="${c.ok ? 'ok' : 'bad'}">
       <span class="mark">${c.ok ? '✓' : '✗'}</span>
@@ -170,43 +144,70 @@ function renderResult(res, ac, jd) {
       <div class="fix"><b>Do this:</b> ${f.fix}</div>
     </div>`).join('');
 
-  const expected = syllablesOf(it);
-  let sylRow = '';
-  if (expected && it.ipa) {
-    const parts = it.ipa.split('.');
-    sylRow = '<div class="syls">' + parts.map((p, i) => {
-      const want = i === it.stress;
-      const got = i === ac.stressIndex && ac.syllables === expected;
-      const cls = want && got ? 'both' : want ? 'want' : got ? 'got' : '';
-      return `<span class="syl ${cls}">${p}</span>`;
-    }).join('') + '</div>'
-    + '<div class="tiny muted">Orange = where the stress belongs. Teal = where it landed. Green = both.</div>';
-  }
-
   const info = res.info.length
     ? `<div class="tiny muted" style="margin-top:.6rem">${res.info.join(' ')}</div>` : '';
 
   $('result').innerHTML = `
     <div class="card">
       <div class="verdict ${res.verdict}">
-        <span class="score">${res.score}</span>
-        <span class="line">${verdictLine(res, state.attempt)}</span>
-        <span class="muted small" style="margin-left:auto">attempt ${state.attempt}</span>
+        ${ring(res.score)}
+        <div class="vtext">
+          <div class="line">${verdictLine(res, state.attempt)}</div>
+          <div class="small muted">attempt ${state.attempt} · ${bandLabel(res.score / 100)}</div>
+        </div>
       </div>
+
+      ${whereHtml(it, loc, jd)}
+
       <ul class="checks">${checks}</ul>
-      ${strip(ac, ac.stressIndex)}
-      ${sylRow}
+      ${stripHtml(ac, loc)}
       ${findings}
       ${info}
+      ${actionsHtml(!!state.lastUrl)}
     </div>`;
 
+  // On a narrow screen the card starts below the fold; on a wide one it does not,
+  // and yanking the page would be worse than leaving it alone.
+  if (window.innerWidth <= 640 && $('result').scrollIntoView) {
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   $('btnAgain').hidden = false;
-  $('btnAgain').textContent = res.verdict === 'pass' ? 'Say it again' : 'Try again';
+  $('btnAgain').textContent = res.verdict === 'pass' ? '↻ Say it again' : '↻ Try again';
 }
 
 /* --------------------------------------------------------------- capture -- */
 
 let media = { stream: null, recorder: null, chunks: [], ctx: null, stopTimer: null, silence: null };
+
+/* Your own take, kept only as an object URL in this tab so "Hear yours" and
+ * "Compare" can play it. Revoked as soon as it is replaced — it is never
+ * written anywhere, and a reload loses it. */
+function setOwnAudio(blob) {
+  if (state.lastUrl) { URL.revokeObjectURL(state.lastUrl); state.lastUrl = null; }
+  if (blob) state.lastUrl = URL.createObjectURL(blob);
+  $('btnHear').disabled = !state.lastUrl;
+  $('btnCompare').disabled = !state.lastUrl;
+}
+
+function playOwn() {
+  return new Promise((resolve) => {
+    if (!state.lastUrl) { resolve(false); return; }
+    const a = new Audio(state.lastUrl);
+    a.onended = () => resolve(true);
+    a.onerror = () => resolve(false);
+    a.play().catch(() => resolve(false));
+  });
+}
+
+async function compare() {
+  if (!state.lastUrl) return;
+  setStatus('Model…');
+  await speak(state.item.w, { rate: 0.85, voiceName: state.voiceName });
+  setStatus('Yours…');
+  await playOwn();
+  setStatus('');
+}
 
 async function startRecording() {
   if (state.recording) return;
@@ -244,6 +245,7 @@ async function startRecording() {
     setStatus('Analysing…');
 
     const blob = new Blob(media.chunks, { type: mime || 'audio/webm' });
+    setOwnAudio(blob);
     let ac;
     try {
       const { samples, sampleRate } = await decodeBlob(blob);
@@ -323,11 +325,10 @@ function stopRecording() {
 }
 
 function setRecUI(on) {
-  $('btnRec').textContent = on ? 'Stop' : 'Record';
+  $('recCap').textContent = on ? 'Stop' : 'Record';
   $('btnRec').classList.toggle('rec', on);
-  $('btnListen').disabled = on;
-  $('btnSlow').disabled = on;
-  $('btnNext').disabled = on;
+  $('mRec').classList.toggle('rec', on);
+  for (const id of ['btnListen', 'btnSlow', 'btnNext', 'mListen', 'mNext']) $(id).disabled = on;
 }
 function setStatus(html) { $('status').innerHTML = html; }
 
@@ -339,6 +340,16 @@ function renderProgress() {
   $('statWords').textContent = Object.keys(store.cleared).filter((w) => store.cleared[w] >= 80).length;
   $('statDays').textContent = store.days.length;
 
+  // Worst first: the list is there to be worked down, not admired.
+  const tried = Object.entries(store.cleared).sort((a, b) => a[1] - b[1]);
+  $('wordGrid').innerHTML = tried.length
+    ? tried.map(([w, s]) =>
+        `<button class="wtile" style="--c:${bandColor(s / 100)};--cbg:${bandColor(s / 100, 0.14)}" data-word="${escapeHtml(w)}">
+           <span>${escapeHtml(w)}</span><i>${s}</i></button>`).join('')
+    : '<p class="muted small" style="margin:0">Nothing tried yet. Each word you attempt lands here, coloured by your best score, worst first — tap one to drill it again.</p>';
+  $('legendWords').innerHTML = tried.length
+    ? `<span>0</span><i style="background:${bandGradient()}"></i><span>100</span>` : '';
+
   const rows = Object.entries(store.weakness)
     .filter(([, n]) => n > 0)
     .sort((a, b) => b[1] - a[1]);
@@ -349,13 +360,14 @@ function renderProgress() {
         const t = TRAPS[id];
         return `<div class="weak-row">
           <span>${t ? t.label : id}</span>
-          <span class="weak-bar"><i style="width:${Math.round((n / max) * 100)}%"></i></span>
+          <span class="weak-bar"><i style="width:${Math.round((n / max) * 100)}%;background:${bandColor(1 - n / max)}"></i></span>
           <span class="muted">${n}</span>
         </div>`;
       }).join('')
     : '<p class="muted small">Nothing recorded yet. The list fills in as the drill finds things.</p>';
 
   $('weakNote').hidden = rows.length === 0;
+  $('btnDrillWeak').hidden = rows.length === 0;
   if (rows.length) {
     const t = TRAPS[rows[0][0]];
     $('weakNote').innerHTML = t
@@ -364,7 +376,35 @@ function renderProgress() {
   }
 }
 
+/* Jump straight to a word that contains the trap you fail most. */
+function drillWeakest() {
+  const rows = Object.entries(store.weakness).sort((a, b) => b[1] - a[1]);
+  if (!rows.length) return;
+  const trap = rows[0][0];
+  const pool = DECK.filter((d) => d.traps.includes(trap));
+  if (!pool.length) return;
+  state.item = nextItem(pool);
+  state.level = state.item.lvl;
+  state.track = state.item.track;
+  syncChips();
+  tab('drill');
+  renderTarget();
+}
+
+function drillWord(word) {
+  const hit = DECK.find((d) => d.w === word);
+  if (!hit) return;
+  state.item = hit;
+  state.level = hit.lvl;
+  state.track = hit.track;
+  syncChips();
+  tab('drill');
+  renderTarget();
+}
+
 /* --------------------------------------------------------------- grammar -- */
+
+const G_SAMPLE = 'I am having a car since three years. He go to office in morning and discuss about the informations with his team. Kindly do the needful.';
 
 function renderGrammar(text) {
   const out = $('gResult');
@@ -386,10 +426,6 @@ function renderGrammar(text) {
     </div>`).join('');
 }
 
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-}
-
 async function speakSentence() {
   $('gStatus').innerHTML = '<span class="dot"></span>Listening…';
   $('gSpeak').disabled = true;
@@ -406,12 +442,22 @@ async function speakSentence() {
 
 /* ------------------------------------------------------------------ init -- */
 
-function buildSelects() {
-  $('levelSel').innerHTML = LEVELS.map((l) =>
-    `<option value="${l.n}">${l.n} · ${l.name}</option>`).join('');
-  $('trackSel').innerHTML = TRACKS.map((t) =>
-    `<option value="${t.id}">${t.name}</option>`).join('');
+function chip(label, value, on, sub) {
+  return `<button class="chip${on ? ' on' : ''}" data-v="${value}">${label}${sub ? `<i>${sub}</i>` : ''}</button>`;
+}
 
+function buildChips() {
+  $('levelChips').innerHTML = LEVELS.map((l) =>
+    chip(String(l.n), l.n, l.n === state.level, l.name)).join('');
+  $('trackChips').innerHTML = TRACKS.map((t) =>
+    chip(t.name, t.id, t.id === state.track)).join('');
+}
+function syncChips() {
+  for (const el of $('levelChips').children) el.classList.toggle('on', +el.dataset.v === state.level);
+  for (const el of $('trackChips').children) el.classList.toggle('on', el.dataset.v === state.track);
+}
+
+function buildVoices() {
   const vs = americanVoices();
   $('voiceSel').innerHTML = vs.length
     ? vs.map((v) => `<option value="${v.name}">${v.name}</option>`).join('')
@@ -423,7 +469,9 @@ function tab(name) {
     $(`panel-${n}`).hidden = n !== name;
     $(`tab-${n}`).setAttribute('aria-selected', String(n === name));
   }
+  $('mobilebar').classList.toggle('off', name !== 'drill');
   if (name === 'progress') renderProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function wire() {
@@ -431,23 +479,46 @@ function wire() {
   $('tab-grammar').onclick = () => tab('grammar');
   $('tab-progress').onclick = () => tab('progress');
 
-  $('levelSel').onchange = (e) => {
-    state.level = +e.target.value;
+  $('levelChips').onclick = (e) => {
+    const b = e.target.closest('.chip'); if (!b) return;
+    state.level = +b.dataset.v; syncChips();
     state.item = nextItem(); renderTarget();
   };
-  $('trackSel').onchange = (e) => {
-    state.track = e.target.value; state.item = nextItem(); renderTarget();
+  $('trackChips').onclick = (e) => {
+    const b = e.target.closest('.chip'); if (!b) return;
+    state.track = b.dataset.v; syncChips();
+    state.item = nextItem(); renderTarget();
   };
+  $('wordGrid').onclick = (e) => {
+    const b = e.target.closest('.wtile'); if (b) drillWord(b.dataset.word);
+  };
+  $('btnDrillWeak').onclick = drillWeakest;
   $('voiceSel').onchange = (e) => { state.voiceName = e.target.value || null; };
 
-  $('btnListen').onclick = () => speak(state.item.w, { rate: 1, voiceName: state.voiceName });
+  const listen = () => speak(state.item.w, { rate: 1, voiceName: state.voiceName });
+  const next = () => { state.item = nextItem(); renderTarget(); };
+  const record = () => (state.recording ? stopRecording() : startRecording());
+
+  $('btnListen').onclick = listen;
+  $('mListen').onclick = listen;
   $('btnSlow').onclick = () => speak(state.item.w, { rate: 0.6, voiceName: state.voiceName });
-  $('btnRec').onclick = () => (state.recording ? stopRecording() : startRecording());
-  $('btnNext').onclick = () => { state.item = nextItem(); renderTarget(); };
+  $('btnRec').onclick = record;
+  $('mRec').onclick = record;
+  $('btnNext').onclick = next;
+  $('mNext').onclick = next;
   $('btnAgain').onclick = () => startRecording();
+  $('btnHear').onclick = playOwn;
+  $('btnCompare').onclick = compare;
+  $('result').onclick = (e) => {
+    const b = e.target.closest('[data-act]');
+    if (!b || b.disabled) return;
+    ({ hear: playOwn, compare, again: startRecording }[b.dataset.act] || (() => {}))();
+  };
 
   $('gCheck').onclick = () => renderGrammar($('gText').value);
   $('gSpeak').onclick = speakSentence;
+  $('gSample').onclick = () => { $('gText').value = G_SAMPLE; renderGrammar(G_SAMPLE); };
+  $('gClear').onclick = () => { $('gText').value = ''; renderGrammar(''); $('gStatus').textContent = ''; };
   $('gText').oninput = () => { if ($('gText').value.length > 12) renderGrammar($('gText').value); };
 
   $('btnReset').onclick = () => {
@@ -458,23 +529,26 @@ function wire() {
 
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
-    if (e.code === 'Space') { e.preventDefault(); $('btnRec').click(); }
-    if (e.key === 'l') $('btnListen').click();
-    if (e.key === 'n') $('btnNext').click();
+    if (e.code === 'Space') { e.preventDefault(); record(); }
+    if (e.key === 'l') listen();
+    if (e.key === 'n') next();
+    if (e.key === 'y' && !$('btnHear').disabled) playOwn();
   });
 }
 
 function banners() {
   if (!asrAvailable) {
     $('asrBanner').innerHTML =
-      '<b>No speech recogniser in this browser.</b> The acoustic checks — syllable count, stress placement, rhythm — still work, but the "was it recognised" check is skipped. Chrome or Edge has it.';
+      '<b>No speech recogniser in this browser.</b> The acoustic checks — syllable count, stress placement, rhythm — still work, but the “was it recognised” check and the letter-by-letter colouring are skipped, because both read off the transcript. Chrome or Edge has one.';
     $('asrBanner').hidden = false;
   }
   $('grammarMeta').textContent =
     `${RULE_COUNT} rules across ${RULE_CLASSES.length} classes: ${RULE_CLASSES.join(', ')}.`;
 }
 
-buildSelects();
+buildChips();
+buildVoices();
+if (window.speechSynthesis) speechSynthesis.addEventListener('voiceschanged', buildVoices);
 wire();
 banners();
 state.item = nextItem();

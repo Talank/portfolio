@@ -7,6 +7,12 @@ no accounts. `bash start.sh` and open `http://localhost:8000/speech_lab/`.
 deck is 92 items and the grammar rule set is 26 rules — both are seeds, not
 coverage.
 
+Built for a phone first: level and track are buttons rather than dropdowns, the
+record control is a 92px circle in the middle of the thumb's reach, and once a
+result card has pushed the controls off screen a fixed bar keeps Listen, Record
+and Next at the bottom of the viewport. Nothing that matters lives in a hover
+state, and every control clears 44px on its shortest side.
+
 ---
 
 ## What it measures, and what it refuses to
@@ -63,6 +69,71 @@ budget.
 
 ---
 
+## Showing *where* it went wrong
+
+A score tells you that something was wrong. It does not tell you what to move.
+So every result also places the error, using a single colour band — red through
+orange and amber to green — so that "bad" and "very bad" are visibly different
+rather than both landing on the same red.
+
+There are two rows, because there are two kinds of evidence and they localise
+to different things.
+
+**Sound by sound.** The recogniser's transcript is aligned to the spelling with
+a Levenshtein backtrace, and every substituted or deleted letter is coloured by
+how far off the attempt was — a near miss is amber, a different word is red.
+Two refinements make it point at sounds rather than at letters:
+
+- A flagged letter widens to the whole trap it sits inside, so *think* heard as
+  *tink* colours **th** together. Colouring only the `h` would point at a letter
+  that has no sound of its own.
+- An *inserted* letter gets its own dashed cell in front of the word. A vowel
+  appearing before `sm-` is not a bad `s` — it is the prothetic /ɪ/, and it is
+  shown as the extra thing it is rather than as damage to the word.
+
+The caption then separates two claims that are easy to run together: which
+letters went red (where the transcript stopped matching) and which of *those*
+the trap actually accounts for. For *language* → *languez* the red run is
+"age", but only the **g** is /dʒ/; saying the whole run was the affricate would
+put a cause on letters that only came along for the ride.
+
+**Beat by beat.** The word is split into its syllables — on the spelling, not
+just the IPA — and each one is coloured by how close its measured prominence
+came to the profile English wants. A dot shows the weight you gave the
+syllable; a notch shows the weight it should have had. The error is counted in
+one direction only, because a stressed syllable cannot be too strong and an
+unstressed one cannot be too small.
+
+The useful case is the one this app exists for: when every syllable comes out
+the same weight, **both** beats are marked down rather than one being declared
+the winner. A level word is not a word with stress in the wrong place; it is a
+word with no stress, and the display says so.
+
+Sentences get a word row instead, coloured by a word-level alignment, with the
+caveat printed beside it that a sentence recogniser repairs some near misses
+from context — so a green word there is weaker evidence than a green word in a
+single-word drill.
+
+### What the colours are not
+
+No cell is coloured by a per-phoneme score, because there is no per-phoneme
+score. Each colour is placed by **position** and justified by a named source:
+the transcript alignment, or the measured prominence. Where neither source can
+be lined up, the row prints the reason instead of a grey guess:
+
+- one syllable, so there is no stress pattern to place
+- the beat count disagreed with the word, so the beats cannot be matched to the
+  syllables — which is itself the thing to fix first
+- no recogniser in this browser, so there is no transcript to align against
+- nothing intelligible came back
+
+A colour in the wrong place is worse than no colour: the user moves their
+tongue to fix a sound that was already fine. That is why `trapSpans()` has no
+pattern for the /z/ hiding inside *repository* or the /s/ of *sepsis* — where
+the spelling does not give the sound away, the answer is no span at all.
+
+---
+
 ## Why it is aimed at Nepali
 
 The traps are not a generic "hard sounds of English" list. Each one is a
@@ -95,12 +166,15 @@ deliberately left out rather than guessed at.
 ```
 index.html        three tabs: Pronounce, Grammar, Progress
 css/app.css       site palette, copied from DSA_tool/css/style.css
-data/deck.js      92 drills + 16 traps, each with why + physical fix
+data/deck.js      92 drills + 16 traps + the orthographic syllable splits
 js/analyze.js     the DSP. Pure, no browser APIs, unit-testable
 js/asr.js         Web Speech API wrapper, judging, and the model voice
+js/localize.js    the colour band, the alignments, where each trap lives. Pure
 js/coach.js       measurement -> ranked findings + transparent score
+js/render.js      result HTML. Pure, so the colour placement can be asserted
 js/grammar.js     26 rules in 8 classes, aimed at Nepali L1
 js/app.js         drill loop, levels, personalisation, localStorage
+check_page.mjs    boots the page in a DOM stub and checks what it draws
 ```
 
 **Personalisation** is a per-trap failure count in `localStorage`
@@ -112,7 +186,8 @@ because there is no denominator for that.
 ## Tests
 
 ```
-node /tmp/.../scratchpad/speechlab/test.mjs     # 373 checks
+node /tmp/.../scratchpad/speechlab/test.mjs     # 438 checks
+node speech_lab/check_page.mjs                  # boots index.html, 77 checks
 ```
 
 The DSP is tested against **synthetic utterances whose syllable count, stress
@@ -123,6 +198,17 @@ are tested in both directions, and the 32 must-stay-silent sentences matter more
 than the 26 must-fire ones: a checker that flags *"He put the file on my desk
 yesterday"* teaches you to ignore it.
 
+`check_page.mjs` follows `shared/check_bedtime_page.js`: it **runs** the page in
+a DOM stub rather than inspecting the files, because `app.js` does its whole
+setup at module scope and a renamed id throws before a single control is wired
+while every static check still passes. It then renders the result card for cases
+whose right answer is known by hand — *think* heard as *tink* must put red on
+the T and the H and leave the K alone — since the point of a colour band is
+where it lands, and a test on the numbers alone would not notice the template
+pointing one letter to the left. It also asserts that every class the renderer
+emits has a rule in `app.css`, so a rename cannot silently drop the styling off
+a whole row.
+
 ## Known gaps
 
 - Deck is a seed: L1 is general-only, L3 has no general track. The picker falls
@@ -131,6 +217,11 @@ yesterday"* teaches you to ignore it.
   syllables in a noisy room. `snr` is reported for this reason.
 - The recogniser's language model sometimes repairs a near miss inside a
   sentence, which is why single words are the default drill.
+- The letter row needs the recogniser, so Firefox and Safari get the beat row
+  and the reasons, but no sound-by-sound colouring.
+- Letter alignment diverges from the first bad letter to the end of the
+  mismatch, so the red run is often wider than the sound that caused it. The
+  caption separates the two rather than the colouring pretending to be exact.
 - No import/export of progress, no spaced repetition scheduling, no minimal-pair
   A/B mode.
 
