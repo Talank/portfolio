@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Learn — Talank Baral</title>
-<meta name="description" content="Eight local, static, zero-dependency courses — Linux, Emacs, CI/CD &amp; Containers, AI Video, Local Voice Lab, Full-Stack Java, AI Engineering, and DSA interview prep — plus an ACLS reference and drill tool for reading the ECG.">
+<meta name="description" content="Eight local, static, zero-dependency courses — Linux, Emacs, CI/CD &amp; Containers, AI Video, Local Voice Lab, Full-Stack Java, AI Engineering, and DSA interview prep — plus an ACLS reference and drill tool for reading the ECG and a pronunciation and grammar lab for American English.">
 <style>
   :root {
     --bg: #0d1117;
@@ -138,7 +138,7 @@
 </header>
 <main class="wrap">
   <h1>Learn</h1>
-  <p class="lede">Eight <b>local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices. At the end sits <b>one thing that isn't a course</b> — an ACLS reference and drill tool, built to be looked things up in rather than worked through.</p>
+  <p class="lede">Eight <b>local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices. At the end sit <b>two things that aren't courses</b> — an ACLS reference and drill tool, built to be looked things up in rather than worked through, and a speech lab that listens to you say a word and tells you what your mouth actually did.</p>
 
   <div class="stats-row" id="statsRow">
     <div class="stat"><span class="n" id="statCourses">—</span><span class="l">courses</span></div>
@@ -207,11 +207,23 @@
       facts: ['15 sections', '245 questions', '15 rhythms', '12 drugs'],
       bestKey: 'acls_quiz_best',
     },
+    /* Also not a course, and not a reference either: nothing to read and
+       nothing to look up, only a loop you stand in front of a microphone and
+       repeat. Its honest numbers come out of its own localStorage, so like
+       ACLS it reports what it counted rather than a completion percentage. */
+    {
+      dir: '../speech_lab/', title: 'Speech Lab — American English',
+      desc: 'Say a word, and it tells you what your mouth actually did: how many syllables came out, which one took the stress, and whether an American English recogniser heard the word you meant. Aimed at the specific sounds and grammar a Nepali first language makes hard — general, software and medical vocabulary across four levels.',
+      kind: 'practice',
+      facts: ['4 levels', '92 drills', '16 sound traps', '26 grammar rules'],
+      storeKey: 'speechlab-v1',
+    },
   ];
 
-  // Everything with lessons to count. Reference cards are shown but never
-  // summed: "courses", "lessons" and "total content" all mean taught material.
-  var TAUGHT = COURSES.filter(function (c) { return c.kind !== 'reference'; });
+  // Everything with lessons to count. Cards that carry a `kind` are shown but
+  // never summed: "courses", "lessons" and "total content" all mean taught
+  // material, and a drill bench has no lesson count to contribute.
+  var TAUGHT = COURSES.filter(function (c) { return !c.kind; });
 
   /* The three headline numbers come from COURSES rather than being typed into
      the markup. They were typed in once and were wrong by one course, 23
@@ -257,12 +269,38 @@
       </div>`;
   }
 
+  /* Same reasoning as referenceCard: there is no denominator. "Words cleared"
+     is a count of drills you have scored 80+ on at least once, which is a real
+     thing that happened; a percentage of "your pronunciation" would not be. */
+  function practiceCard(c) {
+    let line = 'Drill bench — nothing to complete';
+    try {
+      const s = JSON.parse(localStorage.getItem(c.storeKey) || '{}');
+      const cleared = Object.values(s.cleared || {}).filter(v => v >= 80).length;
+      if (s.attempts) {
+        line = `${cleared} word${cleared === 1 ? '' : 's'} cleared · ${s.attempts} attempt${s.attempts === 1 ? '' : 's'}`;
+      }
+    } catch (e) { /* first visit, or storage blocked */ }
+    return `
+      <div class="card">
+        <div class="card-top">
+          <h2>${c.title}</h2>
+          <span class="badge ref">Practice</span>
+        </div>
+        <p class="desc">${c.desc}</p>
+        <div class="meta">${c.facts.map(f => `<span>${f}</span>`).join('')}</div>
+        <p class="progress-label" style="margin-top:0">${line}</p>
+        <a class="go" href="${c.dir}index.html">Open</a>
+      </div>`;
+  }
+
   function render() {
     const grid = document.getElementById('courseGrid');
     let totalLessons = 0, totalDone = 0;
 
     grid.innerHTML = COURSES.map(c => {
       if (c.kind === 'reference') return referenceCard(c);
+      if (c.kind === 'practice') return practiceCard(c);
 
       const built = c.lessonsBuilt || c.lessons;
       const done = readProgress(c.progressKey);
