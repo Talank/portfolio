@@ -302,16 +302,27 @@ export function analyze(samples, sampleRate) {
   };
 }
 
-/* Pull mono Float32 out of a recorded Blob without assuming a sample rate. */
-export async function decodeBlob(blob) {
+/* Pull mono Float32 out of a recorded Blob without assuming a sample rate.
+ *
+ * Takes a context rather than making one. It used to make its own and close it
+ * per call, which is the textbook shape and is wrong here: browsers cap the
+ * number of hardware AudioContexts (six, in Chrome) and release closed ones
+ * lazily, so a few takes in a row exhaust the pool and the constructor throws.
+ * The caller owns one context for the life of the page and passes it in. */
+export async function decodeBlob(blob, ctx) {
   const buf = await blob.arrayBuffer();
-  const Ctx = window.AudioContext || window.webkitAudioContext;
-  const ctx = new Ctx();
-  try {
+  if (!buf.byteLength) throw new Error('empty recording');
+  if (ctx) {
     const audio = await ctx.decodeAudioData(buf);
-    const ch = audio.getChannelData(0);
-    return { samples: new Float32Array(ch), sampleRate: audio.sampleRate };
+    return { samples: new Float32Array(audio.getChannelData(0)), sampleRate: audio.sampleRate };
+  }
+  // Standalone fallback, so the module still works without a caller-owned one.
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  const own = new Ctx();
+  try {
+    const audio = await own.decodeAudioData(buf);
+    return { samples: new Float32Array(audio.getChannelData(0)), sampleRate: audio.sampleRate };
   } finally {
-    ctx.close();
+    own.close();
   }
 }

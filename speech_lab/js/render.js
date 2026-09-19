@@ -12,7 +12,7 @@
  */
 
 import { TRAPS, spellSyllables } from '../data/deck.js';
-import { bandColor, bandGradient, trapSpans, REASONS } from './localize.js';
+import { bandColor, bandGradient, trapSpans, contrast, REASONS } from './localize.js';
 
 export function escapeHtml(s) {
   return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -221,14 +221,60 @@ export function stripHtml(ac, loc) {
   return html + '</div><div class="tiny muted">Energy over time. The coloured bars are the syllable beats the detector found.</div>';
 }
 
+/* ---- the word against the attempt ----------------------------------------
+ * Two columns, one row per thing that can differ. This is the part that answers
+ * "what is wrong" in one line — /θ/ became /t/, pho-TO-gra-phy became
+ * PHO-to-gra-phy — before any of the colouring has to be interpreted. */
+export function contrastHtml(rows) {
+  if (!rows.length) return '';
+  const cells = rows.map((r) => {
+    const col = bandColor(r.ok ? 1 : 0.1);
+    return `<div class="crow${r.ok ? '' : ' bad'}" style="--c:${col}">` +
+      `<span class="clab">${escapeHtml(r.label)}</span>` +
+      `<span class="cmodel">${escapeHtml(r.model)}</span>` +
+      `<span class="cyou">${escapeHtml(r.you)}</span>` +
+      (r.note ? `<span class="cnote">${escapeHtml(r.note)}</span>` : '') +
+      '</div>';
+  }).join('');
+  return '<div class="contrast">' +
+    '<div class="crow head"><span class="clab"></span>' +
+      '<span class="cmodel">The word</span><span class="cyou">Your attempt</span></div>' +
+    cells + '</div>';
+}
+
+/* ---- what to do about it --------------------------------------------------
+ * A finding that stops at "your /θ/ closed into a stop" has named the problem
+ * and left you where you were. Three steps: the thing to move now, the way to
+ * rehearse it away from the word — a fix you can only perform while saying this
+ * one word is not a fix you own yet — and where to look on the next take to see
+ * whether it worked. */
+export function findingsHtml(findings) {
+  return (findings || []).map((f) => {
+    const t = f.trap ? TRAPS[f.trap] : null;
+    const beatish = ['stress', 'schwa', 'rhythm', 'intonation'].includes(f.trap);
+    const steps = [`<li><b>Move this now.</b> ${f.fix}</li>`];
+    if (t && t.drill) steps.push(`<li><b>Rehearse it.</b> ${t.drill}</li>`);
+    steps.push(`<li><b>Then record again</b> and watch the ${beatish ? '<i>beat by beat</i>' : '<i>sound by sound</i>'} row — that is where this one shows up.</li>`);
+    return `<div class="finding ${f.severity === 2 ? 'sev2' : ''}">` +
+      (f.label ? `<div class="tag">${f.label}</div>` : '') +
+      `<div class="head">${f.headline}</div>` +
+      `<div class="why">${f.why}</div>` +
+      `<ol class="steps">${steps.join('')}</ol></div>`;
+  }).join('');
+}
+
 /* ---- the whole "where it went wrong" block -------------------------------- */
 
-export function whereHtml(item, loc, jd) {
+export function whereHtml(item, loc, jd, ac) {
+  const rows = contrast(item, ac, jd, loc, spellSyllables(item));
+  const head = rows.length
+    ? `<div class="where-block"><h4>The word, and your attempt</h4>${contrastHtml(rows)}</div>`
+    : '';
   const inner = loc.mode === 'sentence'
     ? `<div class="where-block"><h4>Word by word</h4>${wordsHtml(loc)}</div>`
     : `<div class="where-block"><h4>Sound by sound</h4>${segmentsHtml(item, loc, jd)}</div>` +
       `<div class="where-block"><h4>Beat by beat</h4>${beatsHtml(item, loc)}</div>`;
-  return `<div class="where"><div class="where-title">Where it went wrong</div>${inner}</div>`;
+  return `<div class="where"><div class="where-title">Where it went wrong</div>${head}${inner}</div>`;
 }
 
 /* The three things worth doing straight after a result, repeated at the bottom

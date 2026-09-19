@@ -76,8 +76,38 @@ So every result also places the error, using a single colour band — red throug
 orange and amber to green — so that "bad" and "very bad" are visibly different
 rather than both landing on the same red.
 
-There are two rows, because there are two kinds of evidence and they localise
-to different things.
+Above them sits the part that answers *what* is wrong in one line, before any
+colour has to be interpreted — the word and the attempt, side by side:
+
+| | The word | Your attempt | |
+|---|---|---|---|
+| Sound | `/θ/` | `/t/` | the "th" in think |
+| Syllables | 1 | 2 | 1 more than the word has |
+| Stress | `pho-TO-gra-phy` | `PHO-to-gra-phy` | it moved 1 syllable left |
+| Rhythm | nPVI 50–80 | nPVI 34 | your syllables came out close to equal |
+
+Naming the sound on both sides needs two things known, and a row is only
+printed when both are. The target side comes from the trap (`th` is /θ/ in
+*think* and /ð/ in *father*; only the trap knows which word this is). The
+attempt side comes first from the letter alignment and, failing that, from the
+substitutions the ORTESOL paper documents for that specific trap — which is the
+robust half, because a letter-level alignment drifts: *language* against
+*languez* lines the `g` up with an `e`, so reading the heard letter straight off
+the alignment gives nothing, while looking for a substitution /dʒ/ is *known* to
+make, inside the run that went wrong, gives /dʒ/ → /z/.
+
+Where either half is unknown there is no row. *cache* heard as *cash* claims
+nothing, because they are the same sounds and the attempt was correct. *sheep*
+heard as *ship* claims no consonant pair, because the error is a vowel and there
+is no vowel model here.
+
+Stress is spelled out rather than left to a colour, because two of those read
+side by side is the fastest way anybody has found to see that a stress moved.
+A level word shows **no** capital on the attempt side — drawing one would be
+drawing a stress that was not there.
+
+Below that are two rows, because there are two kinds of evidence and they
+localise to different things.
 
 **Sound by sound.** The recogniser's transcript is aligned to the spelling with
 a Levenshtein backtrace, and every substituted or deleted letter is coloured by
@@ -114,6 +144,20 @@ caveat printed beside it that a sentence recogniser repairs some near misses
 from context — so a green word there is weaker evidence than a green word in a
 single-word drill.
 
+### Three steps, not a diagnosis
+
+A finding that stops at *"your /θ/ closed into a stop"* has named the problem
+and left you where you were. Each one now ends in a plan:
+
+1. **Move this now** — the one thing to change in this word.
+2. **Rehearse it** — how to drill the sound away from the word. A fix you can
+   only perform while saying this one word is not a fix you own yet, so every
+   trap carries a physical rehearsal: *hold a long ssss, then slide the tongue
+   forward until it touches the teeth and the hiss goes soft.*
+3. **Then record again** and watch a named row — the sound row for a segment,
+   the beat row for stress or rhythm — so the next take has something specific
+   to check rather than another overall score.
+
 ### What the colours are not
 
 No cell is coloured by a per-phoneme score, because there is no per-phoneme
@@ -131,6 +175,52 @@ A colour in the wrong place is worse than no colour: the user moves their
 tongue to fix a sound that was already fine. That is why `trapSpans()` has no
 pattern for the /z/ hiding inside *repository* or the /s/ of *sepsis* — where
 the spelling does not give the sound away, the answer is no span at all.
+
+---
+
+## The record loop
+
+The loop — record, read, fix, record again — is the product, so it is the thing
+most worth being paranoid about. It broke once in a way worth writing down.
+
+**The bug:** recording worked the first time or two and then the button went
+dead. Every take built two `AudioContext`s, one for the live silence detector
+and one inside `decodeBlob`, and closed both. That is the textbook shape and it
+is wrong here: browsers cap hardware contexts (six, in Chrome) and release
+closed ones lazily, so the third or fourth take threw `NotSupportedError` from
+the constructor. The throw landed *after* `state.recording = true` and outside
+any `try`, so the flag stayed up, the `if (state.recording) return` guard at the
+top of `startRecording()` swallowed every later press, and the session was over.
+
+Every other audio engine in this repo — `shared/bed-engine.js`,
+`DSA_tool/js/audio-engine.js` — already kept exactly one context and reused it.
+This was the outlier.
+
+**What holds it together now:**
+
+- One `AudioContext` for the life of the page, resumed rather than rebuilt
+  (mobile Safari and Chrome suspend it whenever the tab loses focus).
+- `resetCapture()` runs on *every* exit path — success, failure, watchdog — and
+  is what puts the flag down, frees the microphone, clears the timers and
+  disconnects the audio graph. One stuck flag ends the session, so nothing is
+  allowed to skip it.
+- The analysis snapshots its chunks and calls `resetCapture()` *before* its
+  first `await`, so an exception downstream cannot leave the microphone open.
+- A watchdog: `onstop` does not always arrive on a contended microphone, and
+  without it the button sits on "Stop" forever.
+- One speech recognition at a time. A second `start()` while the previous is
+  winding down throws `InvalidStateError`, which used to be caught and reported
+  as *"nothing was heard"* — so the second take in a row looked like a failed
+  attempt rather than a busy microphone. The new one aborts the old, retries
+  once, and if it still refuses says *that*, rather than silence.
+- An empty recording, a blob that will not decode, and a refused microphone are
+  each a sentence on screen, and each leaves the loop usable.
+
+`check_page.mjs` drives five takes in a row against stubs that enforce the real
+constraints — an `AudioContext` that throws past six exactly as Chrome does, a
+recognition that refuses a second start exactly as Chrome does — so a regression
+to either old shape fails there rather than on a phone. Reverting the shared
+context makes it fail on take four, with the original symptom.
 
 ---
 
@@ -186,8 +276,8 @@ because there is no denominator for that.
 ## Tests
 
 ```
-node /tmp/.../scratchpad/speechlab/test.mjs     # 438 checks
-node speech_lab/check_page.mjs                  # boots index.html, 77 checks
+node /tmp/.../scratchpad/speechlab/test.mjs     # 471 checks
+node speech_lab/check_page.mjs                  # boots index.html, 103 checks
 ```
 
 The DSP is tested against **synthetic utterances whose syllable count, stress
@@ -207,7 +297,7 @@ the T and the H and leave the K alone — since the point of a colour band is
 where it lands, and a test on the numbers alone would not notice the template
 pointing one letter to the left. It also asserts that every class the renderer
 emits has a rule in `app.css`, so a rename cannot silently drop the styling off
-a whole row.
+a whole row, and it runs the record loop five times over strict stubs.
 
 ## Known gaps
 
@@ -217,8 +307,12 @@ a whole row.
   syllables in a noisy room. `snr` is reported for this reason.
 - The recogniser's language model sometimes repairs a near miss inside a
   sentence, which is why single words are the default drill.
-- The letter row needs the recogniser, so Firefox and Safari get the beat row
-  and the reasons, but no sound-by-sound colouring.
+- The letter row and the sound comparison both need the recogniser, so Firefox
+  and Safari get the beat row, the syllable and stress comparison, and the
+  stated reasons, but no sound-by-sound colouring.
+- Vowel errors get no sound pair. The consonant substitutions are documented
+  per trap; the vowel mergers are not modelled, so *sheep* heard as *ship* is
+  caught by the recogniser check but not named as /i/ → /ɪ/.
 - Letter alignment diverges from the first bad letter to the end of the
   mismatch, so the red run is often wider than the sound that caused it. The
   caption separates the two rather than the colouring pretending to be exact.

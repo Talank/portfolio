@@ -218,6 +218,25 @@ textarea { width: 100%; min-height: 110px; resize: vertical; line-height: 1.6; }
 .band-legend { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.45rem; font-size: 0.7rem; color: var(--text-dim); }
 .band-legend i { display: block; width: 110px; height: 7px; border-radius: 999px; }
 
+/* the word against the attempt — the row that answers "what is wrong" in one
+   line, before any of the colouring has to be interpreted */
+.contrast { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: 8px; overflow: hidden; }
+.crow {
+  display: grid; grid-template-columns: 5.4rem 1fr 1fr; gap: 0.5rem;
+  padding: 0.5rem 0.7rem; background: var(--bg-panel); align-items: baseline;
+  border-left: 3px solid transparent;
+}
+.crow.bad { border-left-color: var(--c); }
+.crow.head {
+  background: var(--bg-panel-2); font-size: 0.68rem; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-dim);
+}
+.clab { font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+.cmodel { font-weight: 600; color: var(--text); word-break: break-word; }
+.cyou { font-weight: 700; color: var(--c); word-break: break-word; }
+.crow:not(.bad):not(.head) .cyou { color: var(--good); }
+.cnote { grid-column: 2 / -1; font-size: 0.74rem; color: var(--text-dim); }
+
 /* sound by sound: the spelling, coloured by what the transcript kept */
 .segline { display: flex; flex-wrap: wrap; gap: 4px; align-items: stretch; }
 .seg {
@@ -285,8 +304,12 @@ ul.checks .det { color: var(--text-dim); flex: 1 1 100%; padding-left: 1.8rem; f
 .finding .head { font-weight: 600; }
 .finding .tag { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); }
 .finding .why { color: var(--text-dim); font-size: 0.87rem; margin-top: 0.35rem; }
-.finding .fix { margin-top: 0.45rem; font-size: 0.9rem; }
-.finding .fix b { color: var(--good); }
+ol.steps { margin: 0.6rem 0 0; padding-left: 1.2rem; font-size: 0.88rem; }
+ol.steps li { margin-bottom: 0.35rem; }
+ol.steps li:last-child { margin-bottom: 0; }
+ol.steps b { color: var(--good); }
+ol.steps i { color: var(--accent); font-style: normal; }
+ol.steps::marker, ol.steps li::marker { color: var(--text-dim); }
 
 /* ---- energy strip ---- */
 .strip { display: flex; gap: 3px; height: 46px; align-items: flex-end; margin: 1rem 0 0.3rem; }
@@ -347,6 +370,9 @@ ul.checks .det { color: var(--text-dim); flex: 1 1 100%; padding-left: 1.8rem; f
   .weak-row { grid-template-columns: 1fr 4rem 2rem; font-size: 0.82rem; }
   .seg { font-size: 1.3rem; }
   .beat { flex: 1 1 5.5rem; min-width: 5.5rem; }
+  .crow { grid-template-columns: 1fr 1fr; row-gap: 0.15rem; }
+  .clab { grid-column: 1 / -1; }
+  .cnote { grid-column: 1 / -1; }
 
   body { padding-bottom: 6.5rem; }
   .mobilebar {

@@ -20,87 +20,108 @@
  */
 
 /* Each trap carries the substitution the paper actually documents, and the
- * instruction is a thing to do with the mouth — never "say it correctly". */
+ * instruction is a thing to do with the mouth — never "say it correctly".
+ *
+ *   why    what Nepali does instead, and why
+ *   fix    the one thing to move, right now, in this word
+ *   drill  how to rehearse it away from the word — a fix you can only perform
+ *          while saying the word is not yet a fix you own */
 const TRAPS = {
   th_voiceless: {
     label: '/θ/ as in think',
     why: 'Nepali has dental plosives (त थ) but no dental fricative, so /θ/ comes out as a stop: think becomes tink.',
     fix: 'Tongue tip lightly between your teeth, and keep the air flowing. If the air stops, it became a T.',
+    drill: 'Hold a long ssss, then slide the tongue forward until it touches the teeth and the hiss goes soft. That soft hiss is /θ/. Say th-th-th-think five times, then record.',
   },
   th_voiced: {
     label: '/ð/ as in father',
     why: 'Same missing fricative, voiced. /ð/ lands on द or ध and father becomes fadar.',
     fix: 'Tongue tip between the teeth, voice on, air continuous. You should feel a buzz on the tongue tip.',
+    drill: 'Say “this, that, those” with a finger on your throat. The buzz has to start on the tongue tip, before the vowel, not after it.',
   },
   v_f: {
     label: '/v/ and /f/',
     why: 'Nepali has no labiodental fricatives. Both get made with two lips instead, so van and wan collapse.',
     fix: 'Lower lip against the edge of your upper teeth — not lip against lip. For /v/ add voice.',
+    drill: 'Bite your lower lip gently and blow: fffff. Now switch your voice on without moving anything: vvvvv. Say the word starting from that lip position.',
   },
   w_v: {
     label: '/w/ vs /v/',
     why: 'One Nepali letter (व) covers both, so west and vest stop being different words.',
     fix: '/w/ = lips rounded, teeth uninvolved. /v/ = lower lip on upper teeth. Check which one your teeth touch.',
+    drill: 'Say “woo” with your lips pushed forward like a kiss and your teeth well clear. Keep that shape and run straight into the word.',
   },
   sh_s: {
     label: '/ʃ/ as in shoes',
     why: 'The paper is explicit: Nepalis replace /ʃ/ with /s/, so shoes is heard as sues.',
     fix: 'Pull the tongue back a centimetre from the /s/ position and round the lips slightly.',
+    drill: 'Say /s/, then pull the tongue back a centimetre until the hiss darkens, and round your lips. Hold the dark hiss, then add the vowel.',
   },
   zh: {
     label: '/ʒ/ as in measure',
     why: 'Nepali has no /ʒ/ at all; it becomes /z/ or the affricate [dz]. measure becomes mezer.',
     fix: 'Start from /ʃ/ in "shoe", then switch your voice on without moving the tongue.',
+    drill: 'Say shhh, then switch your voice on without moving the tongue. Run “vision, measure, treasure” together in one breath.',
   },
   j_z: {
     label: '/dʒ/ as in language',
     why: 'The postalveolar affricate drifts to [dz] or plain /z/ — the paper records language as [læŋɡwɪz].',
     fix: 'Close the tongue against the ridge behind your teeth first, then release into the buzz. Stop, then friction.',
+    drill: 'Say /d/ and hold the closure a moment before letting it go into the buzz: d–ʒ, d–ʒ, dʒ. Stop first, friction second.',
   },
   z_s: {
     label: '/z/ at the end',
     why: 'Final /z/ devoices to /s/, which erases plurals and third-person verbs.',
     fix: 'Keep your voice running through the final consonant. Put a hand on your throat — it must still buzz.',
+    drill: 'Say “bus” then “buzz” with a hand on your throat. Only the second one keeps buzzing to the very end. Now the word.',
   },
   s_cluster: {
     label: 'no vowel before s-clusters',
     why: 'The single most recognisable one: an /ɪ/ is inserted before initial sp-, st-, sk-, sm-, sn-, so smart becomes ismart. (sl- and sw- are fine.)',
     fix: 'Begin with the hiss already running, then add the stop. Never let a vowel open the word.',
+    drill: 'Start from the hiss and hold it before the word arrives: sssss–mart. Do it three times. If a vowel opens the word, start again.',
   },
   stress: {
     label: 'word stress',
     why: 'Nepali does not use stress to change meaning, so speakers level-stress or default to syllable one. English fixes one stressed syllable per word and moving it costs intelligibility.',
     fix: 'Make the marked syllable longer, louder and higher — all three. The others should get shorter, not just quieter.',
+    drill: 'Hum the shape before you say it — da-DA-da — and only then put the letters onto the hum. The hum is the word; the letters are decoration.',
   },
   schwa: {
     label: 'schwa in unstressed syllables',
     why: 'Nepali gives every syllable full value, so unstressed vowels stay strong and the word loses its shape.',
     fix: 'Let the unstressed vowels collapse to a lazy uh. Do not pronounce the letter you see.',
+    drill: 'Say it too fast to pronounce the unstressed vowels properly. That over-reduction lands closer to English than being careful does.',
   },
   vowel_len: {
     label: 'long vs short vowel',
     why: 'English has 12 monophthongs, Nepali has 6, so pairs like ship/sheep and full/fool merge.',
     fix: 'Hold the long vowel roughly twice as long, and keep the tongue still while you do it.',
+    drill: 'Say the pair back to back — ship, sheep — holding the long one about twice as long, tongue completely still. Then say the target alone.',
   },
   final_stop: {
     label: 'the final consonant',
     why: 'Word-final stops get swallowed, so the listener loses the tense and the plural.',
     fix: 'Release the last consonant audibly. A tiny puff, not a full extra syllable.',
+    drill: 'Say the word and add a tiny puff off the end: smart-t. Then shrink the puff until it is only just audible but still there.',
   },
   plosive_force: {
     label: 'force on initial p, t, k',
     why: 'The paper notes Nepalis do not press hard enough for initial /p/ /t/ /k/, so pencil and tanker blur.',
     fix: 'Build real pressure behind the closure and let it burst. Hold a tissue up — it should move.',
+    drill: 'Hold a tissue a hand-width in front of your mouth. Say the word. If the tissue does not move on the first consonant, press harder.',
   },
   rhythm: {
     label: 'stress-timed rhythm',
     why: 'Nepali is syllable-timed: every syllable gets about the same length. English compresses unstressed syllables between beats.',
     fix: 'Tap the stressed words at an even tempo and cram everything else into the gaps.',
+    drill: 'Tap a steady beat on the table, one tap per stressed word, and squeeze every unstressed syllable into the gaps between taps.',
   },
   intonation: {
     label: 'intonation',
     why: 'Falling for statements and wh-questions, rising for yes/no questions. A flat contour reads as disinterest.',
     fix: 'Decide before you speak whether the line ends up or down, and exaggerate it.',
+    drill: 'Say the line twice — once ending up, once ending down — and decide which one matches the meaning before you record it.',
   },
 };
 

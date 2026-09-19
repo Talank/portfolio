@@ -24,18 +24,34 @@ export const asrAvailable = !!SR;
  * Never rejects on a recognition error — an empty result is a legitimate
  * outcome ("nothing intelligible was heard") and the coach handles it.
  */
+let active = null;
+
 export function listenOnce({ lang = 'en-US', maxAlternatives = 5 } = {}) {
   return new Promise((resolve) => {
     if (!SR) { resolve({ unavailable: true, alternatives: [] }); return; }
 
+    /* Only one recognition may exist at a time. A second start() while the
+     * previous one is still winding down throws InvalidStateError, which the
+     * old code caught and reported as "nothing was heard" — so the second take
+     * in a row looked like a failed attempt rather than a busy microphone. */
+    if (active) { try { active.abort(); } catch (e) {} active = null; }
+
     const rec = new SR();
+    active = rec;
     rec.lang = lang;
     rec.continuous = false;
     rec.interimResults = false;
     rec.maxAlternatives = maxAlternatives;
 
     let settled = false;
-    const done = (v) => { if (!settled) { settled = true; resolve(v); } };
+    let guard = null;
+    const done = (v) => {
+      if (settled) return;
+      settled = true;
+      if (guard) clearTimeout(guard);
+      if (active === rec) active = null;
+      resolve(v);
+    };
 
     rec.onresult = (e) => {
       const res = e.results[0];
@@ -52,12 +68,20 @@ export function listenOnce({ lang = 'en-US', maxAlternatives = 5 } = {}) {
     rec.onerror = (e) => done({ error: e.error, alternatives: [] });
     rec.onend = () => done({ transcript: '', alternatives: [] });
 
-    try { rec.start(); } catch (err) { done({ error: 'start-failed', alternatives: [] }); }
+    const begin = (retry) => {
+      try { rec.start(); } catch (err) {
+        // The abort above is asynchronous, so the engine can still be busy for
+        // a tick. One retry clears it in practice; if it still refuses, say so
+        // rather than letting it be mistaken for silence.
+        if (retry) setTimeout(() => begin(false), 250);
+        else done({ error: 'busy', alternatives: [] });
+      }
+    };
+    begin(true);
 
     // Chrome sometimes never fires onend if the mic is contended. A ceiling
     // keeps the drill loop from hanging on it.
-    setTimeout(() => { try { rec.stop(); } catch (e) {} }, 8000);
-    return rec;
+    guard = setTimeout(() => { try { rec.stop(); } catch (e) {} }, 8000);
   });
 }
 

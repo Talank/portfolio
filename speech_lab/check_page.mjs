@@ -260,10 +260,192 @@ check(el('levelBlurb').textContent.includes(LEVELS[3].blurb.slice(0, 20)),
         'a refused microphone reports itself instead of throwing');
 }
 
+/* ---- the record loop, five takes in a row --------------------------------- *
+ * The reported bug: recording worked once and then errored. The cause was that
+ * every take built two AudioContexts and closed them, the browser caps the pool
+ * at six and frees them lazily, and the constructor throw landed after
+ * `state.recording = true` and outside any try — so the flag stuck and every
+ * later press was swallowed. Nothing static catches that; it needs the loop run.
+ *
+ * The stubs below are deliberately strict. The AudioContext throws past six
+ * exactly as Chrome does, and the recogniser refuses a second start while one
+ * is live exactly as Chrome does, so a regression to either old shape fails
+ * here rather than on the user's phone. */
+{
+  let ctxBuilt = 0, ctxOpen = 0;
+  class StubAudioContext {
+    constructor() {
+      ctxBuilt++; ctxOpen++;
+      if (ctxOpen > 6) {
+        const e = new Error('number of hardware contexts reached maximum (6)');
+        e.name = 'NotSupportedError';
+        throw e;
+      }
+      this.state = 'running';
+    }
+    createMediaStreamSource() { return { connect() {}, disconnect() {} }; }
+    createAnalyser() { return { fftSize: 1024, connect() {}, getFloatTimeDomainData() {} }; }
+    async decodeAudioData() { return { getChannelData: () => TONE, sampleRate: 16000 }; }
+    resume() {}
+    close() { this.state = 'closed'; ctxOpen--; }
+  }
+
+  // A two-syllable utterance, so analyze() returns a real reading rather than
+  // refusing, and a genuine result card has to be built on every pass.
+  const SR_HZ = 16000;
+  const TONE = (() => {
+    const parts = [{ ms: 240, amp: 1.3, f0: 145 }, { ms: 130, amp: 0.6, f0: 105 }];
+    const gap = 70;
+    const total = parts.reduce((n, p) => n + p.ms + gap, gap);
+    const out = new Float32Array(Math.round((total / 1000) * SR_HZ));
+    let t = Math.round((gap / 1000) * SR_HZ);
+    for (const p of parts) {
+      const n = Math.round((p.ms / 1000) * SR_HZ);
+      for (let i = 0; i < n; i++) {
+        const env = 0.5 - 0.5 * Math.cos((2 * Math.PI * i) / n);
+        let v = 0;
+        for (let h = 1; h <= 12; h++) v += Math.sin((2 * Math.PI * p.f0 * h * i) / SR_HZ) / h;
+        out[t + i] = v * env * p.amp * 0.12;
+      }
+      t += n + Math.round((gap / 1000) * SR_HZ);
+    }
+    return out;
+  })();
+
+  let lastRecorder = null;
+  class StubMediaRecorder {
+    static isTypeSupported() { return true; }
+    constructor() { this.state = 'inactive'; lastRecorder = this; }
+    start() { this.state = 'recording'; }
+    stop() {
+      if (this.state === 'inactive') return;
+      this.state = 'inactive';
+      if (this.ondataavailable) this.ondataavailable({ data: new Blob([new Uint8Array(4096)]) });
+      if (this.onstop) this.onstop();
+    }
+  }
+
+  window.AudioContext = StubAudioContext;
+  window.MediaRecorder = StubMediaRecorder;
+  globalThis.MediaRecorder = StubMediaRecorder;
+  navigator.mediaDevices = {
+    getUserMedia: async () => ({ getTracks: () => [{ stop() {} }] }),
+  };
+
+  const settle = async (n = 6) => { for (let i = 0; i < n; i++) await new Promise((r) => setTimeout(r, 2)); };
+
+  let takes = 0, stuck = null, blanked = null;
+  for (let i = 1; i <= 5; i++) {
+    el('btnRec').onclick();
+    await settle();
+    if (!lastRecorder || lastRecorder.state !== 'recording') { stuck = stuck || `take ${i} never started`; break; }
+    if (el('recCap').textContent !== 'Stop') { stuck = stuck || `take ${i} did not show Stop`; break; }
+    lastRecorder.stop();
+    await settle();
+    if (el('recCap').textContent !== 'Record') { stuck = stuck || `take ${i} left the button on Stop`; break; }
+    if (el('btnListen').disabled) { stuck = stuck || `take ${i} left the controls disabled`; break; }
+    if (!el('result').innerHTML.includes('where-title')) { blanked = blanked || `take ${i} produced no result card`; break; }
+    takes++;
+  }
+
+  check(takes === 5, 'five takes in a row each produce a result', stuck || blanked || `${takes} of 5`);
+  check(ctxBuilt === 1, 'the whole loop uses exactly one AudioContext', `built ${ctxBuilt}`);
+  check(el('btnHear').disabled === false, 'after a take, your own recording can be played back');
+  check(JSON.parse(localStorage.getItem('speechlab-v1')).attempts >= 5,
+        'every take was counted, so the loop really ran end to end');
+
+  // Try again, from inside the result card, must start take six.
+  el('result').onclick({ target: { closest: () => ({ dataset: { act: 'again' } }) } });
+  await settle();
+  check(lastRecorder.state === 'recording', 'Try again inside the result card starts a new take');
+  lastRecorder.stop();
+  await settle();
+  check(el('recCap').textContent === 'Record', 'and that take finishes cleanly too');
+
+  /* A recorder whose onstop never arrives: the watchdog has to free the loop
+   * rather than leaving the button on "Stop" for the rest of the session. */
+  class DeafRecorder extends StubMediaRecorder {
+    stop() { this.state = 'inactive'; /* onstop deliberately never fires */ }
+  }
+  window.MediaRecorder = DeafRecorder;
+  globalThis.MediaRecorder = DeafRecorder;
+  el('btnRec').onclick();
+  await settle();
+  el('btnRec').onclick();                     // press Stop
+  await new Promise((r) => setTimeout(r, 2700));
+  check(el('recCap').textContent === 'Record' && !el('btnListen').disabled,
+        'a recorder that never reports back is released by the watchdog');
+  check(el('status').innerHTML.includes('did not stop cleanly'), 'and says so rather than failing silently');
+
+  window.MediaRecorder = StubMediaRecorder;
+  globalThis.MediaRecorder = StubMediaRecorder;
+  el('btnRec').onclick();
+  await settle();
+  check(lastRecorder.state === 'recording', 'and the very next take still starts');
+  lastRecorder.stop();
+  await settle();
+
+  /* A microphone that produces no audio must be a message, not a dead loop. */
+  class SilentRecorder extends StubMediaRecorder {
+    stop() { this.state = 'inactive'; if (this.onstop) this.onstop(); }   // no ondataavailable
+  }
+  window.MediaRecorder = SilentRecorder;
+  globalThis.MediaRecorder = SilentRecorder;
+  el('btnRec').onclick();
+  await settle();
+  lastRecorder.stop();
+  await settle();
+  check(el('result').innerHTML.includes('Nothing was captured'),
+        'an empty recording is reported in words');
+  check(el('recCap').textContent === 'Record', 'and still leaves the loop usable');
+  window.MediaRecorder = StubMediaRecorder;
+  globalThis.MediaRecorder = StubMediaRecorder;
+}
+
+/* ---- the recogniser survives back-to-back takes ---------------------------- */
+{
+  let live = 0, starts = 0;
+  class StubRecognition {
+    constructor() { this.running = false; }
+    start() {
+      starts++;
+      if (live > 0) { const e = new Error('already started'); e.name = 'InvalidStateError'; throw e; }
+      live++; this.running = true;
+      setTimeout(() => {
+        if (!this.running) return;
+        const alts = [{ transcript: 'tink', confidence: 0.9 }];
+        if (this.onresult) this.onresult({ results: [alts] });
+        this.stop();
+      }, 1);
+    }
+    stop() { if (this.running) { this.running = false; live--; } if (this.onend) this.onend(); }
+    abort() { this.stop(); }
+  }
+  window.SpeechRecognition = StubRecognition;
+  const asr = await import(`./js/asr.js?fresh=${Date.now()}`);
+
+  const a = await asr.listenOnce();
+  const b = await asr.listenOnce();          // immediately after, as the drill does
+  check(a.transcript === 'tink' && b.transcript === 'tink',
+        'two recognitions back to back both return a transcript',
+        JSON.stringify([a, b]));
+  check(!a.error && !b.error, 'neither is reported as busy or silent');
+
+  // And overlapping: the second must abort the first rather than throw.
+  const p1 = asr.listenOnce();
+  const p2 = asr.listenOnce();
+  const [r1, r2] = await Promise.all([p1, p2]);
+  check(!r2.error, 'an overlapping start aborts the previous one instead of failing',
+        JSON.stringify(r2));
+  check(live === 0, 'no recognition is left running');
+  void r1; void starts;
+  window.SpeechRecognition = undefined;
+}
+
 /* ---- the colour band lands on the right letters --------------------------- */
 
 const { localize } = await import('./js/localize.js');
-const { whereHtml, segmentsHtml, focusMarkup, actionsHtml } = await import('./js/render.js');
+const { whereHtml, segmentsHtml, focusMarkup, actionsHtml, findingsHtml, contrastHtml } = await import('./js/render.js');
 
 {
   const armed = actionsHtml(true), cold = actionsHtml(false);
@@ -312,8 +494,8 @@ function isGreenish(c) { const [r, g] = c.match(/\d+/g).map(Number); return g > 
 {
   const thirty = DECK.find((d) => d.w === 'thirty');
   const jd = { verdict: 'match', heard: 'thirty' };
-  const good = whereHtml(thirty, localize(thirty, { ok: true, stressScores: [0.35, -0.35] }, jd), jd);
-  const bad = whereHtml(thirty, localize(thirty, { ok: true, stressScores: [-0.35, 0.35] }, jd), jd);
+  const good = whereHtml(thirty, localize(thirty, { ok: true, stressScores: [0.35, -0.35] }, jd), jd, { ok: true, stressScores: [0.35, -0.35] });
+  const bad = whereHtml(thirty, localize(thirty, { ok: true, stressScores: [-0.35, 0.35] }, jd), jd, { ok: true, stressScores: [-0.35, 0.35] });
   check(good.includes('thir') && good.includes('ty'), 'the beat row shows the spelling, split by syllable');
   check(good.includes('carried the beat'), 'a correct stress says so in words as well as colour');
   check(/beat-note">needs to be longer/.test(bad), 'a misplaced stress says what to change');
@@ -324,14 +506,14 @@ function isGreenish(c) { const [r, g] = c.match(/\d+/g).map(Number); return g > 
   const thirty = DECK.find((d) => d.w === 'thirty');
   const jd = { verdict: 'match', heard: 'thirty' };
   // Three beats heard on a two-syllable word: the row must refuse, not guess.
-  const m = whereHtml(thirty, localize(thirty, { ok: true, stressScores: [0.1, 0.1, 0.1] }, jd), jd);
+  const m = whereHtml(thirty, localize(thirty, { ok: true, stressScores: [0.1, 0.1, 0.1] }, jd), jd, { ok: true, stressScores: [0.1, 0.1, 0.1] });
   check(m.includes('no-evidence'), 'a beat-count mismatch produces a stated reason');
   check(!/class="beat /.test(m), 'and draws no beat cells at all');
 }
 {
   const sent = DECK.find((d) => d.stress < 0);
   const jd = { verdict: 'confused', heard: sent.w.toLowerCase().replace(/think|the/, 'sink') };
-  const m = whereHtml(sent, localize(sent, { ok: true, stressScores: [] }, jd), jd);
+  const m = whereHtml(sent, localize(sent, { ok: true, stressScores: [] }, jd), jd, { ok: true, stressScores: [] });
   check(m.includes('wordline'), 'a sentence renders the word row');
   check(!/class="beat /.test(m), 'a sentence never renders beat cells');
 }
@@ -341,6 +523,40 @@ function isGreenish(c) { const [r, g] = c.match(/\d+/g).map(Number); return g > 
         'the target word underlines the letters it is testing', focusMarkup(think));
   const sent = DECK.find((d) => d.stress < 0);
   check(!focusMarkup(sent).includes('<span'), 'a sentence gets no letter underlining');
+}
+
+/* ---- the answer to "what is wrong", as rendered --------------------------- */
+{
+  const think = DECK.find((d) => d.w === 'think');
+  const ac = { ok: true, syllables: 1, stressScores: [0], stressIndex: 0, stressMargin: 1 };
+  const jd = { verdict: 'confused', heard: 'tink' };
+  const m = whereHtml(think, localize(think, ac, jd), jd, ac);
+  check(m.includes('The word, and your attempt'), 'the result opens with a straight comparison');
+  check(m.includes('>The word<') && m.includes('>Your attempt<'), 'both columns are labelled');
+  check(/cmodel">\/θ\/</.test(m) && /cyou">\/t\/</.test(m),
+        'it prints the sound that belongs there against the one that came out');
+  check(m.includes('the “th” in think'), 'and says which letters that sound lives in');
+
+  const photo = DECK.find((d) => d.w === 'photography');
+  const pac = { ok: true, syllables: 4, stressScores: [0.45, -0.15, -0.15, -0.15], stressIndex: 0, stressMargin: 0.6 };
+  const pjd = { verdict: 'match', heard: 'photography' };
+  const pm = whereHtml(photo, localize(photo, pac, pjd), pjd, pac);
+  check(pm.includes('pho-TO-gra-phy') && pm.includes('PHO-to-gra-phy'),
+        'a moved stress is rendered as two readable words side by side');
+  check(pm.includes('moved 1 syllable left'), 'and names the direction it moved');
+
+  const steps = findingsHtml([{
+    trap: 's_cluster', label: TRAPS.s_cluster.label, severity: 3,
+    headline: 'h', why: 'w', fix: TRAPS.s_cluster.fix,
+  }]);
+  check((steps.match(/<li>/g) || []).length === 3, 'each finding becomes a three-step plan');
+  check(steps.includes(TRAPS.s_cluster.fix) && steps.includes(TRAPS.s_cluster.drill),
+        'the plan carries both the in-word fix and the rehearsal, verbatim');
+  check(steps.includes('sound by sound'), 'and points at the row where the fix will show up');
+  const stressSteps = findingsHtml([{ trap: 'stress', label: 'x', severity: 3, headline: 'h', why: 'w', fix: 'f' }]);
+  check(stressSteps.includes('beat by beat'), 'a stress finding points at the beat row instead');
+
+  check(contrastHtml([]) === '', 'nothing to compare renders nothing, not an empty table');
 }
 
 /* ---- every class the JS emits is actually styled --------------------------- */
@@ -355,11 +571,14 @@ function isGreenish(c) { const [r, g] = c.match(/\d+/g).map(Number); return g > 
   const thirty = DECK.find((d) => d.w === 'thirty');
   const sent = DECK.find((d) => d.stress < 0);
   const jdC = { verdict: 'confused', heard: 'tink' };
-  grab(whereHtml(think, localize(think, { ok: true, stressScores: [0] }, jdC), jdC));
-  grab(whereHtml(thirty, localize(thirty, { ok: true, stressScores: [0.3, -0.3] }, jdC), jdC));
-  grab(whereHtml(sent, localize(sent, { ok: true, stressScores: [] }, jdC), jdC));
+  grab(whereHtml(think, localize(think, { ok: true, stressScores: [0] }, jdC), jdC, { ok: true, stressScores: [0] }));
+  grab(whereHtml(thirty, localize(thirty, { ok: true, stressScores: [0.3, -0.3] }, jdC), jdC, { ok: true, stressScores: [0.3, -0.3] }));
+  grab(whereHtml(sent, localize(sent, { ok: true, stressScores: [] }, jdC), jdC, { ok: true, stressScores: [] }));
   grab(focusMarkup(think));
   grab(actionsHtml(true));
+  grab(contrastHtml([{ label: 'Sound', model: '/θ/', you: '/t/', ok: false, note: 'n' },
+                     { label: 'Syllables', model: '1', you: '1', ok: true }]));
+  grab(findingsHtml([{ trap: 'stress', label: 'x', severity: 3, headline: 'h', why: 'w', fix: 'f' }]));
   grab(el('levelChips').innerHTML);
   grab(el('wordGrid').innerHTML);
 

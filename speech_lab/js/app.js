@@ -11,7 +11,8 @@ import { listenOnce, judge, speak, americanVoices, asrAvailable } from './asr.js
 import { evaluate, verdictLine } from './coach.js';
 import { check as grammarCheck, RULE_COUNT, RULE_CLASSES } from './grammar.js';
 import { localize, bandColor, bandLabel, bandGradient } from './localize.js';
-import { escapeHtml, focusMarkup, ipaHtml, whereHtml, stripHtml, ring, actionsHtml } from './render.js';
+import { escapeHtml, focusMarkup, ipaHtml, whereHtml, stripHtml, ring, actionsHtml,
+         findingsHtml } from './render.js';
 
 const STORE_KEY = 'speechlab-v1';
 const $ = (id) => document.getElementById(id);
@@ -125,7 +126,7 @@ function renderTarget() {
 
 /* ---- the result card ------------------------------------------------------- */
 
-function renderResult(res, ac, jd) {
+function renderResult(res, ac, jd, attempt) {
   const it = state.item;
   const loc = localize(it, ac, jd);
 
@@ -136,14 +137,6 @@ function renderResult(res, ac, jd) {
       <span class="det">${c.detail}</span>
     </li>`).join('');
 
-  const findings = res.findings.map((f) => `
-    <div class="finding ${f.severity === 2 ? 'sev2' : ''}">
-      ${f.label ? `<div class="tag">${f.label}</div>` : ''}
-      <div class="head">${f.headline}</div>
-      <div class="why">${f.why}</div>
-      <div class="fix"><b>Do this:</b> ${f.fix}</div>
-    </div>`).join('');
-
   const info = res.info.length
     ? `<div class="tiny muted" style="margin-top:.6rem">${res.info.join(' ')}</div>` : '';
 
@@ -152,16 +145,16 @@ function renderResult(res, ac, jd) {
       <div class="verdict ${res.verdict}">
         ${ring(res.score)}
         <div class="vtext">
-          <div class="line">${verdictLine(res, state.attempt)}</div>
-          <div class="small muted">attempt ${state.attempt} · ${bandLabel(res.score / 100)}</div>
+          <div class="line">${verdictLine(res, attempt)}</div>
+          <div class="small muted">attempt ${attempt} · ${bandLabel(res.score / 100)}</div>
         </div>
       </div>
 
-      ${whereHtml(it, loc, jd)}
+      ${whereHtml(it, loc, jd, ac)}
 
       <ul class="checks">${checks}</ul>
       ${stripHtml(ac, loc)}
-      ${findings}
+      ${findingsHtml(res.findings)}
       ${info}
       ${actionsHtml(!!state.lastUrl)}
     </div>`;
@@ -178,14 +171,61 @@ function renderResult(res, ac, jd) {
 
 /* --------------------------------------------------------------- capture -- */
 
-let media = { stream: null, recorder: null, chunks: [], ctx: null, stopTimer: null, silence: null };
+/* One AudioContext for the life of the page.
+ *
+ * The first version built two per attempt — one for the live silence detector,
+ * one inside decodeBlob — and closed both, which is the textbook shape and is
+ * wrong here. Browsers cap hardware AudioContexts (six, in Chrome) and release
+ * closed ones lazily, so the third or fourth take threw NotSupportedError from
+ * the constructor. That throw landed *after* `state.recording = true` and
+ * outside any try, so the flag stayed true forever, the guard at the top of
+ * startRecording() swallowed every later click, and the record button was dead
+ * for the rest of the session. One context, reused, removes the whole class. */
+let sharedCtx = null;
+function audioCtx() {
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return null;
+  if (!sharedCtx || sharedCtx.state === 'closed') sharedCtx = new Ctx();
+  // Safari and mobile Chrome suspend it whenever the tab loses focus.
+  if (sharedCtx.state === 'suspended') { try { sharedCtx.resume(); } catch (e) {} }
+  return sharedCtx;
+}
+
+let media = {
+  stream: null, recorder: null, chunks: [], src: null,
+  stopTimer: null, silence: null, watchdog: null,
+};
+
+/* Everything that has to be true again before the next take can start. Called
+ * on every exit path — success, failure, and the watchdog — because the loop is
+ * the product: one stuck flag and the app is finished until a reload. */
+function resetCapture() {
+  clearTimeout(media.stopTimer); media.stopTimer = null;
+  clearTimeout(media.watchdog);  media.watchdog = null;
+  clearInterval(media.silence);  media.silence = null;
+  if (media.src) { try { media.src.disconnect(); } catch (e) {} media.src = null; }
+  if (media.stream) {
+    for (const t of media.stream.getTracks()) { try { t.stop(); } catch (e) {} }
+    media.stream = null;
+  }
+  media.recorder = null;
+  state.recording = false;
+  setRecUI(false);
+}
+
+function notice(head, detail) {
+  $('result').innerHTML =
+    `<div class="card"><div class="notice"><b>${escapeHtml(head)}</b> ${escapeHtml(detail)}</div></div>`;
+  $('btnAgain').hidden = false;
+  setStatus('');
+}
 
 /* Your own take, kept only as an object URL in this tab so "Hear yours" and
  * "Compare" can play it. Revoked as soon as it is replaced — it is never
  * written anywhere, and a reload loses it. */
 function setOwnAudio(blob) {
   if (state.lastUrl) { URL.revokeObjectURL(state.lastUrl); state.lastUrl = null; }
-  if (blob) state.lastUrl = URL.createObjectURL(blob);
+  if (blob && blob.size) state.lastUrl = URL.createObjectURL(blob);
   $('btnHear').disabled = !state.lastUrl;
   $('btnCompare').disabled = !state.lastUrl;
 }
@@ -212,6 +252,7 @@ async function compare() {
 async function startRecording() {
   if (state.recording) return;
   $('result').innerHTML = '';
+  setStatus('');
 
   let stream;
   try {
@@ -219,7 +260,8 @@ async function startRecording() {
       audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: false },
     });
   } catch (e) {
-    setStatus(`Microphone blocked (${e.name}). Allow mic access for this page and try again.`);
+    resetCapture();
+    setStatus(`Microphone blocked (${(e && e.name) || 'error'}). Allow mic access for this page and try again.`);
     return;
   }
 
@@ -228,100 +270,137 @@ async function startRecording() {
   media.stream = stream;
   media.chunks = [];
 
-  const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4']
-    .find((m) => window.MediaRecorder && MediaRecorder.isTypeSupported(m));
-  media.recorder = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
-  media.recorder.ondataavailable = (e) => { if (e.data.size) media.chunks.push(e.data); };
+  /* Everything from here to the timers can throw — a MediaRecorder that does
+   * not like the mime type, an audio graph that will not build. If it does,
+   * the flag has to come back down or the loop is over. */
+  try {
+    const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4']
+      .find((m) => window.MediaRecorder && MediaRecorder.isTypeSupported(m));
+    const recorder = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
+    media.recorder = recorder;
+    recorder.ondataavailable = (e) => { if (e.data && e.data.size) media.chunks.push(e.data); };
+    recorder.onerror = () => { resetCapture(); notice('The recorder stopped.', 'Press record to try again.'); };
 
-  // The recogniser runs on the same utterance rather than a second take, so the
-  // transcript and the acoustics are describing the same performance.
-  const asrPromise = listenOnce();
+    // The recogniser runs on the same utterance rather than a second take, so
+    // the transcript and the acoustics describe the same performance.
+    const asrPromise = listenOnce();
 
-  media.recorder.onstop = async () => {
-    stream.getTracks().forEach((t) => t.stop());
-    if (media.ctx) { media.ctx.close(); media.ctx = null; }
-    state.recording = false;
-    setRecUI(false);
-    setStatus('Analysing…');
+    recorder.onstop = async () => {
+      // Snapshot, then free the microphone and every timer *before* any await:
+      // an exception in the analysis must not be able to leave the mic open.
+      const chunks = media.chunks.slice();
+      const attempt = state.attempt;
+      resetCapture();
+      setStatus('Analysing…');
+      try {
+        await finishAttempt(chunks, mime, asrPromise, attempt);
+      } catch (e) {
+        notice('That take could not be analysed.', `${(e && e.name) || 'Error'}: ${(e && e.message) || ''} — press record to try again.`);
+      }
+    };
 
-    const blob = new Blob(media.chunks, { type: mime || 'audio/webm' });
-    setOwnAudio(blob);
-    let ac;
-    try {
-      const { samples, sampleRate } = await decodeBlob(blob);
-      ac = analyze(samples, sampleRate);
-    } catch (e) {
-      setStatus('Could not decode the recording. Try once more.');
-      return;
+    recorder.start();
+    setRecUI(true);
+    setStatus('<span class="dot"></span>Listening — say it once.');
+
+    // Stop on ~900 ms of silence once speech has actually been heard, so the
+    // loop keeps moving without a second click. Hard ceiling as a backstop.
+    const ctx = audioCtx();
+    if (ctx) {
+      media.src = ctx.createMediaStreamSource(stream);
+      const an = ctx.createAnalyser();
+      an.fftSize = 1024;
+      media.src.connect(an);
+      const buf = new Float32Array(an.fftSize);
+      let heard = false, quietSince = 0;
+      media.silence = setInterval(() => {
+        if (!state.recording) return;
+        an.getFloatTimeDomainData(buf);
+        let sum = 0;
+        for (let i = 0; i < buf.length; i++) sum += buf[i] * buf[i];
+        const rms = Math.sqrt(sum / buf.length);
+        const now = performance.now();
+        if (rms > 0.012) { heard = true; quietSince = 0; }
+        else if (heard) {
+          if (!quietSince) quietSince = now;
+          else if (now - quietSince > 900) stopRecording();
+        }
+      }, 60);
     }
 
-    const asr = await asrPromise;
-    const jd = judge(state.item.w, asr);
+    const ceiling = state.item.stress < 0 ? 12000 : 6000;
+    media.stopTimer = setTimeout(stopRecording, ceiling);
+  } catch (e) {
+    resetCapture();
+    setStatus(`Could not start recording (${(e && e.name) || 'error'}). Press record to try again.`);
+  }
+}
 
-    if (!ac.ok) {
-      const msg = ac.reason === 'too-quiet'
-        ? 'Too quiet to measure — move closer to the mic or turn the input up.'
-        : 'That was too short to measure. Say the whole word once.';
-      $('result').innerHTML = `<div class="card"><div class="notice"><b>No reading.</b> ${msg}</div></div>`;
-      $('btnAgain').hidden = false;
-      setStatus('');
-      return;
-    }
+/* The analysis half, split out so that startRecording() only has to be right
+ * about the microphone and this only has to be right about the audio. */
+async function finishAttempt(chunks, mime, asrPromise, attempt) {
+  const blob = new Blob(chunks, { type: mime || 'audio/webm' });
+  setOwnAudio(blob);
 
-    const res = evaluate(state.item, ac, jd);
-    state.lastResult = res;
+  if (!blob.size) {
+    notice('Nothing was captured.', 'The microphone produced no audio — check it is not muted, then press record.');
+    return;
+  }
 
-    store.attempts += 1;
-    if (res.verdict === 'pass') store.passes += 1;
-    for (const t of res.trapsFired) store.weakness[t] = (store.weakness[t] || 0) + 1;
-    const prev = store.cleared[state.item.w] || 0;
-    if (res.score > prev) store.cleared[state.item.w] = res.score;
-    const today = new Date().toISOString().slice(0, 10);
-    if (!store.days.includes(today)) store.days.push(today);
-    save();
+  let ac;
+  try {
+    const { samples, sampleRate } = await decodeBlob(blob, audioCtx());
+    ac = analyze(samples, sampleRate);
+  } catch (e) {
+    notice('Could not decode that take.', 'Press record and say it once more.');
+    return;
+  }
 
-    renderResult(res, ac, jd);
-    setStatus('');
-    renderProgress();
-  };
+  const asr = await asrPromise;
+  const jd = judge(state.item.w, asr);
 
-  media.recorder.start();
-  setRecUI(true);
-  setStatus('<span class="dot"></span>Listening — say it once.');
+  if (!ac.ok) {
+    notice('No reading.', ac.reason === 'too-quiet'
+      ? 'Too quiet to measure — move closer to the mic or turn the input up.'
+      : 'That was too short to measure. Say the whole word once.');
+    return;
+  }
 
-  // Stop on ~900 ms of silence once speech has actually been heard, so the
-  // loop keeps moving without a second click. Hard ceiling as a backstop.
-  const Ctx = window.AudioContext || window.webkitAudioContext;
-  media.ctx = new Ctx();
-  const src = media.ctx.createMediaStreamSource(stream);
-  const an = media.ctx.createAnalyser();
-  an.fftSize = 1024;
-  src.connect(an);
-  const buf = new Float32Array(an.fftSize);
-  let heard = false, quietSince = 0;
-  media.silence = setInterval(() => {
-    if (!state.recording) return;
-    an.getFloatTimeDomainData(buf);
-    let sum = 0;
-    for (let i = 0; i < buf.length; i++) sum += buf[i] * buf[i];
-    const rms = Math.sqrt(sum / buf.length);
-    const now = performance.now();
-    if (rms > 0.012) { heard = true; quietSince = 0; }
-    else if (heard) {
-      if (!quietSince) quietSince = now;
-      else if (now - quietSince > 900) stopRecording();
-    }
-  }, 60);
+  const res = evaluate(state.item, ac, jd);
+  state.lastResult = res;
 
-  const ceiling = state.item.stress < 0 ? 12000 : 6000;
-  media.stopTimer = setTimeout(stopRecording, ceiling);
+  store.attempts += 1;
+  if (res.verdict === 'pass') store.passes += 1;
+  for (const t of res.trapsFired) store.weakness[t] = (store.weakness[t] || 0) + 1;
+  const prev = store.cleared[state.item.w] || 0;
+  if (res.score > prev) store.cleared[state.item.w] = res.score;
+  const today = new Date().toISOString().slice(0, 10);
+  if (!store.days.includes(today)) store.days.push(today);
+  save();
+
+  renderResult(res, ac, jd, attempt);
+  setStatus('');
+  renderProgress();
 }
 
 function stopRecording() {
   if (!state.recording) return;
-  clearTimeout(media.stopTimer);
-  clearInterval(media.silence);
-  try { media.recorder.stop(); } catch (e) {}
+  clearTimeout(media.stopTimer); media.stopTimer = null;
+  clearInterval(media.silence);  media.silence = null;
+
+  const rec = media.recorder;
+  if (!rec || rec.state === 'inactive') { resetCapture(); setStatus(''); return; }
+
+  /* onstop does not always arrive — a contended microphone on Android can
+   * swallow it — and without this the button sits on "Stop" forever and the
+   * loop is over. Cleared as the first thing onstop does. */
+  media.watchdog = setTimeout(() => {
+    if (!state.recording) return;
+    resetCapture();
+    setStatus('The recorder did not stop cleanly. Press record to try again.');
+  }, 2500);
+
+  try { rec.stop(); } catch (e) { resetCapture(); setStatus(''); }
 }
 
 function setRecUI(on) {

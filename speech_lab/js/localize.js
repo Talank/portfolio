@@ -165,8 +165,12 @@ export function segmentEvidence(item, heard, closeness) {
   const ops = alignSeq(Array.from(target), Array.from(h));
 
   const wrong = new Array(target.length).fill(false);
+  // What each target letter actually came back as: the substituted letter, or
+  // '' where it was dropped. This is the raw material for "/θ/ became /t/".
+  const heardFor = new Array(target.length).fill('');
   const insMap = new Map();
   for (const o of ops) {
+    if (o.op === 'eq' || o.op === 'sub') heardFor[o.ai] = h[o.bi];
     if (o.op === 'sub' || o.op === 'del') wrong[o.ai] = true;
     if (o.op === 'ins') {
       const at = Math.min(o.ai, target.length);
@@ -202,7 +206,130 @@ export function segmentEvidence(item, heard, closeness) {
     .sort((a, b) => a[0] - b[0])
     .map(([at, text]) => ({ at, text }));
 
-  return { chars, inserts };
+  return { chars, inserts, heardFor, target };
+}
+
+/* ---- naming the sound, on both sides -------------------------------------
+ * What a letter group says, in the words this deck contains. This is not a
+ * general grapheme-to-phoneme model and is not trying to be: it is a lookup
+ * over a fixed 92-item deck, and anything it does not know produces no claim
+ * at all rather than a guess. "/θ/ became something" is useless; "/θ/ became
+ * /t/" is the whole lesson, so it is only ever printed when both halves are
+ * actually known. */
+const SOUND = {
+  t: 't', d: 'd', s: 's', z: 'z', f: 'f', v: 'v', b: 'b', p: 'p', k: 'k',
+  g: 'ɡ', w: 'w', r: 'ɹ', l: 'l', m: 'm', n: 'n', h: 'h', y: 'j', c: 'k',
+  x: 'ks', j: 'dʒ',
+  ph: 'f', sh: 'ʃ', ch: 'tʃ', ck: 'k', qu: 'kw', dg: 'dʒ', dge: 'dʒ',
+  ts: 'ts', dz: 'dz', ss: 's',
+  ssi: 'ʃ', ti: 'ʃ', si: 'ʃ', su: 'ʃ', ge: 'dʒ',
+  te: 't', de: 'd', pe: 'p', ke: 'k', be: 'b',
+};
+
+/* Where the spelling is ambiguous, the trap decides — "th" is /θ/ in *think*
+ * and /ð/ in *father*, and only the trap knows which word this is. Traps not
+ * listed here read their letters out of SOUND instead, because for those the
+ * spelling is what settles it: "van" is /v/ and "anaphylaxis" is /f/, and both
+ * are the same trap. */
+const TRAP_SOUND = {
+  th_voiceless: 'θ', th_voiced: 'ð', sh_s: 'ʃ', zh: 'ʒ',
+  j_z: 'dʒ', z_s: 'z', w_v: 'w',
+};
+
+const soundOf = (letters, trapId) =>
+  (trapId && TRAP_SOUND[trapId]) || SOUND[String(letters).toLowerCase()] || null;
+
+/* The substitutions the paper actually documents for each trap, as the letters
+ * a recogniser returns when one fires. Needed because a letter-level alignment
+ * drifts: "language" against "languez" lines the g up with an e, so reading the
+ * heard letter straight off the alignment gives nothing. Looking instead for a
+ * substitution this trap is *known* to make, inside the run that went wrong, is
+ * both more robust and better grounded — it is the paper's list, not a guess. */
+const TRAP_SUBS = {
+  th_voiceless:  { t: 't', d: 'd', s: 's', f: 'f' },
+  th_voiced:     { d: 'd', z: 'z', v: 'v', t: 't' },
+  v_f:           { b: 'b', w: 'w', p: 'p' },
+  w_v:           { v: 'v', b: 'b' },
+  sh_s:          { s: 's', ch: 'tʃ' },
+  zh:            { z: 'z', j: 'dʒ', s: 's' },
+  j_z:           { dz: 'dz', z: 'z', g: 'ɡ' },
+  z_s:           { s: 's' },
+  plosive_force: { b: 'b', d: 'd', g: 'ɡ' },
+};
+
+/* Longest documented substitution appearing in the run that went wrong. */
+function substituteIn(region, trapId) {
+  const subs = TRAP_SUBS[trapId];
+  if (!subs || !region) return null;
+  const keys = Object.keys(subs).sort((a, b) => b.length - a.length);
+  for (const k of keys) if (region.includes(k)) return subs[k];
+  return null;
+}
+
+/* The contiguous run of wrong letters that a span sits inside. The alignment
+ * diverges from the first bad letter to the end of the mismatch, so the sound
+ * that actually replaced this one is somewhere in that run, not necessarily at
+ * the exact index. */
+function redRun(ev, a, b) {
+  let lo = a, hi = b;
+  while (lo > 0 && ev.chars[lo - 1] && ev.chars[lo - 1].score < 0.5) lo--;
+  while (hi < ev.chars.length && ev.chars[hi] && ev.chars[hi].score < 0.5) hi++;
+  return ev.heardFor.slice(lo, hi).join('');
+}
+
+/**
+ * The sound-level difference between the word and the attempt.
+ * Returns [] rather than a vague claim whenever either side is unknown.
+ * @returns {Array<{trap:string, letters:string, heardLetters:string, was:string, got:string}>}
+ */
+export function soundDiff(item, ev) {
+  if (!ev || !ev.heardFor) return [];
+  const word = String(item.w).toLowerCase();
+  const out = [];
+  const seen = new Set();
+
+  for (const trapId of item.traps || []) {
+    for (const [a, b] of trapSpans(word, trapId)) {
+      let anyWrong = false;
+      for (let i = a; i < b; i++) if (ev.chars[i] && ev.chars[i].score < 0.5) anyWrong = true;
+      if (!anyWrong) continue;
+
+      const letters = word.slice(a, b);
+      const heardLetters = ev.heardFor.slice(a, b).join('');
+      const was = soundOf(letters, trapId);
+      // Exact alignment first; the trap's documented substitutions as the
+      // fallback; and if neither knows, no row at all.
+      const got = soundOf(heardLetters, null) || substituteIn(redRun(ev, a, b), trapId);
+      if (!was || !got || was === got) continue;      // no honest pair, no row
+      const key = `${was}>${got}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push({ trap: trapId, letters, heardLetters, was, got });
+    }
+  }
+
+  /* An inserted vowel is not a damaged consonant, it is an extra sound, and it
+   * belongs at the top because it is the one Nepali speakers are most often
+   * unaware of. */
+  if ((item.traps || []).includes('s_cluster') && ev.inserts.some((i) => i.at === 0)) {
+    const cluster = (trapSpans(word, 's_cluster')[0] || []).length
+      ? word.slice(...trapSpans(word, 's_cluster')[0]) : word.slice(0, 2);
+    const onset = Array.from(cluster).map((c) => SOUND[c] || c).join('');
+    out.unshift({
+      trap: 's_cluster', letters: cluster, heardLetters: '',
+      was: onset, got: 'ɪ' + onset, inserted: true,
+    });
+  }
+  return out;
+}
+
+/* ---- naming the stress, on both sides ------------------------------------
+ * pho-TO-gra-phy against PHO-to-gra-phy. Reading two of these side by side is
+ * the fastest way anybody has found to see that a stress moved, which is why
+ * it is spelled out rather than left to the colour of a cell. */
+export function stressNotation(parts, index) {
+  if (!parts || !parts.length) return null;
+  return parts.map((p, i) => (i === index ? p.toUpperCase() : p)).join('-');
 }
 
 /* ---- evidence 2: the beat profile ----------------------------------------
@@ -271,6 +398,104 @@ export function wordEvidence(target, heard) {
   return { words: out, dropped };
 }
 
+/* ---- model against attempt ------------------------------------------------
+ * The single thing the app was missing: a straight side-by-side of what the
+ * word is and what came out. Every row is a pair plus a verdict, and a row only
+ * exists when both halves are actually known — a comparison with a blank on one
+ * side is not a comparison.
+ *
+ * @param {Array<string>|null} spell orthographic syllables, from the deck
+ */
+export function contrast(item, ac, jd, loc, spell) {
+  const rows = [];
+  const isSentence = item.stress < 0;
+  const n = item.ipa ? item.ipa.split('.').length : 0;
+
+  /* 1. sounds — the specific segment that moved */
+  if (loc.segments && !loc.segments.exact) {
+    for (const d of soundDiff(item, loc.segments)) {
+      rows.push({
+        label: 'Sound',
+        model: `/${d.was}/`,
+        you: `/${d.got}/`,
+        ok: false,
+        trap: d.trap,
+        note: d.inserted
+          ? `nothing belongs in front of the /${d.was.slice(0, 1)}/ — a vowel opened the word`
+          : `the “${d.letters}” in ${item.w}`,
+      });
+    }
+  }
+
+  /* A mismatch we could not localise still deserves a pair, because "it heard
+   * something else" is itself the difference — it just has no address. */
+  if (!isSentence && !rows.length && jd && jd.heard && jd.verdict !== 'match' && jd.verdict !== 'unavailable') {
+    rows.push({
+      label: 'Heard', model: item.w, you: jd.heard, ok: false,
+      note: 'no single sound in this word explains it',
+    });
+  }
+
+  if (!ac || !ac.ok) return rows;
+
+  /* 2. syllable count — an extra beat is the inserted vowel, visible as a number */
+  if (!isSentence && n) {
+    const got = ac.syllables;
+    rows.push({
+      label: 'Syllables', model: String(n), you: String(got), ok: got === n,
+      note: got > n ? `${got - n} more than the word has`
+          : got < n ? 'syllables ran together'
+          : '',
+    });
+  }
+
+  /* 3. stress — spelled out on both sides, because two of these read side by
+   *    side is the fastest way to see that a stress moved */
+  if (!isSentence && n > 1 && item.stress >= 0 && spell) {
+    const model = stressNotation(spell, item.stress);
+    if (ac.syllables !== n) {
+      rows.push({
+        label: 'Stress', model, you: '—', ok: false,
+        note: 'cannot be placed until the beat count matches',
+      });
+    } else {
+      const flat = ac.stressMargin < 0.15;
+      const landed = ac.stressIndex === item.stress;
+      /* A level word has no winner, so showing one capitalised syllable would
+       * be drawing a stress that was not there. All lower case is the honest
+       * picture, and it also makes the difference visible at a glance. */
+      rows.push({
+        label: 'Stress', model, you: stressNotation(spell, flat ? -1 : ac.stressIndex),
+        ok: landed && !flat, trap: 'stress',
+        note: !landed ? `it moved ${Math.abs(ac.stressIndex - item.stress)} syllable${Math.abs(ac.stressIndex - item.stress) === 1 ? '' : 's'} ${ac.stressIndex < item.stress ? 'left' : 'right'}`
+            : flat ? 'no syllable clearly won — the word came out level'
+            : '',
+      });
+    }
+  }
+
+  /* 3b. for a sentence, how much of it arrived */
+  if (isSentence && loc.words) {
+    const total = loc.words.words.length;
+    const kept = loc.words.words.filter((w) => w.score === 1).length;
+    rows.push({
+      label: 'Words', model: `${total} words`, you: `${kept} came through`, ok: kept === total,
+      note: kept === total ? '' : 'the coloured row below shows which',
+    });
+  }
+
+  /* 4. rhythm — the sentence equivalent of stress */
+  if (isSentence && ac.npvi != null) {
+    rows.push({
+      label: 'Rhythm', model: 'nPVI 50–80', you: `nPVI ${Math.round(ac.npvi)}`,
+      ok: ac.npvi >= 50, trap: 'rhythm',
+      note: ac.npvi >= 50 ? '' : 'your syllables came out close to equal in length',
+    });
+  }
+
+  return rows;
+}
+
 /* ---- the render model ----------------------------------------------------- */
 
 /**
@@ -290,7 +515,10 @@ export function localize(item, ac, jd) {
       beats: { parts: null, reason: 'sentence' },
       segments: null,
       words: ev,
-      wordsReason: ev ? null : (jd && jd.verdict === 'unavailable' ? 'no-recogniser' : 'nothing-heard'),
+      wordsReason: ev ? null
+        : jd && jd.verdict === 'unavailable' ? 'no-recogniser'
+        : jd && jd.verdict === 'error' ? 'recogniser-busy'
+        : 'nothing-heard',
     };
   }
 
@@ -306,7 +534,9 @@ export function localize(item, ac, jd) {
     segments = segmentEvidence(item, jd.heard, jd.verdict === 'near' ? 'near' : 'confused');
     segments.exact = false;
   } else {
-    segReason = jd && jd.verdict === 'unavailable' ? 'no-recogniser' : 'nothing-heard';
+    segReason = jd && jd.verdict === 'unavailable' ? 'no-recogniser'
+      : jd && jd.verdict === 'error' ? 'recogniser-busy'
+      : 'nothing-heard';
   }
 
   return {
@@ -325,4 +555,5 @@ export const REASONS = {
   'count-mismatch': 'The number of beats heard did not match the number the word has, so the beats cannot be lined up with the syllables — fix the count first and this row comes back.',
   'no-recogniser': 'This browser has no speech recogniser, so there is nothing to compare your sounds against letter by letter. Chrome or Edge has one.',
   'nothing-heard': 'Nothing intelligible came back, so there is no transcript to line the letters up against.',
+  'recogniser-busy': 'The recogniser was still busy with the previous take, so this one has acoustic measurements but no transcript. Leave half a second between attempts.',
 };
