@@ -91,7 +91,7 @@ def header_kbps(path):
 # finished audio straight out of it. Shrinking those would quietly bake a
 # second generation of loss into the next rebuild, so the cache is left at
 # full quality and kept out of git instead (see .gitignore).
-SKIP_DIRS = {".git", "__pycache__", "parts"}
+SKIP_DIRS = {".git", "__pycache__", "parts", "parts-en"}  # both editions' TTS caches
 
 
 def iter_mp3s(base):

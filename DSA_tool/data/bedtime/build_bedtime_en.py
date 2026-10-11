@@ -46,8 +46,8 @@ sharply in the middle of a sentence at three in the morning.
 **Rate.** English voices are quicker than Nepali ones at the same setting, so
 the Nepali profile's rate would speed the whole story up. Measured on a whole
 paragraph, Brian reads 145.7 wpm at -20%, 134.7 at -26%, 127.5 at -30% and
-120.3 at -34%. **-32% is 123 wpm**, the pace the ACLS English voyage settled
-on. Driving mode is -21%, by the same measurement.
+120.3 at -34%. **-32% is 123 wpm**, the pace the (since removed) ACLS English
+voyage settled on. Driving mode is -21%, by the same measurement.
 
 Usage, from this directory:
 
@@ -176,8 +176,8 @@ E._RESOLVED.clear()
 #
 # The engine splits on the danda. English sentences end in a full stop, and
 # without this the whole paragraph is one clip with no pauses in it — which is
-# the reading this voyage exists to avoid. Same three overrides as the ACLS
-# profile, and for the same reasons; see its docstring.
+# the reading this voyage exists to avoid. Same three overrides the ACLS
+# voyage (since removed) used, for the same reason.
 _NEXT = r'(?=[A-Z"“(\[])'
 _SENT_SPLIT = re.compile(
     r'(?<=[.?!…])\s+' + _NEXT +

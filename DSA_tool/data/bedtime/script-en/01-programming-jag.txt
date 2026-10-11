@@ -29,7 +29,7 @@ In code a function sounds like this — [aside]"Make a piece of work with this n
 
 Now the fourth thing arrives, and it is not a tool, it is a question. It is called a condition, and in code it is called if. It says — [zoro]"If it is like this, do this. Otherwise, do the other thing."[/] When Zoro is choosing a road he asks exactly this — [zoro]"Is this road the right one? If it is, I go right. If it is not, then it makes no difference where I go."[/]
 
-That is all of it. Here is what the whole island comes down to, and this will come back three times tonight.
+That is all of it. Here is what the whole island comes down to, and it will come back once more before the night is over.
 
 @algo char-aujar
 These are the four tools of programming, and this is what they do. The first tool is the box, and the box gives a thing a name. The second tool is the wheel, and the wheel repeats the same work. The third tool is the string, and the string ties many steps into one name. The fourth tool is the question, and the question splits the road in two. Every program in the world is only these four tools joined together in different ways.
@@ -39,14 +39,12 @@ Even very large software is only millions of layers of these. There is no new ma
 
 Here is how you check that the tools are doing what you think. Once the code is written, try to say it out loud in one sentence. If it fits in one sentence the work is clean, and if it does not, the problem is not in the code but in your understanding.
 
-@recall char-aujar
-
-The ship put out again. The array is moving slowly. On the next island we will learn to measure time.
+The waves are coming slowly up the sand. On the next island we will learn to measure time.
 
 @read hush
 There is one thing to check every time you write a loop. Somewhere inside it there must be a step that brings the ending one pace closer. If you can point at that step the loop can never run forever, and if you cannot, that loop will one day stop you.
 
-@recall char-aujar
+@recall char-aujar | These four tools of programming are important, so I will say them once more.
 
 @tier medium
 
@@ -119,14 +117,14 @@ The twelfth thing is the last one for tonight. Clean code does not mean short co
 
 Usopp closed his bag and said — [usopp]"That is all. Every island after this is only these same tools joined together in different ways."[/]
 
-Luffy had already fallen asleep. The sand was warm. The ship slowly raised its anchor and turned towards the next island.
+Luffy had already fallen asleep. The sand was warm.
 
-Luffy was asleep, but Usopp was still sitting in the sand. Stroking his bag with one hand, he said — [usopp]"I got this bag from my father. The tools inside it are old, but not one of them has stopped being useful."[/]
+But Usopp was still sitting in the sand. Stroking his bag with one hand, he said — [usopp]"I got this bag from my father. The tools inside it are old, but not one of them has stopped being useful."[/]
 
 Robin asked — [robin]"Have you never needed a new tool?"[/] Usopp shook his head and said — [usopp:firm]"I do not need new tools. I need new combinations."[/]
 
 That is tonight's lesson, and it stays true on every island after this. Power is not in the number of tools, it is in the imagination of the joining. A person who knows four tools can easily beat a person who knows forty, if they know how to join four of them in hundreds of ways.
 
-Next comes one small thing, which also applies outside code. If you give something a good name today, the person you are tomorrow thanks you. Naming is sharing a memory between two people, the one today and the one tomorrow.
+Let us come back to names once more, because that lesson applies outside code too. If you give something a good name today, the person you are tomorrow thanks you. Naming is sharing a memory between two people, the one today and the one tomorrow.
 
 The sound of the sea was coming in slowly. Usopp put the bag under his head, and slept. The sand was warm, and the tools were safe.

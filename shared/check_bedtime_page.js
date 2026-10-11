@@ -4,8 +4,9 @@
  * The other two checkers look at what was built: verify_bedtime_render.py
  * decodes the audio and reconciles the chapter offsets, verify_opus_coverage.py
  * counts the files. Both passed on a voyage whose player was dead on arrival —
- * ACLS_tool/bedtime.html opened with a call to buildHeader(), which is defined
- * in each course's js/app.js, and that page deliberately does not load app.js.
+ * one course's bedtime.html (the ACLS voyage, since removed) opened with a call
+ * to buildHeader(), which is defined in each course's js/app.js, and that page
+ * deliberately did not load app.js.
  * One ReferenceError on the first line of the IIFE and nothing after it ever
  * ran: no play button, no audio, and 84 MB of perfectly good opus on disk.
  *
@@ -28,7 +29,7 @@
  *      means each one clobbers where the other got to
  *
  *   node shared/check_bedtime_page.js                 # every course
- *   node shared/check_bedtime_page.js ACLS_tool
+ *   node shared/check_bedtime_page.js DSA_tool
  */
 'use strict';
 

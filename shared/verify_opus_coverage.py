@@ -25,7 +25,7 @@ SR = 24000
 TOLERANCE_S = 0.40
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SKIP_DIRS = {".git", "__pycache__", "parts"}
+SKIP_DIRS = {".git", "__pycache__", "parts", "parts-en"}  # both editions' TTS caches
 
 
 def ffmpeg_exe():

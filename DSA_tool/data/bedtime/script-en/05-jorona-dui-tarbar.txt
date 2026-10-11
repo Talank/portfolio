@@ -2,7 +2,7 @@
 
 On the fifth island there is a long bridge stretched out over the sea. Zoro is standing in the middle of that bridge, and there is a sword in each of his hands.
 
-He said — [aside]"People search with one hand, and so it takes them twice as long. I search with both hands."[/]
+He said — [zoro]"People search with one hand, and so it takes them twice as long. I search with both hands."[/]
 
 This island has one rule, and it is that two fingers come in from the two ends to meet in the middle. But this move only works under one condition, and remember that condition. The array has to be in order, from small to large. That order is the staircase that both hands walk on.
 
@@ -34,8 +34,6 @@ Do not forget to skip repeated numbers here, or the same answer comes back again
 @read hush
 The proof that this approach is right is a small one, and here it is. When you moved the left finger, every pair you threw away was smaller than the one you were holding, so the answer could never have been among them. If you can show that each step throws away only what could never have helped, the approach is correct.
 
-@recall dui-aunla
-
 Now remember one distinction, and it is very useful on questions. There are two kinds of two-finger move. In the first kind the two fingers come in towards the middle from the two ends, and that one works on a sorted array. In the second kind both of them move forward in the same direction, and that is a matter for another island.
 
 Under the bridge the waves are calm. Zoro put his sword back in its sheath, leaned against the wall and closed his eyes. He always sleeps like that.
@@ -43,7 +41,7 @@ Under the bridge the waves are calm. Zoro put his sword back in its sheath, lean
 @read hush
 Never forget the one condition here. This rule only works while the array is in order, and on an unsorted array it gives a wrong answer without telling you it is wrong. So before you use it, always ask — is this array really sorted?
 
-@recall dui-aunla
+@recall dui-aunla | The rule of the two fingers is the most important part of tonight, so let me repeat it once more.
 
 @tier medium
 
@@ -102,22 +100,6 @@ That finishes in O(n²), and it is the same old two fingers. The difference is o
 
 Zoro added — [zoro]"One cut, many enemies. That is the real saving."[/]
 
-Now a big problem arrives, one that gets asked in many interviews, and it is the problem of rainwater collecting. The heights of the posts are given. Rain fell. Now, how much water stands in the hollows?
-
-Think about how much water sits on top of one post. Look at the tallest post to the left of it and the tallest post to the right of it, and the shorter of those two sets the surface. Subtract the post's own height from that surface, and that much water stands there.
-
-On the straightforward road you have to look both ways for every post, and that is O(n²). The two fingers bring it down to a single pass.
-
-The move is this. Put two fingers at the two ends. Keep remembering the tallest post seen so far on each side. Now move whichever side has the shorter post inward.
-
-[chopper]"Why move the shorter side at all?"[/] Chopper asked.
-
-[franky]"Because the water level is set by the shorter one."[/] Franky said. [franky]"When you are standing on the shorter side, it is certain that there is somebody taller on the other side."[/]
-
-[robin]"So the account for that side can be settled right now."[/] Robin said.
-
-This reasoning takes a while to understand. If you do not follow it while falling asleep, that is fine, because if you remember the shape the reasoning comes back on its own in the morning.
-
 In the next problem there are stones of three colours, and they have to be arranged in order by colour. Red at the front, white in the middle, and blue at the back. This has to be done in a single pass and in place.
 
 Here you need three fingers, and they are the lower boundary, the upper boundary, and the walking finger. If the walker finds red, swap with the lower one and move both forward. If it finds white, move on without doing anything. If it finds blue, swap with the upper one and only bring the upper one down.
@@ -128,7 +110,7 @@ Then comes the question of which pair in a sorted array has the total closest to
 
 The question of making four numbers add up to a target is in this same family. Drive in two pegs, then run two fingers inside, and that is O(n³). The shape stays the same, and there is one more layer.
 
-Here is a distinction that many people miss. The name "two pointers" refers to three different moves. In the first, two fingers come inward from the two ends. In the second, both walk in the same direction but at different speeds. In the third, one reads and the other writes.
+Earlier I said there are two kinds of two-finger move, but the full truth is a little larger. The name "two pointers" refers to three different moves. In the first, two fingers come inward from the two ends. In the second, both walk in the same direction but at different speeds. In the third, one reads and the other writes.
 
 The first one needs order. The second is used when looking for a cycle or a midpoint, and that is a matter for the tenth island. The third we already met in the store room when we moved the zeros to the back.
 
@@ -146,11 +128,24 @@ The straightforward road is to look both ways from every post, and that is O(n²
 
 The reason that is safe fits in one sentence. If the left tallest is the smaller of the two, then whatever waits far away on the right cannot lower the water above the left hand, because the left tallest already caps it. So it can be counted now, and the hand can move.
 
-The water is counted in a single pass, the space is O(1), and neither hand ever turns back. Almost asleep, Zoro said the last part — [zoro]"Two swords, and one direction."[/]
+This reasoning takes a while to understand. If you do not follow it while falling asleep, that is fine, because if you remember the shape the reasoning comes back on its own in the morning.
 
-Almost whispering, Zoro said the last thing — [zoro]"When the two fingers meet, the work is finished. Until they meet, neither of them may turn back. The moment one turns back, the time doubles."[/]
+The water is counted in a single pass, the space is O(1), and neither hand ever turns back. Zoro added quietly — [zoro]"Two swords, and one direction."[/]
 
-The wood of the bridge creaked again. The sea was calm. Only one of the three swords was shining in the moonlight.
+The night was not over yet, because a boat came knocking at the bridge. [sanji]"People have to be carried across."[/] Sanji said. [sanji]"Each boat holds at most two people, and their weight together must stay within the limit. How few boats will do?"[/]
+
+[luffy]"Put the two heaviest together!"[/] Luffy said. [zoro]"Two heavy ones sink the boat."[/] Zoro said, without opening his eyes.
+
+This is tonight's first problem with one thing changed. There, two fingers looked for a pair with an exact total. Here, they look for a pair whose total fits within a limit.
+
+@read teach
+Sort the weights first. Put one finger on the lightest person and one on the heaviest. The heaviest person needs a boat no matter what. If the lightest one fits beside them, both go together, and both fingers move in. If not, the heaviest goes alone, and only the right finger moves. Every step fills one boat.
+
+[chopper]"Why pair the heaviest with the lightest, and not with someone in the middle?"[/] Chopper asked. [zoro]"Because if even the lightest does not fit, nobody does."[/] Zoro said. [zoro]"And if the lightest fits, giving them a ride never hurts anyone else."[/]
+
+With weights of three, five, three and four, and a limit of five, nobody can share, and four boats go out. The sort costs n log n, and the walk itself is a single pass.
+
+The boats reached the far side, and the bridge went quiet again.
 
 Zoro was still sitting propped against the bridge. The moon was showing in the water in two pieces.
 

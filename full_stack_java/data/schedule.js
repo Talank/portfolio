@@ -27,6 +27,8 @@ window.SCHEDULE = [
   { id: 'memory-model-gc', title: 'Memory & Garbage Collection: Heap, Stack, Generations, G1 & ZGC', category: 'Part 2 — The JVM, Deeply', timeMin: 55, type: 'lesson' },
   { id: 'jvm-tools-reflection', title: 'JVM Toolbox: javap, jconsole, Profilers, Flags — plus Reflection & Annotations', category: 'Part 2 — The JVM, Deeply', timeMin: 45, type: 'lesson' },
   { id: 'profiling-flame-graphs', title: 'Profiling for Real: JFR, Mission Control, async-profiler, Flame Graphs & MAT', category: 'Part 2 — The JVM, Deeply', timeMin: 55, type: 'lesson' },
+  { id: 'jvm-flags-configuration', title: 'JVM Flags: What Configuration Controls — JIT, GC, Memory, Runtime — and How to Set It for Test Runs', category: 'Part 2 — The JVM, Deeply', timeMin: 55, type: 'lesson' },
+  { id: 'jvm-config-search-probo', title: 'Tuning Test Runs with JVM Flags: JFR Metrics, Honest Measurement & Configuration Search (Reading PROBO)', category: 'Part 2 — The JVM, Deeply', timeMin: 60, type: 'lesson' },
 
   // ── Part 3: Collections & Generics (Java-specific DS) ────────────────
   { id: 'generics', title: 'Generics: Type Erasure, Bounded Types & PECS Wildcards', category: 'Part 3 — Collections & Generics', timeMin: 50, type: 'lesson' },

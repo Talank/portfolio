@@ -14,7 +14,7 @@ The rule of the sliding window is this, and it has two edges. Move the right edg
 
 Nami explained — [nami]"The same rule applies to the repeated-letter problem like this. Keep pulling the right edge along, and note every new letter in the notebook. The moment a letter repeats, the window has become dirty. Now pull the left edge along one at a time, and keep pulling until the repeated letter has left. Once it is out, the window is clean again."[/]
 
-Pay attention to one thing here, because this is what makes the move fast. Both edges only move forward, and neither ever turns back. So each letter is touched at most twice, once when it enters and once when it leaves. Twice is still O(n).
+Pay attention to one thing here. It is what makes the move fast, so I will say it again. Both edges only move forward, and neither ever turns back. So each letter is touched at most twice, once when it enters and once when it leaves. Twice is still O(n).
 
 @read teach
 [usopp]"I have heard the second problem before."[/] Usopp said. [usopp]"You need the largest total of exactly K consecutive numbers."[/]
@@ -25,8 +25,6 @@ Work out the total of the first K. Now move the window one step to the right, ad
 
 @read hush
 Here is how you check the window's answer. The step that measures the length must come only after the window has become valid again. Put the measuring step in the wrong place and the answer is always one too many or one too few, and that single mistake has spoiled more answers than any other.
-
-@recall jhyal
 
 The third problem is a little harder and beautiful. Inside a long word you have to find the shortest stretch that contains all the letters of another, smaller word.
 
@@ -47,7 +45,7 @@ The lights on the bus are dim. Luffy has fallen asleep with his head against the
 
 Now think about the boundary cases. If the input is empty the answer must be zero, and if the whole array is already valid the answer must be the length of the array. Both are easy to check by hand, and between them they catch most of the bugs in window code.
 
-@recall jhyal
+@recall jhyal | Because the rule of the sliding window matters so much, I will say it again, slowly.
 
 @tier medium
 
@@ -69,7 +67,7 @@ Nami tapped the window frame and said — [nami]"The window in Python. Two words
 
 The right edge is the loop. Walk the row once, and let the position and the thing come to you together rather than counting by hand. Everything the right edge touches goes into the window.
 
-The window itself is usually a small notebook of counts. Either of the two forms from my island will do — the one that answers with zero when a key is missing, or the one that makes the missing key by itself.
+The window itself is usually a small notebook of counts. Either of the two forms from Nami's island will do — the one that answers with zero when a key is missing, or the one that makes the missing key by itself.
 
 The left edge is not a second loop. It is a while, sitting inside the first one, that shrinks the window only for as long as the window is illegal. That is the whole reason the cost stays O(n). Each edge moves forward and neither ever goes back, so between them they take at most two passes along the row.
 
@@ -95,10 +93,6 @@ Now comes a question that sounds hard. Inside a long word, is there anywhere a s
 The window size here is fixed, and it is equal to the length of the small word. At every position, look at whether the letter counts inside the window match the counts of the small word. If they match, that stretch has been found.
 
 Do not count from scratch every time. When the window moves one step, one letter comes in and one goes out, so there are only two changes. That is the core move of the window, and that same move is what turns O(n·m) into O(n).
-
-In the next question you may change at most K letters in a word, and you have to find how long a run of a single repeated letter you can make.
-
-The move is this. Remember the count of the most common letter inside the window. Subtract that count from the window's length, and that is how many letters you would have to change. If that number goes past K, pull the left edge.
 
 Then comes the question of finding the average of every stretch of length K in an array. This is the most direct use of the fixed window. The total slides along, and dividing by K each time gives the average.
 
@@ -130,7 +124,7 @@ The question of what to remember inside is answered by the problem itself. Somet
 
 But the outer shape always stays the same, and that shape is the thing to remember. There are two edges, both go in the same direction, and neither ever turns back.
 
-The bus had not reached the bend yet. Nami said — [nami]"One more, and it is tonight's shrinking window with one word changed. Before, the window had to stay good. Now the window has to be made good."[/]
+The bus had not reached the bend yet. Nami said — [nami]"Let us go back to tonight's third problem once more, because there is a clean way to know when its window is good."[/]
 
 There is a long string, and a small handful of letters that must all appear inside it. Find the shortest piece of the long string that holds every one of them, counting repeats.
 
@@ -148,6 +142,19 @@ The time is O(n) even though the window grows and shrinks over and over, and tha
 
 Robin said — [robin]"The window earlier tonight only ever had to stay good. This one has to be made good first. That is the whole difference, and it is one word."[/]
 
+Before the bus reached the bend, Usopp held up a strip of paper covered in letters. [usopp]"I may repaint at most K letters."[/] Usopp said. [usopp]"After that, how long can the longest run of one single letter be?"[/]
+
+It is the window again, with one thing changed. Earlier tonight, the window stayed good while no letter repeated. Now it stays good while the letters that need repainting number K or fewer.
+
+[nami]"Inside a window, which letters need repainting?"[/] Nami asked herself. [nami]"Everything except the most common letter. So the window is good while its length minus its top count is K or less."[/]
+
+@read teach
+Grow the right edge one letter at a time, and keep a count of every letter inside. Remember the highest count you have seen. If the window breaks the rule, move the left edge one step. The longest window that ever stood is the answer.
+
+[robin]"Here is the strange part."[/] Robin said. [robin]"When the left edge moves, the top count may really fall, and we do not lower it. The answer only grows when some letter beats its old record, so a stale record can never give a wrong answer."[/]
+
+For A, A, B, A, B, B, A with one repaint allowed, the longest run is four. Every letter comes in once and goes out once, so the whole walk is O(n).
+
 The bus reached the next bend. Outside the window the lights were still sliding slowly backwards, one by one.
 
 Luffy was asleep with his head against the window. Nami put a blanket over him, and looked outside. A window shows only one small piece of the world, and that piece changes every moment. But the person sitting inside the bus does not have to remember the whole world.
@@ -156,6 +163,6 @@ That is tonight's lesson. When only the edges change, you do not have to count e
 
 This way of thinking is useful far beyond code. When you wake up every morning you do not have to do the accounts of your whole life. Add today onto yesterday's account, and drop the oldest day. That much is enough.
 
-Now remember an honest limit as well. This move only works when the total grows and shrinks in one steady direction. Stubbornly using the same move in a place where that condition is broken is the root of a great many wrong solutions.
+And remember once more the honest limit from earlier. This move only works when the total grows and shrinks in one steady direction. Stubbornly using the same move in a place where that condition is broken is the root of a great many wrong solutions.
 
-The bus reached the next bend. The lights were still sliding backwards, and nobody had turned around.
+The lights were still sliding backwards, and nobody had turned around.

@@ -46,6 +46,9 @@ _VERB_END = re.compile(
     # out, and it turns up the moment a woman in the crew is the subject of a
     # negative — which, with Nami and Robin doing most of the talking, is often.
     r"थियो|थिए|थिएन|थिएनन्|थिइन्|थिइन|थिइनन्|"
+    # ...and its second-person negative, थिएनौ: "तिमीले नक्कलमा काम गरेका
+    # थिएनौ". Needed once the narration moved from तपाईं to तिमी (2026-10-10).
+    r"थिएनौ|थिएनौं|"
     # simple present / habitual …न्छ …ँछ …्छ, and the negative …दैन
     # दैनौ / दैनौं are the second-person and first-person-plural negatives of
     # this same family — तिमीले सक्दैनौ, हामी गर्दैनौं. छैनौ and छैनौं were both
@@ -54,6 +57,8 @@ _VERB_END = re.compile(
     r"न्छ|न्छन्|ँछ|ँछन्|्छ|्छन्|दैन|दैनन्|दैनौ|दैनौं|ँदैन|ँदैनन्|्दैन|"
     # past tense …यो …ए …ई …इन्, and its negative …एन / …ेन (परेन, भएन)
     r"यो|ए|ई|इन्|एन|एनन्|ेन|ेनन्|हे|"
+    # second-person negative past: सकेनौ, गनेनौ — the तिमी twin of सकेन
+    r"एनौ|ेनौ|"
     # Feminine past written with the *dependent* vowel sign: भनिन्, गरिन्,
     # हेरिन्, सोधिन्. Only the independent-vowel spellings (गइन, भइन) were
     # listed, in _FEM_PAST, so "रोबिनले भनिन्" — the single most common way
@@ -90,8 +95,14 @@ _VERB_END = re.compile(
     r"ौं|औं|ूँ|उँ|ाऊँ|ाऊन्|ऊन्|ून्|ोस्|ओस्|"
     # habitual past, future, presumptive
     r"न्थ्यो|न्थे|न्थिन्|थे|नेछ|नेछन्|नेछौं|होला|लान्|ला|"
+    # ...and their तिमी forms: सक्थ्यौ, जान्थ्यौ, भेट्नेछौ. Only the first-person
+    # plural नेछौं was listed, the same one-of-a-pair gap as हौ beside हौं.
+    r"थ्यौ|न्थ्यौ|नेछौ|"
     # low imperative in -ऊ (बनाऊ, देऊ), and the -नू optative (हेर्नू)
-    r"ाऊ|ेऊ|नू"
+    r"ाऊ|ेऊ|नू|"
+    # ...and the same -ऊ imperative on an -इ or -ओ stem: रोकिऊ, उभिऊ, नआत्तिऊ,
+    # होऊ. These arrived with the move from -नुहोस् to तिमी address.
+    r"िऊ|ोऊ"
     r")$"
 )
 
@@ -137,15 +148,42 @@ _IMPERATIVE = {
     "खुम्च्या", "फैला", "तन्का", "ओर्ल", "चढ", "गाड", "ठोक", "जाँच",
     "हटा", "ल्या", "पुछ", "बाँध", "फुका", "गन्ती", "मेट", "टाँस",
     "पुग", "चला", "रोज", "भर", "झिक", "बाँड", "दौड", "अड", "छुट्टा",
+    # Added 2026-10-10 when the narration moved from तपाईं / -नुहोस् to तिमी:
+    # every instruction to the listener is now a bare stem, and these are the
+    # ones the converted scripts use — with their negatives, which are the same
+    # stem behind न-.
+    "सर", "झर", "फुकाल", "बदल", "हान", "सुत", "बोल", "उकाल", "बसाल", "पस",
+    "घुम", "उफ्र", "सुम्प", "ठान", "कोर", "फेर", "बढ", "छोड", "माग", "मान",
+    "लेखिराख", "सुनिराख", "सम्झिराख", "हेरिराख", "गरिराख", "घुमिरह",
+    "दोहोर्याइरह", "दोहोर्‍याइरह",
+    "नफर्क", "नछाड", "नसोच", "नराख", "नबस", "नगर", "नहेर", "नबिर्स", "नखोज",
+    "नगन", "नटिप", "नठान", "नलेख", "नभन", "नहिँड", "नतान", "नछोड",
 }
 
 # Particles that sit *after* the verb without changing that there is one:
 # "…जान्छ भने", "…गर्छ नि", "…हो त". Stripped before the ending is inspected.
-_PARTICLES = {"भने", "नि", "त", "पो", "रे", "क्यारे", "कि", "र"}
+_PARTICLES = {"भने", "नि", "त", "पो", "रे", "क्यारे", "कि", "र",
+              # the pleading न of "बस न", and a vocative after the verb: "होइन बाबु"
+              "न", "बाबु", "नानी", "भाइ", "साथी"}
+
+# Mid-respect past with the dependent vowel े, which the elders now speak in
+# (बूढाले भने, रखवालाले बत्ती मधुरो पारे). A bare suffix rule cannot be used:
+# the ergative ले ends the same way ("रामले").
+_MID_PAST = {"भने", "पारे", "ताने", "हाले", "थपे", "सोधे", "गरे", "चिम्ले"}
+# ...and the ones that can never be read as the particle भने, so they need no
+# ergative subject beside them: व्यापारी बत्तीको छेउमा बसे.
+_MID_PAST_ALWAYS = {"पारे", "ताने", "हाले", "थपे", "सोधे", "चिम्ले", "बसे", "लागे",
+                    "सुतिसके", "निदाए", "उठे", "हाँसे", "रोके"}
 
 
 def _tail_is_verb(chunk):
     words = _TRAIL.sub("", chunk).split()
+    # "बूढाले भने" — भने is "said" here, not the particle "if": an ergative
+    # subject is in the clause and no other verb follows it.
+    if words and words[-1] in _MID_PAST and any(w.endswith("ले") for w in words[:-1]):
+        return True
+    if words and words[-1] in _MID_PAST_ALWAYS:
+        return True
     while words and words[-1] in _PARTICLES:
         words.pop()
     if not words:

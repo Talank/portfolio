@@ -308,32 +308,59 @@ WORDS = {
 # The dropped final vowel
 # ---------------------------------------------------------------------------
 #
-# ne-NP-HemkalaNeural drops the inherent अ off the end of some bare
-# imperatives, so "सुन" ("listen") lands as "sun" — clipped, and on exactly the
-# lines a story leans on ("अन्तिम कुरा सुन।"). A visarga puts the vowel back.
+# A तिमी-level imperative ends in the inherent अ: सुन is "suna", गर is "gara".
+# ne-NP-HemkalaNeural drops it, mid-sentence and sentence-final alike, so सुन
+# lands as English "sun" — on exactly the lines a story leans on. Respelling
+# the word with an explicit अ (सुनअ) puts back a short vowel of the right
+# quality.
 #
-# Deliberately a list of words rather than a rule about final consonants,
-# because it is not true of all of them. Auditioned side by side, the listener's
-# verdict was सुनः yes, गरः yes, हेर already correct as it stands — and the
-# difference tracks the vowel before the final consonant: ग carries the
-# inherent अ and loses it, हे carries े and keeps it. Add a word here only
-# after hearing it; the ones not yet auditioned are listed in task #29.
+# Measured 2026-10-10 on both voices at the bedtime profile, in carrier
+# sentences (parts/_probe/schwa.py): the first formant over the word's last
+# 60 ms, where a vowel sits at 550-750 Hz and a consonant (न, र, ख) much lower,
+# and Whisper's spelling of what it heard (it writes an audible final vowel
+# as ा). Plain सुन: F1 ~270, heard "सुन्ग". With अ: F1 ~700, heard "सुना", for
+# सुन गर हेर लेख जाँच सम्झ, in the middle and at the end of a sentence. The
+# visarga used before (सुनः) worked on the male voice only: on the narrator F1
+# stayed at ~260 and Whisper heard "सुन". A comma changes nothing.
 #
-# Only the *bare* imperative. सुन्नुहोस्, सुनेर and सुन्दर are different words
-# and the boundaries below leave them alone — including a following danda,
-# which is in the Devanagari block but is punctuation, not a letter.
-FINAL_VOWEL = {
-    "सुन": "सुनः",
-    "गर": "गरः",
-}
+# Only the bare imperative: सुन्नुहोस्, सुनेर and सुन्दर are different words, and
+# the boundaries below leave them alone (a following danda is punctuation).
+# Two lists, because some imperatives are also nouns:
+#   ALWAYS   — words that are only ever verbs here; respelled everywhere.
+#   AT_CLAUSE_END — words that are also nouns (जोड "sum", सार "essence",
+#              जाँच "a check", थप "extra"), respelled only where a clause ends
+#              (। , ? ! — or a closing quote), which is where the imperative
+#              sits and the noun almost never does.
+ALWAYS = """
+गर हेर सोध सम्झ राख हिँड निकाल गन भन तान बोक झर फर्क छाड छोड फ्याँक बढ पढ साट
+छान फेर ठान सुत घुम बिर्स ठोक बदल समात टाँस रोक बसाल उकाल बिगार बुझ पर्ख उठ
+चढ उफ्र बाँड चिन सुम्प पख फुकाल हान
+सम्झिराख लेखिराख सुनिराख हेरिराख गरिराख दोहोर्याइरह दोहोर्‍याइरह घुमिरह
+नगन नबिर्स नखोज नराख नफर्क नटिप नहेर नठान नलेख नछाड नसोच नबस नभन नहिँड नतान
+""".split()
+AT_CLAUSE_END = """
+सुन लेख हाल जोड थप सार नाप जाँच सोच खोज मान भर काट थाल खोल माग पुग सर दौड बोल
+टिप रोज कोर बाँध झार पस नगर
+""".split()
 
-_DEVA_LETTER = r"[ऀ-ॣ०-ॿ]"
-_FINAL_VOWEL_RE = re.compile(
-    rf"(?<!{_DEVA_LETTER})(" + "|".join(FINAL_VOWEL) + rf")(?!{_DEVA_LETTER})")
+_DEVA_LETTER = r"[\u0900-\u0963\u0966-\u097F\u200c\u200d]"
+_ALWAYS_RE = re.compile(
+    rf"(?<!{_DEVA_LETTER})(" + "|".join(sorted(ALWAYS, key=len, reverse=True)) + rf")(?!{_DEVA_LETTER})")
+_CLAUSE_END_RE = re.compile(
+    rf"(?<!{_DEVA_LETTER})(" + "|".join(sorted(AT_CLAUSE_END, key=len, reverse=True))
+    + rf")(?=\s*(?:[।,?!—]|[\"”’]))")
+
+
+# "keep doing" compounds — गरिरह, सम्झिराख, पल्टिइरह — are imperatives whatever
+# the verb, so they are matched by their ending instead of being listed.
+_COMPOUND_RE = re.compile(
+    rf"(?<!{_DEVA_LETTER})({_DEVA_LETTER}+(?:िरह|इरह|िराख|इराख))(?!{_DEVA_LETTER})")
 
 
 def restore_final_vowel(text):
-    return _FINAL_VOWEL_RE.sub(lambda m: FINAL_VOWEL[m.group(1)], text)
+    text = _ALWAYS_RE.sub(lambda m: m.group(1) + "अ", text)
+    text = _COMPOUND_RE.sub(lambda m: m.group(1) + "अ", text)
+    return _CLAUSE_END_RE.sub(lambda m: m.group(1) + "अ", text)
 
 
 def _compile(mapping, flags=0):

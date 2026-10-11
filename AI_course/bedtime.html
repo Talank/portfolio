@@ -470,6 +470,7 @@
     playing = true;
     start();
     mediaState();
+    announce();
   }
   function pause() {
     playing = false;
@@ -480,6 +481,21 @@
     $('bt-play').textContent = '▶';
     mediaState();
     lightsOn();
+  }
+
+  /* One narrator at a time, across tabs. A second copy of this page -- or
+     another course's voyage -- left open from an earlier night can be woken by
+     a headset button or the lock screen while this one is playing, and then two
+     stories talk over each other. Whichever player starts last wins; every other
+     open player pauses. BroadcastChannel only reaches pages on this origin, and
+     where it does not exist this is simply a no-op. */
+  var chan = null, me = Math.random().toString(36).slice(2);
+  try { chan = new BroadcastChannel('bedtime-player'); } catch (e) {}
+  if (chan) chan.onmessage = function (e) {
+    if (e.data && e.data.playing && e.data.id !== me && playing) pause();
+  };
+  function announce() {
+    if (chan) try { chan.postMessage({ playing: true, id: me }); } catch (e) {}
   }
 
   /* Equal-power crossfade: two uncorrelated ambience beds summed with sqrt

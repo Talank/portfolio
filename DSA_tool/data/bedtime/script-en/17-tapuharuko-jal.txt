@@ -25,8 +25,6 @@ Its time is O(V + E), that is, the work is as much as the number of nodes and ro
 @read hush
 There is one sign that tells you the web code is right. Every island must be reached exactly once, so the count of islands you marked must match the count of islands you walked. If those two disagree, some island went into the queue twice.
 
-@recall jal
-
 [usopp]"How can you say the road BFS gives is the shortest one?"[/] Usopp asked.
 
 [robin]"Because BFS spreads out level by level."[/] Robin said. [robin]"It looks at everything one step away first, and then everything two steps away."[/]
@@ -41,10 +39,7 @@ In another problem you have to make a copy of a graph. Here the notebook's job c
 
 The moon has risen over the sea. The islands are tied to each other by invisible threads. Nami folded the map.
 
-@read hush
-When you mark an island is the whole story of this approach. Mark it as you put it into the queue, not as you take it out. Mark it on the way out and the same island lands in the queue many times over, and on a large web that simply stalls.
-
-@recall jal
+@recall jal | The rule for walking the web is the most important part of tonight, so let me repeat it once more.
 
 @tier medium
 
@@ -70,7 +65,7 @@ The map is a notebook whose pages make themselves, with a row of neighbours unde
 The memory of where you have been is a set. Not a row. Asking a row whether it already holds an island is a walk of its own, and doing that inside a walk turns the whole night into the shape we measured on the second island. A set answers the same question at once.
 
 @read teach
-The habit is the last of the three, and it is the difference between a walk that works and a walk that swells. When you find a neighbour you have not seen, you must write it down as seen at the moment you put it in the queue — not later, when you take it out. If you wait, an island with six bridges into it gets added six times before anybody looks at it, and the queue fills with copies. On a small map it still gives the right answer, which is exactly why nobody notices. On a large one it runs out of room.
+The habit is the last of the three, and although the rule already says it, it is worth saying again, because it is the difference between a walk that works and a walk that swells. When you find a neighbour you have not seen, you must write it down as seen at the moment you put it in the queue — not later, when you take it out. If you wait, an island with six bridges into it gets added six times before anybody looks at it, and the queue fills with copies. On a small map it still gives the right answer, which is exactly why nobody notices. On a large one it runs out of room.
 
 [usopp]"So the mark goes on when it joins the line, not when it reaches the front."[/] Usopp said.
 
@@ -114,10 +109,6 @@ Now let us remember the choice between depth and breadth in practical terms agai
 
 But BFS gives the short road, and DFS does not. So the rule is easy. On the question [aside]"is there a road"[/], run DFS. On the question [aside]"how short is the road"[/], run BFS.
 
-At the end comes one small thing, which is the place where the most mistakes happen. Mark it when you put it into the queue, and not when you take it out.
-
-If you mark it when you take it out, the same node goes into the queue many times. On a small graph you never notice, but on a large one the ship goes down.
-
 @read hush
 That brings us to a hard problem, and it takes tonight's biggest idea all the way to its last point.
 
@@ -141,7 +132,7 @@ That way a word's neighbours are found in length times twenty-six tries, and the
 
 And that old rule about marking is just as strict here. The moment a word goes into the queue, take it out of the dictionary, or that same word will enter the queue dozens of times.
 
-Nami had not folded the map away yet. She said — [nami]"One more, and it is tonight's shortest road with one word changed. Before, the walk started from one island. Now it starts from all of them at once."[/]
+Nami had not folded the map away yet. She said — [nami]"One more. Remember the fog story from earlier? It is the same story once more, this time with fruit, and with one new trap."[/]
 
 There is a grid of fruit. Some are fresh, some are already rotten, and some cells are empty. Every minute a rotten fruit spoils the fresh ones directly beside it. How many minutes until nothing fresh is left?
 
@@ -161,16 +152,29 @@ Count the minutes by finishing the queue one whole layer at a time, because each
 
 Every cell enters the queue at most once, so the time is the size of the grid.
 
+Zoro looked at the map of a walled town and put his hand on his sword. [zoro]"Find the shortest road from the top corner to the bottom corner."[/] Zoro said. [zoro]"I am allowed to cut through K walls."[/]
+
+[nami]"BFS gives the shortest road when every step costs the same."[/] Nami said. [nami]"But a square you reach with cuts still left is not the same as that square with none left."[/]
+
+[robin]"So the case is not the square alone."[/] Robin said. [robin]"It is the square, together with how many cuts you still have. That pair is what BFS should mark as visited."[/]
+
+@read teach
+Start BFS from the corner, holding all K cuts. From each case, step to the four neighbouring squares. Stepping into a wall uses one cut, and it is allowed only if a cut is left. Mark each pair of square and cuts left the first time you reach it. The first time the far corner comes out of the queue, that step count is the answer.
+
+[zoro]"And if there is no way through?"[/] Zoro asked. [nami]"Then the queue runs dry, and the answer is minus one."[/] Nami said.
+
+The web here has one node for every square and every number of cuts left, so the work is rows times columns times K. It is the lesson about the case, which comes back on the island of memory, living here inside a BFS.
+
 Here you can see tonight's heart. A graph is not a picture of dots and threads. A graph is a rule that says [aside]"from here, where can you get to"[/]. Once there is a rule there is a graph, and nobody has to draw it.
 
 Nami folded the map and looked up. There were invisible threads between the stars as well, and those threads were part of some web too.
 
-She said quietly — [robin]"My father used to say that a person who gets lost at sea does not get lost from not knowing the road. They get lost from not noting the road they walked."[/]
+She said quietly — [nami]"My father used to say that a person who gets lost at sea does not get lost from not knowing the road. They get lost from not noting the road they walked."[/]
 
 That is tonight's lesson, and it is the simplest and the most forgotten one. Note where you have been. If you do not, the web takes you round forever, and you do not even know you are going round.
 
 There was no such problem in a tree, because a tree has no road back. A web has that road. That is the price of freedom, because where any road is possible, going round in a circle is possible too.
 
-Next comes the second lesson. Sometimes it is easier to look for [aside]"what is not surrounded"[/] than for [aside]"what is surrounded"[/]. Turning a question around is itself a solution, and this move is useful in many places later.
+And remember the second lesson once more. Sometimes it is easier to look for [aside]"what is not surrounded"[/] than for [aside]"what is surrounded"[/]. Turning a question around is itself a solution, and this move is useful in many places later.
 
 The moon had climbed high. The islands looked like small dots, and every dot was joined to somebody.

@@ -23,8 +23,6 @@ The answer to it is strange, and it sounds like magic. It is right there in the 
 @read hush
 The reason this works is a small one. Inside a loop the hare comes one pace closer to the tortoise on every step, so the distance falls one at a time until it reaches zero. The distance can never jump over, and that is the proof that they must meet.
 
-@recall kachhuwa
-
 [nami]"The same move is useful in a completely different place."[/] Nami said. [nami]"Suppose there are numbers from one to n, but one number is repeated."[/]
 
 [usopp]"That has nothing to do with a chain."[/] Usopp said.
@@ -41,7 +39,7 @@ Chopper is tired. He lay down slowly in the grass. The secret of the circular ro
 @read hush
 Do not forget one thing when you write this. Before moving the hare two steps, check that both the hare and the one after it exist, or the code breaks at the end of a straight path. That single check covers every small case from an empty list to a single node.
 
-@recall kachhuwa
+@recall kachhuwa | The rule of the tortoise and the hare is important, so I will say it once more.
 
 @tier medium
 
@@ -85,7 +83,7 @@ Robin said — [robin]"Let me ask a question. Why are the two speeds exactly one
 
 Chopper shook his head. Robin answered it herself — [robin]"Because if the difference is one, then inside the cycle the fast one closes on the slow one by exactly one step every lap. If it closes by one step at a time, it can never jump over. If the difference is two, both of them can jump and step over each other at the same moment."[/]
 
-She added — [aside]"So one and two is safe. It is a small thing, but it is what gives the move its proof."[/]
+She added — [robin]"So one and two is safe. It is a small thing, but it is what gives the move its proof."[/]
 
 Now let us also walk slowly through that magical reasoning for finding the mouth of the cycle. This one is fine to drift through, because you do not have to do the arithmetic and hearing the shape is enough.
 
@@ -95,19 +93,11 @@ The slow one has walked A plus B steps. The fast one has walked exactly double, 
 
 Now, what does that mean? The distance from the meeting place to the mouth is equal to the distance from the start to the mouth. So sending one of them home and walking both one step at a time makes them meet exactly at the mouth.
 
-Now let us take up the business of finding the repeated number in an array in a little more detail. The numbers run from one to n, and the length of the array is n plus one. So at least one number must be repeated.
-
-Turn the array into a linked list. Start from index zero, and each time make the value inside into the new index. Since the numbers run from one to n, nobody ever comes back to index zero, so there is a cycle there and also a tail sitting outside the cycle.
-
-Because two numbers are the same, two indexes point at the same place, and that meeting point is the mouth of the cycle. Finding the mouth means finding the repeated number. This works without damaging the array and without keeping a notebook, so the space is O(1).
-
-Think for a moment about how beautiful that is. We turned a problem about numbers into a problem about a road. Being able to change the form of a problem is the greatest skill there is, and it repeats through the whole voyage.
-
-Then there is one last use, and it is an easy one, and that is counting from the end of a linked list. We already met the move of sending one finger K steps ahead on the last island. That one is in this same family, because there too there are two fingers, the start is different, and the walking is together.
+Then there is one more use, and it is an easy one, and that is counting from the end of a linked list. We already met the move of sending one finger K steps ahead on the last island. That one is in this same family, because there too there are two fingers, the start is different, and the walking is together.
 
 The only difference is that there the speed was the same and the distance was different, and here the distance is the same and the speed is different. Both moves are two faces of one idea.
 
-That brings us to one last problem, and it needs tools from both tonight's island and last night's.
+That brings us to another problem, and it needs tools from both tonight's island and last night's.
 
 The linked list has to be put into this order — the first node, then the last node, then the second node, then the one before last, then the third. You come inwards from the two ends by turns.
 
@@ -123,7 +113,9 @@ In the third step, join the two halves by turns — one from the front, one from
 
 The time is O(n) and it needs no new room. Watch one thing. After you cut at the middle, make the tail of the first half empty, or the two halves stay joined together and the loop never stops.
 
-Chopper was nearly gone. Robin said quietly — [robin]"One last one, and it is tonight's circular road with one word changed. There is no chain here, and no road either. There is only an array."[/]
+Chopper said in his sleep — [chopper]"Three easy things joined up and made a hard thing."[/] Robin nodded. Hard problems are usually like that, and there is no new move in them — the old moves have simply been set down in order.
+
+Chopper was nearly gone. Robin said quietly — [robin]"Let us walk the repeated-number problem from earlier once more, slowly, because tonight's whole move is hiding in it. There is no chain here, and no road either. There is only an array."[/]
 
 There are n plus one numbers, and every one of them lies between one and n. So at least one number must appear twice. Find it, without changing the array, and without a notebook.
 
@@ -139,7 +131,18 @@ After that it is tonight's move exactly as it stands. One walker moves a step at
 
 The time is O(n), the room is O(1), and the array is never written to. Half asleep, Chopper said — [chopper]"It was a road the whole time, and nobody had drawn it."[/]
 
-Chopper said in his sleep — [chopper]"Three easy things joined up and made a hard thing."[/] Robin nodded. Hard problems are usually like that, and there is no new move in them — the old moves have simply been set down in order.
+Robin and Nami were still awake. Nami drew a ring of stones in the dust, and wrote a number on each. [nami]"Each number says how far to jump, forward if it is positive and backward if it is negative."[/] Nami said. [nami]"The ring wraps around. Is there a cycle?"[/]
+
+[robin]"It is the duplicate number again, a list of numbers that is secretly a road."[/] Robin said. [robin]"Only now the road can go both ways, and the question has two conditions."[/]
+
+A real cycle must move in one direction only, all forward or all backward. And it must be longer than one stone. A stone that jumps back onto itself does not count.
+
+@read teach
+So start the tortoise and the hare from a stone. On every step, check the direction. If the next jump turns around, or lands where it stands, this road has no cycle. If the two runners meet, a cycle exists. When a road dies, mark every stone on it as dead, so that nobody has to walk it twice.
+
+[nami]"Why do the marks matter?"[/] Nami asked. [robin]"Because a dead road stays dead, whoever walks it."[/] Robin said. [robin]"The marks keep the whole search O(n). Without them, every start would walk the same dead roads again."[/]
+
+For two, minus one, one, two, two, there is a cycle through three stones, all moving forward. For minus two, one, minus one, minus two, minus two, there is none, because the only circle turns around halfway.
 
 Chopper really has fallen asleep now. Dew had started coming down on the grass. The circular road was still there, and it was turning quietly.
 

@@ -27,8 +27,6 @@ This work finishes in a single pass, so its time is O(n). You never had to build
 @read hush
 Once you have reversed it, how do you know the answer is right? When the loop ends the finger called 'now' must be empty, and the new beginning must be under the finger called 'behind'. Many people hand back the old beginning instead, and then all they are holding is a single node.
 
-@recall reverse
-
 Franky put a small piece of the chain down on the deck, and showing four nodes, worked it through once himself. The first node's finger turned towards the empty place. The second one's finger turned towards the first. The third one's finger turned towards the second. The fourth one's finger turned towards the third,[..]and the linked list was turned around.
 
 @read teach
@@ -36,7 +34,7 @@ Now let us go to the second problem, which is a gentle one. Two sorted linked li
 
 After that, keep comparing the heads of the two linked lists. Whichever is smaller, join it onto the new linked list and move that linked list forward one step. Once one linked list is finished, join on whatever is left of the other one directly.
 
-[chopper]"To remove the Kth node from the end you must have to count the length first."[/] Chopper said.
+[chopper]"To remove the Kth node from the end you would have to count the length first."[/] Chopper said.
 
 [zoro]"You do not."[/] Zoro said. [zoro]"Send one finger K steps ahead first. After that, move both fingers forward together."[/]
 
@@ -49,7 +47,7 @@ The chain is sinking slowly into the water.[..]The links are going down one by o
 
 Check this rule on two small cases. An empty Linked List must give back an empty answer. A Linked List with one node must give back that same node. Once those two work, the same four steps work on a chain of any length.
 
-@recall reverse
+@recall reverse | Because the rule for turning a linked list around matters so much, I will say it again, slowly.
 
 @tier medium
 
@@ -96,8 +94,6 @@ The move stays the same, but you have to pay attention at the boundaries. Hold o
 
 This sounds fiddly, and it really is fiddly. So draw a small picture of four nodes on paper and work it through once by hand, and after that you will never forget it.
 
-The next problem is turning the linked list around in groups of K. This is considered a hard interview question, but its shape is easy. First count whether there are K nodes ahead. If there are, turn that many around, and then repeat the same work on the rest of the linked list. If there are not, leave that piece exactly as it is.
-
 Now a beautiful question arrives. Does the linked list read the same backwards as forwards? Here the moves from three islands come together at once, and that is why this question is a favourite.
 
 First find the midpoint using the walk of the tortoise and the hare. After that, turn around the half from the middle to the end. After that, walk from the two heads together and compare. Its space is O(1), and its time is O(n).
@@ -106,7 +102,7 @@ If you want to be decent about it, straighten the turned-around half again at th
 
 In the next problem you have to add the numbers written in two linked lists, where the digits are kept in reverse order. That sounds strange, but the reverse order is a blessing here. The ones digit is met first, so the addition can be done straight from the front.
 
-At every step add the two digits and the one being carried. If the total goes past ten, carry one. If there is still a carry left after both linked lists are finished, add one more node at the end, and many people forget this small thing.
+At every step add the two digits and the one being carried. If the total reaches ten or more, carry one. If there is still a carry left after both linked lists are finished, add one more node at the end, and many people forget this small thing.
 
 There is the two-way linked list. Every node in it has two fingers — one points forward, and the other points backward. You can walk both ways in it, and to remove any node you do not have to go looking for the previous one.
 
@@ -128,11 +124,11 @@ Now look at the arithmetic. In each round every node is touched exactly once, so
 
 There is another road as well, and it is found on the sixteenth island. Put the head of every list into one heap, and keep taking the smallest out. The arithmetic comes out the same, O(N times log K).
 
-Here is tonight's real lesson. Repeating one job over and over makes it pile up. Splitting the same job into pairs brings it down to a log.
+There is a big lesson hiding here. Repeating one job over and over makes it pile up. Splitting the same job into pairs brings it down to a log.
 
-Franky let the linked list slip slowly into the water and said — [franky:firm]"Next comes the last thing. In linked list problems the mistake is usually not in the reasoning, it is at the boundary."[/]
+Franky let the linked list slip slowly into the water and said — [franky:firm]"Always remember one thing. In linked list problems the mistake is usually not in the reasoning, it is at the boundary."[/]
 
-"What happens if an empty linked list arrives? What happens if a single node arrives? What happens if two nodes arrive? If you ask those three questions, the rest works itself out."
+[franky]"What happens if an empty linked list arrives? What happens if a single node arrives? What happens if two nodes arrive? If you ask those three questions, the rest works itself out."[/]
 
 Franky was not finished. He said — [franky]"One more, and it is tonight's second move with one word changed. You turned a piece in the middle around. Now turn every piece around, k at a time, the whole way down the chain."[/]
 
@@ -149,6 +145,19 @@ The turning itself is tonight's dance of three fingers, unchanged. What is new i
 [robin]"Which is why the fake node is here."[/] Robin said. [robin]"Put an empty box in front of the chain. Then the first group has a previous one just like every other group, and the special case at the head disappears."[/]
 
 Every link is touched twice at most, once to count it and once to turn it, so the time is O(n) and no new room is needed. Franky wiped his hands and said — [franky:firm]"Same dance. Danced in groups."[/]
+
+Usopp came running with a strange chain. Every link had its usual pointer to the next link, and one extra string tied to any link at all, or to nothing. [usopp]"Make me an exact copy."[/] Usopp said. [usopp]"New links, with every string tied the same way."[/]
+
+[nami]"That is easy with a notebook."[/] Nami said. [nami]"Walk once and write down which new link belongs to which old one. Walk again, and every string can be looked up."[/]
+
+[franky]"That works, and it costs a whole notebook."[/] Franky said. [franky]"The chain can remember it for us."[/]
+
+@read teach
+Franky's move has three passes. First, put each new link right behind its old twin, so the chain reads old, new, old, new. Second, tie every new link's extra string. The twin of whatever the old string points at sits exactly one step after it. Third, pull the two chains apart again.
+
+[chopper]"Why does the second pass work?"[/] Chopper asked. [franky]"Because every old link now carries its twin on its back."[/] Franky said. [franky]"Wherever the old string goes, one step further is the copy you want."[/]
+
+It is the lesson of the dummy node in a new shape, which is to let the structure carry the bookkeeping. Three passes, O(n) time, and no notebook at all. The old chain comes back exactly as it was.
 
 @read hush
 The last link went under the water. The swell smoothed the surface over slowly, and everything around was quiet again.

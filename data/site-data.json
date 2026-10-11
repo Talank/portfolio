@@ -4,82 +4,154 @@
     "title": "PhD Student in Computer Science",
     "affiliation": "George Mason University",
     "photo": "Screen Shot 2023-10-30 at 2.09.23 PM.png",
-    "bio": "I am a PhD student in Computer Science at George Mason University specializing in software engineering. My research focuses on improving the speed and reliability of software testing and continuous integration using empirical methods and large language models (LLMs). I work on problems such as flaky test analysis and test execution optimization.",
-    "tags": ["Software Testing", "Continuous Integration", "Flaky Tests", "LLMs for SE"]
+    "bio": "My research improves the speed and reliability of software testing and continuous integration (CI), combining empirical studies with program analysis and large language models (LLMs). I work on reproducing and repairing flaky tests, optimizing test execution and CI pipelines, and understanding how AI coding agents test the code they write. My research is motivated by two years of industry experience maintaining slow, brittle test pipelines.",
+    "tags": [
+      "Software Testing",
+      "Continuous Integration",
+      "Flaky Tests",
+      "LLMs for SE"
+    ]
   },
-
   "news": [
     {
-      "date": "2026-07",
+      "date": "2026-10",
       "highlighted": true,
-      "html": "Paper <strong>\"TDRepro: A Neurosymbolic Approach to Reproducing Timing-Dependent Flaky Test Failures\"</strong> accepted to <strong>ASE 2026</strong>! &#127881;"
+      "html": "<strong>TDRepro</strong> won the 🏆 <strong>ACM SIGSOFT Distinguished Paper Award</strong> at <a href=\"https://doi.org/10.1145/3832783.3834384\" target=\"_blank\" rel=\"noopener\">ASE 2026</a>!"
     },
     {
       "date": "2026-07",
       "highlighted": true,
-      "html": "Paper <strong>\"Test Coverage Analysis of Agentic Pull Requests\"</strong> accepted to <strong>ICSME 2026</strong>! &#127881;"
+      "html": "Paper <strong>\"TDRepro: A Neurosymbolic Approach to Reproducing Timing-Dependent Flaky Test Failures\"</strong> accepted to <strong>ASE 2026</strong>! 🎉"
+    },
+    {
+      "date": "2026-07",
+      "highlighted": true,
+      "html": "Paper <strong>\"Test Coverage Analysis of Agentic Pull Requests\"</strong> accepted to <strong>ICSME 2026</strong>! 🎉"
     }
   ],
-
   "publications": [
     {
       "title": "TDRepro: A Neurosymbolic Approach to Reproducing Timing-Dependent Flaky Test Failures",
-      "authors": ["Shanto Rahman", "Talank Baral", "August Shi", "Wing Lam"],
-      "venue": "Accepted in ASE 2026",
-      "acceptanceRate": "8.82% direct acceptance",
-      "status": "Recently accepted",
-      "links": []
+      "authors": [
+        "Shanto Rahman",
+        "Talank Baral",
+        "August Shi",
+        "Wing Lam"
+      ],
+      "venueShort": "ASE '26",
+      "venue": "41st IEEE/ACM International Conference on Automated Software Engineering (ASE 2026), Munich, Germany, pages 675–686, 2026.",
+      "year": "2026",
+      "status": "published",
+      "links": [
+        {
+          "label": "DOI",
+          "url": "https://doi.org/10.1145/3832783.3834384"
+        },
+        {
+          "label": "PDF",
+          "url": "https://people.cs.gmu.edu/~winglam/publications/2026/RahmanETAL26TDRepro.pdf"
+        }
+      ],
+      "pending": [
+        "Slides"
+      ],
+      "award": "ACM SIGSOFT Distinguished Paper Award",
+      "acceptanceRate": "8.82% direct acceptance"
     },
     {
       "title": "Test Coverage Analysis of Agentic Pull Requests",
-      "authors": ["Atish Kumar Dipongkor", "Talank Baral", "Wing Lam", "Kevin Moran"],
-      "venue": "Accepted in ICSME 2026",
-      "acceptanceRate": "39%",
-      "status": "Recently accepted",
-      "links": []
+      "authors": [
+        "Atish Kumar Dipongkor",
+        "Talank Baral",
+        "Wing Lam",
+        "Kevin Moran"
+      ],
+      "venueShort": "ICSME '26",
+      "venue": "42nd International Conference on Software Maintenance and Evolution (ICSME 2026), Vision and Emerging Results Track, Benevento, Italy, 2026.",
+      "year": "2026",
+      "status": "published",
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2607.18057"
+        },
+        {
+          "label": "Code",
+          "url": "https://github.com/SageSELab/Agentic-Pull-Request-Test-Coverage"
+        },
+        {
+          "label": "Artifact",
+          "url": "https://doi.org/10.5281/zenodo.21419686"
+        }
+      ],
+      "acceptanceRate": "39%"
     },
     {
       "title": "OptCD: Optimizing Continuous Development",
-      "authors": ["Talank Baral", "Emirhan Oğul", "Shanto Rahman", "August Shi", "Wing Lam"],
-      "venue": "In ICSE 2025, Proceedings of the 50th International Conference on Software Engineering, Demonstrations track, Ottawa, Ontario, Canada, 2025.",
+      "authors": [
+        "Talank Baral",
+        "Emirhan Oğul",
+        "Shanto Rahman",
+        "August Shi",
+        "Wing Lam"
+      ],
+      "venueShort": "ICSE '25 Demo",
+      "venue": "47th IEEE/ACM International Conference on Software Engineering (ICSE 2025), Demonstrations Track, Ottawa, ON, Canada, pages 45–48, 2025.",
+      "year": "2025",
       "status": "published",
       "links": [
-        { "label": "PDF", "url": "https://utexas.app.box.com/v/august-shi-ICSEDEMO2025" },
-        { "label": "Slides", "url": "https://1drv.ms/p/c/5330fe071b00d705/IQBK6gXfv8PFQYjCOczogVKjASVh2fNxGaCkWNQdzzOxJrM" }
+        {
+          "label": "PDF",
+          "url": "https://utexas.app.box.com/v/august-shi-ICSEDEMO2025"
+        },
+        {
+          "label": "Slides",
+          "url": "https://1drv.ms/p/c/5330fe071b00d705/IQBK6gXfv8PFQYjCOczogVKjASVh2fNxGaCkWNQdzzOxJrM"
+        }
       ]
     },
     {
       "title": "Optimizing Continuous Development By Detecting and Preventing Unnecessary Content Generation",
-      "authors": ["Talank Baral", "Shanto Rahman", "Bala Naren Chanumolu", "Basak Balci", "Tuna Tuncer", "August Shi", "Wing Lam"],
-      "venue": "In ASE 2023, Proceedings of the 38th Annual International Conference on Automated Software Engineering (ASE 2023), pages 901-913, Kirchberg, Luxembourg, Sept. 2023.",
+      "authors": [
+        "Talank Baral",
+        "Shanto Rahman",
+        "Bala Naren Chanumolu",
+        "Basak Balci",
+        "Tuna Tuncer",
+        "August Shi",
+        "Wing Lam"
+      ],
+      "venueShort": "ASE '23",
+      "venue": "38th IEEE/ACM International Conference on Automated Software Engineering (ASE 2023), Kirchberg, Luxembourg, pages 901–913, 2023.",
+      "year": "2023",
       "status": "published",
-      "acceptanceRate": "21%",
       "links": [
-        { "label": "PDF", "url": "https://cs.gmu.edu/~winglam/publications/2023/BaralETAL23OptCD.pdf" },
-        { "label": "Slides", "url": "https://docs.google.com/presentation/d/12dBs4wr8ke9FBmAFul-a4obmPXsp0oacUnDMCHr-uwg/edit#slide=id.p" }
-      ]
+        {
+          "label": "PDF",
+          "url": "https://cs.gmu.edu/~winglam/publications/2023/BaralETAL23OptCD.pdf"
+        },
+        {
+          "label": "Slides",
+          "url": "https://docs.google.com/presentation/d/12dBs4wr8ke9FBmAFul-a4obmPXsp0oacUnDMCHr-uwg/edit#slide=id.p"
+        }
+      ],
+      "acceptanceRate": "21% (134/630)"
     }
   ],
-
   "experience": [
     {
-      "role": "Graduate Research Assistant",
-      "period": "Spring 2023, Summer 2023, Fall 2023, Summer 2024, Fall 2024",
-      "html": "Worked at SEAR lab with <a href=\"https://cs.gmu.edu/~winglam/\" target=\"_blank\" rel=\"noopener\">Dr. Wing Lam</a>"
-    },
-    {
-      "role": "Graduate Teaching Assistant",
-      "period": "Fall 2022",
-      "html": "CS262"
+      "role": "Graduate Research/Teaching Assistant",
+      "period": "Aug 2022 &ndash; Present",
+      "html": "<a href=\"https://cs.gmu.edu/\" target=\"_blank\" rel=\"noopener\">Department of Computer Science, George Mason University</a>"
     },
     {
       "role": "Software Developer",
-      "period": "January 2020 &ndash; August 2022",
+      "period": "Jan 2020 &ndash; Aug 2022",
       "html": "<a href=\"https://www.jankaritech.com/\" target=\"_blank\" rel=\"noopener\">JankariTech</a>"
     }
   ],
-
   "blogs": {
     "html": "You can find my blogs at <a href=\"https://dev.to/talank\" target=\"_blank\" rel=\"noopener\">dev.to</a>"
-  }
+  },
+  "_generated": "Generated by cv/build.py from cv/data/*.csv. Edit the CSVs, not this file."
 }

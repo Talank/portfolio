@@ -32,8 +32,6 @@ Robin said — [robin]"Weak backtracking looks at everything. Strong backtrackin
 @read hush
 One check tells you whether the art of turning back is working. After you finish a branch and come back, the place must be exactly as it was. If anything you added is still there, the next branch inherits a dirty state, and things appear in the answer that were never meant to be in it.
 
-@recall backtrack
-
 [usopp]"The fourth problem is mine."[/] Usopp said. [usopp]"Find a word in a grid of letters. Start from some square and look in all four directions. If the letter does not match, turn back."[/]
 
 [chopper]"And if it matches?"[/] Chopper asked.
@@ -47,9 +45,9 @@ Next come the signals. If the question says [aside]"all the possibilities"[/], "
 Inside the maze Luffy is asleep in the middle of the path. He does not remember about coming back, but tonight that is all right.
 
 @read hush
-If you need speed there is only one approach here, and that is to stop early. If you already know before entering a branch that no answer can come out of it, turn back right there. This is called pruning, and in a large maze that single step turns hours into seconds.
+Remember the pruning from earlier, because if you need speed there is only one approach here, and that is to stop early. If you already know before entering a branch that no answer can come out of it, turn back right there. In a large maze that single step turns hours into seconds.
 
-@recall backtrack
+@recall backtrack | These three steps of turning back are important, so I will say them once more.
 
 @tier medium
 
@@ -84,7 +82,7 @@ Adding and removing at the end of a row are both free, which is why the row is t
 
 The fix is a slice with nothing in the brackets, which hands back a copy of the whole row. It is two characters, and they are the two most important characters on this island.
 
-There is one more habit that costs nothing and saves everything: cut the branch before you walk down it, not after. Sometimes you can already tell that an option leads nowhere — the number is too large, the letter is used, the queen would be attacked. Then do not take the step at all. Testing at the bottom is correct and slow. Testing at the branch is correct and fast, and the difference is often the difference between finishing and not.
+And remember once more the habit from earlier, which costs nothing and saves everything: cut the branch before you walk down it, not after. Sometimes you can already tell that an option leads nowhere — the number is too large, the letter is used, the queen would be attacked. Then do not take the step at all. Testing at the bottom is correct and slow. Testing at the branch is correct and fast, and the difference is often the difference between finishing and not.
 
 [robin]"And a last honest word."[/] Robin said. [robin]"The language already owns the plain arrangements — every order of a row, every choice of K from it. If the question is only asking for those, use them. But when the question has a rule inside it, that ready-made word cannot help you. The whole art tonight is refusing to walk down roads you know are closed."[/]
 
@@ -101,10 +99,6 @@ The move is this. Sort them first, so that the same numbers come next to each ot
 To put it in one sentence — [aside]"I do not choose the same value a second time at this level."[/] That one rule removes every repeated answer.
 
 Now let us go a little deeper into cutting back, because this is the true treasure of this island.
-
-In the queens problem you do not have to look at the whole board to check whether each place is safe. Keep three notebooks, and they are which column was taken, which one diagonal was taken, and which other diagonal was taken. Doing that makes the check O(1).
-
-The move for recognising a diagonal is beautiful. On one diagonal the row plus the column is always the same. On the other diagonal the row minus the column is always the same. That way two numbers recognise a whole diagonal.
 
 And then comes sudoku. The same move works here too, because in every empty square you have to try one to nine and turn back when it does not fit. But without cutting back this never finishes.
 
@@ -140,7 +134,7 @@ If you find a mark on some node of the tree saying [aside]"a word ends here"[/],
 
 And tonight's third step is just as compulsory here. Mark the square and go down, and take the mark back when you return. If you do not take it back, the neighbouring road will think the road you walked is its own.
 
-The water was still dripping. Robin said — [robin]"One last one, and it is tonight's maze with one word changed. In the maze you were looking for a way out. Here there is no way out to find, and instead you have to place a thing that fights everything else you place."[/]
+The water was still dripping. Robin said — [robin]"Let us now finish the queens problem we touched at the start of tonight. In the maze you were looking for a way out. Here there is no way out to find, and instead you have to place a thing that fights everything else you place."[/]
 
 On a board of n squares by n, put n queens so that no two of them can reach each other. A queen reaches along her row, along her column, and along both diagonals.
 
@@ -160,18 +154,29 @@ Take off whatever you put on. That is tonight's rule again, because the queen go
 
 The number of arrangements is still large, but nearly all of them are cut off before they are ever built, and that is the whole art.
 
-Here tonight's real lesson is complete. A weak search walks every road. A strong search can say [aside]"there is nothing this way"[/] before it walks at all. And the power to say that is usually given to it by some other structure.
+Here you can see tonight's real lesson. A weak search walks every road. A strong search can say [aside]"there is nothing this way"[/] before it walks at all. And the power to say that is usually given to it by some other structure.
 
-The water was still dripping. Luffy was asleep in the middle of the path, and he really did not remember about coming back. But the maze was patient.
+Usopp emptied his pocket of coins. [usopp]"Coins of two, three, six and seven."[/] Usopp said. [usopp]"Find every way to make seven, and I may use any coin as many times as I like."[/]
+
+This is the total-making shape from earlier tonight, and this time let us walk it with coins and a real example. In subsets, every item was either taken once or skipped. Here, an item may be taken again and again.
+
+@read teach
+So the road changes in one small place. Walk the coins in order. After taking a coin, the next choice starts from that same coin, not from the one after it, and that is what allows taking it again. Starting from the same place, and never going back to an earlier coin, also stops two then three and three then two from being counted as different ways.
+
+[luffy]"And when the total goes past seven?"[/] Luffy asked. [usopp]"Turn back at once."[/] Usopp said. [usopp]"And if the coins are sorted, every coin after a too-large one is too large as well, so the rest of that row can be skipped."[/]
+
+Two, three, six and seven make seven in two ways. One is two, two and three, and the other is seven alone. Take, walk on, and put back. The maze has not changed, only the rule for which door opens next.
+
+Somewhere far off, a drop of water fell. Luffy was asleep in the middle of the path, and he really did not remember about coming back. But the maze was patient.
 
 Robin looked at him and smiled. She said — [robin:sad]"This boy never turns back. So he never gets lost either, because somebody comes looking for him. But not all of us have that luxury."[/]
 
 That is tonight's lesson, and it sounds backwards. The name of the art of going into a maze is not going forward, it is turning back. And the most important part of turning back is leaving the place exactly as it was.
 
-Take off whatever you put on. Put down whatever you picked up. If you do not, the dirt from the previous road runs into the next road, and the answer quietly goes wrong.
+As I have said all night, take off whatever you put on. Put down whatever you picked up. If you do not, the dirt from the previous road runs into the next road, and the answer quietly goes wrong.
 
-Then comes the second lesson, which is the real skill. A weak search walks every road, and a strong search knows how to give up early. If a bad road is cut off at the start, you never have to look at the entire forest underneath it.
+And remember the second lesson once more, which is the real skill. A weak search walks every road, and a strong search knows how to give up early. If a bad road is cut off at the start, you never have to look at the entire forest underneath it.
 
 The same rule works in life. On a road you already know does not go anywhere, there is no need to be polite. Turning back early is not defeat, it is respect for time.
 
-A drop of water fell. The maze was patient, and the road was going to be there tomorrow as well.
+A drop of water fell, and the road was going to be there tomorrow as well.

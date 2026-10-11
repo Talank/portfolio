@@ -20,9 +20,9 @@ Now there are two ways of walking, and remember both of them.
 These are the two ways of walking a tree. The first way is going into the depth, and it is called DFS. In it you take hold of one branch and go all the way to the tip, then come back and take hold of another branch, and this is the nature of a stack. The second way is walking level by level, and it is called BFS. In it you look at the root first, then the root's children, then the grandchildren, and this is the nature of a queue. Run BFS like this — put the root in the queue, then until the queue is empty, take the front node out and add both of its branches to the back of the queue. If the question is about depth, run DFS, and if the question is about what is near or about levels, run BFS.
 @end
 
-[chopper]"Why look at the same tree three different ways?"[/] Chopper asked.
+[chopper]"Is there only one order of looking, in DFS?"[/] Chopper asked.
 
-[robin]"Because there are three different jobs to do."[/] Robin said. [robin]"Looking at the root first is called preorder, and that is what you need to copy a tree."[/]
+[robin]"No, there are three, because there are three different jobs to do."[/] Robin said. [robin]"Looking at the root first is called preorder, and that is what you need to copy a tree."[/]
 
 [robin]"Looking at left, then root, then right is called inorder."[/] She touched a branch. [robin]"That gives the fruit in sorted order."[/]
 
@@ -37,14 +37,12 @@ An easy and sweet problem is turning a tree inside out. At every node swap the l
 @read hush
 The question itself tells you which approach to choose. If it asks for the shortest path or the nearest thing, choose BFS, because it spreads out level by level. If it asks for every path, or for depth, choose DFS.
 
-@recall rukh
-
 The leaves of the tree are moving in the wind. Chopper lay down right at the foot of it. Above him the branches spread out into the sky, and they cannot be counted, but every branch is itself a small tree.
 
 @read hush
 Both approaches need the same check. Before you go down a branch, look at whether that branch is really there, because stepping into an empty branch is the most ordinary mistake in tree code. Decide at the very start what the answer is for an empty tree as well.
 
-@recall rukh
+@recall rukh | These two ways of walking a tree are the most important part of tonight, so let me repeat them once more.
 
 @tier medium
 
@@ -105,8 +103,6 @@ Next come some uses of the level-by-level walk. Sometimes you need the average o
 
 And there is the use that walks like a snake, in which one level goes from left to right and the next goes from right to left. The move is easy, because once you have collected a level you reverse it every other time.
 
-And there is the work of writing a tree out as letters and building the tree back from those letters. When you write it, mark the empty branches with some sign as well, or the shape cannot be worked out when you bring it back.
-
 And there is the question of rebuilding a tree from the fruit of two walks. The preorder tells you who the root is. The inorder tells you how much of that root is on the left and how much on the right. The two together build the whole tree.
 
 At the end comes an honest warning. Recursion is beautiful, but on a deep tree the stack fills up. If a tree arrives that is like a chain ten thousand levels deep, the code breaks.
@@ -145,6 +141,19 @@ Reading it back is the same walk again. Take the next thing from the line. If it
 
 Every node is written once and read once, so both directions are O(n). Robin closed her book and said — [robin]"A tree is not the picture. A tree is the order you visited it in, together with the places where you found nothing."[/]
 
+Before he closed his eyes, Chopper asked one more thing. [chopper]"If I stand on one node, which nodes are exactly K steps away?"[/] Chopper asked.
+
+[nami]"Walk down K levels, and that is enough."[/] Nami said. [robin]"Down is only half of it."[/] Robin said. [robin]"Some of those nodes are above you, or down a different branch, and you reach them by climbing up first."[/]
+
+A tree only points downward. A child does not know its parent. That is why the question feels hard.
+
+@read teach
+So first walk the whole tree once, and give every node a note saying who its parent is. Now every node can step three ways, left, right and up. The tree has quietly become a web. Then run BFS from your node, one ring at a time, and mark every node you visit. After K rings, the ring you are holding is the answer.
+
+[chopper]"Why do I have to mark them?"[/] Chopper asked. [robin]"Because now there is a road back up, and without marks you would walk down and up forever."[/] Robin said.
+
+One pass writes the parents, and one BFS spreads out. Both are O(n). It is the island of webs, hiding inside a tree.
+
 The leaf reached the ground. Chopper closed his eyes. Above him the branches were still spreading out in the dark.
 
 Robin put her hand on the bark of the tree and said — [robin:awed]"This tree is three hundred years old. Every year it has done the same one thing, and that thing is making two branches out of one."[/]
@@ -157,4 +166,4 @@ But there is a condition in it, and that condition must never be forgotten. Ever
 
 The same rule works in life. A habit that feeds itself has to have a limit set on it, or that habit eats you.
 
-A leaf came away from a branch and drifted down. It settled beside Chopper, and the forest went quiet again.
+Another leaf settled beside Chopper, and the forest went quiet again.

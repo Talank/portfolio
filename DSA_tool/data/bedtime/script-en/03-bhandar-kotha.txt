@@ -21,7 +21,7 @@ Zoro said — [zoro]"I carry a flag in my hand. I make the first number the flag
 
 That is a single pass, and its time is O(n). In the kind of code you can listen to, it sounds like this — [aside]"Put the first thing into a box called largest. Now look at every remaining thing, and if this thing is bigger than what is in the box, put this one in the box instead."[/] That was finished in three lines.
 
-That brings us to the main move of this island, and it will come back three times tonight.
+That brings us to the main move of this island, and it will come back once more before the night is over.
 
 @algo dui-hat
 Many jobs on an array can be finished with two hands, and the rule is this. One hand is the reading hand, and it always moves forward. The other hand is the writing hand, and it waits behind. When the reading hand finds something worth keeping, it gives that thing to the writing hand. Only after it receives something does the writing hand step forward. Wherever the writing hand stops at the end, everything up to that point is the clean answer. You do not have to build a new array for this at all, so the time is O(n) and the space is O(1).
@@ -41,8 +41,6 @@ A small trap is hiding here, and many people fall into it. The last index of an 
 @read hush
 Here is how you check the answer once the work is done. Wherever the writing hand stopped, that number is the count of things that are left. Read only the part up to that count and forget everything after it, because old things are still lying there.
 
-@recall dui-hat
-
 Closing her book, Robin said — [robin]"The array is straightforward, and there is no mystery in it. But it is the foundation of every island that comes after. If the foundation is strong, every floor above it is easy."[/]
 
 Outside, the evening had come down. The door of the store room closed slowly.
@@ -50,7 +48,7 @@ Outside, the evening had come down. The door of the store room closed slowly.
 @read hush
 Check this approach on two cases. The first case is where nothing at all is worth keeping, and there the writing hand stays at the start, which is correct. The second case is where everything is worth keeping, and there both hands walk together and the array is left exactly as it was.
 
-@recall dui-hat
+@recall dui-hat | Because the two-hands move matters so much, I will say it again, slowly.
 
 @tier medium
 
@@ -87,7 +85,7 @@ One last small thing, and it is a kindness. To make a row of n zeros you do not 
 
 @tier long
 
-The ship rocked gently. Robin opened her book again and said — [robin]"If you are getting sleepy, stop here. But if you are awake, there are four more stories, and all four of them are good."[/]
+Outside, a wave lapped softly. Robin opened her book again and said — [robin]"If you are getting sleepy, stop here. But if you are awake, there are four more stories, and all four of them are good."[/]
 
 The first story is about rotating an array. Suppose the drawers have to move three places to the right, and the last three have to come back around to the front. The straightforward road is to build a new array. But there is a very sweet move here, and it sounds like magic when you hear it.
 
@@ -129,8 +127,21 @@ So walk the same way twice. Once for the largest total, in the ordinary manner. 
 
 It is still one pass, or two of them, and the time is still O(n). The question did not get harder tonight. The room got round.
 
+Before the light went out, Nami pulled one more drawer open. [nami]"A hard one lives in this same room."[/] Nami said. [nami]"A row of numbers is given, in no order. Find the smallest positive number that is not in it."[/]
+
+[luffy]"Sort it, then count upwards from one!"[/] Luffy said. [sanji]"Sorting costs n log n."[/] Sanji said. [sanji]"And this question wants a single pass, with no extra room at all."[/]
+
+[chopper]"Then write every number in a notebook, and ask for one, two, three?"[/] Chopper asked. [nami]"That works, but a notebook is extra room, and we are not allowed any."[/] Nami said.
+
+@read teach
+The answer can never be larger than the length of the array plus one. So the array can be its own notebook. Number one belongs in the first drawer, number two in the second, and so on. Walk the array. While a number is between one and the length, and its own drawer holds something else, swap it home. Anything below one, or too large, stays where it is.
+
+Then walk the drawers once more. The first drawer that does not hold its own number gives the answer. If every drawer is right, the answer is the length plus one. For three, four, minus one, one, the drawers end up holding one, minus one, three, four. The second drawer is wrong, so the answer is two.
+
+[sanji]"Every swap sends one number home for good, so there are at most n swaps."[/] Sanji said. [sanji]"The room was the notebook all along. It only had to be put in order."[/]
+
 @read hush
-The light went out. The store room really was closed now. Outside, the sea was calm, and the ship moved slowly on.
+The light went out. There were no stories left in the store room now. Outside, the sea was calm.
 
 Even after the light went out, Sanji stood in the doorway for a while. From inside you could still make out the line of the drawers, because they were straight, they were equal, and there was nothing strange about them.
 

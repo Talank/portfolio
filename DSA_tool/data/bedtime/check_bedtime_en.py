@@ -307,7 +307,8 @@ def C_recitals(path):
             counts.setdefault(name, {}).setdefault(tier, 0)
             counts[name][tier] += 1
         elif s.startswith("@recall "):
-            name = s.split(None, 1)[1].strip()
+            # "@recall NAME | lead sentence": the lead is spoken, not part of the name
+            name = s.split(None, 1)[1].split("|", 1)[0].strip()
             counts.setdefault(name, {}).setdefault(tier, 0)
             counts[name][tier] += 1
     return counts

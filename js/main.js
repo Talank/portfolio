@@ -1,15 +1,14 @@
 // Populates index.html from data/site-data.json.
-// To add news later: open data/site-data.json and add an object to the
-// "news" array, e.g.
-//   { "date": "2026-09", "highlighted": false, "html": "Gave a talk at ..." }
-// "date" can be "YYYY-MM" or "YYYY-MM-DD". Set "highlighted": true for
-// items that should always float to the top (e.g. paper acceptances),
-// regardless of how old they are. Highlighted items are sorted newest
-// first among themselves; everything else is sorted newest first below them.
 //
-// For publications: add an "acceptanceRate" string field (e.g. "22%") to
-// any entry in the "publications" array once the rate is known/public.
-// It's optional — entries without it simply don't show a rate badge.
+// data/site-data.json is GENERATED — do not edit it by hand. Edit the CSVs in
+// cv/data/ and run `make -C cv` (or `python3 cv/build.py`); that one command
+// rebuilds both resume.pdf and this site's data:
+//   news          <- cv/data/news.csv   (date, highlighted yes/no, text with **bold** and [link](url))
+//   publications  <- cv/data/publications.csv (only status published/accepted are shown)
+//   profile       <- cv/data/profile.csv
+//   experience    <- cv/data/experience.csv + cv/data/teaching.csv
+// Highlighted news floats to the top, newest first; everything else is
+// sorted newest first below it.
 
 async function loadSiteData() {
 	const res = await fetch('data/site-data.json');
@@ -100,9 +99,23 @@ function renderPublications(publications, selfName) {
 		const card = document.createElement('article');
 		card.className = 'pub-card';
 
+		if (pub.venueShort) {
+			const tag = document.createElement('span');
+			tag.className = 'venue-tag';
+			tag.textContent = pub.venueShort;
+			card.appendChild(tag);
+		}
+
 		const title = document.createElement('h3');
 		title.textContent = pub.title;
 		card.appendChild(title);
+
+		if (pub.award) {
+			const award = document.createElement('p');
+			award.className = 'award-badge';
+			award.textContent = `🏆 ${pub.award}`;
+			card.appendChild(award);
+		}
 
 		const authors = document.createElement('p');
 		authors.className = 'pub-authors';
@@ -132,22 +145,21 @@ function renderPublications(publications, selfName) {
 
 		const links = document.createElement('p');
 		links.className = 'pub-links';
-		if (pub.links && pub.links.length) {
-			pub.links.forEach(link => {
-				const a = document.createElement('a');
-				a.href = link.url;
-				a.target = '_blank';
-				a.rel = 'noopener';
-				a.className = 'pub-link-btn';
-				a.textContent = link.label;
-				links.appendChild(a);
-			});
-		} else {
+		(pub.links || []).forEach(link => {
+			const a = document.createElement('a');
+			a.href = link.url;
+			a.target = '_blank';
+			a.rel = 'noopener';
+			a.className = 'pub-link-btn';
+			a.textContent = link.label;
+			links.appendChild(a);
+		});
+		(pub.pending || []).forEach(label => {
 			const span = document.createElement('span');
 			span.className = 'pub-pending';
-			span.textContent = 'PDF coming soon';
+			span.textContent = `${label} coming soon`;
 			links.appendChild(span);
-		}
+		});
 		card.appendChild(links);
 
 		container.appendChild(card);

@@ -1,0 +1,25 @@
+% Curriculum Vitae -- layout only. Facts live in data/*.csv; build.py turns
+% them into generated/*.tex. Reorder sections here; restyle in cvstyle.sty.
+\documentclass[11pt]{article}
+\input{generated/profile}
+\usepackage{cvstyle}
+\hypersetup{pdftitle={\cvname\ -- Curriculum Vitae}, pdfauthor={\cvname}}
+
+\begin{document}
+\makecvheader
+
+\cvsection{Research Interests}
+\cvsummary\par\vspace{4pt}
+{\small\color{muted}\cvinterests}\par
+
+\input{generated/education}
+\input{generated/publications}
+\input{generated/awards}
+\input{generated/experience}
+\input{generated/teaching}
+\input{generated/talks}
+\input{generated/service}
+\input{generated/opensource}
+\input{generated/skills}
+
+\end{document}

@@ -100,8 +100,8 @@ TITLE = "निद्राको ग्रैंड लाइन"
 SUBTITLE = "DSA Bedtime Voyage"
 MONOLITH_NAME = "dsa-nidra-full"
 # Heading of chapters.txt. Separate from TITLE because an all-English voyage
-# rebinds this one and keeps its own title: ACLS_tool had a story with no Nepali
-# word left in it and a chapter list headed "अध्याय सूची".
+# rebinds this one and keeps its own title: the ACLS voyage (since removed) had a
+# story with no Nepali word left in it and a chapter list headed "अध्याय सूची".
 CHAPTERS_HEADING = "अध्याय सूची"
 
 # Soothing profile. The site's decks run ne-NP-HemkalaNeural at -8%/-2Hz; this
@@ -378,9 +378,9 @@ def unset_crew_voices():
     that course.
 
     A course that narrates in another language and does not use this cast at
-    all: ACLS_tool has its own characters entirely, so the crew styles sit
-    unused — but they still carry Nepali voices, and check_cast_language()
-    quite correctly refuses to start an English render that has them defined.
+    all: the ACLS voyage (since removed) had its own characters, so the crew styles sat
+    unused — but they still carried Nepali voices, and check_cast_language()
+    quite correctly refused to start an English render that had them defined.
 
     AI_course narrates in Hemkala and must *not* call this: there the male
     crew on Sagar is exactly the improvement.
@@ -684,9 +684,27 @@ def jitter(key, amp):
     return (zlib.crc32(key.encode("utf-8")) / 2 ** 32 * 2 - 1) * amp
 
 
+_BIGO_ANY = re.compile(r"O\(([^()]*)\)")
+_BIGO_SYMBOLS = (("²", " स्क्वायर्ड"), ("³", " क्युब्ड"), ("ⁿ", " टु द पावर एन"),
+                 ("^2", " स्क्वायर्ड"), ("·", " गुणा "), ("×", " गुणा "),
+                 ("+", " प्लस "), ("log", " लग "))
+
+
+def _bigo_any(m):
+    """Any O(...) the table above does not list: "big oh of" + the inside, with
+    its symbols said as words. Single letters are left for the letter pass,
+    which turns K into के. Without this, O(K) or O(n³) reached the voice as
+    a bracketed letter and came out as noise."""
+    inner = m.group(1)
+    for a, b in _BIGO_SYMBOLS:
+        inner = inner.replace(a, b)
+    return " बिग ओ अफ " + inner + " "
+
+
 def to_speakable(text, space_lists=True):
     for a, b in _BIGO:
         text = text.replace(a, b)
+    text = _BIGO_ANY.sub(_bigo_any, text)
     text = _apply_lookaround(text, _ACRO)
     # Respell whole English words before the single-letter pass: that pass only
     # matches isolated letters, so without this "array" and "heap" reach the
@@ -877,9 +895,13 @@ _ALGO_END = re.compile(r"@end\s*$")
 _RECALL = re.compile(r"@recall\s+([\w-]+)\s*(?:\|\s*(.*\S))?\s*$")
 
 # How many times a chapter's core method has to be spoken before the linter is
-# satisfied. Said once, a method is something you heard; said three times across
-# a chapter, with the story in between, it is something you can recite.
-MIN_RECITALS = 3
+# satisfied. Said once, a method is something you heard; said again at the close
+# of the chapter, with the story in between, it is something you can recite.
+# It was three, and the listener heard that as "explains things repeatedly":
+# the middle recital usually came 50-150 words after the previous one, so the
+# same ~110-word paragraph played twice inside a minute. Two — taught, then
+# recapped — keeps the point and drops the echo.
+MIN_RECITALS = 2
 
 
 def _steady(text):
@@ -1119,7 +1141,58 @@ def units(spans, mode):
     # can strand a lone danda that the span itself did not have. Shading comes
     # after, so a unit is read for its mood in the form it will be spoken in.
     return [(text, shade(text, style), kind)
-            for text, style, kind in _merge_bare(out)]
+            for text, style, kind in _join_inline(_merge_bare(out))]
+
+
+# The narrator's own registers. Everything else in STYLES is a character, with a
+# voice or a pitch of its own.
+NARRATOR_REGISTERS = {"narrator", "steady", "teach", "hush", "whisper", "aside",
+                      "warm", "lift", "wonder"}
+_OPEN_QUOTE = "\"“'‘"
+
+
+def _join_inline(units):
+    """Fold a quotation that sits inside the narrator's sentence back into it.
+
+    A mark in the middle of a sentence used to cut it into separate clips —
+    "Anywhere you see" | "half was thrown away" | ", a log is hiding there." —
+    and every clip is read as a whole sentence: falling at its end, then about
+    a second of the clip's own trailing silence before the next one starts. To
+    the listener that is a sentence breaking off and restarting, and lone
+    pieces like "and", "or", "तपाईं" come out with the intonation of a full stop.
+    Measured before this existed: ~100 such cuts per edition.
+
+    A cut inside a sentence is kept only where it means something:
+      * after a character's line — its tag ("…," Franky said.) is the
+        narrator's, so the two voices must stay apart;
+      * after a deliberate beat ([..]) or a finished sentence;
+      * where an attribution (—, :, a comma) hands over to a quotation.
+    Every other cut is joined, in the voice of the clip it continues. A comma
+    only counts as an attribution before a character: before the narrator's
+    own quoted words it is a list ("…", "…", and "…") or a clause boundary.
+    """
+    def is_char(style):
+        return style.split(":")[0] not in NARRATOR_REGISTERS
+
+    out = []
+    for text, style, kind in units:
+        if out and kind == "hand":
+            p_text, p_style, p_kind = out[-1]
+            p = p_text.rstrip()
+            core = p.rstrip(_CLOSERS)
+            hands_over = (p.endswith(("—", "–", "-", ":"))
+                          or (p.endswith(",") and is_char(style)))
+            keep = (
+                is_char(p_style)
+                or p.endswith(tuple(BEATS))
+                or core[-1:] in "।?!….“"
+                or (hands_over and text.lstrip()[:1] in _OPEN_QUOTE)
+            )
+            if not keep:
+                out[-1] = (p + " " + text.lstrip(), p_style, p_kind)
+                continue
+        out.append((text, style, kind))
+    return out
 
 
 def _ends_sentence(text):
@@ -1213,6 +1286,38 @@ def clip_params(mode, index, style):
     return st.get("voice", VOICE), rate, pitch, prof["volume"]
 
 
+# edge-tts returns 24 kHz, 48 kbit/s constant-bitrate mono MP3, so a clip's
+# length can be read off its size without decoding it.
+MP3_BYTES_PER_SECOND = 6000
+
+
+def _incomplete(spoken, n_bytes, n_words_back, last_word_end):
+    """Why a freshly synthesized clip looks cut short, or None if it looks whole.
+
+    edge-tts occasionally ends a stream early without raising anything: the
+    clip arrives, it is valid MP3, and it holds the first half-second of the
+    sentence. Measured on the 2026-10-09 render, 6 of ~7,000 English clips were
+    like that — "The morning was slowly getting light, and tomorrow's line had
+    not formed yet." came back as 0.36 s — and the listener heard a chapter end
+    on a blip. Word boundaries make it checkable: the service reports each word
+    it spoke, so a whole clip must contain its last word and roughly as many
+    words as the text has.
+    """
+    seconds = n_bytes / MP3_BYTES_PER_SECOND
+    words = sum(1 for w in spoken.split() if any(c.isalnum() for c in w))
+    if n_words_back == 0:
+        # No boundaries at all: fall back on length. Even the slowest read here
+        # is well above 0.025 s per character.
+        if words >= 3 and seconds < 0.025 * len(spoken):
+            return f"{seconds:.2f}s of audio for {len(spoken)} characters"
+        return None
+    if words >= 3 and n_words_back < 0.5 * words:
+        return f"only {n_words_back} of ~{words} words came back"
+    if seconds + 0.05 < last_word_end:
+        return f"audio stops at {seconds:.2f}s but the last word ends at {last_word_end:.2f}s"
+    return None
+
+
 async def synth(sem, out_path, text, label, force, mode="bedtime", index=0,
                 style="narrator"):
     """Synthesize one clip, unless a fresh cached one already exists."""
@@ -1228,13 +1333,24 @@ async def synth(sem, out_path, text, label, force, mode="bedtime", index=0,
         for attempt in range(1, MAX_RETRIES + 1):
             try:
                 comm = edge_tts.Communicate(spoken, voice, rate=rate,
-                                            pitch=pitch, volume=volume)
+                                            pitch=pitch, volume=volume,
+                                            boundary="WordBoundary")
                 audio = bytearray()
+                words_back, last_word_end = 0, 0.0
                 async for chunk in comm.stream():
                     if chunk["type"] == "audio":
                         audio.extend(chunk["data"])
+                    elif chunk["type"] == "WordBoundary":
+                        words_back += 1
+                        last_word_end = max(last_word_end,
+                                            (chunk["offset"] + chunk["duration"]) / 1e7)
                 if not audio:
                     raise RuntimeError("no audio bytes")
+                # A short stream is retried like any other failure, instead of
+                # being cached as if it were the sentence.
+                cut = _incomplete(spoken, len(audio), words_back, last_word_end)
+                if cut:
+                    raise RuntimeError(f"clip cut short: {cut}")
                 with open(out_path, "wb") as f:
                     f.write(audio)
                 _index[name] = key
@@ -1250,12 +1366,19 @@ async def synth(sem, out_path, text, label, force, mode="bedtime", index=0,
 def _plan_clips(chapters, mode):
     """[(out_path, text, drift_index, style)] for every clip this mode needs."""
     plan = []
-    for ci, ch in enumerate(chapters):
+    for ch in chapters:
+        # Keyed on the chapter's own number, not its position in `chapters`:
+        # under --only the list is filtered, and a positional index gave every
+        # clip of a re-rendered chapter a different drift — a different key,
+        # so the whole chapter re-synthesized and read differently from a full
+        # build. Chapter numbers equal positions in a full build, so this is
+        # the same index there.
+        base = int(ch["num"]) * 97
         for i, spans in enumerate(ch["spans"]):
             us = units(spans, mode)
             paths = clip_paths(mode, ch["num"], i, len(us))
             for out, (text, style, _) in zip(paths, us):
-                plan.append((out, text, ci * 97 + i, style))
+                plan.append((out, text, base + i, style))
     return plan
 
 

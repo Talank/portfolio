@@ -28,21 +28,19 @@ Think about it this way. The root is ten. The left child is five. Five's right c
 
 So the true way to check is to carry a range down with you at every node, and it has a lower limit and an upper limit. When you go left, the upper limit becomes the current value. When you go right, the lower limit becomes the current value. If any node falls outside its range, it is not a BST.
 
-There is another beautiful way as well, and it is easy to remember. Walk the BST in inorder, that is, left, root, then right. If it is a real BST the values come out in exactly rising order. If they ever fall, it is not a BST.
+There is another beautiful way as well, and it is easy to remember. Do an inorder walk of the BST, that is, left, root, then right. If it is a real BST the values come out in exactly rising order. If they ever fall, it is not a BST.
 
-That same inorder unlocks another question. Which is the Kth smallest value? Walk in inorder and count as you go, and stop once you reach K.
+That same inorder unlocks another question. Which is the Kth smallest value? Do an inorder walk and count as you go, and stop once you reach K.
 
 @read hush
-There is a clean way to check whether this really is a tree of order. Read the tree from the middle out, which means left first, then yourself, then right. If the values come out running from small to large the tree is right, and if any of them come out backwards it is not.
-
-@recall bst
+Check this approach on two small cases. In an empty tree the value you want is never found, and the answer must come at once. In a tree of one node there is only one question, and it is whether that one node matches.
 
 Moonlight has fallen on the tree like snow. Every branch is in its place, because the small ones are on the left and the large ones are on the right. There is no confusion here.
 
 @read hush
-Learn one weakness of this approach at the very start. If you insert values that are already in order, the tree stretches out to one side like a chain, and searching falls back to O(n). So the true measure is the depth of the tree, not the count of nodes.
+Remember once more the weakness from earlier, because it is the biggest trap a BST has. If you insert values that are already in order, the tree stretches out to one side like a chain, and searching falls back to O(n). So the true measure is the depth of the tree, not the count of nodes.
 
-@recall bst
+@recall bst | Because the rule of the tree of order matters so much, I will say it again, slowly.
 
 @tier medium
 
@@ -75,7 +73,7 @@ And that is exactly the shape of the question about the K-th smallest. You ask t
 
 [robin]"It is standing exactly where you left it."[/] Robin said. [robin]"Which is the most restful thing in this language. Work that has not been asked for is work that does not happen."[/]
 
-Now the mistake, and it is worth saying slowly because it looks correct. To check whether a tree really is a tree of order, people compare each node with its two children, find every pair in the right relation, and declare it sound. That test passes on trees that are broken.
+Now the mistake. You heard it at the start of tonight, but it is worth saying again slowly, because it looks correct. To check whether a tree really is a tree of order, people compare each node with its two children, find every pair in the right relation, and declare it sound. That test passes on trees that are broken.
 
 [nami]"How?"[/] Nami asked.
 
@@ -107,7 +105,7 @@ A rotation is worth a light look as well. Imagine three nodes all leaning in the
 
 Tonight that is enough. You never have to learn the details of rotation by heart, and it is enough to know that a machine for keeping the balance is running inside.
 
-That brings us to a beautiful use, and it is merging two BSTs into one. Walk both in inorder to make two sorted arrays. Merge the two arrays, and that is the work of two fingers. Then build a balanced tree from the merged array.
+That brings us to a beautiful use, and it is merging two BSTs into one. Do an inorder walk of both to make two sorted arrays. Merge the two arrays, and that is the work of two fingers. Then build a balanced tree from the merged array.
 
 Here the tools of three islands were joined in one place, and they are walking a tree, two fingers, and half and half. Large solutions are usually built exactly this way.
 
@@ -115,7 +113,7 @@ And there is a question that is liked in interviews. What do you do if the Kth s
 
 The move is to keep a count at every node of [aside]"how many are in my left branch"[/]. Now you can go straight down from the root, because the count on the left tells you whether K falls to the left or the right. That way the search is O(log n).
 
-At the end, there is one small but deep thing. The rule of the BST is not about neighbours, it is about ranges. Every node has to sit inside the range it was given from above.
+Here is one small but deep thing. The rule of the BST is not about neighbours, it is about ranges. Every node has to sit inside the range it was given from above.
 
 Remember that one sentence, and half the BST questions unlock themselves. Carry the range when checking. The range narrows as you insert. The range shows you the road when searching.
 
@@ -135,23 +133,18 @@ A wrong second culprit is always corrected by the later break, and that is exact
 
 The time is O(n). The room it takes is the depth of the recursion, and if you like, a Morris walk brings that down to O(1) as well, but you need not hear that tonight.
 
-The wind had not stopped yet. Robin said — [robin]"One more, and it is tonight's inorder walk with one word changed. That walk handed you everything in order. Now I want only the Kth of them, and I do not want to wait for the rest."[/]
-
-[nami]"Walk in order and count."[/] Nami said. [nami]"Stop at the Kth."[/]
-
-[robin]"That is the whole answer, and it is right."[/] Robin said. [robin]"The only thing worth adding is that you must be able to stop. A walk that gathers everything into an array first has already done the work you were trying to avoid."[/]
-
-So keep the walk but carry a counter with you. Go left as far as you can, remembering the way back on a stack. Then take one node, count it, and turn right. The moment the count reaches K, stop where you are standing.
-
-The time is the height of the tree plus K, which on a balanced tree is small, and the room is the height.
-
-[chopper]"And if the question is asked again and again?"[/] Chopper asked.
-
-[robin]"Then stop answering it by walking."[/] Robin said. [robin]"Keep in every node the count of how many nodes lie beneath it on the left. Then at each step you know whether the Kth is on the left, or is you, or is on the right, and you go down once in O(log n) with no walk at all."[/]
-
-That extra count has a price, and the price is that inserting and removing have to keep it true. Which is tonight's lesson once more. Order is only a gift for as long as somebody keeps paying for it.
-
 The wind stopped. The tree went still, and the moonlight was coming down to the ground between the branches.
+
+Franky had a request before the night ended. [franky]"I do not want the whole sorted list at once."[/] Franky said. [franky]"I want the next smallest value, one at a time, whenever I ask, and I want each answer fast."[/]
+
+[chopper]"Do the inorder walk and save everything in a list."[/] Chopper said. [robin]"That costs room for the whole tree, and Franky may only ever ask three times."[/] Robin said.
+
+@read teach
+So pause the inorder walk instead, and keep only what it needs to carry on. Keep a stack. At the start, walk left from the root as far as you can, pushing every node on the way. The top of the stack is now the smallest. When the next value is asked for, pop the top and answer with it. Then, if that node has a right branch, walk left from there again, pushing as you go.
+
+[franky]"Some answers push a long line of nodes. Is that still fast?"[/] Franky asked. [robin]"On average it is."[/] Robin said. [robin]"Every node is pushed once and popped once over the whole walk, so each answer costs O(1) on average. The stack never holds more than the height of the tree."[/]
+
+It is the inorder walk you already know, with its loop taken apart and handed to the person asking. The stack is the walk's memory of where to go back to.
 
 Sitting at the foot of the tree, Robin said — [robin:gentle]"This tree is beautiful because it is disciplined. The small ones are on the left, and the large ones are on the right. But discipline does not hold by itself, because somebody has to keep holding it."[/]
 
@@ -159,7 +152,7 @@ That is tonight's lesson, and it is a little serious. Order is a gift, but order
 
 That is why balanced trees are used in the real world, ones that rotate themselves back straight. This is worth remembering, because a good structure is not only a good rule, it is also the machine that keeps the rule.
 
-[robin]"There is the second lesson, which is the subtlest thing tonight."[/] Robin said. [robin]"The rule of the BST is not about neighbours, it is about ranges."[/]
+[robin]"Let us remember the second lesson once more, which is the subtlest thing tonight."[/] Robin said. [robin]"As I said earlier, the rule of the BST is not about neighbours, it is about ranges."[/]
 
 [chopper]"What does that mean?"[/] Chopper asked.
 

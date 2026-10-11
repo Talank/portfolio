@@ -27,8 +27,6 @@ A small but important question hides here. If two pieces meet exactly at the edg
 @read hush
 You can check the joined pieces in a single look. The pieces in the answer must be in order, and no two neighbours may so much as touch. If the end of one lies past the start of the next, a joining step has been missed somewhere.
 
-@recall tukra
-
 Now the second problem is a little different. How many rooms are needed for all the meetings to fit?
 
 There is a beautiful reversal of view here. Do not think of the pieces as pieces. Think of every start as [aside]"one person came in"[/], and every end as [aside]"one person went out"[/].
@@ -44,9 +42,9 @@ In the third problem you have to insert a new piece. If the list is already in o
 Nami stuck the clean rota on the wall. Now there is no overlap. The watch is continuous all night, and nobody has to do double duty.
 
 @read hush
-There is a small decision to make right at the start. If the end of one piece and the start of another are exactly the same, are they joined or not? If the question does not say, take them as joined, but keep your own decision clear in your mind, because this one boundary changes the answer.
+Remember once more the small decision from earlier. If the end of one piece and the start of another are exactly the same, decide at the start whether they are joined. If the question does not say, take them as joined, but keep your own decision clear in your mind, because this one boundary changes the answer.
 
-@recall tukra
+@recall tukra | The rule for joining pieces of time is the most important part of tonight, so let me repeat it once more.
 
 @tier medium
 
@@ -96,7 +94,7 @@ Sort all the events by time, then walk along adding them up. That running total 
 
 There is a subtle thing here. If a start and an end fall at the same time, which do you count first? If the end of a piece is open, count the end first. If it is closed, count the start first.
 
-That one decision changes the answer by one, and it is a good thing to ask about in an interview.
+As Robin said earlier, that one decision changes the answer by one, and it is a good thing to ask about in an interview.
 
 There is another shape of the same idea, which joins on to the seventh island, and that is the difference array. If the times are small numbers, you do not have to sort the events at all.
 
@@ -116,7 +114,7 @@ Two pieces overlap when the first one's start is before the second one's end and
 
 Thinking about it backwards is easier still. [aside]"They do not overlap"[/] means that either the first finishes entirely before the second, or the second finishes entirely before the first. Everything except those two cases is an overlap.
 
-At the end comes one piece of advice. Before writing a problem about pieces, always draw three small examples on paper, and they are completely separate, partly overlapping, and one fitting entirely inside another.
+Here is one piece of advice. Before writing a problem about pieces, always draw three small examples on paper, and they are completely separate, partly overlapping, and one fitting entirely inside another.
 
 The third case is the one most often missed. If a small piece fits entirely inside a large one, then when joining, the end has to stay the large one's, and must not become the small one's.
 
@@ -140,7 +138,7 @@ Here is tonight's most useful thought. Counting empty space directly is hard. Jo
 
 The lantern was swaying slowly. The watch was continuous, nowhere was empty, and nobody was doing double duty.
 
-Nami had not looked away from the rota. She said — [nami]"One more, and it is tonight's joining with one word changed. Before, we asked which pieces overlap. Now we ask how many overlap at once."[/]
+Nami had not looked away from the rota. She said — [nami]"One more. The room-counting problem you heard at the very start tonight — let us look at it properly, by two roads."[/]
 
 There is a list of meetings, each with a start and an end. How many rooms are needed so that no two meetings that overlap are ever put in the same room?
 
@@ -160,9 +158,20 @@ The first way costs O(n log n) and tells you which room. The second costs the sa
 
 Nami looked at the clean rota once more. At the start that paper had been full of mess, because there were overlapping times on it, there was double duty, and there were empty nights in the middle.
 
+Chopper was in charge of the watch book. [chopper]"People keep asking for watches, one at a time."[/] Chopper said. [chopper]"Each one asks for a stretch of time. If it clashes with a booked one, I must say no. If not, I write it in."[/]
+
+[nami]"Do I check it against every booking?"[/] Nami asked. [sanji]"That is fine for ten, and slow for ten thousand."[/] Sanji said. [sanji]"Keep the book sorted by start, and only two bookings ever matter."[/]
+
+@read teach
+Find where the new stretch would sit in the sorted book, with a binary search on the starts. Look at the booking just before that place, because it must end no later than the new one starts. Look at the booking just after it, because it must start no earlier than the new one ends. If both are true, insert it there. Touching at the edge is allowed here, because the ends are open.
+
+[chopper]"Why only those two?"[/] Chopper asked. [sanji]"Because the book is sorted, and nothing in it overlaps."[/] Sanji said. [sanji]"Everyone further away is already behind the neighbour you checked."[/]
+
+Ten to twenty is booked. Fifteen to twenty-five clashes and is refused. Twenty to thirty fits exactly. In Python, the bisect module finds the place in log n, but inserting into a plain list still shifts everything after it.
+
 That is tonight's lesson. The first step in turning disorder into order is usually not effort, it is sorting. The moment it is sorted, it is enough for every piece to look only at its neighbour, and the whole problem becomes narrow.
 
-[sanji]"Here is the second lesson, which comes back in many places."[/] Sanji said. [sanji]"In the joining work, sort by the start."[/]
+[sanji]"Here is the second lesson again, which comes back in many places."[/] Sanji said. [sanji]"In the joining work, sort by the start."[/]
 
 [chopper]"And in the choosing work?"[/] Chopper asked.
 
@@ -170,7 +179,7 @@ That is tonight's lesson. The first step in turning disorder into order is usual
 
 [robin]"The question of what to sort by is itself half the solution."[/] Robin said.
 
-And the third lesson is the most human. The question of whether to join two pieces that meet exactly at the edge is not answered by mathematics. The problem itself answers it, and when you do not know, asking is not something to be ashamed of. Asking is itself a good sign.
+And the third lesson, which came earlier too, is the most human. The question of whether to join two pieces that meet exactly at the edge is not answered by mathematics. The problem itself answers it, and when you do not know, asking is not something to be ashamed of. Asking is itself a good sign.
 
 @read hush
 The lantern's light went a little dimmer. The sea was calm, and the watch was going to run until morning.

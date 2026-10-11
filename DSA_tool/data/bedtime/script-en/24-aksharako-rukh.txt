@@ -27,8 +27,6 @@ That is why suggestions come up when you type on a phone. That is why the list d
 @read hush
 One check tells you whether the tree of letters is built right. Search for every word you put in, and all of them must be found. Then search for a word you never put in. Even if branches for all of its letters exist in the tree, that word must not be found.
 
-@recall trie
-
 That brings us to its cost. Every node has to keep a list of its children. So a trie eats a lot of space, and that is its honest weakness. Space was spent to save time, and this is that same old trade again.
 
 A good problem is finding many words at once in a grid of letters.
@@ -42,9 +40,9 @@ This is the place where the island of the maze and this island are joined, becau
 Wind is moving through the tree of the dictionary. Letters are hanging on every branch. Those with a shared beginning are standing together, and then slowly go their own ways.
 
 @read hush
-This is exactly why the mark on the last node is not optional. Having the branches does not make a word complete, and if you search without the mark then half a word counts as a whole one. Always look at that mark before you say a word was found.
+As I said earlier, the mark on the last node is not optional. Having the branches does not make a word complete, and if you search without the mark then half a word counts as a whole one. Always look at that mark before you say a word was found.
 
-@recall trie
+@recall trie | Because the rule of the tree of letters matters so much, I will say it again, slowly.
 
 @tier medium
 
@@ -106,15 +104,13 @@ And the trie has a close relative as well, and that is the suffix tree, in which
 
 Tonight you do not need its details. It is enough to know that whenever [aside]"a shared beginning"[/] or [aside]"a shared piece"[/] comes up, remember the tree of letters.
 
-Now let us make one comparison for the last time. On the question of whether some word exists, the notebook wins, because it is both faster and cheaper.
+Now let us make one comparison. On the question of whether some word exists, the notebook wins, because it is both faster and cheaper.
 
 But on the questions [aside]"how many begin with this"[/], [aside]"how long is the longest shared beginning"[/], and "give me a suggestion", the notebook falls silent. Here the tree is what is needed.
 
 So the choice is decided by the question, and not by the name of the structure. That has been true through the whole voyage, and it is true on this island too.
 
-There is one last practical thing. When you build a trie, make the root an empty node, and put no letter in it. That way every word starts from the same place, and the case of the empty word works itself out too.
-
-We have already met this move of putting in a fake root in the linked list and in the stack. A special case should be removed by an empty node, not by special code, and this is the small but often-repeated lesson of the whole voyage.
+Remember once more one practical thing that was already in the rule. When you build a trie, make the root an empty node, and put no letter in it. That way every word starts from the same place, and the case of the empty word works itself out too.
 
 Then comes a hard problem, and it takes one of tonight's claims all the way to its last point.
 
@@ -140,7 +136,7 @@ The time is the number of words times the length of a word, and it cannot be les
 
 Robin added — [robin]"The question of what to keep on a node is what separates most trie problems. Sometimes it is a mark, sometimes a count, and sometimes the whole word itself."[/]
 
-The wind had not moved again yet. Robin said — [robin]"One more, and it is tonight's tree with one word changed. Before, every letter you asked for was a letter. Now one of them may be a dot, and a dot means any letter at all."[/]
+The wind had not moved again yet. Robin said — [robin]"One more. The search with an 'any letter' sign, which I mentioned briefly earlier — let us look at it properly now. Before, every letter you asked for was a letter. Now one of them may be a dot, and a dot means any letter at all."[/]
 
 Words go in exactly as before, one branch for each letter. It is the searching that changes.
 
@@ -160,11 +156,22 @@ Robin put her hand on the trunk and said — [robin]"Two islands met inside one 
 
 The wind moved again. The branches of letters swayed slowly, and then went still again.
 
+Usopp was typing a word one letter at a time, and he wanted help. [usopp]"After every letter, show me three words from the list that begin with what I have typed."[/] Usopp said. [usopp]"I want the three that come first in dictionary order."[/]
+
+[franky]"Build the tree of letters, and walk down as he types."[/] Franky said. [robin]"Yes. And the real question is what each node should keep."[/] Robin said.
+
+@read teach
+Sort the words first. Then insert them into the tree in that sorted order. As each word walks down, every node it passes keeps it, but only until that node holds three words. Because the words arrive sorted, the first three to reach a node are exactly its three smallest. Now, after each letter is typed, step down one node and read its three.
+
+[usopp]"And when I type a letter that leads nowhere?"[/] Usopp asked. [franky]"Then the road ends, and every later letter shows nothing."[/] Franky said.
+
+There is also a road with no tree at all. Sorted words that share a beginning sit next to each other. So a binary search for the typed beginning lands on the first match, and the three from there are the answer. The tree is faster when typing never stops, and the sorted list is simpler to write.
+
 Robin put her hand at the foot of the tree and said — [robin:awed]"The beauty of this tree is that those whose beginning is shared have a shared road too. Only where they differ do they split."[/]
 
 That is tonight's lesson. One way of removing double work is memory, and we learned that on the island of the wall. The other way is sharing, and that is here. Whatever is the same only has to be kept once.
 
-Here is the second lesson. The choice is decided by the question, not by the name of the structure. On the question [aside]"does this word exist"[/], the notebook wins. On the question [aside]"what are the things beginning with this"[/], the notebook falls silent. No structure is better than another, and it is only better for some question.
+And remember the second lesson once more. The choice is decided by the question, not by the name of the structure. On the question [aside]"does this word exist"[/], the notebook wins. On the question [aside]"what are the things beginning with this"[/], the notebook falls silent. No structure is better than another, and it is only better for some question.
 
 [robin]"One small thing has repeated through the whole voyage."[/] Robin said. [robin]"The empty root, the fake node, and the zero post at the end are all the same idea."[/]
 

@@ -32,8 +32,6 @@ There is a faster way as well, which uses binary search and reaches O(n log n). 
 @read hush
 Here is the easy way to check the answer once the table is full. Hold the smallest case in the table against the answer you counted by hand, then do the same for the second smallest. If the base is right then every box above it is right on its own, because each box is built out of the boxes below it.
 
-@recall talika
-
 @read teach
 The third problem is the bag, and it is called the [..]Knapsack[..]. The bag carries a limited weight. Every item has a weight and a value. So what is the most value you can carry?
 
@@ -52,7 +50,7 @@ The papers on the wall are quiet. Outside, the wind is moving. The table is fill
 @read hush
 The order in which you fill the table is itself a rule. Before you fill any box, every box it looks at must already be filled. Get the order backwards and the code still runs and still gives an answer, but that answer is built out of empty boxes.
 
-@recall talika
+@recall talika | Because the rule for memory in two dimensions matters so much, I will say it again, slowly.
 
 @tier medium
 
@@ -123,7 +121,7 @@ Here is something practical. What do you do if you need not only the answer but 
 
 Once the table is filled, walk it backwards. Ask at every square — [aside]"Where did this answer come from?"[/] Follow that road, noting things down as you go. Turn what you noted around at the end.
 
-Then comes one last idea, which is the deepest one. For DP to work, two qualities are needed.
+Then comes an idea, which is the deepest one. For DP to work, two qualities are needed.
 
 The first quality is that the best answer to the large problem has to be built out of the best answers to the small problems. The second quality is that the same small problem has to come back many times, or there is no benefit in remembering it.
 
@@ -143,7 +141,7 @@ And now another answer comes out of it for free. How few letters must be added t
 
 The time is O(n²), and the room is O(n²) as well, though remembering two rows at a time is enough.
 
-Robin had not picked the chalk back up. She said — [robin]"One more, and it is tonight's table with one word changed. You asked how much two words have in common. Now ask how far apart they are."[/]
+Robin had not picked the chalk back up. She said — [robin]"One more. The distance between two words, which you heard briefly at the start of tonight — let us look at it properly now. You asked how much two words have in common. Now ask how far apart they are."[/]
 
 Two words are given, and three moves are allowed — put a letter in, take a letter out, or change one letter into another. What is the fewest moves that turn the first word into the second?
 
@@ -161,7 +159,7 @@ The edges matter as much as the middle. Turning any word into nothing costs one 
 
 The time is the two lengths multiplied, and so is the room, though two rows at a time are enough if you only want the number. Putting the chalk down, Robin said — [robin]"Every square in it is a small question, and the whole wall is only that same question asked in every size."[/]
 
-The wall was full, and Robin left it full. She said — [robin]"There is a last one, and it does not go on the wall at all. It is the problem where the table turns out not to be needed."[/]
+The wall was full, and Robin left it full. She said — [robin]"There is one more, and it does not go on the wall at all. It is the problem where the table turns out not to be needed."[/]
 
 A row of stones is laid out, and a number is painted on each. Some of those numbers are less than nothing. Two players take turns, and Luffy goes first.
 
@@ -221,11 +219,20 @@ This is worth doing even when you feel sure. The first two answers written for t
 
 [robin]"And there is one signal worth learning to hear."[/] Robin said. [robin]"If you catch yourself writing and then they take this, and then we take that, inside your own recursion, stop. A clean one never has to say that. The minus sign was supposed to be handling the other player. If you are handling them by hand, it is the case that is wrong, and not the code."[/]
 
-So the cost is one walk down the row and nothing else, which is O(n), and the room is one number. Robin did not reach for the chalk again. The wall stayed empty all the way to the end.
+So the cost is one walk down the row and nothing else, which is O(n), and the room is one number. Robin did not reach for the chalk again. This problem never asked for a single square on the wall.
 
-Robin said — [robin]"Remember only this much tonight. When a new problem arrives, first ask whether it is some old problem in new clothes."[/]
+Luffy came in holding a row of balloons, each with a number on it. [luffy]"When I burst one, I win its number times the numbers of both its neighbours."[/] Luffy said. [luffy]"Then the neighbours close the gap. What is the most I can win?"[/]
 
-Robin put down the chalk. The table was full. Numbers sat quietly all across the wall, and each one carried the answer to its own small question.
+[usopp]"Burst the smallest ones first, so the big ones multiply each other later!"[/] Usopp said. [robin]"A rule like that breaks on some row."[/] Robin said. [robin]"And thinking about the first balloon is the trouble. After it bursts, the two sides touch, and the pieces stop being separate problems."[/]
+
+[robin]"So think about the last balloon instead."[/] Robin said. [robin]"If a balloon is the last one burst between two walls, then while everything else in that stretch was bursting, it stood there like a wall too. The left side and the right side never touched."[/]
+
+@read teach
+Put an invisible balloon worth one at each end. For a stretch between two walls, try every balloon as the last one. Its prize is its number times the numbers of the two walls. Add the best of the stretch on its left and the best of the stretch on its right, and keep the largest total. Fill the table from short stretches to long ones.
+
+For three, one, five and eight, the best is one hundred and sixty-seven. There are n squared stretches, and each one tries every last balloon, so the work is n cubed. It belongs to the same family as joining pearls into a necklace.
+
+The table on the wall was full. Numbers sat quietly all across the wall, and each one carried the answer to its own small question.
 
 She stepped back and looked at the whole table. There were hundreds of squares there, and a small answer in each. There was no magic in any one square, because the magic was in the order.
 

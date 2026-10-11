@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Learn — Talank Baral</title>
-<meta name="description" content="Eight local, static, zero-dependency courses — Linux, Emacs, CI/CD &amp; Containers, AI Video, Local Voice Lab, Full-Stack Java, AI Engineering, and DSA interview prep — plus an ACLS reference and drill tool for reading the ECG and a pronunciation and grammar lab for American English.">
+<meta name="description" content="Eight local, static, zero-dependency courses — Linux, Emacs, CI/CD &amp; Containers, AI Video, Local Voice Lab, Full-Stack Java, AI Engineering, and DSA interview prep — plus a pronunciation and grammar lab for American English.">
 <style>
   :root {
     --bg: #0d1117;
@@ -88,7 +88,7 @@
   .badge.done { background: rgba(104,211,145,0.15); color: var(--good); border: 1px solid rgba(104,211,145,0.35); }
   .badge.progress { background: rgba(246,173,85,0.15); color: var(--warn); border: 1px solid rgba(246,173,85,0.35); }
   .badge.soon { background: rgba(139,152,172,0.12); color: var(--text-dim); border: 1px solid var(--border); }
-  /* Not "complete" and not "in progress": a reference tool has nothing to
+  /* Not "complete" and not "in progress": a practice tool has nothing to
      finish, so it gets its own badge rather than borrowing a lesson course's. */
   .badge.ref { background: rgba(79,209,197,0.12); color: var(--accent); border: 1px solid rgba(79,209,197,0.35); }
 
@@ -138,7 +138,7 @@
 </header>
 <main class="wrap">
   <h1>Learn</h1>
-  <p class="lede">Eight <b>local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices. At the end sit <b>two things that aren't courses</b> — an ACLS reference and drill tool, built to be looked things up in rather than worked through, and a speech lab that listens to you say a word and tells you what your mouth actually did.</p>
+  <p class="lede">Eight <b>local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices. At the end sits <b>one thing that isn't a course</b>: a speech lab that listens to you say a word and tells you what your mouth actually did.</p>
 
   <div class="stats-row" id="statsRow">
     <div class="stat"><span class="n" id="statCourses">—</span><span class="l">courses</span></div>
@@ -150,7 +150,7 @@
   <div class="grid" id="courseGrid"></div>
 
   <footer class="site">
-    <p>Every course above is built and usable today; a few are still gaining lessons. Four also have an audio edition of the whole syllabus, as both a bedtime story and a driving audiobook: DSA, Full-Stack Java and AI Engineering in Nepali, and ACLS in English, since an ECG has no Nepali vocabulary worth teaching.</p>
+    <p>Every course above is built and usable today; a few are still gaining lessons. Three also have an audio edition of the whole syllabus, as both a bedtime story and a driving audiobook: DSA, Full-Stack Java and AI Engineering.</p>
   </footer>
 </main>
 <script>
@@ -178,7 +178,7 @@
     {
       dir: '../full_stack_java/', title: 'Full-Stack Java Course',
       desc: 'The JVM, collections, modern Java, concurrency, Maven, testing, PostgreSQL, Spring, frontend, JavaFX, and cross-platform apps — converging on a capstone research-log manager, LogPose.',
-      lessons: 51, hours: 43, status: 'done', progressKey: 'java-progress-v1',
+      lessons: 54, hours: 46, status: 'done', progressKey: 'java-progress-v1',
     },
     {
       dir: '../AI_course/', title: 'AI Engineer Course',
@@ -195,22 +195,11 @@
       desc: 'The direct sequel to Linux: Docker images and the Dockerfile, multi-container apps with Compose, real orchestration with Kubernetes, and a CI/CD pipeline that builds, tests, and deploys automatically on every push.',
       lessons: 22, hours: 13.5, status: 'done', progressKey: 'cicd-progress-v1',
     },
-    /* Last, and deliberately not shaped like the others. ACLS_tool is a
-       reference and a drill bench, not a lesson sequence: there is nothing to
-       complete, so it has no progress key, and inventing a lesson count or an
-       hour figure for it would have quietly falsified all three headline
-       numbers above. `kind` is what keeps it out of them. */
-    {
-      dir: '../ACLS_tool/', title: 'ACLS — Reading the ECG',
-      desc: 'Advanced Cardiovascular Life Support past the point BLS stops: the systematic approach, every arrest and peri-arrest algorithm, ACS and stroke, the drugs, and a rhythm lab that teaches the fifteen strips by what distinguishes them from the one they get confused with. Includes a 13-hour bedtime audiobook narrated in English.',
-      kind: 'reference',
-      facts: ['15 sections', '245 questions', '15 rhythms', '12 drugs'],
-      bestKey: 'acls_quiz_best',
-    },
-    /* Also not a course, and not a reference either: nothing to read and
-       nothing to look up, only a loop you stand in front of a microphone and
-       repeat. Its honest numbers come out of its own localStorage, so like
-       ACLS it reports what it counted rather than a completion percentage. */
+    /* Last, and deliberately not shaped like the others: not a course, so
+       nothing to read and nothing to complete, only a loop you stand in front
+       of a microphone and repeat. Its honest numbers come out of its own
+       localStorage, so it reports what it counted rather than a completion
+       percentage. `kind` keeps it out of the headline numbers above. */
     {
       dir: '../speech_lab/', title: 'Speech Lab — American English',
       desc: 'Say a word, and it tells you what your mouth actually did: how many syllables came out, which one took the stress, and whether an American English recogniser heard the word you meant. When it is wrong it colours where — the letters the transcript lost, and the syllable that took a beat it should not have. Aimed at the specific sounds and grammar a Nepali first language makes hard: general, software and medical vocabulary across four levels.',
@@ -246,30 +235,7 @@
     }
   }
 
-  /* A card with no completion bar, because there is no denominator to divide
-     by: `acls_quiz_best` is how many questions you got right in your best run,
-     and you choose the length of the run, so a percentage would be invented.
-     What it shows instead is the number itself, which is the only honest thing
-     the tool records. */
-  function referenceCard(c) {
-    const best = parseInt(localStorage.getItem(c.bestKey) || '0', 10);
-    const line = best > 0
-      ? `Best quiz run: ${best} correct`
-      : 'Reference &amp; drills — nothing to complete';
-    return `
-      <div class="card">
-        <div class="card-top">
-          <h2>${c.title}</h2>
-          <span class="badge ref">Reference</span>
-        </div>
-        <p class="desc">${c.desc}</p>
-        <div class="meta">${c.facts.map(f => `<span>${f}</span>`).join('')}</div>
-        <p class="progress-label" style="margin-top:0">${line}</p>
-        <a class="go" href="${c.dir}index.html">Open</a>
-      </div>`;
-  }
-
-  /* Same reasoning as referenceCard: there is no denominator. "Words cleared"
+  /* A card with no completion bar, because there is no denominator. "Words cleared"
      is a count of drills you have scored 80+ on at least once, which is a real
      thing that happened; a percentage of "your pronunciation" would not be. */
   function practiceCard(c) {
@@ -299,7 +265,6 @@
     let totalLessons = 0, totalDone = 0;
 
     grid.innerHTML = COURSES.map(c => {
-      if (c.kind === 'reference') return referenceCard(c);
       if (c.kind === 'practice') return practiceCard(c);
 
       const built = c.lessonsBuilt || c.lessons;

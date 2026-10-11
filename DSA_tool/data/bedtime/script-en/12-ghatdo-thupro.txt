@@ -26,9 +26,7 @@ Next comes another shape of the same move. The temperature of every day is given
 That is exactly the same move. Put the indexes of the days on the stack. If the new day is warmer, the answers for all the waiting cold days are settled today, and you work out the difference in days.
 
 @read hush
-You can check this approach's arithmetic in your head. Every pillar climbs onto the stack exactly once and comes off exactly once. So even though there is a loop inside a loop, the total work stays O(n), and that is the whole beauty of this approach.
-
-@recall ghatdo-thupro
+Check this approach by hand on a small example. For the posts three, one, two, nothing to the right of three is taller. The post taller than one is two, just one step away. Nothing is taller than two either. If the small example comes out right, the large one usually does too.
 
 [franky]"There is a deeper problem."[/] Franky put his hand on the wall. [franky]"Find the largest rectangle among these posts."[/]
 
@@ -43,7 +41,7 @@ Wind is coming across the wall. The posts stand quietly, and some are tall and s
 @read hush
 When the array runs out, what about the ones still on the stack? The taller pillar they were waiting for never came, so their answer is 'none'. Miss that last step and only half the answer gets filled in.
 
-@recall ghatdo-thupro
+@recall ghatdo-thupro | Because the rule of the falling stack matters so much, I will say it again, slowly.
 
 @tier medium
 
@@ -111,8 +109,6 @@ And one thing is the most important of all, and it is what teaches you to recogn
 
 So whenever you feel [aside]"I do not know the answer for this thing now, but I will know once something arrives later"[/], remember this stack.
 
-And when the answer arrives, it arrives for many at once. One tall post ends the waiting of all ten waiting posts in a single instant. That is the beauty of this move.
-
 Here is a hard problem, and it asks for two of tonight's faces at once.
 
 The question is this. Take the smallest number in every run of neighbours in the array, and add all of those together. There are a great many runs, so walking them one at a time is O(n²).
@@ -131,21 +127,16 @@ Watch one thing, or you will count twice. When you meet equal numbers, say [asid
 
 The time is O(n). Here you can see tonight's real power. When counting [aside]"every run"[/] is expensive, ask instead how much [aside]"every single thing contributes to"[/].
 
-Robin had not taken her hand off the wall yet. She said — [robin]"One more, and it is tonight's own move asked a second time. You found, for every post, the next post shorter than it. Now use that to find the largest rectangle that fits inside the whole wall."[/]
+Franky pointed at a window grille set into the wall. It was a grid of glass squares, some lit and some dark. [franky]"Find the largest rectangle made only of lit squares."[/] Franky said.
 
-Any rectangle is decided by its shortest post. So for each post ask how far the rectangle stretches if that post is the shortest one in it. It stretches to the left until something shorter appears, and to the right until something shorter appears.
+[chopper]"That is a whole grid, not a row of posts."[/] Chopper said. [robin]"Then turn it into posts, one row at a time."[/] Robin said, with her hand still on the wall.
 
-[nami]"Those are the two answers we worked out earlier tonight."[/] Nami said.
+@read teach
+Stand on each row and look up. Above every square, count how many lit squares stand unbroken on top of it, counting itself. A dark square resets that count to zero. Now each row is a row of posts, and the largest rectangle resting on that row is tonight's posts problem.
 
-[robin]"They are. And the stack gives both of them in one pass."[/] Robin said.
+Run the posts stack once for every row, and keep the largest answer. Each row is built from the row above in a single pass. Add one where the square is lit, and start again from zero where it is dark.
 
-Keep the stack rising. While the post arriving is shorter than the top of the stack, that top has just met its right boundary, and the boundary is the arriving post. Take it off. Its left boundary is whatever now sits below it on the stack. So its width is the distance between those two, and its area is that width times its own height.
-
-[chopper]"What about the posts still standing on the stack at the end?"[/] Chopper asked.
-
-[franky]"Nothing shorter ever came for them."[/] Franky said. [franky]"So their right boundary is the end of the wall. Put an imaginary post of height nought after the last one, and the whole stack empties by itself."[/]
-
-Every post goes up once and comes down once, so the time is O(n), and the largest area seen along the way is the answer. The wall did not need measuring a second time. It only needed the same question asked twice, once to each side.
+[robin]"So the hard problem was the old one, asked once for every row."[/] Robin said. [robin]"The time is rows times columns, and not a step more."[/]
 
 Robin took her hand off the wall. The wind was still moving, but it was not cold now. The posts stood in their places.
 
@@ -156,6 +147,6 @@ That is tonight's lesson, and it is a little unkind. Making something wait when 
 
 That brings us to the beautiful lesson. When the answer arrives, it arrives for many at once. The moment one tall post arrives, the waiting of ten of them ends in a single instant. Life is usually like that too, because many days of waiting bear fruit on one single day.
 
-So do not panic when you see a loop inside. The thing to count is not [aside]"how many times did it go round"[/], it is [aside]"how many times was each thing touched"[/]. Being able to tell that difference is a skill in itself.
+So, as I said at the start, do not panic when you see a loop inside. The thing to count is not [aside]"how many times did it go round"[/], it is [aside]"how many times was each thing touched"[/]. Being able to tell that difference is a skill in itself.
 
 The wind stopped. The wall went quiet, and the shadows of the posts stretched out long in the moonlight.

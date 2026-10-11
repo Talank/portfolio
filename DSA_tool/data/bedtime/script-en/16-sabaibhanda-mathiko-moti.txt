@@ -2,7 +2,7 @@
 
 On the sixteenth island there is a pearl trader. There are hundreds of pearls in front of him, but he never puts them all in order.
 
-Nami asked — [nami]"Do you not sort them?"[/] He said — [nami:firm]"Why sort them? I only ever need the single largest one. Sorting the whole lot is doing more work than the job needs."[/]
+Nami asked — [nami]"Do you not sort them?"[/] He said — [sage]"Why sort them? I only ever need the single largest one. Sorting the whole lot is doing more work than the job needs."[/]
 
 @read teach
 That is the philosophy of the [..]heap[..]. There is no full order in it, and only the top is certain.
@@ -30,8 +30,6 @@ In one more use you need the middle value of numbers that are flowing past. For 
 @read hush
 Why keep the smallest at the top when you want the largest K? This is why — with the smallest at the top, the thing you need to throw away is always right there in your hand. To check the answer, count the final size of the heap, and it must be exactly K.
 
-@recall top-k
-
 Remember the signals, lightly. If the question says [aside]"the largest K"[/], remember this island. If it says [aside]"the nearest K"[/], remember it too. If it says "the Kth", remember this island as well.
 
 The trader put the pearls into the bag in no order at all. Only the one on top is shining, and that is enough.
@@ -39,11 +37,11 @@ The trader put the pearls into the bag in no order at all. Only the one on top i
 @read hush
 Watch two cases here. If the array holds fewer than K numbers then all of them are the answer. If K is zero the answer is empty, and if you ship the code without checking these two you will ask for the top of an empty heap.
 
-@recall top-k
+@recall top-k | The rule for taking out the largest K is important, so I will say it once more.
 
 @tier medium
 
-The trader had not tied the bag shut. He turned a pearl over in his hand and said — [aside]"Here is what this machine does inside as well."[/]
+The trader had not tied the bag shut. He turned a pearl over in his hand and said — [sage]"Here is what this machine does inside as well."[/]
 
 Although a heap is called a tree, inside it is an ordinary array. The root sits in the first place. The children of any index sit at twice the index plus one, and twice the index plus two. The parent sits at the index of one less, divided by two.
 
@@ -106,21 +104,13 @@ Half the nodes are leaves, and nothing has to be done to them. The quarter above
 
 And one way of sorting comes from here too. Turn the whole array into a heap, then keep taking the top out and putting it at the back. Its time is O(n log n), and it costs no new space at all.
 
-[nami]"Let us remember the two-heap move for the middle value again."[/] Nami said. [nami]"Keep a large-topped heap for the lower half, and a small-topped heap for the upper half."[/]
-
-[chopper]"And when a new number arrives?"[/] Chopper asked.
-
-[nami]"Put it into one of them."[/] Nami said. [nami]"Then move one value across so that the two heaps never differ in size by more than one."[/]
-
-If the sizes are equal, the middle value is the average of the two tops. If the sizes are different, the top of the larger heap is the middle value. This move is very useful on flowing data, where you never have all the numbers in your hand at once.
-
 There is a hard problem, and it is tonight's merging of K linked lists, except that here no lists can be seen.
 
 There are two sorted arrays. You take one number from the first and one from the second to make a pair. Out of all such pairs, you need the K pairs with the smallest sums.
 
 There is a road where you build all the pairs and sort them, but the number of pairs is the length of the first times the length of the second, and that is very large.
 
-Turning a pearl over, the trader said — [nami]"A list you cannot see is a list all the same."[/]
+Turning a pearl over, the trader said — [sage]"A list you cannot see is a list all the same."[/]
 
 Look at it this way. Every number in the first array makes a list of its own. The list of the first number is that number joined to everything in the second array. Since the second array is sorted, that list comes out sorted too.
 
@@ -136,7 +126,9 @@ So here there are as many lists as the first array is long, all of them sorted, 
 
 Do that K times and the work is done. The heap never holds more than the number of lists, so the time is O(K times log n).
 
-The trader had not put the lamp out yet. He said — [sage]"One more, and it is tonight's heap with one word changed. You kept the largest K. Now keep the middle."[/]
+Here is tonight's deepest thing. The heap's power is not that the lists are short, it is that the lists are sorted. Once they are sorted, the first of every list is that list's smallest, and the heap knows the smallest among those firsts. Whether the list was ever actually built makes no difference at all.
+
+The trader had not put the lamp out yet. He said — [sage]"One more. The middle value you heard about briefly at the start of tonight — let us look at it properly now."[/]
 
 The numbers arrive one at a time and there is no end to them. At any moment you may be asked for the middle one, and if the count is even, for the average of the two in the middle.
 
@@ -152,15 +144,24 @@ The rule for keeping them is short. Every new number goes into the smaller half 
 
 Every arrival costs O(log n) and every question costs O(1), because the answer is always sitting on the two tops. Tying the bag, the trader said — [sage]"I never sorted the pearls. I only ever kept my hand on the middle of them."[/]
 
-Here is tonight's deepest thing. The heap's power is not that the lists are short, it is that the lists are sorted. Once they are sorted, the first of every list is that list's smallest, and the heap knows the smallest among those firsts. Whether the list was ever actually built makes no difference at all.
+Nami had one more question for the trader, and it was about money. [nami]"I have a little capital, and a list of deals."[/] Nami said. [nami]"Each deal needs some capital to start, and pays back a profit. I can do at most K deals. How rich can I get?"[/]
+
+[luffy]"Take the biggest profit first!"[/] Luffy said. The trader shook his head and said — [sage]"You cannot take what you cannot afford. The biggest deal may stay out of reach until two smaller ones are done."[/]
+
+@read teach
+So sort the deals by the capital they need. Keep a heap of the profits you can afford right now. Before every deal, walk along the sorted list and push every newly affordable deal onto the heap. Then take the top, which is the best profit within reach, and add it to your capital. Repeat K times, or stop early if the heap is empty.
+
+[nami]"Why is taking the best affordable deal always right?"[/] Nami asked. The trader said — [sage]"Because profit only ever adds. Taking more now never makes any later deal harder to reach."[/]
+
+In Python there is one small trap. Its heap keeps the smallest on top, so store each profit as its negative, and flip the sign back when you take it. The sort costs n log n, and each deal costs a log.
 
 The trader put out the lamp. Inside the bag the pearls were in no order, but the one on top was still shining.
 
-Tying the mouth of the bag, the trader said — [sage]"My neighbour puts all his pearls in order every evening. In the morning the customer buys one. It has been thirty years, and he has not had a single day of rest."[/]
+The trader said — [sage]"My neighbour puts all his pearls in order every evening. In the morning the customer buys one. It has been thirty years, and he has not had a single day of rest."[/]
 
 That is tonight's lesson. Doing more work than the need is not effort, it is only waste. If the question asks for [aside]"the single largest"[/], you do not have to sort the whole lot, and having only the top be certain is enough.
 
-Then comes the second lesson, which feels backwards and is worth remembering. When you want the largest K, keep a small heap, because the thing you have to throw away is what has to be in your hand, not the thing you have to keep.
+And remember the second lesson once more, which feels backwards and is worth keeping. When you want the largest K, keep a small heap, because the thing you have to throw away is what has to be in your hand, not the thing you have to keep.
 
 The same rule works in life, because whatever you have to let go of is what has to be kept at the very front. Otherwise, when the time comes to let go, you have to go looking for it.
 

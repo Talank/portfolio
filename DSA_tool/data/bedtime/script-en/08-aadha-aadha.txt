@@ -2,7 +2,7 @@
 
 The eighth island is large, but there is only one library on it, and it is grand, and silent, and endlessly long. The books are in order from the first letter to the last.
 
-Robin went inside. The keeper of the library said — [robin]"There are a million books here. Find the one you need."[/]
+Robin went inside. The keeper of the library said — [sage]"There are a million books here. Find the one you need."[/]
 
 Usopp would have looked one at a time, a million times. Robin found it in twenty.
 
@@ -21,7 +21,7 @@ How many times do you have to halve a million to get to one? Twenty times. That 
 
 But there is a condition, and if you forget this condition everything falls apart. The books have to be in order. The order is the ground that lets you say "not that way". Without order, you do not have the right to throw away half.
 
-Here is the rule, and it will come back three times tonight.
+Here is the rule, and it will come back once more before the night is over.
 
 @algo aadha
 The rule for throwing away half is this, and it only works where there is order. Put the left finger at the start, and the right finger at the end. As long as the left has not gone past the right, repeat this work. First work out the middle position, and look at the value in the middle. If the middle value matches the value you need, that is the answer, and the work is done. If the middle value is smaller than the one you need, make the left finger the middle plus one. If the middle value is larger than the one you need, make the right finger the middle minus one. Once you have looked at the middle book, you must not put it back inside the range again, or the range never narrows.
@@ -36,8 +36,6 @@ The second trap is in forgetting the plus one and the minus one. You have alread
 @read hush
 Here is the best way to check code that throws away half. Watch whether the searching part is really getting smaller on every turn. If even one turn leaves it the same size the code never stops, and that is the single danger in this approach.
 
-@recall aadha
-
 @read teach
 Now a beautiful turn arrives. Suppose the books are in order, but somebody has cut them in the middle and swapped the two pieces. An array like four, five, six, seven, zero, one, two is like that. It is called a rotated [..]array[..].
 
@@ -50,7 +48,7 @@ The keeper turned the lights down. The library is silent. Robin closed her eyes 
 
 Now check three cases by hand. The first case is where the value you want sits at the very beginning. The second case is where it sits at the very end. The third case is where it is not in the array at all. When those three are right, everything between them is right on its own.
 
-@recall aadha
+@recall aadha | The rule for throwing away half is the most important part of tonight, so let me repeat it once more.
 
 @tier medium
 
@@ -105,11 +103,11 @@ Here is an example, slowly. There are some crates on the ship, and each one has 
 
 If you think about it directly, no road appears. But ask it backwards — [aside]"If the capacity were this much, could it be finished in D days or not?"[/] That is easy to check, because you keep loading the crates in order, and count a new day when the load is full.
 
-Now pay attention. If the capacity is large, fewer days are needed. If the capacity is small, more days are needed. So the answer "it can be finished" is always yes after a certain limit. That limit is found by halving.
+Now pay attention. If the capacity is large, fewer days are needed. If the capacity is small, more days are needed. So the answer "it can be finished" is always yes after a certain limit. As I just said, that limit is found by halving.
 
 What is the range of the capacity, from where to where? It is from the weight of the heaviest single crate up to the total weight of all the crates. Within that range, twenty or thirty halvings give the answer.
 
-There is other questions of the same shape, so that you can recognise the form. In how much time will all the flowers bloom? How slowly can you walk and still arrive on time? If you cut something into so many pieces, how short can the longest piece be?
+Here are other questions of the same shape, so that you can recognise the form. In how much time will all the flowers bloom? How slowly can you walk and still arrive on time? If you cut something into so many pieces, how short can the longest piece be?
 
 All of these have the same shape. The answer has a range, the check is easy, and the answer to the check changes in one direction only. If you find those three things, start throwing away half.
 
@@ -117,17 +115,11 @@ That brings us to one small technical thing, which is fine to hear while falling
 
 At the end the left and the right come to the same place, and that is the answer. Once you know this shape by heart, dozens of questions pour into the same mould.
 
-Next comes finding the midpoint of two sorted arrays. This is considered the hardest one, and tonight we will only touch its shape.
-
-Imagine a cutting line in the smaller array. However much of the left you take in the smaller array, the rest is decided for you in the larger one. Now ask — [aside]"Is every number on the left of both smaller than every number on the right of both?"[/] If it is, the line is in the right place.
-
-If it is not, move the line, and do the moving by halving. The search happens only across the length of the smaller array, so the total time is O(log n).
-
 There is a question that breaks tonight's own condition, and that is why it is worth remembering.
 
 All night we have said that throwing away half needs order. Now an array arrives with no order in it at all. The numbers go up and down as they please. You have to find any peak, which means a number that is bigger than both of its neighbours.
 
-The keeper said — [aside]"There is no order. So you have to look at them one by one."[/] Robin shook her head.
+The keeper said — [sage]"There is no order. So you have to look at them one by one."[/] Robin shook her head.
 
 She said — [robin]"I do not need the whole order. It is enough for me to know, in one single place, which way is uphill."[/]
 
@@ -159,14 +151,25 @@ So search the ceiling itself. The lowest it could ever be is the largest single 
 
 [robin]"That is exactly it."[/] Robin said. [robin]"The array was never the thing with order in it. The answer was."[/]
 
-Robin closed the book and said — [robin]"Remember only this much tonight. Where there is order, there is the right to throw away half. And the order does not always have to be in the array, because sometimes the order is in the answer."[/]
+The keeper had one last book. He said — [sage]"Two sorted lists. Find the middle of both together, without ever joining them."[/]
+
+[chopper]"Can we not join them and take the middle?"[/] Chopper asked. [robin]"That walks both lists, and the keeper wants a log."[/] Robin said.
+
+Robin thought of this island's own second lesson, that sometimes the order is in the answer. Here the answer is a cut. Cut the shorter list somewhere, and the cut in the longer list is then fixed, because the two left halves together must hold half of everything.
+
+@read teach
+A cut is right when everything on the left is no larger than everything on the right. Only the four numbers beside the two cuts have to be checked. If the shorter list's left side is too big, move its cut left. If the longer list's left side is too big, move the cut right. That is binary search, on the place of the cut.
+
+[robin]"When the cut is right, the middle is waiting beside it."[/] Robin said. [robin]"With an odd total it is the larger of the two left neighbours. With an even total it is the average of that one and the smaller of the two right neighbours."[/]
+
+One and three, with two, gives a middle of two. One and two, with three and four, gives two and a half. Only the shorter list is searched, so the time is O(log m), where m is its length.
 
 @read hush
 The last light in the library went dim as well. Robin put the book on the table, and sat quietly.
 
-The keeper came in through the door and said — [aside]"You found it in twenty. Everybody else searches a million times. Do you know what the difference is?"[/]
+The keeper came in through the door and said — [sage]"You found it in twenty. Everybody else searches a million times. Do you know what the difference is?"[/]
 
-Robin did not answer. The keeper said it himself — [robin]"The difference is courage. Throwing away half is not an easy thing. The mind does not want to let go of five hundred thousand books in one stroke. People say 'who knows, it might be in there', and then they sit there searching all of it."[/]
+Robin did not answer. The keeper said it himself — [sage]"The difference is courage. Throwing away half is not an easy thing. The mind does not want to let go of five hundred thousand books in one stroke. People say 'who knows, it might be in there', and then they sit there searching all of it."[/]
 
 That is tonight's lesson. Order gives you the right to throw away half, but the courage to throw away half you have to give yourself. Where you are certain it is not that way, looking back over your shoulder is an insult to time.
 

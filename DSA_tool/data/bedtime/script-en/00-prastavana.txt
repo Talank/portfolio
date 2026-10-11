@@ -22,7 +22,7 @@ Robin closed her book and said — [robin]"The name is hard. The thing is not. I
 
 [usopp]"Only twenty?"[/] Usopp did not believe her.
 
-[robin]"Only twenty."[/] Robin nodded. [robin]"Almost every question the big companies ask fits inside those same twenty islands. The questions look new. The islands are not."[/]
+[robin]"Only twenty."[/] Robin nodded. [robin]"Almost every question the big companies ask fits inside those same twenty approaches. The questions look new. The islands are not."[/]
 
 @read hush
 Tonight we are going to visit all of them, and we will go one at a time.
@@ -42,12 +42,10 @@ The ship is moving. The first island is coming up on the horizon, and it is smal
 
 [nami]"Take an example small enough to count on your fingers."[/] Nami said. [nami]"Run your approach on that same example. If the two agree on the small case they usually agree on the large one. If they disagree, that same small example shows you where the mistake is."[/]
 
-@recall dui-prashna
-
 @read hush
 [robin]"Let us look at those two questions again, but this time hold two hard cases in mind."[/] Robin said. [robin]"The first case is empty input, where there is nothing at all. The second case is input with exactly one thing in it. When an approach survives both of those, it is usually finished."[/]
 
-@recall dui-prashna
+@recall dui-prashna | These two questions are the most important thing tonight, so I will say them once more.
 
 @tier medium
 
@@ -74,9 +72,9 @@ Franky put his tools down and said — [franky]"There is one thing I always want
 
 [robin]"Because it is not for an exam."[/] Robin said. [robin]"These are ways of thinking."[/]
 
-However large the problems in your life get, they are usually one of two kinds. Either they can be broken into smaller pieces, or there is a repeating shape hidden somewhere inside them. These twenty islands teach you to see those same two things.
+However large the problems in your life get, they are usually one of two kinds. Either they can be broken into smaller pieces, or there is a repeating shape hidden somewhere inside them. These islands teach you to see those same two things.
 
-There is one word to take now, because it comes back many times later. The word is [..]input size[..], and it means how big the work is. Cooking rice for one person and cooking rice for a hundred people is the same work, but the size is different.
+Here is one word to learn now, because it comes back many times later. The word is [..]input size[..], and it means how big the work is. Cooking rice for one person and cooking rice for a hundred people is the same work, but the size is different.
 
 [franky]"And the second word?"[/] Franky asked.
 
@@ -108,6 +106,6 @@ Nothing will be loud all night. There will be no jolt. I will keep talking, and 
 @read hush
 This is why those two questions are so large. The first question removes work you have already done, and the second question shrinks the work that is left. Every island tonight is only one of those two, stretched out.
 
-@recall dui-prashna
+@recall dui-prashna | These two questions matter so much that I will say them one last time.
 
 The fog is thinning. The first island is ahead, and it is small, and green, and made of soft sand. The ship is drifting slowly towards it.

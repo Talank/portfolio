@@ -52,18 +52,16 @@ The fog is thinning. The mapmaker puts a small piece of paper into her hand, and
 @read hush
 There is an easy way to check whether you named the right measure. Work out in your head how much the time grows when you make the input ten times larger. Ten times larger is O(n), a hundred times larger is O(n²), and barely larger at all is O(log n).
 
-@recall chaar-naap
-
-The ship put out again. The sea is wide, and the air is warm.
+The fog is still drifting slowly past, and the air is warm.
 
 @read hush
 There is one mistake almost everyone makes when counting. A single line inside a loop looks small, but if that line itself walks the whole array then it is not small at all. So when you count, ask what is hidden inside every line, and measure by the work being done rather than by the count of lines.
 
-@recall chaar-naap
+@recall chaar-naap | These four measures of time are the most important part of tonight, so let me repeat them once more.
 
 @tier medium
 
-The fog had not lifted completely. The old mapmaker said — [aside]"Sit. There are two or three measures left, and those are the most useful ones."[/]
+The fog had not lifted completely. The old mapmaker said — [sage]"Let us sit. There are two or three measures left, and those are the most useful ones."[/]
 
 There is a measure in the middle, which falls a little above O(n) and a long way below O(n²). That measure is O(n log n). It turns up where you have to look at everything once, but where each time the work keeps splitting in half.
 
@@ -99,7 +97,7 @@ So there are two questions, and they are not the same question. Which line of th
 
 @tier long
 
-Nami was starting to get up. The old man raised a hand and said — [nami:firm]"Wait. I taught you to read a map, but I have not taught you to draw one."[/]
+Nami was starting to get up. The old man raised a hand and said — [sage]"Wait. I taught you to read a map, but I have not taught you to draw one."[/]
 
 The first rule is to count the loops. If one loop in the code touches everything, that is O(n). If there is another loop inside a loop and both of them touch everything, that is O(n²). If there are three layers, that is O(n cubed). In most cases it really is that easy.
 

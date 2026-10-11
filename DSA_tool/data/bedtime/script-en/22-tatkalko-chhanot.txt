@@ -26,8 +26,6 @@ This finishes in a single pass, and no table is needed.
 @read hush
 There is only one way to check whether a greedy approach is right, and that is to go looking for an example. Try to build a small input that defeats your own approach. If you try and cannot build one, the approach is probably safe, and if you can, that same input shows you the way.
 
-@recall lobhi
-
 The second problem is the fuel one. There are pumps around a circular road. At every pump you get some fuel, and it costs some fuel to reach the next pump. So where do you have to start from to get all the way round?
 
 The first thing is that if the total fuel on the whole road is less than the total cost, it is impossible from anywhere. Do that check first.
@@ -47,7 +45,7 @@ The racing track emptied. Luffy is lying in the grass, laughing. He did not thin
 @read hush
 What do you do where the greedy path does not work? There you need the approach of memory, because there the effect of every choice has to be carried forward. Knowing the border between those two is the real lesson of this island.
 
-@recall lobhi
+@recall lobhi | The greedy rule is important, so I will say it once more.
 
 @tier medium
 
@@ -61,7 +59,7 @@ The second road is handing out sweets to children, where among children standing
 
 This move of walking from two directions comes back in many places. If one pass only covers the condition on one side, run two passes.
 
-[luffy]"If I need the fewest notes for giving change, I start from the largest."[/] Luffy said.
+[luffy]"I remember the notes from earlier. If I need the fewest notes for giving change, I start from the largest."[/] Luffy said.
 
 [nami]"This time you are right."[/] Nami said. [nami]"But the reason it works is not you, it is the make-up of the notes."[/]
 
@@ -69,7 +67,7 @@ This move of walking from two directions comes back in many places. If one pass 
 
 [nami]"Every larger note is greater than or equal to the total of all the smaller ones."[/] Nami said. [nami]"Change the make-up and the same move becomes wrong."[/]
 
-Robin gave a warning — [robin]"Before you write a greedy solution, go looking for a counter-example. Only trust it if you cannot find one. If you find one, turn back to the wall."[/]
+Robin gave the warning again — [robin]"Before you write a greedy solution, go looking for a counter-example. Only trust it if you cannot find one. If you find one, turn back to the wall."[/]
 
 Robin folded the list of choices and said — [robin]"Nearly every greedy answer begins by putting things in order. So in Python nearly every one of them begins with a single word — the word that says what to sort by."[/]
 
@@ -108,13 +106,13 @@ Now let us look at the boundary between greedy and DP. In the coin problem greed
 
 In the meetings, taking the one that finishes earliest never narrows the future, and it always widens it. With coins, taking a large coin can leave the remaining amount in an awkward shape.
 
-So let the question be this — [aside]"Can my current choice ever make the future worse?"[/] If it never can, greedy is safe.
+So ask the question from the rule once more — [aside]"Can my current choice ever make the future worse?"[/] If it never can, greedy is safe.
 
 Then comes the business of sorting. Many greedy solutions begin with sorting, and what you sort by is the whole solution.
 
 Meetings are sorted by end time. In the rope-joining problem they are sorted by length. In dividing up work they are sorted by deadline. In arranging letters they are sorted by count.
 
-So when you meet a greedy problem, ask this question first — [aside]"What should I sort by?"[/] That answer is usually the solution.
+So, as I said before, when you meet a greedy problem, ask this question first — [aside]"What should I sort by?"[/] That answer is usually the solution.
 
 Then comes a beautiful use, and it is jobs and deadlines. Every job has a profit and a final date, and one job can be done in a day. So what is the greatest profit?
 
@@ -122,11 +120,7 @@ Sort by profit, from largest down. Put every job on the latest free day before i
 
 To find the free day you can use the joining-and-finding structure from the eighteenth island, and doing that makes this very fast. Two islands joined again here.
 
-At the end, one thing is worth remembering. A greedy solution is easy to write, and hard to prove correct. DP is hard to write, and easy to be sure is correct.
-
-So if you are in doubt in an interview, write DP. A slow solution is correct, and a correct solution being slow is always better than a wrong solution being fast.
-
-Here is one last problem, and it answers tonight's biggest question in a strange way.
+Here is another problem, and it answers tonight's biggest question in a strange way.
 
 All night we kept asking — what should I sort by? For the meetings it was the finishing time. For the ropes it was the length. Now a problem arrives where there is no sorting to do at all, and yet the idea of a [aside]"finishing time"[/] is still needed.
 
@@ -165,6 +159,19 @@ And there is a way to see the answer without running it at all. Take the commone
 [robin]"Which is usually the sign that the greed was right."[/] Robin said.
 
 The horse went quiet again. The dust had settled on the road, and in the east the sky was going a little pale.
+
+Nami wrote a line of brackets in the dirt, with a few stars mixed in. [nami]"A star can be an open bracket, a close bracket, or nothing at all."[/] Nami said. [nami]"Can the line be matched properly?"[/]
+
+[luffy]"Try all three for every star!"[/] Luffy said. [robin]"With twenty stars that is three to the power of twenty, and that is billions."[/] Robin said.
+
+It is the jumping game again, with one thing changed. There, you did not track every path, only the furthest place you could reach. Here, you do not track every choice, only the range of how many brackets could still be open.
+
+@read teach
+Keep two numbers, the fewest open brackets there could be, and the most. An open bracket raises both. A close bracket lowers both. A star lowers the fewest and raises the most, because it could be either. If the most ever drops below zero, too many have closed, and the line fails. Never let the fewest go below zero. At the end, the line can be matched if the fewest is zero.
+
+[luffy]"So a star is just a choice I make later?"[/] Luffy asked. [robin]"That is exactly it. The range carries every choice at once, and the greedy part is refusing to decide early."[/] Robin said.
+
+Open, star, close, close can be matched, and so can open, star, close. Close and then open cannot. One pass and two numbers are enough.
 
 Luffy was asleep in the grass, laughing. Robin looked at him and said — [robin:amused]"This one never thinks twice. And the strange thing is that he is usually right."[/]
 

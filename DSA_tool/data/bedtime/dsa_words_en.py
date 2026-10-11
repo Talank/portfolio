@@ -23,7 +23,9 @@ BIG_O = [
     ("O(1)",       " big oh of one "),
     ("O(k)",       " big oh of k "),
     ("O(m)",       " big oh of m "),
-    ("3Sum",       " three sum "),
+    # Not " three sum ": every voice runs it together into "threesome"
+    # (Whisper hears exactly that, in every spelling tried).
+    ("3Sum",       " three-number sum "),
     ("n-1",        " n minus one "),
     ("n+1",        " n plus one "),
     ("i+1",        " i plus one "),
@@ -46,15 +48,45 @@ SPELL_OUT = {
     "FIFO": "fie-foe", "LIFO": "lie-foe",
 }
 
+# Names the voice gets wrong. Usopp is "OO-sop" (Japanese uso, a lie); the
+# voice reads the spelling as "YOO-sop", which Whisper writes "You stop".
+# Respelled "Oosop", Whisper writes it back as "Usopp".
+NAMES = {"Usopp": "Oosop",
+         # Same trouble with two terms. deque is said "deck" (the Python docs
+         # say so); the voice reads it "deek". inorder as one word comes out
+         # as something like "innater" — Whisper's spelling of it.
+         "deque": "deck", "deques": "decks", "Deque": "Deck",
+         "inorder": "in-order", "preorder": "pre-order", "postorder": "post-order",
+         # trie is said "try" here, as the Nepali edition says ट्राई. Read
+         # "tree", "a tree like that is called a trie" says the same word twice.
+         "trie": "try", "Trie": "Try"}
+_NAMES = re.compile(r"\b(" + "|".join(NAMES) + r")\b")
+
 _ACRO = re.compile(r"\b(" + "|".join(sorted(SPELL_OUT, key=len, reverse=True))
                    + r")\b")
+
+
+_BIG_O_ANY = re.compile(r"\bO\(([^()]*)\)")
+_BIG_O_SYMBOLS = (("²", " squared"), ("³", " cubed"), ("ⁿ", " to the n"),
+                  ("^2", " squared"), ("·", " times "), ("×", " times "),
+                  ("+", " plus "))
+
+
+def _big_o_any(m):
+    """Any O(...) the list above does not name, e.g. O(K) or O(n³), which the
+    voice otherwise reads as a bracketed letter."""
+    inner = m.group(1)
+    for a, b in _BIG_O_SYMBOLS:
+        inner = inner.replace(a, b)
+    return " big oh of " + re.sub(r"\s+", " ", inner).strip() + " "
 
 
 def to_spoken(text):
     for a, b in BIG_O:
         text = text.replace(a, b)
+    text = _BIG_O_ANY.sub(_big_o_any, text)
     text = _ACRO.sub(lambda m: SPELL_OUT[m.group(1)], text)
-    return text
+    return _NAMES.sub(lambda m: NAMES[m.group(1)], text)
 
 
 def all_keys():

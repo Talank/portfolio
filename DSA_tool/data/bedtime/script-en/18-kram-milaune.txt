@@ -37,22 +37,17 @@ If you have to join two groups, find the leader of both, and put one leader unde
 @read hush
 The way to check the order is beautifully clean. At the end, the count of jobs you wrote down must match the count of all the jobs. If it does not, the jobs left over are caught in a ring with each other, and that ring is telling you this order cannot be made at all.
 
-@recall kram
-
 Franky stuck the list on the wall. The work is in order, and there is no confusion. The tools were put down slowly on the floor.
 
-@read hush
-That failure is the most useful property this approach has. You never need to go looking for a ring separately, because the very same count tells you. So the question of whether the work is possible at all is answered by this one approach too.
-
-@recall kram
+@recall kram | Because the rule for putting things in order matters so much, I will say it again, slowly.
 
 @tier medium
 
 The tools were on the floor. Franky looked at the list again and said — [franky]"The business of order is not finished yet."[/]
 
-The first thing asks whether there is one order or many. In the queue method, if at any moment there is more than one job in the queue, there is a choice at that point, which means there can be many orders. If there is always exactly one, the order is unique.
+The first thing asks whether there is one order or many. The queue method is called Kahn's approach, and in it, if at any moment there is more than one job in the queue, there is a choice at that point, which means there can be many orders. If there is always exactly one, the order is unique.
 
-The second thing is that if the count of jobs collected while ordering comes out less than the total number of jobs, there is a cycle. This is the easiest way there is of detecting a cycle, and it is what answers the question [aside]"can it be studied or not"[/].
+The second thing was said already, but remember it again — if the count of jobs collected while ordering comes out less than the total number of jobs, there is a cycle. This is the easiest way there is of detecting a cycle, and it is what answers the question [aside]"can it be studied or not"[/].
 
 The third thing is that the joining-and-finding structure can also say how many groups there are. At the start, set the count equal to the number of nodes. When two different groups are joined, subtract one from the count. If the joining was already within one group, do nothing.
 
@@ -110,12 +105,6 @@ First put things in order, then walk in that order noting at every node [aside]"
 
 This idea joins directly to the twentieth island. There we will call it [aside]"the power of memory"[/], and that power is another name for this same order.
 
-And there is a use that turns up in daily life, and it is the strange alphabet of letters. Some words of an unfamiliar language are given in order, and you have to work out what that language's alphabet is.
-
-Compare two words standing next to each other. Find the first letter where they differ, and that tells you which letter comes before which. Collect the rules this way, then put them in order.
-
-There is a small trap here. If the first word is longer than the second and the second is only the beginning of the first, that order is impossible. Many solutions are wrong for not checking this case.
-
 Now let us understand the price of the two moves in the joining-and-finding structure. The move that shortens the road flattens the tree out almost completely after every search. The move that joins by size never lets the tree get very tall.
 
 Using both together, the average price of every operation is almost constant. Put mathematically, it is a function that grows extremely slowly, and in practice it never goes above four.
@@ -168,16 +157,29 @@ Then gather. Ask each address which group it belongs to, and drop it into that g
 
 The joining costs very nearly O(1) each time, so the whole job costs about what it costs to read the accounts and sort the addresses.
 
+Robin found a page from a dictionary written in an unknown alphabet. The words were in that alphabet's order, but nobody knew the order of the letters. [robin]"The order of the letters is hiding in the order of the words."[/] Robin said.
+
+[chopper]"Do we compare every letter of every word?"[/] Chopper asked. [robin]"Only neighbouring words, and only their first different letter."[/] Robin said. [robin]"Everything before it is shared, and nothing after it tells us anything."[/]
+
+@read teach
+So walk down the page, two neighbouring words at a time. Find the first place where they differ. The letter in the upper word must come before the letter in the lower word, so draw an arrow between them. When every pair is done, the arrows are tonight's jobs and their order. Run the topological sort, and the order of the alphabet falls out.
+
+[franky]"And if the arrows make a ring?"[/] Franky asked. [robin]"Then the page is lying, and no alphabet exists."[/] Robin said.
+
+There is one more lie to catch. If a word stands above a shorter word that is its own beginning, such as a, b, c above a, b, the page is impossible. A beginning always comes first, and no arrow can explain the opposite.
+
+Comparing the neighbours costs the total length of the words, and the sort itself is O(V + E). Tonight's work list did all the hard thinking.
+
 Franky put out the lamp. The list was still stuck on the wall in order, and all of tomorrow morning's work was going to fall into place by itself.
 
 Franky was sitting on the floor wiping his tools. He said — [franky:firm]"Building ships taught me that doing first what has to be done first is not effort, it is the whole of the skill."[/]
 
 That is tonight's lesson. Knowing that some job has to come first, and working out that order, is usually harder than doing the job itself.
 
-That brings us to the second lesson, which is hard but true. Where there is a cycle, an order does not exist at all. In a place where [aside]"A is needed first, but A needs B, and B needs A"[/], effort does not work. What is needed there is a decision to break the cycle.
+That brings us to the second lesson, which you heard at the very start, and it is hard but true. Where there is a cycle, an order does not exist at all. In a place where [aside]"A is needed first, but A needs B, and B needs A"[/], effort does not work. What is needed there is a decision to break the cycle.
 
 Some problems in life are like that too. Recognising that they are tangled is half the solution, because after that you stop pulling harder and start undoing the knot.
 
-And there is the last lesson. The joining structure only knows how to join, and does not know how to separate. But in many problems you do not have to separate. And if you really do have to separate, run time backwards, because walking from the back turns a breaking into a joining.
+And there is the last lesson, which Franky told us earlier. The joining structure only knows how to join, and does not know how to separate. But in many problems you do not have to separate. And if you really do have to separate, run time backwards, because walking from the back turns a breaking into a joining.
 
 Franky put the last tool in the box. The ship had been repaired, and the night was still long.

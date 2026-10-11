@@ -1,0 +1,4 @@
+category,items
+Languages,Python; Java; Bash; C; C++; JavaScript; SQL
+Testing,JUnit; Maven; Selenium; Cypress; Nightwatch.js; Jest; Puppeteer; Behat
+CI/CD,GitHub Actions; GitLab CI; Travis CI; Drone; Docker

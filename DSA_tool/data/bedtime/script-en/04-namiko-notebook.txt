@@ -16,7 +16,7 @@ The first purse holds three hundred thousand, so three hundred thousand more is 
 @read teach
 That finished in a single pass, and its time is O(n). That is what [..]Two Sum[..] is, and it is the most asked question in the world.
 
-Here is the rule of this island, and it will come back three times tonight.
+Here is the rule of this island, and it will come back once more before the night is over.
 
 @algo notebook
 The rule of the notebook is this, and its order must not be broken. Walk once, and only once, over every item in the array. The first job is to look, so look at whether the partner you need is already in the notebook. If the partner is found, the answer has arrived right there, and the work is done. Only if the partner is not found do you write the current item into the notebook. Always look first and only then write, because if you do it the other way round an item makes itself its own partner.
@@ -39,14 +39,12 @@ Robin gave the summary very slowly — [robin]"Whenever you feel 'have I seen th
 @read hush
 How do you know your answer is right? Check just one thing — that you looked before you wrote in the notebook. If the order is right then nothing can become its own partner, and that is the single fragile place in this approach.
 
-@recall notebook
-
 The market lights are going out one by one. Nami put the notebook in her bag, and took the road back to the ship.
 
 @read hush
 Now think about two hard cases. The first is an array where the same number appears twice and those two are the pair you want, and only the right order saves you there. The second is an array with no pair at all, and there the right thing is to finish the loop and return an empty answer.
 
-@recall notebook
+@recall notebook | The rule of the notebook is important, so I will say it once more.
 
 @tier medium
 
@@ -84,14 +82,6 @@ And there is a small gift at the end. Since a few versions ago, a Python diction
 @tier long
 
 The stall closed too. Nami sat down at the side of the road with the notebook in her lap. There was only one light left.
-
-Now comes a problem that looks hard and is easy. Among numbers scattered in no order, how long is the longest run of consecutive numbers? For example, in the array one, three, two, five, the numbers one, two and three make a run three long.
-
-The straightforward road is to sort them, but that costs O(n log n). Nami said — [nami]"I do not need order. I need memory."[/]
-
-The move is this. Put every number into the notebook. Now ask one question at every number — [aside]"Is the number one less than me in the notebook?"[/] If it is, then I am not the start of a run, so I keep quiet.
-
-If it is not, then I am a start. Now count upwards from me, and ask whether me plus one is there, and then whether me plus two is there. As long as they are there, keep counting. This way every run is counted exactly once, and the total work finishes in O(n).
 
 The next problem is very beautiful in shape, and it is whether two words have the same pattern. For example, in "egg" and "add" the first letter matches the first, and the second letter matches the second, in the same steady way.
 
@@ -149,11 +139,24 @@ That is tonight's rule wearing a different coat. The notebook did not make the s
 
 Nami closed the notebook and shut her eyes. She said — [nami]"To put it in one sentence, before you start searching, ask — could I have written this down beforehand?"[/]
 
+Before the market closed, Usopp came with a bag of tickets. [usopp]"I run a lottery!"[/] Usopp said. [usopp]"I need a box where I can add a name, remove a name, and pull out any name at random. All three have to be instant."[/]
+
+Nami smiled, because this was the LRU cache again, with one thing changed. There, the notebook was joined to a linked list. Here, the notebook is joined to a plain array.
+
+[chopper]"Why is the notebook alone not enough?"[/] Chopper asked. [nami]"A notebook finds a name at once, but it cannot pick one at random."[/] Nami said. [nami]"An array can pick at random in one step, because every place is reached by its number."[/]
+
+@read teach
+So keep both. The array holds the names. The notebook remembers where each name sits in the array. Adding is easy, because you put the name at the end and write its place in the notebook. Picking is easy, because you choose any place in the array.
+
+[usopp]"And removing? A hole in the middle means shifting everybody."[/] Usopp said. [franky]"Don't shift. Fill the hole with the last name, and then cut the end off."[/] Franky said. [franky]"Only one name moved, so only one row in the notebook changes."[/]
+
+That is the whole trick. Every action touches at most two places, so each one is O(1). The order of the array is lost, but nobody asked for order. When the question promises less, you are allowed to spend less.
+
 The last light went out too. The market went dark, and the sound of the sea started coming back.
 
 Nami was sitting at the side of the road with the notebook in her lap. She turned the pages and looked, and inside were years of accounts, and a record of the cheap days and the expensive ones.
 
-Telling herself, she said — [aside]"The biggest thing I ever learned is this notebook. People try to remember. I learned to write down."[/]
+Telling herself, she said — [nami]"The biggest thing I ever learned is this notebook. People try to remember. I learned to write down."[/]
 
 That is tonight's lesson, and it is the most useful lesson of the whole voyage. Searching is expensive. Remembering is cheap. If you feel some piece of work repeating, write its answer down somewhere.
 
@@ -162,4 +165,4 @@ But there is an honest thing alongside it. The notebook eats space. Whatever we 
 Nami put the notebook in her bag. Telling nobody, she said — [nami]"And remember one thing. Look first, then write. If you do it the other way round you make yourself your own answer, and that answer is false."[/]
 
 @read hush
-The last light went out. The market slept, and the sound of the sea became the loudest thing again.
+The market slept, and the sound of the sea became the loudest thing again.

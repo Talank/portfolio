@@ -2,7 +2,7 @@
 
 On the twentieth island there is a small house, and countless pieces of paper are stuck to the wall of it. On every piece of paper an answer is written.
 
-Robin went inside. The owner of the house said — [robin:amused]"I am lazy. I do not work out the answer to the same question twice. Once I have worked it out, I stick it on the wall."[/]
+Robin went inside. The owner of the house said — [sage]"I am lazy. I do not work out the answer to the same question twice. Once I have worked it out, I stick it on the wall."[/]
 
 @read teach
 That is what [..]dynamic programming[..] is. Its name sounds frightening, but inside there is only this much to it: an answer already worked out is never counted again.
@@ -49,8 +49,6 @@ Here you can see the true shape of DP, and it is this that you should remember. 
 @read hush
 Counting tells you whether the memory is doing its job. Compare how many times you counted before using the wall and after, and the difference should be large. If the difference is small then the key on the wall is wrong, which means the same question is being written down under different names.
 
-@recall bhitta
-
 There is a small move as well. Here we only ever need the previous two answers, so the whole wall is not needed and two boxes are enough. That way the space drops from O(n) to O(1).
 
 The papers are moving on the wall of the house. The owner has fallen asleep in his chair. He did not think about the same question twice today.
@@ -58,11 +56,11 @@ The papers are moving on the wall of the house. The owner has fallen asleep in h
 @read hush
 Choosing the key is the most important part of pinning things to the wall. Every number that fully identifies the question must be in the key, and not one unnecessary number more. Too few and the answer is wrong; too many and the memory saves you nothing.
 
-@recall bhitta
+@recall bhitta | The rule of memory is the most important part of tonight, so let me repeat it once more.
 
 @tier medium
 
-The owner of the house was still in his chair, but he was not fully asleep. Without opening his eyes he said — [aside]"There is still room on the wall."[/]
+The owner of the house was still in his chair, but he was not fully asleep. Without opening his eyes he said — [sage]"There is still room on the wall."[/]
 
 In the first thing, every step of the staircase has its own tiredness, and you have to reach the top with the least tiredness. Ask at every step — [aside]"Did I come from the one below, or from the one below that?"[/] Take whichever is cheaper, then add your own tiredness.
 
@@ -98,7 +96,7 @@ The second catch is the one from the island of the tree. Remembering answers doe
 @read hush
 The lamp was low. The papers on the wall were moving lightly in the air.
 
-The owner said — [aside]"Now let me teach you how to write DP, because many people understand the idea and cannot write it."[/]
+The owner said — [sage]"Now let me teach you how to write DP, because many people understand the idea and cannot write it."[/]
 
 Ask four questions, in this order. The first question is what my case is, that is, which numbers together name one sub-question completely.
 
@@ -130,7 +128,7 @@ Then a beautiful problem in the same family arrives. What do you do if the house
 
 If I am taken, the children cannot be taken. If I am not taken, the children may be taken or not taken. This move of returning two numbers upwards comes up in many tree DP problems.
 
-At the end, there is something that is the biggest thing tonight. DP is not magic. It is only recursion, in which the answers are not allowed to be forgotten.
+Here is something that is the biggest thing tonight. DP is not magic. It is only recursion, in which the answers are not allowed to be forgotten.
 
 So when a problem feels far too large, write the straight recursion first, and write it however slow it is. Once that works, now add the wall. That is all of it.
 
@@ -168,7 +166,7 @@ The first place is true, because an empty string needs no words at all. Then for
 
 Keep the allowed words in the notebook so that asking costs O(1), and the time is the length squared times the cost of matching a piece. If the words are kept in a tree of letters instead, you walk forward from each true place and stop the moment there is no branch, which is the island of the letter tree doing this island's work.
 
-The owner said in his sleep — [aside]"The shape is the same. The rule has changed. That is usually what happens in DP."[/]
+The owner said in his sleep — [sage]"The shape is the same. The rule has changed. That is usually what happens in DP."[/]
 
 The owner leaned his head back in the chair. The papers on the wall had stopped moving. Inside the house, no answer had been worked out twice.
 
@@ -176,9 +174,9 @@ On her way out of the door Robin read one of the papers. It said — [robin:amus
 
 That is tonight's lesson, and it is the greatest idea of the whole voyage. Doing work twice is not effort. Working out the answer to the same question twice is an insult to the first time.
 
-And the beautiful thing is that it asks for no new magic. Think it through straight first, and think it however slowly. Once that works, now add the wall. The difference between O(2ⁿ) and O(n) is usually only one wall.
+And the beautiful thing, as I said earlier, is that it asks for no new magic. Think it through straight first, and think it however slowly. Once that works, now add the wall. The difference between O(2ⁿ) and O(n) is usually only one wall.
 
 The same rule works in life. Write down whatever you learn. Remember whatever you go through. Whoever remembers does not have to suffer the same sorrow twice.
 
 @read hush
-The lamp was low. The papers were quiet all across the wall, and each one carried the answer to its own small question, and they were going to be there tomorrow as well.
+The lamp had grown lower still. The papers were quiet all across the wall, and each one carried the answer to its own small question, and they were going to be there tomorrow as well.

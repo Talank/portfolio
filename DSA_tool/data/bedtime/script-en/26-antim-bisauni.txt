@@ -10,7 +10,7 @@ We began with the tools. The box gives a thing a name. The wheel repeats the sam
 
 [nami]"After that we learned the map of time."[/] Nami said. [nami]"If you only have to look at one, that is O(1)."[/]
 
-[luffy]"If you look at all of them once, O(n)."[/] Luffy said.
+[luffy]"If you look at all of them once, that is O(n)."[/] Luffy said in his sleep.
 
 [usopp]"If you check every one against every other, that is O(n²)."[/] Usopp added.
 
@@ -58,7 +58,7 @@ And on the island of zero and one, pairs cancel themselves, and one is left over
 
 That is enough now. You do not have to remember it all. It is enough if one or two stay in your mind, and the rest come round again another night.
 
-Next comes one last thing, and this is the truest thing of all. Learning these twenty islands does not mean memorising twenty moves. It means forming one habit.
+Next comes one more thing, and this is the truest thing of all. Learning these twenty-five islands does not mean memorising their moves. It means forming one habit.
 
 @algo saat-prashna
 Whenever you see any new problem, ask these seven questions. The first question is this — have I already done this piece of work before? The second question is this — is there some order hiding here? The third question is this — is something consecutive being looked for here? The fourth question is this — is there a choice at every step here? The fifth question is this — is some piece of work repeating here? The sixth question is this — can I throw away half of the remaining work? The seventh question is this — do I know how to turn back? Whoever knows how to ask these seven questions finds the move by themselves, and whoever memorises the moves without knowing the questions has to be afraid all over again at every new problem.
@@ -69,23 +69,21 @@ The questions are the real tools, and the moves are only their answers.
 @read hush
 How do you know whether those seven questions are working? If at least one of them sticks within fifteen seconds of reading a new problem, you have found your way in. If not one of them sticks, the problem is not new — its language is unfamiliar, so read it again.
 
-@recall saat-prashna
-
-@read hush
-Now sleep. Really sleep. The code gets written in the morning, and tonight's work is finished.
-
 The ship is finding its own way forward. Above there are more stars than anyone could count. The waves knock gently against the side of the ship.
 
 @read hush
-This is the last thing, and it is true on every island. Before you send an answer, always check three cases by hand. Those three cases are empty input, input with exactly one thing in it, and the largest input there could be. The habit of checking those three will save you many nights later on.
+One more thing, and it is true on every island. Before you send an answer, always check three cases by hand. Those three cases are empty input, input with exactly one thing in it, and the largest input there could be. The habit of checking those three will save you many nights later on.
 
-@recall saat-prashna
+@recall saat-prashna | These seven questions are the most important thing of this whole voyage, so I will say them one last time.
+
+@read hush
+Now sleep. Really sleep. The code gets written in the morning, and tonight's work is finished.
 
 Good night.
 
 @tier medium
 
-The swell was still calm. Robin added — [robin]"One thing is left, and it is not about moves, it is about habits."[/]
+If sleep has not come yet, do not worry. The swell was still calm, and Robin added softly — [robin]"One thing is left, and it is not about moves, it is about habits."[/]
 
 When you meet a new problem, look at five things in this order. The first thing is what the input is like. Is it in order or not? Is it consecutive or not? Is it a tree or a web?
 
@@ -96,7 +94,7 @@ The third thing is what the brute-force solution is and what it costs. Always wr
 
 The fourth thing is which piece of work is repeating in that brute-force solution. Finding the repeated work is finding the road to the improvement. Now ask whether it should be removed by remembering, by sorting, or by throwing away half.
 
-The fifth thing is what happens at the boundaries. What happens if the input is empty? What happens if there is only one? What happens if they are all the same? What happens if the largest one arrives?
+The fifth thing is what happens at the boundaries. The three cases you heard earlier come back here, and one new case joins them. What happens if the input is empty? What happens if there is only one? What happens if they are all the same? What happens if the largest one arrives?
 
 Once the habit of looking at those five things is formed, the moves come by themselves. And even if you forget the moves, the questions keep showing you the road.
 
@@ -115,13 +113,13 @@ The second root is something you believed was separate and is one thing shared. 
 
 [robin]"Which brings the honest ending."[/] Robin said. [robin]"None of that was the skill. The skill was tonight's whole voyage — knowing which shape a question has. The language only decides how much writing stands between you and the shape, and in this one it is very little. That is the reason to like it, and it is not the reason to learn it."[/]
 
-So the last small piece of advice is this. When you sit down to write, say the shape out loud first, in ordinary words, the way these islands said it. Then let the language be short. Code that was said aloud before it was typed is the code you can still read at the end of a long night.
+So here is one small piece of advice. When you sit down to write, say the shape out loud first, in ordinary words, the way these islands said it. Then let the language be short. Code that was said aloud before it was typed is the code you can still read at the end of a long night.
 
 @tier long
 
 The ship was still moving forward. Nami stood at the edge of the deck without opening her map.
 
-She said — [aside]"This is the last night, so let us talk about something different. Tonight let us talk not about moves but about practice."[/]
+She said — [nami]"This is the last night, so let us talk about something different. Tonight let us talk not about moves but about practice."[/]
 
 The first thing is that solving one problem three times is better than solving twenty different problems once. The first time you understand. The second time you remember. The third time your hand moves by itself.
 
@@ -145,23 +143,23 @@ And there is something about sleep, because half of tonight's learning is that. 
 Practising for two hours and then sleeping properly is much better than staying awake for a third hour of practice. Effort plants the seed, and sleep puts the roots down.
 
 @read teach
-So this story ends here, and it tells you to sleep. That was its real purpose all along.
+So this story is nearly at its end, and it will tell you to sleep. That was its real purpose all along.
 
-Robin closed her book for the last time and said — [robin:gentle]"Nobody has anything left to say now. The ship knows the way."[/]
+Robin closed her book for the last time and said — [robin:gentle]"There is almost nothing left to say now. The ship knows the way."[/]
 
 @read hush
 Nami sat down as well. Nobody put out the lamp, and the lamp grew dim by itself.
 
-The waves are knocking gently against the side of the ship. The air is warm.
+The water is whispering along the side of the ship. The air is warm.
 
 @read hush
-Above there are more stars than anyone could count. They are turning slowly, without any hurry.
+High above, the stars are turning slowly, without any hurry.
 
 All the islands are behind us. Ahead is the open sea, and it is not waiting for anybody either.
 
-Robin put the book in her lap. She said very slowly — [robin:gentle]"One thing is left, and it stands above all the islands. These twenty islands have given you twenty moves. But moves get forgotten, and what does not get forgotten is the habit of asking questions."[/]
+Robin put the book in her lap. She said very slowly — [robin:gentle]"One thing is left. It was said earlier tonight, but because it stands above all the islands, I will say it once more. These twenty-five islands have given you many moves. But moves get forgotten, and what does not get forgotten is the habit of asking questions."[/]
 
-Nami sat beside her. She said nothing, and only nodded.
+Nami, sitting beside her, said nothing, and only nodded.
 
 [chopper]"But you can never know the answer to every problem."[/] Chopper said quietly.
 
@@ -172,11 +170,11 @@ Nami sat beside her. She said nothing, and only nodded.
 That is tonight's last lesson, and it is not a lesson only about code.
 
 @read hush
-Now really sleep. Learning needs sleep to put its roots down, and tonight you planted a great deal.
+Now really sleep. As I said, learning needs sleep to put its roots down, and tonight you planted a great deal.
 
-The ship is moving forward, finding its own way. The waves knock gently against the side. The air is warm.
+The deck is quiet now. One by one the whole crew has fallen asleep, and the ship sails on through the dark.
 
 @read hush
-Above, the stars are turning without any hurry.
+The lamp has gone out, and now only the stars are keeping watch.
 
 Good night. Sleep well.

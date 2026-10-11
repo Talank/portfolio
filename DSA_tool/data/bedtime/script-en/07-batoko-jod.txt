@@ -29,8 +29,6 @@ Look at what happened here. The tools of two islands were joined, and they are t
 @read hush
 You can check your totals in a single step. Ask for the sum of the whole stretch from the beginning to the end, and hold that against the plain sum of every number in the array. If those two agree, your prefix sum is built correctly.
 
-@recall agadiko-jod
-
 The same move works in two dimensions as well. If you need the total inside some rectangle in a table like a sheet of paper, adding and subtracting the running totals at four corners is enough.
 
 Robin closed her notebook. The stones on the road are glinting in the moonlight. We are slowly making our way back to the shore.
@@ -38,7 +36,7 @@ Robin closed her notebook. The stones on the road are glinting in the moonlight.
 @read hush
 There is a small trick here that removes one large mistake. Put a single zero at the front of the prefix sum, so that asking for a piece that starts at the very first place has something to subtract instead of falling over. That one zero takes away all the trouble with the index.
 
-@recall agadiko-jod
+@recall agadiko-jod | The rule of the running total is important, so I will say it once more.
 
 @tier medium
 
@@ -61,7 +59,7 @@ The third shape is a beautiful move in the opposite direction, and it is called 
 
 Instead, keep an empty array. Write five at the third place, and write minus five at the eighth place. Do only that. Once all the instructions are finished, work out the running total of that array, and at every place the amount that should have been added appears by itself.
 
-Usopp's eyes went wide and he asked — [usopp]"Writing in one place changes a whole stretch?"[/] Shaking her head, Robin said — [robin]"The adding only has to be noted at the beginning and the end. The arithmetic in the middle happens later, all at once."[/]
+Usopp's eyes went wide and he asked — [usopp]"Writing in one place changes a whole stretch?"[/] Nodding, Robin said — [robin]"The adding only has to be noted at the beginning and the end. The arithmetic in the middle happens later, all at once."[/]
 
 Robin drew the running total again and said — [robin]"In Python this island is almost embarrassingly short, and the shortness hides the one mistake everybody makes."[/]
 
@@ -87,7 +85,7 @@ And there is one habit worth carrying away. A running total answers questions ab
 @read hush
 There was an old bench at the side of the road. Robin sat down on it, and made her voice quieter still.
 
-She said — [aside]"Now let us join the total to division. It sounds strange, but it is very good."[/]
+She said — [robin]"Now let us join the total to division. It sounds strange, but it is very good."[/]
 
 The question is this. How many consecutive stretches are there whose total divides exactly by K? On the straightforward road you have to work out the total of every stretch, and that costs O(n²).
 
@@ -97,14 +95,6 @@ So in the notebook, note the remainder rather than the total. At every place ask
 
 Pay attention to one thing. If there are negative numbers, the remainder can come out negative too. When that happens, add K to the remainder and divide again, so that the remainder always sits between zero and K.
 
-The next problem is to find the longest stretch with equal numbers of zeros and ones. This is in the same family, but it needs one small translation.
-
-Treat zero as minus one. Now the question has changed, and it has become: which is the longest stretch whose total is exactly zero? Then run the same move, keep noting the running total, and put in the notebook where each total was first seen.
-
-If the same total is met again, the total of the stretch in between is zero. Subtract the place of the first sighting from the current place, and that is the length. Keep remembering the longest length.
-
-There is a small but important thing here. Keep only the place of the first sighting, and do not keep the later ones. The reason is that we are looking for the longest, and to get the longest the start has to be as far forward as possible.
-
 That brings us to the two-dimensional case in a little more detail. There is a table with rows and columns. The total inside some rectangle in it is asked for again and again.
 
 First, at every place, note the total of the whole rectangle from the top-left corner up to here. Now, when you need the total of some rectangle, subtract the strip above it from the large rectangle, then subtract the strip to the left, and then add back once the corner that was subtracted twice.
@@ -113,7 +103,7 @@ That takes four numbers and three operations, and the time is O(1). Robin said �
 
 At the end, there is a different kind of total, and that is the running form of XOR. In XOR, if a number appears twice it cancels itself out. So instead of subtracting, XOR again is enough, and the same shape works in the same way. This idea comes back on later islands.
 
-Next comes one last problem, and it is tonight's very first move, except that the road has changed.
+Next comes another problem, and it is tonight's very first move, except that the road has changed.
 
 At the start we counted the runs whose total is K, and that needed the running total and the notebook. Now the same question is asked not on a road but in a tree. Coming down from the root towards the leaves, how many paths add up to K? The path does not have to start at the root — it may start anywhere and run downwards.
 
@@ -147,7 +137,18 @@ One pass, O(n) time, and the notebook is the only extra room. Robin closed the c
 
 Robin leaned back on the bench and said — [robin]"If the heart of this island has to be said in one sentence, it is that the answer to a question that gets asked again and again should be prepared in advance. And that preparation usually takes a single pass."[/]
 
-The stones on the road were still glinting. The air was warm. The ship's light was visible in the distance, and we walked slowly towards it.
+On the way back, Chopper found a stone with a long word carved into it. [chopper]"Robin, which is the longest stretch where every vowel appears an even number of times?"[/] Chopper asked.
+
+Robin knew it at once. It was the zeros and ones problem from earlier tonight, with one thing changed. There, one running total was enough. Here, five things have to be even at the same time.
+
+[robin]"So carry five switches, one for each vowel."[/] Robin said. [robin]"Every time a vowel passes, flip its switch. An even count leaves the switch off, and an odd count leaves it on."[/]
+
+@read teach
+Now the old move works again. If the five switches look exactly the same at two places, then between those places every vowel came an even number of times. So note the first place each pattern of switches was seen. At every letter, ask how far back that same pattern first appeared.
+
+[nami]"Five switches make only thirty-two patterns, and that is a tiny notebook."[/] Nami said. [nami]"In code the five switches fit inside one small number, and XOR flips them. It is exactly like the bits of the twenty-fifth island."[/]
+
+Seed the notebook with the empty pattern before the first letter, just as you seeded it with the total zero. One pass is enough, and the time is O(n).
 
 Robin got up from the bench. The stones on the road were still glinting in the moonlight, and on every stone the distance from the start was carved.
 
