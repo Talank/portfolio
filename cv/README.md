@@ -25,6 +25,7 @@ cv/
 | add a talk / award / TA term         | `talks.csv` / `awards.csv` / `teaching.csv` |
 | change a job or its dates            | `experience.csv` (`start`/`end` are `YYYY-MM` or `present`) |
 | add reviewing or other service       | `service.csv` (the section stays hidden while it is empty) |
+| add a project                        | a row in `projects.csv` (`cv` = `yes` to list it in the PDF too; screenshots go in `../images/projects/`, a YouTube `video` is embedded when there are none) |
 
 Rules: list cells use `;` (authors, skills) or `|` (experience bullets); dates are
 `YYYY-MM`; rows can be in any order (they are sorted newest first); write plain

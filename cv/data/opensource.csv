@@ -1,5 +1,3 @@
 name,url,description
 International Dataset of Flaky Tests (IDoFT),https://github.com/TestingResearchIllinois/idoft,Detected and fixed flaky tests in open-source Java projects
-CI build optimization,,Submitted 25 pull requests to open-source projects that disable generation of unnecessary content in CI builds
-ownCloud,https://github.com/owncloud/client,Automated tests for the ownCloud web and desktop clients
 pact-cplusplus,https://github.com/pact-foundation/pact-cplusplus,Fixed compilation issues in version 0.1.0

@@ -244,6 +244,22 @@ def gen_opensource(rows):
     return r"\begin{cvitems}" + "\n" + "\n".join(out) + "\n" + r"\end{cvitems}" if out else ""
 
 
+def project_links(r):
+    return [(l, r[col]) for col, l in (("url", "Code"), ("video", "Demo")) if r[col]]
+
+
+def gen_projects(rows):
+    out = []
+    for r in newest_first([r for r in rows if r["cv"].lower() == "yes"], "end"):
+        span = r["start"] if r["start"] == r["end"] else r["start"] + "--" + r["end"]
+        items = "".join(r"\item " + tex(b) + "\n" for b in split(r["bullets"], "|"))
+        body = r"\begin{cvitems}" + "\n" + items + r"\end{cvitems}" if items else ""
+        links = " ".join(call("publink", url_arg(u), l) for l, u in project_links(r))
+        out.append(call("cventry", tex(r["name"]), span, "",
+                        ", ".join(tex(t) for t in split(r["stack"])), links, body))
+    return "\n".join(out)
+
+
 def gen_skills(rows):
     return "\n".join(call("cvline", tex(r["category"]), ", ".join(tex(s) for s in split(r["items"])))
                      for r in rows)
@@ -251,7 +267,7 @@ def gen_skills(rows):
 
 def gen_profile(p):
     fields = {k: tex(p[k]) for k in ("name", "title", "affiliation", "department", "address",
-                                      "email", "website", "github", "linkedin", "orcid", "summary")}
+                                      "email", "website", "github", "linkedin", "summary", "pitch")}
     fields["interests"] = r" \textperiodcentered{} ".join(tex(i) for i in split(p["interests"]))
     fields["updated"] = datetime.date.today().strftime("%B %Y")
     return "\n".join(f"\\newcommand{{\\cv{k}}}{{{v}}}" for k, v in fields.items())
@@ -274,6 +290,7 @@ def write_tex():
         "publications": section("Publications", gen_publications(pubs, me)),
         "awards": section("Honors \\& Awards", gen_awards(read("awards"), pubs)),
         "experience": section("Experience", gen_experience(read("experience"))),
+        "projects": section("Selected Projects", gen_projects(read("projects"))),
         "teaching": section("Teaching", gen_teaching(read("teaching"))),
         "talks": section("Invited \\& Conference Talks", gen_talks(read("talks"))),
         "service": section("Professional Service", gen_service(read("service"))),
@@ -373,6 +390,13 @@ def write_site():
             org = f'<a href="{html.escape(r["url"])}" target="_blank" rel="noopener">{org}</a>'
         exp.append({"role": r["role"], "period": f"{when(r['start'])} &ndash; {when(r['end'])}", "html": org})
     site["experience"] = exp
+    site["projects"] = [
+        {"name": r["name"], "kind": r["kind"],
+         "period": r["start"] if r["start"] == r["end"] else f"{r['start']} &ndash; {r['end']}",
+         "summary": r["summary"], "stack": split(r["stack"]), "images": split(r["images"]),
+         "video": r["video"], "links": [{"label": l, "url": u} for l, u in project_links(r)]}
+        for r in newest_first(read("projects"), "end")
+    ]
     site["blogs"] = {"html": f'You can find my blogs at <a href="{p["blog"]}" target="_blank" rel="noopener">dev.to</a>'}
     SITE_JSON.write_text(json.dumps(site, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"wrote {SITE_JSON.relative_to(SITE_ROOT)} ({len(pubs)} publications, {len(site['news'])} news)")

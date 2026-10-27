@@ -7,6 +7,7 @@
 //   publications  <- cv/data/publications.csv (only status published/accepted are shown)
 //   profile       <- cv/data/profile.csv
 //   experience    <- cv/data/experience.csv + cv/data/teaching.csv
+//   projects      <- cv/data/projects.csv (images live in images/projects/)
 // Highlighted news floats to the top, newest first; everything else is
 // sorted newest first below it.
 
@@ -192,6 +193,108 @@ function renderExperience(experience) {
 	});
 }
 
+function youtubeId(url) {
+	const m = /(?:v=|youtu\.be\/)([\w-]{11})/.exec(url || '');
+	return m ? m[1] : null;
+}
+
+// A YouTube thumbnail that swaps itself for the player on click, so the page
+// loads no third-party iframe until someone actually wants the video.
+function videoPreview(url, title) {
+	const id = youtubeId(url);
+	const button = document.createElement('button');
+	button.type = 'button';
+	button.className = 'video-preview';
+	button.setAttribute('aria-label', `Play video: ${title}`);
+	button.style.backgroundImage = `url(https://i.ytimg.com/vi/${id}/hqdefault.jpg)`;
+	button.innerHTML = '<span class="play-icon" aria-hidden="true"></span>';
+	button.addEventListener('click', () => {
+		const iframe = document.createElement('iframe');
+		iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+		iframe.title = title;
+		iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+		iframe.allowFullscreen = true;
+		const frame = document.createElement('div');
+		frame.className = 'video-frame';
+		frame.appendChild(iframe);
+		button.replaceWith(frame);
+	});
+	return button;
+}
+
+function renderProjects(projects) {
+	const container = document.getElementById('projectsList');
+	container.innerHTML = '';
+
+	projects.forEach(project => {
+		const card = document.createElement('article');
+		card.className = 'project-card';
+
+		// Screenshots when there are any; otherwise the demo video itself.
+		if (project.images.length) {
+			const gallery = document.createElement('div');
+			gallery.className = 'project-gallery' + (project.images.length === 1 ? ' project-gallery--single' : '');
+			project.images.forEach((src, i) => {
+				const a = document.createElement('a');
+				a.href = src;
+				a.target = '_blank';
+				a.rel = 'noopener';
+				const img = document.createElement('img');
+				img.src = src;
+				img.alt = `${project.name} screenshot ${i + 1}`;
+				img.loading = 'lazy';
+				a.appendChild(img);
+				gallery.appendChild(a);
+			});
+			card.appendChild(gallery);
+		} else if (youtubeId(project.video)) {
+			card.appendChild(videoPreview(project.video, `${project.name} demo`));
+		}
+
+		const body = document.createElement('div');
+		body.className = 'project-body';
+
+		const meta = document.createElement('p');
+		meta.className = 'project-meta';
+		meta.innerHTML = `<span class="venue-tag">${project.kind}</span> <span>${project.period}</span>`;
+		body.appendChild(meta);
+
+		const title = document.createElement('h3');
+		title.textContent = project.name;
+		body.appendChild(title);
+
+		const summary = document.createElement('p');
+		summary.className = 'project-summary';
+		summary.textContent = project.summary;
+		body.appendChild(summary);
+
+		const stack = document.createElement('ul');
+		stack.className = 'stack-list';
+		project.stack.forEach(tech => {
+			const li = document.createElement('li');
+			li.textContent = tech;
+			stack.appendChild(li);
+		});
+		body.appendChild(stack);
+
+		const links = document.createElement('p');
+		links.className = 'pub-links';
+		project.links.forEach(link => {
+			const a = document.createElement('a');
+			a.href = link.url;
+			a.target = '_blank';
+			a.rel = 'noopener';
+			a.className = 'pub-link-btn';
+			a.textContent = link.label === 'Demo' ? 'Watch demo' : link.label;
+			links.appendChild(a);
+		});
+		body.appendChild(links);
+
+		card.appendChild(body);
+		container.appendChild(card);
+	});
+}
+
 function renderBlogs(blogs) {
 	document.getElementById('blogsText').innerHTML = blogs.html;
 }
@@ -220,6 +323,7 @@ async function init() {
 		renderProfile(data.profile);
 		renderNews(data.news || []);
 		renderPublications(data.publications || [], data.profile.name);
+		renderProjects(data.projects || []);
 		renderExperience(data.experience || []);
 		renderBlogs(data.blogs || { html: '' });
 	} catch (err) {

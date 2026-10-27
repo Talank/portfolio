@@ -4,17 +4,18 @@
 \ProvidesPackage{cvstyle}[2026/10/09 Academic CV style]
 
 % ---------------------------------------------------------------- page + fonts
-\RequirePackage[letterpaper,margin=0.8in,top=0.7in,bottom=0.75in]{geometry}
+\RequirePackage[letterpaper,margin=0.8in,top=0.6in,bottom=0.7in]{geometry}
 \RequirePackage{iftex}
 \ifPDFTeX
   \RequirePackage[T1]{fontenc}
   \RequirePackage[utf8]{inputenc}
-  \RequirePackage[osf]{XCharter}
+  \RequirePackage{tgheros}
+  \renewcommand{\familydefault}{\sfdefault}
 \else
   \RequirePackage{fontspec}
-  \setmainfont{XCharter}[
-    Extension=.otf, UprightFont=*-Roman, BoldFont=*-Bold,
-    ItalicFont=*-Italic, BoldItalicFont=*-BoldItalic, Numbers=OldStyle]
+  \setmainfont{texgyreheros}[
+    Extension=.otf, UprightFont=*-regular, BoldFont=*-bold,
+    ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
 \fi
 \RequirePackage{microtype}
 \RequirePackage[dvipsnames]{xcolor}
@@ -23,6 +24,7 @@
 \RequirePackage{tabularx}
 \RequirePackage{fancyhdr}
 \RequirePackage{lastpage}
+\RequirePackage{needspace}
 \RequirePackage{fontawesome5}
 \RequirePackage[hidelinks,pdfusetitle]{hyperref}
 
@@ -52,30 +54,30 @@
 \newcommand{\makecvheader}{%
   \thispagestyle{plain}%
   \begin{center}
-    {\fontsize{26}{30}\selectfont\color{accent}\scshape\cvname}\par\vspace{4pt}
+    {\fontsize{26}{30}\selectfont\color{accent}\bfseries\cvname}\par\vspace{4pt}
     {\large \cvtitle}\par\vspace{1pt}
     {\color{muted}\cvdepartment, \cvaffiliation\ \textbullet\ \cvaddress}\par\vspace{6pt}
     {\small
       \contact{\faEnvelope[regular]}{\href{mailto:\cvemail}{\cvemail}}\contactsep
       \contact{\faGlobe}{\href{https://\cvwebsite}{\cvwebsite}}\contactsep
       \contact{\faGithub}{\href{https://github.com/\cvgithub}{github.com/\cvgithub}}\contactsep
-      \contact{\faLinkedin}{\href{https://linkedin.com/in/\cvlinkedin}{in/\cvlinkedin}}\contactsep
-      \contact{\faOrcid}{\href{https://orcid.org/\cvorcid}{\cvorcid}}}
+      \contact{\faLinkedin}{\href{https://linkedin.com/in/\cvlinkedin}{in/\cvlinkedin}}}
   \end{center}
   \vspace{2pt}}
 
 % ---------------------------------------------------------------- sections
 \titleformat{\section}
-  {\large\scshape\color{accent}}{}{0pt}{}[{\color{rule}\titlerule[0.6pt]}]
-\titlespacing*{\section}{0pt}{12pt}{6pt}
+  {\large\bfseries\color{accent}}{}{0pt}{}[{\color{rule}\titlerule[0.6pt]}]
+\titlespacing*{\section}{0pt}{10pt}{5pt}
 \titleformat{\subsection}{\normalsize\itshape\color{accent}}{}{0pt}{}
 \titlespacing*{\subsection}{0pt}{6pt}{3pt}
 
-\newcommand{\cvsection}[1]{\section*{#1}}
+% Never leave a heading stranded at the bottom of a page.
+\newcommand{\cvsection}[1]{\Needspace{4\baselineskip}\section*{#1}}
 \newcommand{\cvsubsection}[1]{\subsection*{#1}}
 
 % Left date column shared by every dated line.
-\newlength{\datecol}\setlength{\datecol}{5.6em}
+\newlength{\datecol}\setlength{\datecol}{6.3em}
 
 % \cventry{title}{from}{to}{organization}{location}{body}
 % "from" sits beside the title and "to" beside the organization.

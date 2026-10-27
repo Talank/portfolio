@@ -1,4 +1,5 @@
 category,items
-Languages,Python; Java; Bash; C; C++; JavaScript; SQL
-Testing,JUnit; Maven; Selenium; Cypress; Nightwatch.js; Jest; Puppeteer; Behat
-CI/CD,GitHub Actions; GitLab CI; Travis CI; Drone; Docker
+Languages,Python; Java; JavaScript; Bash; SQL; PHP; C; C++
+Testing,JUnit; Selenium; Cypress; Nightwatch.js; Jest; Puppeteer; Behat; Squish; Cucumber (BDD/Gherkin)
+CI/CD,GitHub Actions; GitLab CI; Travis CI; Drone; Docker; Maven; Git
+Data & APIs,MySQL; Apache Derby; GitHub REST API; Gemini API
