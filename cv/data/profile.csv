@@ -11,7 +11,7 @@ github,talank
 linkedin,tlnkb
 phone,+15715918267
 summary,"My research improves the speed and reliability of software testing and continuous integration (CI), combining empirical studies with program analysis and large language models (LLMs). I work on reproducing and repairing flaky tests, optimizing test execution and CI pipelines, and understanding how AI coding agents test the code they write. My research is motivated by two years of industry experience maintaining slow, brittle test pipelines."
-pitch,"Software engineer and Ph.D. student in Computer Science (expected May 2027) focused on testing, continuous integration, and build reliability. Over two years in industry building and maintaining automated end-to-end, API, and GUI test suites and Docker-based CI pipelines for ownCloud, an open-source file-sync and collaboration platform, followed by four years of research building tools that make CI builds faster and tests more reliable."
+pitch,"Software engineer and Ph.D. student in Computer Science, available for full-time work now, focused on testing, continuous integration, and build reliability. Over two years in industry building and maintaining automated end-to-end, API, and GUI test suites and Docker-based CI pipelines for ownCloud, an open-source file-sync and collaboration platform, followed by four years of research building tools that make CI builds faster and tests more reliable."
 interests,Software Testing; Continuous Integration; Flaky Tests; Regression Test Optimization; LLMs for Software Engineering; Agentic Software Engineering
 photo,Screen Shot 2023-10-30 at 2.09.23 PM.png
 blog,https://dev.to/talank
