@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agents & Evaluation Course — Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>AI Agents &amp; Evaluation</h1>
+  <p class="lede">Interview prep for building LLM and agent workflows and running large-scale evaluations. It begins with the API basics (tokens, sampling, structured output, tool use) and writing the agent loop yourself. Then come agent architectures, RAG, orchestration and coding agents. The evaluation half covers metrics and pass@k, the benchmark landscape and contamination, LLM-as-judge, the statistics that separate a real improvement from noise, and the infrastructure that runs thousands of sandboxed evals in parallel.</p>
+  <p class="lede">Every lesson has the real mechanics, a One Piece story that acts the idea out (plus a sitcom scene), an interactive walkthrough, a code lab, a quiz, and the interview questions with strong answers. Flip <b>Essentials → Full Depth</b> in the header for the deeper material. There is also a <a href="bedtime.html">🌙 Nepali bedtime voyage</a> that tells the whole syllabus as one night at sea.</p>
+
+  <div class="card">
+    <div id="overall-progress" class="progress-outer"><div class="progress-inner"></div></div>
+    <p id="progress-label" style="margin:0.6rem 0 0; color:var(--text-dim); font-size:0.9rem;"></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">How to use this</h2>
+    <ol>
+      <li><b>Build first, then measure.</b> Parts 0–1 build agents, and Parts 2–3 cover how you would know whether one is any good, which is where most interview depth lives.</li>
+      <li>In each lesson, read the concept and click through the <b>interactive walkthrough</b>. Do the <b>Code Lab</b> in the browser, then run it for real. Answer the <b>interview questions</b> out loud before you open them.</li>
+      <li>Setup: Python 3.10+, <code>pip install anthropic</code> (or any provider SDK), an API key, and Docker for the sandboxing labs.</li>
+      <li>Keep the <a href="cheat-sheet.html">Cheat Sheet</a> open in a second tab, and finish with the <a href="interview.html">timed Interview Drill</a>.</li>
+      <li>The night before: put on the <a href="bedtime.html">🌙 bedtime voyage</a>.</li>
+    </ol>
+  </div>
+
+  <div id="module-groups"></div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="../../shared/supabase-client.js"></script>
+<script src="../../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>
+  buildHeader('index.html');
+  renderDashboard();
+  window.addEventListener('agenteval:progress-synced', renderDashboard);
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+# १४ — सर्प समात्नेहरूको डेक: Python का static analyzer
+
+चौधौं टापुमा पुग्नुअघि नै जहाजको डेकमा पाहुना आइपुगेका थिए। ती पाँच जना सर्प समात्ने मान्छे थिए, र हरेकसँग आफ्नै किसिमको टोकरी थियो।
+
+उसप्प अलिकति पछाडि सर्‍यो। [usopp:afraid]"फेरि सर्प!"[/] ऊ करायो।
+
+[robin]"डराउनु पर्दैन,"[/] रोबिनले भनिन्। [robin]"यिनीहरू Python को code मा लुकेका bug समात्छन्। तेस्रो टापुको जङ्गलमा हामीले रुख चिन्यौं। अब ती रुखमा काम गर्ने मान्छे चिन्ने बेला भयो।"[/]
+
+@read teach
+पहिलो मान्छे Pylint हो। Pylint पुरानो र धेरै कुरा जान्ने औजार हो। यसले astroid नामको library प्रयोग गर्छ, र astroid ले Python को AST मा अलिकति inference थप्छ। त्यसैले Pylint ले यो variable कुन class को object हुन सक्छ भनेर अनुमान गर्छ। तर यो अलि ढिलो छ।
+
+दोस्रो मान्छे Ruff हो। Ruff Rust मा लेखिएको छ, र एकदमै छिटो छ। यसले flake8, isort, pyupgrade, र Pylint का धेरै नियम आफैं फेरि लेखेको छ। ठूलो repository मा पनि यो एक सेकेन्ड भन्दा कममा सकिन्छ, र धेरै गल्ती आफैं सुधार्छ। Ruff सँग formatter पनि छ।
+
+तेस्रो मान्छे type checker हो, र यहाँ दुई जना छन्। mypy पुरानो र Python मै लेखिएको हो। Pyright Microsoft ले बनाएको हो, TypeScript मा लेखिएको छ, र VS Code को Pylance भित्र यही चल्छ। दुवैले type hint पढेर type मिल्छ कि मिल्दैन भनेर जाँच्छन्।
+
+Python को typing gradual हुन्छ। type hint नभएको ठाउँमा Any मानिन्छ, र Any सँग जे पनि मिल्छ। त्यसैले hint थप्दै जाँदा जाँच बलियो हुँदै जान्छ। Optional को None जाँच, Protocol, र TypedDict जस्ता कुराले Python मा पनि बलियो type दिन्छन्।
+
+चौथो मान्छे Bandit हो। Bandit security का लागि हो। यसले AST मा plugin चलाउँछ, र eval, pickle को load, shell बराबर True भएको subprocess, र code भित्रै लेखिएको password खोज्छ। हरेक चेतावनीमा severity र confidence हुन्छ।
+
+पाँचौं मान्छे Semgrep हो। Semgrep को pattern code जस्तै देखिन्छ। dollar X ले जुनसुकै expression समात्छ, र तीन वटा थोप्लाले बीचमा जे सुकै भए पनि हुन्छ भन्छ। यो धेरै भाषामा चल्छ, र यसको taint mode मा source र sink पनि लेख्न सकिन्छ।
+
+अब यी पाँच जनालाई मिलाएर डेक सम्हाल्ने तरिका सुन।
+
+@algo python-analyzers
+Python का analyzer यसरी चिन र मिलाऊ। पहिलो, Ruff लाई पहिलो पर्खाल बनाऊ, र editor र pre commit दुवैमा चलाऊ, किनभने यो छिटो छ र style, import, र साधारण bug एकैचोटि समात्छ। दोस्रो, type checker थप। नयाँ code मा mypy वा Pyright लाई strict mode मा चलाऊ, र पुरानो code मा module अनुसार बिस्तारै कडा बनाऊ। तेस्रो, Ruff ले नसमात्ने गहिरो inference चाहिन्छ भने मात्र Pylint थप। चौथो, security का लागि Bandit चलाऊ, र high severity र high confidence मा मात्र build रोक। पाँचौं, आफ्नै codebase का नियम चाहिए भने Semgrep को pattern लेख, र source देखि sink सम्मको बहाव चाहिए भने Semgrep को taint mode प्रयोग गर। छैटौं, हरेक औजारको configuration pyproject dot toml मा राख, पुराना चेतावनीको baseline बनाऊ, र नयाँ चेतावनीमा मात्र CI रोक।
+@end
+
+सान्जीले चियाको कप टेबलमा राख्यो। [sanji]"पहिलो र छैटौं कदम Java को किल्लामा पनि थिए,"[/] उसले भन्यो। [sanji]"छिटो औजार अगाडि हुन्छ, र पुरानो फोहोर baseline मा लुकाइन्छ।"[/]
+
+[robin]"हो,"[/] रोबिनले भनिन्। [robin]"भाषा फेरिए पनि ढाँचा उही रहन्छ। सस्तो जाँच धेरै पटक हुन्छ, र महँगो जाँच कहिलेकाहीँ हुन्छ।"[/]
+
+Semgrep को एउटा उदाहरण सुन। requests dot get को call मा verify बराबर False छ भने चेतावनी देऊ भन्ने नियम छोटो pattern मा लेखिन्छ। pattern मा requests dot get, कोष्ठक भित्र तीन थोप्ला, अल्पविराम, र verify बराबर False लेखिन्छ। यति लेख्दा argument कुनै पनि क्रममा भए पनि Semgrep ले भेट्छ।
+
+@recall python-analyzers | सर्प समात्नेहरूले टोकरी बन्द गरे, र हामी उनीहरूको तरिका फेरि सुन्छौं।
+
+@read hush
+डेकमा लालटिन हल्लिन्छ। टोकरीभित्रका सर्प निदाइसकेका छन्।
+
+अब mypy र Pyright को फरक अलि नजिकबाट सुन। Pyright ले type narrowing धेरै राम्रोसँग गर्छ। if x is not None लेखेपछि त्यो block भित्र x None होइन भनेर यसले बुझ्छ, र isinstance जाँचपछि पनि type साँघुरो पार्छ। यो काम नवौं टापुको dataflow जस्तै हो, केवल तथ्य type हुन्छ।
+
+mypy ले plugin दिन्छ, र Django वा SQLAlchemy जस्ता library का लागि plugin छन्। Pyright छिटो छ र editor मा तुरुन्त प्रतिक्रिया दिन्छ। धेरै टोलीले editor मा Pyright र CI मा mypy, वा दुवै ठाउँमा एउटै, प्रयोग गर्छन्।
+
+@recall python-analyzers | डेक छोड्नुअघि यो तरिका अन्तिम पटक सुन।
+
+@read hush
+पाहुनाहरू आफ्नै डुङ्गामा फर्किए। डेक फेरि हाम्रो मात्र भयो, र शान्त भयो।
+
+@tier medium
+
+Python मा static analysis किन गाह्रो छ भनेर पनि सुन। Python मा कुनै पनि बेला class मा नयाँ attribute थप्न सकिन्छ। getattr लाई string दिएर method बोलाउन सकिन्छ। import पनि चल्ने बेला हुन सक्छ। त्यसैले Python का औजार प्रायः sound हुँदैनन्, र तिनको लक्ष्य उपयोगी हुनु हो।
+
+यसैले type hint यति महत्त्वपूर्ण छ। hint भनेको programmer ले analyzer लाई दिएको सानो वाचा हो। यो function ले string लिन्छ र integer फिर्ता दिन्छ भनेपछि, type checker ले त्यो वाचा सबै ठाउँमा जाँच्न सक्छ।
+
+Bandit को सीमा पनि सुन। Bandit ले प्रायः एउटै node हेर्छ। subprocess मा shell बराबर True देख्यो भने चेतावनी दिन्छ, तर command कहाँबाट आयो भनेर हेर्दैन। त्यसैले यसले धेरै false positive दिन सक्छ। बहाव हेर्न Semgrep को taint mode वा CodeQL चाहिन्छ।
+
+@tier long
+
+चपरले एउटा सानो प्रश्न सोध्यो — [chopper]"यी सबैभन्दा भित्र के छ?"[/]
+
+यी सबैभन्दा भित्र तिमीले यो यात्रामा सिकेका कुरा छन्। Ruff र Pylint ले AST घुम्छन्, र तेस्रो टापुको NodeVisitor जस्तै visitor चलाउँछन्। Pyright र mypy ले scope र symbol table बनाउँछन्, र पहिलो टापुको semantic analysis गर्छन्। Pyright को narrowing मा CFG र dataflow चल्छ। Semgrep को taint mode मा बाह्रौं टापुको source र sink छन्।
+
+त्यसैले यी औजार जादू होइनन्। तिमीले आज राति सुनेका तरिका नै तिनको भित्री कल पुर्जा हुन्। औजारको नाम फेरिन्छ, तर भित्रको कल पुर्जा उही रहन्छ।
+
+interview मा कुनै नयाँ analyzer को बारेमा सोधियो भने, तीन कुरा सोध। यसले के पढ्छ, AST, type, वा bytecode। यसले के खोज्छ, ढाँचा, type, वा बहाव। र यो sound हुन खोज्छ कि उपयोगी हुन खोज्छ। यी तीन प्रश्नले कुनै पनि औजार चिनाउँछन्।
+
+@read hush
+लालटिन अब मधुरो भयो। तिमीले सम्झनु पर्दैन, किनभने यी कुरा बिहान आफैं फर्केर आउनेछन्।

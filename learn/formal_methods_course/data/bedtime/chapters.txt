@@ -1,0 +1,55 @@
+निद्राको प्रमाण टापु — अध्याय सूची
+
+=== सुत्दै / Bedtime ===
+
+— छोटो (Short): 03:25:00.61, 20.9 MB —
+00:00:00.00  00  ० — प्रस्तावना: निद्राको प्रमाण टापु
+00:10:23.32  01  १ — दुई बाटोको टापु: Testing र Proof, Soundness र Completeness
+00:22:21.22  02  २ — बत्तीहरूको टापु: SAT, CNF, Tseitin, DPLL र CDCL
+00:43:17.60  03  ३ — दुई नदीको सङ्गम: SMT, Theories र DPLL(T)
+00:56:50.96  04  ४ — जादुगरको बुर्ज: Z3 Python — Ints, Reals, Bools, check, model र Optimize
+01:08:31.77  05  ५ — जादुगरका गहिरा कोठा: Bit-Vectors, Arrays, Uninterpreted Functions र Quantifiers
+01:20:58.93  06  ६ — फाटिने बाटोको जङ्गल: Symbolic Execution, KLEE र angr
+01:32:15.76  07  ७ — पुरानो मन्दिरको ढोका: Hoare Logic, Weakest Precondition र Loop Invariant
+01:50:56.37  08  ८ — समयको घडी टापु: Bounded Model Checking, LTL र TLA+
+02:03:07.43  09  ९ — फ्र्याङ्कीको कार्यशाला: Dafny — requires, ensures, invariant, decreases
+02:17:25.78  10  १० — Lean को पहाड: Lean 4 — Types, Functions र Propositions as Types
+02:31:07.15  11  ११ — पहाड चढ्ने औजार: Lean Tactics — intro, apply, exact, rw, simp, cases, induction, omega
+02:44:34.03  12  १२ — मालाको टापु: Lean मा Program Proof — Lists, Induction, Mathlib, Coq र Isabelle
+02:56:23.10  13  १३ — ठूलो बन्दरगाह: Solvers in Practice, LLM र Interview
+03:12:53.41  14  १४ — अन्तिम बिसौनी: पूरै यात्राको सारांश
+
+— मध्यम (Medium): 03:58:36.39, 24.3 MB —
+00:00:00.00  00  ० — प्रस्तावना: निद्राको प्रमाण टापु
+00:12:48.40  01  १ — दुई बाटोको टापु: Testing र Proof, Soundness र Completeness
+00:27:14.25  02  २ — बत्तीहरूको टापु: SAT, CNF, Tseitin, DPLL र CDCL
+00:50:36.26  03  ३ — दुई नदीको सङ्गम: SMT, Theories र DPLL(T)
+01:06:09.98  04  ४ — जादुगरको बुर्ज: Z3 Python — Ints, Reals, Bools, check, model र Optimize
+01:20:08.23  05  ५ — जादुगरका गहिरा कोठा: Bit-Vectors, Arrays, Uninterpreted Functions र Quantifiers
+01:34:27.42  06  ६ — फाटिने बाटोको जङ्गल: Symbolic Execution, KLEE र angr
+01:47:30.20  07  ७ — पुरानो मन्दिरको ढोका: Hoare Logic, Weakest Precondition र Loop Invariant
+02:08:23.27  08  ८ — समयको घडी टापु: Bounded Model Checking, LTL र TLA+
+02:22:48.05  09  ९ — फ्र्याङ्कीको कार्यशाला: Dafny — requires, ensures, invariant, decreases
+02:39:52.93  10  १० — Lean को पहाड: Lean 4 — Types, Functions र Propositions as Types
+02:56:02.60  11  ११ — पहाड चढ्ने औजार: Lean Tactics — intro, apply, exact, rw, simp, cases, induction, omega
+03:11:43.96  12  १२ — मालाको टापु: Lean मा Program Proof — Lists, Induction, Mathlib, Coq र Isabelle
+03:26:14.52  13  १३ — ठूलो बन्दरगाह: Solvers in Practice, LLM र Interview
+03:44:45.85  14  १४ — अन्तिम बिसौनी: पूरै यात्राको सारांश
+
+— लामो (Long): 04:32:05.55, 27.6 MB —
+00:00:00.00  00  ० — प्रस्तावना: निद्राको प्रमाण टापु
+00:15:09.74  01  १ — दुई बाटोको टापु: Testing र Proof, Soundness र Completeness
+00:32:11.71  02  २ — बत्तीहरूको टापु: SAT, CNF, Tseitin, DPLL र CDCL
+00:57:59.72  03  ३ — दुई नदीको सङ्गम: SMT, Theories र DPLL(T)
+01:15:48.48  04  ४ — जादुगरको बुर्ज: Z3 Python — Ints, Reals, Bools, check, model र Optimize
+01:31:52.44  05  ५ — जादुगरका गहिरा कोठा: Bit-Vectors, Arrays, Uninterpreted Functions र Quantifiers
+01:48:07.40  06  ६ — फाटिने बाटोको जङ्गल: Symbolic Execution, KLEE र angr
+02:03:08.87  07  ७ — पुरानो मन्दिरको ढोका: Hoare Logic, Weakest Precondition र Loop Invariant
+02:26:22.01  08  ८ — समयको घडी टापु: Bounded Model Checking, LTL र TLA+
+02:42:56.20  09  ९ — फ्र्याङ्कीको कार्यशाला: Dafny — requires, ensures, invariant, decreases
+03:02:36.51  10  १० — Lean को पहाड: Lean 4 — Types, Functions र Propositions as Types
+03:20:43.39  11  ११ — पहाड चढ्ने औजार: Lean Tactics — intro, apply, exact, rw, simp, cases, induction, omega
+03:38:36.85  12  १२ — मालाको टापु: Lean मा Program Proof — Lists, Induction, Mathlib, Coq र Isabelle
+03:55:47.38  13  १३ — ठूलो बन्दरगाह: Solvers in Practice, LLM र Interview
+04:16:49.06  14  १४ — अन्तिम बिसौनी: पूरै यात्राको सारांश
+

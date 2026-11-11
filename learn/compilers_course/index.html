@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compilers & Program Analysis Course — Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Compilers &amp; Program Analysis</h1>
+  <p class="lede">Interview prep for roles that ask for a compilers and program-analysis background. It runs from tokens and grammars, through hands-on AST work (Python's <code>ast</code>, JavaParser, tree-sitter, <b>srcML</b>), to lowering into IRs (three-address code, CFGs, SSA, LLVM IR, <b>Soot/SootUp Jimple</b>). From there it covers the theory every analysis rests on (dataflow, lattices, abstract interpretation, pointer analysis, taint) and the analyzers people use day to day in Java and Python. The capstone is a mini analyzer you build end to end.</p>
+  <p class="lede">Every lesson has the real mechanics, a One Piece story that acts the idea out (plus a sitcom scene), an interactive walkthrough, a code lab, a quiz, and the interview questions with strong answers. Flip <b>Essentials → Full Depth</b> in the header for the deeper material. There is also a <a href="bedtime.html">🌙 Nepali bedtime voyage</a> that tells the whole syllabus as one night at sea.</p>
+
+  <div class="card">
+    <div id="overall-progress" class="progress-outer"><div class="progress-inner"></div></div>
+    <p id="progress-label" style="margin:0.6rem 0 0; color:var(--text-dim); font-size:0.9rem;"></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">How to use this</h2>
+    <ol>
+      <li><b>Parts 0–2 build the pipeline</b>: parse → AST → IR. Part 3 is the theory interviewers probe, and Part 4 maps it onto real tools (SpotBugs, Infer, Error Prone, mypy, Semgrep, CodeQL).</li>
+      <li>In each lesson, read the concept and click through the <b>interactive walkthrough</b>. Do the <b>Code Lab</b> in the browser, then run it for real. Answer the <b>interview questions</b> out loud before you open them.</li>
+      <li>Every lab is meant to be run for real. You need <code>python3</code> (the <code>ast</code> module is built in), <code>pip install tree_sitter</code>, a JDK 17+ for JavaParser/SootUp, and the <a href="https://www.srcml.org/">srcML CLI</a>.</li>
+      <li>Keep the <a href="cheat-sheet.html">Cheat Sheet</a> open in a second tab, and finish with the <a href="interview.html">timed Interview Drill</a>.</li>
+      <li>The night before: put on the <a href="bedtime.html">🌙 bedtime voyage</a>.</li>
+    </ol>
+  </div>
+
+  <div id="module-groups"></div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="../../shared/supabase-client.js"></script>
+<script src="../../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>
+  buildHeader('index.html');
+  renderDashboard();
+  window.addEventListener('compilers:progress-synced', renderDashboard);
+</script>
+</body>
+</html>

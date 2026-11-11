@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheet — AI Agents & Evaluation Course</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Cheat Sheet</h1>
+  <p class="lede">The APIs, formulas, commands and rules of thumb from all 14 lessons on one scrollable page. A recall aid after you have done the labs, not a substitute for them. Organized in the same order as the dashboard. Model ids and API shapes are current Claude API conventions; check the live docs before relying on a detail in production.</p>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 0 — LLM Building Blocks</h2>
+    <h3>LLM APIs: messages, tokens, sampling, context, cost</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>API / concept</th><th>What to remember</th></tr>
+      <tr><td><code>client.messages.create(model=, max_tokens=, system=, messages=)</code></td><td>Stateless: send the whole conversation each turn. Default model <code>claude-opus-5-5</code>.</td></tr>
+      <tr><td><code>resp.content</code></td><td>A list of blocks (<code>text</code>, <code>thinking</code>, <code>tool_use</code>). Iterate and check <code>block.type</code>; never assume <code>content[0].text</code>.</td></tr>
+      <tr><td><code>resp.stop_reason</code></td><td><code>end_turn</code>, <code>max_tokens</code> (truncated), <code>tool_use</code>, <code>pause_turn</code>, <code>refusal</code>. Check it before parsing.</td></tr>
+      <tr><td><code>resp.usage</code></td><td>input / output / cache-read / cache-write tokens: the only correct basis for cost.</td></tr>
+      <tr><td><code>client.messages.count_tokens(...)</code></td><td>Count tokens with the target model; never tiktoken or chars/4.</td></tr>
+      <tr><td>Sampling</td><td>Temperature rescales logits, top-p keeps the smallest set with mass p. Newest Claude models reject <code>temperature/top_p/top_k</code>; temperature 0 is not bit-deterministic anyway.</td></tr>
+      <tr><td><code>thinking={"type": "adaptive"}</code>, <code>output_config={"effort": ...}</code></td><td>Current thinking control; effort <code>low</code> to <code>max</code> trades depth for tokens. <code>budget_tokens</code> is rejected on the newest models.</td></tr>
+      <tr><td>Context window</td><td>One budget for input + output; agent loops grow it every turn (cost grows roughly quadratically with turns).</td></tr>
+      <tr><td><code>cache_control={"type": "ephemeral"}</code></td><td>Prompt caching is a prefix match: stable content first, volatile content after the breakpoint; verify with <code>usage.cache_read_input_tokens</code>.</td></tr>
+      <tr><td><code>client.messages.stream(...)</code> + <code>.get_final_message()</code></td><td>Streaming cuts time to first token, not total time; required for very large <code>max_tokens</code>.</td></tr>
+    </table>
+    </div>
+    <h3>Prompting and structured output</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Technique</th><th>What to remember</th></tr>
+      <tr><td>Prompt as interface spec</td><td>Role and rules, delimited context (XML-style tags), examples, explicit output contract. Version and evaluate prompts like code.</td></tr>
+      <tr><td>Few-shot</td><td>Balance labels and vary surface form; known biases: majority label, recency, order sensitivity.</td></tr>
+      <tr><td><code>client.messages.parse(..., output_format=PydanticModel)</code></td><td>Schema-validated result in <code>resp.parsed_output</code>.</td></tr>
+      <tr><td><code>output_config={"format": {"type": "json_schema", "schema": ...}}</code></td><td>Constrained decoding with a raw schema (the old <code>output_format</code> parameter on <code>create</code> is deprecated).</td></tr>
+      <tr><td>Strict tools: <code>"strict": true</code></td><td>Tool input guaranteed to match the schema (needs <code>additionalProperties: false</code> + <code>required</code>).</td></tr>
+      <tr><td>Validate + retry with errors</td><td>Schema-valid is not correct: semantic validators, feed exact errors back, cap retries.</td></tr>
+      <tr><td>Removed on current models</td><td>Assistant prefill and forced <code>tool_choice</code> (<code>any</code>/<code>tool</code>) return 400; use structured outputs or prompt instructions.</td></tr>
+    </table>
+    </div>
+    <h3>Tool use: the agent loop</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Rule</th><th>Why</th></tr>
+      <tr><td>Tool = <code>name</code>, <code>description</code>, <code>input_schema</code></td><td>The description is a prompt: say when to use it, what it returns, how it fails.</td></tr>
+      <tr><td>Append <code>resp.content</code> unchanged as the assistant turn</td><td>Keeps <code>tool_use</code> ids and thinking blocks; text-only appends cause 400s.</td></tr>
+      <tr><td>All <code>tool_result</code> blocks in ONE user message, matched by <code>tool_use_id</code></td><td>Required pairing; splitting also discourages parallel tool calls.</td></tr>
+      <tr><td><code>is_error: true</code> results</td><td>Let the model recover from tool failures; stop the loop only on unrecoverable ones.</td></tr>
+      <tr><td>Budgets</td><td>Max turns, token / cost budget, repeat detection, explicit handling of every <code>stop_reason</code>.</td></tr>
+      <tr><td><code>client.beta.messages.tool_runner(...)</code> + <code>@beta_tool</code></td><td>SDK-run loop for your own tools; hand-write the loop only when you need full control.</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 1 — Building Agents & Workflows</h2>
+    <h3>Agent architectures</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Pattern</th><th>Use when</th></tr>
+      <tr><td>Workflow vs agent</td><td>Workflow: code decides the steps. Agent: the model decides. Use the simplest that meets the requirement.</td></tr>
+      <tr><td>Prompt chaining</td><td>Fixed sequence of steps with checks between them.</td></tr>
+      <tr><td>Routing</td><td>A cheap classifier picks a specialized prompt or model.</td></tr>
+      <tr><td>Parallelization (sectioning / voting)</td><td>Independent sub-tasks concurrently; or n samples + vote for reliability.</td></tr>
+      <tr><td>Orchestrator-workers</td><td>Sub-tasks not known in advance; a lead model delegates.</td></tr>
+      <tr><td>Evaluator-optimizer</td><td>Clear criteria and an evaluator that adds signal; keep the best revision, not the last.</td></tr>
+      <tr><td>ReAct</td><td>Interleave reasoning and tool calls; flexible, more steps.</td></tr>
+      <tr><td>Plan-and-execute (Plan-and-Solve, ReWOO, LLMCompiler)</td><td>Plan once, execute (possibly in parallel); cheaper, brittle when the plan is wrong.</td></tr>
+      <tr><td>Reflection</td><td>Helps with external feedback (tests, compiler); weak or harmful without it.</td></tr>
+      <tr><td>Multi-agent</td><td>Parallel, separable work and context isolation; costs tokens and coordination failures.</td></tr>
+    </table>
+    </div>
+    <h3>RAG</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Piece</th><th>What to remember</th></tr>
+      <tr><td>Pipeline</td><td>Chunk, embed/index, retrieve, rerank, generate with citations. Each stage has its own failure mode.</td></tr>
+      <tr><td>Dense (bi-encoder) retrieval</td><td>Normalized embeddings, cosine = dot product, ANN index; weak on identifiers and exact terms.</td></tr>
+      <tr><td>BM25</td><td>Sparse lexical scoring with term saturation and length normalization; strong on names, codes, errors.</td></tr>
+      <tr><td>Reciprocal Rank Fusion</td><td>score(d) = &sum; 1/(k + rank<sub>i</sub>(d)), k about 60; fuses dense + BM25 without score calibration.</td></tr>
+      <tr><td>Cross-encoder reranker</td><td>Reads query and document together; rerank the top 50-100.</td></tr>
+      <tr><td>Chunking</td><td>Fixed size with overlap, structure-aware (headings, functions), contextual (prepend title/section).</td></tr>
+      <tr><td>Evaluation</td><td>Retrieval: recall@k, MRR. Generation: faithfulness and answer correctness. Measure separately.</td></tr>
+    </table>
+    </div>
+    <h3>Workflows and orchestration</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Tool / idea</th><th>What to remember</th></tr>
+      <tr><td>State machine / DAG</td><td>Typed state, nodes, conditional edges; checkpoints make runs resumable and auditable.</td></tr>
+      <tr><td>LangGraph</td><td><code>StateGraph</code>, nodes, conditional edges, retry policy, checkpointer, interrupts for human approval. Use a persistent checkpointer in production.</td></tr>
+      <tr><td>DSPy</td><td><code>dspy.Signature</code> + modules (<code>ChainOfThought</code>) + optimizers compile prompts against a metric.</td></tr>
+      <tr><td>MCP</td><td>Hosts, clients, servers; servers expose tools, resources, prompts over stdio or streamable HTTP. Review third-party servers.</td></tr>
+      <tr><td>Retries</td><td>Exponential backoff with jitter; idempotency keys for side effects; do not stack retry layers.</td></tr>
+      <tr><td>Replay</td><td>Store LLM outputs at checkpoints; do not regenerate on resume.</td></tr>
+    </table>
+    </div>
+    <h3>Coding agents</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>System / idea</th><th>What to remember</th></tr>
+      <tr><td>Task</td><td>Issue + repo in, patch out; FAIL_TO_PASS must pass, PASS_TO_PASS must still pass.</td></tr>
+      <tr><td>SWE-agent</td><td>Agent-computer interface: compact file viewer, search, edit commands with linting, concise feedback.</td></tr>
+      <tr><td>Agentless</td><td>Fixed localize, repair, validate pipeline with sampling and test-based selection.</td></tr>
+      <tr><td>OpenHands</td><td>CodeAct (actions as code) in a sandboxed runtime.</td></tr>
+      <tr><td>Sandbox</td><td><code>docker run --rm --network none --memory 2g --cpus 2 --pids-limit 512 --cap-drop ALL --security-opt no-new-privileges --user 1000:1000</code></td></tr>
+      <tr><td>Validation</td><td>Rerun tests (flakiness), reject test edits, deduplicate patches; plausible is not correct (APR overfitting).</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 2 — Evaluation Fundamentals</h2>
+    <h3>Eval fundamentals</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Concept / formula</th><th>What to remember</th></tr>
+      <tr><td>Task definition</td><td>Input distribution, output contract, scoring function, aggregation rule.</td></tr>
+      <tr><td>Splits</td><td>Iterate on dev, report on a held-out test you never read failures from; split by group (document, repo); random, stratified by tag.</td></tr>
+      <tr><td>Golden set</td><td>id, source, tags, reference, notes, date; hash the JSONL and store the hash with results.</td></tr>
+      <tr><td>Harness self-test</td><td>Oracle must score ~100%, null baseline (empty / constant) must fail.</td></tr>
+      <tr><td>Exact match</td><td>Normalize (lowercase, strip punctuation, drop a/an/the, collapse spaces), max over references.</td></tr>
+      <tr><td>Token F1</td><td>Counter(pred) &amp; Counter(gold); P = shared/len(pred), R = shared/len(gold).</td></tr>
+      <tr><td>BLEU</td><td>BP &middot; exp(&sum; &frac14; log p<sub>n</sub>), clipped n-gram precision, BP = exp(1 - r/c) if c &le; r. Poor for code; use sacrebleu.</td></tr>
+      <tr><td>Execution-based</td><td>Run tests in a fresh, isolated process with a timeout; only as good as the tests.</td></tr>
+      <tr><td>pass@k (unbiased)</td><td>1 - C(n-c, k)/C(n, k), n &ge; k; compute as 1 - &prod;<sub>i=n-c+1..n</sub>(1 - k/i). Plug-in 1-(1-c/n)<sup>k</sup> is biased low.</td></tr>
+      <tr><td>pass^k</td><td>C(c, k)/C(n, k): all k trials succeed (reliability).</td></tr>
+    </table>
+    </div>
+    <h3>Benchmark landscape</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Benchmark</th><th>Unit / scoring / caveat</th></tr>
+      <tr><td>HumanEval</td><td>164 Python functions; <code>prompt + completion + test + check(entry_point)</code>; pass@k; small and widely mirrored.</td></tr>
+      <tr><td>MBPP</td><td>974 entry-level tasks with 3 asserts each; sanitized subset of 427.</td></tr>
+      <tr><td>HumanEval+ / MBPP+ (EvalPlus)</td><td>Many more tests per problem; exposed wrong solutions passing weak tests.</td></tr>
+      <tr><td>SWE-bench / Lite / Verified</td><td>2,294 issues from 12 Python repos / 300-instance subset / 500 human-validated; % resolved; scores are model + scaffold.</td></tr>
+      <tr><td>LiveCodeBench</td><td>Dated contest problems; evaluate after the model's cutoff.</td></tr>
+      <tr><td>BigCodeBench</td><td>1,140 tasks needing many real libraries; Complete and Instruct variants.</td></tr>
+      <tr><td>GAIA</td><td>466 tool-use questions, 3 levels, short answers scored by quasi-exact match.</td></tr>
+      <tr><td>WebArena</td><td>812 tasks on self-hosted sites; functional end-state checks.</td></tr>
+      <tr><td>tau-bench</td><td>Retail/airline agent + simulated user + policy; database end state; pass^k.</td></tr>
+      <tr><td>MMLU / GPQA (Diamond)</td><td>57-subject 4-way MC, saturated, label errors / 448 expert questions (198 Diamond), small so wide CIs.</td></tr>
+      <tr><td>Contamination checks</td><td>n-gram overlap (8-13), canary strings, completion probes, Min-K% Prob, fresh/perturbed items, release-date splits. Paraphrases evade n-gram screens.</td></tr>
+      <tr><td><code>python -m swebench.harness.run_evaluation</code></td><td><code>--dataset_name princeton-nlp/SWE-bench_Lite --predictions_path preds.jsonl --max_workers 4 --run_id r1</code>; <code>--predictions_path gold</code> validates the setup.</td></tr>
+    </table>
+    </div>
+    <h3>LLM-as-a-judge and human evaluation</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Concept / formula</th><th>What to remember</th></tr>
+      <tr><td>Pointwise / pairwise / reference-guided</td><td>Pointwise for tracking, pairwise for A/B, reference-guided whenever references exist.</td></tr>
+      <tr><td>Rubric</td><td>Atomic binary criteria, reasoning before verdict, structured output, candidates as untrusted data, "length is not a criterion".</td></tr>
+      <tr><td>Position bias</td><td>Judge both orders; keep verdicts that survive the swap; report position-consistency rate.</td></tr>
+      <tr><td>Verbosity / self-preference</td><td>Atomic criteria and length checks / a judge from a different family, or a jury.</td></tr>
+      <tr><td>Calibration</td><td>50-200 human-labeled items; human-human agreement is the ceiling; per-criterion kappa, recall on "fail".</td></tr>
+      <tr><td>Cohen's kappa</td><td>(p<sub>o</sub> - p<sub>e</sub>)/(1 - p<sub>e</sub>), p<sub>e</sub> = &sum;<sub>k</sub> p<sub>1k</sub>p<sub>2k</sub>; weighted kappa for ordinal labels; beware skewed prevalence.</td></tr>
+      <tr><td>Fleiss' kappa / Krippendorff's alpha</td><td>m raters per item / any raters, missing data, nominal-ordinal-interval: &alpha; = 1 - D<sub>o</sub>/D<sub>e</sub>.</td></tr>
+      <tr><td>Bradley-Terry</td><td>P(i beats j) = s<sub>i</sub>/(s<sub>i</sub> + s<sub>j</sub>); arena leaderboards fit it to pairwise votes.</td></tr>
+      <tr><td>Judge hygiene</td><td>Pin the judge model, assert the served model, no silent fallbacks, version the rubric.</td></tr>
+    </table>
+    </div>
+    <h3>Statistics for evals</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Tool / formula</th><th>What to remember</th></tr>
+      <tr><td>SE of accuracy</td><td>&radic;(p(1-p)/n); 95% half-width ~1/&radic;n at p = 0.5 (100 items: &plusmn;10 pts, 500: &plusmn;4.4, 1,068: &plusmn;3).</td></tr>
+      <tr><td>Wilson interval</td><td>(p + z&sup2;/2n &plusmn; z&radic;(p(1-p)/n + z&sup2;/4n&sup2;)) / (1 + z&sup2;/n); use for small n or p near 0/1.</td></tr>
+      <tr><td>Bootstrap</td><td>Resample the independent unit (items, or clusters) with replacement, B = 1k-10k, percentile CI.</td></tr>
+      <tr><td>Paired bootstrap</td><td>Resample item indices; CI on mean(a - b). Pairing removes item-difficulty variance.</td></tr>
+      <tr><td>Sign-flip permutation test</td><td>Flip each per-item difference's sign at random; p = (hits + 1)/(B + 1).</td></tr>
+      <tr><td>McNemar (exact)</td><td>Only discordant items: two-sided binomial test of n<sub>10</sub> of n<sub>10</sub> + n<sub>01</sub>. 28 vs 9 gives p = 0.0026.</td></tr>
+      <tr><td>Clustered SE</td><td>Sum residuals per cluster: Var = G/(G-1) &middot; &sum;<sub>g</sub>(&sum;<sub>i&isin;g</sub> r<sub>i</sub>)&sup2;/n&sup2;. Cluster by repo, passage, or item when using reps.</td></tr>
+      <tr><td>Sample size</td><td>One accuracy: n = z&sup2;p(1-p)/m&sup2;. Paired: n &asymp; (z<sub>&alpha;/2</sub>&radic;p<sub>d</sub> + z<sub>&beta;</sub>&radic;(p<sub>d</sub> - &delta;&sup2;))&sup2;/&delta;&sup2; (p<sub>d</sub> = 0.2, &delta; = 0.05: ~626).</td></tr>
+      <tr><td>Variance decomposition</td><td>Var(mean) &asymp; &sigma;<sub>b</sub>&sup2;/n + &sigma;<sub>w</sub>&sup2;/(nR): reps shrink only the within-item term.</td></tr>
+      <tr><td>Flaky eval items</td><td>Rerun R times: always-pass / always-fail / flaky. Keep flaky items (they measure p); fix harness causes (shared state, timeouts).</td></tr>
+      <tr><td>Reporting</td><td>Effect + CI + design (n x R) + dataset version; correct for many comparisons (Holm) or confirm on held-out.</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 3 — Evaluation at Scale</h2>
+    <h3>Running evals at scale</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Piece</th><th>What to remember</th></tr>
+      <tr><td>Little's law</td><td>In-flight = throughput x latency (10 req/s x 6 s = 60). Size from the binding limit (RPM, input TPM, output TPM).</td></tr>
+      <tr><td><code>asyncio.Semaphore(N)</code> + <code>asyncio.gather</code></td><td>Bound concurrency; hold the slot only during the request, not during backoff.</td></tr>
+      <tr><td>Retry classes</td><td>Retry 429, 408/409, 5xx incl. 529 overloaded, connection errors; raise on other 4xx.</td></tr>
+      <tr><td>Full jitter</td><td><code>random.uniform(0, min(cap, base * 2 ** attempt))</code>, honor <code>retry-after</code>, cap attempts, log each attempt.</td></tr>
+      <tr><td><code>anthropic.AsyncAnthropic(max_retries=0)</code></td><td>Own the retry loop in big runs; SDK default is 2 retries.</td></tr>
+      <tr><td>Request-hash cache</td><td><code>sha256(json.dumps(params, sort_keys=True, separators=(",", ":")))</code>; include model, system, tools, params, rep, harness version.</td></tr>
+      <tr><td>Resumable output</td><td>Append-only JSONL keyed by (case, rep), flush + fsync, skip done keys; <code>errors.jsonl</code> sidecar, never scored as 0.</td></tr>
+      <tr><td>Timeouts</td><td>Per request (SDK <code>timeout</code>), per case wall-clock (<code>asyncio.wait_for</code>), per test execution.</td></tr>
+      <tr><td>Message Batches API</td><td><code>client.messages.batches.create(requests=[Request(custom_id=..., params=...)])</code>; 50% price, up to 100k requests / 256 MB, most within 1 h, max 24 h, results kept 29 days, results in any order: join on <code>custom_id</code>.</td></tr>
+      <tr><td>Code sandbox</td><td><code>docker run --rm --network none --memory 512m --cpus 1 --pids-limit 128 --read-only --tmpfs /tmp --user 65534:65534 --cap-drop ALL --security-opt no-new-privileges ... timeout 10 python -I ...</code>; gVisor/Firecracker for hostile code.</td></tr>
+      <tr><td><code>lm_eval</code></td><td><code>lm_eval --model hf --model_args pretrained=... --tasks hellaswag --batch_size 8</code></td></tr>
+      <tr><td><code>inspect eval</code></td><td><code>inspect eval task.py --model anthropic/claude-opus-5-5 --epochs 3 --limit 50</code>; <code>inspect view</code> for logs.</td></tr>
+      <tr><td>OpenAI Evals / HELM</td><td><code>oaieval &lt;completion_fn&gt; &lt;eval&gt;</code> / <code>helm-run --run-entries ... --suite s --max-eval-instances 10</code>, <code>helm-summarize --suite s</code>.</td></tr>
+      <tr><td>Storage</td><td>JSONL while running, Parquet (<code>to_parquet</code>, needs pyarrow) for analysis.</td></tr>
+    </table>
+    </div>
+    <h3>Evaluating agents</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Concept</th><th>What to remember</th></tr>
+      <tr><td>Outcome vs trajectory</td><td>Primary: end state in the environment. Trajectory as constraints (forbidden calls, ordering, budgets), not a golden path.</td></tr>
+      <tr><td>Success definition</td><td>outcome AND no safety violation AND within step / cost / latency budget.</td></tr>
+      <tr><td>Tool metrics</td><td>Recall (expected calls made), precision (calls that were expected), argument accuracy, tool error rate, repeated calls.</td></tr>
+      <tr><td>OpenTelemetry GenAI conventions</td><td><code>gen_ai.operation.name</code> (<code>chat</code>, <code>execute_tool</code>), <code>gen_ai.request.model</code>, <code>gen_ai.usage.input_tokens</code>, <code>gen_ai.usage.output_tokens</code>, <code>gen_ai.tool.name</code>.</td></tr>
+      <tr><td><code>tracer.start_as_current_span("execute_tool refund")</code></td><td>One root span per run, child spans per model and tool call; grade from exported spans.</td></tr>
+      <tr><td>Safety</td><td>Fail-on-any aggregation; prompt-injection suites through every untrusted channel; red-team finds become regression cases; measure over-refusal too.</td></tr>
+      <tr><td>Reliability</td><td>pass^k = C(c,k)/C(n,k); 2 of 4 successes gives pass^1 0.50, pass^2 0.17.</td></tr>
+      <tr><td>CI regression suite</td><td>Smoke tier on PRs, full nightly; paired comparison vs baseline or lower-CI gate; safety violations = 0; traces as artifacts.</td></tr>
+      <tr><td>Simulated users</td><td>Fix the user model and prompt, run several episodes, classify simulator errors separately.</td></tr>
+    </table>
+    </div>
+    <h3>Capstone harness and interview playbook</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Step</th><th>What to remember</th></tr>
+      <tr><td>Harness parts</td><td>Environment (side effects recorded), model adapter (<code>create(messages, tools)</code>), agent loop, task set, graders, runner + analysis.</td></tr>
+      <tr><td>Mock first</td><td>Seeded per (config, task, rep), real Messages shapes, configurable failure modes; swap in the real client later.</td></tr>
+      <tr><td>Before any model number</td><td>Oracle = 100%, null = 0%, known negatives fail, headline recomputed from raw rows.</td></tr>
+      <tr><td>Decision</td><td>Per-task means, bootstrap CI, paired difference CI + permutation p, pass^k, flaky count, unsafe runs, cost per run; ship rule written in advance.</td></tr>
+      <tr><td>45-minute design round</td><td>Clarify (5) &rarr; agent design (10) &rarr; eval design (15) &rarr; infra (5) &rarr; statistics and decision (5) &rarr; production loop (5).</td></tr>
+      <tr><td>Your research, mapped</td><td>Flaky tests &rarr; flaky eval items and flaky CI gates; test repair &rarr; execution oracles that can be gamed; LLMs for SE &rarr; contamination and test adequacy.</td></tr>
+    </table>
+    </div>
+  </div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="../../shared/supabase-client.js"></script>
+<script src="../../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>buildHeader('cheat-sheet.html');</script>
+</body>
+</html>

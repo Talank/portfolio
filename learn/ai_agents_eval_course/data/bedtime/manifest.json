@@ -1,0 +1,870 @@
+{
+ "overlap": 1.5,
+ "dir": "data/bedtime/audio/",
+ "voice": "ne-NP-SagarNeural",
+ "chapters": [
+  {
+   "num": "00",
+   "title": "० — प्रस्तावना: निद्राको एजेन्ट टापु"
+  },
+  {
+   "num": "01",
+   "title": "१ — बिर्सने ओरेकल: LLM API, Tokens, Sampling र Context Window"
+  },
+  {
+   "num": "02",
+   "title": "२ — फ्र्याङ्कीको खाका: Prompt Engineering र Structured Output"
+  },
+  {
+   "num": "03",
+   "title": "३ — कप्तानको हुकुम: Tool Use र Agent Loop"
+  },
+  {
+   "num": "04",
+   "title": "४ — कुहिरोको जङ्गल: ReAct, Plan-and-Execute, Reflection र Multi-Agent"
+  },
+  {
+   "num": "05",
+   "title": "५ — रोबिनको पुस्तकालय: Retrieval-Augmented Generation"
+  },
+  {
+   "num": "06",
+   "title": "६ — नहर र ढोकाको सहर: Workflow, Orchestration, DSPy र MCP"
+  },
+  {
+   "num": "07",
+   "title": "७ — मर्मतको डक: SWE-agent, Agentless, Sandbox र Program Repair"
+  },
+  {
+   "num": "08",
+   "title": "८ — उसोपको निशाना: Evaluation Fundamentals, Golden Dataset र pass@k"
+  },
+  {
+   "num": "09",
+   "title": "९ — चुहिएको प्रश्नपत्र: Benchmark र Contamination"
+  },
+  {
+   "num": "10",
+   "title": "१० — संगीतको अदालत: LLM-as-a-Judge, Rubric, Bias र Agreement"
+  },
+  {
+   "num": "11",
+   "title": "११ — संयोगको चट्टान: Confidence Interval, Bootstrap, Paired Test र Flakiness"
+  },
+  {
+   "num": "12",
+   "title": "१२ — हजार डुङ्गाको बेडा: Parallelism, Rate Limit, Cache, Batch API र Sandbox"
+  },
+  {
+   "num": "13",
+   "title": "१३ — बालुवामा पाइलाको छाप: Trajectory, Tracing, Cost, Safety र Regression Suite"
+  },
+  {
+   "num": "14",
+   "title": "१४ — आफ्नै लग पोज: Capstone, Agent र Eval Harness, र Interview Playbook"
+  },
+  {
+   "num": "15",
+   "title": "१५ — अन्तिम बिसौनी: सारांश र शुभ रात्री"
+  }
+ ],
+ "defaultMode": "bedtime",
+ "modes": {
+  "bedtime": {
+   "label": "सुत्दै",
+   "label_en": "Bedtime",
+   "dir": "bedtime/",
+   "rate": "-20%",
+   "pitch": "-3Hz",
+   "tiers": {
+    "core": {
+     "label": "छोटो",
+     "label_en": "Short",
+     "duration": 9786.64,
+     "bytes": 16621615,
+     "starts": {
+      "00": 0.0,
+      "01": 572.32,
+      "02": 1202.34,
+      "03": 1768.24,
+      "04": 2375.38,
+      "05": 2923.17,
+      "06": 3499.1,
+      "07": 4178.57,
+      "08": 4769.29,
+      "09": 5318.06,
+      "10": 5912.1,
+      "11": 6477.76,
+      "12": 7214.42,
+      "13": 7837.52,
+      "14": 8455.92,
+      "15": 9053.8
+     },
+     "playlist": [
+      {
+       "f": "ch00-core.opus",
+       "d": 573.82,
+       "c": "00"
+      },
+      {
+       "f": "ch01-core.opus",
+       "d": 631.52,
+       "c": "01"
+      },
+      {
+       "f": "ch02-core.opus",
+       "d": 567.4,
+       "c": "02"
+      },
+      {
+       "f": "ch03-core.opus",
+       "d": 608.64,
+       "c": "03"
+      },
+      {
+       "f": "ch04-core.opus",
+       "d": 549.29,
+       "c": "04"
+      },
+      {
+       "f": "ch05-core.opus",
+       "d": 577.43,
+       "c": "05"
+      },
+      {
+       "f": "ch06-core.opus",
+       "d": 680.97,
+       "c": "06"
+      },
+      {
+       "f": "ch07-core.opus",
+       "d": 592.22,
+       "c": "07"
+      },
+      {
+       "f": "ch08-core.opus",
+       "d": 550.27,
+       "c": "08"
+      },
+      {
+       "f": "ch09-core.opus",
+       "d": 595.54,
+       "c": "09"
+      },
+      {
+       "f": "ch10-core.opus",
+       "d": 567.16,
+       "c": "10"
+      },
+      {
+       "f": "ch11-core.opus",
+       "d": 738.16,
+       "c": "11"
+      },
+      {
+       "f": "ch12-core.opus",
+       "d": 624.6,
+       "c": "12"
+      },
+      {
+       "f": "ch13-core.opus",
+       "d": 619.9,
+       "c": "13"
+      },
+      {
+       "f": "ch14-core.opus",
+       "d": 599.38,
+       "c": "14"
+      },
+      {
+       "f": "ch15-core.opus",
+       "d": 709.34,
+       "c": "15"
+      },
+      {
+       "f": "outro.opus",
+       "d": 25.0,
+       "c": null
+      }
+     ]
+    },
+    "medium": {
+     "label": "मध्यम",
+     "label_en": "Medium",
+     "duration": 10969.03,
+     "bytes": 18654418,
+     "starts": {
+      "00": 0.0,
+      "01": 641.03,
+      "02": 1376.78,
+      "03": 2015.27,
+      "04": 2702.72,
+      "05": 3334.98,
+      "06": 3971.4,
+      "07": 4734.27,
+      "08": 5396.44,
+      "09": 6014.98,
+      "10": 6677.71,
+      "11": 7317.22,
+      "12": 8130.12,
+      "13": 8817.5,
+      "14": 9513.96,
+      "15": 10180.69
+     },
+     "playlist": [
+      {
+       "f": "ch00-core.opus",
+       "d": 573.82,
+       "c": "00"
+      },
+      {
+       "f": "ch00-medium.opus",
+       "d": 70.21,
+       "c": "00"
+      },
+      {
+       "f": "ch01-core.opus",
+       "d": 631.52,
+       "c": "01"
+      },
+      {
+       "f": "ch01-medium.opus",
+       "d": 107.23,
+       "c": "01"
+      },
+      {
+       "f": "ch02-core.opus",
+       "d": 567.4,
+       "c": "02"
+      },
+      {
+       "f": "ch02-medium.opus",
+       "d": 74.09,
+       "c": "02"
+      },
+      {
+       "f": "ch03-core.opus",
+       "d": 608.64,
+       "c": "03"
+      },
+      {
+       "f": "ch03-medium.opus",
+       "d": 81.81,
+       "c": "03"
+      },
+      {
+       "f": "ch04-core.opus",
+       "d": 549.29,
+       "c": "04"
+      },
+      {
+       "f": "ch04-medium.opus",
+       "d": 85.97,
+       "c": "04"
+      },
+      {
+       "f": "ch05-core.opus",
+       "d": 577.43,
+       "c": "05"
+      },
+      {
+       "f": "ch05-medium.opus",
+       "d": 61.99,
+       "c": "05"
+      },
+      {
+       "f": "ch06-core.opus",
+       "d": 680.97,
+       "c": "06"
+      },
+      {
+       "f": "ch06-medium.opus",
+       "d": 84.9,
+       "c": "06"
+      },
+      {
+       "f": "ch07-core.opus",
+       "d": 592.22,
+       "c": "07"
+      },
+      {
+       "f": "ch07-medium.opus",
+       "d": 72.95,
+       "c": "07"
+      },
+      {
+       "f": "ch08-core.opus",
+       "d": 550.27,
+       "c": "08"
+      },
+      {
+       "f": "ch08-medium.opus",
+       "d": 71.27,
+       "c": "08"
+      },
+      {
+       "f": "ch09-core.opus",
+       "d": 595.54,
+       "c": "09"
+      },
+      {
+       "f": "ch09-medium.opus",
+       "d": 70.19,
+       "c": "09"
+      },
+      {
+       "f": "ch10-core.opus",
+       "d": 567.16,
+       "c": "10"
+      },
+      {
+       "f": "ch10-medium.opus",
+       "d": 75.35,
+       "c": "10"
+      },
+      {
+       "f": "ch11-core.opus",
+       "d": 738.16,
+       "c": "11"
+      },
+      {
+       "f": "ch11-medium.opus",
+       "d": 77.74,
+       "c": "11"
+      },
+      {
+       "f": "ch12-core.opus",
+       "d": 624.6,
+       "c": "12"
+      },
+      {
+       "f": "ch12-medium.opus",
+       "d": 65.78,
+       "c": "12"
+      },
+      {
+       "f": "ch13-core.opus",
+       "d": 619.9,
+       "c": "13"
+      },
+      {
+       "f": "ch13-medium.opus",
+       "d": 79.56,
+       "c": "13"
+      },
+      {
+       "f": "ch14-core.opus",
+       "d": 599.38,
+       "c": "14"
+      },
+      {
+       "f": "ch14-medium.opus",
+       "d": 70.35,
+       "c": "14"
+      },
+      {
+       "f": "ch15-core.opus",
+       "d": 709.34,
+       "c": "15"
+      },
+      {
+       "f": "ch15-medium.opus",
+       "d": 57.0,
+       "c": "15"
+      },
+      {
+       "f": "outro.opus",
+       "d": 25.0,
+       "c": null
+      }
+     ]
+    },
+    "long": {
+     "label": "लामो",
+     "label_en": "Long",
+     "duration": 12176.49,
+     "bytes": 20637287,
+     "starts": {
+      "00": 0.0,
+      "01": 686.65,
+      "02": 1515.48,
+      "03": 2241.68,
+      "04": 3032.18,
+      "05": 3722.4,
+      "06": 4421.24,
+      "07": 5238.96,
+      "08": 5986.91,
+      "09": 6696.53,
+      "10": 7442.24,
+      "11": 8160.73,
+      "12": 9032.44,
+      "13": 9808.35,
+      "14": 10605.67,
+      "15": 11356.22
+     },
+     "playlist": [
+      {
+       "f": "ch00-core.opus",
+       "d": 573.82,
+       "c": "00"
+      },
+      {
+       "f": "ch00-medium.opus",
+       "d": 70.21,
+       "c": "00"
+      },
+      {
+       "f": "ch00-long.opus",
+       "d": 47.12,
+       "c": "00"
+      },
+      {
+       "f": "ch01-core.opus",
+       "d": 631.52,
+       "c": "01"
+      },
+      {
+       "f": "ch01-medium.opus",
+       "d": 107.23,
+       "c": "01"
+      },
+      {
+       "f": "ch01-long.opus",
+       "d": 94.58,
+       "c": "01"
+      },
+      {
+       "f": "ch02-core.opus",
+       "d": 567.4,
+       "c": "02"
+      },
+      {
+       "f": "ch02-medium.opus",
+       "d": 74.09,
+       "c": "02"
+      },
+      {
+       "f": "ch02-long.opus",
+       "d": 89.21,
+       "c": "02"
+      },
+      {
+       "f": "ch03-core.opus",
+       "d": 608.64,
+       "c": "03"
+      },
+      {
+       "f": "ch03-medium.opus",
+       "d": 81.81,
+       "c": "03"
+      },
+      {
+       "f": "ch03-long.opus",
+       "d": 104.55,
+       "c": "03"
+      },
+      {
+       "f": "ch04-core.opus",
+       "d": 549.29,
+       "c": "04"
+      },
+      {
+       "f": "ch04-medium.opus",
+       "d": 85.97,
+       "c": "04"
+      },
+      {
+       "f": "ch04-long.opus",
+       "d": 59.46,
+       "c": "04"
+      },
+      {
+       "f": "ch05-core.opus",
+       "d": 577.43,
+       "c": "05"
+      },
+      {
+       "f": "ch05-medium.opus",
+       "d": 61.99,
+       "c": "05"
+      },
+      {
+       "f": "ch05-long.opus",
+       "d": 63.92,
+       "c": "05"
+      },
+      {
+       "f": "ch06-core.opus",
+       "d": 680.97,
+       "c": "06"
+      },
+      {
+       "f": "ch06-medium.opus",
+       "d": 84.9,
+       "c": "06"
+      },
+      {
+       "f": "ch06-long.opus",
+       "d": 56.35,
+       "c": "06"
+      },
+      {
+       "f": "ch07-core.opus",
+       "d": 592.22,
+       "c": "07"
+      },
+      {
+       "f": "ch07-medium.opus",
+       "d": 72.95,
+       "c": "07"
+      },
+      {
+       "f": "ch07-long.opus",
+       "d": 87.28,
+       "c": "07"
+      },
+      {
+       "f": "ch08-core.opus",
+       "d": 550.27,
+       "c": "08"
+      },
+      {
+       "f": "ch08-medium.opus",
+       "d": 71.27,
+       "c": "08"
+      },
+      {
+       "f": "ch08-long.opus",
+       "d": 92.58,
+       "c": "08"
+      },
+      {
+       "f": "ch09-core.opus",
+       "d": 595.54,
+       "c": "09"
+      },
+      {
+       "f": "ch09-medium.opus",
+       "d": 70.19,
+       "c": "09"
+      },
+      {
+       "f": "ch09-long.opus",
+       "d": 84.48,
+       "c": "09"
+      },
+      {
+       "f": "ch10-core.opus",
+       "d": 567.16,
+       "c": "10"
+      },
+      {
+       "f": "ch10-medium.opus",
+       "d": 75.35,
+       "c": "10"
+      },
+      {
+       "f": "ch10-long.opus",
+       "d": 80.48,
+       "c": "10"
+      },
+      {
+       "f": "ch11-core.opus",
+       "d": 738.16,
+       "c": "11"
+      },
+      {
+       "f": "ch11-medium.opus",
+       "d": 77.74,
+       "c": "11"
+      },
+      {
+       "f": "ch11-long.opus",
+       "d": 60.31,
+       "c": "11"
+      },
+      {
+       "f": "ch12-core.opus",
+       "d": 624.6,
+       "c": "12"
+      },
+      {
+       "f": "ch12-medium.opus",
+       "d": 65.78,
+       "c": "12"
+      },
+      {
+       "f": "ch12-long.opus",
+       "d": 90.03,
+       "c": "12"
+      },
+      {
+       "f": "ch13-core.opus",
+       "d": 619.9,
+       "c": "13"
+      },
+      {
+       "f": "ch13-medium.opus",
+       "d": 79.56,
+       "c": "13"
+      },
+      {
+       "f": "ch13-long.opus",
+       "d": 102.36,
+       "c": "13"
+      },
+      {
+       "f": "ch14-core.opus",
+       "d": 599.38,
+       "c": "14"
+      },
+      {
+       "f": "ch14-medium.opus",
+       "d": 70.35,
+       "c": "14"
+      },
+      {
+       "f": "ch14-long.opus",
+       "d": 85.32,
+       "c": "14"
+      },
+      {
+       "f": "ch15-core.opus",
+       "d": 709.34,
+       "c": "15"
+      },
+      {
+       "f": "ch15-medium.opus",
+       "d": 57.0,
+       "c": "15"
+      },
+      {
+       "f": "ch15-long.opus",
+       "d": 33.43,
+       "c": "15"
+      },
+      {
+       "f": "outro.opus",
+       "d": 25.0,
+       "c": null
+      }
+     ]
+    }
+   },
+   "bed": {
+    "gain": 1.0,
+    "swellDb": 6.0
+   },
+   "segments": {
+    "ch00-core.opus": {
+     "s": "harbour_night",
+     "g": "AJYBsQIgxQIm4wFphQEhzgEl7wEt4wGCAYMBII8BJrUBLckBI84CggGtASCqAnPBAQOjAWnAASipAS2bAS3JASO7An-UASqEAiXtASzcAyO1AYQBngE0fHC7AQPIASakASvLAiWiAmnBASh0dl0ymAEo2QJk7QEFhQIh1QF98QEouwMh2AEjuQEq4gEogAEh7QEjoQEo3wEo0QEloQErpQEm7wEguQEl4wGKAXUypwF2twEyeSisASOdASuvASisAWSbAijDASHCASPGASvDA33qAYkB8gEougMh2AEjuQEq4gEogAEh7QEjoQEo3wEo0QEooQEqpgEj7wEjuQEo4gF4lAIosgEhmAJkkgIovwFw6QFs8QEouwMg2AEjuQEq4gEogAEh7QEjoQEr3wEo0QEooQEopQEh7gEjuQEo4wFL"
+    },
+    "ch00-medium.opus": {
+     "s": "harbour_night",
+     "g": "AHiyAgXWAiHHAyP8AoIB9gFBhAFz2wEyfij8BEs"
+    },
+    "ch00-long.opus": {
+     "s": "harbour_night",
+     "g": "AHiGASjkASGEAoABiAIFtQGFAcQBKOMBIYMCSw"
+    },
+    "ch01-core.opus": {
+     "s": "island_shore",
+     "g": "AN4CjwEglAIozQJpwQEgygKCAa4BA4EBKI8BNb0BI-ICA39BnwGEAYwBK3swtQEo9AEj1gJzswEgmAEo4QEqnAIjqQJp3AEorgEycjKWAiOzAoIB0QEhoQIo1AQoiwIjqgMgowIongMo_gKFAdEBIPcBcakBIZ0BKL4DK9sBaY0BKJABMm0yxgEjxQEg2AGFAboBJZIDK_QDggHNATx5aXEwfTTZASjAAR6bAibLAnHYAYQB0QElogIq1QQoigIeqgMlowIqngMo_wKCAaIBJuUBaY0DJtYBK5gCKJ8DHoIDcYQBPKsBhQGSATB2MscCJb4BIIYCJesCf8sDJZwDKssBigHkASPQAi2LAX35AWTRASOhAi7UBCWLAiCqAyOjAi2eAyX_Aks"
+    },
+    "ch01-medium.opus": {
+     "s": "island_shore",
+     "g": "AHiyASrQATdtLYwDIOECigGUAjl_e8UBLXw1_AImhwIg5gJkqwEj9gIt5wEmzQIhsQFL"
+    },
+    "ch01-long.opus": {
+     "s": "island_shore",
+     "g": "AHjgASvcAjdyLYsEIbgCiQHMATx_fXItfDShASamAiDFAibxAYwB2QErwAJL"
+    },
+    "ch02-core.opus": {
+     "s": "workshop",
+     "g": "AN4CwgEmzQEr_AFrrgEDmAEj2gGCAb0BJfMBKv0BggG_AS15K-0CJaEBc8IBJtoBLc4BJbMEaaMBLXg1nwMlkgJ_lgEmtQIr7QIlwwKEAcQBLc0BN2wt6wMh3wFw3wIj9wMt0wNqvQEjrgUuqgMl1AMhgAMioAMtqgOHAcQBRoABf6gBK4EBK4kCINoBa4UCKs8DbroBhwG-ASqvBSWqAyHUAyWAAyufAyWqA4ABogE0zgEtbiaQAya0ASrxAmv0AS2_ASXaAiCnAibIA26hAS2PAiWmAYcB3QF9vQEtrwUjqgMg1AMmgAMtnwMjqgNL"
+    },
+    "ch02-medium.opus": {
+     "s": "workshop",
+     "g": "AHimASrqAXiOATR3LYoBIPwCJc0BZ48BKs0CJfsBIO0BJcYESw"
+    },
+    "ch02-long.opus": {
+     "s": "workshop",
+     "g": "AHjSATSdAi9sJoECJaYCK7ICjAGrAUZ4eK0BNXstvQEgoQImpwJmswErlwNL"
+    },
+    "ch03-core.opus": {
+     "s": "cliff",
+     "g": "AN4CxwEj3gEr6QJptAEjiAIqvwGCAboBI6wBKqkDKKACIZ0BggGLASOpASuvASihASDBA3O2AS12MusBKIYDaaIBA-sBf4ECI4sDKtUBKKAChAHXASvOATVscMYBI7ICKKIDKPMBaaMBI7UCKIQCKO4DIKQDI_QEKKcCKKECIMACc9kBKLoCKHhnfiPwBCjEAnqcATd4jAGMASp3L74CK-EBI98Dc94BZ6MBI7QCKIUCKu0DI6QDI_QEKKcCK6ECI78Ce8IBKP0BMnIyuAIjlQMjwgKPAc0BI7MDKKICKtEDda4CILoCKKUCZ9gBbqMBILUCKIQCKO0DI6QDIfQEKKcCKKECI78CSw"
+    },
+    "ch03-medium.opus": {
+     "s": "cliff",
+     "g": "AHjWAQLlAX1jKHkvlgEruQEj3gEg6gEorAGHAeUBIPcDKJsEKIQDSw"
+    },
+    "ch03-long.opus": {
+     "s": "cliff",
+     "g": "AHjLASj_ATJyMtQBI4UFIcYBKNACa6UBN3991wEqfjDPBCjYASOUAocBmwIhywFL"
+    },
+    "ch04-core.opus": {
+     "s": "forest",
+     "g": "AN4CvgEqjQIlyAFpzQEqtAIlxgF_tgE0eC3PASCmAoUB0wEq3wEmgAQhpANzlwErggMl5QIggwMlkgIqhQIl0gNpqAEqywEmgAEhnwEmlgGCAbECKu8CJrwBggGvATWKAjByJdgBJsECK40CJcYDcO0BKtUEJb4FadABjAGXASCDAyjkAiuCAyOSAiCEAijSA3vPASGxAjK9ATWUAWf5ASGuASi0AyreASO0ASGcA3OoAQPAASi4AYwBqwEh9AIoqQIr9gIjswR6mAEo0AEybzLrASO4AiG2AmfHASGFAnP3AYwBmAEgggMo5QIoggMjkgIghQIo0QNL"
+    },
+    "ch04-medium.opus": {
+     "s": "forest",
+     "g": "AHjMASivATJsMt8CI5gEIYsFKPUChwHPASDiASjwASq-ASO3Aks"
+    },
+    "ch04-long.opus": {
+     "s": "forest",
+     "g": "AHh_A70BbJABKn4wzQMqzAMjpQJwwQEh6gJL"
+    },
+    "ch05-core.opus": {
+     "s": "cabin",
+     "g": "AN4C0AEq1AEk3gFo-AEqgwEDngEqzwF_sQEq_AEjzAMg3AEoqgOEAboBNXsolgMhlwEopwNx6gEqqQIjgwIgsAIo2QNpowErlQUj6AIgyQMogAQqugMj5gOCAaQBN5cBK36EAcMCNX4qlwMgiAMozgJxgAIqwAMjhQIjjwJqyAFuowErlQUl6AIeygMo_wMqugMl5gNs5QErywOAAYEBK94BJfcCHrIEhwG9AjWnASWRAW6FATd8LYICHrECKNYCa9YBKtcDJf0DHoMEf4AChwGjASuVBSXoAh7KAyj_Ayq6AyXmA0s"
+    },
+    "ch05-medium.opus": {
+     "s": "cabin",
+     "g": "AHiTAjLlASb9AiGSAm6WASv9AibQAiCWBEs"
+    },
+    "ch05-long.opus": {
+     "s": "cabin",
+     "g": "AHjFAUiBAWalATd-KqUFIOQCJd0BeNcBLZoDSw"
+    },
+    "ch06-core.opus": {
+     "s": "harbour_day",
+     "g": "AN4C3AEopgEezANp0gEo3QKAAagBBfcBHpoDhQG2ASiaAh6tASXWASumAiiOAnCAATB4JsMBJqECKqYBa7ABKJgEHosDJecDK4YDKKMEHqIDggGBAT95ggGvAQXTAx7jASXLAXGoASWaAiGaAyaLAmmzAXGvASOYBCuKAybnAyGGAyWjBCuhA2nJASWTAiumAQWIAYIBwgIl-wEqkQIl0AOEAZ4BJrMCK8QFJZcDIK4BJvYDcMgBPHhpZS18NIoCJfkCII8EggHMAYUBngEmswIqxAUmlwMgrgEm9QNxlQIjzQJs5gEjtAJ4hAJkrwEmmAQrigMm5wMhhgMlowQroQN73gGJAZ8BJbMCK8QFJZcDHq4BJvUDSw"
+    },
+    "ch06-medium.opus": {
+     "s": "harbour_day",
+     "g": "AHi_AS3SATRvLc0CIa8CJv8DK90CZNQBJt8BKoADJs8CIP4CSw"
+    },
+    "ch06-long.opus": {
+     "s": "harbour_day",
+     "g": "AHinATx9iQGUAS95NecCJYgCIaEDdrABJsMCSw"
+    },
+    "ch07-core.opus": {
+     "s": "ship_hold",
+     "g": "AN4C9wEo0QEggwNplgEvbyNvK48CK_IBf8MBKIECI90EI8EBhAHAASiNBSObAXDQASiuAiOCAiOuBiqxAmm3ASiiASO_AoIBxQMo0gYj9wMjtwQrlASCAboBQXlw9AEyfijvASPgASvEASjLBGmeAyjjASDaAiPqAooB3wF9xgMo0QYj9wMjuAQqlARh_AEoowIotwErbHWeASiYAyC4BCPOAivjAooBwAFBeX17MnsovQEj-AEqiAIo_wNkpgIozgEjtAN2rgEo6gGJAfkBfcUDKNIGIPcDI7gEKpQESw"
+    },
+    "ch07-medium.opus": {
+     "s": "ship_hold",
+     "g": "AHi7ATCzAShtKtsBKNUBKP0BIYoCI-MBgAHAASjGAyHIASO4A0s"
+    },
+    "ch07-long.opus": {
+     "s": "ship_hold",
+     "g": "AHi_AS_jAStqK9MCKMIBKOcBc9sBQXqCAZUCMn0orgQjrAKCAbIBKJwCSw"
+    },
+    "ch08-core.opus": {
+     "s": "island_shore",
+     "g": "AN4CwAEg8AEo6gFqnAEg9gGCAegBKMQBKGyFAX40eDD1AXCoASHdASjcAir8ASO_AmnEASioAjJtMsQCI54BINUBKKICggGtASD2ASjlASuABCPZA4UB4gEhnAEooAJzjAE3f2qlASHYAiiWAijEAiOsAoIByAEjjwMrqgMonQMg5gUjtAKCAZoBLXgyygEokQMhmAJx1AEjrAEqzwFrwAGAAccBI5ADKqoDKJ0DIOYFI7QChQHQAiPBASvpAnPVASOSAWm3AS2oATLXBCjYASHxAoIBvgEj2QMowgKFAYkCfccBI5ADKqoDKJ0DIeUFI7UCSw"
+    },
+    "ch08-medium.opus": {
+     "s": "island_shore",
+     "g": "AHjsASj8ATVtMPcBIL8BI7oCK7kBdckBI6YCKucDKPACSw"
+    },
+    "ch08-long.opus": {
+     "s": "island_shore",
+     "g": "AHjWASjtATVuMNoBIfADI58CffYBN3yJAXUqeDKxASjSAiCSA3bYASOhAks"
+    },
+    "ch09-core.opus": {
+     "s": "cave",
+     "g": "AN4C5AEguAIm9QFp7QEhjAEFxwIquQGCAbQBIfACJbADK54ChAGyASCDAyWnAivCAyX0AnGeASHGASWDBS22AiW2ASCMA2mOAiGQAS2SASpuggFdKHgt4gEqywGFAa0BILADJfEBKsICcL0BIJMFJbIFLYsFI8kDIJgFac4BIYICJdIBZKABL3sl7gElhQJ49wGKAbwBKJMFHrIFJYsFKskDKJgFfcEBKOsCHssDZMQBPn54swEyfibvAiXWAivzAYoB7AEomgEorgEvlgJ62gEw0gEoigFhjgJ2vAEmkwUgsgUmigUryQMlmAVL"
+    },
+    "ch09-medium.opus": {
+     "s": "cave",
+     "g": "AHjWAS2VAihvK4oCLeEEcPcBJr8EIOECI5ACSw"
+    },
+    "ch09-long.opus": {
+     "s": "cave",
+     "g": "AHjkAS32AyhyKpMCLbgCggG8AT-EAWnWAi9-Jv4BI_oBcMYBJvACSw"
+    },
+    "ch10-core.opus": {
+     "s": "deck",
+     "g": "AN4CwAEqpQIjxgF7nwEycBy8ASpuKMMBZKMCKqwDI_QCId4DeJYBNHwonQIh_gEo9QKKAdEBBc4Be6kBBcIBK6kCIZACZLEBKrgCI4YCILcBKPECeMMBKrEDI50DIZoFKLUCK6gFI8wDIIwCiQGbAUR5fbMBNHcqsQIjigMo0QJx2gFrwwEgsQMmnQMtmgUltgIgqQUlzAMqjAJ9rAEg4gImwQEq7wIm2gEhlQSHAb4BNXxuwgEofS2ZAiqQAyXlAW7FASHXAiWdAirXAYAB5wGFAcIBIbEDJZ0DK5oFJbYCIKkFJcwDKowCSw"
+    },
+    "ch10-medium.opus": {
+     "s": "deck",
+     "g": "AHjEASW7ATBsNM4EItcDIKkCa-IBINcEJpYCLcQBSw"
+    },
+    "ch10-long.opus": {
+     "s": "deck",
+     "g": "AHimASW_AS9vNLcCJswDZ64BMnt7YSh4LeICK_IDjAHjAR36AUs"
+    },
+    "ch11-core.opus": {
+     "s": "cliff",
+     "g": "AN4C4wEqxwEm0gN6gwI1rQEvbWTrAUaBAXi1ASusAiWQAyDDASiKA4oBmwEq1wMlhAMg9wN7pAFGfGR6NHctlAEgygJ46gEr7gIlqgQgqgIl4AIqsQIm6ASKAdoBK-MBJbADHukBfdEBKrsCJYgDjAHeAXjqASvuAiOpBCOqAijfAiuxAiPoBGesASrkAivYASpyMMIBK8UBdbsBK-UCI9wDI64CjAHaASuOAiO4AyPfAyj1AyqDBHiUAkN6ZuQBNXwrngQjzgJz6wGMAdoBK44CI7gDId8DKPQDK4IEe6kBK8gCI4QCIMQEKJUChwGtASj-ASPNAYABhwJr6gEo7gIjqQQhqQIo4AIosQIj6QRu5QGHAdoBKI4CI7kDIN8DKPQDKIMESw"
+    },
+    "ch11-medium.opus": {
+     "s": "cliff",
+     "g": "AHi6ATLeAS1tKOkCKKgCKNoCbO8BKNkCI5ADIJ4CKLADSw"
+    },
+    "ch11-long.opus": {
+     "s": "cliff",
+     "g": "AHiWAUR7hwG9AjR4K78BILECKIkBKsECfcIBK_4CSw"
+    },
+    "ch12-core.opus": {
+     "s": "harbour_day",
+     "g": "AN4C1AEorwIj4wF9ewWUAmSZAS-FAipxKvACeLsBKPsBI-UBI7UDKpgCiQHCAyi2AiPEASStA3u2ASikBCPhAiPkAyq5BCitBSOPAyOkA2R6QXd4wQEydyjXAiODAiujAooBrQEo8AIhhwN9yAGKAbYBI6UEKuECKOMDIbkEI60FKo8DKKQDergBKooBNW0wyAEhjwIj_AFk8QEjhQYqlgMotgN4hwIjigEF4gEoxAKKAY8BI94CK5UCKPwEetYBI4oCK8MEKKUFZMoEI48BeOgBigG2ASOlBCjhAifkAyG4BCOuBSiOAyikA0s"
+    },
+    "ch12-medium.opus": {
+     "s": "harbour_day",
+     "g": "AHijASvDATVuMI0DIIgDhAGAASOlBCrYAiiHA0s"
+    },
+    "ch12-long.opus": {
+     "s": "harbour_day",
+     "g": "AHiEATd9aY0BK3gyxAIosgMh5gFxzwE3fYUBxQIqfDLkAijvAYIBzAEjqAJL"
+    },
+    "ch13-core.opus": {
+     "s": "island_shore",
+     "g": "AN4C6gEo9gJ97QEo3gEl0gEmbmTWASivAR7IASb7AnhzMnol5QGKAdkBKLMCHrICJqIFesUBMH4lgAIltQIq6QNkyAEoxwMe9gUmzwMrjQYorwQejQV4jQE_fYwBzgEwgAElzQIl4wErzgR9xgEm3QMhrAMmrQVz5gFpyQEoxgMe9wUlzwMrjQYorwQejQWAAasBMOwBJmwtjQOEAaACKKoBHowGJeMEc7MCBd0BHtIBackBKJkEHo0FJYYCggGhAoIByAEoxwMe9wUlzwMrjQYorwQejQVL"
+    },
+    "ch13-medium.opus": {
+     "s": "island_shore",
+     "g": "AHjGAS3uAyhsLdwCK9EDKOIBabEBJbECHsUBJeYDK7oCSw"
+    },
+    "ch13-long.opus": {
+     "s": "island_shore",
+     "g": "AHjAAT5-YuMBL3wltgUjrAN9uAE_e4oB2AIvfibwAiPHA3auAibdAks"
+    },
+    "ch14-core.opus": {
+     "s": "workshop",
+     "g": "AN4CpAEh4AEo-wJ7sAErdi-WASjQAiOgAWSWASCIBCiKAiiRA3jiASiXAShqMoICigHBASGGBCi9BiiHAiOvBSCgBSjgBHudASudAWRdKH4w7QIq3QEjzgEhsAEowAJ4mAEglwMo8QIorgKKAdUBfcEBIYYEKL0GK4cCI64FIaAFKOAEggHjASXRAYIBgwIweCWgASWEASt6MpABK7UBMI0BbNABJtICIZIDJZkEcJEBPH6FAZsBL3wo2QEl0AErjgEm9gKAAbkFJaQCaawBJasCIfwBcocChQHBASaGBCC-BiOGAi2vBSWgBSHgBEs"
+    },
+    "ch14-medium.opus": {
+     "s": "workshop",
+     "g": "AHiAAi3AAihuK8AFLZgCiQGzASa9Ah6KBks"
+    },
+    "ch14-long.opus": {
+     "s": "workshop",
+     "g": "AHiqAT9-ZM0BMH4l1AIlgAIq3AImswF1pwEvigGKAesBMIQCfbUBKMwDSw"
+    },
+    "ch15-core.opus": {
+     "s": "harbour_night",
+     "g": "AN4CwAEgoAIm9AF6kgEh9wEmqwFkjwEhmgEm0wEtuQEjpQF45gElrgEwbzWvAooBlwEhxwQloAQtqgQjgAIg6QMlsAQt9AEmoAIgyAIosQIq3QMj3QMh2AEo2AF6fiicAWSaAiiaAS2QAS3XAXjOAiGQAiabAi34AYoB8AEg9AEm6AEr1wJ9_gEh7AEmmwIr6wElvQEgiAJ47wFklwEjxwQrnwQoqwQj_wEj6QMqsAQo9AEhoAIjxwIhsQIl3QMq3gMl2AEh2AF93QEjnAKHAacBI8EBeMYBI8wBKrQBKP8BZPgBA_IBK7wDevYBK6oBNKQBiQHiAXWXASPIBCqgBCiqBCH_ASPpAyqvBCj1ASOgAiPIAiOxAiDcAybeAy3YASPYAWGYASSCA3COASPXAWn9AUs"
+    },
+    "ch15-medium.opus": {
+     "s": "harbour_night",
+     "g": "AHiTAiPXASikAyjFAiDkASPMAYUB2AEjpgNL"
+    },
+    "ch15-long.opus": {
+     "s": "harbour_night",
+     "g": "AHijASO3ASjBAmmdASPFASjJAUs"
+    },
+    "outro.opus": {
+     "s": "harbour_night",
+     "g": ""
+    }
+   }
+  }
+ },
+ "bed": {
+  "dir": "../../DSA_tool/data/bedtime/bed/",
+  "layers": [
+   "waves",
+   "foam",
+   "wind",
+   "leaves",
+   "water",
+   "creak",
+   "gulls"
+  ]
+ }
+}

@@ -1,0 +1,69 @@
+# ८ — कालिखको कार्यशाला: Soot, SootUp र Jimple
+
+आठौं टापुमा एउटा पुरानो भट्टी छ। भट्टीको चिम्नीबाट कालो धुवाँ होइन, हल्का खैरो कालिख बिस्तारै झर्छ। अङ्ग्रेजीमा कालिखलाई soot भनिन्छ, र यो टापुको नाम पनि त्यही हो।
+
+फ्राङ्कीले भट्टीको ढोका खोल्यो। भित्र Java का dot class file का थुप्रा थिए, र ती कुनै source code थिएनन्। ती compile भइसकेका bytecode थिए।
+
+[franky]"Java को कार्यक्रम प्रायः यही रूपमा आउँछ,"[/] उसले भन्यो। [franky]"jar भित्र class, class भित्र bytecode हुन्छ। source नभए पनि हामी यहीँबाट analysis गर्न सक्छौं।"[/]
+
+तर bytecode मा एउटा समस्या छ। bytecode stack machine को भाषा हो। त्यहाँ iload एक भनिन्छ, iload दुई भनिन्छ, iadd भनिन्छ, र istore तीन भनिन्छ। मानहरू अदृश्य stack मा चढ्छन् र झर्छन्, र कुनै instruction ले कुन मान प्रयोग गर्‍यो भनेर हेर्न stack को उचाइ गन्नुपर्छ।
+
+@read teach
+त्यसैले Soot ले bytecode लाई Jimple मा बदल्छ। Jimple भनेको typed three-address code हो। stack हटाइन्छ, र हरेक मान नाम भएको local variable मा राखिन्छ। हरेक local को type हुन्छ। हरेक statement मा बढीमा एउटा operation हुन्छ।
+
+Jimple मा statement का किसिम थोरै छन्, लगभग पन्ध्र वटा। assign, identity, invoke, if, goto, return, throw, र switch मुख्य हुन्। bytecode का दुई सय भन्दा बढी instruction का सट्टा यति थोरै किसिम सम्हाल्दा analysis लेख्न सजिलो हुन्छ।
+
+Jimple मा पहिलो लाइन प्रायः this लाई local मा राख्ने identity statement हुन्छ। parameter पनि त्यसरी नै local मा आउँछन्। अनि field पढ्दा class र field को पूरा नाम कोणको कोष्ठक भित्र लेखिन्छ, र त्यसले कुनै अस्पष्टता छोड्दैन।
+
+अब Soot को भित्री कोठा हेरौं। Soot मा हरेक class एउटा SootClass हो, हरेक method एउटा SootMethod हो, र हरेक method सँग Body हुन्छ। Body भित्र Unit को लाइन हुन्छ, र Jimple मा Unit भनेको statement हो। Body भित्र Local र Trap पनि हुन्छन्, र Trap ले try र catch को सीमा भन्छ।
+
+Soot ले काम pack मा गर्छ। pack भनेको phase को समूह हो। jb ले Jimple body बनाउँछ। cg ले call graph बनाउँछ। wjtp मा whole program को transform हुन्छ। jtp मा हरेक body को transform हुन्छ। तिम्रो आफ्नै analysis यीमध्ये कुनै pack मा थपिन्छ।
+
+अब यो कार्यशालामा काम गर्ने तरिका एकैचोटि सुन।
+
+@algo soot-jimple
+Soot वा SootUp मा Java analysis यसरी गर। पहिलो, input देऊ, जुन class file वा jar को folder हो, र JDK सहित पूरा classpath देऊ। दोस्रो, Soot लाई bytecode पढ्न देऊ, र त्यसले हरेक method को Jimple body बनाउँछ, जहाँ stack हटेर type भएका local हुन्छन्। तेस्रो, एउटा method भित्रको analysis चाहिन्छ भने body बाट UnitGraph बनाऊ, जुन statement स्तरको CFG हो, र exception को edge चाहिन्छ भने ExceptionalUnitGraph लेऊ। चौथो, पूरै program को analysis चाहिन्छ भने main method जस्ता entry point देऊ, र call graph बनाऊ, जुन CHA ले छिटो र Spark ले pointer analysis सहित अझ ठीक बनाउँछ। पाँचौं, आफ्नो काम method स्तरमा BodyTransformer को रूपमा jtp मा थप, वा पूरै program स्तरमा SceneTransformer को रूपमा wjtp मा थप। SootUp मा भने global Scene हुँदैन, त्यसैले input location बाट JavaView बनाऊ, view बाट class र method माग, र method को body बाट StmtGraph लेऊ।
+@end
+
+ब्रुकले कालिख लागेको औंला हेर्दै भन्यो — [brook]"Soot र SootUp मा फरक के रहेछ त?"[/]
+
+[franky]"Soot पुरानो र बलियो छ,"[/] फ्राङ्कीले भन्यो। [franky]"तर त्यसमा Scene नामको एउटै global object छ, र सबै कुरा त्यसैमा थुप्रिन्छ। एकैचोटि दुई analysis चलाउन गाह्रो हुन्छ।"[/]
+
+SootUp Soot को नयाँ रूप हो। यसमा global अवस्था छैन, र धेरैजसो object फेरिन नसक्ने हुन्छन्। View ले class माग्दा मात्र लोड गर्छ, त्यसैले ठूलो project मा पनि सुरुमा सबै कुरा पढ्नु पर्दैन। तर विचार उही हो, Jimple उही हो, र call graph का तरिका पनि उही हुन्।
+
+@recall soot-jimple | भट्टीको आगो मधुरो भयो, र हामी त्यो तरिका फेरि सुन्छौं।
+
+@read hush
+कालिख बिस्तारै झर्दैछ, हिउँ जस्तै। कार्यशालाको भुइँमा हल्का खैरो पत्र बसेको छ।
+
+अब call graph को एउटा सानो पूर्वाभ्यास सुन। Java मा animal dot speak बोलाइयो भने, त्यो कुन class को speak हो भन्ने कुरा चल्ने बेला थाहा हुन्छ। Dog को पनि हुन सक्छ, Cat को पनि हुन सक्छ।
+
+CHA भनेको class hierarchy analysis हो। यसले Animal का सबै subclass का speak लाई सम्भावित target मान्छ। यो छिटो छ, तर धेरै झूटा edge थप्छ। Spark ले भने animal मा वास्तवमा कुन object आउन सक्छ भनेर pointer analysis गर्छ, र Dog मात्र आउन सक्छ भने Dog को speak मात्र राख्छ। यी कुरा एघारौं टापुमा पूरा खुल्छन्।
+
+@recall soot-jimple | कार्यशाला छोड्नुअघि यो तरिका अन्तिम पटक सुन।
+
+@read hush
+फ्राङ्कीले भट्टीको ढोका बन्द गर्‍यो। हामीले हात पखाल्यौं, र कालिख पानीसँगै बग्यो।
+
+@tier medium
+
+Soot को सबैभन्दा प्रसिद्ध सन्तान FlowDroid हो। FlowDroid ले Android app मा taint analysis गर्छ, र त्यो Soot माथि बनेको छ। Android को apk मा Java bytecode होइन, Dalvik bytecode हुन्छ। Soot भित्र Dexpler नामको भाग छ, र त्यसले Dalvik लाई पनि Jimple मा बदल्छ।
+
+Soot ले Jimple बाहेक अरू IR पनि दिन्छ। Shimple भनेको Jimple को SSA रूप हो, र त्यसमा phi हुन्छ। Baf भनेको bytecode जस्तै stack मा आधारित सरल रूप हो। Grimp भनेको Jimple का साना statement जोडेर बनाइएको पढ्न सजिलो रूप हो।
+
+Soot मा dataflow analysis लेख्न पनि सजिलो छ। ForwardFlowAnalysis वा BackwardFlowAnalysis को subclass बनाइन्छ। flowThrough मा एउटा statement को प्रभाव लेखिन्छ, merge मा दुई बाटोको जानकारी कसरी जोड्ने लेखिन्छ, र Soot ले बाँकी worklist आफैं चलाउँछ।
+
+@tier long
+
+चपर भट्टीको छेउमा न्यानो ताप्दै थियो। [chopper]"Jimple मा dollar चिन्ह भएका नाम किन हुन्छन्?"[/] उसले सोध्यो।
+
+ती नाम Soot ले bytecode को stack बाट बनाएका temporary हुन्। source मा तिमीले लेखेका local को नाम प्रायः r शून्य वा i एक जस्ता हुन्छन्। stack मा मात्र भएका मानका लागि dollar चिन्ह अगाडि राखिन्छ, जस्तै dollar r दुई।
+
+Jimple मा अर्को रोचक कुरा invoke को किसिम हो। virtualinvoke ले सामान्य instance method बोलाउँछ। interfaceinvoke ले interface को method बोलाउँछ। specialinvoke ले constructor, private method, र super का method बोलाउँछ। staticinvoke ले static method बोलाउँछ।
+
+यो किसिम call graph का लागि महत्त्वपूर्ण छ। staticinvoke र specialinvoke को target एउटै हुन्छ, त्यसैले त्यहाँ कुनै अनुमान चाहिँदैन। virtualinvoke र interfaceinvoke मा मात्र CHA वा pointer analysis चाहिन्छ।
+
+WALA पनि यस्तै अर्को औजार हो, र IBM ले बनाएको हो। WALA को आफ्नै IR SSA मा हुन्छ। Doop चाहिँ Datalog मा लेखिएको pointer analysis हो, र त्यसले Soot लाई frontend को रूपमा प्रयोग गर्छ।
+
+@read hush
+भट्टी अब निदाउँदै छ। कालिख झर्न बन्द भयो। तिम्रो सास पनि त्यसैगरी बिस्तारै र शान्त भएर चलिरहेको छ।

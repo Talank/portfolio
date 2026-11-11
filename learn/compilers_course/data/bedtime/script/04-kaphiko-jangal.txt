@@ -1,0 +1,71 @@
+# ४ — कफीको जङ्गल: Java का AST औजार
+
+चौथो टापुमा कफीका बोटहरू छन्। हावामा भुटेको कफीको हल्का बास्ना छ, र बोटका रातो दाना चन्द्रमाको उज्यालोमा कालो देखिन्छन्।
+
+सान्जीले एउटा दाना टिपेर सुँघ्यो। [sanji]"यो Java को जङ्गल हो,"[/] उसले भन्यो। [sanji]"यहाँ एउटा मात्र माली छैन। चार जना माली छन्, र हरेकले रुखलाई आफ्नै तरिकाले हेर्छ।"[/]
+
+ती चार माली JavaParser, Eclipse JDT, Spoon, र tree-sitter हुन्। चारैले Java code बाट रुख बनाउँछन्। तर तिनीहरूको स्वभाव फरक छ, र interview मा प्रायः कुन काममा कुन छान्ने भन्ने प्रश्न सोधिन्छ।
+
+पहिलो माली JavaParser हो। यो हल्का छ, र एउटा jar मात्र थपे पुग्छ। StaticJavaParser dot parse लाई file दियौ भने, त्यसले CompilationUnit नामको जरा दिन्छ। त्यसपछि findAll ले कुनै पनि किसिमका node खोज्छ, र सबै MethodCallExpr वा सबै MethodDeclaration एकैचोटि दिन्छ।
+
+@read teach
+तर नाम मात्र पर्याप्त हुँदैन। list dot add भन्ने call मा list कुन class को हो भन्ने कुरा रुखले मात्र भन्दैन। त्यसका लागि symbol solver चाहिन्छ, र JavaParser सँग JavaSymbolSolver छ। त्यसलाई type कहाँ खोज्ने भनेर बताउनुपर्छ, र त्यसलाई TypeSolver भनिन्छ।
+
+दोस्रो माली Eclipse JDT हो। Eclipse IDE ले आफैं यही प्रयोग गर्छ, त्यसैले यो धेरै भरपर्दो छ। यसको ASTParser मा resolve bindings खोलियो र classpath दिइयो भने, हरेक नामको पूरा अर्थ थाहा हुन्छ, जसलाई binding भनिन्छ।
+
+तेस्रो माली Spoon हो। Spoon ले पूरै project लाई एउटा model बनाउँछ, र त्यो model मा type पहिल्यै जोडिएका हुन्छन्। Spoon को खास शक्ति code बदल्नु हो। Processor लेखेर हरेक method मा log थप्ने जस्ता काम सजिलै गर्न सकिन्छ।
+
+चौथो माली tree-sitter हो। यो Java को मात्र होइन, सयौं भाषाको parser हो। यो एकदमै छिटो छ, error भएको code पनि parse गर्छ, र file फेरिँदा पूरै फेरि parse नगरी फेरिएको भाग मात्र parse गर्छ। तर यसले type जान्दैन, र नामको अर्थ पनि जान्दैन।
+
+अब यी चार मालीसँग काम गर्ने तरिका एकैचोटि सुन।
+
+@algo java-ast
+Java code मा AST औजार यसरी प्रयोग गर। पहिलो, काम छान। छिटो खोज र धेरै भाषा चाहिन्छ भने tree-sitter लेऊ। Java को रुख र type दुवै हल्का तरिकाले चाहिन्छ भने JavaParser लेऊ। IDE जस्तो पूरा binding चाहिन्छ भने Eclipse JDT लेऊ। ठूलो स्तरमा code बदल्नु छ भने Spoon लेऊ। दोस्रो, file parse गरेर जरा पाऊ, जुन JavaParser मा CompilationUnit हो। तेस्रो, visitor लेख, र आफ्नो visit method भित्र super dot visit बोलाऊ, नत्र भित्रका node घुमिँदैनन्। चौथो, type चाहिन्छ भने symbol solver मा JDK का लागि ReflectionTypeSolver, आफ्नै source का लागि JavaParserTypeSolver, र library का लागि JarTypeSolver जोड, अनि resolve बोलाऊ। पाँचौं, code बदलेर फेरि लेख्नु छ भने formatting जोगाउने printer प्रयोग गर, जुन JavaParser मा LexicalPreservingPrinter हो।
+@end
+
+सान्जीले कफीको दाना हत्केलामा घुमायो। [sanji]"तेस्रो कदम Python को जङ्गलमा पनि थियो,"[/] उसले भन्यो। [sanji]"त्यहाँ generic_visit थियो, यहाँ super dot visit छ। नाम फरक छ, तर पासो उही हो।"[/]
+
+यो साँचो हो। JavaParser को VoidVisitorAdapter र Eclipse JDT को ASTVisitor दुवै visitor pattern हुन्। Eclipse JDT मा भने अलि फरक नियम छ। त्यहाँ visit method ले true फिर्ता दियो भने child घुमिन्छन्, र false फिर्ता दियो भने घुमिँदैनन्।
+
+एउटा उदाहरण सुन। तिमीलाई project भरि System dot out dot println कहाँ कहाँ छ भनेर खोज्नु छ। JavaParser मा सबै MethodCallExpr खोज। हरेकको नाम println हो कि हेर। अनि symbol solver ले resolve गरेर त्यो साँच्चै PrintStream को method हो कि जाँच। नाम मात्र हेर्दा आफ्नै println नामको method पनि समातिन्थ्यो।
+
+@recall java-ast | कफीको बास्ना अझै हावामा छ, र हामी चार मालीको तरिका फेरि सुन्छौं।
+
+@read hush
+बोटका पात बिस्तारै हल्लिए। माटो चिसो छ, र कहीं एउटा चरा निदाउनुअघि अन्तिम पटक कराएको छ।
+
+अब tree-sitter को query को कुरा सुन। tree-sitter मा खोज्नका लागि visitor लेख्नु पर्दैन। कोष्ठकभित्र node को आकार लेखिन्छ, र त्यसलाई S expression भनिन्छ। जस्तै method invocation भित्र name नामको field छ र त्यसमा capture राखियो भने, सबै method call का नाम एकैचोटि आउँछन्।
+
+GitHub ले code navigation मा tree-sitter प्रयोग गर्छ। धेरै editor ले syntax highlighting मा पनि यही प्रयोग गर्छन्। कारण एउटै हो, यो छिटो छ र आधा लेखिएको code मा पनि टुट्दैन।
+
+तर tree-sitter को रुख concrete syntax tree हो, अर्थात् त्यसमा कोष्ठक र अर्धविराम पनि हुन्छन्। AST भन्दा यो अलि ठूलो हुन्छ, तर source को हरेक byte यसमा कहीं न कहीं हुन्छ।
+
+@recall java-ast | जङ्गल छोड्नुअघि चार मालीको तरिका अन्तिम पटक सुन।
+
+@read hush
+सान्जीले दाना खल्तीमा राख्यो। [sanji:gentle]"भोलि बिहान यसैको कफी बनाउँछु।"[/] उसले बिस्तारै भन्यो। हामी जहाजतिर फर्कियौं।
+
+@tier medium
+
+अब Spoon लाई अलि नजिकबाट हेरौं। Spoon मा हरेक node को नाम Ct बाट सुरु हुन्छ। CtClass, CtMethod, र CtInvocation यस्ता नाम हुन्। Ct भनेको compile time हो।
+
+Spoon को Processor मा दुई method हुन्छन्। isToBeProcessed ले कुन node मा काम गर्ने भनेर छान्छ। process ले त्यो node मा काम गर्छ। Launcher लाई source folder र processor दिइयो भने, Spoon ले सबै file घुम्छ, र बदलिएको code नयाँ folder मा लेख्छ।
+
+Spoon research मा धेरै प्रयोग हुन्छ। automatic program repair का औजार, mutation testing का औजार, र code को नाप लिने औजार Spoon माथि बनेका छन्।
+
+Eclipse JDT को बारेमा एउटा व्यावहारिक कुरा पनि सुन। Eclipse बाहिर प्रयोग गर्दा पनि यो चल्छ, तर binding चाहियो भने classpath ठीक दिनैपर्छ। classpath अधुरो भयो भने binding null आउँछ, र तिम्रो analysis चुपचाप केही कुरा छुटाउँछ।
+
+@tier long
+
+लुफी बोटको छायाँमा उभिएको थियो। [luffy]"यी चारमध्ये एउटा मात्र रोज्नुपर्‍यो भने के गर्ने?"[/] उसले सोध्यो।
+
+सान्जीले सोचेर भन्यो — [sanji]"त्यो प्रश्न नै गलत छ। ठूला औजारले प्रायः दुई वटा प्रयोग गर्छन्। सुरुमा tree-sitter ले छिटो छान्छ, अनि शङ्का लागेको ठाउँमा मात्र भारी औजारले type सहित हेर्छ।"[/]
+
+यो तह तह मिलाउने विचार हाम्रो यात्राभरि आउँछ। सस्तो जाँच पहिले हुन्छ, र महँगो जाँच पछि हुन्छ। Semgrep जस्ता औजारले पनि यही गर्छन्।
+
+अर्को कुरा, यी सबै औजार source code हेर्छन्। तर कहिलेकाहीँ source हुँदैन, केवल dot class file वा jar हुन्छ। त्यसबेला bytecode हेर्ने औजार चाहिन्छ, जस्तै ASM, Soot, र SootUp। ती हामी आठौं टापुमा भेट्नेछौं।
+
+source र bytecode मा फरक के हुन्छ भने, bytecode मा compiler ले generic मेटिसकेको हुन्छ, lambda लाई अलग method बनाइसकेको हुन्छ, र comment पूरै हराइसकेको हुन्छ। तर bytecode मा सबै type र सबै method call पूरै resolve भइसकेका हुन्छन्। त्यसैले दुवैको आफ्नै फाइदा छ।
+
+@read hush
+कफीको जङ्गल पछाडि छुट्यो। बास्ना अझै अलिकति बाँकी छ, तर त्यो पनि रातको हावामा बिलाउँदैछ।

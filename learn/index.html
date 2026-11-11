@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Learn — Talank Baral</title>
-<meta name="description" content="Eight local, static, zero-dependency courses — Linux, Emacs, CI/CD &amp; Containers, AI Video, Local Voice Lab, Full-Stack Java, AI Engineering, and DSA interview prep — plus a pronunciation and grammar lab for American English.">
+<meta name="description" content="Local, static, zero-dependency interview-prep courses — Compilers &amp; Program Analysis, Formal Methods &amp; Solvers, AI Agents &amp; Evaluation, and DSA — plus archived courses and a pronunciation lab for American English.">
 <style>
   :root {
     --bg: #0d1117;
@@ -138,7 +138,7 @@
 </header>
 <main class="wrap">
   <h1>Learn</h1>
-  <p class="lede">Eight <b>local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices. At the end sits <b>one thing that isn't a course</b>: a speech lab that listens to you say a word and tells you what your mouth actually did.</p>
+  <p class="lede"><b>Local, static, zero-dependency</b> courses — no video, no tracked media, no build step, no accounts required. Every lesson: real mechanics, a story (One Piece plus alternating sitcom scenes) that acts the idea out, an interactive walkthrough, an in-browser code lab that actually runs, a quiz, and the interview questions companies actually ask. Progress is saved in your browser automatically; sign in on any course to sync it across devices. At the end sits <b>one thing that isn't a course</b>: a speech lab that listens to you say a word and tells you what your mouth actually did.</p>
 
   <div class="stats-row" id="statsRow">
     <div class="stat"><span class="n" id="statCourses">—</span><span class="l">courses</span></div>
@@ -149,51 +149,37 @@
 
   <div class="grid" id="courseGrid"></div>
 
+  <h2 style="margin:2.5rem 0 0.4rem;">Archived courses</h2>
+  <p class="lede" style="font-size:0.9rem;">Finished courses, zipped to keep the site small. Unzip one at the repo root and it runs as before.</p>
+  <div class="grid" id="archiveGrid"></div>
+
   <footer class="site">
-    <p>Every course above is built and usable today; a few are still gaining lessons. Three also have an audio edition of the whole syllabus, as both a bedtime story and a driving audiobook: DSA, Full-Stack Java and AI Engineering.</p>
+    <p>Every active course has an audio edition of the whole syllabus, a Nepali bedtime voyage told through One Piece: DSA, Compilers &amp; Program Analysis, Formal Methods &amp; Solvers, and AI Agents &amp; Evaluation.</p>
   </footer>
 </main>
 <script>
   const COURSES = [
+    /* Interview prep, written 2026-11: the three skill areas a research-engineer
+       role asked for. They live inside learn/ itself, so their dir has no ../ */
     {
-      dir: '../linux_course/', title: 'Linux Course',
-      desc: 'The filesystem, permissions, processes & services, text processing & regex, bash scripting, networking & SSH, and package management — genuinely comfortable on a Linux box.',
-      lessons: 26, hours: 17, status: 'done', progressKey: 'linux-progress-v1',
+      dir: 'compilers_course/', title: 'Compilers & Program Analysis',
+      desc: 'Parsing, ASTs (Python ast, JavaParser, tree-sitter, srcML), lowering to IR (CFGs, SSA, LLVM IR, Soot/SootUp Jimple), and the static-analysis theory interviewers probe: dataflow, abstract interpretation, pointer analysis and taint. Then the analyzers people actually run in Java and Python. Has a Nepali bedtime voyage.',
+      lessons: 15, hours: 11, status: 'done', progressKey: 'compilers-progress-v1',
     },
     {
-      dir: '../emacs_course/', title: 'Emacs Course',
-      desc: 'From "never opened Emacs" to daily-driving it: buffers, the kill ring, your own init.el, use-package, major/minor modes, Org mode, project navigation, Magit, and TRAMP.',
-      lessons: 22, hours: 13, status: 'done', progressKey: 'emacs-progress-v1',
+      dir: 'formal_methods_course/', title: 'Formal Methods & Solvers',
+      desc: 'SAT and CDCL, SMT and DPLL(T), Z3 in Python (bit-vectors, arrays, quantifiers, Optimize), symbolic execution, Hoare logic and verification conditions, bounded model checking, Dafny, and Lean 4 from propositions-as-types to tactic proofs about programs. Has a Nepali bedtime voyage.',
+      lessons: 13, hours: 10, status: 'done', progressKey: 'formal-progress-v1',
     },
     {
-      dir: '../ai_video_course/', title: 'AI Video Course',
-      desc: 'Build an LLM-powered content-creation app end to end — the capstone, DenDen Studio, turns a photo, a voice sample, and a description into an animated talking video. Open-source models only.',
-      lessons: 22, hours: 14, status: 'done', progressKey: 'aivideo-progress-v1',
-    },
-    {
-      dir: '../llm_audio_course/', title: 'Local Voice Lab (LLM Audio)',
-      desc: 'Synthesize natural, non-robotic speech entirely on your own machine — free, offline, nothing leaves the box. Prosody, emotion, character casting, laughs, caching, and private voice cloning, converging on the capstone StrawHat Narrator.',
-      lessons: 20, hours: 12, status: 'done', progressKey: 'localvoice-progress-v1',
-    },
-    {
-      dir: '../full_stack_java/', title: 'Full-Stack Java Course',
-      desc: 'The JVM, collections, modern Java, concurrency, Maven, testing, PostgreSQL, Spring, frontend, JavaFX, and cross-platform apps — converging on a capstone research-log manager, LogPose.',
-      lessons: 54, hours: 46, status: 'done', progressKey: 'java-progress-v1',
-    },
-    {
-      dir: '../AI_course/', title: 'AI Engineer Course',
-      desc: 'From "what even is a vector" through training, fine-tuning, and deploying LLMs, to building multi-framework agents — the real math, the real code, zero filler.',
-      lessons: 40, hours: 34, status: 'done', progressKey: 'ai-progress-v1',
+      dir: 'ai_agents_eval_course/', title: 'AI Agents & Evaluation',
+      desc: 'Build LLM and agent workflows (the tool-use loop, ReAct, RAG, orchestration, MCP, coding agents), then measure them properly: pass@k, the benchmark landscape and contamination, LLM-as-judge, confidence intervals and paired tests, and evaluation infrastructure that runs thousands of sandboxed tasks. Has a Nepali bedtime voyage.',
+      lessons: 14, hours: 10.5, status: 'done', progressKey: 'agenteval-progress-v1',
     },
     {
       dir: '../DSA_tool/', title: 'DSA Crash Course',
       desc: 'The ~19 patterns that generalize to almost all Google/Meta/Microsoft/Amazon-style coding interview questions, each with a walkthrough, real variants, and a timed mock interview drill.',
       lessons: 20, hours: 4.5, status: 'done', progressKey: 'dsa-progress-v1',
-    },
-    {
-      dir: '../cicd_course/', title: 'CI/CD & Containers Course',
-      desc: 'The direct sequel to Linux: Docker images and the Dockerfile, multi-container apps with Compose, real orchestration with Kubernetes, and a CI/CD pipeline that builds, tests, and deploys automatically on every push.',
-      lessons: 22, hours: 13.5, status: 'done', progressKey: 'cicd-progress-v1',
     },
     /* Last, and deliberately not shaped like the others: not a course, so
        nothing to read and nothing to complete, only a loop you stand in front
@@ -207,6 +193,19 @@
       facts: ['4 levels', '92 drills', '16 sound traps', '26 grammar rules'],
       storeKey: 'speechlab-v1',
     },
+  ];
+
+  /* Finished courses packed away to keep the deployed site small. Each zip is
+     the whole course folder: unzip it at the repo root and it runs exactly as
+     it did (its pages use ../shared/). */
+  const ARCHIVED = [
+    { zip: 'archive/linux_course.zip', title: 'Linux Course', lessons: 26, hours: 17 },
+    { zip: 'archive/emacs_course.zip', title: 'Emacs Course', lessons: 22, hours: 13 },
+    { zip: 'archive/ai_video_course.zip', title: 'AI Video Course', lessons: 22, hours: 14 },
+    { zip: 'archive/llm_audio_course.zip', title: 'Local Voice Lab (LLM Audio)', lessons: 20, hours: 12 },
+    { zip: 'archive/full_stack_java.zip', title: 'Full-Stack Java Course', lessons: 54, hours: 46 },
+    { zip: 'archive/AI_course.zip', title: 'AI Engineer Course', lessons: 40, hours: 34 },
+    { zip: 'archive/cicd_course.zip', title: 'CI/CD & Containers Course', lessons: 22, hours: 13.5 },
   ];
 
   // Everything with lessons to count. Cards that carry a `kind` are shown but
@@ -296,6 +295,16 @@
 
     const overallPct = totalLessons > 0 ? Math.round((totalDone / totalLessons) * 100) : 0;
     document.getElementById('overallPct').textContent = overallPct + '%';
+
+    document.getElementById('archiveGrid').innerHTML = ARCHIVED.map(a => `
+      <div class="card">
+        <div class="card-top">
+          <h2>${a.title}</h2>
+          <span class="badge soon">Archived</span>
+        </div>
+        <div class="meta" style="margin-top:0.6rem;"><span>${a.lessons} lessons</span><span>~${a.hours}h</span></div>
+        <a class="go" href="${a.zip}" download>Download .zip</a>
+      </div>`).join('');
   }
 
   render();

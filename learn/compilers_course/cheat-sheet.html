@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheet — Compilers &amp; Program Analysis Course</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Cheat Sheet</h1>
+  <p class="lede">The commands, APIs, equations and one-line definitions from all 15 lessons on one page, in dashboard order. Use it to refresh your memory after you have done the labs. It does not replace them.</p>
+
+  <!-- ───────────────────────── Part 0 ───────────────────────── -->
+  <div class="card">
+    <h2 style="margin-top:0;">Part 0 — The Compiler Pipeline</h2>
+    <h3>The phases</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Phase</th><th>Input &rarr; output</th><th>What it catches / does</th></tr>
+      <tr><td>Lexing (scanning)</td><td>characters &rarr; tokens</td><td>Regular languages / DFAs; maximal munch; drops whitespace and comments; bad characters</td></tr>
+      <tr><td>Parsing</td><td>tokens &rarr; parse tree / AST</td><td>Context-free grammar; syntax errors; the AST drops punctuation the tree no longer needs</td></tr>
+      <tr><td>Semantic analysis</td><td>AST &rarr; annotated AST + symbol tables</td><td>Name resolution, scoping, type checking, overload resolution</td></tr>
+      <tr><td>Lowering / IR gen</td><td>AST &rarr; IR (TAC, CFG, SSA)</td><td>Turns nested expressions and structured control flow into simple instructions and jumps</td></tr>
+      <tr><td>Optimization</td><td>IR &rarr; IR</td><td>Constant folding/propagation, DCE, CSE, LICM, inlining. Each pass rests on a dataflow fact</td></tr>
+      <tr><td>Code generation</td><td>IR &rarr; machine code / bytecode</td><td>Instruction selection, register allocation (graph coloring / linear scan), scheduling</td></tr>
+      <tr><td>Front / middle / back end</td><td>language-specific / IR / target-specific</td><td>The reason LLVM works: N languages + M targets need N+M components, not N&times;M</td></tr>
+    </table>
+    </div>
+    <h3>Lexing &amp; parsing vocabulary</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Term</th><th>Meaning</th></tr>
+      <tr><td>CFG grammar (BNF/EBNF)</td><td>Productions <code>expr ::= expr '+' term | term</code>; terminals = tokens, nonterminals = rules</td></tr>
+      <tr><td>Ambiguity</td><td>One string has two parse trees (dangling else, <code>1-2-3</code> without associativity). Fix it by layering the grammar or declaring precedence</td></tr>
+      <tr><td>LL(k) / recursive descent</td><td>Top-down parser, one function per nonterminal, decides with k tokens of lookahead. Left recursion must be removed (<code>A ::= A a</code> loops forever)</td></tr>
+      <tr><td>LR / LALR(1)</td><td>Bottom-up shift/reduce parser (yacc, bison). Handles left recursion. Conflicts show up as shift/reduce or reduce/reduce</td></tr>
+      <tr><td>Precedence climbing / Pratt</td><td>Recursive descent for expressions: <code>parse_expr(min_prec)</code> loops while the next operator's precedence &ge; min_prec. Left-assoc operators recurse with prec+1</td></tr>
+      <tr><td>PEG / packrat</td><td>Ordered choice <code>/</code>, never ambiguous, memoized. CPython's parser has been PEG-based since 3.9</td></tr>
+      <tr><td>ANTLR 4</td><td>ALL(*) parser generator: <code>antlr4 Expr.g4 -Dlanguage=Python3</code>, generates Listener/Visitor classes, tolerates direct left recursion</td></tr>
+      <tr><td>Lark (Python)</td><td><code>Lark(grammar, parser="lalr")</code> or <code>"earley"</code> (the default). <code>Transformer</code> turns the tree into values</td></tr>
+      <tr><td>Concrete vs abstract syntax tree</td><td>A CST keeps every token (needed for formatters and round-tripping). An AST keeps the structure that matters for meaning</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <!-- ───────────────────────── Part 1 ───────────────────────── -->
+  <div class="card">
+    <h2 style="margin-top:0;">Part 1 — Working With ASTs</h2>
+    <h3>Python <code>ast</code></h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>API</th><th>What it does</th></tr>
+      <tr><td><code>tree = ast.parse(src, filename, mode="exec")</code></td><td>Source &rarr; <code>ast.Module</code>. <code>mode="eval"</code> gives <code>ast.Expression</code></td></tr>
+      <tr><td><code>ast.dump(tree, indent=2)</code></td><td>Pretty-print the tree (<code>indent=</code> needs 3.9+). <code>include_attributes=True</code> adds line/col</td></tr>
+      <tr><td><code>ast.walk(tree)</code></td><td>Visits every node breadth-first, in no guaranteed order and with no parent links. Good for "find all X"</td></tr>
+      <tr><td><code>class V(ast.NodeVisitor): def visit_Call(self, node): ...; self.generic_visit(node)</code></td><td>Dispatch by node type. If you forget <code>generic_visit</code>, children are not visited</td></tr>
+      <tr><td><code>ast.NodeTransformer</code></td><td>Same as a visitor, but a method's return value replaces the node. Return <code>None</code> to delete it, or a list to splice several in</td></tr>
+      <tr><td><code>ast.fix_missing_locations(tree)</code></td><td>Fills <code>lineno</code>/<code>col_offset</code> on new nodes. Call it before <code>compile</code></td></tr>
+      <tr><td><code>ast.copy_location(new, old)</code></td><td>Copies position info from the replaced node</td></tr>
+      <tr><td><code>ast.unparse(tree)</code></td><td>AST &rarr; source (3.9+). Comments and original formatting are lost</td></tr>
+      <tr><td><code>exec(compile(tree, "&lt;ast&gt;", "exec"))</code></td><td>Runs a transformed tree</td></tr>
+      <tr><td><code>ast.literal_eval(s)</code></td><td>Safely evaluates literals only. It is not <code>eval</code></td></tr>
+      <tr><td><code>ast.get_docstring(fn)</code>, <code>ast.iter_child_nodes(n)</code></td><td>Small helpers you use all the time</td></tr>
+      <tr><td><code>Name.ctx</code>: <code>Load</code> / <code>Store</code> / <code>Del</code></td><td>Tells a read from a write. It is the basis of every def/use analysis</td></tr>
+    </table>
+    </div>
+    <h3>Java ASTs</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Tool / API</th><th>What it does</th></tr>
+      <tr><td><code>CompilationUnit cu = StaticJavaParser.parse(file);</code></td><td>JavaParser: source &rarr; AST (<code>com.github.javaparser</code>)</td></tr>
+      <tr><td><code>cu.findAll(MethodCallExpr.class)</code></td><td>JavaParser: every node of a given type, returned as a <code>List</code></td></tr>
+      <tr><td><code>class V extends VoidVisitorAdapter&lt;Void&gt; { public void visit(MethodDeclaration n, Void arg) { super.visit(n, arg); ... } }</code></td><td>JavaParser visitor. Call <code>super.visit</code> to keep descending. <code>GenericVisitorAdapter</code> returns values</td></tr>
+      <tr><td><code>LexicalPreservingPrinter.setup(cu)</code> &hellip; <code>LexicalPreservingPrinter.print(cu)</code></td><td>JavaParser: refactor while keeping the original formatting and comments</td></tr>
+      <tr><td><code>JavaSymbolSolver</code> + <code>CombinedTypeSolver(new ReflectionTypeSolver(), new JavaParserTypeSolver(dir))</code></td><td>JavaParser symbol solving: <code>expr.calculateResolvedType()</code>, <code>call.resolve()</code></td></tr>
+      <tr><td><code>ASTParser p = ASTParser.newParser(AST.getJLSLatest()); p.setSource(chars); p.setResolveBindings(true);</code></td><td>Eclipse JDT: <code>(CompilationUnit) p.createAST(null)</code> + <code>ASTVisitor</code>. Bindings need an environment/classpath and a unit name</td></tr>
+      <tr><td><code>Launcher l = new Launcher(); l.addInputResource("src"); CtModel m = l.buildModel();</code></td><td>Spoon: a fully typed metamodel. <code>m.getElements(new TypeFilter&lt;&gt;(CtInvocation.class))</code></td></tr>
+      <tr><td><code>class P extends AbstractProcessor&lt;CtMethod&lt;?&gt;&gt; { public void process(CtMethod&lt;?&gt; m) {...} }</code></td><td>Spoon processor: analysis or source-to-source transformation (popular in program repair research)</td></tr>
+    </table>
+    </div>
+    <h3>tree-sitter (py-tree-sitter 0.22+)</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>API / syntax</th><th>What it does</th></tr>
+      <tr><td><code>pip install tree_sitter tree_sitter_python</code></td><td>Core binding plus a prebuilt grammar wheel</td></tr>
+      <tr><td><code>PY = Language(tree_sitter_python.language()); parser = Parser(PY)</code></td><td>Builds a parser. Older versions used <code>parser.set_language(...)</code></td></tr>
+      <tr><td><code>tree = parser.parse(b"source bytes")</code></td><td>Incremental, error-tolerant concrete syntax tree. Input must be <code>bytes</code></td></tr>
+      <tr><td><code>node.type</code>, <code>node.children</code>, <code>node.start_point</code>, <code>node.text</code>, <code>node.child_by_field_name("name")</code></td><td>Node navigation. <code>tree.root_node.has_error</code> flags parse errors</td></tr>
+      <tr><td><code>(function_definition name: (identifier) @fn.name)</code></td><td>Query language: S-expression patterns, <code>field:</code> names and <code>@capture</code>s</td></tr>
+      <tr><td><code>(call function: (identifier) @f (#eq? @f "eval"))</code></td><td>Predicates: <code>#eq?</code>, <code>#match?</code></td></tr>
+      <tr><td><code>PY.query(q).captures(tree.root_node)</code></td><td>Runs a query. The return shape (list of tuples vs dict of name &rarr; nodes) changed across versions, so check yours</td></tr>
+    </table>
+    </div>
+    <h3>srcML</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>srcml Foo.java -o Foo.xml</code></td><td>Source &rarr; srcML XML. Every character is kept, including whitespace and comments</td></tr>
+      <tr><td><code>srcml Foo.xml -o Foo.java</code></td><td>Round-trip back to the exact original source</td></tr>
+      <tr><td><code>srcml --language=C++ code.h -o code.xml</code></td><td>Forces the language (C, C++, C#, Java)</td></tr>
+      <tr><td><code>srcml --position Foo.java -o Foo.xml</code></td><td>Adds <code>pos:start</code>/<code>pos:end</code> line:column attributes</td></tr>
+      <tr><td><code>srcml src/ -o project.xml</code></td><td>A whole directory becomes one archive with a <code>&lt;unit&gt;</code> per file</td></tr>
+      <tr><td><code>srcml --xpath "//src:function/src:name" Foo.xml</code></td><td>XPath query over srcML. Prefix <code>src</code> = <code>http://www.srcML.org/srcML/src</code></td></tr>
+      <tr><td><code>//src:call[src:name='sleep']</code>, <code>//src:if_stmt</code>, <code>//src:decl_stmt</code></td><td>Typical element names: <code>unit, function, class, block, decl, call, expr, if_stmt, for, while, return, comment</code></td></tr>
+      <tr><td>lxml: <code>tree.xpath("//src:function", namespaces={"src": "http://www.srcML.org/srcML/src"})</code></td><td>Query from Python. The namespace map is required</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <!-- ───────────────────────── Part 2 ───────────────────────── -->
+  <div class="card">
+    <h2 style="margin-top:0;">Part 2 — Lowering to Intermediate Representations</h2>
+    <h3>TAC, basic blocks, CFG, dominators, SSA</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Concept</th><th>Rule / definition</th></tr>
+      <tr><td>Three-address code</td><td>At most one operator per instruction: <code>t1 = b * c; t2 = a + t1</code>. Control flow becomes <code>if x goto L</code> / <code>goto L</code></td></tr>
+      <tr><td>Leaders</td><td>(1) the first instruction, (2) any jump target, (3) the instruction right after a jump. A basic block runs from one leader up to the next</td></tr>
+      <tr><td>Basic block</td><td>Single entry, single exit, straight-line code. If its first instruction runs, all of them run</td></tr>
+      <tr><td>CFG</td><td>Nodes are blocks. Edges are jumps and fall-throughs. Add unique ENTRY and EXIT nodes</td></tr>
+      <tr><td>Short-circuit lowering</td><td><code>a and b</code> becomes branches, not an AND instruction, because <code>b</code> must not be evaluated when <code>a</code> is false</td></tr>
+      <tr><td>Dominance</td><td>d dom n if every ENTRY&rarr;n path passes through d. <code>Dom(n) = {n} &cup; &cap;<sub>p&isin;pred(n)</sub> Dom(p)</code>. The immediate dominators form the dominator tree</td></tr>
+      <tr><td>Back edge / natural loop</td><td>Edge n&rarr;h where h dom n. The loop body is h plus everything that reaches n without passing through h</td></tr>
+      <tr><td>Dominance frontier</td><td>DF(d) = nodes where d's dominance ends: d dominates a predecessor but does not strictly dominate the node. Place &phi; nodes there</td></tr>
+      <tr><td>SSA</td><td>Each variable is assigned exactly once. At join points, <code>x3 = &phi;(x1, x2)</code> selects by incoming edge</td></tr>
+      <tr><td>Construction (Cytron et al.)</td><td>(1) dominator tree + DF, (2) insert &phi; on the iterated DF of each variable's def blocks (pruned SSA: only where the variable is live), (3) rename vars in a dominator-tree DFS</td></tr>
+      <tr><td>Why SSA helps</td><td>Def-use chains become explicit (one def per name). Sparse analyses (SCCP, GVN) and register allocation get easier</td></tr>
+      <tr><td>Out of SSA</td><td>Replace &phi; with copies on predecessor edges. Split critical edges first (lost-copy / swap problems)</td></tr>
+    </table>
+    </div>
+    <h3>LLVM</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>clang -S -emit-llvm -O0 foo.c -o foo.ll</code></td><td>C &rarr; textual LLVM IR. At -O0 locals live in <code>alloca</code> slots with <code>load</code>/<code>store</code> (not SSA values yet)</td></tr>
+      <tr><td><code>clang -S -emit-llvm -O0 -Xclang -disable-O0-optnone foo.c</code></td><td>Needed if you want <code>opt</code> to transform -O0 output, because -O0 marks functions <code>optnone</code></td></tr>
+      <tr><td><code>opt -passes=mem2reg -S foo.ll -o foo.ssa.ll</code></td><td>Promotes allocas to SSA registers and inserts <code>phi</code> (new pass manager syntax)</td></tr>
+      <tr><td><code>opt -passes='print&lt;domtree&gt;' -disable-output foo.ll</code></td><td>Prints the dominator tree</td></tr>
+      <tr><td><code>opt -passes=dot-cfg -disable-output foo.ll</code></td><td>Writes <code>.&lt;fn&gt;.dot</code> CFG files for Graphviz</td></tr>
+      <tr><td><code>opt -O2 -S foo.ll</code>, <code>llc foo.ll -o foo.s</code>, <code>lli foo.ll</code></td><td>Optimize, compile to assembly, interpret/JIT</td></tr>
+      <tr><td>IR syntax</td><td><code>%x = add nsw i32 %a, %b</code>; <code>br i1 %c, label %then, label %else</code>; <code>%p = phi i32 [ %a, %bb1 ], [ %b, %bb2 ]</code>. Every block ends in a terminator</td></tr>
+    </table>
+    </div>
+    <h3>Soot (classic) vs SootUp</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>API / command</th><th>What it does</th></tr>
+      <tr><td><b>Classic</b> <code>java -cp soot.jar soot.Main -cp . -pp -f J Foo</code></td><td>Dumps Jimple for class Foo into <code>sootOutput/</code>. <code>-pp</code> prepends the JVM's classpath</td></tr>
+      <tr><td><b>Classic</b> <code>soot.Main -process-dir target/classes -w -p cg.spark on -f J</code></td><td>Whole-program mode (<code>-w</code>) with the Spark points-to/call-graph phase</td></tr>
+      <tr><td><b>Classic</b> <code>Scene.v()</code>, <code>Options.v()</code>, <code>PackManager.v().getPack("wjtp").add(new Transform("wjtp.my", t))</code></td><td>Global singletons. Custom whole-program analyses go in the <code>wjtp</code> pack, per-body ones in <code>jtp</code> (<code>BodyTransformer</code>)</td></tr>
+      <tr><td><b>Classic</b> <code>Scene.v().getCallGraph()</code>, <code>new ExceptionalUnitGraph(body)</code></td><td>Call graph after <code>cg</code>, intraprocedural CFG over <code>Unit</code>s</td></tr>
+      <tr><td>Jimple</td><td>Typed three-address code with a stackless bytecode IR: <code>r0 := @this: Foo</code>, <code>$i0 = virtualinvoke r1.&lt;java.lang.String: int length()&gt;()</code>. Shimple is the SSA form</td></tr>
+      <tr><td><b>SootUp</b> <code>new JavaClassPathAnalysisInputLocation("target/classes")</code> &rarr; <code>new JavaView(inputLocation)</code></td><td>No global state. Views are immutable and can be created many times</td></tr>
+      <tr><td><b>SootUp</b> <code>view.getClass(classType)</code> (Optional) &rarr; <code>getMethod(subSignature)</code></td><td>Signatures from <code>view.getIdentifierFactory().getClassType("Foo")</code> / <code>getMethodSignature(...)</code></td></tr>
+      <tr><td><b>SootUp</b> <code>method.getBody().getStmtGraph()</code></td><td>The CFG of Jimple <code>Stmt</code>s</td></tr>
+      <tr><td><b>SootUp</b> <code>new ClassHierarchyAnalysisAlgorithm(view).initialize(entryPoints)</code></td><td>Builds a <code>CallGraph</code>. <code>RapidTypeAnalysisAlgorithm</code> is the more precise RTA</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <!-- ───────────────────────── Part 3 ───────────────────────── -->
+  <div class="card">
+    <h2 style="margin-top:0;">Part 3 — Static Analysis Theory</h2>
+    <h3>Dataflow analysis: the four classics</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Analysis</th><th>Direction</th><th>May/must (meet)</th><th>GEN[B]</th><th>KILL[B]</th><th>Used for</th></tr>
+      <tr><td>Reaching definitions</td><td>Forward</td><td>May (&cup;)</td><td>defs in B that survive to its end</td><td>other defs of the same variables</td><td>use-def chains, uninitialized vars, constant prop</td></tr>
+      <tr><td>Live variables</td><td>Backward</td><td>May (&cup;)</td><td>vars used before being defined in B</td><td>vars defined in B</td><td>dead stores, register allocation</td></tr>
+      <tr><td>Available expressions</td><td>Forward</td><td>Must (&cap;)</td><td>exprs computed in B, operands not redefined after</td><td>exprs whose operands B redefines</td><td>common subexpression elimination</td></tr>
+      <tr><td>Very busy expressions</td><td>Backward</td><td>Must (&cap;)</td><td>exprs evaluated in B before any operand is redefined</td><td>exprs whose operands B defines</td><td>code hoisting</td></tr>
+    </table>
+    </div>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Concept</th><th>Rule</th></tr>
+      <tr><td>Forward equations</td><td><code>IN[B] = &#8851;<sub>p&isin;pred(B)</sub> OUT[p]</code>; <code>OUT[B] = GEN[B] &cup; (IN[B] &minus; KILL[B])</code></td></tr>
+      <tr><td>Backward equations</td><td><code>OUT[B] = &#8851;<sub>s&isin;succ(B)</sub> IN[s]</code>; <code>IN[B] = GEN[B] &cup; (OUT[B] &minus; KILL[B])</code></td></tr>
+      <tr><td>Initialization</td><td>May analyses start at &empty;. Must analyses start at the universal set (except the boundary node)</td></tr>
+      <tr><td>Worklist algorithm</td><td>Seed every node. Pop a node, recompute it, and if OUT changed push its successors (predecessors when going backward). Process in reverse postorder (forward) or postorder (backward) for speed</td></tr>
+      <tr><td>Termination</td><td>Transfer functions are monotone and the lattice has finite height, so the solution only climbs and must stop. Cost is O(height &times; edges) node visits</td></tr>
+      <tr><td>MOP vs MFP</td><td>MOP meets over every path (the ideal, not computable in general). MFP is the iterative fixpoint. MFP &#8849; MOP in general, and they are equal when transfer functions are distributive (all gen/kill analyses). Constant propagation is not distributive, so there MFP is strictly less precise</td></tr>
+      <tr><td>Constant propagation lattice</td><td>&top; (undefined) &gt; constants c &gt; &bot; (not-a-constant). The flat lattice has height 2. Meet of two different constants is &bot; (NAC)</td></tr>
+    </table>
+    </div>
+    <h3>Lattices &amp; abstract interpretation</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Term</th><th>Meaning</th></tr>
+      <tr><td>Complete lattice</td><td>A partial order where every subset has a join &#8852; (least upper bound) and a meet &#8851;, with &bot; and &top;</td></tr>
+      <tr><td>Monotone function</td><td>x &#8849; y &rArr; f(x) &#8849; f(y). Tarski: the least fixpoint exists. Kleene: reach it by iterating from &bot;</td></tr>
+      <tr><td>Galois connection (&alpha;, &gamma;)</td><td>&alpha;(concrete set) &#8849; a &hArr; set &sube; &gamma;(a). &alpha; abstracts and &gamma; concretizes</td></tr>
+      <tr><td>Soundness</td><td>The abstract result over-approximates every concrete execution: collecting semantics &sube; &gamma;(abstract result)</td></tr>
+      <tr><td>Sign domain</td><td>{&bot;, &minus;, 0, +, &top;}. Finite, so iteration stops without widening. <code>+ &times; &minus; = &minus;</code>, <code>+ + &minus; = &top;</code></td></tr>
+      <tr><td>Interval domain</td><td>[l, h] with l, h &isin; &#8484; &cup; {&plusmn;&infin;}. It has infinite height, so loops need widening</td></tr>
+      <tr><td>Widening &nabla;</td><td><code>[a,b] &nabla; [c,d] = [c&lt;a ? &minus;&infin; : a, d&gt;b ? +&infin; : b]</code>. Forces termination and over-approximates</td></tr>
+      <tr><td>Narrowing &Delta;</td><td>Runs after widening and refines only the infinite bounds: <code>i=0; while i&lt;100: i+=1</code> widens to [0,+&infin;] and narrows to [0,100]</td></tr>
+      <tr><td>Relational domains</td><td>Octagons (&plusmn;x &plusmn;y &le; c) and polyhedra track relations such as <code>i &lt; n</code>. More precise, more expensive (Astr&eacute;e, Apron)</td></tr>
+    </table>
+    </div>
+    <h3>Call graphs &amp; pointer analysis</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Algorithm</th><th>How it resolves <code>o.m()</code> / points-to</th><th>Precision / cost</th></tr>
+      <tr><td>CHA</td><td>Every override of m in subtypes of o's declared type</td><td>Cheapest and least precise</td></tr>
+      <tr><td>RTA</td><td>CHA restricted to classes actually instantiated (<code>new C</code>) in reachable code</td><td>Cheap, noticeably better</td></tr>
+      <tr><td>VTA</td><td>Propagates types along assignments in a type-flow graph</td><td>Between RTA and points-to</td></tr>
+      <tr><td>Andersen (inclusion)</td><td><code>p = q</code> &rArr; pts(q) &sube; pts(p). Subset constraints solved to fixpoint</td><td>More precise. O(n<sup>3</sup>) worst case</td></tr>
+      <tr><td>Steensgaard (unification)</td><td><code>p = q</code> &rArr; unify pts(p) and pts(q) with union-find. One pointee class per node</td><td>Almost linear time, coarse</td></tr>
+      <tr><td>Constraints</td><td><code>p=&amp;a</code>: a&isin;pts(p); <code>p=q</code>: pts(q)&sube;pts(p); <code>p=*q</code>: &forall;o&isin;pts(q) pts(o)&sube;pts(p); <code>*p=q</code>: &forall;o&isin;pts(p) pts(q)&sube;pts(o)</td><td>The four canonical forms</td></tr>
+      <tr><td>Sensitivities</td><td>Flow (order of statements), context (calling context: call-site strings k-CFA, object sensitivity), field (<code>o.f</code> vs <code>o.g</code>), path (branch conditions)</td><td>Each one adds precision and cost</td></tr>
+      <tr><td>k-CFA</td><td>Contexts are the last k call sites. Exponential in k. Object sensitivity (receiver allocation sites) usually works better for Java</td><td>Common choices: 1-CFA, 2-obj+heap</td></tr>
+      <tr><td>Frameworks</td><td>Soot Spark (Andersen-style, on-the-fly call graph), WALA (IBM, 0-CFA/n-CFA builders), Doop (declarative, Datalog/Souffl&eacute;), Qilin, Tai-e</td><td>Doop is where to look for context-sensitivity variants</td></tr>
+    </table>
+    </div>
+    <h3>Taint analysis</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Concept / syntax</th><th>Meaning</th></tr>
+      <tr><td>Source / sink / sanitizer</td><td>Where untrusted data enters (<code>request.getParameter</code>), where it must not arrive unchecked (<code>Statement.execute</code>, <code>os.system</code>), and what cleans it (<code>shlex.quote</code>, prepared statements)</td></tr>
+      <tr><td>IFDS</td><td>Interprocedural, Finite, Distributive, Subset problems, reduced to graph reachability over an exploded supergraph. O(E&middot;D<sup>3</sup>). Context-sensitive through realizable call/return paths</td></tr>
+      <tr><td>IDE</td><td>IFDS plus values on the edges (e.g. linear constant propagation)</td></tr>
+      <tr><td>FlowDroid</td><td>IFDS taint for Android on Soot. Models lifecycle callbacks with a dummy main, plus on-demand backward alias analysis. Context-, flow-, field- and object-sensitive</td></tr>
+      <tr><td>CodeQL config</td><td><code>module Cfg implements DataFlow::ConfigSig { predicate isSource(DataFlow::Node n) {...} predicate isSink(DataFlow::Node n) {...} predicate isBarrier(DataFlow::Node n) {...} }</code></td></tr>
+      <tr><td>CodeQL flow</td><td><code>module Flow = TaintTracking::Global&lt;Cfg&gt;;</code> then <code>from Flow::PathNode s, Flow::PathNode t where Flow::flowPath(s, t) select t.getNode(), s, t, "..."</code> with <code>@kind path-problem</code></td></tr>
+      <tr><td>CodeQL CLI</td><td><code>codeql database create db --language=java --command="mvn -q compile"</code>; <code>codeql database analyze db q.ql --format=sarif-latest --output=r.sarif</code></td></tr>
+      <tr><td>Semgrep taint</td><td><code>mode: taint</code> with <code>pattern-sources</code>, <code>pattern-sinks</code>, <code>pattern-sanitizers</code> (intraprocedural in the open-source engine)</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <!-- ───────────────────────── Part 4 ───────────────────────── -->
+  <div class="card">
+    <h2 style="margin-top:0;">Part 4 — Static Analyzers in the Wild</h2>
+    <h3>Java</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Tool</th><th>Works on</th><th>Run it / extend it</th></tr>
+      <tr><td>SpotBugs (+ FindSecBugs)</td><td>Bytecode (BCEL/ASM), detector patterns</td><td><code>mvn spotbugs:check</code>. Custom detector: extend <code>OpcodeStackDetector</code>, override <code>sawOpcode(int seen)</code>, register it in <code>findbugs.xml</code> + <code>messages.xml</code></td></tr>
+      <tr><td>PMD 7</td><td>Source AST, Java or XPath rules</td><td><code>pmd check -d src -R rules.xml -f text</code>. XPath rule: <code>class="net.sourceforge.pmd.lang.rule.xpath.XPathRule"</code> with an <code>xpath</code> property, e.g. <code>//MethodCall[@MethodName='sleep']</code>. Find node names with <code>pmd designer</code></td></tr>
+      <tr><td>Error Prone</td><td>javac plugin on the typed AST</td><td><code>javac -XDcompilePolicy=simple -processorpath ep.jar '-Xplugin:ErrorProne -Xep:DeadException:ERROR' ...</code>. Custom check: <code>@BugPattern(summary=..., severity=WARNING)</code> + <code>extends BugChecker implements MethodInvocationTreeMatcher</code>, return <code>describeMatch(tree)</code> or <code>Description.NO_MATCH</code></td></tr>
+      <tr><td>NullAway</td><td>Error Prone plugin</td><td><code>-XepOpt:NullAway:AnnotatedPackages=com.acme</code>. Fast, intentionally unsound nullness checking for builds</td></tr>
+      <tr><td>Checker Framework</td><td>Pluggable type systems (annotation processor)</td><td><code>javac -processor org.checkerframework.checker.nullness.NullnessChecker Foo.java</code>. <code>@Nullable</code>/<code>@NonNull</code>, flow-sensitive refinement. Sound modulo documented assumptions</td></tr>
+      <tr><td>Infer</td><td>Separation logic + bi-abduction, compositional per-procedure specs</td><td><code>infer run -- javac Foo.java</code> / <code>infer run -- mvn compile</code>. Pulse (memory/null), RacerD (data races on <code>@ThreadSafe</code>), InferSharp</td></tr>
+      <tr><td>CodeQL</td><td>Relational database of the program + QL (Datalog-like)</td><td>Taint and data flow queries (see Part 3). Runs in GitHub code scanning</td></tr>
+      <tr><td>SonarQube</td><td>Platform: many rule engines + quality gates + dashboards</td><td><code>mvn sonar:sonar</code>. Tracks issues over time ("new code" period)</td></tr>
+    </table>
+    </div>
+    <h3>Python</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>pylint --load-plugins=my_checker pkg/</code></td><td>Runs a custom <code>BaseChecker</code> with <code>visit_call(self, node)</code> on the astroid tree and <code>register(linter)</code>. Message ids look like <code>W9001</code></td></tr>
+      <tr><td><code>pylint --disable=all --enable=possibly-used-before-assignment f.py</code></td><td>Runs one message only (E0606 is in recent pylint)</td></tr>
+      <tr><td><code>ruff check --select F,E,B,S .</code> / <code>ruff check --fix</code></td><td>Rust reimplementation of flake8 plus plugins (F = pyflakes, B = bugbear, S = bandit rules). Very fast. No custom-rule plugins</td></tr>
+      <tr><td><code>flake8 --select=F841 f.py</code></td><td>pycodestyle + pyflakes + mccabe. Plugins register through the <code>flake8.extension</code> entry point</td></tr>
+      <tr><td><code>pyflakes f.py</code></td><td>Unused imports and variables, undefined names. Never style. Few false positives</td></tr>
+      <tr><td><code>mypy --strict pkg/</code> / <code>pyright</code></td><td>Gradual typing: unannotated code is <code>Any</code> and not checked. Pyright is the engine behind Pylance and narrows more aggressively</td></tr>
+      <tr><td><code>bandit -r pkg/</code> / <code>bandit -q f.py</code></td><td>Security AST checks (B602 shell=True, B101 assert, B404 subprocess import) with severity &times; confidence</td></tr>
+      <tr><td><code>semgrep --config rules.yaml --metrics=off .</code></td><td>Pattern rules: <code>pattern</code>, <code>pattern-not</code>, <code>patterns</code>, <code>pattern-either</code>, <code>metavariable-regex</code>, <code>fix:</code>. <code>--autofix --dryrun</code> previews fixes</td></tr>
+      <tr><td><code>vulture pkg/ --min-confidence 80</code></td><td>Dead code: unused functions, classes and variables, with confidence scores</td></tr>
+      <tr><td><code>pyre analyze</code> (Pysa)</td><td>Meta's interprocedural taint analysis for Python. Sources and sinks live in <code>.pysa</code> model files and <code>taint.config</code></td></tr>
+    </table>
+    </div>
+    <h3>Capstone: minilint</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Piece</th><th>What it does</th></tr>
+      <tr><td><code>python3 minilint.py file.py</code></td><td>Exits 1 when there are findings. Output looks like <code>file.py:7: ML001 fn: local 'mode' may be unassigned at this use</code></td></tr>
+      <tr><td>Pipeline</td><td><code>ast.parse</code> &rarr; statement-level CFG (if/while/for/try/with/break/continue/return) &rarr; worklist reaching defs + liveness &rarr; report</td></tr>
+      <tr><td>ML001 possibly-uninitialized</td><td>Seeds a pseudo-def <code>&lt;uninit&gt;</code> for each non-parameter local at entry. Reports a use where it still reaches</td></tr>
+      <tr><td>ML002 dead store</td><td>A definition whose variable is not live right after it</td></tr>
+      <tr><td>ML003 unreachable (lab)</td><td>BFS over <code>succ</code> from entry. "Has a predecessor" is not reachability, because a dead loop body has its own back edge</td></tr>
+      <tr><td>Known imprecision</td><td>Path-insensitive (correlated <code>if</code>s give false positives) and intraprocedural (it cannot see that a callee always raises). Names captured by closures are skipped</td></tr>
+      <tr><td><code>python3 -m unittest -v test_minilint</code></td><td>Runs the regression tests</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Interview one-liners</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Question</th><th>Crisp answer</th></tr>
+      <tr><td>Sound vs complete?</td><td>Sound: no false negatives (every real bug is reported, so it over-approximates). Complete: no false positives (every report is real, so it under-approximates). Some put it the other way round for "proving correctness", so state your convention</td></tr>
+      <tr><td>Rice's theorem</td><td>Every non-trivial semantic property of programs is undecidable. So any analysis that always terminates must give up soundness or completeness (or both)</td></tr>
+      <tr><td>Precision / recall</td><td>Precision = TP/(TP+FP), which developers feel as trust. Recall = TP/(TP+FN), which is coverage of real bugs. Industrial tools favor precision (if they don't trust it, they won't use it)</td></tr>
+      <tr><td>Soundy</td><td>Sound except for documented features such as reflection, dynamic loading, native code and eval. Most "sound" Java and Python tools are soundy</td></tr>
+      <tr><td>Why is dataflow guaranteed to terminate?</td><td>Monotone transfer functions on a finite-height lattice. Without finite height (intervals), use widening</td></tr>
+      <tr><td>MFP vs MOP?</td><td>Equal for distributive frameworks. MFP is safe but less precise for non-distributive ones such as constant propagation</td></tr>
+      <tr><td>Andersen vs Steensgaard?</td><td>Subset vs unification: cubic and precise vs near-linear and coarse. Andersen is the usual choice when you can pay for it</td></tr>
+      <tr><td>AST vs IR for analysis?</td><td>The AST is right for syntactic linting and refactoring that must preserve the source. A CFG/SSA IR is right for semantic flow questions, because control flow and defs/uses are explicit</td></tr>
+      <tr><td>Why do Error Prone and Infer run at scale?</td><td>They are compositional and incremental (per-file or per-procedure summaries), integrated into code review, and tuned for very low false-positive rates</td></tr>
+    </table>
+    </div>
+  </div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="../../shared/supabase-client.js"></script>
+<script src="../../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>buildHeader('cheat-sheet.html');</script>
+</body>
+</html>

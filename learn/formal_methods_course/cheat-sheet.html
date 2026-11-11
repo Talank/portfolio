@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheet — Formal Methods & Solvers Course</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../shared/auth-ui.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="wrap">
+  <h1>Cheat Sheet</h1>
+  <p class="lede">Every API, rule and tactic from the course on one scrollable page, in dashboard order. Use it to recall things after you have done the labs. It does not replace the lessons.</p>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 0 — Logic Foundations</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Term</th><th>Meaning</th></tr>
+      <tr><td>Sound / complete</td><td>Sound: every reported proof (or "no bug") is true. Complete: every true property (or real bug) is reported. Static analysis usually gives up one of the two.</td></tr>
+      <tr><td>Testing vs proving</td><td>Tests show the presence of bugs on chosen inputs; proofs cover all inputs, relative to a spec and a model</td></tr>
+      <tr><td>Rice's theorem</td><td>Every non-trivial semantic property of programs is undecidable, so tools approximate, bound, or ask for annotations</td></tr>
+      <tr><td>SAT / valid / unsat</td><td>F is valid iff not F is unsat. Solvers prove validity by refuting the negation</td></tr>
+      <tr><td>Literal, clause, CNF</td><td>Variable or its negation; disjunction of literals; conjunction of clauses</td></tr>
+      <tr><td>Tseitin encoding</td><td>Fresh variable per subformula: equisatisfiable CNF, linear size (naive distribution is exponential)</td></tr>
+      <tr><td>DIMACS</td><td><code>p cnf &lt;vars&gt; &lt;clauses&gt;</code>, then one clause per line such as <code>1 -3 0</code> (0 ends a clause)</td></tr>
+      <tr><td>Unit propagation (BCP)</td><td>A clause with all literals false but one forces that literal</td></tr>
+      <tr><td>Two watched literals</td><td>Watch 2 unfalsified literals per clause; visit a clause only when a watched literal becomes false</td></tr>
+      <tr><td>DPLL</td><td>Decide, propagate, backtrack chronologically on conflict</td></tr>
+      <tr><td>CDCL</td><td>DPLL plus conflict analysis on the implication graph, clause learning, non-chronological backjumping</td></tr>
+      <tr><td>Decision level / implication graph</td><td>Depth of decisions; DAG recording which assignments forced which</td></tr>
+      <tr><td>1-UIP learned clause</td><td>Cut at the first unique implication point of the conflict level: learned clause is asserting after backjump</td></tr>
+      <tr><td>VSIDS, restarts, phase saving</td><td>Bump variables in recent conflicts; restart search keeping learned clauses; reuse last polarity</td></tr>
+      <tr><td>DRAT proof</td><td>Checkable certificate of unsat produced by modern solvers</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 1 — SMT &amp; Z3: theories and DPLL(T)</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Concept</th><th>What it means</th></tr>
+      <tr><td>DPLL(T)</td><td>SAT solver over the Boolean abstraction; theory solver checks conjunctions of theory literals and returns conflict explanations</td></tr>
+      <tr><td>Theory propagation</td><td>Theory solver infers implied literals and tells the SAT core early</td></tr>
+      <tr><td>Nelson-Oppen</td><td>Combine theories with disjoint signatures by exchanging equalities between shared variables</td></tr>
+      <tr><td>QF_UF, QF_LIA, QF_LRA, QF_BV, QF_AX</td><td>Uninterpreted functions (congruence closure); linear integer / real arithmetic (simplex, branch-and-bound); bit-vectors (bit-blasting); arrays</td></tr>
+      <tr><td>Nonlinear integer arithmetic</td><td>Undecidable (Hilbert's 10th): expect <code>unknown</code> or timeouts</td></tr>
+      <tr><td>Quantifiers</td><td>Undecidable in general; E-matching on triggers/patterns, MBQI</td></tr>
+      <tr><td>sat / unsat / unknown</td><td>Model exists / none exists / solver gave up (timeout, incomplete theory)</td></tr>
+    </table>
+    </div>
+
+    <h3>Z3 Python API</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Call</th><th>What it does</th></tr>
+      <tr><td><code>pip install --user z3-solver</code> / <code>from z3 import *</code></td><td>Install and import</td></tr>
+      <tr><td><code>Int('x')</code>, <code>Real('r')</code>, <code>Bool('b')</code>, <code>Ints('x y z')</code></td><td>Declare symbolic constants</td></tr>
+      <tr><td><code>BitVec('v', 32)</code>, <code>BitVecVal(5, 32)</code></td><td>Fixed-width machine integers (wrap-around)</td></tr>
+      <tr><td><code>And, Or, Not, Implies, If, Xor, Distinct, Sum</code></td><td>Build formulas and terms (Python <code>and</code>/<code>or</code> do not work on Z3 terms)</td></tr>
+      <tr><td><code>s = Solver(); s.add(f1, f2)</code></td><td>Create a solver and assert constraints</td></tr>
+      <tr><td><code>s.check()</code></td><td>Returns <code>sat</code>, <code>unsat</code> or <code>unknown</code></td></tr>
+      <tr><td><code>m = s.model(); m[x]; m.eval(e, model_completion=True)</code></td><td>Read values after sat; evaluate any term</td></tr>
+      <tr><td><code>s.push(); ...; s.pop()</code></td><td>Incremental scopes: add temporary constraints, then retract</td></tr>
+      <tr><td><code>s.assert_and_track(f, 'a1'); s.unsat_core()</code></td><td>Name constraints and get a subset responsible for unsat</td></tr>
+      <tr><td><code>s.set(timeout=5000)</code></td><td>Per-check timeout in milliseconds</td></tr>
+      <tr><td><code>prove(f)</code>, <code>solve(f1, f2)</code></td><td>Quick helpers: prove validity (checks not f) / print a model</td></tr>
+      <tr><td><code>o = Optimize(); o.minimize(e); o.maximize(e); o.add_soft(f, w)</code></td><td>Optimization and MaxSMT</td></tr>
+      <tr><td><code>simplify(e)</code>, <code>s.sexpr()</code>, <code>s.to_smt2()</code></td><td>Simplify a term; print the SMT-LIB form of the solver</td></tr>
+      <tr><td><code>ULT, UGT, UDiv, URem, LShR, Extract(hi, lo, v), Concat, ZeroExt, SignExt</code></td><td>Unsigned/bit-level bit-vector operations (<code>&lt;</code>, <code>/</code>, <code>&gt;&gt;</code> are signed)</td></tr>
+      <tr><td><code>Array('A', IntSort(), IntSort()); Select(A, i); Store(A, i, v)</code></td><td>Theory of arrays (read-over-write axioms)</td></tr>
+      <tr><td><code>Function('f', IntSort(), IntSort())</code></td><td>Uninterpreted function: only congruence is known</td></tr>
+      <tr><td><code>ForAll([x], body)</code>, <code>Exists([x], body)</code>, <code>patterns=[...]</code></td><td>Quantifiers, optionally with triggers</td></tr>
+      <tr><td><code>String('s'), Length, PrefixOf, Contains, Concat</code></td><td>String theory (used in policy checking)</td></tr>
+    </table>
+    </div>
+
+    <h3>SMT-LIB2</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>(set-logic QF_LIA)</code></td><td>Declare the logic (optional in Z3)</td></tr>
+      <tr><td><code>(set-option :produce-models true)</code></td><td>Enable models (default on in Z3)</td></tr>
+      <tr><td><code>(declare-const x Int)</code></td><td>Constant; <code>(declare-fun f (Int) Int)</code> for functions</td></tr>
+      <tr><td><code>(define-fun sq ((a Int)) Int (* a a))</code></td><td>Macro definition</td></tr>
+      <tr><td><code>(assert (and (&gt; x 0) (&lt; x 10)))</code></td><td>Prefix-notation constraint</td></tr>
+      <tr><td><code>(check-sat)</code>, <code>(get-model)</code>, <code>(get-value (x y))</code></td><td>Solve and inspect</td></tr>
+      <tr><td><code>(push 1)</code> / <code>(pop 1)</code></td><td>Scopes</td></tr>
+      <tr><td><code>(assert (! (&gt; x 5) :named c1))</code>, <code>(get-unsat-core)</code></td><td>Named assertions and cores (needs <code>:produce-unsat-cores true</code>)</td></tr>
+      <tr><td><code>(_ BitVec 32)</code>, <code>bvadd bvmul bvult bvslt bvlshr</code>, <code>#x0000000f</code></td><td>Bit-vector sort, operations, hex literal</td></tr>
+      <tr><td><code>(Array Int Int)</code>, <code>select</code>, <code>store</code></td><td>Arrays</td></tr>
+      <tr><td><code>(forall ((i Int)) (! body :pattern ((f i))))</code></td><td>Quantifier with an explicit trigger</td></tr>
+      <tr><td><code>z3 file.smt2</code>, <code>z3 -in</code>, <code>cvc5 file.smt2</code></td><td>Run from the shell</td></tr>
+    </table>
+    </div>
+
+    <h3>Symbolic execution</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Item</th><th>Meaning</th></tr>
+      <tr><td>Path condition</td><td>Conjunction of branch conditions along a path; solving it gives an input that follows the path</td></tr>
+      <tr><td>Concolic / DSE</td><td>Run concretely, track symbolically, negate one branch, solve for a new input (SAGE, generational search)</td></tr>
+      <tr><td>Path explosion</td><td>Paths grow exponentially with branches; loops make it unbounded. Mitigate with search heuristics, merging, summaries</td></tr>
+      <tr><td>KLEE</td><td><code>klee_make_symbolic(&amp;x, sizeof x, "x")</code>; <code>clang -emit-llvm -c -g -O0 prog.c</code>; <code>klee prog.bc</code>; <code>ktest-tool klee-last/test000001.ktest</code></td></tr>
+      <tr><td>angr</td><td><code>p = angr.Project("bin")</code>; <code>sm = p.factory.simulation_manager(p.factory.entry_state())</code>; <code>sm.explore(find=addr, avoid=addr2)</code>; <code>sm.found[0].posix.dumps(0)</code></td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 2 — Verifying Programs</h2>
+    <h3>Hoare logic and weakest preconditions</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Rule</th><th>Statement</th></tr>
+      <tr><td>Hoare triple</td><td><code>{P} C {Q}</code>: if P holds before C and C terminates, Q holds after (partial correctness). Total correctness also requires termination</td></tr>
+      <tr><td>Assignment</td><td><code>wp(x := e, Q) = Q[e/x]</code></td></tr>
+      <tr><td>Sequence</td><td><code>wp(C1; C2, Q) = wp(C1, wp(C2, Q))</code></td></tr>
+      <tr><td>Conditional</td><td><code>wp(if b then C1 else C2, Q) = (b ⇒ wp(C1,Q)) ∧ (¬b ⇒ wp(C2,Q))</code></td></tr>
+      <tr><td>Consequence</td><td>From <code>P ⇒ P'</code>, <code>{P'} C {Q'}</code>, <code>Q' ⇒ Q</code> conclude <code>{P} C {Q}</code></td></tr>
+      <tr><td>While (invariant I)</td><td>Init: <code>P ⇒ I</code>. Preserve: <code>{I ∧ b} body {I}</code>. Exit: <code>I ∧ ¬b ⇒ Q</code></td></tr>
+      <tr><td>Termination</td><td>Variant (ranking function) bounded below that strictly decreases each iteration</td></tr>
+      <tr><td>Verification condition</td><td>Formula whose validity implies the program meets its spec; checked by an SMT solver as unsat of the negation</td></tr>
+      <tr><td>Strongest postcondition</td><td>Forward counterpart: <code>sp(x := e, P) = ∃x0. P[x0/x] ∧ x = e[x0/x]</code></td></tr>
+    </table>
+    </div>
+
+    <h3>Model checking</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Concept / Command</th><th>What it means</th></tr>
+      <tr><td>Kripke structure</td><td>(S, S0, R, L): states, initial states, total transition relation, labeling</td></tr>
+      <tr><td>LTL: <code>X G F U</code></td><td>Next, globally, finally, until, over each path. <code>G(req → F grant)</code>, <code>F G p</code></td></tr>
+      <tr><td>CTL: <code>AG EF AF EG A[p U q]</code></td><td>Path quantifier (A all / E some) paired with each temporal operator. <code>AG EF reset</code> is CTL-only</td></tr>
+      <tr><td>Safety vs liveness</td><td>Bad thing never happens (finite counterexample) vs good thing eventually happens (lasso counterexample, needs fairness)</td></tr>
+      <tr><td>BMC</td><td><code>I(s0) ∧ T(s0,s1) ∧ … ∧ T(sk-1,sk) ∧ ¬P(sk)</code>: sat gives a trace; unsat says nothing beyond k</td></tr>
+      <tr><td>k-induction</td><td>Base: BMC to k-1. Step: P on k consecutive states ⇒ P on the next. A failing step is a CTI: strengthen or raise k</td></tr>
+      <tr><td>IC3 / PDR</td><td>Learns inductive strengthening clauses frame by frame; Z3 Spacer for Horn clauses</td></tr>
+      <tr><td>State-space reduction</td><td>BDDs, partial-order reduction, symmetry, abstraction + CEGAR, cone of influence</td></tr>
+      <tr><td><code>cbmc f.c --unwind N --unwinding-assertions</code></td><td>Bounded check of C; with unwinding assertions, success is a proof</td></tr>
+      <tr><td><code>--bounds-check --pointer-check --signed-overflow-check --trace</code></td><td>CBMC built-in checks and counterexample trace</td></tr>
+      <tr><td><code>int nondet_int(); __CPROVER_assume(c);</code></td><td>CBMC nondeterministic input and assumptions</td></tr>
+      <tr><td>TLA+: <code>Init</code>, <code>Next</code>, <code>x'</code>, <code>UNCHANGED</code>, <code>[][Next]_vars</code>, <code>WF_vars</code>, <code>SF_vars</code>, <code>~&gt;</code></td><td>Initial predicate, next-state relation, primed next value, frame, stuttering, weak/strong fairness, leads-to</td></tr>
+      <tr><td><code>java -cp tla2tools.jar tlc2.TLC Spec.tla</code></td><td>Run TLC (reads Spec.cfg: SPECIFICATION, INVARIANT, PROPERTY)</td></tr>
+      <tr><td>SPIN</td><td>Explicit-state LTL checking of Promela models, partial-order reduction</td></tr>
+    </table>
+    </div>
+
+    <h3>Dafny keywords</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Keyword</th><th>What it does</th></tr>
+      <tr><td><code>method</code></td><td>Imperative code; callers see only its contract</td></tr>
+      <tr><td><code>function</code> / <code>predicate</code></td><td>Pure expression whose body the verifier can unfold (compiled in Dafny 4; <code>function method</code> was Dafny 3)</td></tr>
+      <tr><td><code>ghost</code></td><td>Specification-only: erased by the compiler</td></tr>
+      <tr><td><code>lemma</code></td><td>Ghost method whose ensures is a theorem; recursive call = induction hypothesis</td></tr>
+      <tr><td><code>requires</code> / <code>ensures</code></td><td>Precondition (caller's obligation) / postcondition (body's obligation)</td></tr>
+      <tr><td><code>invariant</code></td><td>Loop invariant: holds on entry and is preserved; all the verifier knows after the loop (plus ¬guard)</td></tr>
+      <tr><td><code>decreases</code></td><td>Termination measure for loops and recursion (<code>decreases *</code> opts a method out)</td></tr>
+      <tr><td><code>modifies</code> / <code>reads</code></td><td>Heap frames for methods / functions</td></tr>
+      <tr><td><code>old(e)</code>, <code>a[..]</code>, <code>multiset(a[..])</code>, <code>fresh(o)</code></td><td>Entry value; array as a sequence; permutation specs; newly allocated</td></tr>
+      <tr><td><code>assert</code>, <code>assume</code>, <code>calc</code>, <code>assert P by { ... }</code></td><td>Proof hints (assume is an escape hatch: unsound if misused)</td></tr>
+      <tr><td><code>forall k :: 0 &lt;= k &lt; a.Length ==&gt; a[k] &lt;= m</code>, <code>exists</code></td><td>Quantifiers; <code>{:trigger a[k]}</code> sets the E-matching pattern</td></tr>
+      <tr><td><code>opaque function</code> / <code>reveal F();</code></td><td>Hide a definition from the solver except where revealed (fights timeouts)</td></tr>
+      <tr><td><code>dafny verify f.dfy</code>, <code>dafny run</code>, <code>dafny build</code>, <code>dafny translate</code></td><td>CLI; <code>--verification-time-limit</code>, <code>--isolate-assertions</code></td></tr>
+      <tr><td>Pipeline</td><td>Dafny → Boogie (assert/assume/havoc) → VC by wp → SMT-LIB → Z3</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 3 — Theorem Proving With Lean 4</h2>
+    <h3>Setup and commands</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh</code></td><td>Install elan (toolchain manager)</td></tr>
+      <tr><td><code>lake new proj</code> / <code>lake new proj math</code></td><td>New project / new project depending on Mathlib</td></tr>
+      <tr><td><code>lake exe cache get</code></td><td>Download prebuilt Mathlib (never build it from source by accident)</td></tr>
+      <tr><td><code>lake build</code>, <code>lake env lean File.lean</code>, <code>lake update</code></td><td>Build; check one file; update dependencies</td></tr>
+      <tr><td><code>#eval e</code>, <code>#check e</code>, <code>#print f</code>, <code>#reduce e</code></td><td>Run; show type; show definition; normalize</td></tr>
+      <tr><td><code>#print axioms thm</code></td><td>Axioms a proof depends on (look for <code>sorryAx</code>)</td></tr>
+      <tr><td><code>def</code>, <code>theorem</code>, <code>example</code>, <code>structure</code>, <code>inductive</code>, <code>deriving Repr</code></td><td>Definitions, theorems, anonymous checks, records, data types</td></tr>
+      <tr><td><code>fun x =&gt; e</code>, <code>(· + 1)</code>, <code>{α : Type}</code>, <code>[Add α]</code>, <code>@f</code></td><td>Lambda; cdot shorthand; implicit; instance-implicit; all-explicit</td></tr>
+      <tr><td><code>termination_by m</code> / <code>decreasing_by tac</code> / <code>partial def</code></td><td>Well-founded recursion measure / its proof / opt out (opaque to proofs)</td></tr>
+      <tr><td><code>import Mathlib.Tactic</code></td><td>Mathlib tactics (ring, linarith, norm_num, ...)</td></tr>
+    </table>
+    </div>
+
+    <h3>Propositions as types</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Proposition</th><th>Proof term</th></tr>
+      <tr><td><code>p → q</code>, <code>∀ x, P x</code></td><td><code>fun hp =&gt; ...</code>, <code>fun x =&gt; ...</code></td></tr>
+      <tr><td><code>p ∧ q</code>, <code>p ↔ q</code></td><td><code>⟨hp, hq⟩</code> (And.intro), <code>⟨mp, mpr⟩</code></td></tr>
+      <tr><td><code>p ∨ q</code></td><td><code>Or.inl hp</code> / <code>Or.inr hq</code></td></tr>
+      <tr><td><code>∃ x, P x</code></td><td><code>⟨w, hw⟩</code></td></tr>
+      <tr><td><code>¬p</code> (= <code>p → False</code>)</td><td><code>fun hp =&gt; ...</code> producing False</td></tr>
+      <tr><td><code>a = b</code></td><td><code>rfl</code> when definitionally equal</td></tr>
+    </table>
+    </div>
+
+    <h3>Lean 4 tactics</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Tactic</th><th>What it does</th></tr>
+      <tr><td><code>intro h</code>, <code>intro ⟨hp, hq⟩</code></td><td>Move a premise or ∀-variable into the context (optionally destructuring)</td></tr>
+      <tr><td><code>exact e</code></td><td>Close the goal with a term of exactly its type</td></tr>
+      <tr><td><code>apply f</code></td><td>Work backwards: new goals for f's premises</td></tr>
+      <tr><td><code>refine ⟨?_, ?_⟩</code></td><td>Provide a term with holes; each <code>?_</code> becomes a goal</td></tr>
+      <tr><td><code>rfl</code>, <code>decide</code></td><td>Definitional equality; evaluate a closed Decidable proposition</td></tr>
+      <tr><td><code>constructor</code>, <code>left</code>, <code>right</code>, <code>exists w</code> (Mathlib: <code>use w</code>)</td><td>Introduce ∧/↔, ∨, ∃</td></tr>
+      <tr><td><code>cases h with | inl hp =&gt; … | inr hq =&gt; …</code></td><td>Case split on an inductive value or hypothesis</td></tr>
+      <tr><td><code>obtain ⟨x, hx⟩ := h</code>, <code>rcases h with ⟨hp, hq | hr⟩</code></td><td>Nested destructuring with patterns</td></tr>
+      <tr><td><code>induction n with | zero =&gt; … | succ n ih =&gt; …</code></td><td>Induction on Nat (List: <code>| nil | cons x xs ih</code>)</td></tr>
+      <tr><td><code>induction xs generalizing acc</code></td><td>Keep acc universally quantified in the IH</td></tr>
+      <tr><td><code>rw [h]</code>, <code>rw [← h]</code>, <code>rw [h] at h2</code></td><td>Rewrite left-to-right, right-to-left, in a hypothesis; then tries rfl</td></tr>
+      <tr><td><code>simp</code>, <code>simp [f, h]</code>, <code>simp only [l]</code>, <code>simp at h</code>, <code>simp?</code></td><td>Normalize with simp lemmas (+ unfold f, use h); pinned set; in hypothesis; print the simp only call</td></tr>
+      <tr><td><code>unfold f</code>, <code>show t</code></td><td>Unfold a definition; restate the goal in a defeq form</td></tr>
+      <tr><td><code>omega</code></td><td>Linear arithmetic over Nat/Int (constants times variables, / and % by literals)</td></tr>
+      <tr><td><code>split</code></td><td>Case split on an if-then-else or match in the goal</td></tr>
+      <tr><td><code>by_cases h : p</code></td><td>Two goals: with h : p and with h : ¬p</td></tr>
+      <tr><td><code>have h : t := by …</code>, <code>calc a &lt; b := h1 _ ≤ c := h2</code></td><td>Intermediate facts; chained reasoning</td></tr>
+      <tr><td><code>contradiction</code>, <code>exfalso</code>, <code>exact absurd hp hnp</code></td><td>Close goals from inconsistent hypotheses</td></tr>
+      <tr><td><code>specialize h a</code>, <code>subst h</code>, <code>assumption</code>, <code>trivial</code></td><td>Instantiate a ∀ hypothesis; eliminate a variable equation; close by a hypothesis; easy goals</td></tr>
+      <tr><td><code>·</code>, <code>&lt;;&gt;</code>, <code>all_goals</code>, <code>first | t1 | t2</code>, <code>sorry</code></td><td>Focus; apply to all new goals; every goal; try alternatives; placeholder</td></tr>
+      <tr><td><code>exact?</code>, <code>apply?</code></td><td>Library search for a closing / progressing lemma</td></tr>
+      <tr><td>Mathlib: <code>ring</code>, <code>linarith</code>, <code>nlinarith</code>, <code>norm_num</code>, <code>positivity</code>, <code>field_simp</code>, <code>push_neg</code>, <code>aesop</code></td><td>Ring identities; linear (in)equalities over ordered fields; with products; numerals; positivity goals; clear denominators; push negations; general search</td></tr>
+    </table>
+    </div>
+
+    <h3>Program-proof patterns</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Pattern</th><th>Use</th></tr>
+      <tr><td>Induct on the argument the function recurses on</td><td>Unfold one step, apply IH, close with simp/omega</td></tr>
+      <tr><td>Stuck goal: generalize into a helper lemma</td><td><code>rev (xs ++ ys) = rev ys ++ rev xs</code> before <code>rev (rev xs) = xs</code></td></tr>
+      <tr><td>Rule induction</td><td><code>induction h</code> on an inductive predicate (Sorted, typing, evaluation)</td></tr>
+      <tr><td>Sort spec = sorted ∧ permutation</td><td><code>List.Perm</code>: nil, cons, swap, trans</td></tr>
+      <tr><td>Intrinsic vs extrinsic</td><td>Spec in the type (<code>{ l // Sorted l }</code>, <code>Vec α n</code>) vs separate theorems</td></tr>
+      <tr><td>Lean vs Rocq (Coq) vs Isabelle/HOL</td><td>Dependent types + Mathlib / CIC + CompCert, Iris / classical HOL + Sledgehammer, seL4</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Part 4 — Solvers in Practice</h2>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>System / Idea</th><th>One-line summary</th></tr>
+      <tr><td>AWS Zelkova</td><td>Access policies → SMT; "more permissive?" / "public?" as sat queries with example requests</td></tr>
+      <tr><td>Microsoft SAGE</td><td>Whitebox fuzzing: x86 trace path constraints, generational negation, Z3</td></tr>
+      <tr><td>seL4</td><td>Isabelle/HOL refinement proof from abstract spec to C (and binary)</td></tr>
+      <tr><td>CompCert</td><td>Coq-verified C compiler: semantic preservation for verified passes</td></tr>
+      <tr><td>Meta Infer</td><td>Separation logic + bi-abduction, compositional, diff-time reports</td></tr>
+      <tr><td>Generate-and-check</td><td>LLM proposes invariant / tactic / proof; verifier checks; errors fed back</td></tr>
+      <tr><td>LeanDojo, Lean Copilot</td><td>Programmatic Lean interaction and retrieval; in-editor <code>suggest_tactics</code>, <code>search_proof</code>, <code>select_premises</code></td></tr>
+      <tr><td>AlphaProof</td><td>RL + language model searching for Lean proofs; kernel-checked IMO 2024 solutions</td></tr>
+      <tr><td>Autoformalization</td><td>NL → formal statements; the weak link, since proofs of mis-stated theorems are worthless</td></tr>
+      <tr><td>Spec-integrity guardrails</td><td>Freeze and diff specs; ban <code>assume</code>, <code>{:verify false}</code>, <code>sorry</code>, new axioms; mutation-test specs</td></tr>
+      <tr><td>Eval checklist</td><td>Success at a stated budget, time incl. verifier, contamination, timeouts and variance, spec violations count as failures</td></tr>
+    </table>
+    </div>
+
+    <h3>Choosing a tool</h3>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <tr><th>Problem</th><th>Tool</th></tr>
+      <tr><td>Constraint solving, config/policy checking</td><td>Z3 / cvc5 directly</td></tr>
+      <tr><td>Test inputs for deep paths</td><td>KLEE, angr, concolic execution</td></tr>
+      <tr><td>C bugs, memory safety, bounded proofs</td><td>CBMC / ESBMC</td></tr>
+      <tr><td>Protocol or distributed design</td><td>TLA+ / TLC, Apalache; SPIN for Promela</td></tr>
+      <tr><td>Whole-codebase bug finding</td><td>Infer, CodeQL, abstract interpretation</td></tr>
+      <tr><td>Verified code that ships</td><td>Dafny, Verus, Why3, Frama-C/WP</td></tr>
+      <tr><td>Deep or long-lived proofs, ML proof search</td><td>Lean 4 + Mathlib; Isabelle; Rocq</td></tr>
+    </table>
+    </div>
+  </div>
+</main>
+<script src="data/schedule.js"></script>
+<script src="../../shared/supabase-client.js"></script>
+<script src="../../shared/auth-ui.js"></script>
+<script src="js/app.js"></script>
+<script>buildHeader('cheat-sheet.html');</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+# ११ — हातैहातको कोठा: call graph र pointer analysis
+
+एघारौं टापुमा एउटा पुरानो गोदाम छ। गोदामभित्र धेरै बाकस छन्, र हरेक बाकसमा एउटा नाम लेखिएको छ। तर कुन नामले कुन बाकस समातेको छ भनेर कसैलाई थाहा छैन।
+
+रोबिनले आँखा चिम्लिन्, र हात क्रस गरिन्। गोदामको भित्ता र भुइँबाट उनका हात उम्रिन थालेका छन्। हरेक हातले एउटा न एउटा बाकस औंल्याउन थाल्यो।
+
+[robin]"यो मेरो काम हो,"[/] उनले भनिन्। [robin]"हरेक variable एउटा हात हो, र हरेक object एउटा बाकस हो। कुन हातले कुन कुन बाकस औंल्याउन सक्छ भनेर पत्ता लगाउनु नै pointer analysis हो।"[/]
+
+@read teach
+pointer analysis मा हरेक variable को points to set निकालिन्छ। points to set भनेको त्यो variable ले औंल्याउन सक्ने सबै object को समूह हो। Java मा object हरेक new बाट जन्मिन्छ, त्यसैले object लाई प्रायः त्यो new लेखिएको ठाउँको नामले चिनिन्छ, र त्यसलाई allocation site भनिन्छ।
+
+यो किन चाहिन्छ? पहिलो कारण call graph हो। animal dot speak बोलाउँदा animal ले Dog को बाकस औंल्याउँछ भने Dog को speak बोलाइन्छ। दोस्रो कारण alias हो। दुई variable ले एउटै बाकस औंल्याउँछन् भने, एउटाबाट field फेर्दा अर्कोबाट पनि फेरिएको देखिन्छ।
+
+सबैभन्दा प्रसिद्ध तरिका Andersen को हो। यसले program का हरेक pointer statement लाई एउटा constraint मा बदल्छ, अनि ती constraint सबै साँचो नहुँदासम्म points to set बढाउँदै जान्छ। चार किसिमका statement छन्, र चार किसिमका नियम छन्। अब ध्यान दिएर सुन।
+
+@algo andersen
+Andersen को तरिका यस्तो छ। पहिलो, p बराबर new A भन्ने allocation मा त्यो allocation site को object p को points to set मा थप। दोस्रो, p बराबर q भन्ने copy मा q को points to set p को points to set भित्र पर्नुपर्छ भन्ने constraint राख, र q बाट p तिर एउटा edge कोर। तेस्रो, p बराबर q dot f भन्ने load मा q ले औंल्याउने हरेक object o का लागि, o dot f को points to set p भित्र पर्नुपर्छ। चौथो, p dot f बराबर q भन्ने store मा p ले औंल्याउने हरेक object o का लागि, q को points to set o dot f भित्र पर्नुपर्छ। पाँचौं, यी constraint worklist ले हल गर। जुन node को points to set फेरियो, त्यसलाई worklist मा राख। त्यसलाई झिक्दा नयाँ object सबै बाहिर जाने edge मा पठाऊ। load र store मा नयाँ object आयो भने नयाँ edge पनि थप। worklist खाली भएपछि सबै constraint साँचो हुन्छन्, र त्यो नै नतिजा हो। यो तरिका statement को क्रम हेर्दैन, त्यसैले flow insensitive हो, र सबैभन्दा नराम्रो अवस्थामा n को घन समय लिन्छ।
+@end
+
+उसप्पले एउटा हातलाई पछ्याउँदै सोध्यो — [usopp]"दोस्रो नियममा edge किन कोरिन्छ?"[/]
+
+[robin]"किनभने पछि q मा नयाँ बाकस आउन सक्छ,"[/] रोबिनले भनिन्। [robin]"edge भएपछि q मा जे आउँछ, त्यो आफैं p मा पनि बग्छ। यो नवौं टापुको नदी जस्तै हो।"[/]
+
+यसको अर्थ के हो भने, Andersen भनेको graph मा set बग्ने dataflow नै हो। फरक केवल यति छ कि load र store ले बग्दाबग्दै नयाँ धार खोल्छन्।
+
+अब Steensgaard को तरिका सुन। Steensgaard ले subset होइन, बराबरी प्रयोग गर्छ। p बराबर q देखियो भने, p र q को points to set लाई एउटै बनाइदिन्छ, र दुवैलाई एउटै समूहमा मिलाउँछ। यो काम union find ले गर्छ।
+
+त्यसैले Steensgaard लगभग linear समयमा सकिन्छ, र दस लाख लाइनमा पनि छिटो चल्छ। तर यो कम ठीक हुन्छ। p बराबर q र r बराबर q भयो भने, Andersen मा p र r अलग रहन सक्छन्, तर Steensgaard मा p, q, र r तीनै मिसिन्छन्।
+
+@recall andersen | रोबिनका हात अझै बाकसतिर औंल्याइरहेका छन्, र हामी Andersen को तरिका फेरि सुन्छौं।
+
+@read hush
+गोदाममा धुलो बिस्तारै तैरिन्छ। हातहरू नचलेर शान्त भई बाकसतिर औंल्याइरहेका छन्।
+
+अब call graph का तरिका क्रमैसँग सुन। call graph मा हरेक method एउटा node हो, र एउटा method ले अर्कोलाई बोलाउन सक्छ भने बीचमा edge हुन्छ।
+
+CHA सबैभन्दा सस्तो हो। animal को घोषित type Animal छ भने, Animal र त्यसका सबै subclass का speak target मानिन्छन्। RTA अलि चलाख छ। यसले program मा वास्तवमा new गरिएका class मात्र गन्छ, त्यसैले कहिल्यै नबनेको Cat को speak हट्छ।
+
+त्यसभन्दा ठीक तरिका pointer analysis मा आधारित हुन्छ। animal ले कुन बाकस औंल्याउन सक्छ भनेर हेरिन्छ, र ती बाकसका class का speak मात्र target बन्छन्। Soot को Spark र Doop यही गर्छन्।
+
+यहाँ एउटा कुखुरा र अण्डाको समस्या छ। pointer analysis लाई call graph चाहिन्छ, किनभने method को argument र return बाट object बग्छन्। call graph लाई pointer analysis चाहिन्छ। त्यसैले दुवैलाई सँगै बनाइन्छ, र त्यसलाई on the fly call graph construction भनिन्छ।
+
+@recall andersen | गोदाम छोड्नुअघि यो तरिका अन्तिम पटक सुन।
+
+@read hush
+रोबिनले आँखा खोलिन्। हातहरू पत्ताको जस्तै झरेर हराए। हामी गोदामको ढोका बिस्तारै बन्द गरेर बाहिर निस्कियौं।
+
+@tier medium
+
+अब sensitivity का शब्द चिनौं, किनभने interview मा यिनै शब्द आउँछन्। flow sensitive analysis ले statement को क्रम हेर्छ, र हरेक बिन्दुमा छुट्टै उत्तर दिन्छ। Andersen र Steensgaard दुवै flow insensitive हुन्, र पूरै program का लागि एउटै उत्तर दिन्छन्।
+
+context sensitive analysis ले method कहाँबाट बोलाइयो भनेर छुट्याउँछ। एउटा identity method दुई ठाउँबाट बोलाइयो भने, context insensitive analysis ले दुवै ठाउँका object मिसाउँछ। call site sensitivity ले अन्तिम k वटा call site सम्झेर छुट्याउँछ।
+
+Java का लागि object sensitivity प्रायः राम्रो हुन्छ। यसमा context भनेको call site होइन, method बोलाइएको object को allocation site हो। collection र getter setter धेरै भएको code मा यसले राम्रो परिणाम दिन्छ।
+
+field sensitivity पनि छ। o dot f र o dot g लाई अलग राखिन्छ भने त्यो field sensitive हो। सबै field लाई एउटै मानिन्छ भने field insensitive हो, र त्यो सस्तो तर धमिलो हुन्छ।
+
+@tier long
+
+लुफी एउटा बाकसमाथि बसेर सोध्यो — [luffy]"यति सबै गरे पनि हामी ठीक उत्तर पाउँछौं त?"[/]
+
+पाउँदैनौं, र त्यो कुरा इमानदारीपूर्वक भन्नुपर्छ। Java मा reflection छ। Class dot forName लाई string दिएर class लोड गर्न सकिन्छ, र त्यो string program चल्दा मात्र थाहा हुन्छ। dynamic proxy, native method, र serialization ले पनि यस्तै अँध्यारो कुना बनाउँछन्।
+
+त्यसैले धेरै analysis आफूलाई soundy भन्छन्। यसको अर्थ के हो भने, साधारण भागमा sound छ, तर reflection जस्ता कठिन कुनामा जानीजानी केही कुरा छोडिएको छ। ठूला research paper ले पनि यो कुरा खुलेर लेख्नुपर्छ।
+
+Python मा यो समस्या झन् ठूलो छ। त्यहाँ सबै कुरा dynamic छ, र method को target object को dict मा चल्ने बेला खोजिन्छ। PyCG जस्ता औजारले Python को call graph बनाउन खोज्छन्, तर तिनको नतिजा अनुमानमा आधारित हुन्छ।
+
+@read hush
+गोदाम अब अँध्यारो छ। बाकसहरू आफ्नै ठाउँमा छन्, र कसैले तिनलाई औंल्याइरहेको छैन। तिमी पनि अब केही औंल्याउनु पर्दैन।

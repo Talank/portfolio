@@ -1,0 +1,5 @@
+# Sentences that are fragments on purpose and must stay fragments. Anything not
+# on this list has to be a whole sentence — see check_bedtime.py.
+#
+# The good-night itself. A greeting is not a clause and should not be made one.
+शुभ रात्री। मीठो निद्रा।

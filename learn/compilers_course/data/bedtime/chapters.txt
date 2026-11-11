@@ -1,0 +1,61 @@
+निद्राको कम्पाइलर टापु — अध्याय सूची
+
+=== सुत्दै / Bedtime ===
+
+— छोटो (Short): 03:23:40.21, 20.7 MB —
+00:00:00.00  00  ० — प्रस्तावना: निद्राको कम्पाइलर टापु
+00:12:15.71  01  १ — अनुवादकको कारखाना: compiler pipeline
+00:24:08.85  02  २ — शब्द र वाक्यको घाट: lexing, parsing र precedence
+00:37:42.95  03  ३ — सर्पको जङ्गल: Python को ast module
+00:48:29.37  04  ४ — कफीको जङ्गल: Java का AST औजार
+01:00:17.48  05  ५ — अक्षरको गुफा: srcML र XPath
+01:12:26.57  06  ६ — पेटीहरूको बन्दरगाह: lowering, basic block र CFG
+01:23:24.48  07  ७ — एकै नामको टापु: SSA, dominator र phi
+01:36:20.47  08  ८ — कालिखको कार्यशाला: Soot, SootUp र Jimple
+01:48:29.63  09  ९ — धेरै धारको नदी: dataflow analysis र worklist
+02:00:48.06  10  १० — धमिलो नक्साको चट्टान: lattice र abstract interpretation
+02:13:29.92  11  ११ — हातैहातको कोठा: call graph र pointer analysis
+02:25:28.94  12  १२ — विषको खोलो: taint analysis, source, sink र sanitizer
+02:36:13.93  13  १३ — पाँच पहरेदारको किल्ला: Java का static analyzer
+02:48:26.57  14  १४ — सर्प समात्नेहरूको डेक: Python का static analyzer
+02:59:56.39  15  १५ — आफ्नै प्रकाशस्तम्भ: सानो analyzer बनाउने र interview को तयारी
+03:13:26.22  16  १६ — अन्तिम बिसौनी: सारा यात्राको सार र शुभ रात्री
+
+— मध्यम (Medium): 03:50:51.16, 23.6 MB —
+00:00:00.00  00  ० — प्रस्तावना: निद्राको कम्पाइलर टापु
+00:13:58.90  01  १ — अनुवादकको कारखाना: compiler pipeline
+00:27:36.54  02  २ — शब्द र वाक्यको घाट: lexing, parsing र precedence
+00:42:49.46  03  ३ — सर्पको जङ्गल: Python को ast module
+00:55:16.77  04  ४ — कफीको जङ्गल: Java का AST औजार
+01:08:44.13  05  ५ — अक्षरको गुफा: srcML र XPath
+01:22:35.34  06  ६ — पेटीहरूको बन्दरगाह: lowering, basic block र CFG
+01:35:27.97  07  ७ — एकै नामको टापु: SSA, dominator र phi
+01:49:56.63  08  ८ — कालिखको कार्यशाला: Soot, SootUp र Jimple
+02:03:30.84  09  ९ — धेरै धारको नदी: dataflow analysis र worklist
+02:17:07.78  10  १० — धमिलो नक्साको चट्टान: lattice र abstract interpretation
+02:31:26.54  11  ११ — हातैहातको कोठा: call graph र pointer analysis
+02:45:00.80  12  १२ — विषको खोलो: taint analysis, source, sink र sanitizer
+02:57:19.22  13  १३ — पाँच पहरेदारको किल्ला: Java का static analyzer
+03:10:49.42  14  १४ — सर्प समात्नेहरूको डेक: Python का static analyzer
+03:23:45.16  15  १५ — आफ्नै प्रकाशस्तम्भ: सानो analyzer बनाउने र interview को तयारी
+03:39:03.99  16  १६ — अन्तिम बिसौनी: सारा यात्राको सार र शुभ रात्री
+
+— लामो (Long): 04:25:24.34, 27.1 MB —
+00:00:00.00  00  ० — प्रस्तावना: निद्राको कम्पाइलर टापु
+00:15:55.04  01  १ — अनुवादकको कारखाना: compiler pipeline
+00:31:52.57  02  २ — शब्द र वाक्यको घाट: lexing, parsing र precedence
+00:49:34.63  03  ३ — सर्पको जङ्गल: Python को ast module
+01:04:04.11  04  ४ — कफीको जङ्गल: Java का AST औजार
+01:19:42.50  05  ५ — अक्षरको गुफा: srcML र XPath
+01:35:26.75  06  ६ — पेटीहरूको बन्दरगाह: lowering, basic block र CFG
+01:50:19.50  07  ७ — एकै नामको टापु: SSA, dominator र phi
+02:06:45.89  08  ८ — कालिखको कार्यशाला: Soot, SootUp र Jimple
+02:22:32.99  09  ९ — धेरै धारको नदी: dataflow analysis र worklist
+02:38:17.29  10  १० — धमिलो नक्साको चट्टान: lattice र abstract interpretation
+02:54:38.71  11  ११ — हातैहातको कोठा: call graph र pointer analysis
+03:10:02.59  12  १२ — विषको खोलो: taint analysis, source, sink र sanitizer
+03:24:32.81  13  १३ — पाँच पहरेदारको किल्ला: Java का static analyzer
+03:39:50.91  14  १४ — सर्प समात्नेहरूको डेक: Python का static analyzer
+03:54:40.19  15  १५ — आफ्नै प्रकाशस्तम्भ: सानो analyzer बनाउने र interview को तयारी
+04:12:16.29  16  १६ — अन्तिम बिसौनी: सारा यात्राको सार र शुभ रात्री
+

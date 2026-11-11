@@ -1,0 +1,65 @@
+# १२ — विषको खोलो: taint analysis, source, sink र sanitizer
+
+बाह्रौं टापुमा एउटा सानो गाउँ छ, र गाउँको बीचमा एउटा इनार छ। तर गाउँका मान्छे बिरामी परेका छन्, र कसैलाई थाहा छैन पानीमा विष कहाँबाट आयो।
+
+चपरले आफ्नो झोला कसेर बाँध्यो। [chopper]"म डाक्टर हुँ,"[/] उसले भन्यो। [chopper]"म विषको बाटो पछ्याउँछु। विष कहाँबाट सुरु हुन्छ, कुन कुन धारबाट बग्छ, र कहाँ पुगेर मान्छेलाई छुन्छ, म सबै हेर्छु।"[/]
+
+@read teach
+यही taint analysis हो। program मा केही ठाउँबाट भरोसा गर्न नमिल्ने data आउँछ। web request को parameter, user ले टाइप गरेको input, र file बाट पढेको text यस्ता ठाउँ हुन्। यी ठाउँलाई source भनिन्छ।
+
+केही ठाउँ खतरनाक हुन्छन्। SQL query चलाउने function, shell command चलाउने function, eval, र HTML मा सिधै लेख्ने function यस्ता ठाउँ हुन्। यी ठाउँलाई sink भनिन्छ।
+
+source बाट आएको data कुनै सफा नगरी sink सम्म पुग्यो भने, त्यहाँ vulnerability हुन्छ। SQL injection, command injection, र cross site scripting सबै यही ढाँचाका हुन्।
+
+बीचमा पानी सफा गर्ने फिल्टर पनि हुन सक्छ। escape गर्ने function, parameterized query, र input लाई कडा नियमले जाँच्ने function यस्ता फिल्टर हुन्। यिनलाई sanitizer भनिन्छ। sanitizer बाट निस्केको data लाई सफा मानिन्छ।
+
+अब चपरको तरिका ठीक ठीक सुन।
+
+@algo taint
+taint analysis को तरिका यस्तो छ। पहिलो, source, sink, र sanitizer को सूची बनाऊ, र हरेकलाई method को पूरा नामले चिन। दोस्रो, हरेक source call ले फिर्ता दिएको मानलाई tainted भनेर चिनो लगाऊ। तेस्रो, त्यो चिनो data सँगै बगाऊ। assignment मा दायाँको taint बायाँमा सर्छ। tainted मान मिसिएको operation को नतिजा पनि tainted हुन्छ, जस्तै string जोड्दा। field मा tainted मान राख्दा त्यो object को field tainted हुन्छ, र alias बाट पढ्दा पनि taint आउँछ। method call मा tainted argument लाई callee को parameter मा सार, callee भित्र बगाऊ, र tainted return लाई फेरि caller मा ल्याऊ। चौथो, sanitizer बाट निस्केको मानबाट taint हटाऊ। पाँचौं, हरेक sink call मा argument tainted छ कि छैन जाँच। tainted छ भने source देखि sink सम्मको पूरा बाटो सहित report गर, ताकि मान्छेले त्यो बाटो पछ्याएर हेर्न सकोस्।
+@end
+
+चपर इनारको छेउमा बस्यो, र पानीको धार पछ्याउँदै पहाडतिर उक्लियो। एउटा मूलमा उसले कालो पानी देख्यो। त्यो source थियो।
+
+त्यो कालो पानी एउटा कुलोमा बग्यो, र कुलो अर्को कुलोमा मिसियो। त्यो assignment र string जोड जस्तै थियो। बीचमा एउटा पोखरी थियो, जहाँ गाउँलेले पानी राख्थे र पछि अर्को भाँडोबाट निकाल्थे। त्यो field र alias जस्तै थियो।
+
+[chopper:excited]"यहाँ एउटा फिल्टर छ!"[/] चपर करायो। तर फिल्टरले एउटा मात्र कुलो छोपेको थियो। अर्को कुलो फिल्टर नछोई इनारसम्म पुगेको थियो।
+
+यही नै धेरै bug को कथा हो। कसैले एउटा बाटोमा sanitizer राखेको हुन्छ, तर अर्को बाटो छुटेको हुन्छ। taint analysis ले सबै बाटो हेर्ने भएकाले त्यो छुटेको बाटो भेट्छ।
+
+@recall taint | चपरले फिल्टर नछोएको कुलोमा चिनो लगायो, र हामी taint को तरिका फेरि सुन्छौं।
+
+@read hush
+इनारको छेउमा अब कोही छैन। पानीको सतहमा चन्द्रमाको सानो टुक्रा हल्लिन्छ।
+
+अब दुई प्रसिद्ध औजार चिनौं। पहिलो FlowDroid हो। यो Android app का लागि बनेको हो, र Soot माथि चल्छ। Android app मा main method हुँदैन, त्यसैले FlowDroid ले activity का lifecycle callback हरू बोलाउने एउटा नक्कली main बनाउँछ।
+
+FlowDroid ले IFDS नामको ढाँचा प्रयोग गर्छ। IFDS ले dataflow लाई graph मा पुग्न सकिने बाटोको समस्यामा बदल्छ। यसले flow sensitive, context sensitive, र field sensitive analysis दिन्छ। alias चाहिँदा FlowDroid पछाडितिर छोटो खोज गर्छ, र सबै alias पहिल्यै निकाल्दैन।
+
+दोस्रो CodeQL हो। CodeQL ले code लाई database मा बदल्छ, अनि त्यसमा QL भाषामा query लेखिन्छ। taint का लागि isSource, isSink, र isBarrier जस्ता predicate लेखिन्छन्। barrier भनेको sanitizer को CodeQL नाम हो। अनि path query ले source देखि sink सम्मको हरेक कदम देखाउँछ।
+
+@recall taint | गाउँ छोड्नुअघि यो तरिका अन्तिम पटक सुन।
+
+@read hush
+चपरले औषधिको शिशी इनारको छेउमा राख्यो। भोलि बिहान पानी सफा हुनेछ। हामी गाउँबाट बिस्तारै निस्कियौं।
+
+@tier medium
+
+अब taint analysis का कमजोर ठाउँ सुन। पहिलो कमजोरी implicit flow हो। if user को password को पहिलो अक्षर a हो भने x मा एक राख्ने code मा, x मा सिधै password बगेको छैन। तर x हेरेर password को केही कुरा थाहा हुन्छ। धेरैजसो औजारले यस्तो control dependence बाट हुने बहाव ट्र्याक गर्दैनन्।
+
+दोस्रो कमजोरी library हो। program ले हजारौं library method बोलाउँछ, र सबैको भित्र analysis गर्न सम्भव हुँदैन। त्यसैले औजारले summary राख्छन्। StringBuilder को append मा tainted argument गयो भने builder पनि tainted हुन्छ, र toString बाट tainted string निस्कन्छ भन्ने नियम पहिल्यै लेखिएको हुन्छ।
+
+तेस्रो कमजोरी sanitizer आफैं हो। कुनै function ले HTML का लागि escape गर्छ, तर SQL का लागि गर्दैन। त्यसैले राम्रो औजारले sanitizer लाई sink को किसिमसँग जोड्छ, र HTML को sanitizer ले SQL को sink लाई सफा मान्दैन।
+
+@tier long
+
+सान्जीले भान्सामा चिया पकाउँदै भन्यो — [sanji]"भान्सामा पनि यस्तै हुन्छ। काँचो मासु छोएको चक्कुले सलाद काट्यो भने, सलाद पनि फोहोर हुन्छ।"[/]
+
+यो उपमा राम्रो छ। चक्कु alias हो। मासु source हो। सलाद sink हो। चक्कु धुनु sanitizer हो। र भान्साको कुन कुन भाँडोले कुन कुन कुरा छोयो भनेर सम्झनु taint tracking हो।
+
+taint analysis dynamic रूपमा पनि गर्न सकिन्छ। program चल्दा हरेक मानसँग एउटा सानो चिनो जोडिन्छ, र operation हुँदा चिनो पनि सर्छ। यसले false positive कम दिन्छ, तर चलेको बाटो मात्र देख्छ। static taint ले सबै बाटो देख्छ, तर कहिलेकाहीँ नहुने बाटो पनि देख्छ।
+
+Java web app मा SQL injection कसरी खोज्ने भन्ने प्रश्न interview मा प्रायः आउँछ। राम्रो उत्तर यस्तो हुन्छ। HTTP request को parameter पढ्ने method लाई source बनाऊ, JDBC को executeQuery लाई sink बनाऊ, PreparedStatement को parameter लाई सुरक्षित मान, अनि CodeQL वा FlowDroid जस्तो औजारले बाटो खोज। अन्त्यमा हरेक report को बाटो हेरेर साँचो र झूटो छुट्याऊ।
+
+@read hush
+भान्साको चिया तयार भयो। सान्जीले एउटा कप तिम्रो छेउमा राख्यो। त्यसबाट न्यानो बाफ बिस्तारै उठिरहेको छ।

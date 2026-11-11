@@ -1,0 +1,63 @@
+# १३ — पाँच पहरेदारको किल्ला: Java का static analyzer
+
+तेह्रौं टापुमा एउटा पुरानो किल्ला छ। किल्लाको पर्खालमा पाँच वटा धरहरा छन्, र हरेक धरहरामा एक जना पहरेदार बस्छ।
+
+जोरोले पर्खाल माथि हेर्‍यो। [zoro]"पाँच जना पहरेदार किन चाहिए?"[/] उसले सोध्यो। [zoro]"एउटा बलियो भए पुग्दैन?"[/]
+
+[nami]"पुग्दैन,"[/] नामीले भनिन्। [nami]"हरेक पहरेदारले फरक ढोका हेर्छ, र फरक आँखाले हेर्छ। कोही source पढ्छ, कोही bytecode पढ्छ, कोही compile हुँदै गर्दा हेर्छ।"[/]
+
+@read teach
+पहिलो धरहरामा PMD बस्छ। PMD ले source code को AST पढ्छ, र नियमको सूचीसँग मिलाउँछ। खाली catch block, प्रयोग नभएको variable, र धेरै लामो method यस्ता नियम हुन्। PMD का नियम Java मा visitor को रूपमा लेख्न सकिन्छ, वा XPath मा पनि लेख्न सकिन्छ। PMD सँग CPD पनि आउँछ, जसले copy paste गरिएको code खोज्छ।
+
+दोस्रो धरहरामा Error Prone बस्छ। यो Google ले बनाएको हो, र javac भित्रै plugin को रूपमा चल्छ। त्यसैले यसले type सहितको AST देख्छ। equals मा गलत type तुलना गर्नु, वा फिर्ता आएको मान बेवास्ता गर्नु जस्ता गल्ती यसले compile कै बेला error बनाउँछ, र प्रायः सुधार पनि सुझाउँछ।
+
+तेस्रो धरहरामा SpotBugs बस्छ। यो FindBugs को उत्तराधिकारी हो। यसले source होइन, compile भएको bytecode पढ्छ। null pointer dereference, equals र hashCode नमिलेको class, र बन्द नगरिएको stream जस्ता bug pattern यसका detector ले खोज्छन्। FindSecBugs नामको plugin ले security का pattern पनि थप्छ।
+
+चौथो धरहरामा Checker Framework बस्छ। यो अरूभन्दा फरक छ। यसले Java को type system लाई बलियो बनाउँछ। तिमी type मा Nullable वा NonNull जस्ता annotation राख्छौ, र compiler ले null कहाँबाट कहाँ जान सक्छ भनेर प्रमाणित गर्छ। यसलाई pluggable type system भनिन्छ।
+
+पाँचौं धरहरामा Infer बस्छ। यो Meta ले बनाएको हो। Infer ले हरेक method को सानो summary बनाउँछ, र त्यो summary अरू method बोलाउँदा प्रयोग गर्छ। यसलाई compositional analysis भनिन्छ। यसको भित्र separation logic र bi abduction भन्ने गणित छ। Infer ले null dereference, resource leak, र RacerD मार्फत thread का race खोज्छ।
+
+अब पाँच पहरेदारलाई मिलाएर किल्ला चलाउने तरिका सुन।
+
+@algo java-analyzers
+Java का analyzer यसरी चिन र मिलाऊ। पहिलो, हरेकले के पढ्छ भनेर सम्झ। PMD ले source को AST पढ्छ। Error Prone ले javac भित्र type सहितको AST पढ्छ। Checker Framework ले पनि javac भित्र annotation सहितको type पढ्छ। SpotBugs ले compile भएको bytecode पढ्छ। Infer ले build लाई समातेर आफ्नै IR बनाउँछ। दोस्रो, हरेकको तरिका सम्झ। PMD ले AST मा नियम मिलाउँछ। Error Prone ले bug pattern मिलाएर सुधार सुझाउँछ। SpotBugs ले bytecode मा detector र dataflow चलाउँछ। Checker Framework ले annotation लाई type मानेर प्रमाण दिन्छ। Infer ले हरेक method को summary बनाएर interprocedural analysis गर्छ। तेस्रो, CI मा तह बनाऊ। छिटो चल्ने Error Prone र PMD हरेक compile मा चलाऊ। SpotBugs build मा चलाऊ। Infer लाई code review मा फेरिएको भागमा मात्र चलाऊ। Checker Framework महत्त्वपूर्ण module मा लगाऊ। चौथो, पुराना चेतावनीको baseline बनाऊ, नयाँ चेतावनीमा मात्र build रोक, र हरेक suppress मा कारण लेख।
+@end
+
+जोरोले पहिलो धरहराको ढोका छोयो। [zoro]"चौथो कदम मलाई मन पर्‍यो,"[/] उसले भन्यो। [zoro]"दस हजार चेतावनी एकैचोटि आयो भने, कसैले पनि हेर्दैन।"[/]
+
+यो साँचो हो। Google र Meta दुवैको अनुभव यही छ। मान्छेले हेर्ने चेतावनी तिनले भर्खरै लेखेको code मा आएको हुनुपर्छ, review को समयमा आएको हुनुपर्छ, र त्यसमा false positive धेरै कम हुनुपर्छ। नत्र मान्छे सबै चेतावनी बेवास्ता गर्न सिक्छन्।
+
+@recall java-analyzers | किल्लाका धरहरामा बत्ती बल्यो, र हामी पाँच पहरेदारको तरिका फेरि सुन्छौं।
+
+@read hush
+पर्खालमाथि हावा बग्छ। पहरेदारहरू जागा छन्, त्यसैले तिमी सुत्न सक्छौ।
+
+अब sound र unsound को कुरा फेरि सम्झ। Checker Framework आफ्नो type system भित्र sound हुन खोज्छ। Nullness checker ले केही भनेन भने, annotation ठीक भएसम्म null dereference हुँदैन। तर यसको मूल्य छ, किनभने धेरै annotation लेख्नुपर्छ।
+
+SpotBugs र PMD sound हुन खोज्दैनन्। तिनले सामान्य गल्तीको ढाँचा खोज्छन्, र false positive कम राख्न केही कुरा छोड्छन्। Infer बीचमा छ। यसले interprocedural तर्क गर्छ, तर व्यवहारमा उपयोगी नतिजा दिन केही कुरामा सम्झौता गर्छ।
+
+@recall java-analyzers | किल्ला छोड्नुअघि यो तरिका अन्तिम पटक सुन।
+
+@read hush
+पाँचै धरहराका बत्ती टाढाबाट सानो तारा जस्ता देखिए। हामी बिस्तारै जहाजतिर फर्कियौं।
+
+@tier medium
+
+PMD को XPath नियमको एउटा उदाहरण सुन। खाली catch block खोज्न catch statement भित्रको block मा कुनै statement छैन भन्ने XPath लेखिन्छ। यो पाँचौं टापुको srcML को XPath जस्तै हो, केवल tag का नाम PMD को AST का हुन्।
+
+Error Prone मा आफ्नै check लेख्न BugChecker को subclass बनाइन्छ। MethodInvocationTreeMatcher जस्ता interface लागू गरिन्छ, र matchMethodInvocation मा match भयो भने Description फिर्ता दिइन्छ। त्यसमा SuggestedFix पनि राख्न सकिन्छ, र त्यसले tool लाई आफैं code सुधार्न दिन्छ।
+
+SpotBugs को नतिजामा rank र confidence हुन्छ। rank ले bug कति गम्भीर छ भन्छ। confidence ले detector आफैं कति पक्का छ भन्छ। CI मा प्रायः गम्भीर र पक्का चेतावनीमा मात्र build रोकिन्छ।
+
+@tier long
+
+ब्रुकले पर्खालमा बसेर भायोलिनमा मधुरो धुन बजायो। अनि उसले सोध्यो — [brook]"Infer को त्यो bi abduction भनेको के हो?"[/]
+
+छोटो उत्तर यस्तो छ। Infer ले हरेक method का लागि भन्छ, यो method चलाउन memory को कुन आकार चाहिन्छ, र चलेपछि memory कस्तो हुन्छ। चाहिने आकारलाई precondition भनिन्छ, र चलेपछिको आकारलाई postcondition भनिन्छ।
+
+bi abduction ले हराएको precondition आफैं अनुमान गर्छ। method भित्र x dot f पढिएको छ भने, x null नहुनुपर्छ र x को f field हुनुपर्छ भन्ने कुरा precondition मा थपिन्छ। caller ले त्यो शर्त पूरा गर्दैन भने त्यहाँ bug report हुन्छ।
+
+यसको ठूलो फाइदा गति हो। हरेक method को summary एकपटक बन्छ, र फेरिएको method र त्यसलाई बोलाउनेको मात्र summary फेरि बन्छ। त्यसैले Meta मा लाखौं लाइनको code मा पनि हरेक diff मा Infer चल्छ।
+
+@read hush
+भायोलिनको धुन पर्खालबाट समुद्रतिर बग्यो। पहरेदारहरूले सुने, र मुस्कुराए। तिमीले पनि सुन्यौ, र तिम्रो आँखा अझ गह्रौं भए।
