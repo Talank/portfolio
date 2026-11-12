@@ -4,7 +4,7 @@
 \ProvidesPackage{cvstyle}[2026/10/09 Academic CV style]
 
 % ---------------------------------------------------------------- page + fonts
-\RequirePackage[letterpaper,margin=0.8in,top=0.6in,bottom=0.7in]{geometry}
+\RequirePackage[letterpaper,margin=0.7in,top=0.55in,bottom=0.65in]{geometry}
 \RequirePackage{iftex}
 \ifPDFTeX
   \RequirePackage[T1]{fontenc}
@@ -28,14 +28,14 @@
 \RequirePackage{fontawesome5}
 \RequirePackage[hidelinks,pdfusetitle]{hyperref}
 
-\definecolor{accent}{HTML}{1F3A68}   % deep navy: name, headings, links
-\definecolor{muted}{HTML}{5A6270}    % dates, venues, secondary text
-\definecolor{rule}{HTML}{B8C2D3}
-\definecolor{gold}{HTML}{A6761D}     % paper awards only
+\definecolor{accent}{HTML}{202020}
+\definecolor{muted}{HTML}{454545}
+\definecolor{rule}{HTML}{909090}
+\definecolor{gold}{HTML}{202020}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
-\linespread{1.05}
+\linespread{1.0}
 \frenchspacing
 \raggedbottom
 
@@ -54,21 +54,22 @@
 \newcommand{\makecvheader}{%
   \thispagestyle{plain}%
   \begin{center}
-    {\fontsize{26}{30}\selectfont\color{accent}\bfseries\cvname}\par\vspace{4pt}
-    {\large \cvtitle}\par\vspace{1pt}
+    {\fontsize{24}{28}\selectfont\color{accent}\bfseries\cvname}\par\vspace{3pt}
+    {\normalsize \cvtitle}\par\vspace{1pt}
     {\color{muted}\cvdepartment, \cvaffiliation\ \textbullet\ \cvaddress}\par\vspace{6pt}
     {\small
-      \contact{\faEnvelope[regular]}{\href{mailto:\cvemail}{\cvemail}}\contactsep
-      \contact{\faGlobe}{\href{https://\cvwebsite}{\cvwebsite}}\contactsep
-      \contact{\faGithub}{\href{https://github.com/\cvgithub}{github.com/\cvgithub}}\contactsep
-      \contact{\faLinkedin}{\href{https://linkedin.com/in/\cvlinkedin}{in/\cvlinkedin}}}
+      \href{mailto:\cvemail}{\cvemail}\contactsep
+      \href{https://\cvwebsite}{\cvwebsite}\contactsep
+      \href{https://github.com/\cvgithub}{GitHub: \cvgithub}\contactsep
+      \href{https://linkedin.com/in/\cvlinkedin}{LinkedIn: \cvlinkedin}\contactsep
+      \href{\cvscholar}{Google Scholar}}
   \end{center}
   \vspace{2pt}}
 
 % ---------------------------------------------------------------- sections
 \titleformat{\section}
-  {\large\bfseries\color{accent}}{}{0pt}{}[{\color{rule}\titlerule[0.6pt]}]
-\titlespacing*{\section}{0pt}{10pt}{5pt}
+  {\normalsize\bfseries\color{accent}}{}{0pt}{\MakeUppercase}[{\color{rule}\titlerule[0.4pt]}]
+\titlespacing*{\section}{0pt}{9pt}{4pt}
 \titleformat{\subsection}{\normalsize\itshape\color{accent}}{}{0pt}{}
 \titlespacing*{\subsection}{0pt}{6pt}{3pt}
 
@@ -82,12 +83,14 @@
 % \cventry{title}{from}{to}{organization}{location}{body}
 % "from" sits beside the title and "to" beside the organization.
 \newcommand{\cventry}[6]{%
+  \Needspace{6\baselineskip}%
   \par\noindent\begin{tabularx}{\linewidth}{@{}p{\datecol}@{}X@{}r@{}}
     \textcolor{muted}{\small #2} & \textbf{#1} & \textcolor{muted}{\small #5}\\
     \textcolor{muted}{\small #3} & \textit{#4} & \\
   \end{tabularx}\par
   \if\relax\detokenize{#6}\relax\else
-    \vspace{-1pt}\hangindent=\datecol\hangafter=0 #6\par
+    \vspace{-1pt}\hspace*{\datecol}%
+    \begin{minipage}{\dimexpr\linewidth-\datecol\relax}#6\end{minipage}\par
   \fi
   \vspace{5pt}}
 
@@ -98,8 +101,8 @@
   \end{tabularx}\par\vspace{3pt}}
 
 \newenvironment{cvitems}
-  {\begin{itemize}[leftmargin=\dimexpr\datecol+1.1em\relax,label={\color{accent}\textbullet},
-                   topsep=0pt,itemsep=1pt,parsep=0pt]\small}
+  {\begin{itemize}[leftmargin=1.1em,label={\color{accent}\textbullet},
+                   topsep=0pt,itemsep=1pt,parsep=0pt]}
   {\end{itemize}}
 
 % ---------------------------------------------------------------- publications
@@ -115,8 +118,8 @@
       \if\relax\detokenize{#7}\relax\else\newline{\small #7}\fi\\
   \end{tabularx}\par\vspace{5pt}}
 
-\newcommand{\awardicon}{\textcolor{gold}{\faTrophy}}
-\newcommand{\pubaward}[1]{\textcolor{gold}{\faTrophy\ \textbf{#1}}}
+\newcommand{\awardicon}{}
+\newcommand{\pubaward}[1]{\textbf{#1}}
 \newcommand{\pubrate}[1]{\textcolor{muted}{Acceptance rate: #1}\quad}
 \newcommand{\publink}[2]{\href{#1}{\textcolor{accent}{[#2]}}\ }
 

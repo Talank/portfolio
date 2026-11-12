@@ -8,7 +8,10 @@ all:
 site:
 	python3 build.py --no-pdf
 
+pdf:
+	python3 build.py --no-site
+
 clean:
 	rm -rf build generated
 
-.PHONY: all site clean
+.PHONY: all site pdf clean

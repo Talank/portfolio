@@ -240,8 +240,8 @@ def gen_opensource(rows):
         name = r"\textbf{" + tex(r["name"]) + "}"
         if r["url"]:
             name = call("href", url_arg(r["url"]), name)
-        out.append(r"\item " + name + ": " + tex(r["description"]))
-    return r"\begin{cvitems}" + "\n" + "\n".join(out) + "\n" + r"\end{cvitems}" if out else ""
+        out.append(call("cvline", "", name + ": " + tex(r["description"])))
+    return "\n".join(out)
 
 
 def project_links(r):
@@ -270,6 +270,7 @@ def gen_profile(p):
                                       "email", "website", "github", "linkedin", "summary", "pitch")}
     fields["interests"] = r" \textperiodcentered{} ".join(tex(i) for i in split(p["interests"]))
     fields["updated"] = datetime.date.today().strftime("%B %Y")
+    fields["scholar"] = url_arg(p["scholar"])
     return "\n".join(f"\\newcommand{{\\cv{k}}}{{{v}}}" for k, v in fields.items())
 
 
@@ -284,12 +285,16 @@ def write_tex():
     p = profile()
     me = p["name"]
     pubs = read("publications")
+    experience = read("experience")
+    research = [r for r in experience if "Research" in r["role"]]
+    industry = [r for r in experience if "Research" not in r["role"]]
     parts = {
         "profile": gen_profile(p),
         "education": section("Education", gen_education(read("education"))),
         "publications": section("Publications", gen_publications(pubs, me)),
         "awards": section("Honors \\& Awards", gen_awards(read("awards"), pubs)),
-        "experience": section("Experience", gen_experience(read("experience"))),
+        "experience": (section("Research Experience", gen_experience(research))
+                       + section("Industry Experience", gen_experience(industry))),
         "projects": section("Selected Projects", gen_projects(read("projects"))),
         "teaching": section("Teaching", gen_teaching(read("teaching"))),
         "talks": section("Invited \\& Conference Talks", gen_talks(read("talks"))),
